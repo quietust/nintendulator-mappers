@@ -21,7 +21,7 @@ static	void	Sync (void)
 	EMU->SetPRG_ROM8(0xA,Mapper.PRG[1]);
 	for (x = 0; x < 8; x++)
 		EMU->SetCHR_ROM1(x,Mapper.CHR[x].b0);
-	switch (Mapper.Mirror & 3)
+	switch (Mapper.Mirror & 1)
 	{
 	case 0:	EMU->Mirror_V();	break;
 	case 1:	EMU->Mirror_H();	break;
