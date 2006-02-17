@@ -1,0 +1,329 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_MAPPER100 DIALOG DISCARDABLE  0, 0, 348, 130
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Mapper 100 (Debug) Bank Selection"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "PRG",IDC_STATIC,8,8,108,96
+    LTEXT           "$6000-$7FFF",IDC_STATIC,16,20,48,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_MAPPER100_PRG67,72,20,20,12,ES_NUMBER
+    CONTROL         "",IDC_MAPPER100_PRG67R,"Button",BS_AUTOCHECKBOX | 
+                    BS_CENTER | BS_VCENTER | WS_TABSTOP,100,20,12,12
+    LTEXT           "$8000-$9FFF",IDC_STATIC,16,36,48,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_MAPPER100_PRG89,72,36,20,12,ES_NUMBER
+    CONTROL         "",IDC_MAPPER100_PRG89R,"Button",BS_AUTOCHECKBOX | 
+                    BS_CENTER | BS_VCENTER | WS_TABSTOP,100,36,12,12
+    LTEXT           "$A000-$BFFF",IDC_STATIC,16,52,48,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_MAPPER100_PRGAB,72,52,20,12,ES_NUMBER
+    CONTROL         "",IDC_MAPPER100_PRGABR,"Button",BS_AUTOCHECKBOX | 
+                    BS_CENTER | BS_VCENTER | WS_TABSTOP,100,52,12,12
+    LTEXT           "$C000-$DFFF",IDC_STATIC,16,68,48,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_MAPPER100_PRGCD,72,68,20,12,ES_NUMBER
+    CONTROL         "",IDC_MAPPER100_PRGCDR,"Button",BS_AUTOCHECKBOX | 
+                    BS_CENTER | BS_VCENTER | WS_TABSTOP,100,68,12,12
+    LTEXT           "$E000-$FFFF",IDC_STATIC,16,84,48,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_MAPPER100_PRGEF,72,84,20,12,ES_NUMBER
+    CONTROL         "",IDC_MAPPER100_PRGEFR,"Button",BS_AUTOCHECKBOX | 
+                    BS_CENTER | BS_VCENTER | WS_TABSTOP,100,84,12,12
+    GROUPBOX        "CHR",IDC_STATIC,128,8,212,80
+    LTEXT           "$0000-$03FF",IDC_STATIC,136,20,48,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_MAPPER100_CHR0,192,20,20,12,ES_NUMBER
+    CONTROL         "",IDC_MAPPER100_CHR0R,"Button",BS_AUTOCHECKBOX | 
+                    BS_CENTER | BS_VCENTER | WS_TABSTOP,220,20,12,12
+    LTEXT           "$0400-$07FF",IDC_STATIC,136,36,48,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_MAPPER100_CHR1,192,36,20,12,ES_NUMBER
+    CONTROL         "",IDC_MAPPER100_CHR1R,"Button",BS_AUTOCHECKBOX | 
+                    BS_CENTER | BS_VCENTER | WS_TABSTOP,220,36,12,12
+    LTEXT           "$0800-$0BFF",IDC_STATIC,136,52,48,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_MAPPER100_CHR2,192,52,20,12,ES_NUMBER
+    CONTROL         "",IDC_MAPPER100_CHR2R,"Button",BS_AUTOCHECKBOX | 
+                    BS_CENTER | BS_VCENTER | WS_TABSTOP,220,52,12,12
+    LTEXT           "$0C00-$0FFF",IDC_STATIC,136,68,48,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_MAPPER100_CHR3,192,68,20,12,ES_NUMBER
+    CONTROL         "",IDC_MAPPER100_CHR3R,"Button",BS_AUTOCHECKBOX | 
+                    BS_CENTER | BS_VCENTER | WS_TABSTOP,220,68,12,12
+    LTEXT           "$1000-$13FF",IDC_STATIC,240,20,48,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_MAPPER100_CHR4,296,20,20,12,ES_NUMBER
+    CONTROL         "",IDC_MAPPER100_CHR4R,"Button",BS_AUTOCHECKBOX | 
+                    BS_CENTER | BS_VCENTER | WS_TABSTOP,324,20,12,12
+    LTEXT           "$1400-$17FF",IDC_STATIC,240,36,48,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_MAPPER100_CHR5,296,36,20,12,ES_NUMBER
+    CONTROL         "",IDC_MAPPER100_CHR5R,"Button",BS_AUTOCHECKBOX | 
+                    BS_CENTER | BS_VCENTER | WS_TABSTOP,324,36,12,12
+    LTEXT           "$1800-$1BFF",IDC_STATIC,240,52,48,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_MAPPER100_CHR6,296,52,20,12,ES_NUMBER
+    CONTROL         "",IDC_MAPPER100_CHR6R,"Button",BS_AUTOCHECKBOX | 
+                    BS_CENTER | BS_VCENTER | WS_TABSTOP,324,52,12,12
+    LTEXT           "$1C00-$1FFF",IDC_STATIC,240,68,48,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_MAPPER100_CHR7,296,68,20,12,ES_NUMBER
+    CONTROL         "",IDC_MAPPER100_CHR7R,"Button",BS_AUTOCHECKBOX | 
+                    BS_CENTER | BS_VCENTER | WS_TABSTOP,324,68,12,12
+    CTEXT           "* Select checkboxes to map RAM instead of ROM",
+                    IDC_STATIC,128,92,212,8
+    DEFPUSHBUTTON   "&Apply",IDAPPLY,164,104,48,16
+    PUSHBUTTON      "&Close",IDCLOSE,248,104,48,16
+END
+
+IDD_MAPPER5 DIALOG DISCARDABLE  0, 0, 224, 156
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Mapper 5 (MMC5) - SRAM Configuration"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "0KB (0/0) *",IDC_MAPPER5_0_0,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,8,8,64,8
+    CONTROL         "8KB (0/8)",IDC_MAPPER5_0_8,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,8,20,64,8
+    CONTROL         "32KB (0/32)",IDC_MAPPER5_0_32,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,8,32,64,8
+    CONTROL         "8KB (8/0) *",IDC_MAPPER5_8_0,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,80,8,64,8
+    CONTROL         "16KB (8/8) *",IDC_MAPPER5_8_8,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,80,20,64,8
+    CONTROL         "40KB (8/32)",IDC_MAPPER5_8_32,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,80,32,64,8
+    CONTROL         "32KB (32/0) *",IDC_MAPPER5_32_0,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,152,8,64,8
+    CONTROL         "40KB (32/8)",IDC_MAPPER5_32_8,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,152,20,64,8
+    CONTROL         "64KB (32/32)",IDC_MAPPER5_32_32,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,152,32,64,8
+    CTEXT           "* - denotes modes used by commercial games",IDC_STATIC,
+                    8,48,208,8
+    EDITTEXT        IDC_MAPPER5_DESCRIBE,8,64,208,64,ES_CENTER | 
+                    ES_MULTILINE | ES_READONLY
+    DEFPUSHBUTTON   "&Apply",IDAPPLY,8,132,64,16
+    PUSHBUTTON      "&Close",IDCLOSE,152,132,64,16
+END
+
+IDD_MAPPER43 DIALOG DISCARDABLE  0, 0, 204, 44
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Mapper 43 (SMB2J-LF36) - Titlescreen Selection"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "Blank titlescreen",IDC_MAPPER43_BLANK,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,8,8,72,8
+    CONTROL         "Super Mario Bros 2 Logo",IDC_MAPPER43_LOGO,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,100,8,96,8
+    DEFPUSHBUTTON   "&OK",IDOK,28,20,52,16
+    PUSHBUTTON      "&Cancel",IDCANCEL,124,20,52,16
+END
+
+IDD_MAPPER59 DIALOG DISCARDABLE  0, 0, 160, 44
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Mapper 59 (T3H53) - Jumper Settings"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "Jumper 0",IDC_MAPPER59_J0,"Button",BS_AUTOCHECKBOX | 
+                    BS_VCENTER | WS_TABSTOP,8,8,52,12
+    CONTROL         "Jumper 1",IDC_MAPPER59_J1,"Button",BS_AUTOCHECKBOX | 
+                    BS_VCENTER | WS_TABSTOP,8,24,52,12
+    DEFPUSHBUTTON   "&OK",IDOK,100,8,52,12
+    PUSHBUTTON      "&Cancel",IDCANCEL,100,24,52,12
+END
+
+IDD_MAPPER105 DIALOG DISCARDABLE  0, 0, 160, 76
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Mapper 105 (NWC) - Jumper Settings"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "Jumper 0 (+0:18)",IDC_MAPPER105_J0,"Button",
+                    BS_AUTOCHECKBOX | BS_VCENTER | WS_TABSTOP,8,8,72,12
+    CONTROL         "Jumper 1 (+0:37)",IDC_MAPPER105_J1,"Button",
+                    BS_AUTOCHECKBOX | BS_VCENTER | WS_TABSTOP,8,24,72,12
+    CONTROL         "Jumper 2 (+1:15)",IDC_MAPPER105_J2,"Button",
+                    BS_AUTOCHECKBOX | BS_VCENTER | WS_TABSTOP,8,40,72,12
+    CONTROL         "Jumper 3 (+2:30)",IDC_MAPPER105_J3,"Button",
+                    BS_AUTOCHECKBOX | BS_VCENTER | WS_TABSTOP,8,56,72,12
+    CTEXT           "Base Time 5:00",IDC_STATIC,100,8,52,12,SS_CENTERIMAGE
+    DEFPUSHBUTTON   "&OK",IDOK,100,32,52,16
+    PUSHBUTTON      "&Cancel",IDCANCEL,100,52,52,16
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_MAPPER100, DIALOG
+    BEGIN
+        LEFTMARGIN, 8
+        RIGHTMARGIN, 340
+        VERTGUIDE, 16
+        VERTGUIDE, 64
+        VERTGUIDE, 72
+        VERTGUIDE, 92
+        VERTGUIDE, 100
+        VERTGUIDE, 112
+        VERTGUIDE, 116
+        VERTGUIDE, 128
+        VERTGUIDE, 136
+        VERTGUIDE, 184
+        VERTGUIDE, 192
+        VERTGUIDE, 212
+        VERTGUIDE, 220
+        VERTGUIDE, 232
+        VERTGUIDE, 240
+        VERTGUIDE, 288
+        VERTGUIDE, 296
+        VERTGUIDE, 316
+        VERTGUIDE, 324
+        VERTGUIDE, 336
+        VERTGUIDE, 340
+        TOPMARGIN, 8
+        BOTTOMMARGIN, 122
+        HORZGUIDE, 20
+        HORZGUIDE, 32
+        HORZGUIDE, 36
+        HORZGUIDE, 48
+        HORZGUIDE, 52
+        HORZGUIDE, 64
+        HORZGUIDE, 68
+        HORZGUIDE, 80
+        HORZGUIDE, 84
+        HORZGUIDE, 88
+        HORZGUIDE, 92
+        HORZGUIDE, 96
+        HORZGUIDE, 104
+        HORZGUIDE, 120
+    END
+
+    IDD_MAPPER5, DIALOG
+    BEGIN
+        LEFTMARGIN, 8
+        RIGHTMARGIN, 216
+        VERTGUIDE, 72
+        VERTGUIDE, 80
+        VERTGUIDE, 144
+        VERTGUIDE, 152
+        VERTGUIDE, 216
+        TOPMARGIN, 8
+        BOTTOMMARGIN, 148
+        HORZGUIDE, 8
+        HORZGUIDE, 20
+        HORZGUIDE, 32
+        HORZGUIDE, 48
+        HORZGUIDE, 64
+        HORZGUIDE, 110
+        HORZGUIDE, 128
+        HORZGUIDE, 132
+        HORZGUIDE, 148
+    END
+
+    IDD_MAPPER43, DIALOG
+    BEGIN
+        LEFTMARGIN, 8
+        RIGHTMARGIN, 196
+        VERTGUIDE, 28
+        VERTGUIDE, 80
+        VERTGUIDE, 100
+        VERTGUIDE, 124
+        VERTGUIDE, 176
+        TOPMARGIN, 8
+        BOTTOMMARGIN, 36
+        HORZGUIDE, 8
+        HORZGUIDE, 16
+        HORZGUIDE, 20
+    END
+
+    IDD_MAPPER59, DIALOG
+    BEGIN
+        LEFTMARGIN, 8
+        RIGHTMARGIN, 152
+        VERTGUIDE, 60
+        VERTGUIDE, 100
+        TOPMARGIN, 8
+        BOTTOMMARGIN, 36
+        HORZGUIDE, 20
+        HORZGUIDE, 24
+    END
+
+    IDD_MAPPER105, DIALOG
+    BEGIN
+        LEFTMARGIN, 8
+        RIGHTMARGIN, 152
+        VERTGUIDE, 80
+        VERTGUIDE, 100
+        TOPMARGIN, 8
+        BOTTOMMARGIN, 68
+        HORZGUIDE, 20
+        HORZGUIDE, 24
+        HORZGUIDE, 36
+        HORZGUIDE, 40
+        HORZGUIDE, 52
+        HORZGUIDE, 56
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

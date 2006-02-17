@@ -1,0 +1,160 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_NSF DIALOG DISCARDABLE  0, 0, 292, 124
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "NSF - Controller"
+FONT 8, "MS Sans Serif"
+BEGIN
+    RTEXT           "Title:",IDC_STATIC,8,8,32,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_NSF_TITLE,44,8,240,12,ES_READONLY
+    RTEXT           "Artist:",IDC_STATIC,8,24,32,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_NSF_ARTIST,44,24,240,12,ES_READONLY
+    RTEXT           "Copyright:",IDC_STATIC,8,40,32,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_NSF_COPYRIGHT,44,40,240,12,ES_READONLY
+    RTEXT           "Songs:",IDC_STATIC,8,60,32,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_NSF_SONGS,44,60,20,12,ES_CENTER | ES_READONLY | 
+                    ES_NUMBER
+    RTEXT           "Playing:",IDC_STATIC,68,60,28,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_NSF_PLAYING,100,60,20,12,ES_CENTER | ES_READONLY | 
+                    ES_NUMBER
+    RTEXT           "Selected:",IDC_STATIC,124,60,32,12,SS_CENTERIMAGE
+    CONTROL         "Slider1",IDC_NSF_SELECT,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | WS_TABSTOP,160,60,100,12
+    EDITTEXT        IDC_NSF_SELECTED,264,60,20,12,ES_CENTER | ES_READONLY | 
+                    ES_NUMBER
+    PUSHBUTTON      "&Play",IDC_NSF_PLAY,84,100,64,16
+    PUSHBUTTON      "&Stop",IDC_NSF_STOP,152,100,64,16
+    DEFPUSHBUTTON   "&Close",IDCLOSE,220,100,64,16
+    CONTROL         "NTSC",IDC_NSF_NTSC,"Button",BS_AUTORADIOBUTTON | 
+                    BS_LEFT | WS_GROUP,48,100,32,8
+    CONTROL         "PAL",IDC_NSF_PAL,"Button",BS_AUTORADIOBUTTON | BS_LEFT,
+                    48,108,32,8
+    PUSHBUTTON      "P&rev",IDC_NSF_PREV,152,80,64,16
+    PUSHBUTTON      "&Next",IDC_NSF_NEXT,220,80,64,16
+    EDITTEXT        IDC_NSF_CHIP,72,80,76,12,ES_CENTER | ES_READONLY
+    CTEXT           "Expansion Sound:",IDC_STATIC,8,80,60,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_NSF_CHIPLIST,8,100,36,12,ES_CENTER | ES_READONLY | 
+                    ES_NUMBER
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_NSF, DIALOG
+    BEGIN
+        LEFTMARGIN, 8
+        RIGHTMARGIN, 284
+        VERTGUIDE, 8
+        VERTGUIDE, 40
+        VERTGUIDE, 44
+        VERTGUIDE, 48
+        VERTGUIDE, 64
+        VERTGUIDE, 68
+        VERTGUIDE, 72
+        VERTGUIDE, 80
+        VERTGUIDE, 84
+        VERTGUIDE, 96
+        VERTGUIDE, 100
+        VERTGUIDE, 120
+        VERTGUIDE, 124
+        VERTGUIDE, 148
+        VERTGUIDE, 152
+        VERTGUIDE, 156
+        VERTGUIDE, 160
+        VERTGUIDE, 216
+        VERTGUIDE, 220
+        VERTGUIDE, 260
+        VERTGUIDE, 264
+        VERTGUIDE, 284
+        TOPMARGIN, 8
+        BOTTOMMARGIN, 116
+        HORZGUIDE, 20
+        HORZGUIDE, 24
+        HORZGUIDE, 36
+        HORZGUIDE, 40
+        HORZGUIDE, 52
+        HORZGUIDE, 60
+        HORZGUIDE, 72
+        HORZGUIDE, 80
+        HORZGUIDE, 92
+        HORZGUIDE, 96
+        HORZGUIDE, 100
+        HORZGUIDE, 108
+        HORZGUIDE, 116
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
