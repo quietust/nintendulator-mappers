@@ -1,31 +1,34 @@
 #include "..\..\DLL\d_UNIF.h"
 #include "..\..\Hardware\h_MMC2.h"
 
-static void Sync (void)
+static	void	Sync_PNROM (void)
 {
-	MMC2_SyncPRG(0xF);
+	MMC2_SyncPRG(0xF,0);
 	MMC2_SyncCHR();
 	MMC2_SyncMirror();
 }
 
-static void Reset_PNROM (const PMapperParam _MP, int IsHardReset)
+static	void	_MAPINT	Shutdown (void)
 {
-	MP = _MP;
-	MMC2_Init(Sync);
+	MMC2_Destroy();
 }
 
-TMapperInfo	MapperInfo_NES_PNROM =
+static	void	_MAPINT	Reset_PNROM (int IsHardReset)
+{
+	MMC2_Init(Sync_PNROM);
+	UNIF_SetMirroring(NULL);
+}
+
+CTMapperInfo	MapperInfo_NES_PNROM =
 {
 	"NES-PNROM",
-	-1,
-	MS_Full,
-	8192,
+	"MMC2",
+	COMPAT_FULL,
 	Reset_PNROM,
+	Shutdown,
 	NULL,
 	NULL,
-	MMC2_TileHandler,
-	MMC2_SaveState,
-	MMC2_LoadState,
+	MMC2_SaveLoad,
 	NULL,
 	NULL
 };
