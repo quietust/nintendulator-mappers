@@ -76,7 +76,7 @@ CTMapperInfo	MapperInfo_NES_TFROM =
 {
 	"NES-TFROM",
 	"MMC3 with optional hardwired mirroring",
-	COMPAT_NEARLY,
+	COMPAT_FULL,
 	Reset_TFROM,
 	Shutdown,
 	NULL,
@@ -89,7 +89,7 @@ CTMapperInfo	MapperInfo_NES_TGROM =
 {
 	"NES-TGROM",
 	"MMC3 with CHR-RAM",
-	COMPAT_NEARLY,
+	COMPAT_FULL,
 	Reset_TGROM,
 	Shutdown,
 	NULL,
@@ -102,7 +102,7 @@ CTMapperInfo	MapperInfo_NES_TKROM =
 {
 	"NES-TKROM",
 	"MMC3 with CHR-ROM and SRAM",
-	COMPAT_NEARLY,
+	COMPAT_FULL,
 	Reset_TKROM,
 	Shutdown,
 	NULL,
@@ -115,7 +115,7 @@ CTMapperInfo	MapperInfo_NES_TLROM =
 {
 	"NES-TLROM",
 	"MMC3 with CHR-ROM",
-	COMPAT_NEARLY,
+	COMPAT_FULL,
 	Reset_TLROM,
 	Shutdown,
 	NULL,
@@ -128,7 +128,7 @@ CTMapperInfo	MapperInfo_NES_TR1ROM =
 {
 	"NES-TR1ROM",
 	"MMC3 with 4-screen VRAM",
-	COMPAT_NEARLY,
+	COMPAT_FULL,
 	Reset_TR1ROM,
 	Shutdown,
 	NULL,
@@ -141,7 +141,7 @@ CTMapperInfo	MapperInfo_NES_TSROM =
 {
 	"NES-TSROM",
 	"MMC3 with WRAM",
-	COMPAT_NEARLY,
+	COMPAT_FULL,
 	Reset_TSROM,
 	Shutdown,
 	NULL,

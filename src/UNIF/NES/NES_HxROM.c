@@ -24,7 +24,7 @@ CTMapperInfo	MapperInfo_NES_HKROM =
 {
 	"NES-HKROM",
 	"MMC6",
-	COMPAT_NEARLY,
+	COMPAT_FULL,
 	Reset_HKROM,
 	Shutdown,
 	NULL,
