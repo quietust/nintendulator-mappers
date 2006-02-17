@@ -476,6 +476,16 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 	static int LineCounter = 0;
 	if (!IsRendering)
 		return;
+	if (Cycle == 0)
+	{
+		LineCounter++;
+		if (LineCounter == 240)
+			MMC5.IRQreads &= ~0x40;
+		if (LineCounter == MMC5.IRQline)
+			MMC5.IRQreads |= 0x80;
+		if ((MMC5.IRQreads & 0x80) && (MMC5.IRQenabled & 0x80))
+			EMU->SetIRQ(0);
+	}
 	if (Cycle == 256)
 		MMC5_SyncCHRA();
 	else if (Cycle == 320)
@@ -489,13 +499,6 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 		if (VScroll >= 240)
 			VScroll -= 240;
 		MMC5_SyncCHRB();
-		LineCounter++;
-		if (LineCounter == 240)
-			MMC5.IRQreads &= ~0x40;
-		if (LineCounter == MMC5.IRQline)
-			MMC5.IRQreads |= 0x80;
-		if ((MMC5.IRQreads & 0x80) && (MMC5.IRQenabled & 0x80))
-			EMU->SetIRQ(0);
 	}
 	else if ((Scanline == 239) && (Cycle == 338))
 	{
