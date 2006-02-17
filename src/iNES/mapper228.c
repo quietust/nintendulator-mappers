@@ -73,7 +73,7 @@ CTMapperInfo	MapperInfo_228 =
 	Shutdown,
 	NULL,
 	NULL,
-	Latch_SaveLoad_A,
+	Latch_SaveLoad_AD,
 	NULL,
 	NULL
 };
