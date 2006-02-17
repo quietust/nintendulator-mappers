@@ -396,7 +396,6 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0x3,NSF_Write);
 
 	EMU->SetCPUReadHandler(0xF,NSF_ReadVector);
-	EMU->SetCHR_RAM8(0,0);
 	
 	EMU->SetCPUReadHandler(0x4,NSF_Read4);
 	EMU->SetCPUReadHandler(0x5,NSF_Read5);
