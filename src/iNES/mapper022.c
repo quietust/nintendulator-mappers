@@ -12,16 +12,12 @@ static	void	Sync (void)
 	u8 x;
 	EMU->SetPRG_ROM8(0x8,Mapper.PRG[0]);
 	EMU->SetPRG_ROM8(0xA,Mapper.PRG[1]);
-	EMU->SetPRG_ROM16(0xC,0x7);
+	EMU->SetPRG_ROM16(0xC,0xF);
 	for (x = 0; x < 8; x++)
 		EMU->SetCHR_ROM1(x,Mapper.CHR[x]);
-	switch (Mapper.Mirror & 3)
-	{
-	case 0:	EMU->Mirror_V();	break;
-	case 1:	EMU->Mirror_H();	break;
-	case 2:	EMU->Mirror_S1();	break;
-	case 3:	EMU->Mirror_S0();	break;
-	}
+	if (Mapper.Mirror & 0x1)
+		EMU->Mirror_H();
+	else	EMU->Mirror_V();
 }
 
 static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
@@ -39,7 +35,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
 {
-	Mapper.PRG[0] = Val & 0xF;
+	Mapper.PRG[0] = Val & 0x1F;
 	Sync();
 }
 
@@ -51,7 +47,7 @@ static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
 
 static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
 {
-	Mapper.PRG[1] = Val & 0xF;
+	Mapper.PRG[1] = Val & 0x1F;
 	Sync();
 }
 
