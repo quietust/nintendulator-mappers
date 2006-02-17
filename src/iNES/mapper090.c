@@ -243,9 +243,9 @@ static	void	_MAPINT	WriteC (int Bank, int Where, int What)
 	case 2:	Mapper.IRQenabled = 0;
 		EMU->SetIRQ(1);		break;
 	case 3:	Mapper.IRQenabled = 1;	break;
-	case 4:	Mapper.IRQcounterL = What ^ ((Mapper.IRQmode & 0x40) ? ~Mapper.IRQxor : Mapper.IRQxor);
+	case 4:	Mapper.IRQcounterL = What ^ Mapper.IRQxor;
 					break;
-	case 5:	Mapper.IRQcounterH = What ^ ((Mapper.IRQmode & 0x40) ? ~Mapper.IRQxor : Mapper.IRQxor);
+	case 5:	Mapper.IRQcounterH = What ^ Mapper.IRQxor;
 					break;
 	case 6:	Mapper.IRQxor = What;	break;
 	case 7:	/* usually unused */	break;
