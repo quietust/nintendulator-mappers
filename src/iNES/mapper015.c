@@ -31,65 +31,34 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
 	u8 PRGbank = (Val & 0x3F) << 1;
+	u8 PRGflip = (Val & 0x80) >> 7;
+	Mapper.Mirror = Val & 0x40;
 	switch (Addr)
 	{
 	case 0x000:
-		if (Val & 0x80)
-		{
-			Mapper.PRG[0] = PRGbank + 1;
-			Mapper.PRG[1] = PRGbank + 0;
-			Mapper.PRG[2] = PRGbank + 3;
-			Mapper.PRG[3] = PRGbank + 2;
-		}
-		else
-		{
-			Mapper.PRG[0] = PRGbank + 0;
-			Mapper.PRG[1] = PRGbank + 1;
-			Mapper.PRG[2] = PRGbank + 2;
-			Mapper.PRG[3] = PRGbank + 3;
-		}
-		Mapper.Mirror = Val & 0x40;
+		PRGbank &= 0x7C;
+		Mapper.PRG[0] = PRGbank | 0 ^ PRGflip;
+		Mapper.PRG[1] = PRGbank | 1 ^ PRGflip;
+		Mapper.PRG[2] = PRGbank | 2 ^ PRGflip;
+		Mapper.PRG[3] = PRGbank | 3 ^ PRGflip;
 		break;
 	case 0x001:
-		if (Val & 0x80)
-		{
-			Mapper.PRG[0] = PRGbank + 1;
-			Mapper.PRG[1] = PRGbank + 0;
-		}
-		else
-		{
-			Mapper.PRG[0] = PRGbank + 0;
-			Mapper.PRG[1] = PRGbank + 1;
-		}
+		Mapper.PRG[0] = PRGbank | 0 ^ PRGflip;
+		Mapper.PRG[1] = PRGbank | 1 ^ PRGflip;
+		Mapper.PRG[2] = 0x7E | 0 ^ PRGflip;
+		Mapper.PRG[3] = 0x7F | 1 ^ PRGflip;
 		break;
 	case 0x002:
-		if (Val & 0x80)
-		{
-			Mapper.PRG[0] = PRGbank + 1;
-			Mapper.PRG[1] = PRGbank + 1;
-			Mapper.PRG[2] = PRGbank + 1;
-			Mapper.PRG[3] = PRGbank + 1;
-		}
-		else
-		{
-			Mapper.PRG[0] = PRGbank + 0;
-			Mapper.PRG[1] = PRGbank + 0;
-			Mapper.PRG[2] = PRGbank + 0;
-			Mapper.PRG[3] = PRGbank + 0;
-		}
+		Mapper.PRG[0] = PRGbank ^ PRGflip;
+		Mapper.PRG[1] = PRGbank ^ PRGflip;
+		Mapper.PRG[2] = PRGbank ^ PRGflip;
+		Mapper.PRG[3] = PRGbank ^ PRGflip;
 		break;
 	case 0x003:
-		if (Val & 0x80)
-		{
-			Mapper.PRG[2] = PRGbank + 1;
-			Mapper.PRG[3] = PRGbank + 0;
-		}
-		else
-		{
-			Mapper.PRG[2] = PRGbank + 0;
-			Mapper.PRG[3] = PRGbank + 1;
-		}
-		Mapper.Mirror = Val & 0x40;
+		Mapper.PRG[0] = PRGbank | 0 ^ PRGflip;
+		Mapper.PRG[1] = PRGbank | 1 ^ PRGflip;
+		Mapper.PRG[2] = PRGbank | 0 ^ PRGflip;
+		Mapper.PRG[3] = PRGbank | 1 ^ PRGflip;
 		break;
 	}
 	Sync();
@@ -115,7 +84,7 @@ CTMapperInfo	MapperInfo_015 =
 {
 	&MapperNum,
 	"100-in-1 Contra Function 16",
-	COMPAT_PARTIAL,
+	COMPAT_FULL,
 	NULL,
 	Reset,
 	NULL,
