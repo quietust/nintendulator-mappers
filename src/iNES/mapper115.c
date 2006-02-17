@@ -3,22 +3,23 @@
 
 static	struct
 {
-	u8 Reg;
+	u8 Reg1, Reg2;
 }	Mapper;
 
 static	void	Sync (void)
 {
 	MMC3_SyncMirror();
 	MMC3_SyncPRG(0x3F,0);
-	if (Mapper.Reg & 0x80)
-		EMU->SetPRG_ROM16(0x8,Mapper.Reg & 0xF);
-	MMC3_SyncCHR_ROM(0xFF,(Mapper.Reg & 0x01) << 8);
+	if (Mapper.Reg1 & 0x80)
+		EMU->SetPRG_ROM16(0x8,Mapper.Reg1 & 0xF);
+	MMC3_SyncCHR_ROM(0xFF,(Mapper.Reg2 & 0x01) << 8);
 }
 
 static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 {
 	x = MMC3_SaveLoad(mode,x,data);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Reg)
+	SAVELOAD_BYTE(mode,x,data,Mapper.Reg1)
+	SAVELOAD_BYTE(mode,x,data,Mapper.Reg2)
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
@@ -26,7 +27,9 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 
 static	void	_MAPINT	Write (int Bank, int Where, int What)
 {
-	Mapper.Reg = What;
+	if (Where & 1)
+		Mapper.Reg2 = What;
+	else	Mapper.Reg1 = What;
 	Sync();
 }
 
@@ -43,7 +46,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 
 	for (x = 0x6; x < 0x8; x++)
 		EMU->SetCPUWriteHandler(0x6,Write);
-	Mapper.Reg = 0;
+	Mapper.Reg1 = Mapper.Reg2 = 0;
 	MMC3_Init(Sync);
 }
 
