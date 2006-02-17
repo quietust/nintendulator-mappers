@@ -114,6 +114,19 @@ int	_MAPINT	MMC3_SaveLoad (int mode, int x, char *data)
 		SAVELOAD_BYTE(mode,x,data,MMC3.CHR[i])
 	SAVELOAD_BYTE(mode,x,data,MMC3.WRAMEnab)
 	SAVELOAD_BYTE(mode,x,data,MMC3.Mirror)
+	SAVELOAD_BYTE(mode,x,data,MMC3.IRQreload)
+	switch (mode)
+	{
+	case STATE_SAVE:
+		data[x++] = (u8)(MMC3.IRQaddr >> 8);
+		break;
+	case STATE_LOAD:
+		MMC3.IRQaddr = data[x++] << 8;
+		break;
+	case STATE_SIZE:
+		x++;
+		break;
+	}
 	if (mode == STATE_LOAD)
 		MMC3.Sync();
 	return x;
@@ -156,7 +169,7 @@ void	_MAPINT	MMC3_CPUWriteAB (int Bank, int Where, int What)
 void	_MAPINT	MMC3_CPUWriteCD (int Bank, int Where, int What)
 {
 	if (Where & 1)
-		MMC3.IRQcounter = MMC3.IRQlatch;
+		MMC3.IRQreload = 1;
 	else	MMC3.IRQlatch = What;
 }
 
@@ -166,19 +179,19 @@ void	_MAPINT	MMC3_CPUWriteEF (int Bank, int Where, int What)
 	if (!MMC3.IRQenabled)
 		EMU->SetIRQ(1);
 }
-static int lastAddr = 0;
 void	_MAPINT	MMC3_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
 	if (Addr & 0x2000)
 		return;
-	if ((MMC3.IRQenabled) && !(lastAddr & 0x1000) && (Addr & 0x1000))
+	if ((MMC3.IRQenabled) && !(MMC3.IRQaddr & 0x1000) && (Addr & 0x1000))
 	{
-		if (!MMC3.IRQcounter)
+		if (!MMC3.IRQcounter || MMC3.IRQreload)
 		{
 			MMC3.IRQcounter = MMC3.IRQlatch;
-			EMU->SetIRQ(0);
+			MMC3.IRQreload = 0;
 		}
-		else	MMC3.IRQcounter--;
+		else if (!--MMC3.IRQcounter)
+			EMU->SetIRQ(0);
 	}
-	lastAddr = Addr;
+	MMC3.IRQaddr = Addr;
 }

@@ -5,7 +5,8 @@
 
 typedef	struct	MMC3
 {
-	u8 IRQenabled, IRQcounter, IRQlatch;
+	u8 IRQenabled, IRQcounter, IRQlatch, IRQreload;
+	int IRQaddr;
 	u8 Cmd;
 	u8 PRG[4];
 	u8 CHR[8];
