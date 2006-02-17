@@ -255,12 +255,20 @@ void	MMC5_SyncMirror (void)
 	u8 mirror = MMC5.Mirror, i;
 	for (i = 0; i < 4; i++)
 	{
-		EMU->SetCHR_NT1(0x8|i,mirror & 3);
-		EMU->SetCHR_NT1(0xC|i,mirror & 3);
 		if ((mirror & 3) == 3)
 		{
 			EMU->SetCHR_Ptr1(0x8|i,MMC5.ExNameTable,FALSE);
 			EMU->SetCHR_Ptr1(0xC|i,MMC5.ExNameTable,FALSE);
+		}
+		else if (((mirror & 3) == 2) && (MMC5.GfxMode & 0x2))
+		{
+			EMU->SetCHR_NT1(0x8|i,1);
+			EMU->SetCHR_NT1(0xC|i,1);
+		}
+		else
+		{
+			EMU->SetCHR_NT1(0x8|i,mirror & 3);
+			EMU->SetCHR_NT1(0xC|i,mirror & 3);
 		}
 		mirror >>= 2;
 	}
@@ -307,7 +315,8 @@ void	_MAPINT	MMC5_CPUWrite5 (int Bank, int Addr, int Val)
 		case 0x103:	MMC5.WRAMprot[1] = Val & 3;
 							break;
 		case 0x104:	MMC5.GfxMode = Val & 3;
-				MMC5_SetPPUHandlers();	break;
+				MMC5_SetPPUHandlers();
+				MMC5_SyncMirror();	break;
 		case 0x105:	MMC5.Mirror = Val;
 				MMC5_SyncMirror();	break;
 		case 0x106:	memset(MMC5.ExNameTable,Val,0x3C0);
