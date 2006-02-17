@@ -107,6 +107,7 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 			case MMC5WRAM_32KB_0KB:	CheckRadioButton(hDlg,IDC_MAPPER5_0_0,IDC_MAPPER5_32_32,IDC_MAPPER5_32_0);	break;
 			case MMC5WRAM_32KB_8KB:	CheckRadioButton(hDlg,IDC_MAPPER5_0_0,IDC_MAPPER5_32_32,IDC_MAPPER5_32_8);	break;
 			case MMC5WRAM_32KB_32KB:CheckRadioButton(hDlg,IDC_MAPPER5_0_0,IDC_MAPPER5_32_32,IDC_MAPPER5_32_32);	break;
+			default:		CheckRadioButton(hDlg,IDC_MAPPER5_0_0,IDC_MAPPER5_32_32,IDC_MAPPER5_0_0);	break;
 			}
 			SetDlgItemText(hDlg,IDC_MAPPER5_DESCRIBE,
 				"The following Famicom games have unknown SRAM sizes:\r\n"
@@ -122,7 +123,7 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 		case WM_COMMAND:
 			switch (LOWORD(wParam))
 			{
-			case IDAPPLY:
+			case IDOK:
 				if (IsDlgButtonChecked(hDlg,IDC_MAPPER5_0_0) == BST_CHECKED)
 					MMC5.WRAMsize = MMC5WRAM_0KB_0KB;
 				else if (IsDlgButtonChecked(hDlg,IDC_MAPPER5_0_8) == BST_CHECKED)
@@ -144,8 +145,7 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 				SetSRAM();
 				MMC5_SyncPRG();	
 				MessageBox(hWnd,"Please perform a SOFT reset to ensure proper functionality!","INES.DLL",MB_OK);
-				break;
-			case IDCLOSE:
+			case IDCANCEL:
 				Mapper.ConfigWindow = NULL;
 				DestroyWindow(hDlg);
 				return TRUE;		break;
