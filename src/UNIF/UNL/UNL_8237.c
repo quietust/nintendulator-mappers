@@ -11,6 +11,7 @@ static	struct
 static	void	Sync (void)
 {
 //	MMC3_SyncCHR_ROM((Mapper.PRG & 0x40) ? 0x7F : 0xFF,(Mapper.CHR & 0x04) << 6);
+	MMC3_SyncWRAM();
 	if (Mapper.PRG & 0x40)
 		MMC3_SyncCHR_ROM(0x7F,(Mapper.CHR & 0x04) << 5);
 	else	MMC3_SyncCHR_ROM(0xFF,(Mapper.CHR & 0x04) << 6);

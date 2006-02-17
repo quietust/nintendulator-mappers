@@ -15,7 +15,7 @@ static	void	Sync_TGROM (void)
 }
 static	void	Sync_TKROM (void)
 {
-	EMU->SetPRG_RAM8(0x6,0);
+	MMC3_SyncWRAM();
 	MMC3_SyncPRG(0x3F,0);
 	MMC3_SyncCHR_ROM(0xFF,0);
 	MMC3_SyncMirror();
@@ -34,7 +34,7 @@ static	void	Sync_TR1ROM (void)
 }
 static	void	Sync_TSROM (void)
 {
-	EMU->SetPRG_RAM8(0x6,0);
+	MMC3_SyncWRAM();
 	MMC3_SyncPRG(0x3F,0);
 	MMC3_SyncCHR_ROM(0xFF,0);
 	MMC3_SyncMirror();

@@ -8,6 +8,7 @@ static	struct
 
 static	void	Sync (void)
 {
+	MMC3_SyncWRAM();
 	MMC3_SyncPRG(0x3F,0);
 	MMC3_SyncCHR_ROM(0xFF,0);
 	MMC3_SyncMirror();
@@ -48,7 +49,6 @@ static	void	_MAPINT	Reset (int IsHardReset)
 {
 	u8 x;
 	MMC3_Init(Sync);
-	EMU->SetPRG_OB4(0x5);
 	Mapper.Read5 = EMU->GetCPUReadHandler(0x5);
 	EMU->SetCPUReadHandler(0x5,Read);
 	EMU->SetCPUWriteHandler(0x5,Write5);
