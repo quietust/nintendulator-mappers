@@ -183,7 +183,7 @@ static	u8 MapperNum = 23;
 CTMapperInfo	MapperInfo_023 =
 {
 	&MapperNum,
-	"Konami VRC2 Type B",
+	"Konami VRC4 Type <?>",
 	COMPAT_PARTIAL,
 	Reset,
 	Shutdown,
