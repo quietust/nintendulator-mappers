@@ -4,6 +4,7 @@
 static	struct
 {
 	u8 Cmd;
+	u8 LastMirror;
 }	Mapper;
 
 static	void	Sync (void)
@@ -16,8 +17,17 @@ static	void	Sync (void)
 static	void	_MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
 	if (MMC3_GetCHRBank((Addr >> 10) & 0x7) & 0x20)
-		EMU->Mirror_S1();
-	else	EMU->Mirror_S0();
+	{
+		if (Mapper.LastMirror == 0)
+			EMU->Mirror_S1();
+		Mapper.LastMirror = 1;
+	}
+	else
+	{
+		if (Mapper.LastMirror == 1)
+			EMU->Mirror_S0();
+		Mapper.LastMirror = 0;
+	}
 	MMC3_PPUCycle(Addr,Scanline,Cycle,IsRendering);
 }
 
@@ -35,8 +45,17 @@ static	void	_MAPINT	Write (int Bank, int Where, int What)
 		if (Mapper.Cmd < 6)
 		{
 			if (What & 0x20)
-				EMU->Mirror_S1();
-			else	EMU->Mirror_S0();
+			{
+				if (Mapper.LastMirror == 0)
+					EMU->Mirror_S1();
+				Mapper.LastMirror = 1;
+			}
+			else
+			{
+				if (Mapper.LastMirror == 1)
+					EMU->Mirror_S0();
+				Mapper.LastMirror = 0;
+			}
 		}
 	}
 	else	Mapper.Cmd = What & 7;
@@ -46,7 +65,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 {
 	iNES_InitROM();
 
-	EMU->SetPRG_RAM8(0x6,0);
+	Mapper.LastMirror = 0;
 	EMU->Mirror_S0();
 
 	MMC3_Init(Sync);
