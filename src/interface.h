@@ -17,9 +17,9 @@
 
 #define	MSGBOX_FLAGS	(MB_OK | MB_ICONERROR | MB_DEFBUTTON1 | MB_APPLMODAL)
 
-/* Mapper Interface version (3.0) */
+/* Mapper Interface version (3.1) */
 
-#define	CurrentMapperInterface 0x00030000
+#define	CurrentMapperInterface 0x00030001
 
 /* Integer types */
 
