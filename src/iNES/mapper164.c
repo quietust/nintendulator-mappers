@@ -3,18 +3,18 @@
 static	struct
 {
 	FCPUWrite Write4;
-	u8 Latch;
+	u8 Reg;
 }	Mapper;
 
 static	void	Sync (void)
 {
-	EMU->SetCHR_ROM8(0,Mapper.Latch & 0x7);
-	EMU->SetPRG_ROM32(0x8,(Mapper.Latch & 0x8) >> 3);
+	EMU->SetCHR_RAM8(0,0);
+	EMU->SetPRG_ROM32(0x8,Mapper.Reg);
 }
 
 static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.Latch)
+	SAVELOAD_BYTE(mode,x,data,Mapper.Reg)
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
@@ -22,12 +22,11 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 
 static	void	_MAPINT	Write (int Bank, int Where, int What)
 {
-	if (Where & 0x100)
-	{
-		Mapper.Latch = What;
-		Sync();
-	}
+	int Addr = (Bank << 12) | Where;
 	if (Bank == 4) Mapper.Write4(Bank,Where,What);
+	if ((Addr & 0x7300) == 0x5000)
+		Mapper.Reg = What;
+	Sync();
 }
 
 static	void	_MAPINT	Shutdown (void)
@@ -37,23 +36,27 @@ static	void	_MAPINT	Shutdown (void)
 
 static	void	_MAPINT	Reset (int IsHardReset)
 {
+	u8 x;
 	iNES_InitROM();
 
 	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
-	EMU->SetCPUWriteHandler(0x4,Write);
-	EMU->SetCPUWriteHandler(0x5,Write);
+	EMU->SetPRG_RAM8(0x6,0);
+	for (x = 4; x < 6; x++)
+		EMU->SetCPUWriteHandler(x,Write);
+	for (x = 8; x <= 0xF; x++)
+		EMU->SetCPUWriteHandler(x,Write);
 
-	Mapper.Latch = 0;
+	Mapper.Reg = 0xFF;
 
 	Sync();
 }
 
-static	u8 MapperNum = 79;
-CTMapperInfo	MapperInfo_079 =
+static	u8 MapperNum = 164;
+CTMapperInfo	MapperInfo_164 =
 {
 	&MapperNum,
-	"NINA-03/NINA-06",
-	COMPAT_FULL,
+	"Mapper 164",
+	COMPAT_NEARLY,
 	Reset,
 	Shutdown,
 	NULL,
