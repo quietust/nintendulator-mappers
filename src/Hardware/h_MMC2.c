@@ -11,6 +11,8 @@ void	MMC2_Init (void (*Sync)(void))
 		MMC2.Latch0[x] = 0;
 		MMC2.Latch1[x] = 0;
 	}
+	MMC2.PRG = 0;
+	MMC2.Mirror = 0;
 	EMU->SetCPUWriteHandler(0xA,MMC2_CPUWriteA);
 	EMU->SetCPUWriteHandler(0xB,MMC2_CPUWriteB);
 	EMU->SetCPUWriteHandler(0xC,MMC2_CPUWriteC);
@@ -139,4 +141,3 @@ void	_MAPINT	MMC2_CPUWriteF (int Bank, int Addr, int Val)
 	MMC2.Mirror = Val & 0x1;
 	MMC2.Sync();
 }
-

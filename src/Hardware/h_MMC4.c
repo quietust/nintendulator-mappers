@@ -11,6 +11,8 @@ void	MMC4_Init (void (*Sync)(void))
 		MMC4.Latch0[x] = 0;
 		MMC4.Latch1[x] = 0;
 	}
+	MMC4.PRG = 0;
+	MMC4.Mirror = 0;
 	EMU->SetCPUWriteHandler(0xA,MMC4_CPUWriteA);
 	EMU->SetCPUWriteHandler(0xB,MMC4_CPUWriteB);
 	EMU->SetCPUWriteHandler(0xC,MMC4_CPUWriteC);
@@ -26,6 +28,8 @@ void	MMC4_Init (void (*Sync)(void))
 
 void	MMC4_Destroy (void)
 {
+	EMU->SetPPUReadHandler(0x3,MMC4.PPURead3);
+	EMU->SetPPUReadHandler(0x7,MMC4.PPURead7);
 }
 
 int	_MAPINT	MMC4_SaveLoad (int mode, int x, char *data)
@@ -36,6 +40,8 @@ int	_MAPINT	MMC4_SaveLoad (int mode, int x, char *data)
 	SAVELOAD_BYTE(mode,x,data,MMC4.Latch1[1])
 	SAVELOAD_BYTE(mode,x,data,MMC4.LatchState[0])
 	SAVELOAD_BYTE(mode,x,data,MMC4.LatchState[1])
+	SAVELOAD_BYTE(mode,x,data,MMC4.PRG)
+	SAVELOAD_BYTE(mode,x,data,MMC4.Mirror)
 	if (mode == STATE_LOAD)
 		MMC4.Sync();
 	return x;
@@ -73,7 +79,7 @@ int	_MAPINT	MMC4_PPURead3 (int Bank, int Addr)
 		MMC4.LatchState[0] = 0;
 		EMU->SetCHR_ROM4(0,MMC4.Latch0[0]);
 	}
-	if (addy == 0x3E8)
+	else if (addy == 0x3E8)
 	{
 		MMC4.LatchState[0] = 1;
 		EMU->SetCHR_ROM4(0,MMC4.Latch0[1]);
@@ -90,7 +96,7 @@ int	_MAPINT	MMC4_PPURead7 (int Bank, int Addr)
 		MMC4.LatchState[1] = 0;
 		EMU->SetCHR_ROM4(4,MMC4.Latch1[0]);
 	}
-	if (addy == 0x3E8)
+	else if (addy == 0x3E8)
 	{
 		MMC4.LatchState[1] = 1;
 		EMU->SetCHR_ROM4(4,MMC4.Latch1[1]);
