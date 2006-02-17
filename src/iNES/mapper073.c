@@ -30,10 +30,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 static	void	_MAPINT	CPUCycle (void)
 {
 	if ((Mapper.IRQenabled) && (!++Mapper.IRQcounter))
-	{
 		EMU->SetIRQ(0);
-		Mapper.IRQenabled = 0;
-	}
 }
 
 static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
