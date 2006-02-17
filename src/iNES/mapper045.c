@@ -28,6 +28,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
+	MMC3_CPUWrite67(Bank, Addr, Val);
 	if (Mapper.Regs[3] & 0x40)
 		return;
 	Mapper.Regs[Mapper.Pos++] = Val;
@@ -42,9 +43,6 @@ static	void	_MAPINT	Load (void)
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	EMU->SetCPUWriteHandler(0x6,Write);
-	EMU->SetCPUWriteHandler(0x7,Write);
-
 	if (ResetType == RESET_HARD)
 	{
 		for (x = 0; x < 4; x++)
@@ -52,6 +50,9 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 		Mapper.Pos = 0;
 	}
 	MMC3_Reset(ResetType);
+
+	EMU->SetCPUWriteHandler(0x6,Write);
+	EMU->SetCPUWriteHandler(0x7,Write);
 }
 static	void	_MAPINT	Unload (void)
 {
