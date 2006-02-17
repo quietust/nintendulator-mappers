@@ -16,23 +16,20 @@
 
 typedef	struct	MMC5
 {
-	int WRAMtable[MMC5WRAM_MAXOPTS][8];
-	u8 PRGsize, CHRsize, WRAMsize;
-	u8 IRQenabled, IRQreads, IRQline;
-	u8 Mirror;
-	u8 Mul1, Mul2, GfxMode;
-	u16_n CHR_A[8], CHR_B[4];
-	u8 CHRhi;
-	u8 PRG[5];
+	u8 WRAMsize;
+	u8 PRGsize, CHRsize;
 	u8 WRAMprot[2];
-	u8 SplitMode;
-	u8 SplitBank;
-	u8 SplitScroll;
-	u8 *NameTable0, *NameTable1, *ExRAM, *ExNameTable;
-	u8 TileCache;
-	u8 DrawStatus, DrawBank, CurTile;
-	u8 SpriteMode, CHRmode;
+	u8 GfxMode;
+	u8 Mirror;
+	u8 PRG[5];
+	u16_n CHR_A[8], CHR_B[4];
+	u8 CHRhi, CHRmode;
+	u8 SplitMode, SplitScroll, SplitBank;
+	u8 IRQline, IRQenabled, IRQreads;
+	u8 Mul1, Mul2;
 	s16 LineCounter;
+	u8 SpriteMode;
+	u8 *NameTable0, *NameTable1, *ExRAM, *ExNameTable;
 	FCPUWrite WritePPU;
 	FCPUWrite CPUWrite6F;
 	FPPURead PPURead[16];
