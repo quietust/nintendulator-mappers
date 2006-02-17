@@ -122,7 +122,7 @@ int	_MAPINT	MMC6_CPURead67 (int Bank, int Where)
 void	_MAPINT	MMC6_CPUWrite67 (int Bank, int Where, int What)
 {
 	if (MMC6.WriteWRAM & 0x80)
-		MMC6.CPUWrite67(Bank,Where,What);
+		MMC6.CPUWrite67(0x6,Where & 0x3FF,What);
 }
 
 void	_MAPINT	MMC6_CPUWrite89 (int Bank, int Where, int What)
