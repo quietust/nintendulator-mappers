@@ -247,7 +247,58 @@ void	_MAPINT	Config (void)
 	SetWindowPos(NSF.ControlWindow,hWnd,0,0,0,0,SWP_SHOWWINDOW | SWP_NOSIZE);
 }
 
-static	void	_MAPINT	NSF_WriteBank (int Bank,int Where,int What)
+static	int	_MAPINT	MapperSnd (int Cycles)
+{
+	int x = 0;
+	if (ROM->NSF_SoundChips & 0x01)
+		x += VRC6sound_Get(Cycles);
+	if (ROM->NSF_SoundChips & 0x02)
+		x += VRC7sound_Get(Cycles);
+	if (ROM->NSF_SoundChips & 0x04)
+		x += FDSsound_Get(Cycles);
+	if (ROM->NSF_SoundChips & 0x08)
+		x += MMC5sound_Get(Cycles);
+	if (ROM->NSF_SoundChips & 0x10)
+		x += N106sound_Get(Cycles);
+	if (ROM->NSF_SoundChips & 0x20)
+		x += FME7sound_Get(Cycles);
+	return x;
+}
+
+static	int	_MAPINT	NSF_Read4 (int Bank, int Where)
+{
+	if (Where < 0x018)
+		return NSF.Read4(Bank,Where);
+	if ((ROM->NSF_SoundChips & 0x04) && (Where < 0x800))
+		return FDSsound_Read((Bank << 12) | Where);
+	if ((ROM->NSF_SoundChips & 0x10) && (Where & 0x800))
+		return N106sound_Read((Bank << 12) | Where);
+	return -1;
+}
+static	int	_MAPINT	NSF_Read5 (int Bank, int Where)
+{
+	if (ROM->NSF_SoundChips & 0x08)
+	{
+		switch (Where & 0xF00)
+		{
+		case 0xC00:
+		case 0xD00:
+		case 0xE00:
+		case 0xF00:	return NSF.ExRAM[Where & 0x3FF];	break;
+		}
+	}
+	return -1;
+}
+static	void	_MAPINT	NSF_Write4 (int Bank, int Where, int What)
+{
+	if (Where < 0x018)
+		NSF.Write4(Bank,Where,What);
+	if (ROM->NSF_SoundChips & 0x04)
+		FDSsound_Write((Bank << 12) | Where,What);
+	if (ROM->NSF_SoundChips & 0x10)
+		N106sound_Write((Bank << 12) | Where,What);
+}
+static	void	_MAPINT	NSF_Write5 (int Bank, int Where, int What)
 {
 	if (Where >= 0xFF6)
 	{
@@ -255,88 +306,41 @@ static	void	_MAPINT	NSF_WriteBank (int Bank,int Where,int What)
 			EMU->SetPRG_RAM4(Where & 0xF,What & 0x1);
 		else	EMU->SetPRG_ROM4(Where & 0xF,What);
 	}
-}
-
-static	void	_MAPINT	VRC6_Write (int Bank, int Where, int What)
-{
-	VRC6sound_Write((Bank << 12) | Where,What);
-}
-
-static	void	_MAPINT	VRC7_Write (int Bank, int Where, int What)
-{
-	VRC7sound_Write((Bank << 12) | Where, What);
-}
-
-static	int	_MAPINT	FDS_Read (int Bank, int Where)
-{
-	if (Where < 0x18)
-		return NSF.Read4(Bank,Where);
-	return FDSsound_Read((Bank << 12) | Where);
-}
-static	void	_MAPINT	FDS_Write (int Bank, int Where, int What)
-{
-	if (Where < 0x18)
-		NSF.Write4(Bank,Where,What);
-	FDSsound_Write((Bank << 12) | Where,What);
-}
-
-static	int	_MAPINT	MMC5_Read (int Bank, int Where)
-{
-	switch (Where & 0xF00)
+	if (ROM->NSF_SoundChips & 0x08)
 	{
-	case 0xC00:
-	case 0xD00:
-	case 0xE00:
-	case 0xF00:	return NSF.ExRAM[Where & 0x3FF];	break;
-	}
-	return EMU->GetCPUReadHandler(0x8)(Bank,Where);
-}
-static	void	_MAPINT	MMC5_Write (int Bank,int Where,int What)
-{
-	switch (Where & 0xF00)
-	{
-	case 0x000:	MMC5sound_Write((Bank << 12) | Where, What);	break;
-	case 0xC00:
-	case 0xD00:
-	case 0xE00:
-	case 0xF00:	NSF_WriteBank(Bank,Where,What);
-			NSF.ExRAM[Where & 0x3FF] = What;		break;
+		switch (Where & 0xF00)
+		{
+		case 0x000:	MMC5sound_Write((Bank << 12) | Where, What);	break;
+		case 0xC00:
+		case 0xD00:
+		case 0xE00:
+		case 0xF00:	NSF.ExRAM[Where & 0x3FF] = What;		break;
+		}
 	}
 }
-
-static	int	_MAPINT	N106_Read (int Bank, int Where)
+static	void	_MAPINT	NSF_Write9 (int Bank, int Where, int What)
 {
-	if (Where < 0x18)
-		return NSF.Read4(Bank,Where);
-	return N106sound_Read((Bank << 12) | Where);
+	if (ROM->NSF_SoundChips & 0x01)
+		VRC6sound_Write((Bank << 12) | Where,What);
+	if (ROM->NSF_SoundChips & 0x02)
+		VRC7sound_Write((Bank << 12) | Where,What);
 }
-static	void	_MAPINT	N106_Write (int Bank, int Where, int What)
+static	void	_MAPINT	NSF_WriteAB (int Bank, int Where, int What)
 {
-	if ((Bank == 4) && (Where < 0x18))
-		NSF.Write4(Bank,Where,What);
-	N106sound_Write((Bank << 12) | Where,What);
+	if (ROM->NSF_SoundChips & 0x01)
+		VRC6sound_Write((Bank << 12) | Where,What);
 }
-
-static	void	_MAPINT	FME7_Write (int Bank, int Where, int What)
+static	void	_MAPINT	NSF_WriteCDE (int Bank, int Where, int What)
 {
-	FME7sound_Write((Bank << 12) | Where,What);
+	if (ROM->NSF_SoundChips & 0x20)
+		FME7sound_Write((Bank << 12) | Where,What);
 }
-
-static	int	_MAPINT	MapperSnd (int Cycles)
+static	void	_MAPINT	NSF_WriteF (int Bank, int Where, int What)
 {
-	if (ROM->NSF_SoundChips & 0x01)		/* VRC6 */
-		return VRC6sound_Get(Cycles);
-	else if (ROM->NSF_SoundChips & 0x02)	/* VRC7*/
-		return VRC7sound_Get(Cycles);
-	else if (ROM->NSF_SoundChips & 0x04)	/* FDS */
-		return FDSsound_Get(Cycles);
-	else if (ROM->NSF_SoundChips & 0x08)	/* MMC5 */
-		return MMC5sound_Get(Cycles);
-	else if (ROM->NSF_SoundChips & 0x10)	/* Namco 106 */
-		return N106sound_Get(Cycles);
-	else if (ROM->NSF_SoundChips & 0x20)	/* Sunsoft FME-7 */
-		return FME7sound_Get(Cycles);
-	else	return 0;
+	if (ROM->NSF_SoundChips & 0x10)
+		N106sound_Write((Bank << 12) | Where,What);
+	if (ROM->NSF_SoundChips & 0x20)
+		FME7sound_Write((Bank << 12) | Where,What);
 }
 
 static	void	_MAPINT	Shutdown (void)
@@ -347,17 +351,17 @@ static	void	_MAPINT	Shutdown (void)
 		NSF.ControlWindow = NULL;
 	}
 
-	if (ROM->NSF_SoundChips & 0x01)		/* VRC6 */
+	if (ROM->NSF_SoundChips & 0x01)
 		VRC6sound_Destroy();
-	else if (ROM->NSF_SoundChips & 0x02)	/* VRC7 */
+	if (ROM->NSF_SoundChips & 0x02)
 		VRC7sound_Destroy();
-	else if (ROM->NSF_SoundChips & 0x04)	/* FDS */
+	if (ROM->NSF_SoundChips & 0x04)
 		FDSsound_Destroy();
-	else if (ROM->NSF_SoundChips & 0x08)	/* MMC5 */
+	if (ROM->NSF_SoundChips & 0x08)
 		MMC5sound_Destroy();
-	else if (ROM->NSF_SoundChips & 0x10)	/* Namco 106 */
+	if (ROM->NSF_SoundChips & 0x10)
 		N106sound_Destroy();
-	else if (ROM->NSF_SoundChips & 0x20)	/* Sunsoft FME-7 */
+	if (ROM->NSF_SoundChips & 0x20)
 		FME7sound_Destroy();
 }
 
@@ -370,51 +374,33 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	EMU->SetCPUReadHandler(0x3,NSF_Read);
 	EMU->SetCPUWriteHandler(0x3,NSF_Write);
 
-	EMU->SetCPUWriteHandler(0x5,NSF_WriteBank);
 	EMU->SetCPUReadHandler(0xF,NSF_ReadVector);
-	EMU->SetPRG_RAM32(0x8,0);
-	EMU->SetPRG_RAM8(0x6,0);
 	EMU->SetCHR_RAM8(0,0);
+	
+	EMU->SetCPUReadHandler(0x4,NSF_Read4);
+	EMU->SetCPUReadHandler(0x5,NSF_Read5);
+	EMU->SetCPUWriteHandler(0x4,NSF_Write4);
+	EMU->SetCPUWriteHandler(0x5,NSF_Write5);
+	EMU->SetCPUWriteHandler(0x9,NSF_Write9);
+	EMU->SetCPUWriteHandler(0xA,NSF_WriteAB);
+	EMU->SetCPUWriteHandler(0xB,NSF_WriteAB);
+	EMU->SetCPUWriteHandler(0xC,NSF_WriteCDE);
+	EMU->SetCPUWriteHandler(0xD,NSF_WriteCDE);
+	EMU->SetCPUWriteHandler(0xE,NSF_WriteCDE);
+	EMU->SetCPUWriteHandler(0xF,NSF_WriteF);
 
-	if (ROM->NSF_SoundChips & 0x01)		/* VRC6 */
-	{
+	if (ROM->NSF_SoundChips & 0x01)
 		VRC6sound_Init();
-		EMU->SetCPUWriteHandler(0x9,VRC6_Write);
-		EMU->SetCPUWriteHandler(0xA,VRC6_Write);
-		EMU->SetCPUWriteHandler(0xB,VRC6_Write);
-	}
-	else if (ROM->NSF_SoundChips & 0x02)	/* VRC7 */
-	{
+	if (ROM->NSF_SoundChips & 0x02)
 		VRC7sound_Init();
-		EMU->SetCPUWriteHandler(0x9,VRC7_Write);
-	}
-	else if (ROM->NSF_SoundChips & 0x04)	/* FDS */
-	{
+	if (ROM->NSF_SoundChips & 0x04)
 		FDSsound_Init();
-		EMU->SetCPUReadHandler(0x4,FDS_Read);
-		EMU->SetCPUWriteHandler(0x4,FDS_Write);
-	}
-	else if (ROM->NSF_SoundChips & 0x08)	/* MMC5 */
-	{
+	if (ROM->NSF_SoundChips & 0x08)
 		MMC5sound_Init();
-		EMU->SetCPUReadHandler(0x5,MMC5_Read);
-		EMU->SetCPUWriteHandler(0x5,MMC5_Write);
-	}
-	else if (ROM->NSF_SoundChips & 0x10)	/* Namco 106 */
-	{
+	if (ROM->NSF_SoundChips & 0x10)
 		N106sound_Init();
-		EMU->SetCPUReadHandler(0x4,N106_Read);
-		EMU->SetCPUWriteHandler(0x4,N106_Write);
-		EMU->SetCPUWriteHandler(0xF,N106_Write);
-	}
-	else if (ROM->NSF_SoundChips & 0x20)	/* Sunsoft FME-7 */
-	{
+	if (ROM->NSF_SoundChips & 0x20)
 		FME7sound_Init();
-		EMU->SetCPUWriteHandler(0xC,FME7_Write);
-		EMU->SetCPUWriteHandler(0xD,FME7_Write);
-		EMU->SetCPUWriteHandler(0xE,FME7_Write);
-		EMU->SetCPUWriteHandler(0xF,FME7_Write);
-	}
 	if (IsHardReset)
 	{
 		NSF.songnum = ROM->NSF_InitSong - 1;
