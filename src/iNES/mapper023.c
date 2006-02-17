@@ -72,7 +72,7 @@ static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
 static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
-	if (Addr & 3)
+	if (Addr & 2)
 		Mapper.PRGswap = Val & 0x2;
 	else	Mapper.Mirror = Val & 0xF;
 	Sync();

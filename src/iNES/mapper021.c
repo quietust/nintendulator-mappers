@@ -4,7 +4,7 @@ static	struct
 {
 	u8 IRQenabled, IRQcounter;
 	u8_n IRQlatch;
-	u8 Byte9002;
+	u8 PRGswap;
 	u8 PRG[3];
 	u8_n CHR[8];
 	u8 Mirror;
@@ -13,9 +13,9 @@ static	struct
 static	void	Sync (void)
 {
 	u8 x;
-	EMU->SetPRG_ROM8(Mapper.Byte9002 ? 0xC : 0x8,Mapper.PRG[0]);
+	EMU->SetPRG_ROM8(Mapper.PRGswap ? 0xC : 0x8,Mapper.PRG[0]);
 	EMU->SetPRG_ROM8(0xA,Mapper.PRG[1]);
-	EMU->SetPRG_ROM8(Mapper.Byte9002 ? 0x8 : 0xC,-2);
+	EMU->SetPRG_ROM8(Mapper.PRGswap ? 0x8 : 0xC,-2);
 	EMU->SetPRG_ROM8(0xE,-1);
 	for (x = 0; x < 8; x++)
 		EMU->SetCHR_ROM1(x,Mapper.CHR[x].b0);
@@ -34,7 +34,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounter)
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQlatch.b0)
-	SAVELOAD_BYTE(mode,x,data,Mapper.Byte9002)
+	SAVELOAD_BYTE(mode,x,data,Mapper.PRGswap)
 	for (i = 0; i < 3; i++)
 		SAVELOAD_BYTE(mode,x,data,Mapper.PRG[i])
 	for (i = 0; i < 8; i++)
@@ -71,13 +71,9 @@ static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
 static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	Addr |= (Addr >> 5) & 0xF;
-	switch (Addr & 6)
-	{
-	case 0:	Mapper.Mirror = Val;	break;
-	case 2:	
-	case 4:	
-	case 6:	Mapper.Byte9002 = Val & 2;	break;
-	}
+	if (Addr & 4)
+		Mapper.PRGswap = Val & 2;
+	else	Mapper.Mirror = Val;
 	Sync();
 }
 
@@ -176,7 +172,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xF,WriteF);
 
 	Mapper.IRQenabled = Mapper.IRQcounter = Mapper.IRQlatch.b0 = 0;
-	Mapper.Byte9002 = 0;
+	Mapper.PRGswap = 0;
 	Mapper.PRG[0] = 0;	Mapper.PRG[1] = 1;
 	for (x = 0; x < 8; x++)
 		Mapper.CHR[x].b0 = x;
