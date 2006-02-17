@@ -7,7 +7,7 @@ typedef	struct	MMC6
 {
 	u8 IRQenabled, IRQcounter, IRQlatch;
 	u8 Cmd;
-	u8 PRG[2];
+	u8 PRG[4];
 	u8 CHR[8];
 	u8 WriteWRAM;
 	u8 Mirror;

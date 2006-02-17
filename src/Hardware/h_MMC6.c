@@ -4,7 +4,7 @@ static	TMMC6	MMC6;
 
 void	MMC6_Init (void (*Sync)(void))
 {
-	MMC6.PRG[0] = 0x00;	MMC6.PRG[1] = 0x01;
+	MMC6.PRG[0] = 0x00;	MMC6.PRG[1] = 0x01;	MMC6.PRG[2] = 0x3E;	MMC6.PRG[3] = 0x3F;	// 2 and 3 never change, simplifies GetPRGBank()
 
 	MMC6.CHR[0] = 0x00;	MMC6.CHR[1] = 0x01;	MMC6.CHR[2] = 0x02;	MMC6.CHR[3] = 0x03;
 	MMC6.CHR[4] = 0x04;	MMC6.CHR[5] = 0x05;	MMC6.CHR[6] = 0x06;	MMC6.CHR[7] = 0x07;
@@ -44,14 +44,9 @@ void	MMC6_SyncMirror (void)
 
 int	MMC6_GetPRGBank (int Bank)
 {
-	u8 Banks[4];
-	Banks[0] = MMC6.PRG[0];
-	Banks[1] = MMC6.PRG[1];
-	Banks[2] = 0x3E;
-	Banks[3] = 0x3F;
 	if (Bank & 0x1)
-		return Banks[Bank];
-	else	return Banks[Bank ^ ((MMC6.Cmd & 0x40) >> 5)];
+		return MMC6.PRG[Bank];
+	else	return MMC6.PRG[Bank ^ ((MMC6.Cmd & 0x40) >> 5)];
 }
 
 int	MMC6_GetCHRBank (int Bank)
@@ -158,28 +153,24 @@ void	_MAPINT	MMC6_CPUWriteCD (int Bank, int Where, int What)
 	if (Where & 1)
 		MMC6.IRQlatch = What;
 	else	MMC6.IRQcounter = MMC6.IRQlatch = What;
+	EMU->SetIRQ(1);
 }
 
 void	_MAPINT	MMC6_CPUWriteEF (int Bank, int Where, int What)
 {
-	if (Where & 1)
-		MMC6.IRQenabled = 1;
-	else	MMC6.IRQenabled = 0;
+	MMC6.IRQenabled = (Where & 1);
 	EMU->SetIRQ(1);
 }
 
 void	_MAPINT	MMC6_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
-	if ((IsRendering) && (Cycle == 256))
+	if ((MMC6.IRQenabled) && (IsRendering) && (Cycle == 262))
 	{
-		if (MMC6.IRQenabled)
+		if (!MMC6.IRQcounter)
 		{
-			if (MMC6.IRQcounter == 0)
-			{
-				MMC6.IRQcounter = MMC6.IRQlatch;
-				EMU->SetIRQ(0);
-			}
-			else	MMC6.IRQcounter--;
+			MMC6.IRQcounter = MMC6.IRQlatch;
+			EMU->SetIRQ(0);
 		}
+		else	MMC6.IRQcounter--;
 	}
 }
