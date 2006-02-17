@@ -34,7 +34,7 @@ static	void	Sync (void)
 			EMU->SetPRG_OB4(0x6);
 			EMU->SetPRG_OB4(0x7);
 		}
-		if (Mapper.Mode & 0x8)
+		if (Mapper.Mode & 0x08)
 			EMU->SetPRG_ROM16(0x8,Mapper.PRG[4]);
 		else
 		{
@@ -55,7 +55,7 @@ static	void	Sync (void)
 		for (x = 0; x < 8; x++)
 			EMU->SetCHR_ROM1(x,Mapper.CHR[x]);
 	}
-	switch (Mapper.Mode & 3)
+	switch (Mapper.Mode & 0x3)
 	{
 	case 0:	EMU->Mirror_V();	break;
 	case 1:	EMU->Mirror_H();	break;
@@ -80,7 +80,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 static	void	_MAPINT	CPUCycle (void)
 {
-	if (Mapper.Mode & 0x80)
+	if ((Mapper.IRQcounter.s0) && (Mapper.Mode & 0x80))
 	{
 		if (Mapper.Mode & 0x40)
 			Mapper.IRQcounter.s0--;
@@ -97,14 +97,14 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	case 0:	Mapper.PRG[4] = Val;
 		break;
 	case 1:	Mapper.Mode = Val;
+		if ((Mapper.Mode & 0x80) && (Mapper.IRQcounter.s0 == 0))
+			EMU->SetIRQ(0);
+		else	EMU->SetIRQ(1);
 		break;
 	case 2:	if (Addr & 1)
 			Mapper.IRQcounter.b1 = Val;
-		else
-		{
-			Mapper.IRQcounter.b0 = Val;
-			EMU->SetIRQ(1);
-		}
+		else	Mapper.IRQcounter.b0 = Val;
+		EMU->SetIRQ(1);
 		break;
 	case 3:	if (Addr & 0x10)
 		{
