@@ -15,6 +15,7 @@ static	void	Sync (void)
 		EMU->SetPRG_ROM8(0x8 | (x << 1),Mapper.PRG[x]);
 		EMU->SetCHR_ROM2(x << 1,Mapper.CHR[x]);
 	}
+	EMU->SetPRG_RAM4(0x6,0);
 }
 
 static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
@@ -32,7 +33,7 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 static	int	_MAPINT	Read6 (int Bank, int Where)
 {
 	if (Where & 0x800)
-		return Mapper.Read6(Bank,Where);
+		return Mapper.Read6(Bank,Where & 0x7FF);
 	else	return -1;
 }
 
@@ -40,7 +41,7 @@ static	void	_MAPINT	Write6 (int Bank, int Where, int What)
 {
 	if (Where & 0x800)
 	{
-		Mapper.Write6(Bank,Where,What);
+		Mapper.Write6(Bank,Where & 0x7FF,What);
 		return;
 	}
 	switch (Where & 0x007)
