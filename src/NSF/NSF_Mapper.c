@@ -300,16 +300,13 @@ static	int	_MAPINT	NSF_Read4 (int Bank, int Addr)
 }
 static	int	_MAPINT	NSF_Read5 (int Bank, int Addr)
 {
-	if (ROM->NSF_SoundChips & 0x08)
+	switch (Addr & 0xF00)
 	{
-		switch (Addr & 0xF00)
-		{
-		case 0x000:	return MMC5sound_Read((Bank << 12) | Addr);
-		case 0xC00:
-		case 0xD00:
-		case 0xE00:
-		case 0xF00:	return NSF.ExRAM[Addr & 0x3FF];	break;
-		}
+	case 0x000:	return MMC5sound_Read((Bank << 12) | Addr);
+	case 0xC00:
+	case 0xD00:
+	case 0xE00:
+	case 0xF00:	return NSF.ExRAM[Addr & 0x3FF];	break;
 	}
 	return -1;
 }
@@ -328,7 +325,12 @@ static	void	_MAPINT	NSF_Write5 (int Bank, int Addr, int Val)
 	{
 		if (Val >= 0xFE)
 			EMU->SetPRG_RAM4(Addr & 0xF,Val & 0x1);
-		else	EMU->SetPRG_ROM4(Addr & 0xF,Val);
+		else
+		{
+			EMU->SetPRG_ROM4(Addr & 0xF,Val);
+			if (ROM->NSF_SoundChips & 0x4)
+				EMU->SetPRG_Ptr4(Addr & 0xF,EMU->GetPRG_Ptr4(Addr & 0xF),TRUE);
+		}
 	}
 	if (ROM->NSF_SoundChips & 0x08)
 	{
@@ -351,13 +353,11 @@ static	void	_MAPINT	NSF_Write9 (int Bank, int Addr, int Val)
 }
 static	void	_MAPINT	NSF_WriteAB (int Bank, int Addr, int Val)
 {
-	if (ROM->NSF_SoundChips & 0x01)
-		VRC6sound_Write((Bank << 12) | Addr,Val);
+	VRC6sound_Write((Bank << 12) | Addr,Val);
 }
 static	void	_MAPINT	NSF_WriteCDE (int Bank, int Addr, int Val)
 {
-	if (ROM->NSF_SoundChips & 0x20)
-		FME7sound_Write((Bank << 12) | Addr,Val);
+	FME7sound_Write((Bank << 12) | Addr,Val);
 }
 static	void	_MAPINT	NSF_WriteF (int Bank, int Addr, int Val)
 {
@@ -398,17 +398,28 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUReadHandler(0x3,NSF_Read);
 	EMU->SetCPUWriteHandler(0x3,NSF_Write);
 
-	EMU->SetCPUReadHandler(0x4,NSF_Read4);
-	EMU->SetCPUReadHandler(0x5,NSF_Read5);
-	EMU->SetCPUWriteHandler(0x4,NSF_Write4);
+	if (ROM->NSF_SoundChips & 0x14)
+		EMU->SetCPUReadHandler(0x4,NSF_Read4);
+	if (ROM->NSF_SoundChips & 0x08)
+		EMU->SetCPUReadHandler(0x5,NSF_Read5);
+	if (ROM->NSF_SoundChips & 0x14)
+		EMU->SetCPUWriteHandler(0x4,NSF_Write4);
 	EMU->SetCPUWriteHandler(0x5,NSF_Write5);
-	EMU->SetCPUWriteHandler(0x9,NSF_Write9);
-	EMU->SetCPUWriteHandler(0xA,NSF_WriteAB);
-	EMU->SetCPUWriteHandler(0xB,NSF_WriteAB);
-	EMU->SetCPUWriteHandler(0xC,NSF_WriteCDE);
-	EMU->SetCPUWriteHandler(0xD,NSF_WriteCDE);
-	EMU->SetCPUWriteHandler(0xE,NSF_WriteCDE);
-	EMU->SetCPUWriteHandler(0xF,NSF_WriteF);
+	if (ROM->NSF_SoundChips & 0x03)
+		EMU->SetCPUWriteHandler(0x9,NSF_Write9);
+	if (ROM->NSF_SoundChips & 0x01)
+	{
+		EMU->SetCPUWriteHandler(0xA,NSF_WriteAB);
+		EMU->SetCPUWriteHandler(0xB,NSF_WriteAB);
+	}
+	if (ROM->NSF_SoundChips & 0x20)
+	{
+		EMU->SetCPUWriteHandler(0xC,NSF_WriteCDE);
+		EMU->SetCPUWriteHandler(0xD,NSF_WriteCDE);
+		EMU->SetCPUWriteHandler(0xE,NSF_WriteCDE);
+	}
+	if (ROM->NSF_SoundChips & 0x30)
+		EMU->SetCPUWriteHandler(0xF,NSF_WriteF);
 
 	if (ROM->NSF_SoundChips & 0x01)
 		VRC6sound_Reset(ResetType);
