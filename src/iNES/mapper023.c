@@ -53,7 +53,7 @@ static	void	_MAPINT	CPUCycle (void)
 {
 	if ((Mapper.IRQenabled & 2) && ((Mapper.IRQenabled & 4) || ((Mapper.IRQcycles -= 3) < 0)))
 	{
-		if (Mapper.IRQenabled & 4)
+		if (!(Mapper.IRQenabled & 4))
 			Mapper.IRQcycles += IRQ_CYCLES;
 		if (Mapper.IRQcounter == 0xFF)
 		{
