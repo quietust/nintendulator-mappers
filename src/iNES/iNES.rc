@@ -117,34 +117,34 @@ BEGIN
     PUSHBUTTON      "&Close",IDCLOSE,248,104,48,16
 END
 
-IDD_MAPPER5 DIALOG DISCARDABLE  0, 0, 224, 156
+IDD_MAPPER5 DIALOG DISCARDABLE  0, 0, 220, 151
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Mapper 5 (MMC5) - SRAM Configuration"
 FONT 8, "MS Sans Serif"
 BEGIN
     CONTROL         "0KB (0/0) *",IDC_MAPPER5_0_0,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,8,8,64,8
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,4,4,68,8
     CONTROL         "8KB (0/8)",IDC_MAPPER5_0_8,"Button",BS_AUTORADIOBUTTON | 
-                    WS_TABSTOP,8,20,64,8
+                    WS_TABSTOP,4,16,68,8
     CONTROL         "32KB (0/32)",IDC_MAPPER5_0_32,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,8,32,64,8
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,4,28,68,8
     CONTROL         "8KB (8/0) *",IDC_MAPPER5_8_0,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,80,8,64,8
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,80,4,64,8
     CONTROL         "16KB (8/8) *",IDC_MAPPER5_8_8,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,80,20,64,8
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,80,16,64,8
     CONTROL         "40KB (8/32)",IDC_MAPPER5_8_32,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,80,32,64,8
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,80,28,64,8
     CONTROL         "32KB (32/0) *",IDC_MAPPER5_32_0,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,152,8,64,8
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,152,4,64,8
     CONTROL         "40KB (32/8)",IDC_MAPPER5_32_8,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,152,20,64,8
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,152,16,64,8
     CONTROL         "64KB (32/32)",IDC_MAPPER5_32_32,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,152,32,64,8
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,152,28,64,8
     CTEXT           "* - denotes modes used by commercial games",IDC_STATIC,
-                    8,48,208,8
-    EDITTEXT        IDC_MAPPER5_DESCRIBE,8,64,208,64,ES_CENTER | 
+                    4,40,212,8
+    EDITTEXT        IDC_MAPPER5_DESCRIBE,4,52,212,76,ES_CENTER | 
                     ES_MULTILINE | ES_READONLY
-    DEFPUSHBUTTON   "&Apply",IDAPPLY,8,132,64,16
+    DEFPUSHBUTTON   "&Apply",IDAPPLY,4,132,68,16
     PUSHBUTTON      "&Close",IDCLOSE,152,132,64,16
 END
 
@@ -262,24 +262,25 @@ BEGIN
 
     IDD_MAPPER5, DIALOG
     BEGIN
-        LEFTMARGIN, 8
+        LEFTMARGIN, 4
         RIGHTMARGIN, 216
         VERTGUIDE, 72
         VERTGUIDE, 80
         VERTGUIDE, 144
         VERTGUIDE, 152
-        VERTGUIDE, 216
-        TOPMARGIN, 8
-        BOTTOMMARGIN, 148
-        HORZGUIDE, 8
-        HORZGUIDE, 20
-        HORZGUIDE, 32
+        TOPMARGIN, 4
+        BOTTOMMARGIN, 147
+        HORZGUIDE, 4
+        HORZGUIDE, 12
+        HORZGUIDE, 16
+        HORZGUIDE, 24
+        HORZGUIDE, 28
+        HORZGUIDE, 36
+        HORZGUIDE, 40
         HORZGUIDE, 48
-        HORZGUIDE, 64
-        HORZGUIDE, 110
+        HORZGUIDE, 52
         HORZGUIDE, 128
         HORZGUIDE, 132
-        HORZGUIDE, 148
     END
 
     IDD_MAPPER43, DIALOG
