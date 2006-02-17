@@ -11,9 +11,9 @@ static	struct
 static	void	Sync (void)
 {
 	u8 x;
-	if (Mapper.Mode & 0x08)
+	if (Mapper.Mode & 0x10)
 	{
-		if (Mapper.Mode & 0x10)
+		if (Mapper.Mode & 0x20)
 			EMU->SetPRG_ROM8(0x6,Mapper.PRG[3]);
 		else
 		{
@@ -27,14 +27,14 @@ static	void	Sync (void)
 	}
 	else
 	{
-		if (Mapper.Mode & 0x10)
+		if (Mapper.Mode & 0x20)
 			EMU->SetPRG_ROM8(0x6,0x1F);
 		else
 		{
 			EMU->SetPRG_OB4(0x6);
 			EMU->SetPRG_OB4(0x7);
 		}
-		if (Mapper.Mode & 0x4)
+		if (Mapper.Mode & 0x8)
 			EMU->SetPRG_ROM16(0x8,Mapper.PRG[4]);
 		else
 		{
