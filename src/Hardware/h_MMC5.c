@@ -242,7 +242,7 @@ int	_MAPINT	MMC5_CPURead5 (int Bank, int Where)
 	case 0xC00:
 	case 0xD00:
 	case 0xE00:
-	case 0xF00:	if (MMC5.GfxMode != 1)
+	case 0xF00:	if (MMC5.GfxMode >= 2)
 				read = MMC5.ExRAM[Where & 0x3FF];	break;
 	}
 	return read;
