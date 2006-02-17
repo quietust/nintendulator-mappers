@@ -82,7 +82,9 @@ static	void	_MAPINT	CPUCycle (void)
 {
 	if (Mapper.Mode & 0x80)
 	{
-		Mapper.IRQcounter.s0--;
+		if (Mapper.Mode & 0x40)
+			Mapper.IRQcounter.s0--;
+		else	Mapper.IRQcounter.s0++;
 		if (!Mapper.IRQcounter.s0)
 			EMU->SetIRQ(0);
 	}
