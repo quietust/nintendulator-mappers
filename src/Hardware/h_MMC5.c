@@ -31,6 +31,9 @@ static	const	unsigned char	AttribShift[128] =
 	4,4,6,6,4,4,6,6,4,4,6,6,4,4,6,6,4,4,6,6,4,4,6,6,4,4,6,6,4,4,6,6,4,4,6,6,4,4,6,6,4,4,6,6,4,4,6,6,4,4,6,6,4,4,6,6,4,4,6,6,4,4,6,6
 };
 
+static	BOOL	InSplitArea = FALSE;
+static	int	VScroll;
+
 static	void	MMC5_SetPPUHandlers (void);
 
 void	MMC5_Load (int WRAMsize)
@@ -143,11 +146,12 @@ int	_MAPINT	MMC5_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	SAVELOAD_WORD(mode,x,data,MMC5.LineCounter)
 	SAVELOAD_BYTE(mode,x,data,MMC5.SpriteMode)
 	SAVELOAD_BYTE(mode,x,data,MMC5.CHRhi)
+	SAVELOAD_BYTE(mode,x,data,MMC5.CHRmode)
 	x = MMC5sound_SaveLoad(mode,x,data);
 	if (mode == STATE_LOAD)
 	{
 		MMC5_SyncPRG();
-		MMC5_SyncCHRA();
+		MMC5_SyncCHR(-1);
 		MMC5_SyncMirror();
 		MMC5_SetPPUHandlers();
 	}
@@ -204,8 +208,6 @@ void	MMC5_SyncPRG (void)
 	}
 }
 
-int LastCHR = 0;
-
 void	MMC5_SyncCHRA (void)
 {
 	switch (MMC5.CHRsize)
@@ -226,7 +228,6 @@ void	MMC5_SyncCHRA (void)
 		EMU->SetCHR_ROM1(6,MMC5.CHR_A[6].s0);
 		EMU->SetCHR_ROM1(7,MMC5.CHR_A[7].s0);	break;
 	}
-	LastCHR = 0;
 }
 
 void	MMC5_SyncCHRB (void)
@@ -249,16 +250,26 @@ void	MMC5_SyncCHRB (void)
 		EMU->SetCHR_ROM1(6,MMC5.CHR_B[2].s0);
 		EMU->SetCHR_ROM1(7,MMC5.CHR_B[3].s0);	break;
 	}
-	LastCHR = 1;
 }
 
-void	MMC5_SyncCHR (void)
+void	MMC5_SyncCHR (int mode)
 {
-	if (LastCHR == 2)
-		return;	// it's either in MODE1 or the split area; don't touch the banks
-	else if (LastCHR == 1)
-		MMC5_SyncCHRB();
-	else	MMC5_SyncCHRA();
+	if ((MMC5.TileCache != 0x40) || (InSplitArea))
+		return;
+	if ((MMC5.SpriteMode) && (MMC5.IRQreads & 0x01))
+	{
+		switch (mode)
+		{
+		case 0:	MMC5_SyncCHRA();	break;
+		case 1:	MMC5_SyncCHRB();	break;
+		}
+	}
+	else
+	{
+		if (MMC5.CHRmode)
+			MMC5_SyncCHRB();
+		else	MMC5_SyncCHRA();
+	}
 }
 
 void	MMC5_SyncMirror (void)
@@ -292,7 +303,10 @@ void	_MAPINT	MMC5_WritePPU (int Bank, int Addr, int Val)
 	{
 	case 0:	MMC5.SpriteMode = (Val & 0x20);	break;
 	case 1:	if (!(Val & 0x18))
-			MMC5.LineCounter = -2;	break;
+		{
+			MMC5.LineCounter = -2;
+			MMC5.IRQreads &= 0x80;
+		}				break;
 	}
 }
 
@@ -306,8 +320,8 @@ int	_MAPINT	MMC5_CPURead5 (int Bank, int Addr)
 	case 0x200:
 		switch (Addr)
 		{
-		case 0x204:	read = MMC5.IRQreads;
-				MMC5.IRQreads &= 0x40;
+		case 0x204:	read = MMC5.IRQreads & 0xC0;
+				MMC5.IRQreads &= ~0x80;
 				EMU->SetIRQ(1);					break;
 		case 0x205:	read = ((MMC5.Mul1 * MMC5.Mul2) & 0x00FF) >> 0;	break;
 		case 0x206:	read = ((MMC5.Mul1 * MMC5.Mul2) & 0xFF00) >> 8;	break;
@@ -331,7 +345,7 @@ void	_MAPINT	MMC5_CPUWrite5 (int Bank, int Addr, int Val)
 		case 0x100:	MMC5.PRGsize = Val & 3;
 				MMC5_SyncPRG();		break;
 		case 0x101:	MMC5.CHRsize = Val & 3;
-				MMC5_SyncCHR();		break;
+				MMC5_SyncCHR(-1);	break;
 		case 0x102:	MMC5.WRAMprot[0] = Val & 3;
 							break;
 		case 0x103:	MMC5.WRAMprot[1] = Val & 3;
@@ -360,19 +374,15 @@ void	_MAPINT	MMC5_CPUWrite5 (int Bank, int Addr, int Val)
 		case 0x126:
 		case 0x127:	MMC5.CHR_A[Addr & 0x7].b0 = Val;
 				MMC5.CHR_A[Addr & 0x7].b1 = MMC5.CHRhi;
-				if (MMC5.SpriteMode)
-					MMC5_SyncCHR();
-				else if (LastCHR != 2)
-					MMC5_SyncCHRA();break;
+				MMC5.CHRmode = 0;
+				MMC5_SyncCHR(-1);	break;
 		case 0x128:
 		case 0x129:
 		case 0x12A:
 		case 0x12B:	MMC5.CHR_B[Addr & 0x3].b0 = Val;
 				MMC5.CHR_B[Addr & 0x3].b1 = MMC5.CHRhi;
-				if (MMC5.SpriteMode)
-					MMC5_SyncCHR();
-				else if (LastCHR != 2)
-					MMC5_SyncCHRB();break;
+				MMC5.CHRmode = 1;
+				MMC5_SyncCHR(-1);	break;
 		case 0x130:	MMC5.CHRhi = Val & 3;	break;
 		}		break;
 	case 0x200:
@@ -381,10 +391,17 @@ void	_MAPINT	MMC5_CPUWrite5 (int Bank, int Addr, int Val)
 		case 0x200:	MMC5.SplitMode = Val;
 				MMC5_SetPPUHandlers();	break;
 		case 0x201:	MMC5.SplitScroll = Val;	break;
-		case 0x202:	MMC5.SplitBank = Val;	break;
+		case 0x202:	MMC5.SplitBank = Val;
+				if (InSplitArea)
+				{
+					EMU->SetCHR_ROM4(0,MMC5.SplitBank);
+					EMU->SetCHR_ROM4(4,MMC5.SplitBank);
+				}			break;
 		case 0x203:	MMC5.IRQline = Val;	break;
 		case 0x204:	MMC5.IRQenabled = Val & 0x80;
-							break;
+				if (MMC5.IRQenabled & MMC5.IRQreads & 0x80)
+					EMU->SetIRQ(0);
+				else	EMU->SetIRQ(1);	break;
 		case 0x205:	MMC5.Mul1 = Val;	break;
 		case 0x206:	MMC5.Mul2 = Val;	break;
 		}		break;
@@ -402,9 +419,6 @@ void	_MAPINT	MMC5_CPUWrite6F (int Bank, int Addr, int Val)
 	if ((MMC5.WRAMprot[0] == 2) && (MMC5.WRAMprot[1] == 1))
 		MMC5.CPUWrite6F(Bank,Addr,Val);
 }
-
-static	BOOL	InSplitArea = FALSE;
-static	int	VScroll;
 
 #ifdef	MMC5_EXTENDED_VSPLIT
 int	_MAPINT	MMC5_PPUReadPT (int Bank, int Addr)
@@ -444,7 +458,6 @@ int	_MAPINT	MMC5_PPUReadNTSplitExt (int Bank, int Addr)
 				MMC5.TileCache = MMC5.ExRAM[extile] & 0x3F;
 				EMU->SetCHR_ROM4(0,MMC5.TileCache);
 				EMU->SetCHR_ROM4(4,MMC5.TileCache);
-				LastCHR = 2;
 			}
 			return AttribBits[MMC5.ExRAM[extile] >> 6];	// custom attribute data
 		}
@@ -478,7 +491,6 @@ int	_MAPINT	MMC5_PPUReadNTExt (int Bank, int Addr)
 			MMC5.TileCache = MMC5.ExRAM[extile] & 0x3F;
 			EMU->SetCHR_ROM4(0,MMC5.TileCache);
 			EMU->SetCHR_ROM4(4,MMC5.TileCache);
-			LastCHR = 2;
 		}
 		return MMC5.PPURead[Bank](Bank,Addr);		// normal nametable data
 	}
@@ -527,16 +539,26 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 		return;
 	if (Cycle == 0)
 	{
+		if (Scanline == -1)
+			MMC5.IRQreads |= 0x01;
+		if (Scanline == 0)
+		{
+			MMC5.IRQreads &= ~0x80;
+			EMU->SetIRQ(1);
+		}
+		if (Scanline == 1)
+			MMC5.IRQreads |= 0x40;
 		MMC5.LineCounter++;
-		if (MMC5.LineCounter == 240)
-			MMC5.IRQreads &= ~0x40;
 		if ((MMC5.IRQline) && (MMC5.LineCounter == MMC5.IRQline))
 			MMC5.IRQreads |= 0x80;
-		if ((MMC5.IRQreads & 0x80) && (MMC5.IRQenabled & 0x80))
+		if (MMC5.IRQenabled & MMC5.IRQreads & 0x80)
 			EMU->SetIRQ(0);
 	}
-	if ((Cycle == 256) && ((MMC5.SpriteMode) || (MMC5.GfxMode == 1)))
-		MMC5_SyncCHRA();
+	if (Cycle == 256)
+	{
+		MMC5.TileCache = 0x40;
+		MMC5_SyncCHR(0);
+	}
 	else if (Cycle == 320)
 	{
 		MMC5.TileCache = 0x40;
@@ -547,15 +569,13 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 			VScroll++;
 		if (VScroll >= 240)
 			VScroll -= 240;
-		if ((MMC5.SpriteMode) && (MMC5.GfxMode != 1))
-			MMC5_SyncCHRB();
+		MMC5_SyncCHR(1);
 	}
 	else if ((Scanline == 239) && (Cycle == 338))
 	{
-		MMC5.CurTile = 0;
 		MMC5.LineCounter = -2;
-		MMC5.IRQreads = 0x40;
-		MMC5_SyncCHRA();
+		MMC5.IRQreads &= 0x80;
+		MMC5_SyncCHR(-1);
 	}
 	if ((!(Cycle & 7)) && (Cycle < 336))
 	{
@@ -571,10 +591,12 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 					InSplitArea = TRUE;
 					EMU->SetCHR_ROM4(0,MMC5.SplitBank);
 					EMU->SetCHR_ROM4(4,MMC5.SplitBank);
-					LastCHR = 2;
 				}
 				else if (MMC5.CurTile == 34)
+				{
 					InSplitArea = FALSE;
+					MMC5_SyncCHR(0);
+				}
 			}
 			else
 			{
@@ -583,16 +605,13 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 					InSplitArea = TRUE;
 					EMU->SetCHR_ROM4(0,MMC5.SplitBank);
 					EMU->SetCHR_ROM4(4,MMC5.SplitBank);
-					LastCHR = 2;
 				}
 				else if (MMC5.CurTile == (MMC5.SplitMode & 0x1F))
 				{
 					InSplitArea = FALSE;
 					if (MMC5.GfxMode == 1)
 						MMC5.TileCache = 0x40;
-					else if (MMC5.SpriteMode)
-						MMC5_SyncCHRB();
-					else	MMC5_SyncCHRA();
+					else	MMC5_SyncCHR(1);
 				}
 			}
 		}
