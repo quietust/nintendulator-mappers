@@ -1,5 +1,5 @@
-#ifndef	__SND_FDS_H__
-#define	__SND_FDS_H__
+#ifndef	S_FDS_H
+#define	S_FDS_H
 
 void	FDSsound_Init (void);
 int	FDSsound_Read (int);
@@ -8,4 +8,4 @@ int	_MAPINT	FDSsound_Get (int);
 int	_MAPINT	FDSsound_SaveLoad (int,int,char *);
 void	FDSsound_Destroy (void);
 
-#endif	/* __SND_FDS_H__ */
+#endif	/* S_FDS_H */

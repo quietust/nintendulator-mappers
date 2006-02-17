@@ -1,5 +1,5 @@
-#ifndef	__MMC4_H__
-#define	__MMC4_H__
+#ifndef	H_MMC4_H
+#define	H_MMC4_H
 
 #include	"..\interface.h"
 
@@ -29,4 +29,4 @@ void	_MAPINT	MMC4_CPUWriteF	(int,int,int);
 int	_MAPINT	MMC4_PPURead3	(int,int);
 int	_MAPINT	MMC4_PPURead7	(int,int);
 
-#endif	/* __MMC4_H__ */
+#endif	/* H_MMC4_H */

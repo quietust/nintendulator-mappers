@@ -1,5 +1,5 @@
-#ifndef	__FME7_H__
-#define	__FME7_H__
+#ifndef	H_FME7_H
+#define	H_FME7_H
 
 #include	"..\interface.h"
 
@@ -25,4 +25,4 @@ void	_MAPINT	FME7_WriteCDEF		(int,int,int);
 void	_MAPINT	FME7_CPUCycle		(void);
 int	_MAPINT	FME7_GenSound		(int);
 
-#endif	/* __FME7_H__ */
+#endif	/* H_FME7_H */

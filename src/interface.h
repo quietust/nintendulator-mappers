@@ -8,8 +8,8 @@
 
 /* So this file only gets included once */
 
-#ifndef	__INTERFACE_H__
-#define	__INTERFACE_H__
+#ifndef	INTERFACE_H
+#define	INTERFACE_H
 
 /* Standard header files, used by all mappers */
 
@@ -292,4 +292,4 @@ extern	HINSTANCE		hInstance;
 extern	CPEmulatorInterface	EMU;
 extern	CPROMInfo		ROM;
 
-#endif	/* __INTERFACE_H__ */
+#endif	/* INTERFACE_H */

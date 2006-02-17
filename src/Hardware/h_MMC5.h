@@ -1,5 +1,5 @@
-#ifndef	__MMC5_H__
-#define	__MMC5_H__
+#ifndef	H_MMC5_H
+#define	H_MMC5_H
 
 #include	"..\interface.h"
 
@@ -51,4 +51,4 @@ void	_MAPINT	MMC5_CPUWrite6F	(int,int,int);
 void	_MAPINT	MMC5_PPUCycle	(int,int,int,int);
 int	_MAPINT	MMC5_MapperSnd	(int);
 
-#endif	/* __MMC5_H__ */
+#endif	/* H_MMC5_H */

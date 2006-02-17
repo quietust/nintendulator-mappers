@@ -1,5 +1,5 @@
-#ifndef __LATCH_H__
-#define	__LATCH_H__
+#ifndef H_LATCH_H
+#define	H_LATCH_H
 
 #include	"..\interface.h"
 
@@ -23,4 +23,4 @@ int	_MAPINT	Latch_SaveLoad_A	(int,int,char *);
 int	_MAPINT	Latch_SaveLoad_D	(int,int,char *);
 void	_MAPINT	Latch_Write		(int,int,int);
 
-#endif	/* __LATCH_H__ */
+#endif	/* H_LATCH_H */

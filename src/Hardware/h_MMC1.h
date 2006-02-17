@@ -1,5 +1,5 @@
-#ifndef	__MMC1_H__
-#define	__MMC1_H__
+#ifndef	H_MMC1_H
+#define	H_MMC1_H
 
 #include	"..\interface.h"
 
@@ -29,4 +29,4 @@ void		MMC1_SyncCHR_ROM	(int,int);
 void		MMC1_SyncCHR_RAM	(int,int);
 void		MMC1_SyncWRAM		(void);
 
-#endif	/* __MMC1_H__ */
+#endif	/* H_MMC1_H */

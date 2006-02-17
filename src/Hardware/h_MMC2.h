@@ -1,5 +1,5 @@
-#ifndef	__MMC2_H__
-#define	__MMC2_H__
+#ifndef	H_MMC2_H
+#define	H_MMC2_H
 
 #include	"..\interface.h"
 
@@ -29,4 +29,4 @@ void	_MAPINT	MMC2_CPUWriteF	(int,int,int);
 int	_MAPINT	MMC2_PPURead3	(int,int);
 int	_MAPINT	MMC2_PPURead7	(int,int);
 
-#endif	/* __MMC2_H__ */
+#endif	/* H_MMC2_H */

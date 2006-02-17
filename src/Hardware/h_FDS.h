@@ -1,5 +1,5 @@
-#ifndef	__FDS_H__
-#define	__FDS_H__
+#ifndef	H_FDS_H
+#define	H_FDS_H
 
 #include	"..\interface.h"
 
@@ -31,4 +31,4 @@ int		_MAPINT	FDS_Read	(int,int);
 void		_MAPINT	FDS_Write	(int,int,int);
 void			FDS_Destroy	(void);
 
-#endif	/* __FDS_H__ */
+#endif	/* H_FDS_H */

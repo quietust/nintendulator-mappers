@@ -1,5 +1,5 @@
-#ifndef	__MMC6_H__
-#define	__MMC6_H__
+#ifndef	H_MMC6_H
+#define	H_MMC6_H
 
 #include	"..\interface.h"
 
@@ -34,4 +34,4 @@ void	_MAPINT	MMC6_CPUWriteCD	(int,int,int);
 void	_MAPINT	MMC6_CPUWriteEF	(int,int,int);
 void	_MAPINT	MMC6_PPUCycle	(int,int,int,int);
 
-#endif	/* __MMC6_H__ */
+#endif	/* H_MMC6_H */

@@ -1,5 +1,5 @@
-#ifndef	__MMC3_H__
-#define	__MMC3_H__
+#ifndef	H_MMC3_H
+#define	H_MMC3_H
 
 #include	"..\interface.h"
 
@@ -33,4 +33,4 @@ void	_MAPINT	MMC3_CPUWriteCD	(int,int,int);
 void	_MAPINT	MMC3_CPUWriteEF	(int,int,int);
 void	_MAPINT	MMC3_PPUCycle	(int,int,int,int);
 
-#endif	/* __MMC3_H__ */
+#endif	/* H_MMC3_H */
