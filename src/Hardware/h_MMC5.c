@@ -253,7 +253,7 @@ void	MMC5_SyncCHRB (void)
 void	MMC5_SyncCHR (void)
 {
 	if (LastCHR == 2)
-		return;
+		return;	// it's either in MODE1 or the split area; don't touch the banks
 	else if (LastCHR == 1)
 		MMC5_SyncCHRB();
 	else	MMC5_SyncCHRA();
@@ -372,7 +372,7 @@ void	_MAPINT	MMC5_CPUWrite5 (int Bank, int Addr, int Val)
 		{
 		case 0x200:	MMC5.SplitMode = Val;
 				MMC5_SetPPUHandlers();	break;
-		case 0x201:	MMC5.SplitScroll = Val;break;
+		case 0x201:	MMC5.SplitScroll = Val;	break;
 		case 0x202:	MMC5.SplitBank = Val;	break;
 		case 0x203:	MMC5.IRQline = Val;	break;
 		case 0x204:	MMC5.IRQenabled = Val & 0x80;
@@ -522,7 +522,7 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 		MMC5.LineCounter++;
 		if (MMC5.LineCounter == 240)
 			MMC5.IRQreads &= ~0x40;
-		if (MMC5.LineCounter == MMC5.IRQline)
+		if ((MMC5.IRQline) && (MMC5.LineCounter == MMC5.IRQline))
 			MMC5.IRQreads |= 0x80;
 		if ((MMC5.IRQreads & 0x80) && (MMC5.IRQenabled & 0x80))
 			EMU->SetIRQ(0);
@@ -539,7 +539,7 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 			VScroll++;
 		if (VScroll >= 240)
 			VScroll -= 240;
-		if ((MMC5.SpriteMode) || (MMC5.GfxMode == 1))
+		if ((MMC5.SpriteMode) && (MMC5.GfxMode != 1))
 			MMC5_SyncCHRB();
 	}
 	else if ((Scanline == 239) && (Cycle == 338))
@@ -550,44 +550,46 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 		MMC5_SyncCHRA();
 	}
 	if ((!(Cycle & 7)) && (Cycle < 336))
-		MMC5.CurTile++;
-	if (MMC5.SplitMode & 0x80)
 	{
-		if (MMC5.SplitMode & 0x40)
+		MMC5.CurTile++;
+		if (MMC5.SplitMode & 0x80)
 		{
-			if (MMC5.CurTile == 0)
-				InSplitArea = FALSE;
-			else if (MMC5.CurTile == (MMC5.SplitMode & 0x1F))
+			if (MMC5.SplitMode & 0x40)
 			{
-				InSplitArea = TRUE;
-				EMU->SetCHR_ROM4(0,MMC5.SplitBank);
-				EMU->SetCHR_ROM4(4,MMC5.SplitBank);
-				LastCHR = 2;
+				if (MMC5.CurTile == 0)
+					InSplitArea = FALSE;
+				else if (MMC5.CurTile == (MMC5.SplitMode & 0x1F))
+				{
+					InSplitArea = TRUE;
+					EMU->SetCHR_ROM4(0,MMC5.SplitBank);
+					EMU->SetCHR_ROM4(4,MMC5.SplitBank);
+					LastCHR = 2;
+				}
+				else if (MMC5.CurTile == 34)
+					InSplitArea = FALSE;
 			}
-			else if (MMC5.CurTile == 34)
-				InSplitArea = FALSE;
+			else
+			{
+				if (MMC5.CurTile == 0)
+				{
+					InSplitArea = TRUE;
+					EMU->SetCHR_ROM4(0,MMC5.SplitBank);
+					EMU->SetCHR_ROM4(4,MMC5.SplitBank);
+					LastCHR = 2;
+				}
+				else if (MMC5.CurTile == (MMC5.SplitMode & 0x1F))
+				{
+					InSplitArea = FALSE;
+					if (MMC5.GfxMode == 1)
+						MMC5.TileCache = 0x40;
+					else if (MMC5.SpriteMode)
+						MMC5_SyncCHRB();
+					else	MMC5_SyncCHRA();
+				}
+			}
 		}
-		else
-		{
-			if (MMC5.CurTile == 0)
-			{
-				InSplitArea = TRUE;
-				EMU->SetCHR_ROM4(0,MMC5.SplitBank);
-				EMU->SetCHR_ROM4(4,MMC5.SplitBank);
-				LastCHR = 2;
-			}
-			else if (MMC5.CurTile == (MMC5.SplitMode & 0x1F))
-			{
-				InSplitArea = FALSE;
-				if (MMC5.GfxMode == 1)
-					MMC5.TileCache = 0x40;
-				else if (MMC5.SpriteMode)
-					MMC5_SyncCHRB();
-				else	MMC5_SyncCHRA();
-			}
-		}
+		else	InSplitArea = FALSE;
 	}
-	else	InSplitArea = FALSE;
 }
 
 int	_MAPINT	MMC5_MapperSnd (int Cycles)
