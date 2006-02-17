@@ -22,13 +22,13 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write9 (int Bank, int Where, int What)
+static	void	_MAPINT	Write89 (int Bank, int Where, int What)
 {
 	Mapper.WhichGame = (What & 0x18) >> 1;
 	Sync();
 }
 
-static	void	_MAPINT	WriteABCDEF (int Bank, int Where, int What)
+static	void	_MAPINT	Write67ABCDEF (int Bank, int Where, int What)
 {
 	Mapper.WhichBank = What & 3;
 	Sync();
@@ -43,7 +43,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 {
 	iNES_InitROM();
 
-	EMU->SetCPUWriteHandler(0x9,Write9);
+	EMU->SetCPUWriteHandler(0x6,WriteABCDEF);
+	EMU->SetCPUWriteHandler(0x7,WriteABCDEF);
+	EMU->SetCPUWriteHandler(0x8,Write89);
+	EMU->SetCPUWriteHandler(0x9,Write89);
 	EMU->SetCPUWriteHandler(0xA,WriteABCDEF);
 	EMU->SetCPUWriteHandler(0xB,WriteABCDEF);
 	EMU->SetCPUWriteHandler(0xC,WriteABCDEF);
