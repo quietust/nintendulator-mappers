@@ -222,7 +222,7 @@ static	u8 MapperNum = 116;
 CTMapperInfo	MapperInfo_116 =
 {
 	&MapperNum,
-	_T("AV Beauty Fighting (combination MMC1+MMC3+VRC2)"),
+	_T("AV Girl Fighting (combination MMC1+MMC3+VRC2)"),
 	COMPAT_PARTIAL,
 	Load,
 	Reset,
