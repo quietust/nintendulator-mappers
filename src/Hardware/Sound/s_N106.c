@@ -119,7 +119,7 @@ int	_MAPINT	N106sound_Get (int Cycles)
 	int i;
 	for (i = 8 - N106sound.chans; i < 8; i++)
 		out += N106_GenerateWave(&N106sound.Ch[i],Cycles);
-	return out << 6;
+	return out << 5;
 }
 
 int	_MAPINT	N106sound_SaveLoad (int mode, int x, char *data)
