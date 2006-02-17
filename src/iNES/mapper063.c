@@ -12,7 +12,7 @@ static	void	Sync (void)
 			unsigned PRG16   : 1;
 			unsigned PRGbank : 7;
 			unsigned         : 1;
-			unsigned PRGsizeH: 1;
+			unsigned PRGhigh : 1;
 			unsigned         : 4;
 		};
 		u16 addr;
@@ -32,6 +32,8 @@ static	void	Sync (void)
 		EMU->SetPRG_ROM16(0x8,(M.PRGbank << 1) | M.PRG16);
 		EMU->SetPRG_ROM16(0xC,(M.PRGbank << 1) | M.PRG16);
 	}
+	if (M.PRGhigh)
+		EMU->SetPRG_ROM8(0xE,((M.PRGbank & 0x1F) << 2) | ((M.PRGsizeL ? 1 : M.PRG16) << 1) | 1);
 	if (M.Mir_HV)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
