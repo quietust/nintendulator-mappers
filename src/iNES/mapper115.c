@@ -9,10 +9,10 @@ static	struct
 static	void	Sync (void)
 {
 	MMC3_SyncMirror();
-	if (Mapper.Reg & 1)
-		MMC3_SyncPRG(0xF,(Mapper.Reg & 0xC0) >> 2);
-	else	EMU->SetPRG_ROM32(0x8,(Mapper.Reg & 0x30) >> 4);
-	MMC3_SyncCHR_ROM(0x7F,(Mapper.Reg & 0xC0) << 1);
+	MMC3_SyncPRG(0x3F,0);
+	if (Mapper.Reg & 0x80)
+		EMU->SetPRG_ROM16(0x8,Mapper.Reg & 0xF);
+	MMC3_SyncCHR_ROM(0xFF,(Mapper.Reg & 0x01) << 8);
 }
 
 static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
@@ -47,12 +47,12 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	MMC3_Init(Sync);
 }
 
-static	u8 MapperNum = 49;
-CTMapperInfo	MapperInfo_049 =
+static	u8 MapperNum = 115;
+CTMapperInfo	MapperInfo_115 =
 {
 	&MapperNum,
-	"1993 Super HiK 4-in-1 (MMC3)",
-	COMPAT_FULL,
+	"Mapper 115",
+	COMPAT_NEARLY,
 	Reset,
 	Shutdown,
 	NULL,
