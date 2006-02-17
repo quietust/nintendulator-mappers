@@ -77,10 +77,6 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Load (void)
-{
-	iNES_SetSRAM();
-}
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
@@ -108,7 +104,7 @@ CTMapperInfo	MapperInfo_127 =
 	&MapperNum,
 	"Double Dragon pirate",
 	COMPAT_FULL,
-	Load,
+	NULL,
 	Reset,
 	NULL,
 	CPUCycle,

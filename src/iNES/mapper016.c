@@ -10,6 +10,7 @@ static	struct
 static	void	Sync (void)
 {
 	u8 x;
+	EMU->SetPRG_RAM8(0x6,0);
 	EMU->SetPRG_ROM16(0x8,Mapper.PRG);
 	EMU->SetPRG_ROM16(0xC,-1);
 	for (x = 0; x < 8; x++)
@@ -112,11 +113,18 @@ static	void	_MAPINT	Load (void)
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-
-	for (x = 0x6; x < 0x8; x++)
-		EMU->SetCPUReadHandler(x,Read);
-	for (x = 0x6; x < 0x10; x++)
-		EMU->SetCPUWriteHandler(x,Write);
+	if (ROM->INES_Flags & 0x02)
+	{
+		for (x = 0x8; x < 0x10; x++)
+			EMU->SetCPUWriteHandler(x,Write);
+	}
+	else
+	{
+		for (x = 0x6; x < 0x8; x++)
+			EMU->SetCPUReadHandler(x,Read);
+		for (x = 0x6; x < 0x10; x++)
+			EMU->SetCPUWriteHandler(x,Write);
+	}
 
 	if (ResetType == RESET_HARD)
 	{

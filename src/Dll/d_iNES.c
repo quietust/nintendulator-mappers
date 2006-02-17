@@ -13,10 +13,7 @@ void	iNES_SetMirroring (void)
 void	iNES_SetSRAM (void)
 {
 	if (ROM->INES_Flags & 0x02)
-	{
 		EMU->Set_SRAMSize(8192);
-		EMU->SetPRG_RAM8(0x6,0);
-	}
 }
 
 HWND			hWnd;

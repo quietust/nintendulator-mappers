@@ -8,6 +8,7 @@ static	struct
 
 static	void	Sync (void)
 {
+	EMU->SetPRG_RAM8(0x6,0);
 	EMU->SetPRG_ROM8(0x8,Mapper.PRG[0]);
 	EMU->SetPRG_ROM8(0xA,Mapper.PRG[1]);
 	EMU->SetPRG_ROM8(0xC,Mapper.PRG[2]);
@@ -38,6 +39,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
+	EMU->GetCPUWriteHandler(0x6)(Bank,Addr,Val);
 	switch (Addr)
 	{
 	case 0xEF0:	Mapper.CHR[0] = Val >> 1;	break;

@@ -14,6 +14,7 @@ static	u16 IRQmask;
 static	void	Sync (void)
 {
 	u8 x;
+	EMU->SetPRG_RAM8(0x6,0);
 	for (x = 0; x < 3; x++)
 		EMU->SetPRG_ROM8(8 | (x << 1),Mapper.PRG[x].b0);
 
