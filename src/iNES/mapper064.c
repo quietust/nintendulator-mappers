@@ -31,10 +31,10 @@ static	void	Sync (void)
 	}
 	EMU->SetPRG_ROM8(0xE,-1);
 
+	for (x = 0; x < 4; x += 2)
+		EMU->SetCHR_ROM2(SwCHR ^ x,Mapper.CHR[x] >> 1);
 	for (x = 4; x < 8; x++)
 		EMU->SetCHR_ROM1(SwCHR ^ x,Mapper.CHR[x]);
-	for (x = 0; x < 4; x++)
-		EMU->SetCHR_ROM2(SwCHR ^ x,Mapper.CHR[x] >> 1);
 	if (Mapper.Cmd & 0x20)
 		for (x = 0; x < 8; x++)
 			EMU->SetCHR_ROM1(SwCHR ^ x,Mapper.CHR[x]);
