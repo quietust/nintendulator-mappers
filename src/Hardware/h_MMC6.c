@@ -174,7 +174,7 @@ void	_MAPINT	MMC6_CPUWriteEF (int Bank, int Where, int What)
 	if (!MMC6.IRQenabled)
 		EMU->SetIRQ(1);
 }
-int lastAddr = 0;
+static int lastAddr = 0;
 void	_MAPINT	MMC6_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
 	if (Addr & 0x2000)
