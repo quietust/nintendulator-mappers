@@ -271,6 +271,8 @@ int	_MAPINT	MMC5_CPURead5 (int Bank, int Where)
 	register u8 read = -1;
 	switch (Where & 0xF00)
 	{
+	case 0x000:
+		read = MMC5sound_Read((Bank << 12) | Where);		break;
 	case 0x200:
 		switch (Where)
 		{

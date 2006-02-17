@@ -171,6 +171,17 @@ void	MMC5sound_Write (int Addr, int Val)
 	}
 }
 
+int	MMC5sound_Read (int Addr)
+{
+	int read = -1;
+	switch (Addr)
+	{
+	case 0x5010:	read = MMC5sound.PCM;	break;
+	case 0x5015:	read = ((MMC5sound.Sqr0.Timer) ? 1 : 0) | ((MMC5sound.Sqr1.Timer) ? 2 : 0);	break;
+	}
+	return read;
+}
+
 int	_MAPINT	MMC5sound_Get (int Cycles)
 {
 	int z = 0;
