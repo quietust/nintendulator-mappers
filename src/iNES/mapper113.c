@@ -2,20 +2,19 @@
 
 static	struct
 {
-	u8 PRG, CHR;
+	u8 Reg;
 	FCPUWrite Write4;
 }	Mapper;
 
 static	void	Sync (void)
 {
-	EMU->SetPRG_ROM32(0x8,Mapper.PRG);
-	EMU->SetCHR_ROM8(0,Mapper.CHR);
+	EMU->SetPRG_ROM32(0x8,(Mapper.Reg & 0x38) >> 3);
+	EMU->SetCHR_ROM8(0,(Mapper.Reg & 0x7) | ((Mapper.Reg & 0x40) >> 3));
 }
 
 static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.PRG)
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHR)
+	SAVELOAD_BYTE(mode,x,data,Mapper.Reg)
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
@@ -23,19 +22,12 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
-	u16 Loc = (Bank << 12) | Addr;
-	if (Loc < 0x4018)
-	{
+	if (Bank == 4)
 		Mapper.Write4(Bank,Addr,Val);
-		return;
-	}
-	switch (Loc)
+	if ((Addr & 0x120) == 0x120)
 	{
-	case 0x4120:
-		Mapper.PRG = (Val & 0x38) >> 3;
-		Mapper.CHR = (Val & 0xC0) >> 3 | (Val & 0x07);
+		Mapper.Reg = Val;
 		Sync();
-		break;
 	}
 }
 
@@ -49,8 +41,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	for (x = 0x4; x < 0x8; x++)
 		EMU->SetCPUWriteHandler(x,Write);
 
-	Mapper.PRG = 0;
-	Mapper.CHR = 0;
+	Mapper.Reg = 0;
 
 	Sync();
 }
