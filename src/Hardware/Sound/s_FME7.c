@@ -164,7 +164,7 @@ int	_MAPINT	FME07sound_Get (int Cycles)
 #ifdef	FME07_NOISE
 	if (FME07sound.noise ^ 0x7)	z += FME07_DoNoise(&FME07sound.Noise,Cycles);
 #endif
-	return z << 5;
+	return z << 6;
 }
 
 int	_MAPINT	FME07sound_SaveLoad (int mode, int x, char *data)

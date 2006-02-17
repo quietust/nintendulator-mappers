@@ -1437,7 +1437,7 @@ void	VRC7sound_Write (int Where, int What)
 
 int	_MAPINT	VRC7sound_Get (int numCycles)
 {
-	return OPLL_calc(OPL) << 2;	// currently don't use numCycles
+	return OPLL_calc(OPL) << 3;	// currently don't use numCycles
 }
 
 int	_MAPINT	VRC7sound_SaveLoad (int mode, int x, char *data)

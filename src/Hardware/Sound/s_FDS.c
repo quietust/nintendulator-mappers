@@ -293,7 +293,7 @@ void	FDSsound_Write (int Where, int What)
 
 int	_MAPINT	FDSsound_Get (int numCycles)
 {
-	return FDSSoundRender() >> 10;	// current code does not run per-cycle
+	return FDSSoundRender() >> 9;	// current code does not run per-cycle
 }
 
 int	_MAPINT	FDSsound_SaveLoad (int mode, int x, char *data)

@@ -66,7 +66,7 @@ static	int	VRC6_GenerateSaw (struct VRC6saw *ChanData, int Cycles)
 			ChanData->CurP += ChanData->volume;
 		ChanData->LCtr += ChanData->freq + 1;
 	}
-	return (ChanData->CurP >> 3) << 1;
+	return ((ChanData->CurP >> 3) - 0x10) << 1;
 }
 
 static	int	VRC6_GenerateSquare (struct VRC6sqr *ChanData, int Cycles)
@@ -111,7 +111,7 @@ int	_MAPINT	VRC6sound_Get (int Cycles)
 	if (VRC6sound.Sq0.enabled)	z += VRC6_GenerateSquare(&VRC6sound.Sq0,Cycles);
 	if (VRC6sound.Sq1.enabled)	z += VRC6_GenerateSquare(&VRC6sound.Sq1,Cycles);
 	if (VRC6sound.Saw.enabled)	z += VRC6_GenerateSaw(&VRC6sound.Saw,Cycles);
-	return z << 7;
+	return z << 8;
 }
 
 int	_MAPINT	VRC6sound_SaveLoad (int mode, int x, char *data)

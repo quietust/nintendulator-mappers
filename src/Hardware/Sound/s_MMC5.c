@@ -133,7 +133,7 @@ int	_MAPINT	MMC5sound_Get (int Cycles)
 	if (MMC5sound.Sqr0.Enabled)	z += MMC5_GenerateSquare(&MMC5sound.Sqr0,Cycles);
 	if (MMC5sound.Sqr1.Enabled)	z += MMC5_GenerateSquare(&MMC5sound.Sqr1,Cycles);
 	z += MMC5sound.PCM;
-	return z << 5;
+	return z << 6;
 }
 
 int	_MAPINT	MMC5sound_SaveLoad (int mode, int x, char *data)
