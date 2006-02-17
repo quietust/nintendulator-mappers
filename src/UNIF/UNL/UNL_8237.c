@@ -97,7 +97,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_UNL_8237 =
 {
 	"UNL-8237",
-	"?",
+	_T("?"),
 	COMPAT_NEARLY,
 	Load,
 	Reset,

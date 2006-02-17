@@ -24,7 +24,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_NES_MHROM =
 {
 	"NES-MHROM",
-	"Super Mario Bros/Duck Hunt",
+	_T("Super Mario Bros/Duck Hunt"),
 	COMPAT_FULL,
 	Load_MHROM,
 	Reset,

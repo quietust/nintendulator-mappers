@@ -24,7 +24,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_NES_PNROM =
 {
 	"NES-PNROM",
-	"MMC2",
+	_T("MMC2"),
 	COMPAT_FULL,
 	Load_PNROM,
 	Reset,

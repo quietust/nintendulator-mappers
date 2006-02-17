@@ -86,7 +86,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;NSF_EXPORTS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;NSF_EXPORTS;UNICODE;_UNICODE"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -152,7 +152,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
-							PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;NSF_EXPORTS;$(NoInherit)"
+							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
 							BrowseInformation="1"/>
 					</FileConfiguration>
@@ -161,7 +161,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;NSF_EXPORTS;$(NoInherit)"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
@@ -172,7 +172,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
-							PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;NSF_EXPORTS;$(NoInherit)"
+							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
 							BrowseInformation="1"/>
 					</FileConfiguration>
@@ -181,7 +181,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;NSF_EXPORTS;$(NoInherit)"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
@@ -192,7 +192,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
-							PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;NSF_EXPORTS;$(NoInherit)"
+							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
 							BrowseInformation="1"/>
 					</FileConfiguration>
@@ -201,7 +201,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;NSF_EXPORTS;$(NoInherit)"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
@@ -212,7 +212,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
-							PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;NSF_EXPORTS;$(NoInherit)"
+							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
 							BrowseInformation="1"/>
 					</FileConfiguration>
@@ -221,7 +221,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;NSF_EXPORTS;$(NoInherit)"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
@@ -232,7 +232,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
-							PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;NSF_EXPORTS;$(NoInherit)"
+							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
 							BrowseInformation="1"/>
 					</FileConfiguration>
@@ -241,7 +241,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;NSF_EXPORTS;$(NoInherit)"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
@@ -252,7 +252,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
-							PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;NSF_EXPORTS;$(NoInherit)"
+							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
 							BrowseInformation="1"/>
 					</FileConfiguration>
@@ -261,7 +261,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;NSF_EXPORTS;$(NoInherit)"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
@@ -276,7 +276,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
-							PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;NSF_EXPORTS;$(NoInherit)"
+							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
 							BrowseInformation="1"/>
 					</FileConfiguration>
@@ -285,7 +285,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;NSF_EXPORTS;$(NoInherit)"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
@@ -300,7 +300,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
-							PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;NSF_EXPORTS;$(NoInherit)"
+							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
 							BrowseInformation="1"/>
 					</FileConfiguration>
@@ -309,7 +309,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;NSF_EXPORTS;$(NoInherit)"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>

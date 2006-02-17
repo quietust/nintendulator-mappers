@@ -179,7 +179,7 @@ static	CPMapperInfo	_MAPINT	LoadMapper (CPROMInfo _ROM)
 
 static	TDLLInfo	DLL_Info =
 {
-	"Quietust <quietust@ircN.org>",
+	_T("Quietust <quietust@ircN.org>"),
 	0x20050314,
 	0x00040000,
 	LoadMapper,
@@ -198,7 +198,7 @@ __declspec(dllexport)	PDLLInfo	_MAPINT	LoadMapperDLL (HWND hWndEmu, CPEmulatorIn
 	EMU = _EMU;
 	if (VersionRequired != CurrentMapperInterface)
 	{
-		MessageBox(hWnd,"Mapper interface incompatible!","UNIF.DLL",MSGBOX_FLAGS);
+		MessageBox(hWnd,_T("Mapper interface incompatible!"),_T("UNIF.DLL"),MSGBOX_FLAGS);
 		UnloadMapperDLL();
 		return NULL;
 	}

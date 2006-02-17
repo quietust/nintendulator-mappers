@@ -37,7 +37,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_NES_CNROM =
 {
 	"NES-CNROM",
-	"Standard 8KB CHR switch",
+	_T("Standard 8KB CHR switch"),
 	COMPAT_FULL,
 	Load_CNROM,
 	Reset,
@@ -51,7 +51,7 @@ CTMapperInfo	MapperInfo_NES_CNROM =
 CTMapperInfo	MapperInfo_NES_CPROM =
 {
 	"NES-CPROM",
-	"4KB CHR RAM switch",
+	_T("4KB CHR RAM switch"),
 	COMPAT_FULL,
 	Load_CPROM,
 	Reset,

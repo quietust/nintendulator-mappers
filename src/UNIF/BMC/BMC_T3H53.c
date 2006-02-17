@@ -83,7 +83,7 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 		{
 			Mapper.Jumper = data & 0x03;
 			Sync();
-			MessageBox(hWnd,"Please perform a SOFT RESET for this to take effect!","UNIF.DLL",MB_OK);
+			MessageBox(hWnd,_T("Please perform a SOFT RESET for this to take effect!"),_T("UNIF.DLL"),MB_OK);
 		}
 		Mapper.ConfigCmd = 0;
 		break;
@@ -114,7 +114,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_BMC_T3H53 =
 {
 	"BMC-T3H53",
-	"Pirate multicart mapper with dipswitches",
+	_T("Pirate multicart mapper with dipswitches"),
 	COMPAT_FULL,
 	Load,
 	Reset,

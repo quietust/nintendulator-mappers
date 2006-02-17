@@ -38,7 +38,7 @@ static	void	_MAPINT	Reset_NROM_256 (RESET_TYPE ResetType)
 CTMapperInfo	MapperInfo_NES_NROM_128 =
 {
 	"NES-NROM-128",
-	"No mapper",
+	_T("No mapper"),
 	COMPAT_FULL,
 	NULL,
 	Reset_NROM_128,
@@ -52,7 +52,7 @@ CTMapperInfo	MapperInfo_NES_NROM_128 =
 CTMapperInfo	MapperInfo_NES_RROM_128 =
 {
 	"NES-RROM-128",
-	"No mapper",
+	_T("No mapper"),
 	COMPAT_FULL,
 	NULL,
 	Reset_RROM_128,
@@ -66,7 +66,7 @@ CTMapperInfo	MapperInfo_NES_RROM_128 =
 CTMapperInfo	MapperInfo_NES_NROM_256 =
 {
 	"NES-NROM-256",
-	"No mapper",
+	_T("No mapper"),
 	COMPAT_FULL,
 	NULL,
 	Reset_NROM_256,

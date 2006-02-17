@@ -56,7 +56,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_BMC_Super700in1 =
 {
 	"BMC-Super700in1",
-	"Pirate multicart mapper",
+	_T("Pirate multicart mapper"),
 	COMPAT_FULL,
 	Load,
 	Reset,

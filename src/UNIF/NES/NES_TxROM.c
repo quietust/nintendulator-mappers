@@ -77,7 +77,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_NES_TFROM =
 {
 	"NES-TFROM",
-	"MMC3 with optional hardwired mirroring",
+	_T("MMC3 with optional hardwired mirroring"),
 	COMPAT_FULL,
 	Load_TFROM,
 	Reset,
@@ -91,7 +91,7 @@ CTMapperInfo	MapperInfo_NES_TFROM =
 CTMapperInfo	MapperInfo_NES_TGROM =
 {
 	"NES-TGROM",
-	"MMC3 with CHR-RAM",
+	_T("MMC3 with CHR-RAM"),
 	COMPAT_FULL,
 	Load_TGROM,
 	Reset,
@@ -105,7 +105,7 @@ CTMapperInfo	MapperInfo_NES_TGROM =
 CTMapperInfo	MapperInfo_NES_TKROM =
 {
 	"NES-TKROM",
-	"MMC3 with CHR-ROM and SRAM",
+	_T("MMC3 with CHR-ROM and SRAM"),
 	COMPAT_FULL,
 	Load_TKROM,
 	Reset,
@@ -119,7 +119,7 @@ CTMapperInfo	MapperInfo_NES_TKROM =
 CTMapperInfo	MapperInfo_NES_TLROM =
 {
 	"NES-TLROM",
-	"MMC3 with CHR-ROM",
+	_T("MMC3 with CHR-ROM"),
 	COMPAT_FULL,
 	Load_TLROM,
 	Reset,
@@ -133,7 +133,7 @@ CTMapperInfo	MapperInfo_NES_TLROM =
 CTMapperInfo	MapperInfo_NES_TR1ROM =
 {
 	"NES-TR1ROM",
-	"MMC3 with 4-screen VRAM",
+	_T("MMC3 with 4-screen VRAM"),
 	COMPAT_FULL,
 	Load_TR1ROM,
 	Reset,
@@ -147,7 +147,7 @@ CTMapperInfo	MapperInfo_NES_TR1ROM =
 CTMapperInfo	MapperInfo_NES_TSROM =
 {
 	"NES-TSROM",
-	"MMC3 with WRAM",
+	_T("MMC3 with WRAM"),
 	COMPAT_FULL,
 	Load_TSROM,
 	Reset,

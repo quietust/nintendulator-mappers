@@ -36,8 +36,8 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_NES_EKROM =
 {
 	"NES-EKROM",
-	"MMC5 with 8KB SRAM",
-	COMPAT_NEARLY,
+	_T("MMC5 with 8KB SRAM"),
+	COMPAT_FULL,
 	Load_EKROM,
 	Reset,
 	Unload,
@@ -50,8 +50,8 @@ CTMapperInfo	MapperInfo_NES_EKROM =
 CTMapperInfo	MapperInfo_NES_ELROM =
 {
 	"NES-ELROM",
-	"MMC5 with no WRAM",
-	COMPAT_NEARLY,
+	_T("MMC5 with no SRAM"),
+	COMPAT_FULL,
 	Load_ELROM,
 	Reset,
 	Unload,
@@ -64,8 +64,8 @@ CTMapperInfo	MapperInfo_NES_ELROM =
 CTMapperInfo	MapperInfo_NES_ETROM =
 {
 	"NES-ETROM",
-	"MMC5 with 16KB SRAM",
-	COMPAT_NEARLY,
+	_T("MMC5 with 16KB SRAM"),
+	COMPAT_FULL,
 	Load_ETROM,
 	Reset,
 	Unload,
@@ -78,8 +78,8 @@ CTMapperInfo	MapperInfo_NES_ETROM =
 CTMapperInfo	MapperInfo_NES_EWROM =
 {
 	"NES-EWROM",
-	"MMC5 with 32KB SRAM",
-	COMPAT_NEARLY,
+	_T("MMC5 with 32KB SRAM"),
+	COMPAT_FULL,
 	Load_EWROM,
 	Reset,
 	Unload,

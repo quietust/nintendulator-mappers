@@ -141,7 +141,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_NES_SAROM =
 {
 	"NES-SAROM",
-	"MMC1 with SRAM",
+	_T("MMC1 with SRAM"),
 	COMPAT_FULL,
 	Load_SAROM,
 	Reset,
@@ -155,7 +155,7 @@ CTMapperInfo	MapperInfo_NES_SAROM =
 CTMapperInfo	MapperInfo_NES_SBROM =
 {
 	"NES-SBROM",
-	"MMC1",
+	_T("MMC1"),
 	COMPAT_FULL,
 	Load_SBROM,
 	Reset,
@@ -169,7 +169,7 @@ CTMapperInfo	MapperInfo_NES_SBROM =
 CTMapperInfo	MapperInfo_NES_SCROM =
 {
 	"NES-SCROM",
-	"MMC1",
+	_T("MMC1"),
 	COMPAT_FULL,
 	Load_SCROM,
 	Reset,
@@ -183,7 +183,7 @@ CTMapperInfo	MapperInfo_NES_SCROM =
 CTMapperInfo	MapperInfo_NES_SEROM =
 {
 	"NES-SEROM",
-	"MMC1",
+	_T("MMC1"),
 	COMPAT_FULL,
 	Load_SEROM,
 	Reset,
@@ -197,7 +197,7 @@ CTMapperInfo	MapperInfo_NES_SEROM =
 CTMapperInfo	MapperInfo_NES_SGROM =
 {
 	"NES-SGROM",
-	"MMC1 with CHR-RAM",
+	_T("MMC1 with CHR-RAM"),
 	COMPAT_FULL,
 	Load_SGROM,
 	Reset,
@@ -211,7 +211,7 @@ CTMapperInfo	MapperInfo_NES_SGROM =
 CTMapperInfo	MapperInfo_NES_SKROM =
 {
 	"NES-SKROM",
-	"MMC1 with CHR-ROM and SRAM",
+	_T("MMC1 with CHR-ROM and SRAM"),
 	COMPAT_FULL,
 	Load_SKROM,
 	Reset,
@@ -225,7 +225,7 @@ CTMapperInfo	MapperInfo_NES_SKROM =
 CTMapperInfo	MapperInfo_NES_SLROM =
 {
 	"NES-SLROM",
-	"MMC1 with CHR-ROM",
+	_T("MMC1 with CHR-ROM"),
 	COMPAT_FULL,
 	Load_SLROM,
 	Reset,
@@ -239,7 +239,7 @@ CTMapperInfo	MapperInfo_NES_SLROM =
 CTMapperInfo	MapperInfo_NES_SL1ROM =
 {
 	"NES-SL1ROM",
-	"MMC1",
+	_T("MMC1"),
 	COMPAT_FULL,
 	Load_SL1ROM,
 	Reset,
@@ -253,7 +253,7 @@ CTMapperInfo	MapperInfo_NES_SL1ROM =
 CTMapperInfo	MapperInfo_NES_SNROM =
 {
 	"NES-SNROM",
-	"MMC1 with CHR-RAM and SRAM",
+	_T("MMC1 with CHR-RAM and SRAM"),
 	COMPAT_FULL,
 	Load_SNROM,
 	Reset,
@@ -267,7 +267,7 @@ CTMapperInfo	MapperInfo_NES_SNROM =
 CTMapperInfo	MapperInfo_NES_SOROM =
 {
 	"NES-SOROM",
-	"MMC1 with 16KB SRAM",
+	_T("MMC1 with 16KB SRAM"),
 	COMPAT_FULL,
 	Load_SOROM,
 	Reset,
@@ -281,7 +281,7 @@ CTMapperInfo	MapperInfo_NES_SOROM =
 CTMapperInfo	MapperInfo_NES_SUROM =
 {
 	"NES-SUROM",
-	"MMC1 with 512KB PRG",
+	_T("MMC1 with 512KB PRG"),
 	COMPAT_FULL,
 	Load_SNROM,
 	Reset,

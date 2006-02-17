@@ -24,7 +24,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_NES_BNROM =
 {
 	"NES-BNROM",
-	"Standard 32KB PRG switch",
+	_T("Standard 32KB PRG switch"),
 	COMPAT_FULL,
 	Load_BNROM,
 	Reset,

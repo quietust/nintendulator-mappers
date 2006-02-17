@@ -50,7 +50,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_NES_AMROM =
 {
 	"NES-AMROM",
-	"32KB PRG switch with nametable select",
+	_T("32KB PRG switch with nametable select"),
 	COMPAT_FULL,
 	Load_AMROM,
 	Reset,
@@ -64,7 +64,7 @@ CTMapperInfo	MapperInfo_NES_AMROM =
 CTMapperInfo	MapperInfo_NES_ANROM =
 {
 	"NES-ANROM",
-	"Standard 32KB PRG switch with nametable select",
+	_T("Standard 32KB PRG switch with nametable select"),
 	COMPAT_FULL,
 	Load_ANROM,
 	Reset,
@@ -78,7 +78,7 @@ CTMapperInfo	MapperInfo_NES_ANROM =
 CTMapperInfo	MapperInfo_NES_AOROM =
 {
 	"NES-AOROM",
-	"Oversize 32KB PRG switch with nametable select",
+	_T("Oversize 32KB PRG switch with nametable select"),
 	COMPAT_FULL,
 	Load_AOROM,
 	Reset,

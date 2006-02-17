@@ -35,7 +35,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_NES_JLROM =
 {
 	"NES-JLROM",
-	"Sunsoft FME-7",
+	_T("Sunsoft FME-7"),
 	COMPAT_FULL,
 	Load_JLROM,
 	Reset,
@@ -49,7 +49,7 @@ CTMapperInfo	MapperInfo_NES_JLROM =
 CTMapperInfo	MapperInfo_NES_JSROM =
 {
 	"NES-JSROM",
-	"Sunsoft FME-7 with WRAM",
+	_T("Sunsoft FME-7 with WRAM"),
 	COMPAT_FULL,
 	Load_JSROM,
 	Reset,
@@ -62,7 +62,7 @@ CTMapperInfo	MapperInfo_NES_JSROM =
 };CTMapperInfo	MapperInfo_NES_BTR =
 {
 	"NES-BTR",
-	"Sunsoft FME-7 with WRAM (NES-JSROM)",
+	_T("Sunsoft FME-7 with WRAM (NES-JSROM)"),
 	COMPAT_FULL,
 	Load_JSROM,
 	Reset,

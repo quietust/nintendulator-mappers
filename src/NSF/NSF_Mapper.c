@@ -7,7 +7,7 @@
 #include	"..\Hardware\Sound\s_N106.h"
 #include	"resource.h"
 #include	<commctrl.h>
-#include	<stdio.h>
+#include	<stdlib.h>
 
 /*
 ;NSF Mapper
@@ -24,7 +24,6 @@
 ;R $3E13 - Sound chip info
 ;W $3E13 - clear watchdog timer
 */
-
 
 #define	NSFIRQ_NONE	0xFF
 #define	NSFIRQ_INIT	0x00
@@ -138,7 +137,7 @@ static	void	_MAPINT	CPUCycle (void)
 		{
 			if (NSF.WatchDog)
 			{
-				EMU->DbgOut("Watchdog timer triggered - this NSF either uses RAW PCM or is corrupted!");
+				EMU->DbgOut(_T("Watchdog timer triggered - this NSF either uses RAW PCM or is corrupted!"));
 				NSF.WatchDog = 0;
 			}
 			NSF.IRQcounter = NSF.IRQlatch.s0;
@@ -149,13 +148,23 @@ static	void	_MAPINT	CPUCycle (void)
 
 static	LRESULT CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	TCHAR NSFTitle[32], NSFArtist[32], NSFCopyright[32];
 	int i = NSF.songnum;
 	switch (message)
 	{
 	case WM_INITDIALOG:
-		SetDlgItemText(hDlg,IDC_NSF_TITLE,ROM->NSF_Title);
-		SetDlgItemText(hDlg,IDC_NSF_ARTIST,ROM->NSF_Artist);
-		SetDlgItemText(hDlg,IDC_NSF_COPYRIGHT,ROM->NSF_Copyright);
+#ifdef UNICODE
+		mbstowcs(NSFTitle,ROM->NSF_Title,32);
+		mbstowcs(NSFArtist,ROM->NSF_Artist,32);
+		mbstowcs(NSFCopyright,ROM->NSF_Copyright,32);
+#else
+		strcpy(NSFTitle,ROM->NSF_Title);
+		strcpy(NSFArtist,ROM->NSF_Artist);
+		strcpy(NSFCopyright,ROM->NSF_Copyright);
+#endif
+		SetDlgItemText(hDlg,IDC_NSF_TITLE,NSFTitle);
+		SetDlgItemText(hDlg,IDC_NSF_ARTIST,NSFArtist);
+		SetDlgItemText(hDlg,IDC_NSF_COPYRIGHT,NSFCopyright);
 		SetDlgItemInt(hDlg,IDC_NSF_SONGS,ROM->NSF_NumSongs,FALSE);
 		SetDlgItemInt(hDlg,IDC_NSF_PLAYING,NSF.songnum+1,FALSE);
 		if (ROM->NSF_NTSCPAL == 2)
@@ -176,37 +185,37 @@ static	LRESULT CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPAR
 		SetDlgItemInt(hDlg,IDC_NSF_SELECTED,NSF.songnum+1,FALSE);
 
 		{
-			char chiplist[9];
+			TCHAR chiplist[9];
 			u8 c = ROM->NSF_SoundChips;
-			sprintf(chiplist,"%s%s%s%s%s%s%s%s",
-				(c & 0x80) ? "1" : "0",
-				(c & 0x40) ? "1" : "0",
-				(c & 0x20) ? "1" : "0",
-				(c & 0x10) ? "1" : "0",
-				(c & 0x08) ? "1" : "0",
-				(c & 0x04) ? "1" : "0",
-				(c & 0x02) ? "1" : "0",
-				(c & 0x01) ? "1" : "0");
+			_stprintf(chiplist,_T("%s%s%s%s%s%s%s%s"),
+				(c & 0x80) ? _T("1") : _T("0"),
+				(c & 0x40) ? _T("1") : _T("0"),
+				(c & 0x20) ? _T("1") : _T("0"),
+				(c & 0x10) ? _T("1") : _T("0"),
+				(c & 0x08) ? _T("1") : _T("0"),
+				(c & 0x04) ? _T("1") : _T("0"),
+				(c & 0x02) ? _T("1") : _T("0"),
+				(c & 0x01) ? _T("1") : _T("0"));
 			SetDlgItemText(hDlg,IDC_NSF_CHIPLIST,chiplist);
 		}
 
 		if (ROM->NSF_SoundChips & 0x01)
-			SetDlgItemText(hDlg,IDC_NSF_CHIP,"Konami VRC6");
+			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Konami VRC6"));
 		else if (ROM->NSF_SoundChips & 0x02)
-			SetDlgItemText(hDlg,IDC_NSF_CHIP,"Konami VRC7");
+			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Konami VRC7"));
 		else if (ROM->NSF_SoundChips & 0x04)
-			SetDlgItemText(hDlg,IDC_NSF_CHIP,"Famicom Disk System");
+			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Famicom Disk System"));
 		else if (ROM->NSF_SoundChips & 0x08)
-			SetDlgItemText(hDlg,IDC_NSF_CHIP,"Nintendo MMC5");
+			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Nintendo MMC5"));
 		else if (ROM->NSF_SoundChips & 0x10)
-			SetDlgItemText(hDlg,IDC_NSF_CHIP,"Namco 106");
+			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Namco 106"));
 		else if (ROM->NSF_SoundChips & 0x20)
-			SetDlgItemText(hDlg,IDC_NSF_CHIP,"Sunsoft FME-07");
+			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Sunsoft FME-07"));
 		else if (ROM->NSF_SoundChips & 0x40)
-			SetDlgItemText(hDlg,IDC_NSF_CHIP,"Unknown!");
+			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Unknown!"));
 		else if (ROM->NSF_SoundChips & 0x80)
-			SetDlgItemText(hDlg,IDC_NSF_CHIP,"Unknown!");
-		else	SetDlgItemText(hDlg,IDC_NSF_CHIP,"No expansion sound");
+			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Unknown!"));
+		else	SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("No expansion sound"));
 
 		break;
 	case WM_COMMAND:
@@ -467,7 +476,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_NSF =
 {
 	NULL,
-	"NES Sound File",
+	_T("NES Sound File"),
 	COMPAT_FULL,
 	Load,
 	Reset,

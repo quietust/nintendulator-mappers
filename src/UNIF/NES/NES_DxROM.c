@@ -126,7 +126,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_NES_DEROM =
 {
 	"NES-DEROM",
-	"Namco 108",
+	_T("Namco 108"),
 	COMPAT_NEARLY,
 	Load_DEROM,
 	Reset,
@@ -140,7 +140,7 @@ CTMapperInfo	MapperInfo_NES_DEROM =
 CTMapperInfo	MapperInfo_NES_DEIROM =
 {
 	"NES-DEIROM",
-	"Namco 108",
+	_T("Namco 108"),
 	COMPAT_NEARLY,
 	Load_DEIROM,
 	Reset,
@@ -154,7 +154,7 @@ CTMapperInfo	MapperInfo_NES_DEIROM =
 CTMapperInfo	MapperInfo_NES_DRROM =
 {
 	"NES-DRROM",
-	"Namco 108 with 4-screen VRAM",
+	_T("Namco 108 with 4-screen VRAM"),
 	COMPAT_NEARLY,
 	Load_DRROM,
 	Reset,

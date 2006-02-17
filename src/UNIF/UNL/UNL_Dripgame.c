@@ -357,7 +357,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_UNL_DRIPGAME =
 {
 	"UNL-DRIPGAME",
-	"Drip",
+	_T("Drip"),
 	COMPAT_FULL,
 	Load,
 	Reset,

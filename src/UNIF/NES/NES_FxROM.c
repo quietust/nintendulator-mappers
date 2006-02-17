@@ -27,7 +27,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_NES_FJROM =
 {
 	"NES-FJROM",
-	"MMC4",
+	_T("MMC4"),
 	COMPAT_FULL,
 	Load_FJROM,
 	Reset,

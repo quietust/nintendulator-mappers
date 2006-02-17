@@ -25,7 +25,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_NES_HKROM =
 {
 	"NES-HKROM",
-	"MMC6",
+	_T("MMC6"),
 	COMPAT_FULL,
 	Load_HKROM,
 	Reset,

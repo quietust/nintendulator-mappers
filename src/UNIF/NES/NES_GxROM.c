@@ -25,7 +25,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_NES_GNROM =
 {
 	"NES-GNROM",
-	"Standard 32KB PRG/8KB CHR switch",
+	_T("Standard 32KB PRG/8KB CHR switch"),
 	COMPAT_FULL,
 	Load_GNROM,
 	Reset,
