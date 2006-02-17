@@ -3,10 +3,6 @@
 
 // Sunsoft FME-7, based on the AY-8910
 
-#define	NES_INC_SIZE_INT (204800000 / 77)
-
-//#define	FME7_NOISE
-
 typedef	struct	FME7sqr
 {
 	union
@@ -30,26 +26,6 @@ typedef	struct	FME7sqr
 	s32 LCtr;
 }	TFME7sqr, *PFME7sqr;
 
-#ifdef	FME7_NOISE
-typedef	struct	FME7noise
-{
-	union
-	{
-		struct
-		{
-			unsigned freq  : 5;
-			unsigned       : 3;
-		};
-		struct
-		{
-			unsigned byte0 : 8;
-		};
-	};
-	u16_n ShiftReg;
-	s32 LCtr;
-}	TFME7noise, *PFME7noise;
-#endif
-
 typedef	struct	FME7sound
 {
 	union
@@ -57,11 +33,7 @@ typedef	struct	FME7sound
 		struct
 		{
 			unsigned tone      : 3;
-#ifdef	FME7_NOISE
-			unsigned noise     : 3;
-#else
 			unsigned           : 3;
-#endif
 			unsigned           : 2;
 			unsigned envelope  :16;
 			unsigned envhold   : 1;
@@ -80,9 +52,6 @@ typedef	struct	FME7sound
 	};
 	u8 select;
 	TFME7sqr Sqr[3];
-#ifdef	FME7_NOISE
-	TFME7noise Noise;
-#endif
 }	TFME7sound, *PFME7sound;
 
 static	TFME7sound	FME7sound;
@@ -93,29 +62,11 @@ static	int	FME7_DoSquare (PFME7sqr ChanData, int Cycles)
 	while (ChanData->LCtr <= 0)
 	{
 		ChanData->CurP++;
-		ChanData->CurP &= 0xF;
-		ChanData->LCtr += (ChanData->freq << 1) + 1;
+		ChanData->CurP &= 0x1F;
+		ChanData->LCtr += ChanData->freq + 1;
 	}
-	return ChanData->volume * ((ChanData->CurP < 8) ? 3 : -3);
+	return ChanData->volume * ((ChanData->CurP & 0x10) ? 3 : -3);
 }
-#ifdef	FME7_NOISE
-static	int	FME7_DoNoise (PFME7noise ChanData, int Cycles)
-{
-	int x, volume = 0;
-        for (x = 0; x < 3; x++)
-	{
-		if (!(FME7sound.noise & (1 << x)))
-			volume += FME7sound.Sqr[x].volume;	// 1 noise for each channel
-	}
-	ChanData->LCtr -= Cycles;
-	while (ChanData->LCtr <= -)
-	{
-		ChanData->ShiftReg.s0 = (ChanData->ShiftReg.s0 << 1) | ((ChanData->ShiftReg.s0 >> 13) & 1) ^ ((ChanData->ShiftReg.s0 >> 14) & 1);
-		ChanData->LCtr += (ChanData->freq << 1) + 1;
-	}
-	return volume * ((ChanData->ShiftReg.s0 & 1) ? 3 : -3);
-}
-#endif
 
 void	FME7sound_Load (void)
 {
@@ -127,10 +78,6 @@ void	FME7sound_Reset (RESET_TYPE ResetType)
 	FME7sound.Sqr[0].LCtr = 1;
 	FME7sound.Sqr[1].LCtr = 1;
 	FME7sound.Sqr[2].LCtr = 1;
-#ifdef	FME7_NOISE
-	FME7sound.Noise.ShiftReg.s0 = 0xFFFF;
-	FME7sound.Noise.LCtr = 1;
-#endif
 }
 
 void	FME7sound_Unload (void)
@@ -150,9 +97,6 @@ void	FME7sound_Write (int Addr, int Val)
 			case 0x3:	FME7sound.Sqr[1].byte1 = Val;	break;
 			case 0x4:	FME7sound.Sqr[2].byte0 = Val;	break;
 			case 0x5:	FME7sound.Sqr[2].byte1 = Val;	break;
-#ifdef	FME7_NOISE
-			case 0x6:	FME7sound.Noise.byte0 = Val;	break;
-#endif
 			case 0x7:	FME7sound.byte7 = Val;	break;
 			case 0x8:	FME7sound.Sqr[0].byte2 = Val;	break;
 			case 0x9:	FME7sound.Sqr[1].byte2 = Val;	break;
@@ -170,9 +114,6 @@ int	_MAPINT	FME7sound_Get (int Cycles)
 	if (!(FME7sound.tone & 1))	z += FME7_DoSquare(&FME7sound.Sqr[0],Cycles);
 	if (!(FME7sound.tone & 2))	z += FME7_DoSquare(&FME7sound.Sqr[1],Cycles);
 	if (!(FME7sound.tone & 4))	z += FME7_DoSquare(&FME7sound.Sqr[2],Cycles);
-#ifdef	FME7_NOISE
-	if (FME7sound.noise ^ 0x7)	z += FME7_DoNoise(&FME7sound.Noise,Cycles);
-#endif
 	return z << 6;
 }
 
@@ -194,10 +135,5 @@ int	_MAPINT	FME7sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[2].byte2)
 	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[2].CurP)
 	SAVELOAD_LONG(mode,x,data,FME7sound.Sqr[2].LCtr)
-#ifdef	FME7_NOISE
-	SAVELOAD_BYTE(mode,x,data,FME7sound.Noise.byte0)
-	SAVELOAD_WORD(mode,x,data,FME7sound.Noise.ShiftReg.s0)
-	SAVELOAD_LONG(mode,x,data,FME7sound.Noise.LCtr)
-#endif
 	return x;
 }
