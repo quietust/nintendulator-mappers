@@ -111,10 +111,6 @@ SOURCE=..\src\Hardware\Sound\s_FME07.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Hardware\Sound\s_FMOPL.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\Hardware\Sound\s_MMC5.c
 # End Source File
 # Begin Source File
@@ -164,10 +160,6 @@ SOURCE=..\src\Hardware\Sound\s_FDS.h
 # Begin Source File
 
 SOURCE=..\src\Hardware\Sound\s_FME07.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\Hardware\Sound\s_FMOPL.h
 # End Source File
 # Begin Source File
 
