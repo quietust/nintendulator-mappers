@@ -104,18 +104,7 @@ int	_MAPINT	MMC6_SaveLoad (int mode, int x, char *data)
 	SAVELOAD_BYTE(mode,x,data,MMC6.WRAMEnab)
 	SAVELOAD_BYTE(mode,x,data,MMC6.Mirror)
 	SAVELOAD_BYTE(mode,x,data,MMC6.IRQreload)
-	switch (mode)
-	{
-	case STATE_SAVE:
-		data[x++] = (u8)(MMC6.IRQaddr >> 8);
-		break;
-	case STATE_LOAD:
-		MMC6.IRQaddr = data[x++] << 8;
-		break;
-	case STATE_SIZE:
-		x++;
-		break;
-	}
+	SAVELOAD_BYTE(mode,x,data,MMC6.IRQaddr)
 	if (mode == STATE_LOAD)
 		MMC6.Sync();
 	return x;
@@ -189,9 +178,9 @@ void	_MAPINT	MMC6_CPUWriteEF (int Bank, int Where, int What)
 }
 void	_MAPINT	MMC6_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
-	if (Addr & 0x2000)
-		return;
-	if (!(MMC6.IRQaddr & 0x1000) && (Addr & 0x1000))
+	if (MMC6.IRQaddr)
+		MMC6.IRQaddr--;
+	if ((!MMC6.IRQaddr) && (Addr & 0x1000))
 	{
 		if (!MMC6.IRQcounter || MMC6.IRQreload)
 		{
@@ -202,5 +191,6 @@ void	_MAPINT	MMC6_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 		if (!MMC6.IRQcounter && MMC6.IRQenabled)
 			EMU->SetIRQ(0);
 	}
-	MMC6.IRQaddr = Addr;
+	if (Addr & 0x1000)
+		MMC6.IRQaddr = 4;
 }
