@@ -40,10 +40,7 @@ typedef	union
 		unsigned n0 : 4;
 		unsigned n1 : 4;
 	};
-	struct
-	{
-		u8 b[1];
-	};
+	u8 b[1];
 }	u8_n;
 
 typedef	union
@@ -55,14 +52,8 @@ typedef	union
 		unsigned n2 : 4;
 		unsigned n3 : 4;
 	};
-	struct
-	{
-		u8 b[2];
-	};
-	struct
-	{
-		u16 s[1];
-	};
+	u8 b[2];
+	u16 s[1];
 }	u16_n;
 
 typedef	union
@@ -78,18 +69,9 @@ typedef	union
 		unsigned n6 : 4;
 		unsigned n7 : 4;
 	};
-	struct
-	{
-		u8 b[4];
-	};
-	struct
-	{
-		u16 s[2];
-	};
-	struct
-	{
-		u32 l[1];
-	};
+	u8 b[4];
+	u16 s[2];
+	u32 l[1];
 }	u32_n;
 
 #define b0 b[0]
