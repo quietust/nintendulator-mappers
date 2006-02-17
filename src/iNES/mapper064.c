@@ -61,17 +61,13 @@ static	void	HBlank (void)
 {
 	if (!Mapper.IRQcounter || Mapper.IRQreload)
 	{
-		Mapper.IRQcounter = Mapper.IRQlatch + 1;
-		if (Mapper.IRQreload)
-			Mapper.IRQreload--;
+		Mapper.IRQcounter = Mapper.IRQlatch + Mapper.IRQreload;
+		Mapper.IRQreload = 0;
 	}
-	else if (Mapper.IRQcounter)
-		Mapper.IRQcounter--;
-	if (!Mapper.IRQcounter)
+	else if (!--Mapper.IRQcounter)
 	{
 		if (Mapper.IRQenabled)
 			EMU->SetIRQ(0);
-		Mapper.IRQreload = 2;
 	}
 }
 
@@ -129,7 +125,7 @@ static	void	_MAPINT	WriteCD (int Bank, int Where, int What)
 	if (Where & 1)
 	{
 		Mapper.IRQmode = What & 1;
-		Mapper.IRQreload = 1;
+		Mapper.IRQreload = 2;
 	}
 	else	Mapper.IRQlatch = What;
 }
