@@ -3072,6 +3072,9 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath="..\src\iNES\mapper088.c">
+				</File>
+				<File
 					RelativePath="..\src\iNES\mapper089.c">
 					<FileConfiguration
 						Name="Release (ANSI)|Win32">
