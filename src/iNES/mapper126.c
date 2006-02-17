@@ -3,24 +3,69 @@
 
 static	struct
 {
-	u8 Regs[4];
-	u8 Pos;
+	u8 Reg0, Reg1, Reg2, Reg3;
 }	Mapper;
 
 static	void	Sync (void)
 {
+	int PRGmask, CHRmask;
+	int PRGbank, CHRbank;
+
+	if (Mapper.Reg0 & 0x40)
+	{
+		PRGmask = 0x0F;
+		PRGbank = (Mapper.Reg0 & 0x7) << 4;
+	}
+	else
+	{
+		PRGmask = 0x1F;
+		PRGbank = (Mapper.Reg0 & 0x6) << 4;
+	}
+	PRGbank |= (Mapper.Reg0 & 0x10) << 3;
+
+	if (Mapper.Reg0 & 0x80)
+	{
+		CHRmask = 0x7F;
+		CHRbank = (Mapper.Reg0 & 0x08) << 4;
+	}
+	else
+	{
+		CHRmask = 0xFF;
+		CHRbank = 0;
+	}
+	CHRbank |= (Mapper.Reg0 & 0x20) << 3;
+	CHRbank |= (Mapper.Reg0 & 0x10) << 5;
+
+	if (Mapper.Reg3 & 0x08)
+		EMU->DbgOut("Alternate PRG switching used in mapper 126!");
+	else
+	{
+		switch (Mapper.Reg3 & 0x3)
+		{
+		case 0:	MMC3_SyncPRG(PRGmask,PRGbank);	break;
+		case 1:
+		case 2:	EMU->SetPRG_ROM16(0x8,((MMC3_GetPRGBank(0) & PRGmask) | PRGbank) >> 1);
+			EMU->SetPRG_ROM16(0xC,((MMC3_GetPRGBank(0) & PRGmask) | PRGbank) >> 1);	break;
+		case 3:	EMU->SetPRG_ROM32(0x8,((MMC3_GetPRGBank(0) & PRGmask) | PRGbank) >> 2);	break;
+		}
+	}
+	if (Mapper.Reg3 & 0x10)
+	{
+		if (!(Mapper.Reg0 & 0x80))
+			CHRbank |= Mapper.Reg2 & 0x80;
+		EMU->SetCHR_ROM8(0,(Mapper.Reg2 & 0xF) | (CHRbank >> 3));
+	}
+	else	MMC3_SyncCHR_ROM(CHRmask,CHRbank);
 	MMC3_SyncMirror();
-	MMC3_SyncPRG(~Mapper.Regs[3] & 0x3F,Mapper.Regs[1]);
-	MMC3_SyncCHR_ROM(0xFF >> ((~Mapper.Regs[2]) & 0xF),(Mapper.Regs[0]) | ((Mapper.Regs[2] & 0xF0) << 4));
 }
 
 static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 {
-	u8 i;
 	x = MMC3_SaveLoad(mode,x,data);
-	for (i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.Regs[i])
-	SAVELOAD_BYTE(mode,x,data,Mapper.Pos)
+	SAVELOAD_BYTE(mode,x,data,Mapper.Reg0)
+	SAVELOAD_BYTE(mode,x,data,Mapper.Reg1)
+	SAVELOAD_BYTE(mode,x,data,Mapper.Reg2)
+	SAVELOAD_BYTE(mode,x,data,Mapper.Reg3)
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
@@ -28,10 +73,17 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 
 static	void	_MAPINT	Write (int Bank, int Where, int What)
 {
-	if (Mapper.Regs[3] & 0x40)
-		return;
-	Mapper.Regs[Mapper.Pos++] = What;
-	Mapper.Pos &= 0x03;
+	switch (Where & 3)
+	{
+	case 0:	if (Mapper.Reg3 & 0x80)
+			return;
+		Mapper.Reg0 = What;	break;
+	case 1:	Mapper.Reg1 = What;	break;
+	case 2:	Mapper.Reg2 = What;	break;
+	case 3:	if (Mapper.Reg3 & 0x80)
+			return;
+		Mapper.Reg3 = What;	break;
+	}
 	Sync();
 }
 
@@ -43,25 +95,24 @@ static	void	_MAPINT	Shutdown (void)
 
 static	void	_MAPINT	Reset (int IsHardReset)
 {
-	u8 x;
-
 	iNES_InitROM();
 
 	EMU->SetCPUWriteHandler(0x6,Write);
 	EMU->SetCPUWriteHandler(0x7,Write);
 
-	for (x = 0; x < 4; x++)
-		Mapper.Regs[x] = 0;
-	Mapper.Pos = 0;
+	Mapper.Reg0 = 0;
+	Mapper.Reg1 = 0;
+	Mapper.Reg2 = 0;
+	Mapper.Reg3 = 0;
 
 	MMC3_Init(Sync);
 }
 
-static	u8 MapperNum = 45;
-CTMapperInfo	MapperInfo_045 =
+static	u8 MapperNum = 126;
+CTMapperInfo	MapperInfo_126 =
 {
 	&MapperNum,
-	"Super 1,000,000 in 1 (MMC3)",
+	"Super Joy (MMC3)",
 	COMPAT_FULL,
 	Reset,
 	Shutdown,
