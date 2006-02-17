@@ -1,4 +1,4 @@
-#include	"..\DLL\d_iNES.h"
+#include	"..\..\DLL\d_UNIF.h"
 
 static	struct
 {
@@ -10,15 +10,15 @@ static	struct
 		int timer;
 		int Pos;
 	} Chan[2];
-}	MapperSnd;
+}	MapSound;
 static	int	MapperSnd_GenerateWave (struct MSChan *Chan, int Cycles)
 {
 	int x = 0, y;
-	for (y = 0; i < Cycles; y++)
+	for (y = 0; y < Cycles; y++)
 	{
 		if (Chan->IsEmpty)
 			break;
-		if (!--Chan->timer)
+		if (!Chan->timer--)
 		{
 			Chan->timer = Chan->freq;
 			if (Chan->ReadPos == Chan->WritePos)
@@ -34,31 +34,31 @@ static	int	MapperSnd_GenerateWave (struct MSChan *Chan, int Cycles)
 static	int	_MAPINT	MapperSnd (int Cycles)
 {
 	int out = 0;
-	out += MapperSnd_GenerateWave(&MapperSnd.Chan[0],Cycles);
-	out += MapperSnd_GenerateWave(&MapperSnd.Chan[1],Cycles);
+	out += MapperSnd_GenerateWave(&MapSound.Chan[0],Cycles);
+	out += MapperSnd_GenerateWave(&MapSound.Chan[1],Cycles);
 	return out << 3;
 }
 static	int	_MAPINT	MapperSnd_SaveLoad (int mode, int x, char *data)
 {
 	int i;
 	for (i = 0; i < 256; i++)
-		SAVELOAD_BYTE(mode,x,data,MapperSnd.Chan[0].FIFO[i])
+		SAVELOAD_BYTE(mode,x,data,MapSound.Chan[0].FIFO[i])
 	for (i = 0; i < 256; i++)
-		SAVELOAD_BYTE(mode,x,data,MapperSnd.Chan[1].FIFO[i])
-	SAVELOAD_BYTE(mode,x,data,MapperSnd.Chan[0].ReadPos)
-	SAVELOAD_BYTE(mode,x,data,MapperSnd.Chan[1].ReadPos)
-	SAVELOAD_BYTE(mode,x,data,MapperSnd.Chan[0].WritePos)
-	SAVELOAD_BYTE(mode,x,data,MapperSnd.Chan[1].WritePos)
-	SAVELOAD_BYTE(mode,x,data,MapperSnd.Chan[0].IsFull)
-	SAVELOAD_BYTE(mode,x,data,MapperSnd.Chan[1].IsFull)
-	SAVELOAD_BYTE(mode,x,data,MapperSnd.Chan[0].IsEmpty)
-	SAVELOAD_BYTE(mode,x,data,MapperSnd.Chan[1].IsEmpty)
-	SAVELOAD_WORD(mode,x,data,MapperSnd.Chan[0].freq)
-	SAVELOAD_WORD(mode,x,data,MapperSnd.Chan[1].freq)
-	SAVELOAD_BYTE(mode,x,data,MapperSnd.Chan[0].vol)
-	SAVELOAD_BYTE(mode,x,data,MapperSnd.Chan[1].vol)
-	SAVELOAD_WORD(mode,x,data,MapperSnd.Chan[0].timer)
-	SAVELOAD_WORD(mode,x,data,MapperSnd.Chan[1].timer)
+		SAVELOAD_BYTE(mode,x,data,MapSound.Chan[1].FIFO[i])
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[0].ReadPos)
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[1].ReadPos)
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[0].WritePos)
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[1].WritePos)
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[0].IsFull)
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[1].IsFull)
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[0].IsEmpty)
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[1].IsEmpty)
+	SAVELOAD_WORD(mode,x,data,MapSound.Chan[0].freq)
+	SAVELOAD_WORD(mode,x,data,MapSound.Chan[1].freq)
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[0].vol)
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[1].vol)
+	SAVELOAD_WORD(mode,x,data,MapSound.Chan[0].timer)
+	SAVELOAD_WORD(mode,x,data,MapSound.Chan[1].timer)
 	return x;
 }
 
@@ -72,6 +72,18 @@ static	struct
 	FPPURead PPUReadNT[4];
 	u8 M[4];
 }	Mapper;
+
+int	_MAPINT	ReadNT (int Bank, int Where)
+{
+	if ((Mapper.Flags & 0x4) && (Where >= 0x3C0) && ((Bank & 3) == ((Mapper.LastAddr >> 10) & 3)))
+	{
+		const unsigned char AttribBits[4] = {0x00,0x55,0xAA,0xFF};
+		if (Mapper.M[Bank & 3])
+			return AttribBits[Mapper.ExtRam1[Mapper.LastAddr & 0x3FF]];
+		else	return AttribBits[Mapper.ExtRam0[Mapper.LastAddr & 0x3FF]];
+	}
+	else	return Mapper.PPUReadNT[Bank & 3](Bank,Where);
+}
 
 static	void	Sync (void)
 {
@@ -140,23 +152,11 @@ static	void	_MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering
 	Mapper.LastAddrTmp = Addr;
 }
 
-int	_MAPINT	ReadNT (int Bank, int Where)
-{
-	if ((Mapper.Flags & 0x4) && (Where >= 0x3C0) && ((Bank & 3) == ((Mapper.LastAddr >> 10) & 3)))
-	{
-		const unsigned char AttribBits[4] = {0x00,0x55,0xAA,0xFF};
-		if (Mapper.M[Mapper.Bank & 3])
-			return AttribBits[Mapper.ExtRam1[Mapper.LastAddr & 0x3FF]];
-		else	return AttribBits[Mapper.ExtRam0[Mapper.LastAddr & 0x3FF]];
-	}
-	else	return Mapper.PPURead[Bank & 3](Bank,Where);
-}
-
 static	int	_MAPINT	Read (int Bank, int Where)
 {
 	if (Where & 0x800)
-		return MapperSnd.Chan[1].IsFull ? 0x80 : 0x00;
-	else	return MapperSnd.Chan[0].IsFull ? 0x80 : 0x00;
+		return MapSound.Chan[1].IsFull ? 0x80 : 0x00;
+	else	return MapSound.Chan[0].IsFull ? 0x80 : 0x00;
 }
 static	void	_MAPINT	WriteL (int Bank, int Where, int What)
 {
@@ -189,8 +189,8 @@ static	void	_MAPINT	WriteL (int Bank, int Where, int What)
 	{
 		struct MSChan *Chan;
 		if (Where & 4)
-			Chan = &MapperSnd.Chan[0];
-		else	Chan = &MapperSnd.Chan[1];
+			Chan = &MapSound.Chan[0];
+		else	Chan = &MapSound.Chan[1];
 
 		switch (Where & 3)
 		{
@@ -218,7 +218,7 @@ static	void	_MAPINT	WriteL (int Bank, int Where, int What)
 		case 0x3:
 			Chan->freq = (Chan->freq & 0xFF) | ((What & 0xF) << 8);
 			Chan->vol = (What & 0xF0) >> 4;
-			Chan->pos = Chan->FIFO[Chan->ReadPos] * Chan->vol;
+			Chan->Pos = Chan->FIFO[Chan->ReadPos] * Chan->vol;
 			break;
 		}
 	}
@@ -232,13 +232,13 @@ static	void	_MAPINT	WriteH (int Bank, int Where, int What)
 
 static	void	_MAPINT	Shutdown (void)
 {
-	iNES_UnloadROM();
+	UNIF_SaveSRAM();
 }
 
 static	void	_MAPINT	Reset (int IsHardReset)
 {
 	u8 x;
-	iNES_InitROM();
+	UNIF_InitSRAM(8192);
 
 	EMU->SetCPUReadHandler(0x5,Read);
 	for (x = 0x8; x < 0xC; x++)
@@ -251,9 +251,9 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Mapper.PPUReadNT[2] = EMU->GetPPUReadHandler(0xA);
 	Mapper.PPUReadNT[3] = EMU->GetPPUReadHandler(0xB);
 	
-	memset(MapperSnd,0,sizeof(MapSound));
-	MapperSnd.Chan[0].IsEmpty = TRUE;
-	MapperSnd.Chan[1].IsEmpty = TRUE;
+	memset(&MapSound,0,sizeof(MapSound));
+	MapSound.Chan[0].IsEmpty = TRUE;
+	MapSound.Chan[1].IsEmpty = TRUE;
 
 	Mapper.PRG = 0;
 	for (x = 0; x < 4; x++)

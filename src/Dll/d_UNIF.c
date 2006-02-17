@@ -74,6 +74,8 @@ extern	CTMapperInfo
 	MapperInfo_UNL_Sachen_8259A,	MapperInfo_UNL_Sachen_8259B,		MapperInfo_UNL_H2288,
 	MapperInfo_UNL_8237,
 
+	MapperInfo_UNL_DRIPGAME,
+
 /* BTL: Pirate simgle-game carts */
 	MapperInfo_BTL_MARIO1_MALEE2,
 /* BMC: Pirate multicarts */
@@ -131,7 +133,7 @@ static	CPMapperInfo	BoardTable[] =
 	&MapperInfo_UNL_SA_0161M	,&MapperInfo_UNL_SA_72007	,&MapperInfo_UNL_SA_72008	,
 	&MapperInfo_UNL_TC_U0115M	,&MapperInfo_UNL_Sachen_74LS374N,&MapperInfo_UNL_SA_0036	,
 	&MapperInfo_UNL_SA_0037		,&MapperInfo_UNL_Sachen_8259A	,&MapperInfo_UNL_Sachen_8259B	,
-	&MapperInfo_UNL_H2288		,&MapperInfo_UNL_8237		,
+	&MapperInfo_UNL_H2288		,&MapperInfo_UNL_8237		,&MapperInfo_UNL_DRIPGAME	,
 	/* Bootleg Singles */
 	&MapperInfo_BTL_MARIO1_MALEE2	,
 	/* Bootleg Multicarts */
