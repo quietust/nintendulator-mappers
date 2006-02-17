@@ -11,25 +11,33 @@ static	void	Sync (void)
 
 static	void	_MAPINT	Write89 (int Bank, int Where, int What)
 {
-	MMC3_CPUWriteAB(Bank,0,What);
+	if (Where & 1)
+		MMC3_CPUWriteAB(Bank,0,What);
 }
 
 static	void	_MAPINT	WriteAB (int Bank, int Where, int What)
 {
 	unsigned char LUT[8] = {0,3,1,5,6,7,2,4};
-	MMC3_CPUWrite89(Bank,0,LUT[What & 0x7]);
+	if (Where & 1)
+		;
+	else	MMC3_CPUWrite89(Bank,0,LUT[What & 0x7] | (What & 0xC0));
 }
 
 static	void	_MAPINT	WriteCD (int Bank, int Where, int What)
 {
-	MMC3_CPUWrite89(Bank,1,What);
+	if (Where & 1)
+	{
+		MMC3_CPUWriteCD(Bank,0,What);
+		MMC3_CPUWriteCD(Bank,1,What);
+	}
+	else	MMC3_CPUWrite89(Bank,1,What);
 }
 
 static	void	_MAPINT	WriteEF (int Bank, int Where, int What)
 {
-	MMC3_CPUWriteCD(Bank,0,What);
-	MMC3_CPUWriteCD(Bank,1,What);
-	MMC3_CPUWriteEF(Bank,(Where & 1),What);
+	if (Where & 1)
+		MMC3_CPUWriteEF(Bank,1,What);
+	else	MMC3_CPUWriteEF(Bank,0,What);
 }
 
 static	void	_MAPINT	Shutdown (void)
