@@ -22,14 +22,22 @@ static	struct	TN106sound
 	u8 inc;
 }	N106sound;
 
-void	N106sound_Init (void)
+void	N106sound_Load (void)
+{
+	memset(&N106sound,0,sizeof(N106sound));
+}
+
+void	N106sound_Reset (RESET_TYPE ResetType)
 {
 	int i;
-	memset(&N106sound,0,sizeof(N106sound));
 	for (i = 0; i < 8; i++)
 		N106sound.Ch[i].len = 0x10;
 	N106sound.chans = 8;
 	N106sound.inc = 0x80;
+}
+
+void	N106sound_Unload (void)
+{
 }
 
 void	N106sound_Write (int Addr, int Val)
@@ -149,8 +157,4 @@ int	_MAPINT	N106sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 		SAVELOAD_LONG(mode,x,data,N106sound.Ch[i].LCtr)
 	}
 	return x;
-}
-
-void	N106sound_Destroy (void)
-{
 }

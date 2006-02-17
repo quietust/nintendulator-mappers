@@ -81,12 +81,20 @@ static	int	VRC6_GenerateSquare (struct VRC6sqr *ChanData, int Cycles)
 	return (((ChanData->digital) || (ChanData->CurP <= ChanData->duty)) ? 1 : -1) * ChanData->volume;
 }
 
-void	VRC6sound_Init (void)
+void	VRC6sound_Load (void)
 {
 	memset(&VRC6sound,0,sizeof(VRC6sound));
+}
+
+void	VRC6sound_Reset (RESET_TYPE ResetType)
+{
 	VRC6sound.Sq0.LCtr = 1;
 	VRC6sound.Sq1.LCtr = 1;
 	VRC6sound.Saw.LCtr = 1;
+}
+
+void	VRC6sound_Unload (void)
+{
 }
 
 void	VRC6sound_Write (int Addr, int Val)
@@ -133,8 +141,4 @@ int	_MAPINT	VRC6sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	SAVELOAD_BYTE(mode,x,data,VRC6sound.Saw.Acc)
 	SAVELOAD_LONG(mode,x,data,VRC6sound.Saw.LCtr)
 	return x;
-}
-
-void	VRC6sound_Destroy (void)
-{
 }

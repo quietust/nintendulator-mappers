@@ -358,24 +358,21 @@ static	void	_MAPINT	NSF_WriteF (int Bank, int Addr, int Val)
 		FME7sound_Write((Bank << 12) | Addr,Val);
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	if (NSF.ControlWindow)
-		DestroyWindow(NSF.ControlWindow);
-	NSF.ControlWindow = NULL;
-
 	if (ROM->NSF_SoundChips & 0x01)
-		VRC6sound_Destroy();
+		VRC6sound_Load();
 	if (ROM->NSF_SoundChips & 0x02)
-		VRC7sound_Destroy();
+		VRC7sound_Load();
 	if (ROM->NSF_SoundChips & 0x04)
-		FDSsound_Destroy();
+		FDSsound_Load();
 	if (ROM->NSF_SoundChips & 0x08)
-		MMC5sound_Destroy();
+		MMC5sound_Load();
 	if (ROM->NSF_SoundChips & 0x10)
-		N106sound_Destroy();
+		N106sound_Load();
 	if (ROM->NSF_SoundChips & 0x20)
-		FME7sound_Destroy();
+		FME7sound_Load();
+	NSF.ControlWindow = NULL;
 }
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
@@ -403,17 +400,17 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xF,NSF_WriteF);
 
 	if (ROM->NSF_SoundChips & 0x01)
-		VRC6sound_Init();
+		VRC6sound_Reset(ResetType);
 	if (ROM->NSF_SoundChips & 0x02)
-		VRC7sound_Init();
+		VRC7sound_Reset(ResetType);
 	if (ROM->NSF_SoundChips & 0x04)
-		FDSsound_Init();
+		FDSsound_Reset(ResetType);
 	if (ROM->NSF_SoundChips & 0x08)
-		MMC5sound_Init();
+		MMC5sound_Reset(ResetType);
 	if (ROM->NSF_SoundChips & 0x10)
-		N106sound_Init();
+		N106sound_Reset(ResetType);
 	if (ROM->NSF_SoundChips & 0x20)
-		FME7sound_Init();
+		FME7sound_Reset(ResetType);
 	if (ResetType == RESET_HARD)
 	{
 		NSF.songnum = ROM->NSF_InitSong - 1;
@@ -423,8 +420,26 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	}
 	NSF_IRQ(NSFIRQ_INIT);		// Initialize first tune and start playing it
 					// (this also allows it to fetch the RESET vector)
-	NSF.ControlWindow = NULL;
 	Config(CFG_WINDOW,TRUE);
+}
+
+static	void	_MAPINT	Unload (void)
+{
+	if (NSF.ControlWindow)
+		DestroyWindow(NSF.ControlWindow);
+
+	if (ROM->NSF_SoundChips & 0x01)
+		VRC6sound_Unload();
+	if (ROM->NSF_SoundChips & 0x02)
+		VRC7sound_Unload();
+	if (ROM->NSF_SoundChips & 0x04)
+		FDSsound_Unload();
+	if (ROM->NSF_SoundChips & 0x08)
+		MMC5sound_Unload();
+	if (ROM->NSF_SoundChips & 0x10)
+		N106sound_Unload();
+	if (ROM->NSF_SoundChips & 0x20)
+		FME7sound_Unload();
 }
 
 CTMapperInfo	MapperInfo_NSF =
@@ -432,8 +447,9 @@ CTMapperInfo	MapperInfo_NSF =
 	NULL,
 	"NES Sound File",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	CPUCycle,
 	NULL,
 	NULL,

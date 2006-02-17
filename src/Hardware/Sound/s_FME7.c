@@ -116,9 +116,14 @@ static	int	FME7_DoNoise (PFME7noise ChanData, int Cycles)
 	return volume * ((ChanData->ShiftReg.s0 & 1) ? 3 : -3);
 }
 #endif
-void	FME7sound_Init (void)
+
+void	FME7sound_Load (void)
 {
 	memset(&FME7sound,0,sizeof(FME7sound));
+}
+
+void	FME7sound_Reset (RESET_TYPE ResetType)
+{
 	FME7sound.Sqr[0].LCtr = 1;
 	FME7sound.Sqr[1].LCtr = 1;
 	FME7sound.Sqr[2].LCtr = 1;
@@ -126,6 +131,10 @@ void	FME7sound_Init (void)
 	FME7sound.Noise.ShiftReg.s0 = 0xFFFF;
 	FME7sound.Noise.LCtr = 1;
 #endif
+}
+
+void	FME7sound_Unload (void)
+{
 }
 
 void	FME7sound_Write (int Addr, int Val)
@@ -191,8 +200,4 @@ int	_MAPINT	FME7sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	SAVELOAD_LONG(mode,x,data,FME7sound.Noise.LCtr)
 #endif
 	return x;
-}
-
-void	FME7sound_Destroy (void)
-{
 }

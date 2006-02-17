@@ -133,9 +133,19 @@ static	int	MMC5_GenerateSquare (PMMC5sqr Chan, int Cycles)
 	return Chan->Pos;
 }
 
-void	MMC5sound_Init (void)
+void	MMC5sound_Load (void)
 {
 	memset(&MMC5sound,0,sizeof(TMMC5sound));
+}
+
+void	MMC5sound_Reset (RESET_TYPE ResetType)
+{
+	MMC5sound.Sqr0.Cycles = 1;
+	MMC5sound.Sqr1.Cycles = 1;
+}
+
+void	MMC5sound_Unload (void)
+{
 }
 
 void	MMC5sound_Write (int Addr, int Val)
@@ -180,8 +190,4 @@ int	_MAPINT	MMC5sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 		MessageBox(hWnd,"Invalid save/load type!",__FILE__,MB_OK);
 	x += sizeof(MMC5sound);
 	return x;
-}
-
-void	MMC5sound_Destroy (void)
-{
 }
