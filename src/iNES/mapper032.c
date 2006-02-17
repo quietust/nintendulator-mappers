@@ -3,7 +3,7 @@
 static	struct
 {
 	u8 Byte9xxx;
-	u8 PRG[3];
+	u8 PRG[2];
 	u8 CHR[8];
 }	Mapper;
 
@@ -11,9 +11,13 @@ static	void	Sync (void)
 {
 	u8 x;
 	EMU->SetPRG_RAM8(0x6,0);
-	EMU->SetPRG_ROM8(0x8,Mapper.PRG[0]);
+	if (Mapper.Byte9xxx & 2)
+		EMU->SetPRG_ROM8(0x8,-2);
+	else	EMU->SetPRG_ROM8(0x8,Mapper.PRG[0]);
 	EMU->SetPRG_ROM8(0xA,Mapper.PRG[1]);
-	EMU->SetPRG_ROM8(0xC,Mapper.PRG[2]);
+	if (Mapper.Byte9xxx & 2)
+		EMU->SetPRG_ROM8(0xC,Mapper.PRG[0]);
+	else	EMU->SetPRG_ROM8(0xC,-2);
 	EMU->SetPRG_ROM8(0xE,-1);
 	for (x = 0; x < 8; x++)
 		EMU->SetCHR_ROM1(x,Mapper.CHR[x]);
@@ -37,9 +41,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
 {
-	if (Mapper.Byte9xxx & 2)
-		Mapper.PRG[2] = Val;
-	else	Mapper.PRG[0] = Val;
+	Mapper.PRG[0] = Val;
 	Sync();
 }
 
