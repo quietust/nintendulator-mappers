@@ -367,7 +367,7 @@ makeSinTable (void)
 
 	for (i = 0; i < PG_WIDTH / 4; i++)
 	{
-		fullsintable[i] = (u32) lin2db (sin (2.0 * PI * i / PG_WIDTH) );
+		fullsintable[i] = (u16) lin2db (sin (2.0 * PI * i / PG_WIDTH) );
 	}
 
 	for (i = 0; i < PG_WIDTH / 4; i++)
@@ -377,7 +377,7 @@ makeSinTable (void)
 
 	for (i = 0; i < PG_WIDTH / 2; i++)
 	{
-		fullsintable[PG_WIDTH / 2 + i] = (u32) (DB_MUTE + DB_MUTE + fullsintable[i]);
+		fullsintable[PG_WIDTH / 2 + i] = (u16) (DB_MUTE + DB_MUTE + fullsintable[i]);
 	}
 
 	for (i = 0; i < PG_WIDTH / 2; i++)
@@ -1248,7 +1248,7 @@ OPLL_writeReg (OPLL * opll, u32 reg, u32 data)
 	switch (reg)
 	{
 	 case 0x00:
-		opll->CustInst[0]=data;
+		opll->CustInst[0]=(u8)data;
 		for (i = 0; i < 6; i++)
 		{
 			if (opll->patch_number[i] == 0)
@@ -1262,7 +1262,7 @@ OPLL_writeReg (OPLL * opll, u32 reg, u32 data)
 		break;
 
 	case 0x01:
-		opll->CustInst[1]=data;
+		opll->CustInst[1]=(u8)data;
 		for (i = 0; i < 6; i++)
 		{
 			if (opll->patch_number[i] == 0)
@@ -1276,7 +1276,7 @@ OPLL_writeReg (OPLL * opll, u32 reg, u32 data)
 		break;
 
 	case 0x02:
-		opll->CustInst[2]=data;
+		opll->CustInst[2]=(u8)data;
 		for (i = 0; i < 6; i++)
 		{
 			if (opll->patch_number[i] == 0)
@@ -1288,7 +1288,7 @@ OPLL_writeReg (OPLL * opll, u32 reg, u32 data)
 		break;
 
 	case 0x03:
-		opll->CustInst[3]=data;
+		opll->CustInst[3]=(u8)data;
 		for (i = 0; i < 6; i++)
 		{
 			if (opll->patch_number[i] == 0)
@@ -1301,7 +1301,7 @@ OPLL_writeReg (OPLL * opll, u32 reg, u32 data)
 		break;
 
 	case 0x04:
-		opll->CustInst[4]=data;
+		opll->CustInst[4]=(u8)data;
 		for (i = 0; i < 6; i++)
 		{
 			if (opll->patch_number[i] == 0)
@@ -1313,7 +1313,7 @@ OPLL_writeReg (OPLL * opll, u32 reg, u32 data)
 		break;
 
 	case 0x05:
-		opll->CustInst[5]=data;
+		opll->CustInst[5]=(u8)data;
 		for (i = 0; i < 6; i++)
 		{
 			if (opll->patch_number[i] == 0)
@@ -1325,7 +1325,7 @@ OPLL_writeReg (OPLL * opll, u32 reg, u32 data)
 		break;
 
 	case 0x06:
-		opll->CustInst[6]=data;
+		opll->CustInst[6]=(u8)data;
 		for (i = 0; i < 6; i++)
 		{
 			if (opll->patch_number[i] == 0)
@@ -1337,7 +1337,7 @@ OPLL_writeReg (OPLL * opll, u32 reg, u32 data)
 		break;
 
 	case 0x07:
-		opll->CustInst[7]=data;
+		opll->CustInst[7]=(u8)data;
 		for (i = 0; i < 6; i++)
 		{
 			if (opll->patch_number[i] == 0)
@@ -1355,7 +1355,7 @@ OPLL_writeReg (OPLL * opll, u32 reg, u32 data)
 	case 0x14:
 	case 0x15:
 		ch = reg - 0x10;
-		opll->LowFreq[ch]=data;
+		opll->LowFreq[ch]=(u8)data;
 		setFnumber (opll, ch, data + ((opll->HiFreq[ch] & 1) << 8));
 		UPDATE_ALL (MOD(opll,ch));
 		UPDATE_ALL (CAR(opll,ch));
@@ -1368,7 +1368,7 @@ OPLL_writeReg (OPLL * opll, u32 reg, u32 data)
 	case 0x24:
 	case 0x25:
 		ch = reg - 0x20;
-		opll->HiFreq[ch]=data;
+		opll->HiFreq[ch]=(u8)data;
 
 		setFnumber (opll, ch, ((data & 1) << 8) + opll->LowFreq[ch]);
 		setBlock (opll, ch, (data >> 1) & 7);
@@ -1388,7 +1388,7 @@ OPLL_writeReg (OPLL * opll, u32 reg, u32 data)
 	case 0x33:
 	case 0x34:
 	case 0x35:
-		opll->InstVol[reg-0x30]=data;
+		opll->InstVol[reg-0x30]=(u8)data;
 		i = (data >> 4) & 15;
 		v = data & 15;
 		setInstrument(opll, reg-0x30, i);
@@ -1442,6 +1442,25 @@ int	_MAPINT	VRC7sound_Get (int numCycles)
 
 int	_MAPINT	VRC7sound_SaveLoad (int mode, int x, char *data)
 {
+	if (mode == STATE_SAVE)
+	{
+		memcpy(data,OPL,sizeof(OPLL));
+		x += sizeof(OPLL);
+	}
+	else if (mode == STATE_LOAD)
+	{
+		int i;
+		memcpy(OPL,data,sizeof(OPLL));
+		x += sizeof(OPLL);
+		for (i = 0; i < 6; i++)
+		{
+			UPDATE_ALL(MOD(OPL,i));
+			UPDATE_ALL(CAR(OPL,i));
+		}
+	}
+	else if (mode == STATE_SIZE)
+		x += sizeof(OPLL);
+	else MessageBox(hWnd,"Invalid save/load type!",__FILE__,MB_OK);
 	return x;
 }
 
