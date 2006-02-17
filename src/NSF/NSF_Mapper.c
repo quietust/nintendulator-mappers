@@ -200,7 +200,7 @@ static	LRESULT CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPAR
 			SetDlgItemText(hDlg,IDC_NSF_CHIP,"Unknown!");
 		else	SetDlgItemText(hDlg,IDC_NSF_CHIP,"No expansion sound");
 
-		return FALSE;
+		break;
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
 		{
@@ -217,27 +217,24 @@ static	LRESULT CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPAR
 				NSF.ntscpal = 1;
 			else	NSF.ntscpal = 0;
 			NSF_IRQ(NSFIRQ_INIT);
-			return TRUE;		break;
+			break;
 		case IDC_NSF_STOP:
 			NSF_IRQ(NSFIRQ_STOP);
-			return TRUE;		break;
+			break;
 		case IDCLOSE:
 			NSF.ControlWindow = NULL;
 			DestroyWindow(hDlg);
-			return TRUE;		break;
+			break;
 		}
 		break;
 	case WM_HSCROLL:
 		if ((HWND)lParam == GetDlgItem(hDlg,IDC_NSF_SELECT))
-		{
 			SetDlgItemInt(hDlg,IDC_NSF_SELECTED,SendDlgItemMessage(hDlg,IDC_NSF_SELECT,TBM_GETPOS,0,0),FALSE);
-			return TRUE;
-		}
 		break;
 	case WM_CLOSE:
 		NSF.ControlWindow = NULL;
 		DestroyWindow(hDlg);
-		return TRUE;		break;
+		break;
 	}
 	return FALSE;
 }
