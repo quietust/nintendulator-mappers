@@ -156,9 +156,9 @@ static	int	_MAPINT	Read (int Bank, int Where)
 {
 	struct MSChan *Chan;
 	int result = 0;
-	if (Where & 4)
-		Chan = &MapSound.Chan[0];
-	else	Chan = &MapSound.Chan[1];
+	if (Where & 0x800)
+		Chan = &MapSound.Chan[1];
+	else	Chan = &MapSound.Chan[0];
 	if (Chan->IsFull)
 		result |= 0x80;
 	if (Chan->IsEmpty)
@@ -196,8 +196,8 @@ static	void	_MAPINT	WriteL (int Bank, int Where, int What)
 	{
 		struct MSChan *Chan;
 		if (Where & 4)
-			Chan = &MapSound.Chan[0];
-		else	Chan = &MapSound.Chan[1];
+			Chan = &MapSound.Chan[1];
+		else	Chan = &MapSound.Chan[0];
 
 		switch (Where & 3)
 		{
