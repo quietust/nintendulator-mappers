@@ -52,7 +52,7 @@ static	struct
 	{0xE7C72DBB,MMC5WRAM_8KB_0KB},	// Gemfire (U)
 	{0x57F33F70,MMC5WRAM_8KB_0KB},	// (?) Royal Blood (J)
 	{0x5D9D9891,MMC5WRAM_8KB_0KB},	// (?) Just Breed (J)
-	{0xE91548D8,MMC5WRAM_MAXOPTS},	// (??) Shin 4 Nin Uchi Mahjong - Yakuman Tengoku (J)
+	{0xE91548D8,MMC5WRAM_8KB_0KB},	// (??) Shin 4 Nin Uchi Mahjong - Yakuman Tengoku (J)
 
 	{0x2B548D75,MMC5WRAM_8KB_8KB},	// Bandit Kings of Ancient China (U)
 	{0xE6C28C5F,MMC5WRAM_8KB_8KB},	// (?) Suikoden - Tenmei no Chikai (J)
