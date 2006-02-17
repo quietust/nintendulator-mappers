@@ -43,16 +43,16 @@ static	void	_MAPINT	Reset (int IsHardReset)
 {
 	iNES_InitROM();
 
-	EMU->SetCPUWriteHandler(0x6,WriteABCDEF);
-	EMU->SetCPUWriteHandler(0x7,WriteABCDEF);
+	EMU->SetCPUWriteHandler(0x6,Write67ABCDEF);
+	EMU->SetCPUWriteHandler(0x7,Write67ABCDEF);
 	EMU->SetCPUWriteHandler(0x8,Write89);
 	EMU->SetCPUWriteHandler(0x9,Write89);
-	EMU->SetCPUWriteHandler(0xA,WriteABCDEF);
-	EMU->SetCPUWriteHandler(0xB,WriteABCDEF);
-	EMU->SetCPUWriteHandler(0xC,WriteABCDEF);
-	EMU->SetCPUWriteHandler(0xD,WriteABCDEF);
-	EMU->SetCPUWriteHandler(0xE,WriteABCDEF);
-	EMU->SetCPUWriteHandler(0xF,WriteABCDEF);
+	EMU->SetCPUWriteHandler(0xA,Write67ABCDEF);
+	EMU->SetCPUWriteHandler(0xB,Write67ABCDEF);
+	EMU->SetCPUWriteHandler(0xC,Write67ABCDEF);
+	EMU->SetCPUWriteHandler(0xD,Write67ABCDEF);
+	EMU->SetCPUWriteHandler(0xE,Write67ABCDEF);
+	EMU->SetCPUWriteHandler(0xF,Write67ABCDEF);
 
 	Mapper.WhichGame = 0;
 	Mapper.WhichBank = 3;
