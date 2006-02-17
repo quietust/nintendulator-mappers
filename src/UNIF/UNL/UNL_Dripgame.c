@@ -1,4 +1,5 @@
 #include	"..\..\DLL\d_UNIF.h"
+#include	"..\resource.h"
 
 static	struct
 {
@@ -69,7 +70,11 @@ static	struct
 	u16 IRQcounter;
 	u8 *ExtRam0, *ExtRam1;
 	u16 LastAddr, LastAddrTmp;
+	u8 Jumper;
 	FPPURead PPUReadNT[4];
+	FCPURead Read4;
+	HWND ConfigWindow;
+	u8 ConfigCmd;
 }	Mapper;
 
 int	_MAPINT	ReadNT (int Bank, int Addr)
@@ -134,7 +139,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	SAVELOAD_BYTE(mode,x,data,Mapper.Flags)
 	SAVELOAD_WORD(mode,x,data,Mapper.LastAddr)
 	SAVELOAD_WORD(mode,x,data,Mapper.LastAddrTmp)
-
+	SAVELOAD_BYTE(mode,x,data,Mapper.Jumper)
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
@@ -151,7 +156,14 @@ static	void	_MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering
 	Mapper.LastAddrTmp = Addr;
 }
 
-static	int	_MAPINT	Read (int Bank, int Addr)
+
+static	int	_MAPINT	Read4 (int Bank, int Addr)
+{
+	if (Addr & 0x800)
+		return Mapper.Jumper | 'd';
+	else	return Mapper.Read4(Bank,Addr);
+}
+static	int	_MAPINT	Read5 (int Bank, int Addr)
 {
 	struct MSChan *Chan;
 	int result = 0;
@@ -236,16 +248,79 @@ static	void	_MAPINT	WriteH (int Bank, int Addr, int Val)
 	else	Mapper.ExtRam0[Addr & 0x3FF] = Val & 3;
 }
 
+static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+		case WM_INITDIALOG:
+			CheckDlgButton(hDlg,IDC_UNL_DRIPGAME_J0,(Mapper.Jumper & 0x80) ? BST_CHECKED : BST_UNCHECKED);
+			return FALSE;
+		case WM_COMMAND:
+			switch (LOWORD(wParam))
+			{
+			case IDOK:
+				Mapper.ConfigCmd = 0x80;
+				if (IsDlgButtonChecked(hDlg,IDC_UNL_DRIPGAME_J0) == BST_CHECKED)
+					Mapper.ConfigCmd |= 0x01;
+			case IDCANCEL:
+				DestroyWindow(hDlg);
+				Mapper.ConfigWindow = NULL;
+				return TRUE;		break;
+			}
+			break;
+		case WM_CLOSE:
+			DestroyWindow(hDlg);
+			Mapper.ConfigWindow = NULL;
+			return TRUE;		break;
+	}
+	return FALSE;
+}
+
+static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
+{
+	switch (mode)
+	{
+	case CFG_WINDOW:
+		if (data)
+		{
+			if (Mapper.ConfigWindow)
+				break;
+			Mapper.ConfigWindow = CreateDialog(hInstance,MAKEINTRESOURCE(IDD_UNL_DRIPGAME),hWnd,(DLGPROC)ConfigProc);
+			SetWindowPos(Mapper.ConfigWindow,hWnd,0,0,0,0,SWP_SHOWWINDOW | SWP_NOSIZE);
+		}
+		else	return TRUE;
+		break;
+	case CFG_QUERY:
+		return Mapper.ConfigCmd;
+		break;
+	case CFG_CMD:
+		if (data & 0x80)
+		{
+			Mapper.Jumper = (data & 0x01) ? 0x80 : 0x00;
+			Sync();
+		}
+		Mapper.ConfigCmd = 0;
+		break;
+	}
+	return 0;
+}
+
 static	void	_MAPINT	Shutdown (void)
 {
+	if (Mapper.ConfigWindow)
+		DestroyWindow(Mapper.ConfigWindow);
+	Mapper.ConfigWindow = NULL;
 }
+
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	UNIF_SetSRAM(8192);
 
-	EMU->SetCPUReadHandler(0x5,Read);
+	Mapper.Read4 = EMU->GetCPUReadHandler(0x4);
+	EMU->SetCPUReadHandler(0x4,Read4);
+	EMU->SetCPUReadHandler(0x5,Read5);
 	for (x = 0x8; x < 0xC; x++)
 		EMU->SetCPUWriteHandler(x,WriteL);
 	for (x = 0xC; x < 0x10; x++)
@@ -270,6 +345,8 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->Mirror_4();
 	Mapper.ExtRam0 = EMU->GetCHR_Ptr1(0xA);
 	Mapper.ExtRam1 = EMU->GetCHR_Ptr1(0xB);
+	if (ResetType == RESET_HARD)
+		Mapper.Jumper = 0;
 
 	Sync();
 }
@@ -285,5 +362,5 @@ CTMapperInfo	MapperInfo_UNL_DRIPGAME =
 	PPUCycle,
 	SaveLoad,
 	MapperSnd,
-	NULL
+	Config
 };
