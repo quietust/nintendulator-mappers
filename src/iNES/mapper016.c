@@ -50,7 +50,7 @@ static	void	_MAPINT	CPUCycle (void)
 
 static	int	ReadRAM (void)
 {
-	EMU->DbgOut("Mapper 16 WRAM read!");
+//	EMU->DbgOut("Mapper 16 WRAM read!");
 /*
 1. start transfer - 00, 40, 60, 20, 00
 2. address+mode selection - R/W is MSB, address is lower bits
@@ -64,7 +64,7 @@ static	int	ReadRAM (void)
 
 static	void	WriteRAM (int Val)
 {
-	EMU->DbgOut("Mapper 16 WRAM write!");
+//	EMU->DbgOut("Mapper 16 WRAM write!");
 /*
 1. start transfer - 00, 40, 60, 20, 00
 2. address+mode selection - R/W is MSB, address is lower bits
