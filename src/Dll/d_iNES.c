@@ -100,8 +100,8 @@ static	void	_MAPINT	UnloadMapper (void)
 static	CPMapperInfo	_MAPINT	LoadMapper (CPROMInfo _ROM)
 {
 	ROM = _ROM;
-	if (ROM->ROMType == ROM_UNDEFINED)	/* Allow enumerating mappers */
-	{
+	if (ROM->ROMType == ROM_UNDEFINED)
+	{	/* Allow enumerating mappers */
 		unsigned int i = (int)ROM->Filename;
 		if (i >= 256)
 		{
@@ -112,12 +112,17 @@ static	CPMapperInfo	_MAPINT	LoadMapper (CPROMInfo _ROM)
 		return MapperTable[i];
 	}
 	if (ROM->ROMType != ROM_INES)
-	{
+	{	/* Only support iNES ROM images*/
+		UnloadMapper();
+		return NULL;
+	}
+	if (ROM->INES_Flags & 0x10)
+	{	/* Don't support VS Unisystem ROMs */
 		UnloadMapper();
 		return NULL;
 	}
 	if (MapperTable[ROM->INES_MapperNum]->Compatibility == COMPAT_NONE)
-	{
+	{	/* Don't accept mappers listed with zero compatibility */
 		UnloadMapper();
 		return NULL;
 	}
@@ -127,7 +132,7 @@ static	CPMapperInfo	_MAPINT	LoadMapper (CPROMInfo _ROM)
 static	TDLLInfo	DLL_Info =
 {
 	_T("INES.DLL by Quietust"),
-	0x20051113,
+	0x20051119,
 	0x0004001b,
 	LoadMapper,
 	UnloadMapper
