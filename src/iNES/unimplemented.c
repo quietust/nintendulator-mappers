@@ -125,7 +125,7 @@
   CTMapperInfo	MapperInfo_122 = {	NULL,	_T("Mapper 122"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   CTMapperInfo	MapperInfo_123 = {	NULL,	_T("Mapper 123"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   CTMapperInfo	MapperInfo_124 = {	NULL,	_T("Mapper 124"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
-  CTMapperInfo	MapperInfo_125 = {	NULL,	_T("Mapper 125"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
+//CTMapperInfo	MapperInfo_125 = {	NULL,	_T("Mapper 125"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_126 = {	NULL,	_T("Mapper 126"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_127 = {	NULL,	_T("Mapper 127"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   CTMapperInfo	MapperInfo_128 = {	NULL,	_T("Mapper 128"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
