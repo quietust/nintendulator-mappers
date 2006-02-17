@@ -161,7 +161,7 @@ static	int	_MAPINT	Read (int Bank, int Where)
 	if (Chan->IsFull)
 		result |= 0x80;
 	if (Chan->IsEmpty)
-		result |= 0x01;
+		result |= 0x40;
 	return result;
 }
 static	void	_MAPINT	WriteL (int Bank, int Where, int What)
