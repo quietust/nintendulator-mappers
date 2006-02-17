@@ -216,7 +216,7 @@ int	FDSsound_Read (int Where)
 		return FDSsound.op[0].eg.volume | 0x40;
 	if (0x4092 == Where) /* 4094? */
 		return FDSsound.op[1].eg.volume | 0x40;
-	return 0;
+	return -1;
 }
 
 void	FDSsound_Write (int Where, int What)
