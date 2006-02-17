@@ -61,13 +61,16 @@ static	void	HBlank (void)
 {
 	if (!Mapper.IRQcounter || Mapper.IRQreload)
 	{
-		Mapper.IRQcounter = Mapper.IRQlatch;
+		Mapper.IRQcounter = Mapper.IRQlatch + 1;
 		if (Mapper.IRQreload)
 			Mapper.IRQreload--;
 	}
-	else if (!--Mapper.IRQcounter)
+	else if (Mapper.IRQcounter)
+		Mapper.IRQcounter--;
+	if (!Mapper.IRQcounter)
 	{
-		EMU->SetIRQ(0);
+		if (Mapper.IRQenabled)
+			EMU->SetIRQ(0);
 		Mapper.IRQreload = 2;
 	}
 }
@@ -76,7 +79,7 @@ static	void	_MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering
 {
 	if (Addr & 0x2000)
 		return;
-	if ((Mapper.IRQenabled) && !(Mapper.IRQmode) && !(Mapper.IRQaddr & 0x1000) && (Addr & 0x1000))
+	if (!(Mapper.IRQmode) && !(Mapper.IRQaddr & 0x1000) && (Addr & 0x1000))
 		HBlank();
 	Mapper.IRQaddr = Addr;
 }
@@ -84,7 +87,7 @@ static	void	_MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering
 static int cycles = 4;
 static	void	_MAPINT	CPUCycle (void)
 {
-	if ((Mapper.IRQenabled) && (Mapper.IRQmode) && (!--cycles))
+	if ((Mapper.IRQmode) && (!--cycles))
 	{
 		cycles = 4;
 		HBlank();
