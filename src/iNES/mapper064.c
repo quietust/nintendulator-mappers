@@ -160,7 +160,8 @@ static	void	_MAPINT	Reset (int IsHardReset)
 
 	for (x = 0; x < 3; x++)	Mapper.PRG[x] = 0xFF;
 	for (x = 0; x < 8; x++)	Mapper.CHR[x] = x;
-	Mapper.IRQenabled = Mapper.IRQcounter = Mapper.IRQlatch = Mapper.IRQmode = Mapper.IRQreload = Mapper.IRQaddr = 0;
+	Mapper.IRQenabled = Mapper.IRQcounter = Mapper.IRQlatch = Mapper.IRQmode = Mapper.IRQreload = 0;
+	Mapper.IRQaddr = 0;
 	Mapper.Cmd = 0;
 	Mapper.Mirror = 0;
 
