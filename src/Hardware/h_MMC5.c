@@ -266,15 +266,15 @@ void	MMC5_SyncMirror (void)
 	}
 }
 
-int	_MAPINT	MMC5_CPURead5 (int Bank, int Where)
+int	_MAPINT	MMC5_CPURead5 (int Bank, int Addr)
 {
 	register u8 read = -1;
-	switch (Where & 0xF00)
+	switch (Addr & 0xF00)
 	{
 	case 0x000:
-		read = MMC5sound_Read((Bank << 12) | Where);		break;
+		read = MMC5sound_Read((Bank << 12) | Addr);		break;
 	case 0x200:
-		switch (Where)
+		switch (Addr)
 		{
 		case 0x204:	read = MMC5.IRQreads;
 				MMC5.IRQreads &= 0x40;
@@ -286,39 +286,39 @@ int	_MAPINT	MMC5_CPURead5 (int Bank, int Where)
 	case 0xD00:
 	case 0xE00:
 	case 0xF00:	if (MMC5.GfxMode >= 2)
-				read = MMC5.ExRAM[Where & 0x3FF];	break;
+				read = MMC5.ExRAM[Addr & 0x3FF];	break;
 	}
 	return read;
 }
-void	_MAPINT	MMC5_CPUWrite5 (int Bank, int Where, int What)
+void	_MAPINT	MMC5_CPUWrite5 (int Bank, int Addr, int Val)
 {
-	switch (Where & 0xF00)
+	switch (Addr & 0xF00)
 	{
-	case 0x000:	MMC5sound_Write((Bank << 12) | Where,What);	break;
+	case 0x000:	MMC5sound_Write((Bank << 12) | Addr,Val);	break;
 	case 0x100:
-		switch (Where)
+		switch (Addr)
 		{
-		case 0x100:	MMC5.PRGsize = What & 3;
+		case 0x100:	MMC5.PRGsize = Val & 3;
 				MMC5_SyncPRG();		break;
-		case 0x101:	MMC5.CHRsize = What & 3;
+		case 0x101:	MMC5.CHRsize = Val & 3;
 				MMC5_SyncCHR();		break;
-		case 0x102:	MMC5.WRAMprot[0] = What & 3;
+		case 0x102:	MMC5.WRAMprot[0] = Val & 3;
 							break;
-		case 0x103:	MMC5.WRAMprot[1] = What & 3;
+		case 0x103:	MMC5.WRAMprot[1] = Val & 3;
 							break;
-		case 0x104:	MMC5.GfxMode = What & 3;
+		case 0x104:	MMC5.GfxMode = Val & 3;
 				MMC5_SetPPUHandlers();	break;
-		case 0x105:	MMC5.Mirror = What;
+		case 0x105:	MMC5.Mirror = Val;
 				MMC5_SyncMirror();	break;
-		case 0x106:	memset(MMC5.ExNameTable,What,0x3C0);
+		case 0x106:	memset(MMC5.ExNameTable,Val,0x3C0);
 							break;
-		case 0x107:	memset(MMC5.ExNameTable+0x3C0,AttribBits[What & 3],0x40);
+		case 0x107:	memset(MMC5.ExNameTable+0x3C0,AttribBits[Val & 3],0x40);
 							break;
 		case 0x113:
 		case 0x114:
 		case 0x115:
 		case 0x116:
-		case 0x117:	MMC5.PRG[Where - 0x113] = What;
+		case 0x117:	MMC5.PRG[Addr - 0x113] = Val;
 				MMC5_SyncPRG();		break;
 		case 0x120:
 		case 0x121:
@@ -327,64 +327,64 @@ void	_MAPINT	MMC5_CPUWrite5 (int Bank, int Where, int What)
 		case 0x124:
 		case 0x125:
 		case 0x126:
-		case 0x127:	MMC5.CHR_A[Where & 0x7] = What;
+		case 0x127:	MMC5.CHR_A[Addr & 0x7] = Val;
 				MMC5_SyncCHRA();	break;
 		case 0x128:
 		case 0x129:
 		case 0x12A:
-		case 0x12B:	MMC5.CHR_B[Where & 0x3] = What;
+		case 0x12B:	MMC5.CHR_B[Addr & 0x3] = Val;
 				MMC5_SyncCHRB();	break;
 		case 0x130:	/* nobody knows... */	break;
 		}		break;
 	case 0x200:
-		switch (Where)
+		switch (Addr)
 		{
-		case 0x200:	MMC5.SplitMode = What;
+		case 0x200:	MMC5.SplitMode = Val;
 				MMC5_SetPPUHandlers();	break;
-		case 0x201:	MMC5.SplitScroll = What;break;
-		case 0x202:	MMC5.SplitBank = What;	break;
-		case 0x203:	MMC5.IRQline = What;	break;
-		case 0x204:	MMC5.IRQenabled = What & 0x80;
+		case 0x201:	MMC5.SplitScroll = Val;break;
+		case 0x202:	MMC5.SplitBank = Val;	break;
+		case 0x203:	MMC5.IRQline = Val;	break;
+		case 0x204:	MMC5.IRQenabled = Val & 0x80;
 							break;
-		case 0x205:	MMC5.Mul1 = What;	break;
-		case 0x206:	MMC5.Mul2 = What;	break;
+		case 0x205:	MMC5.Mul1 = Val;	break;
+		case 0x206:	MMC5.Mul2 = Val;	break;
 		}		break;
 	case 0xC00:
 	case 0xD00:
 	case 0xE00:
 	case 0xF00:	if (MMC5.GfxMode != 3)
-				MMC5.ExRAM[Where & 0x3FF] = What;
+				MMC5.ExRAM[Addr & 0x3FF] = Val;
 							break;
 	}
 }
 
-void	_MAPINT	MMC5_CPUWrite6F (int Bank, int Where, int What)
+void	_MAPINT	MMC5_CPUWrite6F (int Bank, int Addr, int Val)
 {
 	if ((MMC5.WRAMprot[0] == 2) && (MMC5.WRAMprot[1] == 1))
-		MMC5.CPUWrite6F(Bank,Where,What);
+		MMC5.CPUWrite6F(Bank,Addr,Val);
 }
 
 static	BOOL	InSplitArea = FALSE;
 static	int	VScroll;
 
 #ifdef	MMC5_EXTENDED_VSPLIT
-int	_MAPINT	MMC5_PPUReadPT (int Bank, int Where)
+int	_MAPINT	MMC5_PPUReadPT (int Bank, int Addr)
 {
 	if (!InSplitArea)
-		return MMC5.PPURead[Bank](Bank,Where);
-	else	return MMC5.PPURead[Bank](Bank,(Where & ~7) | (VScroll & 7));
+		return MMC5.PPURead[Bank](Bank,Addr);
+	else	return MMC5.PPURead[Bank](Bank,(Addr & ~7) | (VScroll & 7));
 }
 #endif
 
 static int extile = 0;
-int	_MAPINT	MMC5_PPUReadNTSplitExt (int Bank, int Where)
+int	_MAPINT	MMC5_PPUReadNTSplitExt (int Bank, int Addr)
 {
 	if (MMC5.CurTile >= 34)				// we only want to deal with background data
-		return MMC5.PPURead[Bank](Bank,Where);	// sprite fetches can go through
+		return MMC5.PPURead[Bank](Bank,Addr);	// sprite fetches can go through
 	if (InSplitArea)
 	{
 		static int splittile;
-		if (Where < 0x3C0)
+		if (Addr < 0x3C0)
 		{	// custom nametable data
 			splittile = ((VScroll & 0xF8) << 2) | (MMC5.CurTile & 0x1F);
 			return MMC5.ExRAM[splittile];
@@ -393,10 +393,10 @@ int	_MAPINT	MMC5_PPUReadNTSplitExt (int Bank, int Where)
 	}
 	else
 	{
-		if (Where < 0x3C0)
+		if (Addr < 0x3C0)
 		{
-			extile = Where;
-			return MMC5.PPURead[Bank](Bank,Where);		// normal nametable data
+			extile = Addr;
+			return MMC5.PPURead[Bank](Bank,Addr);		// normal nametable data
 		}
 		else
 		{
@@ -409,29 +409,29 @@ int	_MAPINT	MMC5_PPUReadNTSplitExt (int Bank, int Where)
 		}
 	}
 }
-int	_MAPINT	MMC5_PPUReadNTSplit (int Bank, int Where)
+int	_MAPINT	MMC5_PPUReadNTSplit (int Bank, int Addr)
 {
 	if (MMC5.CurTile >= 34)				// we only want to deal with background data
-		return MMC5.PPURead[Bank](Bank,Where);	// sprite fetches can go through
+		return MMC5.PPURead[Bank](Bank,Addr);	// sprite fetches can go through
 	if (InSplitArea)
 	{
 		static int splittile;
-		if (Where < 0x3C0)
+		if (Addr < 0x3C0)
 		{	// custom nametable data
 			splittile = ((VScroll & 0xF8) << 2) | (MMC5.CurTile & 0x1F);
 			return MMC5.ExRAM[splittile];
 		}	// custom attribute data
 		else	return AttribBits[(MMC5.ExRAM[0x3C0 | AttribLoc[splittile >> 2]] >> AttribShift[splittile & 0x7F]) & 3];
 	}
-	else	return MMC5.PPURead[Bank](Bank,Where);	// weren't in split area, let it through
+	else	return MMC5.PPURead[Bank](Bank,Addr);	// weren't in split area, let it through
 }
-int	_MAPINT	MMC5_PPUReadNTExt (int Bank, int Where)
+int	_MAPINT	MMC5_PPUReadNTExt (int Bank, int Addr)
 {
 	if (MMC5.CurTile >= 34)				// we only want to deal with background data
-		return MMC5.PPURead[Bank](Bank,Where);	// sprite fetches can go through
-	if (Where < 0x3C0)
+		return MMC5.PPURead[Bank](Bank,Addr);	// sprite fetches can go through
+	if (Addr < 0x3C0)
 	{
-		extile = Where;
+		extile = Addr;
 		if (MMC5.TileCache != (MMC5.ExRAM[extile] & 0x3F))
 		{
 			MMC5.TileCache = MMC5.ExRAM[extile] & 0x3F;
@@ -439,7 +439,7 @@ int	_MAPINT	MMC5_PPUReadNTExt (int Bank, int Where)
 			EMU->SetCHR_ROM4(0,MMC5.TileCache);
 			EMU->SetCHR_ROM4(4,MMC5.TileCache);
 		}
-		return MMC5.PPURead[Bank](Bank,Where);		// normal nametable data
+		return MMC5.PPURead[Bank](Bank,Addr);		// normal nametable data
 	}
 	else	return AttribBits[MMC5.ExRAM[extile] >> 6];	// custom attribute data
 }
