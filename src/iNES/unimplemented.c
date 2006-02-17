@@ -6,9 +6,9 @@
 //CTMapperInfo	MapperInfo_003 = {	NULL,	"Mapper 3",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_004 = {	NULL,	"Mapper 4",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_005 = {	NULL,	"Mapper 5",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
-//CTMapperInfo	MapperInfo_006 = {	NULL,	"Mapper 6",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
+  CTMapperInfo	MapperInfo_006 = {	NULL,	"Mapper 6",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_007 = {	NULL,	"Mapper 7",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
-//CTMapperInfo	MapperInfo_008 = {	NULL,	"Mapper 8",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
+  CTMapperInfo	MapperInfo_008 = {	NULL,	"Mapper 8",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_009 = {	NULL,	"Mapper 9",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_010 = {	NULL,	"Mapper 10",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_011 = {	NULL,	"Mapper 11",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
@@ -17,7 +17,7 @@
   CTMapperInfo	MapperInfo_014 = {	NULL,	"Mapper 14",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_015 = {	NULL,	"Mapper 15",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_016 = {	NULL,	"Mapper 16",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
-//CTMapperInfo	MapperInfo_017 = {	NULL,	"Mapper 17",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
+  CTMapperInfo	MapperInfo_017 = {	NULL,	"Mapper 17",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_018 = {	NULL,	"Mapper 18",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_019 = {	NULL,	"Mapper 19",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   CTMapperInfo	MapperInfo_020 = {	NULL,	"Mapper 20",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};

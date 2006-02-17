@@ -179,15 +179,7 @@ SOURCE=..\src\iNES\mapper005.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\iNES\mapper006.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\iNES\mapper007.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\iNES\mapper008.c
 # End Source File
 # Begin Source File
 
@@ -212,10 +204,6 @@ SOURCE=..\src\iNES\mapper015.c
 # Begin Source File
 
 SOURCE=..\src\iNES\mapper016.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\iNES\mapper017.c
 # End Source File
 # Begin Source File
 
@@ -400,6 +388,10 @@ SOURCE=..\src\iNES\mapper083.c
 # Begin Source File
 
 SOURCE=..\src\iNES\mapper085.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\iNES\mapper086.c
 # End Source File
 # Begin Source File
 
