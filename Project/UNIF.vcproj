@@ -13,9 +13,9 @@
 	</Platforms>
 	<Configurations>
 		<Configuration
-			Name="Release|Win32"
-			OutputDirectory=".\..\bin"
-			IntermediateDirectory=".\..\obj_unif"
+			Name="Release (ANSI)|Win32"
+			OutputDirectory=".\..\ansi\bin"
+			IntermediateDirectory=".\..\ansi\obj_unif"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -28,22 +28,23 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
-				PrecompiledHeaderFile=".\..\obj_unif/UNIF.pch"
-				AssemblerListingLocation=".\..\obj_unif/"
-				ObjectFile=".\..\obj_unif/"
-				ProgramDataBaseFileName=".\..\obj_unif/"
+				PrecompiledHeaderFile="$(IntDir)/UNIF.pch"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
-				CallingConvention="1"/>
+				CallingConvention="1"
+				CompileAs="1"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin/UNIF.dll"
+				OutputFile="$(OutDir)/UNIF.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				ImportLibrary=".\..\bin/UNIF.lib"
+				ImportLibrary="$(OutDir)/UNIF.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -61,7 +62,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="1033"/>
+				Culture="1033"
+				ResourceOutputFileName="$(IntDir)/UNIF.res"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -74,9 +76,9 @@
 				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
-			Name="Debug|Win32"
-			OutputDirectory=".\..\bin"
-			IntermediateDirectory=".\..\obj_unif"
+			Name="Debug (ANSI)|Win32"
+			OutputDirectory=".\..\ansi\bin"
+			IntermediateDirectory=".\..\ansi\obj_unif"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -87,25 +89,26 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;UNIF_EXPORTS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				PrecompiledHeaderFile=".\..\obj_unif/UNIF.pch"
-				AssemblerListingLocation=".\..\obj_unif/"
-				ObjectFile=".\..\obj_unif/"
-				ProgramDataBaseFileName=".\..\obj_unif/"
+				PrecompiledHeaderFile="$(IntDir)/UNIF.pch"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"
-				CallingConvention="1"/>
+				CallingConvention="1"
+				CompileAs="1"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin/UNIF.dll"
+				OutputFile="$(OutDir)/UNIF.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin/UNIF.pdb"
-				ImportLibrary=".\..\bin/UNIF.lib"
+				ProgramDatabaseFile="$(OutDir)/UNIF.pdb"
+				ImportLibrary="$(OutDir)/UNIF.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -123,7 +126,135 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"/>
+				Culture="1033"
+				ResourceOutputFileName="$(IntDir)/UNIF.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Debug (Unicode)|Win32"
+			OutputDirectory=".\..\bin"
+			IntermediateDirectory=".\..\obj_unif"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="1">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;UNIF_EXPORTS"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				PrecompiledHeaderFile="$(IntDir)/UNIF.pch"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
+				BrowseInformation="1"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="4"
+				CallingConvention="1"
+				CompileAs="1"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				OutputFile="$(OutDir)/UNIF.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OutDir)/UNIF.pdb"
+				ImportLibrary="$(OutDir)/UNIF.lib"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\..\bin/UNIF.tlb"
+				HeaderFileName=""/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1033"
+				ResourceOutputFileName="$(IntDir)/UNIF.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Release (Unicode)|Win32"
+			OutputDirectory=".\..\bin"
+			IntermediateDirectory=".\..\obj_unif"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="1">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;UNIF_EXPORTS;UNICODE;_UNICODE"
+				StringPooling="TRUE"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="TRUE"
+				PrecompiledHeaderFile="$(IntDir)/UNIF.pch"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
+				BrowseInformation="1"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				CallingConvention="1"
+				CompileAs="1"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				OutputFile="$(OutDir)/UNIF.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				ImportLibrary="$(OutDir)/UNIF.lib"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\..\bin/UNIF.tlb"
+				HeaderFileName=""/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1033"
+				ResourceOutputFileName="$(IntDir)/UNIF.res"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -148,7 +279,7 @@
 				<File
 					RelativePath="..\src\Hardware\h_FME7.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -156,19 +287,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\Hardware\h_Latch.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -176,19 +324,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\Hardware\h_MMC1.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -196,19 +361,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\Hardware\h_MMC2.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -216,19 +398,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\Hardware\h_MMC3.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -236,19 +435,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\Hardware\h_MMC4.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -256,19 +472,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\Hardware\h_MMC5.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -276,19 +509,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\Hardware\h_MMC6.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -296,12 +546,29 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
@@ -312,7 +579,7 @@
 				<File
 					RelativePath="..\src\Hardware\Sound\s_FME7.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -320,19 +587,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\Hardware\Sound\s_MMC5.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -340,12 +624,29 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
@@ -359,7 +660,7 @@
 					<File
 						RelativePath="..\src\Unif\Nes\NES_AxROM.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -367,19 +668,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Nes\NES_BxROM.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -387,19 +705,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Nes\NES_CxROM.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -407,19 +742,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\UNIF\NES\NES_DxROM.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -427,19 +779,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Nes\NES_ExROM.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -447,19 +816,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\UNIF\NES\NES_FxROM.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -467,19 +853,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Nes\NES_GxROM.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -487,19 +890,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Nes\NES_HxROM.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -507,19 +927,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Nes\NES_JxROM.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -527,19 +964,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Nes\NES_MxROM.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -547,19 +1001,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Nes\NES_NROM.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -567,19 +1038,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\UNIF\NES\NES_PxROM.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -587,19 +1075,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Nes\NES_SxROM.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -607,19 +1112,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Nes\NES_TxROM.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -627,19 +1149,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Nes\NES_UxROM.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -647,12 +1186,29 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
@@ -663,7 +1219,7 @@
 					<File
 						RelativePath="..\src\Unif\Btl\BTL_MARIO1_MALEE2.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -671,12 +1227,29 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
@@ -687,7 +1260,7 @@
 					<File
 						RelativePath="..\src\Unif\Bmc\BMC_1991SuperHiK7in1.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -695,19 +1268,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Bmc\BMC_1992Ballgames11in1.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -715,19 +1305,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Bmc\BMC_Generic115in1.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -735,19 +1342,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Bmc\BMC_Generic15in1.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -755,19 +1379,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Bmc\BMC_Generic20in1.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -775,19 +1416,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Bmc\BMC_Generic20in1A.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -795,19 +1453,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Bmc\BMC_Generic42in1.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -815,19 +1490,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Bmc\BMC_Generic52in1.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -835,19 +1527,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Bmc\BMC_Generic76in1.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -855,19 +1564,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Bmc\BMC_GoldenGame150in1.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -875,19 +1601,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Bmc\BMC_Mario7in1.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -895,19 +1638,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Bmc\BMC_NovelDiamond9999999in1.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -915,19 +1675,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Bmc\BMC_Reset4in1.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -935,19 +1712,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Bmc\BMC_StudyGame32in1.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -955,19 +1749,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Bmc\BMC_Super1Min1.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -975,19 +1786,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\UNIF\BMC\BMC_Super24in1SC03.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -995,19 +1823,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Bmc\BMC_Super700in1.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -1015,19 +1860,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Bmc\BMC_Supervision16in1.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -1035,19 +1897,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\UNIF\BMC\BMC_SV01.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -1055,19 +1934,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\Unif\Bmc\BMC_T3H53.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -1075,19 +1971,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\UNIF\BMC\BMC_WS.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -1095,12 +2008,29 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
@@ -1111,7 +2041,7 @@
 					<File
 						RelativePath="..\src\UNIF\UNL\UNL_8237.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -1119,19 +2049,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\UNIF\UNL\UNL_Dripgame.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -1139,19 +2086,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\UNIF\UNL\UNL_H2288.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -1159,19 +2123,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\UNIF\UNL\UNL_Sachen.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -1179,19 +2160,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\UNIF\UNL\UNL_Sachen_74LS374N.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -1199,19 +2197,36 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\src\UNIF\UNL\UNL_Sachen_8259.c">
 						<FileConfiguration
-							Name="Release|Win32">
+							Name="Release (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="2"
@@ -1219,12 +2234,29 @@
 								BrowseInformation="1"/>
 						</FileConfiguration>
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug (ANSI)|Win32">
 							<Tool
 								Name="VCCLCompilerTool"
 								Optimization="0"
 								PreprocessorDefinitions=""
 								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="0"
+								PreprocessorDefinitions=""
+								BasicRuntimeChecks="3"
+								BrowseInformation="1"/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release (Unicode)|Win32">
+							<Tool
+								Name="VCCLCompilerTool"
+								Optimization="2"
+								PreprocessorDefinitions=""
 								BrowseInformation="1"/>
 						</FileConfiguration>
 					</File>
@@ -1236,7 +2268,7 @@
 				<File
 					RelativePath="..\src\Dll\d_UNIF.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1244,12 +2276,29 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
@@ -1316,14 +2365,28 @@
 			<File
 				RelativePath="..\src\UNIF\UNIF.rc">
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release (ANSI)|Win32">
 					<Tool
 						Name="VCResourceCompilerTool"
 						PreprocessorDefinitions=""
 						AdditionalIncludeDirectories="\nes\Nintendulator\mappers\src\UNIF"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug (ANSI)|Win32">
+					<Tool
+						Name="VCResourceCompilerTool"
+						PreprocessorDefinitions=""
+						AdditionalIncludeDirectories="\nes\Nintendulator\mappers\src\UNIF"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug (Unicode)|Win32">
+					<Tool
+						Name="VCResourceCompilerTool"
+						PreprocessorDefinitions=""
+						AdditionalIncludeDirectories="\nes\Nintendulator\mappers\src\UNIF"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release (Unicode)|Win32">
 					<Tool
 						Name="VCResourceCompilerTool"
 						PreprocessorDefinitions=""

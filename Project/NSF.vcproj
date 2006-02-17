@@ -13,9 +13,9 @@
 	</Platforms>
 	<Configurations>
 		<Configuration
-			Name="Debug|Win32"
-			OutputDirectory=".\..\bin"
-			IntermediateDirectory=".\..\obj_nsf"
+			Name="Debug (ANSI)|Win32"
+			OutputDirectory=".\..\ansi\bin"
+			IntermediateDirectory=".\..\ansi\obj_nsf"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -26,25 +26,26 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;NSF_EXPORTS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				PrecompiledHeaderFile=".\..\obj_nsf/NSF.pch"
-				AssemblerListingLocation=".\..\obj_nsf/"
-				ObjectFile=".\..\obj_nsf/"
-				ProgramDataBaseFileName=".\..\obj_nsf/"
+				PrecompiledHeaderFile="$(IntDir)/NSF.pch"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"
-				CallingConvention="1"/>
+				CallingConvention="1"
+				CompileAs="1"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin/NSF.dll"
+				OutputFile="$(OutDir)/NSF.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin/NSF.pdb"
-				ImportLibrary=".\..\bin/NSF.lib"
+				ProgramDatabaseFile="$(OutDir)/NSF.pdb"
+				ImportLibrary="$(OutDir)/NSF.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -62,7 +63,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"/>
+				Culture="1033"
+				ResourceOutputFileName="$(IntDir)/NSF.res"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -75,9 +77,9 @@
 				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
-			Name="Release|Win32"
-			OutputDirectory=".\..\bin"
-			IntermediateDirectory=".\..\obj_nsf"
+			Name="Release (ANSI)|Win32"
+			OutputDirectory=".\..\ansi\bin"
+			IntermediateDirectory=".\..\ansi\obj_nsf"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -90,22 +92,23 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
-				PrecompiledHeaderFile=".\..\obj_nsf/NSF.pch"
-				AssemblerListingLocation=".\..\obj_nsf/"
-				ObjectFile=".\..\obj_nsf/"
-				ProgramDataBaseFileName=".\..\obj_nsf/"
+				PrecompiledHeaderFile="$(IntDir)/NSF.pch"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
-				CallingConvention="1"/>
+				CallingConvention="1"
+				CompileAs="1"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin/NSF.dll"
+				OutputFile="$(OutDir)/NSF.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				ImportLibrary=".\..\bin/NSF.lib"
+				ImportLibrary="$(OutDir)/NSF.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -123,7 +126,135 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="1033"/>
+				Culture="1033"
+				ResourceOutputFileName="$(IntDir)/NSF.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Debug (Unicode)|Win32"
+			OutputDirectory=".\..\bin"
+			IntermediateDirectory=".\..\obj_nsf"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="1">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;NSF_EXPORTS"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				PrecompiledHeaderFile="$(IntDir)/NSF.pch"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
+				BrowseInformation="1"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="4"
+				CallingConvention="1"
+				CompileAs="1"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				OutputFile="$(OutDir)/NSF.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OutDir)/NSF.pdb"
+				ImportLibrary="$(OutDir)/NSF.lib"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\..\bin/NSF.tlb"
+				HeaderFileName=""/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1033"
+				ResourceOutputFileName="$(IntDir)/NSF.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Release (Unicode)|Win32"
+			OutputDirectory=".\..\bin"
+			IntermediateDirectory=".\..\obj_nsf"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="1">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;NSF_EXPORTS;UNICODE;_UNICODE"
+				StringPooling="TRUE"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="TRUE"
+				PrecompiledHeaderFile="$(IntDir)/NSF.pch"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
+				BrowseInformation="1"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				CallingConvention="1"
+				CompileAs="1"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				OutputFile="$(OutDir)/NSF.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				ImportLibrary="$(OutDir)/NSF.lib"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\..\bin/NSF.tlb"
+				HeaderFileName=""/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1033"
+				ResourceOutputFileName="$(IntDir)/NSF.res"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -148,7 +279,7 @@
 				<File
 					RelativePath="..\src\Hardware\Sound\s_FDS.c">
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
@@ -157,7 +288,24 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -168,7 +316,7 @@
 				<File
 					RelativePath="..\src\Hardware\Sound\s_FME7.c">
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
@@ -177,7 +325,24 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -188,7 +353,7 @@
 				<File
 					RelativePath="..\src\Hardware\Sound\s_MMC5.c">
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
@@ -197,7 +362,24 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -208,7 +390,7 @@
 				<File
 					RelativePath="..\src\Hardware\Sound\s_N106.c">
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
@@ -217,7 +399,24 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -228,7 +427,7 @@
 				<File
 					RelativePath="..\src\Hardware\Sound\s_VRC6.c">
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
@@ -237,7 +436,24 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -248,7 +464,7 @@
 				<File
 					RelativePath="..\src\Hardware\Sound\s_VRC7.c">
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
@@ -257,7 +473,24 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -272,7 +505,7 @@
 				<File
 					RelativePath="..\src\NSF\NSF_Mapper.c">
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
@@ -281,7 +514,24 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -296,7 +546,7 @@
 				<File
 					RelativePath="..\src\DLL\d_NSF.c">
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
@@ -305,7 +555,24 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -357,14 +624,28 @@
 			<File
 				RelativePath="..\src\NSF\NSF.rc">
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug (ANSI)|Win32">
 					<Tool
 						Name="VCResourceCompilerTool"
 						PreprocessorDefinitions=""
 						AdditionalIncludeDirectories="\nes\Nintendulator\mappers\src\NSF"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release (ANSI)|Win32">
+					<Tool
+						Name="VCResourceCompilerTool"
+						PreprocessorDefinitions=""
+						AdditionalIncludeDirectories="\nes\Nintendulator\mappers\src\NSF"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug (Unicode)|Win32">
+					<Tool
+						Name="VCResourceCompilerTool"
+						PreprocessorDefinitions=""
+						AdditionalIncludeDirectories="\nes\Nintendulator\mappers\src\NSF"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release (Unicode)|Win32">
 					<Tool
 						Name="VCResourceCompilerTool"
 						PreprocessorDefinitions=""

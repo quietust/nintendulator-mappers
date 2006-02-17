@@ -13,9 +13,9 @@
 	</Platforms>
 	<Configurations>
 		<Configuration
-			Name="Release|Win32"
-			OutputDirectory=".\..\bin"
-			IntermediateDirectory=".\..\obj_ines"
+			Name="Release (ANSI)|Win32"
+			OutputDirectory=".\..\ansi\bin"
+			IntermediateDirectory=".\..\ansi\obj_ines"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -28,22 +28,23 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
-				PrecompiledHeaderFile=".\..\obj_ines/INES.pch"
-				AssemblerListingLocation=".\..\obj_ines/"
-				ObjectFile=".\..\obj_ines/"
-				ProgramDataBaseFileName=".\..\obj_ines/"
+				PrecompiledHeaderFile="$(IntDir)/INES.pch"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
-				CallingConvention="1"/>
+				CallingConvention="1"
+				CompileAs="1"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin/INES.dll"
+				OutputFile="$(OutDir)/INES.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				ImportLibrary=".\..\bin/INES.lib"
+				ImportLibrary="$(OutDir)/INES.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -61,7 +62,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="1033"/>
+				Culture="1033"
+				ResourceOutputFileName="$(IntDir)/iNES.res"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -74,9 +76,9 @@
 				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
-			Name="Debug|Win32"
-			OutputDirectory=".\..\bin"
-			IntermediateDirectory=".\..\obj_ines"
+			Name="Debug (ANSI)|Win32"
+			OutputDirectory=".\..\ansi\bin"
+			IntermediateDirectory=".\..\ansi\obj_ines"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -87,25 +89,26 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;INES_EXPORTS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				PrecompiledHeaderFile=".\..\obj_ines/INES.pch"
-				AssemblerListingLocation=".\..\obj_ines/"
-				ObjectFile=".\..\obj_ines/"
-				ProgramDataBaseFileName=".\..\obj_ines/"
+				PrecompiledHeaderFile="$(IntDir)/INES.pch"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"
-				CallingConvention="1"/>
+				CallingConvention="1"
+				CompileAs="1"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin/INES.dll"
+				OutputFile="$(OutDir)/INES.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin/INES.pdb"
-				ImportLibrary=".\..\bin/INES.lib"
+				ProgramDatabaseFile="$(OutDir)/INES.pdb"
+				ImportLibrary="$(OutDir)/INES.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -123,7 +126,135 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"/>
+				Culture="1033"
+				ResourceOutputFileName="$(IntDir)/iNES.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Debug (Unicode)|Win32"
+			OutputDirectory=".\..\bin"
+			IntermediateDirectory=".\..\obj_ines"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="1">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;INES_EXPORTS"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				PrecompiledHeaderFile="$(IntDir)/INES.pch"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
+				BrowseInformation="1"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="4"
+				CallingConvention="1"
+				CompileAs="1"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				OutputFile="$(OutDir)/INES.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OutDir)/INES.pdb"
+				ImportLibrary="$(OutDir)/INES.lib"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\..\bin/INES.tlb"
+				HeaderFileName=""/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1033"
+				ResourceOutputFileName="$(IntDir)/iNES.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Release (Unicode)|Win32"
+			OutputDirectory=".\..\bin"
+			IntermediateDirectory=".\..\obj_ines"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="1">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;INES_EXPORTS;UNICODE;_UNICODE"
+				StringPooling="TRUE"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="TRUE"
+				PrecompiledHeaderFile="$(IntDir)/INES.pch"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
+				BrowseInformation="1"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				CallingConvention="1"
+				CompileAs="1"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				OutputFile="$(OutDir)/INES.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				ImportLibrary="$(OutDir)/INES.lib"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\..\bin/INES.tlb"
+				HeaderFileName=""/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1033"
+				ResourceOutputFileName="$(IntDir)/iNES.res"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -148,7 +279,7 @@
 				<File
 					RelativePath="..\src\Hardware\h_FME7.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -156,19 +287,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\Hardware\h_Latch.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -176,19 +324,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\Hardware\h_MMC1.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -196,19 +361,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\Hardware\h_MMC2.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -216,19 +398,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\Hardware\h_MMC3.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -236,19 +435,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\Hardware\h_MMC4.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -256,19 +472,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\Hardware\h_MMC5.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -276,12 +509,29 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
@@ -292,7 +542,7 @@
 				<File
 					RelativePath="..\src\Hardware\Sound\s_FME7.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -300,19 +550,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\Hardware\Sound\s_MMC5.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -320,19 +587,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\Hardware\Sound\s_N106.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -340,19 +624,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\Hardware\Sound\s_VRC6.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -360,19 +661,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\Hardware\Sound\s_VRC7.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -380,12 +698,29 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
@@ -396,7 +731,7 @@
 				<File
 					RelativePath="..\src\iNES\mapper000.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -404,19 +739,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper001.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -424,19 +776,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper002.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -444,19 +813,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper003.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -464,19 +850,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper004.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -484,19 +887,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper005.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -504,19 +924,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper007.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -524,19 +961,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper009.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -544,19 +998,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper010.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -564,19 +1035,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper011.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -584,19 +1072,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper013.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -604,19 +1109,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper015.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -624,19 +1146,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper016.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -644,19 +1183,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper018.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -664,19 +1220,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper019.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -684,19 +1257,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper021.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -704,19 +1294,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper022.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -724,19 +1331,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper023.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -744,19 +1368,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper024.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -764,19 +1405,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper025.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -784,19 +1442,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper026.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -804,19 +1479,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper032.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -824,19 +1516,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper033.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -844,19 +1553,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper034.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -864,19 +1590,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper040.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -884,19 +1627,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper041.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -904,19 +1664,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper042.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -924,19 +1701,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper043.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -944,19 +1738,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper044.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -964,19 +1775,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper045.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -984,19 +1812,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper046.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1004,19 +1849,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper047.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1024,19 +1886,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper049.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1044,19 +1923,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper050.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1064,19 +1960,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper051.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1084,19 +1997,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper052.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1104,19 +2034,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper053.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1124,19 +2071,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper056.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1144,19 +2108,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper058.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1164,19 +2145,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper059.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1184,19 +2182,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper060.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1204,19 +2219,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper061.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1224,19 +2256,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper062.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1244,19 +2293,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper063.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1264,19 +2330,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper064.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1284,19 +2367,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper065.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1304,19 +2404,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper066.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1324,19 +2441,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper067.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1344,19 +2478,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper068.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1364,19 +2515,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper069.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1384,19 +2552,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper070.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1404,19 +2589,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper071.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1424,19 +2626,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper073.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1444,19 +2663,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper074.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1464,19 +2700,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper075.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1484,19 +2737,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper076.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1504,19 +2774,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper078.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1524,19 +2811,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper079.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1544,19 +2848,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper080.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1564,19 +2885,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper083.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1584,19 +2922,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper085.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1604,19 +2959,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper086.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1624,19 +2996,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper087.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1644,19 +3033,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper089.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1664,19 +3070,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper090.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1684,19 +3107,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper091.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1704,19 +3144,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper093.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1724,19 +3181,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper094.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1744,19 +3218,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper095.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1764,19 +3255,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper096.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1784,19 +3292,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper097.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1804,19 +3329,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper099.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1824,19 +3366,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper100.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1844,19 +3403,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper105.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1864,19 +3440,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper112.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1884,19 +3477,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper113.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1904,19 +3514,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper114.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1924,19 +3551,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper115.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1944,19 +3588,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper118.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1964,19 +3625,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper119.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -1984,19 +3662,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper126.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2004,19 +3699,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper127.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2024,19 +3736,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper132.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2044,19 +3773,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper137.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2064,19 +3810,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper138.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2084,19 +3847,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper139.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2104,19 +3884,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper140.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2124,19 +3921,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper141.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2144,19 +3958,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper142.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2164,19 +3995,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper143.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2184,19 +4032,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper145.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2204,19 +4069,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper146.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2224,19 +4106,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper147.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2244,19 +4143,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper148.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2264,19 +4180,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper149.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2284,19 +4217,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper150.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2304,19 +4254,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper151.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2324,19 +4291,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper164.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2344,19 +4328,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper180.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2364,19 +4365,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper182.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2384,19 +4402,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper184.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2404,19 +4439,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper185.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2424,19 +4476,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper188.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2444,19 +4513,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper189.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2464,19 +4550,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper225.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2484,19 +4587,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper226.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2504,19 +4624,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper227.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2524,19 +4661,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper228.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2544,19 +4698,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper229.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2564,19 +4735,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper230.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2584,19 +4772,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper231.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2604,19 +4809,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper232.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2624,19 +4846,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper233.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2644,19 +4883,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper234.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2664,19 +4920,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper235.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2684,19 +4957,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper243.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2704,19 +4994,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper246.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2724,19 +5031,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper250.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2744,19 +5068,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper254.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2764,19 +5105,36 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\iNES\unimplemented.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2784,12 +5142,29 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
@@ -2800,7 +5175,7 @@
 				<File
 					RelativePath="..\src\DLL\d_iNES.c">
 					<FileConfiguration
-						Name="Release|Win32">
+						Name="Release (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
@@ -2808,12 +5183,29 @@
 							BrowseInformation="1"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug|Win32">
+						Name="Debug (ANSI)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
 							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release (Unicode)|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							PreprocessorDefinitions=""
 							BrowseInformation="1"/>
 					</FileConfiguration>
 				</File>
@@ -2883,14 +5275,28 @@
 			<File
 				RelativePath="..\src\iNES\iNES.rc">
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release (ANSI)|Win32">
 					<Tool
 						Name="VCResourceCompilerTool"
 						PreprocessorDefinitions=""
 						AdditionalIncludeDirectories="\nes\Nintendulator\mappers\src\iNES"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug (ANSI)|Win32">
+					<Tool
+						Name="VCResourceCompilerTool"
+						PreprocessorDefinitions=""
+						AdditionalIncludeDirectories="\nes\Nintendulator\mappers\src\iNES"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug (Unicode)|Win32">
+					<Tool
+						Name="VCResourceCompilerTool"
+						PreprocessorDefinitions=""
+						AdditionalIncludeDirectories="\nes\Nintendulator\mappers\src\iNES"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release (Unicode)|Win32">
 					<Tool
 						Name="VCResourceCompilerTool"
 						PreprocessorDefinitions=""
