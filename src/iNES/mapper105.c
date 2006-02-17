@@ -1,7 +1,6 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_MMC1.h"
 #include	"resource.h"
-#include	<stdio.h>
 
 static	struct
 {
@@ -62,10 +61,8 @@ static	void	_MAPINT	CPUCycle (void)
 	Mapper.Counter++;
 	if (!(Mapper.Counter % 1789773))
 	{
-		char tmp[32];
 		u32 SecondsLeft = ((Mapper.MaxCount | 0x20000000) - Mapper.Counter) / 1789773;
-		sprintf(tmp,"Time left: %02i:%02i",SecondsLeft / 60,SecondsLeft % 60);
-		EMU->StatusOut(tmp);
+		EMU->StatusOut("Time left: %02i:%02i",SecondsLeft / 60,SecondsLeft % 60);
 	}
 	if (((Mapper.Counter | (Mapper.MaxCount ^ 0x1E000000)) & 0x3E000000) == 0x3E000000)
 	{
