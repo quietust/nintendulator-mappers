@@ -218,11 +218,18 @@ void	MMC5_SyncCHR (void)
 
 void	MMC5_SyncMirror (void)
 {
-	EMU->Mirror_Custom(
-		(MMC5.Mirror >> 0) & 3,
-		(MMC5.Mirror >> 2) & 3,
-		(MMC5.Mirror >> 4) & 3,
-		(MMC5.Mirror >> 6) & 3);	
+	u8 mirror = MMC5.Mirror, i;
+	for (i = 0; i < 4; i++)
+	{
+		EMU->SetCHR_NT1(0x8|i,mirror & 3);
+		EMU->SetCHR_NT1(0xC|i,mirror & 3);
+		if ((mirror & 3) == 3)
+		{
+			EMU->SetCHR_Ptr1(0x8|i,MMC5.ExNameTable,FALSE);
+			EMU->SetCHR_Ptr1(0xC|i,MMC5.ExNameTable,FALSE);
+		}
+		mirror >>= 2;
+	}
 }
 
 int	_MAPINT	MMC5_CPURead5 (int Bank, int Where)
