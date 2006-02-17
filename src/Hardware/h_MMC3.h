@@ -11,6 +11,7 @@ typedef	struct	MMC3
 	u8 CHR[8];
 	u8 WRAMEnab;
 	u8 Mirror;
+	FCPUWrite CPUWrite67;
 	void	(*Sync)	(void);
 }	TMMC3, *PMMC3;
 
@@ -24,6 +25,7 @@ void		MMC3_SyncWRAM	(void);
 void		MMC3_SyncCHR_ROM(int,int);
 void		MMC3_SyncCHR_RAM(int,int);
 int	_MAPINT	MMC3_SaveLoad	(int,int,char *);
+void	_MAPINT	MMC3_CPUWrite67	(int,int,int);
 void	_MAPINT	MMC3_CPUWrite89	(int,int,int);
 void	_MAPINT	MMC3_CPUWriteAB	(int,int,int);
 void	_MAPINT	MMC3_CPUWriteCD	(int,int,int);
