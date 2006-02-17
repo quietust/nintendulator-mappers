@@ -188,30 +188,36 @@ static u32 DivFix(u32 p1, u32 p2, u32 fix)
 	return ret;
 }
 
-void	FDSsound_Init (void)
+void	FDSsound_Load (void)
 {
-	int i;
 	memset(&FDSsound, 0, sizeof(TFDSsound));
 	FDSsound.srate = 44100;
 	FDSsound.envcps = DivFix(NES_BASECYCLES, 12 * FDSsound.srate, EGCPS_BITS + 5 - 9 + 1);
 	FDSsound.envspd = 0xe8 << EGCPS_BITS;
 	FDSsound.envdisable = 1;
 	FDSsound.phasecps = DivFix(NES_BASECYCLES, 12 * FDSsound.srate, PGCPS_BITS);
-	for (i = 0; i < 0x40; i++)
-	{
-		FDSsound.op[0].wg.wave[i] = (i < 0x20) ? 0x1f : -0x20;
-		FDSsound.op[1].wg.wave[i] = 64;
-	}
 	LogTableInitialize();
 	FDSSoundVolume(0);
 }
 
+void	FDSsound_Reset (RESET_TYPE ResetType)
+{
+	int i;
+	for (i = 0; i < 0x40; i++)
+	{
+		FDSsound.op[0].wg.wave[i] = (i < 0x20) ? 0x1F : -0x20;
+		FDSsound.op[1].wg.wave[i] = 64;
+	}
+}
+
+void	FDSsound_Unload (void)
+{
+}
+
 int	FDSsound_Read (int Where)
 {
-	if (0x4040 <= Where && Where <= 0x407f)
-	{
-		return FDSsound.op[0].wg.wave[Where & 0x3f] + 0x20;
-	}
+	if ((0x4040 <= Where) && (Where <= 0x407F))
+		return FDSsound.op[0].wg.wave[Where & 0x3F] + 0x20;
 	if (0x4090 == Where)
 		return FDSsound.op[0].eg.volume | 0x40;
 	if (0x4092 == Where) /* 4094? */
@@ -223,7 +229,7 @@ void	FDSsound_Write (int Where, int What)
 {
 	if (0x4040 <= Where && Where <= 0x407F)
 	{
-		FDSsound.op[0].wg.wave[Where - 0x4040] = ((int)(What & 0x3f)) - 0x20;
+		FDSsound.op[0].wg.wave[Where - 0x4040] = ((int)(What & 0x3F)) - 0x20;
 	}
 	else if (0x4080 <= Where && Where <= 0x408F)
 	{
@@ -299,8 +305,4 @@ int	_MAPINT	FDSsound_Get (int numCycles)
 int	_MAPINT	FDSsound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	return x;
-}
-
-void	FDSsound_Destroy (void)
-{
 }

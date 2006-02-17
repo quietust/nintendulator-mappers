@@ -1,23 +1,29 @@
 #include	"..\DLL\d_FDS.h"
 #include	"..\Hardware\h_FDS.h"
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	FDS_Destroy();
+	FDS_Load();
 }
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	FDS_Init(ResetType);
+	FDS_Reset(ResetType);
+}
+
+static	void	_MAPINT	Unload (void)
+{
+	FDS_Unload();
 }
 
 CTMapperInfo	MapperInfo_FDS =
 {
 	NULL,
 	"Famicom Disk System",
-	COMPAT_PARTIAL,
+	COMPAT_NEARLY,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	FDS_CPUCycle,
 	NULL,
 	FDS_SaveLoad,

@@ -17,19 +17,21 @@ typedef	struct	FDS
 	int BytePtr;
 	u8 WriteSkip;
 	u8 DiskIRQ;
+	u8 Mirror;
 	HWND ConfigWindow;
 	u8 ConfigCmd;
 }	TFDS, *PFDS;
 
 extern	TFDS	FDS;
 
-void			FDS_Init	(RESET_TYPE);
+void			FDS_Load	(void);
+void			FDS_Reset	(RESET_TYPE);
+void			FDS_Unload	(void);
 int		_MAPINT	FDS_SaveLoad	(STATE_TYPE,int,unsigned char *);
 void		_MAPINT	FDS_CPUCycle	(void);
 unsigned char	_MAPINT	FDS_Config	(int,unsigned char);
 int		_MAPINT	FDS_MapperSnd	(int);
 int		_MAPINT	FDS_Read	(int,int);
 void		_MAPINT	FDS_Write	(int,int,int);
-void			FDS_Destroy	(void);
 
 #endif	/* H_FDS_H */

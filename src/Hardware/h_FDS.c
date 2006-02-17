@@ -263,20 +263,11 @@ int	_MAPINT	FDS_MapperSnd (int Len)
 
 unsigned char FDS_BIOS[2][0x1000];
 
-void	FDS_Init (RESET_TYPE ResetType)
+void	FDS_Load (void)
 {
 	FILE *BIOS;
 	char buf[256];
 	int i;
-
-	FDS.Read = EMU->GetCPUReadHandler(0x4);
-	EMU->SetCPUReadHandler(0x4,FDS_Read);
-	FDS.Write = EMU->GetCPUWriteHandler(0x4);
-	EMU->SetCPUWriteHandler(0x4,FDS_Write);
-
-	EMU->SetPRG_RAM32(0x6,0);
-	EMU->SetCHR_RAM8(0,0);
-
 	if (!(i = GetModuleFileName(NULL,buf,255)))
 	{
 		MessageBox(hWnd,"Fatal error: failed to get directory!","FDS.DLL",MSGBOX_FLAGS);
@@ -297,26 +288,36 @@ void	FDS_Init (RESET_TYPE ResetType)
 		return;
 	}
 	fclose(BIOS);
+	EMU->StatusOut("FDS BIOS loaded!");
+	FDS.ConfigWindow = NULL;
+	FDSsound_Load();
+}
+
+void	FDS_Reset (RESET_TYPE ResetType)
+{
+	FDS.Read = EMU->GetCPUReadHandler(0x4);
+	EMU->SetCPUReadHandler(0x4,FDS_Read);
+	FDS.Write = EMU->GetCPUWriteHandler(0x4);
+	EMU->SetCPUWriteHandler(0x4,FDS_Write);
+
+	EMU->SetPRG_RAM32(0x6,0);
+	EMU->SetCHR_RAM8(0,0);
 
 	EMU->SetPRG_Ptr4(0xE,FDS_BIOS[0],FALSE);
 	EMU->SetPRG_Ptr4(0xF,FDS_BIOS[1],FALSE);
-
-	EMU->StatusOut("FDS BIOS loaded!");
 
 	EndIRQ(-1);
 
 	if (ResetType == RESET_HARD)
 		FDS.DiskNum = 0xFF;
-	FDS.ConfigWindow = NULL;
 	FDS.ConfigCmd = 0;
 
-	FDSsound_Init();
+	FDSsound_Reset(ResetType);
 }
 
-void	FDS_Destroy (void)
+void	FDS_Unload (void)
 {
-	FDSsound_Destroy();
+	FDSsound_Unload();
 	if (FDS.ConfigWindow)
 		DestroyWindow(FDS.ConfigWindow);
-	FDS.ConfigWindow = NULL;
 }
