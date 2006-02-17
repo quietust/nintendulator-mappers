@@ -99,7 +99,7 @@ LINK32=link.exe
 # PROP Default_Filter "c;cpp;cxx;tli"
 # Begin Source File
 
-SOURCE=..\src\Hardware\h_FME07.c
+SOURCE=..\src\Hardware\h_FME7.c
 # End Source File
 # Begin Source File
 
@@ -131,7 +131,7 @@ SOURCE=..\src\Hardware\h_MMC5.c
 # PROP Default_Filter "c;cpp;cxx;tli"
 # Begin Source File
 
-SOURCE=..\src\Hardware\Sound\s_FME07.c
+SOURCE=..\src\Hardware\Sound\s_FME7.c
 # End Source File
 # Begin Source File
 
@@ -583,7 +583,7 @@ SOURCE=..\src\DLL\d_iNES.c
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\src\Hardware\h_FME07.h
+SOURCE=..\src\Hardware\h_FME7.h
 # End Source File
 # Begin Source File
 
@@ -615,7 +615,7 @@ SOURCE=..\src\Hardware\h_MMC5.h
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\src\Hardware\Sound\s_FME07.h
+SOURCE=..\src\Hardware\Sound\s_FME7.h
 # End Source File
 # Begin Source File
 

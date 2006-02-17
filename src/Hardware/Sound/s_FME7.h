@@ -1,10 +1,10 @@
-#ifndef	__SND_FME07_H__
-#define	__SND_FME07_H__
+#ifndef	__SND_FME7_H__
+#define	__SND_FME7_H__
 
-void	FME07sound_Init (void);
-void	FME07sound_Write (int,int);
-int	_MAPINT	FME07sound_Get (int);
-int	_MAPINT	FME07sound_SaveLoad (int,int,char *);
-void	FME07sound_Destroy (void);
+void	FME7sound_Init (void);
+void	FME7sound_Write (int,int);
+int	_MAPINT	FME7sound_Get (int);
+int	_MAPINT	FME7sound_SaveLoad (int,int,char *);
+void	FME7sound_Destroy (void);
 
-#endif	/* __SND_FME07_H__ */
+#endif	/* __SND_FME7_H__ */

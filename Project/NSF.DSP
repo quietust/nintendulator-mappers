@@ -107,7 +107,7 @@ SOURCE=..\src\Hardware\Sound\s_FDS.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Hardware\Sound\s_FME07.c
+SOURCE=..\src\Hardware\Sound\s_FME7.c
 # End Source File
 # Begin Source File
 
@@ -159,7 +159,7 @@ SOURCE=..\src\Hardware\Sound\s_FDS.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Hardware\Sound\s_FME07.h
+SOURCE=..\src\Hardware\Sound\s_FME7.h
 # End Source File
 # Begin Source File
 

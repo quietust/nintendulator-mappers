@@ -1,13 +1,13 @@
 #include	"..\..\interface.h"
-#include	"s_FME07.h"
+#include	"s_FME7.h"
 
-// Sunsoft FME-07, based on the AY-8910
+// Sunsoft FME-7, based on the AY-8910
 
 #define	NES_INC_SIZE_INT (204800000 / 77)
 
-//#define	FME07_NOISE
+//#define	FME7_NOISE
 
-typedef	struct	FME07sqr
+typedef	struct	FME7sqr
 {
 	union
 	{
@@ -28,10 +28,10 @@ typedef	struct	FME07sqr
 	};
 	u8 CurP;
 	s32 LCtr;
-}	TFME07sqr, *PFME07sqr;
+}	TFME7sqr, *PFME7sqr;
 
-#ifdef	FME07_NOISE
-typedef	struct	FME07noise
+#ifdef	FME7_NOISE
+typedef	struct	FME7noise
 {
 	union
 	{
@@ -47,17 +47,17 @@ typedef	struct	FME07noise
 	};
 	u16_n ShiftReg;
 	s32 LCtr;
-}	TFME07noise, *PFME07noise;
+}	TFME7noise, *PFME7noise;
 #endif
 
-typedef	struct	FME07sound
+typedef	struct	FME7sound
 {
 	union
 	{
 		struct
 		{
 			unsigned tone      : 3;
-#ifdef	FME07_NOISE
+#ifdef	FME7_NOISE
 			unsigned noise     : 3;
 #else
 			unsigned           : 3;
@@ -79,15 +79,15 @@ typedef	struct	FME07sound
 		};
 	};
 	u8 select;
-	TFME07sqr Sqr[3];
-#ifdef	FME07_NOISE
-	TFME07noise Noise;
+	TFME7sqr Sqr[3];
+#ifdef	FME7_NOISE
+	TFME7noise Noise;
 #endif
-}	TFME07sound, *PFME07sound;
+}	TFME7sound, *PFME7sound;
 
-static	TFME07sound	FME07sound;
+static	TFME7sound	FME7sound;
 
-static	int	FME07_DoSquare (PFME07sqr ChanData, int Cycles)
+static	int	FME7_DoSquare (PFME7sqr ChanData, int Cycles)
 {
 	ChanData->LCtr -= Cycles;
 	while (ChanData->LCtr <= 0)
@@ -98,14 +98,14 @@ static	int	FME07_DoSquare (PFME07sqr ChanData, int Cycles)
 	}
 	return ChanData->volume * ((ChanData->CurP < 8) ? 3 : -3);
 }
-#ifdef	FME07_NOISE
-static	int	FME07_DoNoise (PFME07noise ChanData, int Cycles)
+#ifdef	FME7_NOISE
+static	int	FME7_DoNoise (PFME7noise ChanData, int Cycles)
 {
 	int x, volume = 0;
         for (x = 0; x < 3; x++)
 	{
-		if (!(FME07sound.noise & (1 << x)))
-			volume += FME07sound.Sqr[x].volume;	// 1 noise for each channel
+		if (!(FME7sound.noise & (1 << x)))
+			volume += FME7sound.Sqr[x].volume;	// 1 noise for each channel
 	}
 	ChanData->LCtr -= Cycles;
 	while (ChanData->LCtr <= -)
@@ -116,83 +116,83 @@ static	int	FME07_DoNoise (PFME07noise ChanData, int Cycles)
 	return volume * ((ChanData->ShiftReg.s0 & 1) ? 3 : -3);
 }
 #endif
-void	FME07sound_Init (void)
+void	FME7sound_Init (void)
 {
-	memset(&FME07sound,0,sizeof(FME07sound));
-	FME07sound.Sqr[0].LCtr = 1;
-	FME07sound.Sqr[1].LCtr = 1;
-	FME07sound.Sqr[2].LCtr = 1;
-#ifdef	FME07_NOISE
-	FME07sound.Noise.ShiftReg.s0 = 0xFFFF;
-	FME07sound.Noise.LCtr = 1;
+	memset(&FME7sound,0,sizeof(FME7sound));
+	FME7sound.Sqr[0].LCtr = 1;
+	FME7sound.Sqr[1].LCtr = 1;
+	FME7sound.Sqr[2].LCtr = 1;
+#ifdef	FME7_NOISE
+	FME7sound.Noise.ShiftReg.s0 = 0xFFFF;
+	FME7sound.Noise.LCtr = 1;
 #endif
 }
 
-void	FME07sound_Write (int Where, int What)
+void	FME7sound_Write (int Where, int What)
 {
 	switch (Where & 0xE000)
 	{
-	case 0xC000:	FME07sound.select = What & 0xF;	break;	
-	case 0xE000:	switch (FME07sound.select)
+	case 0xC000:	FME7sound.select = What & 0xF;	break;	
+	case 0xE000:	switch (FME7sound.select)
 			{
-			case 0x0:	FME07sound.Sqr[0].byte0 = What;	break;
-			case 0x1:	FME07sound.Sqr[0].byte1 = What;	break;
-			case 0x2:	FME07sound.Sqr[1].byte0 = What;	break;
-			case 0x3:	FME07sound.Sqr[1].byte1 = What;	break;
-			case 0x4:	FME07sound.Sqr[2].byte0 = What;	break;
-			case 0x5:	FME07sound.Sqr[2].byte1 = What;	break;
-#ifdef	FME07_NOISE
-			case 0x6:	FME07sound.Noise.byte0 = What;	break;
+			case 0x0:	FME7sound.Sqr[0].byte0 = What;	break;
+			case 0x1:	FME7sound.Sqr[0].byte1 = What;	break;
+			case 0x2:	FME7sound.Sqr[1].byte0 = What;	break;
+			case 0x3:	FME7sound.Sqr[1].byte1 = What;	break;
+			case 0x4:	FME7sound.Sqr[2].byte0 = What;	break;
+			case 0x5:	FME7sound.Sqr[2].byte1 = What;	break;
+#ifdef	FME7_NOISE
+			case 0x6:	FME7sound.Noise.byte0 = What;	break;
 #endif
-			case 0x7:	FME07sound.byte7 = What;	break;
-			case 0x8:	FME07sound.Sqr[0].byte2 = What;	break;
-			case 0x9:	FME07sound.Sqr[1].byte2 = What;	break;
-			case 0xA:	FME07sound.Sqr[2].byte2 = What;	break;
-			case 0xB:	FME07sound.byteB = What;	break;
-			case 0xC:	FME07sound.byteC = What;	break;
-			case 0xD:	FME07sound.byteD = What;	break;
+			case 0x7:	FME7sound.byte7 = What;	break;
+			case 0x8:	FME7sound.Sqr[0].byte2 = What;	break;
+			case 0x9:	FME7sound.Sqr[1].byte2 = What;	break;
+			case 0xA:	FME7sound.Sqr[2].byte2 = What;	break;
+			case 0xB:	FME7sound.byteB = What;	break;
+			case 0xC:	FME7sound.byteC = What;	break;
+			case 0xD:	FME7sound.byteD = What;	break;
 			}				break;
 	}
 }
 
-int	_MAPINT	FME07sound_Get (int Cycles)
+int	_MAPINT	FME7sound_Get (int Cycles)
 {
 	int z = 0;
-	if (!(FME07sound.tone & 1))	z += FME07_DoSquare(&FME07sound.Sqr[0],Cycles);
-	if (!(FME07sound.tone & 2))	z += FME07_DoSquare(&FME07sound.Sqr[1],Cycles);
-	if (!(FME07sound.tone & 4))	z += FME07_DoSquare(&FME07sound.Sqr[2],Cycles);
-#ifdef	FME07_NOISE
-	if (FME07sound.noise ^ 0x7)	z += FME07_DoNoise(&FME07sound.Noise,Cycles);
+	if (!(FME7sound.tone & 1))	z += FME7_DoSquare(&FME7sound.Sqr[0],Cycles);
+	if (!(FME7sound.tone & 2))	z += FME7_DoSquare(&FME7sound.Sqr[1],Cycles);
+	if (!(FME7sound.tone & 4))	z += FME7_DoSquare(&FME7sound.Sqr[2],Cycles);
+#ifdef	FME7_NOISE
+	if (FME7sound.noise ^ 0x7)	z += FME7_DoNoise(&FME7sound.Noise,Cycles);
 #endif
 	return z << 6;
 }
 
-int	_MAPINT	FME07sound_SaveLoad (int mode, int x, char *data)
+int	_MAPINT	FME7sound_SaveLoad (int mode, int x, char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,FME07sound.select)
-	SAVELOAD_BYTE(mode,x,data,FME07sound.Sqr[0].byte0)
-	SAVELOAD_BYTE(mode,x,data,FME07sound.Sqr[0].byte1)
-	SAVELOAD_BYTE(mode,x,data,FME07sound.Sqr[0].byte2)
-	SAVELOAD_BYTE(mode,x,data,FME07sound.Sqr[0].CurP)
-	SAVELOAD_LONG(mode,x,data,FME07sound.Sqr[0].LCtr)
-	SAVELOAD_BYTE(mode,x,data,FME07sound.Sqr[1].byte0)
-	SAVELOAD_BYTE(mode,x,data,FME07sound.Sqr[1].byte1)
-	SAVELOAD_BYTE(mode,x,data,FME07sound.Sqr[1].byte2)
-	SAVELOAD_BYTE(mode,x,data,FME07sound.Sqr[1].CurP)
-	SAVELOAD_LONG(mode,x,data,FME07sound.Sqr[1].LCtr)
-	SAVELOAD_BYTE(mode,x,data,FME07sound.Sqr[2].byte0)
-	SAVELOAD_BYTE(mode,x,data,FME07sound.Sqr[2].byte1)
-	SAVELOAD_BYTE(mode,x,data,FME07sound.Sqr[2].byte2)
-	SAVELOAD_BYTE(mode,x,data,FME07sound.Sqr[2].CurP)
-	SAVELOAD_LONG(mode,x,data,FME07sound.Sqr[2].LCtr)
-#ifdef	FME07_NOISE
-	SAVELOAD_BYTE(mode,x,data,FME07sound.Noise.byte0)
-	SAVELOAD_WORD(mode,x,data,FME07sound.Noise.ShiftReg.s0)
-	SAVELOAD_LONG(mode,x,data,FME07sound.Noise.LCtr)
+	SAVELOAD_BYTE(mode,x,data,FME7sound.select)
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[0].byte0)
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[0].byte1)
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[0].byte2)
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[0].CurP)
+	SAVELOAD_LONG(mode,x,data,FME7sound.Sqr[0].LCtr)
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[1].byte0)
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[1].byte1)
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[1].byte2)
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[1].CurP)
+	SAVELOAD_LONG(mode,x,data,FME7sound.Sqr[1].LCtr)
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[2].byte0)
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[2].byte1)
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[2].byte2)
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[2].CurP)
+	SAVELOAD_LONG(mode,x,data,FME7sound.Sqr[2].LCtr)
+#ifdef	FME7_NOISE
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Noise.byte0)
+	SAVELOAD_WORD(mode,x,data,FME7sound.Noise.ShiftReg.s0)
+	SAVELOAD_LONG(mode,x,data,FME7sound.Noise.LCtr)
 #endif
 	return x;
 }
 
-void	FME07sound_Destroy (void)
+void	FME7sound_Destroy (void)
 {
 }

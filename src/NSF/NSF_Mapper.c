@@ -1,6 +1,6 @@
 #include	"..\DLL\d_NSF.h"
 #include	"..\Hardware\Sound\s_FDS.h"
-#include	"..\Hardware\Sound\s_FME07.h"
+#include	"..\Hardware\Sound\s_FME7.h"
 #include	"..\Hardware\Sound\s_MMC5.h"
 #include	"..\Hardware\Sound\s_VRC6.h"
 #include	"..\Hardware\Sound\s_VRC7.h"
@@ -317,9 +317,9 @@ static	void	_MAPINT	N106_Write (int Bank, int Where, int What)
 	N106sound_Write((Bank << 12) | Where,What);
 }
 
-static	void	_MAPINT	FME07_Write (int Bank, int Where, int What)
+static	void	_MAPINT	FME7_Write (int Bank, int Where, int What)
 {
-	FME07sound_Write((Bank << 12) | Where,What);
+	FME7sound_Write((Bank << 12) | Where,What);
 }
 
 static	int	_MAPINT	MapperSnd (int Cycles)
@@ -335,7 +335,7 @@ static	int	_MAPINT	MapperSnd (int Cycles)
 	else if (ROM->NSF_SoundChips & 0x10)	/* Namco 106 */
 		return N106sound_Get(Cycles);
 	else if (ROM->NSF_SoundChips & 0x20)	/* Sunsoft FME-7 */
-		return FME07sound_Get(Cycles);
+		return FME7sound_Get(Cycles);
 	else	return 0;
 }
 
@@ -358,7 +358,7 @@ static	void	_MAPINT	Shutdown (void)
 	else if (ROM->NSF_SoundChips & 0x10)	/* Namco 106 */
 		N106sound_Destroy();
 	else if (ROM->NSF_SoundChips & 0x20)	/* Sunsoft FME-7 */
-		FME07sound_Destroy();
+		FME7sound_Destroy();
 }
 
 static	void	_MAPINT	Reset (int IsHardReset)
@@ -409,11 +409,11 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	}
 	else if (ROM->NSF_SoundChips & 0x20)	/* Sunsoft FME-7 */
 	{
-		FME07sound_Init();
-		EMU->SetCPUWriteHandler(0xC,FME07_Write);
-		EMU->SetCPUWriteHandler(0xD,FME07_Write);
-		EMU->SetCPUWriteHandler(0xE,FME07_Write);
-		EMU->SetCPUWriteHandler(0xF,FME07_Write);
+		FME7sound_Init();
+		EMU->SetCPUWriteHandler(0xC,FME7_Write);
+		EMU->SetCPUWriteHandler(0xD,FME7_Write);
+		EMU->SetCPUWriteHandler(0xE,FME7_Write);
+		EMU->SetCPUWriteHandler(0xF,FME7_Write);
 	}
 	if (IsHardReset)
 	{
