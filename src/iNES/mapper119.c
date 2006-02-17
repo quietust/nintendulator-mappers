@@ -6,6 +6,7 @@ static	void	Sync (void)
 	u8 x, y;
 	MMC3_SyncMirror();
 	MMC3_SyncPRG(0x3F,0);
+	MMC3_SyncWRAM();
 	for (x = 0; x < 8; x++)
 	{
 		y = MMC3_GetCHRBank(x);

@@ -15,9 +15,6 @@ void	MMC3_Init (void (*Sync)(void))
 	if (ROM->ROMType == ROM_INES)
 		MMC3.Mirror = (ROM->INES_Flags & 0x01) ? 0 : 1;
 	else	MMC3.Mirror = 0;
-	MMC3.CPUWrite67 = EMU->GetCPUWriteHandler(0x6);
-	EMU->SetCPUWriteHandler(0x6,MMC3_CPUWrite67);
-	EMU->SetCPUWriteHandler(0x7,MMC3_CPUWrite67);
 	EMU->SetCPUWriteHandler(0x8,MMC3_CPUWrite89);
 	EMU->SetCPUWriteHandler(0x9,MMC3_CPUWrite89);
 	EMU->SetCPUWriteHandler(0xA,MMC3_CPUWriteAB);
@@ -60,6 +57,16 @@ void	MMC3_SyncPRG (int AND, int OR)
 		EMU->SetPRG_ROM8(8 | (x << 1),(MMC3_GetPRGBank(x) & AND) | OR);
 }
 
+void	MMC3_SyncWRAM (void)
+{
+	if (MMC3.WriteWRAM & 0x80)
+		EMU->SetPRG_RAM8(0x6,0);
+	else
+	{
+		EMU->SetPRG_OB4(0x6);
+		EMU->SetPRG_OB4(0x7);
+	}
+}
 void	MMC3_SyncCHR_ROM (int AND, int OR)
 {
 	u8 x;
@@ -106,12 +113,6 @@ int	_MAPINT	MMC3_SaveLoad (int mode, int x, char *data)
 	if (mode == STATE_LOAD)
 		MMC3.Sync();
 	return x;
-}
-
-void	_MAPINT	MMC3_CPUWrite67 (int Bank, int Where, int What)
-{
-	if (MMC3.WriteWRAM & 0x80)
-		MMC3.CPUWrite67(Bank,Where,What);
 }
 
 void	_MAPINT	MMC3_CPUWrite89 (int Bank, int Where, int What)

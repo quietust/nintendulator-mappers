@@ -10,6 +10,7 @@ static	struct
 static	void	Sync (void)
 {
 	EMU->SetPRG_ROM32(0x8,Mapper.Latch);
+	MMC3_SyncWRAM();
 	MMC3_SyncCHR_ROM(0x3F,0);
 	MMC3_SyncMirror();
 }

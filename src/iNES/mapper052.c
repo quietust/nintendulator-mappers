@@ -35,6 +35,7 @@ static	void	Sync (void)
 	}
 	MMC3_SyncMirror();
 	MMC3_SyncPRG(PRGmask,PRGbank << 4);
+	MMC3_SyncWRAM();
 	MMC3_SyncCHR_ROM(CHRmask,CHRbank << 7);
 }
 

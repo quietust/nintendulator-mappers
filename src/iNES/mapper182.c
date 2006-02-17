@@ -4,6 +4,7 @@
 static	void	Sync (void)
 {
 	MMC3_SyncPRG(0x3F,0);
+	MMC3_SyncWRAM();
 	MMC3_SyncCHR_ROM(0xFF,0);
 	MMC3_SyncMirror();
 }
