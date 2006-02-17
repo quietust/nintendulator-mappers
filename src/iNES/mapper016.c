@@ -44,41 +44,34 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 static	void	_MAPINT	CPUCycle (void)
 {
-	if (Mapper.IRQenabled)
-	{
-		if (!Mapper.IRQcounter.s0)
-			EMU->SetIRQ(0);
-		Mapper.IRQcounter.s0--;
-	}
+	if ((Mapper.IRQenabled) && (!--Mapper.IRQcounter.s0))
+		EMU->SetIRQ(0);
 }
 
 static	int	ReadRAM (void)
 {
-//	EMU->DbgOut("Mapper 16 WRAM read!");
+	EMU->DbgOut("Mapper 16 WRAM read!");
 /*
-== Call it in bulk ==
-1. start transfer
-2. address transfer
-3. synchronize data
-4. write data x8 in bulk
-5. synchronize data
-6. end transfer
+1. start transfer - 00, 40, 60, 20, 00
+2. address+mode selection - R/W is MSB, address is lower bits
+3. data sync - 40, 60, E0 (and wait for 5 zero bits in a row on reading $xxx0)
+4. write data - 00/20/00 for zero, 00/40/60/40/00 for one, 8 bits total
+3. data sync - 40, 60, E0 (and wait for 5 zero bits in a row on reading $xxx0)
+6. end transfer - 00, 20, 50, 40, 00
 */
 	return -1;
 }
 
 static	void	WriteRAM (int Val)
 {
-//	EMU->DbgOut("Mapper 16 WRAM write!");
+	EMU->DbgOut("Mapper 16 WRAM write!");
 /*
-== Write it in bulk ==
-1. start transfer
-2. address transfer
-3. synchronize data
-4. data write x8 in bulk synchronous data
-5. data synchronize
-6. end transfer
--. Delay
+1. start transfer - 00, 40, 60, 20, 00
+2. address+mode selection - R/W is MSB, address is lower bits
+3. data sync - 40, 60, E0 (and wait for 5 zero bits in a row on reading $xxx0)
+5. data sync - 60, E0, wait to read 40?
+6. end transfer - 00, 20, 50, 40, 00
+wait a bit
 */
 }
 
