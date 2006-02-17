@@ -14,9 +14,9 @@ static	void	Sync (void)
 {
 	u8 x;
 	EMU->SetPRG_RAM8(0x6,0);
-	EMU->SetPRG_ROM8(Mapper.Byte9002 ? 0xC : 0x8,Mapper.PRG[0]);
+	EMU->SetPRG_ROM8(Mapper.PRGswap ? 0xC : 0x8,Mapper.PRG[0]);
 	EMU->SetPRG_ROM8(0xA,Mapper.PRG[1]);
-	EMU->SetPRG_ROM8(Mapper.Byte9002 ? 0x8 : 0xC,0x1E);
+	EMU->SetPRG_ROM8(Mapper.PRGswap ? 0x8 : 0xC,0x1E);
 	EMU->SetPRG_ROM8(0xE,0x1F);
 	for (x = 0; x < 8; x++)
 		EMU->SetCHR_ROM1(x,Mapper.CHR[x].b0);
@@ -31,15 +31,16 @@ static	void	Sync (void)
 
 static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	int i;
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounter)
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQlatch.b0)
+	SAVELOAD_BYTE(mode,x,data,Mapper.PRGswap)
 	for (i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode,x,data,Mapper.PRG[i])
 	for (i = 0; i < 8; i++)
 		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[i].b0)
 	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror)
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounter)
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQlatch.b0)
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
