@@ -1,37 +1,37 @@
 #include	"..\DLL\d_iNES.h"
-#include	"..\Hardware\h_FME07.h"
+#include	"..\Hardware\h_FME7.h"
 
 static	void	Sync (void)
 {
-	FME07_SyncPRG(0xFF,0);
-	FME07_SyncCHR(0xFF,0);
-	FME07_SyncMirror();
+	FME7_SyncPRG(0xFF,0);
+	FME7_SyncCHR(0xFF,0);
+	FME7_SyncMirror();
 }
 
 static	void	_MAPINT	Shutdown (void)
 {
 	iNES_UnloadROM();
-	FME07_Destroy();
+	FME7_Destroy();
 }
 
 static	void	_MAPINT	Reset (int IsHardReset)
 {
 	iNES_InitROM();
 
-	FME07_Init(Sync);
+	FME7_Init(Sync);
 }
 
 static	u8 MapperNum = 69;
 CTMapperInfo	MapperInfo_069 =
 {
 	&MapperNum,
-	"Sunsoft FME-07",
+	"Sunsoft FME-7",
 	COMPAT_FULL,
 	Reset,
 	Shutdown,
-	FME07_CPUCycle,
+	FME7_CPUCycle,
 	NULL,
-	FME07_SaveLoad,
-	FME07_GenSound,
+	FME7_SaveLoad,
+	FME7_GenSound,
 	NULL
 };
