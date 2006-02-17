@@ -166,13 +166,13 @@ static	void	_MAPINT	WriteBIOS (int Bank, int Addr, int Val)
 static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	int i;
-	char buf[256];
+	TCHAR buf[256];
 	switch (message)
 	{
 		case WM_INITDIALOG:
 			for (i = 0; i < ROM->FDS_NumSides; i++)
 			{
-				sprintf(buf,"Disk %i Side %s",(i >> 1)+1,(i & 1) ? "B" : "A");
+				_stprintf(buf,_T("Disk %i Side %s"),(i >> 1)+1,(i & 1) ? _T("B") : _T("A"));
 				SendDlgItemMessage(hDlg,IDC_FDS_DISKSEL,CB_ADDSTRING,0,(LPARAM)buf);
 			}
 			if (FDS.DiskNum == 0xFF)
