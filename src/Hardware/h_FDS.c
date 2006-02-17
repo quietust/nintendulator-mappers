@@ -58,7 +58,7 @@ void	_MAPINT	FDS_CPUCycle (void)
 }
 
 #define	DISKIRQ_SHORT	64
-#define	DISKIRQ_LONG	256
+#define	DISKIRQ_LONG	255
 
 int	_MAPINT	FDS_Read (int Bank, int Addr)
 {
