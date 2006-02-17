@@ -12,7 +12,9 @@ void	MMC3_Init (void (*Sync)(void))
 	MMC3.IRQenabled = MMC3.IRQcounter = MMC3.IRQlatch = 0;
 	MMC3.Cmd = 0;
 	MMC3.WriteWRAM = 0;
-	MMC3.Mirror = 0;
+	if (ROM->ROMType == ROM_INES)
+		MMC3.Mirror = (ROM->INES_Flags & 0x01) ? 1 : 0;
+	else	MMC3.Mirror = 0;
 	MMC3.CPUWrite67 = EMU->GetCPUWriteHandler(0x6);
 	EMU->SetCPUWriteHandler(0x6,MMC3_CPUWrite67);
 	EMU->SetCPUWriteHandler(0x7,MMC3_CPUWrite67);
