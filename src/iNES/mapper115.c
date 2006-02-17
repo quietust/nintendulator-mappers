@@ -33,30 +33,34 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC3_Destroy();
+	MMC3_Load(Sync);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	iNES_InitROM();
 
 	for (x = 0x6; x < 0x8; x++)
 		EMU->SetCPUWriteHandler(x,Write);
-	Mapper.Reg1 = Mapper.Reg2 = 0;
-	MMC3_Init(ResetType,Sync);
+	if (ResetType == RESET_HARD)
+		Mapper.Reg1 = Mapper.Reg2 = 0;
+	MMC3_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
 }
 
 static	u8 MapperNum = 115;
 CTMapperInfo	MapperInfo_115 =
 {
 	&MapperNum,
-	"Mapper 115",
+	"Mapper 115 (Expanded Pirate MMC3)",
 	COMPAT_NEARLY,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	SaveLoad,

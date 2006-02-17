@@ -49,15 +49,16 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
-	iNES_InitROM();
-
 	for (x = 0x6; x < 0x8; x++)
 		EMU->SetCPUWriteHandler(x,Write67);
 	for (x = 0x8; x < 0x10; x++)
 		EMU->SetCPUWriteHandler(x,Write89ABCDEF);
 
-	Mapper.Bank = 0;
-	Mapper.Mode = 1;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.Bank = 0;
+		Mapper.Mode = 1;
+	}
 	Sync();
 }
 
@@ -67,6 +68,7 @@ CTMapperInfo	MapperInfo_051 =
 	&MapperNum,
 	"11 in 1 Ball Games",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

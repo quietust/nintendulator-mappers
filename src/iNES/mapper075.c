@@ -73,8 +73,6 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
 	EMU->SetCPUWriteHandler(0x8,Write8);
 	EMU->SetCPUWriteHandler(0x9,Write9);
 	EMU->SetCPUWriteHandler(0xA,WriteAB);
@@ -100,6 +98,7 @@ CTMapperInfo	MapperInfo_075 =
 	&MapperNum,
 	"Konami VRC1",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

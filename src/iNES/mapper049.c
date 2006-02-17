@@ -30,20 +30,25 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC3_Destroy();
+	MMC3_Load(Sync);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	iNES_InitROM();
-
+	MMC3_Reset(ResetType);
 	for (x = 0x6; x < 0x8; x++)
 		EMU->SetCPUWriteHandler(x,Write);
-	Mapper.Reg = 0;
-	MMC3_Init(ResetType,Sync);
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.Reg = 0;
+		Sync();
+	}
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
 }
 
 static	u8 MapperNum = 49;
@@ -52,8 +57,9 @@ CTMapperInfo	MapperInfo_049 =
 	&MapperNum,
 	"1993 Super HiK 4-in-1 (MMC3)",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	SaveLoad,

@@ -22,7 +22,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	if (ResetType == RESET_HARD)
 		Mapper.Game = 0;
@@ -37,6 +37,7 @@ CTMapperInfo	MapperInfo_060 =
 	&MapperNum,
 	"Reset-triggered 4-in-1",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

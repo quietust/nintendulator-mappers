@@ -59,23 +59,26 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC3_Destroy();
+	MMC3_Load(Sync);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
+	MMC3_Reset(ResetType);
 	Mapper.Write67 = EMU->GetCPUWriteHandler(0x6);
 	EMU->SetCPUWriteHandler(0x6,Write);
 	EMU->SetCPUWriteHandler(0x7,Write);
 
-	Mapper.WhichGame = 0;
-	Mapper.DidWrite = 0;
-
-	MMC3_Init(ResetType,Sync);
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.WhichGame = Mapper.DidWrite = 0;
+		Sync();
+	}
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
 }
 
 static	u8 MapperNum = 52;
@@ -84,8 +87,9 @@ CTMapperInfo	MapperInfo_052 =
 	&MapperNum,
 	"Mario 7 in 1 (MMC3)",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	SaveLoad,

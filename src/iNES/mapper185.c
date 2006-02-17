@@ -83,15 +83,18 @@ static	void	Sync (void)
 	}
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	Latch_Destroy();
+	Latch_Load(Sync,FALSE);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-	Latch_Init(ResetType,Sync,FALSE);
+	iNES_SetMirroring();
+	Latch_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
 }
 
 static	u8 MapperNum = 185;
@@ -100,8 +103,9 @@ CTMapperInfo	MapperInfo_185 =
 	&MapperNum,
 	"CNROM with CHR disable",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_D,

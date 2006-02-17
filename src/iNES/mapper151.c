@@ -59,7 +59,7 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	EMU->SetCPUWriteHandler(0x8,Write8);
 	EMU->SetCPUWriteHandler(0xA,WriteA);
@@ -82,6 +82,7 @@ CTMapperInfo	MapperInfo_151 =
 	&MapperNum,
 	"Extended VS Unisystem",
 	COMPAT_PARTIAL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

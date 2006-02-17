@@ -7,8 +7,8 @@ static	struct
 
 static	void	Sync (void)
 {
-	EMU->SetCHR_ROM8 (  0,(Mapper.Latch >> 0) & 0xF);
 	EMU->SetPRG_ROM32(0x8,(Mapper.Latch >> 4) & 0x3);
+	EMU->SetCHR_ROM8(0,(Mapper.Latch >> 0) & 0xF);
 }
 
 static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
@@ -27,12 +27,13 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	EMU->SetCPUWriteHandler(0x6,Write);
 	EMU->SetCPUWriteHandler(0x7,Write);
 
-	Mapper.Latch = 0;
+	if (ResetType == RESET_HARD)
+		Mapper.Latch = 0;
 
 	Sync();
 }
@@ -43,6 +44,7 @@ CTMapperInfo	MapperInfo_140 =
 	&MapperNum,
 	"Mapper 140 (Bio Senshi Dan)",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

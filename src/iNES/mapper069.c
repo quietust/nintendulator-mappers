@@ -8,16 +8,18 @@ static	void	Sync (void)
 	FME7_SyncMirror();
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	FME7_Destroy();
+	FME7_Load(Sync);
+	iNES_SetSRAM();
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
-	FME7_Init(ResetType,Sync);
+	FME7_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	FME7_Unload();
 }
 
 static	u8 MapperNum = 69;
@@ -26,8 +28,9 @@ CTMapperInfo	MapperInfo_069 =
 	&MapperNum,
 	"Sunsoft FME-7",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	FME7_CPUCycle,
 	NULL,
 	FME7_SaveLoad,

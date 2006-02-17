@@ -130,17 +130,14 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	if (Mapper.ConfigWindow)
-		DestroyWindow(Mapper.ConfigWindow);
 	Mapper.ConfigWindow = NULL;
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
 	EMU->SetCPUReadHandler(0x5,EMU->GetCPUReadHandler(0x8));
@@ -149,15 +146,20 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 		EMU->SetCPUWriteHandler(x,Write);
 
 	if (ResetType == RESET_HARD)
+	{
 		Mapper.Title = 1;
-	Mapper.PRG = 0;
-	Mapper.IRQenabled = 1;
-	Mapper.IRQcounter.s0 = 0;
+		Mapper.PRG = 0;
+		Mapper.IRQenabled = 1;
+		Mapper.IRQcounter.s0 = 0;
+	}
 
-	Mapper.ConfigWindow = NULL;
 	Mapper.ConfigCmd = 0;
-
 	Sync();
+}
+static	void	_MAPINT	Unload (void)
+{
+	if (Mapper.ConfigWindow)
+		DestroyWindow(Mapper.ConfigWindow);
 }
 
 static	u8 MapperNum = 43;
@@ -166,8 +168,9 @@ CTMapperInfo	MapperInfo_043 =
 	&MapperNum,
 	"SMB2j (LF36)",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	CPUCycle,
 	NULL,
 	SaveLoad,

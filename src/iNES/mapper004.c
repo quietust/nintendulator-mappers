@@ -13,15 +13,18 @@ static	void	Sync (void)
 	else	MMC3_SyncCHR_RAM(0x07,0);
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC3_Destroy();
+	MMC3_Load(Sync);
+	iNES_SetSRAM();
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-	MMC3_Init(ResetType,Sync);
+	MMC3_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
 }
 
 static	u8 MapperNum = 4;
@@ -30,8 +33,9 @@ CTMapperInfo	MapperInfo_004 =
 	&MapperNum,
 	"MMC3/MMC6",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	MMC3_SaveLoad,

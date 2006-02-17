@@ -16,7 +16,7 @@ static	int	_MAPINT	Read (int Bank, int Addr)
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	Mapper.Read4 = EMU->GetCPUReadHandler(0x4);
 	EMU->SetCPUReadHandler(0x4,Read);
@@ -32,6 +32,7 @@ CTMapperInfo	MapperInfo_143 =
 	&MapperNum,
 	"Sachen (TC-A001-72P/SA-014)",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

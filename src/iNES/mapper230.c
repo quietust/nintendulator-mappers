@@ -38,20 +38,23 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	Latch_Destroy();
+	Latch_Load(Sync,FALSE);
 }
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
 	if (ResetType == RESET_HARD)
 		Mapper.Mode = 0;
 	else	Mapper.Mode ^= 1;
 
-	Latch_Init(ResetType,Sync,FALSE);
+	Latch_Reset(ResetType);
+}
+
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
 }
 
 static	u8 MapperNum = 230;
@@ -60,8 +63,9 @@ CTMapperInfo	MapperInfo_230 =
 	&MapperNum,
 	"22-in-1",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	NULL,
 	SaveLoad,

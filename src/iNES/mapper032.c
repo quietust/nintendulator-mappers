@@ -64,17 +64,18 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
-	iNES_InitROM();
-
 	EMU->SetCPUWriteHandler(0x8,Write8);
 	EMU->SetCPUWriteHandler(0x9,Write9);
 	EMU->SetCPUWriteHandler(0xA,WriteA);
 	EMU->SetCPUWriteHandler(0xB,WriteB);
 
-	Mapper.PRG[0] = 0;	Mapper.PRG[1] = 1;	Mapper.PRG[2] = -1;
-	for (x = 0; x < 8; x++)
-		Mapper.CHR[x] = 0;
-	Mapper.Byte9xxx = 0;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.PRG[0] = 0;	Mapper.PRG[1] = 1;	Mapper.PRG[2] = -1;
+		for (x = 0; x < 8; x++)
+			Mapper.CHR[x] = 0;
+		Mapper.Byte9xxx = 0;
+	}
 	Sync();
 }
 
@@ -84,6 +85,7 @@ CTMapperInfo	MapperInfo_032 =
 	&MapperNum,
 	"Irem G-101",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

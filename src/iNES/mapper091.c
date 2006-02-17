@@ -4,29 +4,30 @@ static	struct
 {
 	u16_n IRQcounter;
 	u8 IRQenabled;
-	u8 PRG[4];
+	u8 PRG[2];
 	u8 CHR[4];
 }	Mapper;
 
 static	void	Sync (void)
 {
-	u8 x;
-	for (x = 0; x < 4; x++)
-	{
-		EMU->SetPRG_ROM8(8 | (x << 1),Mapper.PRG[x]);
-		EMU->SetCHR_ROM2(0 | (x << 1),Mapper.CHR[x]);
-	}
+	EMU->SetPRG_ROM8(0x8,Mapper.PRG[0]);
+	EMU->SetPRG_ROM8(0xA,Mapper.PRG[0]);
+	EMU->SetPRG_ROM16(0xC,-1);
+	EMU->SetCHR_ROM2(0,Mapper.CHR[0]);
+	EMU->SetCHR_ROM2(2,Mapper.CHR[1]);
+	EMU->SetCHR_ROM2(4,Mapper.CHR[2]);
+	EMU->SetCHR_ROM2(6,Mapper.CHR[3]);
 }
 
 static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
-	for (i = 0; i < 4; i++)
+	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter.s0)
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
+	for (i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode,x,data,Mapper.PRG[i])
 	for (i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[i])
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
-	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter.s0)
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
@@ -62,14 +63,18 @@ static	void	_MAPINT	Write7 (int Bank, int Addr, int Val)
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	EMU->SetCPUWriteHandler(0x6,Write6);
 	EMU->SetCPUWriteHandler(0x7,Write7);
 
-	Mapper.PRG[2] = 0xE;
-	Mapper.PRG[3] = 0xF;
-
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.IRQcounter.s0 = 0;
+		Mapper.IRQenabled = 0;
+		Mapper.PRG[0] = Mapper.PRG[1] = 0;
+		Mapper.CHR[0] = Mapper.CHR[1] = Mapper.CHR[2] = Mapper.CHR[3] = 0;
+	}
 	Sync();
 }
 
@@ -79,6 +84,7 @@ CTMapperInfo	MapperInfo_091 =
 	&MapperNum,
 	"PC-HK-SF3",
 	COMPAT_PARTIAL,
+	NULL,
 	Reset,
 	NULL,
 	CPUCycle,

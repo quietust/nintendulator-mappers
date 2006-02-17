@@ -22,23 +22,25 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
+	if (Bank == 4)
+		Mapper.Write4(Bank,Addr,Val);
 	if (Addr & 0x100)
 	{
 		Mapper.Latch = Val;
 		Sync();
 	}
-	if (Bank == 4) Mapper.Write4(Bank,Addr,Val);
 }
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
 	EMU->SetCPUWriteHandler(0x4,Write);
 	EMU->SetCPUWriteHandler(0x5,Write);
 
-	Mapper.Latch = 0;
+	if (ResetType == RESET_HARD)
+		Mapper.Latch = 0;
 
 	Sync();
 }
@@ -49,6 +51,7 @@ CTMapperInfo	MapperInfo_079 =
 	&MapperNum,
 	"NINA-03/NINA-06",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

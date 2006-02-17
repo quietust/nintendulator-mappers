@@ -106,11 +106,13 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 	Sync();
 }
 
+static	void	_MAPINT	Load (void)
+{
+	iNES_SetSRAM();
+}
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-
-	iNES_InitROM();
 
 	EMU->SetCPUWriteHandler(0x8,Write8);
 	EMU->SetCPUWriteHandler(0x9,Write9);
@@ -121,10 +123,13 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xE,WriteE);
 	EMU->SetCPUWriteHandler(0xF,WriteF);
 
-	Mapper.PRG = 0;
-	for (x = 0; x < 4; x++)	Mapper.CHR[x] = x;
-	Mapper.Mirror = Mapper.VROM_use = 0;
-	Mapper.CHR_L = Mapper.CHR_H = 0;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.PRG = 0;
+		for (x = 0; x < 4; x++)	Mapper.CHR[x] = x;
+		Mapper.Mirror = Mapper.VROM_use = 0;
+		Mapper.CHR_L = Mapper.CHR_H = 0;
+	}
 
 	Sync();
 	SyncNametables();
@@ -136,6 +141,7 @@ CTMapperInfo	MapperInfo_068 =
 	&MapperNum,
 	"SUNSOFT-4",
 	COMPAT_FULL,
+	Load,
 	Reset,
 	NULL,
 	NULL,

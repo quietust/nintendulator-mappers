@@ -65,15 +65,18 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
 	for (x = 0x4; x < 0x6; x++)
 		EMU->SetCPUWriteHandler(x,Write);
-	Mapper.PRG = 0;
-	Mapper.IRQenabled = 0;
-	Mapper.IRQcounter.s0 = 0;
 
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.PRG = 0;
+		Mapper.IRQenabled = 0;
+		Mapper.IRQcounter.s0 = 0;
+	}
 	Sync();
 }
 
@@ -83,6 +86,7 @@ CTMapperInfo	MapperInfo_050 =
 	&MapperNum,
 	"SMB2j rev. A",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	CPUCycle,

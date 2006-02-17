@@ -35,7 +35,7 @@ static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	EMU->SetCPUWriteHandler(0x9,Write9);	/* Fire Hawk needs this */
 	EMU->SetCPUWriteHandler(0xC,WriteCDEF);
@@ -43,7 +43,8 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xE,WriteCDEF);
 	EMU->SetCPUWriteHandler(0xF,WriteCDEF);
 
-	Mapper.PRG = 0;
+	if (ResetType == RESET_HARD)
+		Mapper.PRG = 0;
 
 	Sync();
 }
@@ -54,6 +55,7 @@ CTMapperInfo	MapperInfo_071 =
 	&MapperNum,
 	"Camerica BF9093/BF9097",
 	COMPAT_NEARLY,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

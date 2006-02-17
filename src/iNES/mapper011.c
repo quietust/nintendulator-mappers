@@ -9,15 +9,18 @@ static	void	Sync (void)
 	else	EMU->SetCHR_RAM8(0,0);
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	Latch_Destroy();
+	Latch_Load(Sync,FALSE);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-	Latch_Init(ResetType,Sync,TRUE);
+	iNES_SetMirroring();
+	Latch_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
 }
 
 static	u8 MapperNum = 11;
@@ -26,8 +29,9 @@ CTMapperInfo	MapperInfo_011 =
 	&MapperNum,
 	"Color Dreams",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_D,

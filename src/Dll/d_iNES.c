@@ -1,21 +1,22 @@
 #include	"d_iNES.h"
 #include	<stdio.h>
 
-void	iNES_InitROM (void)
+void	iNES_SetMirroring (void)
 {
 	if (ROM->INES_Flags & 0x01)
 		EMU->Mirror_V();
 	else	EMU->Mirror_H();
+	if (ROM->INES_Flags & 0x08)
+		EMU->Mirror_4();
+}
+
+void	iNES_SetSRAM (void)
+{
 	if (ROM->INES_Flags & 0x02)
 	{
 		EMU->Set_SRAMSize(8192);
 		EMU->SetPRG_RAM8(0x6,0);
 	}
-	if (ROM->INES_Flags & 0x04)
-		/* Set trainer */;
-	if (ROM->INES_Flags & 0x08)
-		EMU->Mirror_4();
-	EMU->SetIRQ(1);
 }
 
 HWND			hWnd;

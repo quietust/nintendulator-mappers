@@ -28,12 +28,13 @@ static	void	_MAPINT	Write (int Bank, int Where, int What)
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	EMU->SetCPUWriteHandler(0x6,Write);
 	EMU->SetCPUWriteHandler(0x7,Write);
 
-	Mapper.Latch = 0;
+	if (ResetType == RESET_HARD)
+		Mapper.Latch = 0;
 
 	Sync();
 }
@@ -44,6 +45,7 @@ CTMapperInfo	MapperInfo_087 =
 	&MapperNum,
 	"Jaleco 74138/7474",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

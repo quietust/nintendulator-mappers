@@ -71,15 +71,16 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	int x;
 
-	iNES_InitROM();
-
 	EMU->SetCPUWriteHandler(0x8,Write8);
 	for (x = 0xE; x < 0x10; x++)
 		EMU->SetCPUWriteHandler(x,WriteEF);
 
-	Mapper.PRG = Mapper.Mirror = 0;
-	Mapper.IRQenabled = 0;
-	Mapper.IRQcounter.s0 = 0;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.PRG = Mapper.Mirror = 0;
+		Mapper.IRQenabled = 0;
+		Mapper.IRQcounter.s0 = 0;
+	}
 
 	Sync();
 }
@@ -90,6 +91,7 @@ CTMapperInfo	MapperInfo_254 =
 	&MapperNum,
 	"Ai Senshi Nicol (Pirate)",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	CPUCycle,

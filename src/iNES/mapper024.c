@@ -146,15 +146,27 @@ static	int	_MAPINT	MapperSnd (int Cycles)
 	return VRC6sound_Get(Cycles);
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load_024 (void)
 {
-	VRC6sound_Destroy();
+	VRC6sound_Load();
+	Mapper.SwapAddr[0] = 0;
+	Mapper.SwapAddr[1] = 1;
+	Mapper.SwapAddr[2] = 2;
+	Mapper.SwapAddr[3] = 3;
+	iNES_SetSRAM();
 }
-
-static	void	VRC6_Reset (RESET_TYPE ResetType)
+static	void	_MAPINT	Load_026 (void)
+{
+	VRC6sound_Load();
+	Mapper.SwapAddr[0] = 0;
+	Mapper.SwapAddr[1] = 2;
+	Mapper.SwapAddr[2] = 1;
+	Mapper.SwapAddr[3] = 3;
+	iNES_SetSRAM();
+}
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	iNES_InitROM();
 
 	EMU->SetCPUWriteHandler(0x8,Write8);
 	EMU->SetCPUWriteHandler(0x9,Write9);
@@ -165,33 +177,22 @@ static	void	VRC6_Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xE,WriteE);
 	EMU->SetCPUWriteHandler(0xF,WriteF);
 
-	Mapper.PRG[0] = 0;
-	Mapper.PRG[1] = -2;
-	for (x = 0; x < 8; x++)
-		Mapper.CHR[x] = x;
-	Mapper.IRQenabled = Mapper.IRQcounter = Mapper.IRQlatch = 0;
-	Mapper.IRQcycles = 0;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.PRG[0] = 0;
+		Mapper.PRG[1] = -2;
+		for (x = 0; x < 8; x++)
+			Mapper.CHR[x] = x;
+		Mapper.IRQenabled = Mapper.IRQcounter = Mapper.IRQlatch = 0;
+		Mapper.IRQcycles = 0;
+	}
 
-	VRC6sound_Init();
+	VRC6sound_Reset(ResetType);
 	Sync();
 }
-
-static	void	_MAPINT	Reset_024 (RESET_TYPE ResetType)
+static	void	_MAPINT	Unload (void)
 {
-	VRC6_Reset(ResetType);
-	Mapper.SwapAddr[0] = 0;
-	Mapper.SwapAddr[1] = 1;
-	Mapper.SwapAddr[2] = 2;
-	Mapper.SwapAddr[3] = 3;
-}
-
-static	void	_MAPINT	Reset_026 (RESET_TYPE ResetType)
-{
-	VRC6_Reset(ResetType);
-	Mapper.SwapAddr[0] = 0;
-	Mapper.SwapAddr[1] = 2;
-	Mapper.SwapAddr[2] = 1;
-	Mapper.SwapAddr[3] = 3;
+	VRC6sound_Unload();
 }
 
 static	u8 MapperNum = 24;
@@ -200,8 +201,9 @@ CTMapperInfo	MapperInfo_024 =
 	&MapperNum,
 	"Konami VRC6 A0/A1",
 	COMPAT_FULL,
-	Reset_024,
-	Shutdown,
+	Load_024,
+	Reset,
+	Unload,
 	CPUCycle,
 	NULL,
 	SaveLoad,
@@ -215,8 +217,9 @@ CTMapperInfo	MapperInfo_026 =
 	&MapperNum2,
 	"Konami VRC6 A1/A0",
 	COMPAT_FULL,
-	Reset_026,
-	Shutdown,
+	Load_026,
+	Reset,
+	Unload,
 	CPUCycle,
 	NULL,
 	SaveLoad,

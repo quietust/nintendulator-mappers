@@ -11,16 +11,17 @@ static	void	Sync (void)
 	else	EMU->Mirror_S0();
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	Latch_Destroy();
+	Latch_Load(Sync,FALSE);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
-	Latch_Init(ResetType,Sync,FALSE);
+	Latch_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
 }
 
 static	u8 MapperNum = 89;
@@ -29,8 +30,9 @@ CTMapperInfo	MapperInfo_089 =
 	&MapperNum,
 	"Sunsoft 74161/7432",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_D,

@@ -73,13 +73,12 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
-	iNES_InitROM();
-
 	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
 	for (x = 0x4; x < 0x6; x++)
 		EMU->SetCPUWriteHandler(x,Write);
 
-	Mapper.Cmd = Mapper.CHRH = Mapper.CHRL0 = Mapper.CHRL1 = Mapper.CHRL2 = Mapper.CHRL3 = Mapper.PRG = Mapper.CHRO = Mapper.Mirror = 0;
+	if (ResetType == RESET_HARD)
+		Mapper.Cmd = Mapper.CHRH = Mapper.CHRL0 = Mapper.CHRL1 = Mapper.CHRL2 = Mapper.CHRL3 = Mapper.PRG = Mapper.CHRO = Mapper.Mirror = 0;
 
 	Sync();
 }
@@ -90,6 +89,7 @@ CTMapperInfo	MapperInfo_139 =
 	&MapperNum,
 	"Sachen (SA8259A)",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

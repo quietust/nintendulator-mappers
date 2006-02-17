@@ -59,16 +59,17 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
-	iNES_InitROM();
-
 	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
 	for (x = 0x4; x < 0x6; x++)
 		EMU->SetCPUWriteHandler(x,Write);
 
-	Mapper.Cmd = 0;
-	Mapper.PRG = 0;
-	Mapper.CHR = 3;
-	Mapper.Mirror = 0;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.Cmd = 0;
+		Mapper.PRG = 0;
+		Mapper.CHR = 3;
+		Mapper.Mirror = 0;
+	}
 
 	Sync();
 }
@@ -79,6 +80,7 @@ CTMapperInfo	MapperInfo_243 =
 	&MapperNum,
 	"Sachen (74LS374N)",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

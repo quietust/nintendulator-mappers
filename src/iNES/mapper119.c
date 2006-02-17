@@ -16,16 +16,18 @@ static	void	Sync (void)
 	}
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC3_Destroy();
+	MMC3_Load(Sync);
+	iNES_SetSRAM();
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
-	MMC3_Init(ResetType,Sync);
+	MMC3_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
 }
 
 static	u8 MapperNum = 119;
@@ -34,8 +36,9 @@ CTMapperInfo	MapperInfo_119 =
 	&MapperNum,
 	"TQROM (MMC3)",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	MMC3_SaveLoad,

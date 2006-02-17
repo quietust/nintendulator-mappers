@@ -85,7 +85,7 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	EMU->SetCPUWriteHandler(0x8,Write8);
 	EMU->SetCPUWriteHandler(0x9,Write9);
@@ -95,9 +95,12 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xD,WriteD);
 	EMU->SetCPUWriteHandler(0xF,WriteF);
 
-	Mapper.IRQenabled = 0;
-	Mapper.IRQcounter = Mapper.IRQlatch.s0 = 0;
-	Mapper.PRG = 0;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.IRQenabled = 0;
+		Mapper.IRQcounter = Mapper.IRQlatch.s0 = 0;
+		Mapper.PRG = 0;
+	}
 
 	Sync();
 }
@@ -108,6 +111,7 @@ CTMapperInfo	MapperInfo_073 =
 	&MapperNum,
 	"Konami VRC3",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	CPUCycle,

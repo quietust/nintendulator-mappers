@@ -99,11 +99,13 @@ static	void	_MAPINT	WriteE (int Bank, int Addr, int Val)
 	Sync();
 }
 
+static	void	_MAPINT	Load (void)
+{
+	iNES_SetSRAM();
+}
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	iNES_InitROM();
-
 	EMU->SetCPUWriteHandler(0x8,Write8);
 	EMU->SetCPUWriteHandler(0x9,Write9);
 	EMU->SetCPUWriteHandler(0xA,WriteA);
@@ -112,10 +114,13 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xD,WriteD);
 	EMU->SetCPUWriteHandler(0xE,WriteE);
 
-	Mapper.PRG[0] = 0;	Mapper.PRG[1] = 1;
-	for (x = 0; x < 8; x++)
-		Mapper.CHR[x].b0 = x;
-	Mapper.Mirror = 0;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.PRG[0] = 0;	Mapper.PRG[1] = 1;
+		for (x = 0; x < 8; x++)
+			Mapper.CHR[x].b0 = x;
+		Mapper.Mirror = 0;
+	}
 	Sync();
 }
 
@@ -125,6 +130,7 @@ CTMapperInfo	MapperInfo_022 =
 	&MapperNum,
 	"Konami VRC2/VRC4",
 	COMPAT_PARTIAL,
+	Load,
 	Reset,
 	NULL,
 	NULL,

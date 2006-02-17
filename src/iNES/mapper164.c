@@ -29,10 +29,14 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	Sync();
 }
 
+static	void	_MAPINT	Load (void)
+{
+	iNES_SetSRAM();
+}
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
 	EMU->SetPRG_RAM8(0x6,0);
@@ -41,7 +45,8 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	for (x = 8; x <= 0xF; x++)
 		EMU->SetCPUWriteHandler(x,Write);
 
-	Mapper.Reg = 0xFF;
+	if (ResetType == RESET_HARD)
+		Mapper.Reg = 0xFF;
 
 	Sync();
 }
@@ -52,6 +57,7 @@ CTMapperInfo	MapperInfo_164 =
 	&MapperNum,
 	"Mapper 164",
 	COMPAT_NEARLY,
+	Load,
 	Reset,
 	NULL,
 	NULL,

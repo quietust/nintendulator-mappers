@@ -14,19 +14,20 @@ static	void	Sync (void)
 	EMU->SetCHR_NT1(0xD,(MMC3_GetCHRBank(5) & 0x20) >> 5);
 	EMU->SetCHR_NT1(0xE,(MMC3_GetCHRBank(6) & 0x20) >> 5);
 	EMU->SetCHR_NT1(0xF,(MMC3_GetCHRBank(7) & 0x20) >> 5);
-
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC3_Destroy();
+	MMC3_Load(Sync);
+	iNES_SetSRAM();
 }
-
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-	MMC3_Init(ResetType,Sync);
+	MMC3_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
 }
 
 static	u8 MapperNum = 95;
@@ -35,8 +36,9 @@ CTMapperInfo	MapperInfo_095 =
 	&MapperNum,
 	"Dragon Buster (MMC3 variant)",
 	COMPAT_NEARLY,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	MMC3_SaveLoad,

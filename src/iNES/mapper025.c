@@ -151,11 +151,13 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 	}
 }
 
+static	void	_MAPINT	Load (void)
+{
+	iNES_SetSRAM();
+}
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-
-	iNES_InitROM();
 
 	EMU->SetCPUWriteHandler(0x8,Write8);
 	EMU->SetCPUWriteHandler(0x9,Write9);
@@ -166,11 +168,14 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xE,WriteE);
 	EMU->SetCPUWriteHandler(0xF,WriteF);
 
-	Mapper.IRQenabled = Mapper.IRQcounter = Mapper.IRQlatch.b0 = 0;
-	Mapper.IRQcycles = 0;
-	Mapper.PRG[0] = 0;	Mapper.PRG[1] = 1;
-	for (x = 0; x < 8; x++)
-		Mapper.CHR[x].b0 = x;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.IRQenabled = Mapper.IRQcounter = Mapper.IRQlatch.b0 = 0;
+		Mapper.IRQcycles = 0;
+		Mapper.PRG[0] = 0;	Mapper.PRG[1] = 1;
+		for (x = 0; x < 8; x++)
+			Mapper.CHR[x].b0 = x;
+	}
 	Sync();
 }
 
@@ -180,6 +185,7 @@ CTMapperInfo	MapperInfo_025 =
 	&MapperNum,
 	"Konami VRC2/VRC4",
 	COMPAT_PARTIAL,
+	Load,
 	Reset,
 	NULL,
 	CPUCycle,

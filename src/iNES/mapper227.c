@@ -48,16 +48,17 @@ static	void	Sync (void)
 	}
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	Latch_Destroy();
+	Latch_Load(Sync,FALSE);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
-	Latch_Init(ResetType,Sync,FALSE);
+	Latch_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
 }
 
 static	u8 MapperNum = 227;
@@ -66,8 +67,9 @@ CTMapperInfo	MapperInfo_227 =
 	&MapperNum,
 	"1200-in-1",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_A,

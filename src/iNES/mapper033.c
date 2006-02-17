@@ -64,17 +64,18 @@ static	void	_MAPINT	WriteAB (int Bank, int Addr, int Val)
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	iNES_InitROM();
-
 	EMU->SetCPUWriteHandler(0x8,Write89);
 	EMU->SetCPUWriteHandler(0x9,Write89);
 	EMU->SetCPUWriteHandler(0xA,WriteAB);
 	EMU->SetCPUWriteHandler(0xB,WriteAB);
 
-	Mapper.PRG[0] = 0;	Mapper.PRG[1] = 1;
-	for (x = 0; x < 6; x++)
-		Mapper.CHR[x] = x;
-	Mapper.Mirror = 0;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.PRG[0] = 0;	Mapper.PRG[1] = 1;
+		for (x = 0; x < 6; x++)
+			Mapper.CHR[x] = x;
+		Mapper.Mirror = 0;
+	}
 	Sync();
 }
 
@@ -84,6 +85,7 @@ CTMapperInfo	MapperInfo_033 =
 	&MapperNum,
 	"Taito TC0190",
 	COMPAT_PARTIAL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

@@ -52,12 +52,13 @@ static	void	_MAPINT	WriteSpeech (int Bank, int Addr, int Val)
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	EMU->SetCPUWriteHandler(0x6,WriteBank);
 	EMU->SetCPUWriteHandler(0x7,WriteSpeech);
 
-	Mapper.Reg = 0;
+	if (ResetType == RESET_HARD)
+		Mapper.Reg = 0;
 
 	Sync();
 }
@@ -68,6 +69,7 @@ CTMapperInfo	MapperInfo_086 =
 	&MapperNum,
 	"Mapper 86 (Jaleco)",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

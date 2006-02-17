@@ -33,12 +33,13 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	Mapper.Write = EMU->GetCPUWriteHandler(0x4);
 	EMU->SetCPUWriteHandler(0x4,Write);
 
-	Mapper.CHR = 0;
+	if (ResetType == RESET_HARD)
+		Mapper.CHR = 0;
 
 	Sync();
 }
@@ -49,6 +50,7 @@ CTMapperInfo	MapperInfo_099 =
 	&MapperNum,
 	"VS Unisystem",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

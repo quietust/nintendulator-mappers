@@ -26,11 +26,6 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	MMC3_Destroy();
-}
-
 static	void	_MAPINT	Write6 (int Bank, int Addr, int Val)
 {
 	switch (Addr & 7)
@@ -70,10 +65,13 @@ static	void	_MAPINT	WriteEF (int Bank, int Addr, int Val)
 	else	MMC3_CPUWriteEF(Bank,0,Val);
 }
 
+static	void	_MAPINT	Load (void)
+{
+	MMC3_Load(Sync);
+}
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-	MMC3_Init(ResetType,Sync);
+	MMC3_Reset(ResetType);
 	EMU->SetCPUWriteHandler(0x6,Write6);
 	EMU->SetCPUWriteHandler(0x8,Write89);
 	EMU->SetCPUWriteHandler(0x9,Write89);
@@ -83,9 +81,16 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xD,WriteCD);
 	EMU->SetCPUWriteHandler(0xE,WriteEF);
 	EMU->SetCPUWriteHandler(0xF,WriteEF);
-	Mapper.PRG = 0x00;
-	Mapper.Valid = 1;
-	Sync();
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.PRG = 0x00;
+		Mapper.Valid = 1;
+		Sync();
+	}
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
 }
 
 static	u8 MapperNum = 114;
@@ -94,8 +99,9 @@ CTMapperInfo	MapperInfo_114 =
 	&MapperNum,
 	"Mapper 114",
 	COMPAT_PARTIAL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	SaveLoad,

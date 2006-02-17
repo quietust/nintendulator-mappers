@@ -111,7 +111,6 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	iNES_InitROM();
 
 	EMU->SetCPUWriteHandler(0x8,Write8);
 	EMU->SetCPUWriteHandler(0x9,Write9);
@@ -121,9 +120,12 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xE,WriteE);
 	EMU->SetCPUWriteHandler(0xF,WriteF);
 
-	for (x = 0; x < 4; x++)
-		Mapper.PRGlow[x] = Mapper.PRGhigh[x] = Mapper.CHR[x | 0] = Mapper.CHR[x | 4] = 0;
-	Mapper.PRGcontrol = Mapper.Mirror = 0;
+	if (ResetType == RESET_HARD)
+	{
+		for (x = 0; x < 4; x++)
+			Mapper.PRGlow[x] = Mapper.PRGhigh[x] = Mapper.CHR[x | 0] = Mapper.CHR[x | 4] = 0;
+		Mapper.PRGcontrol = Mapper.Mirror = 0;
+	}
 
 	Sync();
 }
@@ -134,6 +136,7 @@ CTMapperInfo	MapperInfo_056 =
 	&MapperNum,
 	"SMB3 Pirate",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	CPUCycle,

@@ -26,18 +26,14 @@ static	void	_MAPINT	WriteEF (int Bank, int Addr, int Val)
 	MMC3_CPUWriteEF(Bank,Addr >> 10,Addr & 0xFF);
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC3_Destroy();
+	MMC3_Load(Sync);
+	iNES_SetSRAM();
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
-	EMU->SetPRG_RAM8(0x6,0);
-
-	MMC3_Init(ResetType,Sync);
+	MMC3_Reset(ResetType);
 
 	EMU->SetCPUWriteHandler(0x8,Write89);
 	EMU->SetCPUWriteHandler(0x9,Write89);
@@ -48,6 +44,10 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xE,WriteEF);
 	EMU->SetCPUWriteHandler(0xF,WriteEF);
 }
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
+}
 
 static	u8 MapperNum = 250;
 CTMapperInfo	MapperInfo_250 =
@@ -55,8 +55,9 @@ CTMapperInfo	MapperInfo_250 =
 	&MapperNum,
 	"Time Diver Avenger (MMC3 Variant)",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	MMC3_SaveLoad,

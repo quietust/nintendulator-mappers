@@ -40,18 +40,13 @@ static	void	_MAPINT	WriteEF (int Bank, int Addr, int Val)
 	else	MMC3_CPUWriteEF(Bank,0,Val);
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC3_Destroy();
+	MMC3_Load(Sync);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
-	EMU->SetPRG_RAM8(0x6,0);
-
-	MMC3_Init(ResetType,Sync);
+	MMC3_Reset(ResetType);
 
 	EMU->SetCPUWriteHandler(0x8,Write89);
 	EMU->SetCPUWriteHandler(0x9,Write89);
@@ -62,6 +57,10 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xE,WriteEF);
 	EMU->SetCPUWriteHandler(0xF,WriteEF);
 }
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
+}
 
 static	u8 MapperNum = 182;
 CTMapperInfo	MapperInfo_182 =
@@ -69,8 +68,9 @@ CTMapperInfo	MapperInfo_182 =
 	&MapperNum,
 	"Super Donkey Kong",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	MMC3_SaveLoad,

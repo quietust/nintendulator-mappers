@@ -35,16 +35,23 @@ static	void	_MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering
 	}
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	Latch_Destroy();
+	Latch_Load(Sync,FALSE);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-	Latch_Init(ResetType,Sync,FALSE);
-	Mapper.Pos = 0;
+	iNES_SetMirroring();
+	Latch_Reset(ResetType);
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.Pos = 0;
+		Sync();
+	}
+}
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
 }
 
 static	u8 MapperNum = 96;
@@ -53,8 +60,9 @@ CTMapperInfo	MapperInfo_096 =
 	&MapperNum,
 	"Bandai 74161/7432",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	PPUCycle,
 	SaveLoad,

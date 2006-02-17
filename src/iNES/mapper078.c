@@ -11,16 +11,17 @@ static	void	Sync (void)
 	else	((ROM->INES_Flags & 0x08) ? EMU->Mirror_H : EMU->Mirror_S0)();
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	Latch_Destroy();
+	Latch_Load(Sync,FALSE);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
-	Latch_Init(ResetType,Sync,FALSE);
+	Latch_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
 }
 
 static	u8 MapperNum = 78;
@@ -29,8 +30,9 @@ CTMapperInfo	MapperInfo_078 =
 	&MapperNum,
 	"Irem 74161/32",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_D,

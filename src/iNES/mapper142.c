@@ -91,7 +91,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	EMU->SetCPUWriteHandler(0x8,Write8);
 	EMU->SetCPUWriteHandler(0x9,Write9);
@@ -101,9 +101,12 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xE,WriteE);
 	EMU->SetCPUWriteHandler(0xF,WriteF);
 
-	for (x = 0; x < 4; x++)
-		Mapper.PRG[x] = 0;
-	Mapper.PRGcontrol = 0;
+	if (ResetType == RESET_HARD)
+	{
+		for (x = 0; x < 4; x++)
+			Mapper.PRG[x] = 0;
+		Mapper.PRGcontrol = 0;
+	}
 
 	Sync();
 }
@@ -114,6 +117,7 @@ CTMapperInfo	MapperInfo_142 =
 	&MapperNum,
 	"SMB2j Pirate (KS 202)",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	CPUCycle,

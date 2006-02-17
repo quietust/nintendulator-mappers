@@ -33,22 +33,24 @@ static	void	_MAPINT	Write4 (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC3_Destroy();
+	iNES_SetSRAM();
+	MMC3_Load(Sync);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
 	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
 	EMU->SetCPUWriteHandler(0x4,Write4);
 
-	EMU->SetPRG_RAM8(0x6,0);
-	Mapper.Latch = 0;
+	if (ResetType == RESET_HARD)
+		Mapper.Latch = 0;
 
-	MMC3_Init(ResetType,Sync);
+	MMC3_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
 }
 
 static	u8 MapperNum = 189;
@@ -57,8 +59,9 @@ CTMapperInfo	MapperInfo_189 =
 	&MapperNum,
 	"Mapper 189 (Thunder Warrior)",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	SaveLoad,

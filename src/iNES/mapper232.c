@@ -36,7 +36,7 @@ static	void	_MAPINT	WriteABCDEF (int Bank, int Where, int What)
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	EMU->SetCPUWriteHandler(0x8,Write89);
 	EMU->SetCPUWriteHandler(0x9,Write89);
@@ -47,8 +47,11 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xE,WriteABCDEF);
 	EMU->SetCPUWriteHandler(0xF,WriteABCDEF);
 
-	Mapper.WhichGame = 0;
-	Mapper.WhichBank = 3;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.WhichGame = 0;
+		Mapper.WhichBank = 3;
+	}
 
 	Sync();
 }
@@ -59,6 +62,7 @@ CTMapperInfo	MapperInfo_232 =
 	&MapperNum,
 	"Camerica 9096",
 	COMPAT_NEARLY,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

@@ -34,19 +34,22 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC3_Destroy();
+	MMC3_Load(Sync);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	iNES_InitROM();
-	Mapper.Game = 0;
-	MMC3_Init(ResetType,Sync);
+	if (ResetType == RESET_HARD)
+		Mapper.Game = 0;
+	MMC3_Reset(ResetType);
 	for (x = 0xA; x < 0xC; x++)
 		EMU->SetCPUWriteHandler(x,Write);	/* need to override writes to $A001 */
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
 }
 
 static	u8 MapperNum = 44;
@@ -55,8 +58,9 @@ CTMapperInfo	MapperInfo_044 =
 	&MapperNum,
 	"Super HiK 7 in 1 (MMC3)",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	SaveLoad,

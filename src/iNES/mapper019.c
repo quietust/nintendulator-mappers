@@ -163,15 +163,14 @@ static	int	_MAPINT	MapperSnd (int Cycles)
 	return N106sound_Get(Cycles);
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	N106sound_Destroy();
+	N106sound_Load();
+	iNES_SetSRAM();
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	iNES_InitROM();
 
 	Mapper.Read4 = EMU->GetCPUReadHandler(0x4);
 	EMU->SetCPUReadHandler(0x4,Read4);
@@ -189,17 +188,24 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xE,WriteE);
 	EMU->SetCPUWriteHandler(0xF,WriteF);
 
-	for (x = 0; x < 4; x++)
+	if (ResetType == RESET_HARD)
 	{
-		Mapper.PRG[x] = 0xFF;
-		Mapper.CHR[x | 0] = 0xFF;
-		Mapper.CHR[x | 4] = 0xFF;
-		Mapper.NTab[x] = 0xFF;
+		for (x = 0; x < 4; x++)
+		{
+			Mapper.PRG[x] = 0xFF;
+			Mapper.CHR[x | 0] = 0xFF;
+			Mapper.CHR[x | 4] = 0xFF;
+			Mapper.NTab[x] = 0xFF;
+		}
+		Mapper.IRQcounter.s0 = 0;
 	}
-	Mapper.IRQcounter.s0 = 0;
-	N106sound_Init();
+	N106sound_Reset(ResetType);
 	EMU->SetIRQ(1);
 	Sync();
+}
+static	void	_MAPINT	Unload (void)
+{
+	N106sound_Unload();
 }
 
 static	u8 MapperNum = 19;
@@ -208,8 +214,9 @@ CTMapperInfo	MapperInfo_019 =
 	&MapperNum,
 	"Namcot 106",
 	COMPAT_NEARLY,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	CPUCycle,
 	NULL,
 	SaveLoad,

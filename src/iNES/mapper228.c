@@ -47,16 +47,17 @@ static	void	Sync (void)
 	EMU->SetCHR_ROM8(0,(M.CHRbank << 2) | (Latch.Data & 0x3));
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	Latch_Destroy();
+	Latch_Load(Sync,FALSE);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
-	Latch_Init(ResetType,Sync,FALSE);
+	Latch_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
 }
 
 static	u8 MapperNum = 228;
@@ -65,8 +66,9 @@ CTMapperInfo	MapperInfo_228 =
 	&MapperNum,
 	"Action 52",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_AD,

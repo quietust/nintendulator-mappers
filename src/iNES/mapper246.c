@@ -58,22 +58,27 @@ static	void	_MAPINT	Write6 (int Bank, int Addr, int Val)
 	Sync();
 }
 
+static	void	_MAPINT	Load (void)
+{
+	iNES_SetSRAM();
+}
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	Mapper.Read6 = EMU->GetCPUReadHandler(0x6);
 	Mapper.Write6 = EMU->GetCPUWriteHandler(0x6);
 	EMU->SetCPUReadHandler(0x6,Read6);
 	EMU->SetCPUWriteHandler(0x6,Write6);
 
-	Mapper.PRG[0] = 0;	Mapper.PRG[1] = 1;
-	Mapper.PRG[2] = 0xFE;	Mapper.PRG[3] = 0xFF;
-	for (x = 0; x < 4; x++)
-		Mapper.CHR[x] = 0;
-
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.PRG[0] = 0;	Mapper.PRG[1] = 1;
+		Mapper.PRG[2] = 0xFE;	Mapper.PRG[3] = 0xFF;
+		for (x = 0; x < 4; x++)
+			Mapper.CHR[x] = 0;
+	}
 	Sync();
 }
 
@@ -83,6 +88,7 @@ CTMapperInfo	MapperInfo_246 =
 	&MapperNum,
 	"Mapper 246",
 	COMPAT_PARTIAL,
+	Load,
 	Reset,
 	NULL,
 	NULL,

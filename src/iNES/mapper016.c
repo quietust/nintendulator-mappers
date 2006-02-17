@@ -105,21 +105,27 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	Sync();
 }
 
+static	void	_MAPINT	Load (void)
+{
+	iNES_SetSRAM();
+}
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	iNES_InitROM();
 
 	for (x = 0x6; x < 0x8; x++)
 		EMU->SetCPUReadHandler(x,ReadWRAM);
 	for (x = 0x6; x < 0x10; x++)
 		EMU->SetCPUWriteHandler(x,Write);
 
-	Mapper.PRG = 0;
-	for (x = 0; x < 8; x++)
-		Mapper.CHR[x] = x;
-	Mapper.IRQenabled = 0;
-	Mapper.IRQcounter.s0 = 0;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.PRG = 0;
+		for (x = 0; x < 8; x++)
+			Mapper.CHR[x] = x;
+		Mapper.IRQenabled = 0;
+		Mapper.IRQcounter.s0 = 0;
+	}
 	Sync();
 }
 
@@ -129,6 +135,7 @@ CTMapperInfo	MapperInfo_016 =
 	&MapperNum,
 	"Bandai",
 	COMPAT_PARTIAL,
+	Load,
 	Reset,
 	NULL,
 	CPUCycle,

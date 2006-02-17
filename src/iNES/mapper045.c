@@ -35,25 +35,27 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC3_Destroy();
+	MMC3_Load(Sync);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-
-	iNES_InitROM();
-
 	EMU->SetCPUWriteHandler(0x6,Write);
 	EMU->SetCPUWriteHandler(0x7,Write);
 
-	for (x = 0; x < 4; x++)
-		Mapper.Regs[x] = 0;
-	Mapper.Pos = 0;
-
-	MMC3_Init(ResetType,Sync);
+	if (ResetType == RESET_HARD)
+	{
+		for (x = 0; x < 4; x++)
+			Mapper.Regs[x] = 0;
+		Mapper.Pos = 0;
+	}
+	MMC3_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
 }
 
 static	u8 MapperNum = 45;
@@ -62,8 +64,9 @@ CTMapperInfo	MapperInfo_045 =
 	&MapperNum,
 	"Super 1,000,000 in 1 (MMC3)",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	SaveLoad,

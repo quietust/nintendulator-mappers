@@ -7,15 +7,18 @@ static	void	Sync (void)
 	EMU->SetCHR_ROM8(0,Latch.Data & 0x7);
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	Latch_Destroy();
+	Latch_Load(Sync,FALSE);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-	Latch_Init(ResetType,Sync,FALSE);
+	iNES_SetMirroring();
+	Latch_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
 }
 
 static	u8 MapperNum = 148;
@@ -24,8 +27,9 @@ CTMapperInfo	MapperInfo_148 =
 	&MapperNum,
 	"Sachen (SA-004/SA-0037)",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_D,

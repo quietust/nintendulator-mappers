@@ -99,13 +99,14 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
-	iNES_InitROM();
-
 	EMU->SetCPUWriteHandler(0x8,Write);
 
-	for (x = 0; x < 4; x++)
-		Mapper.PRG[x] = x;
-	Mapper.Mirror = 0;
+	if (ResetType == RESET_HARD)
+	{
+		for (x = 0; x < 4; x++)
+			Mapper.PRG[x] = x;
+		Mapper.Mirror = 0;
+	}
 	Sync();
 }
 
@@ -115,6 +116,7 @@ CTMapperInfo	MapperInfo_015 =
 	&MapperNum,
 	"100-in-1 Contra Function 16",
 	COMPAT_PARTIAL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

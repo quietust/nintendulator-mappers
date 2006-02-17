@@ -366,11 +366,13 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
+static	void	_MAPINT	Load (void)
+{
+	Mapper.ConfigWindow = NULL;
+}
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-
-	iNES_InitROM();
 
 	EMU->SetCPUReadHandler(0x5,Read5);
 	EMU->SetCPUWriteHandler(0x5,Write5);
@@ -381,7 +383,6 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xC,WriteC);
 	EMU->SetCPUWriteHandler(0xD,WriteD);
 	
-	Mapper.ConfigWindow = NULL;
 	Mapper.ConfigCmd = 0;
 	if (ResetType == RESET_HARD)
 	{
@@ -406,6 +407,11 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	SyncCHR();
 	SyncNametables();
 }
+static	void	_MAPINT	Unload (void)
+{
+	if (Mapper.ConfigWindow)
+		DestroyWindow(Mapper.ConfigWindow);
+}
 
 static	u8 MapperNum = 90;
 CTMapperInfo	MapperInfo_090 =
@@ -413,8 +419,9 @@ CTMapperInfo	MapperInfo_090 =
 	&MapperNum,
 	"Mapper 90",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	NULL,
+	Unload,
 	CPUCycle,
 	PPUCycle,
 	SaveLoad,

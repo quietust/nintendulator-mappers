@@ -71,13 +71,12 @@ static	int	_MAPINT	Read (int Bank, int Addr)
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
 	Mapper.Read = EMU->GetCPUReadHandler(0xF);
 	EMU->SetCPUReadHandler(0xF,Read);
 	EMU->SetCPUWriteHandler(0xF,Write);
 
-	Mapper.Reg1 = Mapper.Reg2 = Mapper.Reg3 = 0;
+	if (ResetType == RESET_HARD)
+		Mapper.Reg1 = Mapper.Reg2 = Mapper.Reg3 = 0;
 	Sync();
 }
 
@@ -87,6 +86,7 @@ CTMapperInfo	MapperInfo_234 =
 	&MapperNum,
 	"Maxi 15",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

@@ -8,15 +8,18 @@ static	void	Sync (void)
 	MMC2_SyncMirror();
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC2_Destroy();
+	MMC2_Load(Sync);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-	MMC2_Init(ResetType,Sync);
+	iNES_SetMirroring();
+	MMC2_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC2_Unload();
 }
 
 static	u8 MapperNum = 9;
@@ -25,8 +28,9 @@ CTMapperInfo	MapperInfo_009 =
 	&MapperNum,
 	"MMC2",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	NULL,
 	MMC2_SaveLoad,

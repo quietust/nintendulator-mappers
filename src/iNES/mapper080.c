@@ -57,20 +57,25 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	Sync();
 }
 
+static	void	_MAPINT	Load (void)
+{
+	iNES_SetSRAM();
+}
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
-	iNES_InitROM();
-
 	EMU->SetCPUWriteHandler(0x7,Write);
 
-	Mapper.Mirror = 0;
-	for (x = 0; x < 8; x++)
-		Mapper.CHR[x] = x;
-	Mapper.PRG[0] = 0;
-	Mapper.PRG[1] = 1;
-	Mapper.PRG[2] = -1;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.Mirror = 0;
+		for (x = 0; x < 8; x++)
+			Mapper.CHR[x] = x;
+		Mapper.PRG[0] = 0;
+		Mapper.PRG[1] = 1;
+		Mapper.PRG[2] = -1;
+	}
 
 	Sync();
 }
@@ -81,6 +86,7 @@ CTMapperInfo	MapperInfo_080 =
 	&MapperNum,
 	"Mapper 80",
 	COMPAT_PARTIAL,
+	Load,
 	Reset,
 	NULL,
 	NULL,

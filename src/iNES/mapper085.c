@@ -152,22 +152,19 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 	EMU->SetIRQ(1);
 }
 
-
-static	void	_MAPINT	Shutdown (void)
-{
-	VRC7sound_Destroy();
-}
-
 static	int	_MAPINT	MapperSnd (int Cycles)
 {
 	return VRC7sound_Get(Cycles);
 }
 
+static	void	_MAPINT	Load (void)
+{
+	VRC7sound_Load();
+	iNES_SetSRAM();
+}
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-
-	iNES_InitROM();
 
 	EMU->SetCPUWriteHandler(0x8,Write8);
 	EMU->SetCPUWriteHandler(0x9,Write9);
@@ -178,14 +175,21 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xE,WriteE);
 	EMU->SetCPUWriteHandler(0xF,WriteF);
 
-	Mapper.IRQenabled = Mapper.IRQcounter = Mapper.IRQlatch = 0;
-	Mapper.IRQcycles = 0;
-	Mapper.PRG[0] = 0x00;	Mapper.PRG[0] = 0x01;	Mapper.PRG[2] = 0xFE;
-	for (x = 0; x < 8; x++)	Mapper.CHR[x] = x;
-	Mapper.Misc = 0;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.IRQenabled = Mapper.IRQcounter = Mapper.IRQlatch = 0;
+		Mapper.IRQcycles = 0;
+		Mapper.PRG[0] = 0x00;	Mapper.PRG[0] = 0x01;	Mapper.PRG[2] = 0xFE;
+		for (x = 0; x < 8; x++)	Mapper.CHR[x] = x;
+		Mapper.Misc = 0;
+	}
 
-	VRC7sound_Init();
+	VRC7sound_Reset(ResetType);
 	Sync();
+}
+static	void	_MAPINT	Unload (void)
+{
+	VRC7sound_Unload();
 }
 
 static	u8 MapperNum = 85;
@@ -194,8 +198,9 @@ CTMapperInfo	MapperInfo_085 =
 	&MapperNum,
 	"Konami VRC7",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	CPUCycle,
 	NULL,
 	SaveLoad,

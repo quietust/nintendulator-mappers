@@ -32,7 +32,7 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
 	for (x = 0x4; x < 0x8; x++)
@@ -40,7 +40,8 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	for (x = 0xC; x < 0x10; x++)
 		EMU->SetCPUWriteHandler(x,Write);
 
-	Mapper.Reg = 0;
+	if (ResetType == RESET_HARD)
+		Mapper.Reg = 0;
 	Sync();
 }
 
@@ -50,6 +51,7 @@ CTMapperInfo	MapperInfo_147 =
 	&MapperNum,
 	"Sachen (TC-U01-1.5M)",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

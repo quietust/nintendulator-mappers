@@ -13,15 +13,18 @@ static	void	Sync (void)
 	MMC1_SyncWRAM();
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC1_Destroy();
+	MMC1_Load(Sync);
+	iNES_SetSRAM();
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-	MMC1_Init(ResetType,Sync);
+	MMC1_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC1_Unload();
 }
 
 static	u8 MapperNum = 1;
@@ -30,8 +33,9 @@ CTMapperInfo	MapperInfo_001 =
 	&MapperNum,
 	"MMC1",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	NULL,
 	MMC1_SaveLoad,

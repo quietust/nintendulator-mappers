@@ -97,22 +97,21 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	Latch_Destroy();
-	if (Mapper.ConfigWindow)
-		DestroyWindow(Mapper.ConfigWindow);
+	Latch_Load(Sync,FALSE);
 	Mapper.ConfigWindow = NULL;
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
-	Mapper.ConfigWindow = NULL;
+	Latch_Reset(ResetType);
 	Mapper.ConfigCmd = 0;
-
-	Latch_Init(ResetType,Sync,FALSE);
+}
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
+	if (Mapper.ConfigWindow)
+		DestroyWindow(Mapper.ConfigWindow);
 }
 
 static	u8 MapperNum = 59;
@@ -121,8 +120,9 @@ CTMapperInfo	MapperInfo_059 =
 	&MapperNum,
 	"T3H53",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	NULL,
 	SaveLoad,

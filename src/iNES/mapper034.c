@@ -85,7 +85,7 @@ static	void	_MAPINT	WriteBNROM (int Bank, int Addr, int Val)
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	Mapper.Write7 = EMU->GetCPUWriteHandler(0x7);
 	EMU->SetCPUWriteHandler(0x7,WriteNINA);
@@ -93,11 +93,14 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	for (x = 0x8; x < 0x10; x++)
 		EMU->SetCPUWriteHandler(x,WriteBNROM);
 
-	Mapper.BNROM_PRG = 0;
-	Mapper.NINA_PRG = 0;
-	Mapper.NINA_CHR[0] = 0;
-	Mapper.NINA_CHR[1] = 1;
-	Mapper.Mode = 0;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.BNROM_PRG = 0;
+		Mapper.NINA_PRG = 0;
+		Mapper.NINA_CHR[0] = 0;
+		Mapper.NINA_CHR[1] = 1;
+		Mapper.Mode = 0;
+	}
 	Sync();
 }
 
@@ -107,6 +110,7 @@ CTMapperInfo	MapperInfo_034 =
 	&MapperNum,
 	"BNROM/Nina-01",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

@@ -142,21 +142,14 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
+{
+	Mapper.ConfigWindow = NULL;
+}
+static	void	_MAPINT	Unload (void)
 {
 	if (Mapper.ConfigWindow)
 		DestroyWindow(Mapper.ConfigWindow);
-	Mapper.ConfigWindow = NULL;
-}
-
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
-{
-	iNES_InitROM();
-
-	EMU->SetPRG_ROM32(0x8,-1);
-	EMU->SetCHR_RAM8(0,0);
-
-	Mapper.ConfigWindow = NULL;
 }
 
 static	u8 MapperNum = 100;
@@ -165,8 +158,9 @@ CTMapperInfo	MapperInfo_100 =
 	&MapperNum,
 	"Debugging Mapper",
 	COMPAT_FULL,
-	Reset,
-	Shutdown,
+	Load,
+	NULL,
+	Unload,
 	NULL,
 	NULL,
 	NULL,

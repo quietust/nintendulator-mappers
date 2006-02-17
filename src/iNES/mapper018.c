@@ -8,8 +8,6 @@ static	struct
 	u8 IRQcontrol;
 	u8 Mirror;
 	u8 DisableSRAM;
-	FCPURead ReadSRAM;
-	FCPUWrite WriteSRAM;
 }	Mapper;
 
 static	u16 IRQmask;
@@ -153,9 +151,7 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 {
 	switch (Addr & 3)
 	{
-	case 0:	//if (Val & 1)
-			Mapper.IRQcounter = Mapper.IRQlatch.s0;
-		//else	Mapper.IRQcounter = 0;
+	case 0:	Mapper.IRQcounter = Mapper.IRQlatch.s0;
 		EMU->SetIRQ(1);			break;
 	case 1:	Mapper.IRQcontrol = Val & 0xF;
 		Sync();
@@ -166,10 +162,13 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 	}
 }
 
+static	void	_MAPINT	Load (void)
+{
+	iNES_SetSRAM();
+}
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	iNES_InitROM();
 
 	EMU->SetCPUWriteHandler(0x8,Write8);
 	EMU->SetCPUWriteHandler(0x9,Write9);
@@ -180,15 +179,18 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xE,WriteE);
 	EMU->SetCPUWriteHandler(0xF,WriteF);
 
-	Mapper.PRG[0].b0 = 0x00;
-	Mapper.PRG[1].b0 = 0x01;
-	Mapper.PRG[2].b0 = 0xFE;
-	for (x = 0; x < 8; x++)
-		Mapper.CHR[x].b0 = x;
-	Mapper.IRQcontrol = 0;
-	Mapper.IRQcounter = Mapper.IRQlatch.s0 = 0;
-	Mapper.Mirror = 0;
-	Mapper.DisableSRAM = 1;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.PRG[0].b0 = 0x00;
+		Mapper.PRG[1].b0 = 0x01;
+		Mapper.PRG[2].b0 = 0xFE;
+		for (x = 0; x < 8; x++)
+			Mapper.CHR[x].b0 = x;
+		Mapper.IRQcontrol = 0;
+		Mapper.IRQcounter = Mapper.IRQlatch.s0 = 0;
+		Mapper.Mirror = 0;
+		Mapper.DisableSRAM = 1;
+	}
 	Sync();
 }
 
@@ -198,6 +200,7 @@ CTMapperInfo	MapperInfo_018 =
 	&MapperNum,
 	"Jaleco SS8806",
 	COMPAT_PARTIAL,
+	Load,
 	Reset,
 	NULL,
 	CPUCycle,

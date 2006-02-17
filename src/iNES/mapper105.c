@@ -136,27 +136,28 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC1_Destroy();
-	if (Mapper.ConfigWindow)
-		DestroyWindow(Mapper.ConfigWindow);
+	MMC1_Load(Sync);
 	Mapper.ConfigWindow = NULL;
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
 	if (ResetType == RESET_HARD)
 		Mapper.MaxCount = 0x04000000;
+
 	Mapper.Counter = 0;
 	Mapper.CounterEnabled = 0;
 	Mapper.InitState = 0;
-	Mapper.ConfigWindow = NULL;
 	Mapper.ConfigCmd = 0;
 
-	MMC1_Init(ResetType,Sync);
+	MMC1_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC1_Unload();
+	if (Mapper.ConfigWindow)
+		DestroyWindow(Mapper.ConfigWindow);
 }
 
 static	u8 MapperNum = 105;
@@ -165,8 +166,9 @@ CTMapperInfo	MapperInfo_105 =
 	&MapperNum,
 	"Nintendo World Championship",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	CPUCycle,
 	NULL,
 	SaveLoad,

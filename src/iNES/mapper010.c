@@ -9,15 +9,19 @@ static	void	Sync (void)
 	EMU->SetPRG_RAM8(0x6,0);
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC4_Destroy();
+	MMC4_Load(Sync);
+	iNES_SetSRAM();
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-	MMC4_Init(ResetType,Sync);
+	iNES_SetMirroring();
+	MMC4_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC4_Unload();
 }
 
 static	u8 MapperNum = 10;
@@ -26,8 +30,9 @@ CTMapperInfo	MapperInfo_010 =
 	&MapperNum,
 	"MMC4",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	NULL,
 	MMC4_SaveLoad,

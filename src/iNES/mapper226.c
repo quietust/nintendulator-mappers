@@ -60,12 +60,11 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
-	iNES_InitROM();
-
 	for (x = 0x8; x < 0x10; x++)
 		EMU->SetCPUWriteHandler(x,Write);
 
-	Mapper.Byte8000 = Mapper.Byte8001 = 0;
+	if (ResetType == RESET_HARD)
+		Mapper.Byte8000 = Mapper.Byte8001 = 0;
 
 	Sync();
 }
@@ -76,6 +75,7 @@ CTMapperInfo	MapperInfo_226 =
 	&MapperNum,
 	"76-in-1",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

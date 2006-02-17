@@ -43,13 +43,13 @@ static	void	_MAPINT	WriteHi (int Bank, int Addr, int Val)
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	iNES_InitROM();
 
 	EMU->SetCPUWriteHandler(0x6,WriteLo);
 	for (x = 0x8; x < 0x10; x++)
 		EMU->SetCPUWriteHandler(x,WriteHi);
 
-	Mapper.Reg0 = Mapper.Reg1 = 0;
+	if (ResetType == RESET_HARD)
+		Mapper.Reg0 = Mapper.Reg1 = 0;
 	Sync();
 }
 
@@ -59,6 +59,7 @@ CTMapperInfo	MapperInfo_041 =
 	&MapperNum,
 	"Caltron 6-in-1",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

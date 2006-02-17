@@ -87,24 +87,22 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC3_Destroy();
+	MMC3_Load(Sync);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
 	EMU->SetCPUWriteHandler(0x6,Write);
 	EMU->SetCPUWriteHandler(0x7,Write);
 
-	Mapper.Reg0 = 0;
-	Mapper.Reg1 = 0;
-	Mapper.Reg2 = 0;
-	Mapper.Reg3 = 0;
-
-	MMC3_Init(ResetType,Sync);
+	if (ResetType == RESET_HARD)
+		Mapper.Reg0 = Mapper.Reg1 = Mapper.Reg2 = Mapper.Reg3 = 0;
+	MMC3_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
 }
 
 static	u8 MapperNum = 126;
@@ -113,8 +111,9 @@ CTMapperInfo	MapperInfo_126 =
 	&MapperNum,
 	"Super Joy (MMC3)",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	SaveLoad,

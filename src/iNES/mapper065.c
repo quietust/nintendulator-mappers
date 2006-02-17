@@ -84,23 +84,16 @@ static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	switch (Addr)
 	{
-	case 0:	Mapper.CHR[0] = Val;
-		Sync();			break;
-	case 1:	Mapper.CHR[1] = Val;
-		Sync();			break;
-	case 2:	Mapper.CHR[2] = Val;
-		Sync();			break;
-	case 3:	Mapper.CHR[3] = Val;
-		Sync();			break;
-	case 4:	Mapper.CHR[4] = Val;
-		Sync();			break;
-	case 5:	Mapper.CHR[5] = Val;
-		Sync();			break;
-	case 6:	Mapper.CHR[6] = Val;
-		Sync();			break;
-	case 7:	Mapper.CHR[7] = Val;
-		Sync();			break;
+	case 0:	Mapper.CHR[0] = Val;	break;
+	case 1:	Mapper.CHR[1] = Val;	break;
+	case 2:	Mapper.CHR[2] = Val;	break;
+	case 3:	Mapper.CHR[3] = Val;	break;
+	case 4:	Mapper.CHR[4] = Val;	break;
+	case 5:	Mapper.CHR[5] = Val;	break;
+	case 6:	Mapper.CHR[6] = Val;	break;
+	case 7:	Mapper.CHR[7] = Val;	break;
 	}
+	Sync();
 }
 
 static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
@@ -112,11 +105,13 @@ static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
 	}
 }
 
+static	void	_MAPINT	Load (void)
+{
+	iNES_SetSRAM();
+}
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-
-	iNES_InitROM();
 
 	EMU->SetCPUWriteHandler(0x8,Write8);
 	EMU->SetCPUWriteHandler(0x9,Write9);
@@ -124,14 +119,16 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xB,WriteB);
 	EMU->SetCPUWriteHandler(0xC,WriteC);
 
-	Mapper.PRG[0] = 0;	Mapper.PRG[1] = 1;	Mapper.PRG[2] = -2;	Mapper.PRG[3] = -1;
-	for (x = 0; x < 8; x++)
-		Mapper.CHR[x] = x;
-	Mapper.IRQenabled = 0;
-	Mapper.IRQcounter = Mapper.IRQlatch.s0 = 0;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.PRG[0] = 0;	Mapper.PRG[1] = 1;	Mapper.PRG[2] = -2;	Mapper.PRG[3] = -1;
+		for (x = 0; x < 8; x++)
+			Mapper.CHR[x] = x;
+		Mapper.IRQenabled = 0;
+		Mapper.IRQcounter = Mapper.IRQlatch.s0 = 0;
+	}
 
 	Sync();
-	EMU->SetIRQ(1);
 }
 
 static	u8 MapperNum = 65;
@@ -140,6 +137,7 @@ CTMapperInfo	MapperInfo_065 =
 	&MapperNum,
 	"Irem H-3001",
 	COMPAT_FULL,
+	Load,
 	Reset,
 	NULL,
 	CPUCycle,

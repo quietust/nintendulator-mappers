@@ -89,17 +89,18 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
-	iNES_InitROM();
-
 	EMU->SetCPUWriteHandler(0x8,Write);
 
-	Mapper.Mirror = 0;
-	for (x = 0; x < 8; x++)
-		Mapper.CHR[x] = 0;
-	Mapper.PRG[0] = 0x00;
-	Mapper.PRG[1] = 0x01;
-	Mapper.PRG[2] = 0x1E;
-	Mapper.PRG[3] = 0x1F;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.Mirror = 0;
+		for (x = 0; x < 8; x++)
+			Mapper.CHR[x] = 0;
+		Mapper.PRG[0] = 0x00;
+		Mapper.PRG[1] = 0x01;
+		Mapper.PRG[2] = 0x1E;
+		Mapper.PRG[3] = 0x1F;
+	}
 
 	Sync();
 }
@@ -110,6 +111,7 @@ CTMapperInfo	MapperInfo_083 =
 	&MapperNum,
 	"Cony",
 	COMPAT_PARTIAL,
+	NULL,
 	Reset,
 	NULL,
 	CPUCycle,

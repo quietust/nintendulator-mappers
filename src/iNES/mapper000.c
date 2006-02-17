@@ -2,7 +2,7 @@
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	EMU->SetPRG_ROM32(0x8,0);
 	if (ROM->INES_CHRSize)
@@ -16,6 +16,7 @@ CTMapperInfo	MapperInfo_000 =
 	&MapperNum,
 	"NROM",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

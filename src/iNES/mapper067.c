@@ -135,8 +135,6 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
 	EMU->SetCPUWriteHandler(0x8,Write8);
 	EMU->SetCPUWriteHandler(0x9,Write9);
 	EMU->SetCPUWriteHandler(0xA,WriteA);
@@ -146,11 +144,14 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xE,WriteE);
 	EMU->SetCPUWriteHandler(0xF,WriteF);
 
-	Mapper.PRG = 0;
-	Mapper.CHR[0] = 0;	Mapper.CHR[1] = 0;	Mapper.CHR[2] = 0;	Mapper.CHR[3] = 0;
-	Mapper.Mirror = 0;
-	Mapper.IRQcounter.s0 = 0;
-	Mapper.IRQenabled = Mapper.IRQpos = 0;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.PRG = 0;
+		Mapper.CHR[0] = 0;	Mapper.CHR[1] = 0;	Mapper.CHR[2] = 0;	Mapper.CHR[3] = 0;
+		Mapper.Mirror = 0;
+		Mapper.IRQcounter.s0 = 0;
+		Mapper.IRQenabled = Mapper.IRQpos = 0;
+	}
 
 	Sync();
 }
@@ -161,6 +162,7 @@ CTMapperInfo	MapperInfo_067 =
 	&MapperNum,
 	"Sunsoft Mapper #3",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	CPUCycle,

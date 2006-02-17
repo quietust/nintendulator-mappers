@@ -211,25 +211,21 @@ static	void	SetSRAM (void)
 	}
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC5_Destroy();
-	if (Mapper.ConfigWindow)
-		DestroyWindow(Mapper.ConfigWindow);
+	MMC5_Load(CheckSRAM());
+	SetSRAM();
 	Mapper.ConfigWindow = NULL;
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
-	if (ResetType == RESET_HARD)
-		MMC5.WRAMsize = CheckSRAM();
-
-	Mapper.ConfigWindow = NULL;
-	SetSRAM();
-
-	MMC5_Init(ResetType);
+	MMC5_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC5_Unload();
+	if (Mapper.ConfigWindow)
+		DestroyWindow(Mapper.ConfigWindow);
 }
 
 static	u8 MapperNum = 5;
@@ -238,8 +234,9 @@ CTMapperInfo	MapperInfo_005 =
 	&MapperNum,
 	"MMC5",
 	COMPAT_NEARLY,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC5_PPUCycle,
 	MMC5_SaveLoad,

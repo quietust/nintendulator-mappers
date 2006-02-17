@@ -35,13 +35,14 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
-	iNES_InitROM();
+	iNES_SetMirroring();
 
 	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
 	for (x = 0x4; x < 0x8; x++)
 		EMU->SetCPUWriteHandler(x,Write);
 
-	Mapper.Reg = 0;
+	if (ResetType == RESET_HARD)
+		Mapper.Reg = 0;
 
 	Sync();
 }
@@ -52,6 +53,7 @@ CTMapperInfo	MapperInfo_113 =
 	&MapperNum,
 	"Mapper 113 (HES)",
 	COMPAT_PARTIAL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

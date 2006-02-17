@@ -138,8 +138,6 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
-	iNES_InitROM();
-
 	EMU->SetCPUWriteHandler(0x8,Write89);
 	EMU->SetCPUWriteHandler(0x9,Write89);
 	EMU->SetCPUWriteHandler(0xA,WriteAB);
@@ -149,12 +147,15 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xE,WriteEF);
 	EMU->SetCPUWriteHandler(0xF,WriteEF);
 
-	for (x = 0; x < 3; x++)	Mapper.PRG[x] = 0xFF;
-	for (x = 0; x < 8; x++)	Mapper.CHR[x] = x;
-	Mapper.IRQenabled = Mapper.IRQcounter = Mapper.IRQlatch = Mapper.IRQmode = Mapper.IRQreload = 0;
-	Mapper.IRQaddr = 0;
-	Mapper.Cmd = 0;
-	Mapper.Mirror = 0;
+	if (ResetType == RESET_HARD)
+	{
+		for (x = 0; x < 3; x++)	Mapper.PRG[x] = 0xFF;
+		for (x = 0; x < 8; x++)	Mapper.CHR[x] = x;
+		Mapper.IRQenabled = Mapper.IRQcounter = Mapper.IRQlatch = Mapper.IRQmode = Mapper.IRQreload = 0;
+		Mapper.IRQaddr = 0;
+		Mapper.Cmd = 0;
+		Mapper.Mirror = 0;
+	}
 
 	Sync();
 }
@@ -165,6 +166,7 @@ CTMapperInfo	MapperInfo_064 =
 	&MapperNum,
 	"Tengen RAMBO-1",
 	COMPAT_PARTIAL,
+	NULL,
 	Reset,
 	NULL,
 	CPUCycle,

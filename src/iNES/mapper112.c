@@ -80,8 +80,6 @@ static	void	_MAPINT	WriteEF (int Bank, int Addr, int Val)
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_InitROM();
-
 	EMU->SetCPUWriteHandler(0x8,Write89);
 	EMU->SetCPUWriteHandler(0x9,Write89);
 	EMU->SetCPUWriteHandler(0xA,WriteAB);
@@ -89,8 +87,17 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xE,WriteEF);
 	EMU->SetCPUWriteHandler(0xF,WriteEF);
 
-	Mapper.PRG[0] = 0x00;	Mapper.PRG[1] = 0x01;	Mapper.CHR[0] = 0x00;	Mapper.CHR[1] = 0x01;
-	Mapper.CHR[2] = 0x04;	Mapper.CHR[3] = 0x05;	Mapper.CHR[4] = 0x06;	Mapper.CHR[5] = 0x07;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.PRG[0] = 0x00;
+		Mapper.PRG[1] = 0x01;
+		Mapper.CHR[0] = 0x00;
+		Mapper.CHR[1] = 0x02;
+		Mapper.CHR[2] = 0x04;
+		Mapper.CHR[3] = 0x05;
+		Mapper.CHR[4] = 0x06;
+		Mapper.CHR[5] = 0x07;
+	}
 
 	Sync();
 }
@@ -101,6 +108,7 @@ CTMapperInfo	MapperInfo_112 =
 	&MapperNum,
 	"Mapper 112 (Asder)",
 	COMPAT_PARTIAL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,
