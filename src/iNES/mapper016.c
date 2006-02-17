@@ -79,7 +79,7 @@ static	int	_MAPINT	ReadWRAM (int Bank, int Addr)
 {
 	if ((Addr & 0xF) == 0)
 		return ReadRAM();
-	else	return (Bank << 4) | (Addr >> 8);
+	else	return *EMU->OpenBus;
 }
 
 static	void	_MAPINT	Write (int Bank, int Addr, int Val)
