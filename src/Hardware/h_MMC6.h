@@ -9,7 +9,7 @@ typedef	struct	MMC6
 	u8 Cmd;
 	u8 PRG[4];
 	u8 CHR[8];
-	u8 WriteWRAM;
+	u8 WRAMEnab;
 	u8 Mirror;
 	FCPURead CPURead7;
 	FCPUWrite CPUWrite7;

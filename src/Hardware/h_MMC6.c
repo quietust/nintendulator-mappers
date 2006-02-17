@@ -11,7 +11,7 @@ void	MMC6_Init (void (*Sync)(void))
 
 	MMC6.IRQenabled = MMC6.IRQcounter = MMC6.IRQlatch = 0;
 	MMC6.Cmd = 0;
-	MMC6.WriteWRAM = 0;
+	MMC6.WRAMEnab = 0;
 	MMC6.Mirror = 0;
 	EMU->SetPRG_RAM4(0x7,0);
 	MMC6.CPURead7 = EMU->GetCPUReadHandler(0x7);
@@ -101,7 +101,7 @@ int	_MAPINT	MMC6_SaveLoad (int mode, int x, char *data)
 	}
 	for (i = 4; i < 8; i++)
 		SAVELOAD_BYTE(mode,x,data,MMC6.CHR[i])
-	SAVELOAD_BYTE(mode,x,data,MMC6.WriteWRAM)
+	SAVELOAD_BYTE(mode,x,data,MMC6.WRAMEnab)
 	SAVELOAD_BYTE(mode,x,data,MMC6.Mirror)
 	if (mode == STATE_LOAD)
 		MMC6.Sync();
@@ -110,12 +110,18 @@ int	_MAPINT	MMC6_SaveLoad (int mode, int x, char *data)
 
 int	_MAPINT	MMC6_CPURead7 (int Bank, int Where)
 {
-	return MMC6.CPURead7(0x7,Where & 0x3FF);
+	if (MMC6.WRAMEnab & 0xA0)
+	{
+		if ((MMC6.WRAMEnab >> ((Where & 0x200) >> 8)) & 0x20)
+			return MMC6.CPURead7(0x7,Where & 0x3FF);
+		else	return 0;
+	}
+	else	return -1;
 }
 
 void	_MAPINT	MMC6_CPUWrite7 (int Bank, int Where, int What)
 {
-	if (MMC6.WriteWRAM)	// it's more complicated than this, so we'll have to figure it out later
+	if (((MMC6.WRAMEnab >> ((Where & 0x200) >> 8)) & 0x30) == 0x30)
 		MMC6.CPUWrite7(0x7,Where & 0x3FF,What);
 }
 
@@ -135,14 +141,22 @@ void	_MAPINT	MMC6_CPUWrite89 (int Bank, int Where, int What)
 		case 6:	MMC6.PRG[0] = What & 0x3F;	break;
 		case 7:	MMC6.PRG[1] = What & 0x3F;	break;
 		}
-	else	MMC6.Cmd = What;
+	else
+	{
+		MMC6.Cmd = What;
+		if (What & 0x20)
+			MMC6.WRAMEnab |= 1;
+	}
 	MMC6.Sync();
 }
 
 void	_MAPINT	MMC6_CPUWriteAB (int Bank, int Where, int What)
 {
 	if (Where & 1)
-		MMC6.WriteWRAM = What;
+	{
+		if (MMC6.WRAMEnab & 1)
+			MMC6.WRAMEnab = What | 1;
+	}
 	else	MMC6.Mirror = What;
 	MMC6.Sync();
 }
