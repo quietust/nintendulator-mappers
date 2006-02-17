@@ -46,10 +46,13 @@ static	struct
 	{0x95CA9EC7,MMC5WRAM_0KB_0KB},	// Castlevania III - Dracula's Curse (U)
 	{0x51D2112F,MMC5WRAM_0KB_0KB},	// Laser Invasion (U)
 	{0x255B129C,MMC5WRAM_0KB_0KB},	// (?) Gun Sight (J)
+	{0xCD9ACF43,MMC5WRAM_0KB_0KB},	// (??) Metal Slader Glory (J)
+	{0xD979C8B7,MMC5WRAM_0KB_0KB},	// (??) Uchuu Keibitai SDF (J)
 
 	{0xE7C72DBB,MMC5WRAM_8KB_0KB},	// Gemfire (U)
 	{0x57F33F70,MMC5WRAM_8KB_0KB},	// (?) Royal Blood (J)
 	{0x5D9D9891,MMC5WRAM_8KB_0KB},	// (?) Just Breed (J)
+	{0xE91548D8,MMC5WRAM_MAXOPTS},	// (??) Shin 4 Nin Uchi Mahjong - Yakuman Tengoku (J)
 
 	{0x2B548D75,MMC5WRAM_8KB_8KB},	// Bandit Kings of Ancient China (U)
 	{0xE6C28C5F,MMC5WRAM_8KB_8KB},	// (?) Suikoden - Tenmei no Chikai (J)
@@ -60,16 +63,13 @@ static	struct
 	{0x98C8E090,MMC5WRAM_8KB_8KB},	// (?) Nobunaga no Yabou - Sengoku Gunyuu Den (J)
 	{0xCD35E2E9,MMC5WRAM_8KB_8KB},	// Uncharted Waters (U)
 	{0xF4CD4998,MMC5WRAM_8KB_8KB},	// (?) Daikoukai Jidai (J)
+	{0x8FA95456,MMC5WRAM_8KB_8KB},	// (??) Ishin no Arashi (J)
 
 	{0x11EAAD26,MMC5WRAM_32KB_0KB},	// Romance of the Three Kingdoms II (U)
 	{0x95BA5733,MMC5WRAM_32KB_0KB},	// (?) Sangokushi 2 (J)
+	{0xF4120E58,MMC5WRAM_32KB_0KB},	// (??) Aoki Ookami to Shiroki Mejika - Genchou Hishi (J)
+	{0x286613D8,MMC5WRAM_32KB_0KB},	// (??) Nobunaga no Yabou - Bushou Fuuun Roku (J)
 
-	{0xF4120E58,MMC5WRAM_MAXOPTS},	// Aoki Ookami to Shiroki Mejika - Genchou Hishi (J)
-	{0x8FA95456,MMC5WRAM_MAXOPTS},	// Ishin no Arashi (J)
-	{0xCD9ACF43,MMC5WRAM_MAXOPTS},	// Metal Slader Glory (J)
-	{0x286613D8,MMC5WRAM_MAXOPTS},	// Nobunaga no Yabou - Bushou Fuuun Roku (J)
-	{0xE91548D8,MMC5WRAM_MAXOPTS},	// Shin 4 Nin Uchi Mahjong - Yakuman Tengoku (J)
-	{0xD979C8B7,MMC5WRAM_MAXOPTS}	// Uchuu Keibitai SDF (J)
 };
 
 static	int	CheckSRAM (void)
