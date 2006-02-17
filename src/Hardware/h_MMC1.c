@@ -39,6 +39,7 @@ void	_MAPINT	MMC1_Write (int Bank, int Where, int What)
 	if (What & 0x80)
 	{
 		MMC1.Latch = MMC1.LatchPos = 0;
+		MMC1.Regs[0] |= 0x0C;
 		return;
 	}
 	if (Reg != LastReg)
