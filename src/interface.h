@@ -201,7 +201,7 @@ typedef	struct	MapperInfo
 		void		(_MAPINT *Shutdown)	(void);
 		void		(_MAPINT *CPUCycle)	(void);
 		void		(_MAPINT *PPUCycle)	(int,int,int,int);	/* Address, Scanline, Cycle, IsRendering */
-		int		(_MAPINT *SaveLoad)	(SAVELOAD_TYPE,int,unsigned char *);	/* Mode, Offset, Data */
+		int		(_MAPINT *SaveLoad)	(SAVELOAD_TYPE,int,char *);	/* Mode, Offset, Data */
 		int		(_MAPINT *GenSound)	(int);			/* Cycles */
 		void		(_MAPINT *Config)	(void);
 }	TMapperInfo, *PMapperInfo;
