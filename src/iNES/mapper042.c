@@ -33,9 +33,14 @@ static	void	_MAPINT	CPUCycle (void)
 {
 	if (Mapper.IRQenabled)
 	{
+		int lastctr = Mapper.IRQcounter.s0;
 		Mapper.IRQcounter.s0++;
-		if (Mapper.IRQcounter.s0 >= 24576)
-			EMU->SetIRQ(0);
+		if ((Mapper.IRQcounter.s0 & 0x6000) != (lastctr & 0x6000))
+		{
+			if ((Mapper.IRQcounter.s0 & 0x6000) == 0x6000)
+				EMU->SetIRQ(0);
+			else	EMU->SetIRQ(1);
+		}
 	}
 }
 
