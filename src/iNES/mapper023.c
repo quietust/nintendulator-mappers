@@ -46,19 +46,20 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
+#define IRQ_CYCLES 341
+static int IRQcycles = IRQ_CYCLES;
 static	void	_MAPINT	CPUCycle (void)
 {
-	static int counter = 114;
-	if (Mapper.IRQenabled & 2)
+	if ((Mapper.IRQenabled & 2) && ((Mapper.IRQenabled & 4) || ((IRQcycles -= 3) < 0)))
 	{
-		if (--counter)
-			return;
-		counter = 114;
-		if (!++Mapper.IRQcounter)
+		if (!(Mapper.IRQenabled & 4))
+			IRQcycles += IRQ_CYCLES;
+		if (Mapper.IRQcounter == 0xFF)
 		{
 			Mapper.IRQcounter = Mapper.IRQlatch.b0;
 			EMU->SetIRQ(0);
 		}
+		else	Mapper.IRQcounter++;
 	}
 }
 
@@ -141,13 +142,18 @@ static	void	_MAPINT	WriteF (int Bank, int Where, int What)
 	{
 	case 0x0:	Mapper.IRQlatch.n0 = What & 0xF;	break;
 	case 0x1:	Mapper.IRQlatch.n1 = What & 0xF;	break;
-	case 0x2:	Mapper.IRQcounter = Mapper.IRQlatch.b0;
-			Mapper.IRQenabled = What & 3;		break;
-	case 0x3:	if (Mapper.IRQenabled & 1)
-				Mapper.IRQenabled |= 2;
-			else	Mapper.IRQenabled &= 1;		break;
+	case 0x2:	Mapper.IRQenabled = What & 0x7;
+			if (Mapper.IRQenabled & 0x2)
+			{
+				Mapper.IRQcounter = Mapper.IRQlatch.b0;
+				IRQcycles = IRQ_CYCLES;
+			}
+			EMU->SetIRQ(1);				break;
+	case 0x3:	if (Mapper.IRQenabled & 0x1)
+				Mapper.IRQenabled |= 0x2;
+			else	Mapper.IRQenabled &= ~0x2;
+			EMU->SetIRQ(1);				break;
 	}
-	EMU->SetIRQ(1);
 }
 
 static	void	_MAPINT	Shutdown (void)

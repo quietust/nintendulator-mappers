@@ -135,8 +135,9 @@ static	void	_MAPINT	WriteF (int Bank, int Where, int What)
 {
 	if (Where & 0x18)
 	{
-		if (Mapper.IRQenabled & 1)
+		if (Mapper.IRQenabled & 0x1)
 			Mapper.IRQenabled |= 0x2;
+		else	Mapper.IRQenabled &= ~0x2;
 	}
 	else
 	{
