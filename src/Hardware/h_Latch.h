@@ -3,7 +3,7 @@
 
 #include	"..\interface.h"
 
-/* #define	BUS_CONFLICTS	/* Enable bus conflict checking, only use for debug builds */
+#define	BUS_CONFLICTS	/* Enable bus conflict checking, only use for debug builds */
 
 typedef	struct	Latch
 {
