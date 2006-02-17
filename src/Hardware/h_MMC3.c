@@ -183,7 +183,7 @@ void	_MAPINT	MMC3_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
 	if (Addr & 0x2000)
 		return;
-	if ((MMC3.IRQenabled) && !(MMC3.IRQaddr & 0x1000) && (Addr & 0x1000))
+	if (!(MMC3.IRQaddr & 0x1000) && (Addr & 0x1000))
 	{
 		unsigned char count = MMC3.IRQcounter;
 		if (!count || MMC3.IRQreload)
@@ -192,7 +192,7 @@ void	_MAPINT	MMC3_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 			MMC3.IRQreload = 0;
 		}
 		else	MMC3.IRQcounter--;
-		if (count && !MMC3.IRQcounter)
+		if (count && !MMC3.IRQcounter && MMC3.IRQenabled)
 			EMU->SetIRQ(0);
 	}
 	MMC3.IRQaddr = Addr;
