@@ -50,9 +50,9 @@ int	_MAPINT	MMC2_SaveLoad (int mode, int x, char *data)
 void	MMC2_SyncPRG (int AND, int OR)
 {
 	EMU->SetPRG_ROM8(0x8,(MMC2.PRG & AND) | OR);
-	EMU->SetPRG_ROM8(0xA,(~2 & AND) | OR);
-	EMU->SetPRG_ROM8(0xC,(~1 & AND) | OR);
-	EMU->SetPRG_ROM8(0xE,(~0 & AND) | OR);
+	EMU->SetPRG_ROM8(0xA,(0xD & AND) | OR);
+	EMU->SetPRG_ROM8(0xC,(0xE & AND) | OR);
+	EMU->SetPRG_ROM8(0xE,(0xF & AND) | OR);
 }
 
 void	MMC2_SyncCHR (void)
