@@ -14,6 +14,8 @@ static	struct
 	u8 Jumper;
 	HWND ConfigWindow;
 	u8 ConfigCmd;
+	FCPUWrite CPUWrite[0x10];
+	FPPURead PPURead[0x10];
 }	Mapper;
 
 static	u8 ReverseBits (u8 bits)
@@ -189,6 +191,18 @@ static	void	_MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering
 			IRQcount();
 		Mapper.IRQaddr = Addr;
 	}
+}
+static	void	_MAPINT	CPUWrite (int Bank, int Addr, int Val)
+{
+	if (Mapper.IRQenabled && ((Mapper.IRQmode & 0x3) == 2))
+		IRQcount();
+	Mapper.CPUWrite[Bank](Bank,Addr,Val);
+}
+static	int	_MAPINT	PPURead (int Bank, int Addr)
+{
+	if (Mapper.IRQenabled && ((Mapper.IRQmode & 0x3) == 3))
+		IRQcount();
+	return Mapper.PPURead[Bank](Bank,Addr);
 }
 
 static	int	_MAPINT	Read5 (int Bank, int Addr)
@@ -379,6 +393,13 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 		for (x = 0; x < 4; x++)	Mapper.PRGbanks[x] = 0;
 		Mapper.Mul1 = Mapper.Mul2 = 0;
 		Mapper.Jumper = 0;
+	}
+	for (x = 0; x < 16; x++)
+	{
+		Mapper.CPUWrite[x] = EMU->GetCPUWriteHandler(x);
+		EMU->SetCPUWriteHandler(x,CPUWrite);
+		Mapper.PPURead[x] = EMU->GetPPUReadHandler(x);
+		EMU->SetPPUReadHandler(x,PPURead);
 	}
 
 	SyncPRG();
