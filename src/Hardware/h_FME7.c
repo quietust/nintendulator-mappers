@@ -109,12 +109,11 @@ void	_MAPINT	FME07_WriteAB (int Bank, int Where, int What)
 	case 0xA:	FME07.PRG[2] = What & 0x3F;	break;
 	case 0xB:	FME07.PRG[3] = What & 0x3F;	break;
 	case 0xC:	FME07.Mirror = What & 3;	break;
-	case 0xD:	FME07.IRQenabled = What;
-			EMU->SetIRQ(1);			break;
-	case 0xE:	FME07.IRQcounter.b0 = What;
-			EMU->SetIRQ(1);			break;
-	case 0xF:	FME07.IRQcounter.b1 = What;
-			EMU->SetIRQ(1);			break;
+	case 0xD:	FME07.IRQenabled = What & 0x81;
+			if (FME07.IRQenabled != 0x81)
+				EMU->SetIRQ(1);		break;
+	case 0xE:	FME07.IRQcounter.b0 = What;	break;
+	case 0xF:	FME07.IRQcounter.b1 = What;	break;
 	}
 	FME07.Sync();
 }
@@ -127,7 +126,7 @@ void	_MAPINT	FME07_WriteCDEF (int Bank, int Where, int What)
 
 void	_MAPINT	FME07_CPUCycle (void)
 {
-	if ((FME07.IRQenabled) && (!FME07.IRQcounter.s0--))
+	if ((FME07.IRQenabled & 0x80) && (!--FME07.IRQcounter.s0) && (FME07.IRQenabled & 0x01))
 		EMU->SetIRQ(0);
 }
 
