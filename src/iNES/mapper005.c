@@ -8,11 +8,14 @@ static	struct
 }	Mapper;
 
 static	unsigned long CRCtable[256];
+static	int	initialized = 0;
 static	void	InitCRC (void)
 {
 	const unsigned long poly = 0xEDB88320;
 	unsigned long n;
 	int i, j;
+	if (initialized)
+		return;
 	for (i = 0; i < 256; i++)
 	{
 		n = i;
@@ -24,11 +27,13 @@ static	void	InitCRC (void)
 		}
 		CRCtable[i] = n;
 	}
+	initialized = 1;
 }
 static	unsigned long	CalcCRC (unsigned char *data, int len)
 {
 	unsigned long CRC = 0xFFFFFFFF;
 	int i;
+	InitCRC();
 	for (i = 0; i < len; i++)
 		CRC = (CRC >> 8) ^ CRCtable[(CRC ^ data[i]) & 0xFF];
 	return CRC ^ 0xFFFFFFFF;
@@ -71,8 +76,7 @@ static	int	CheckSRAM (void)
 {
 	int orig, i, size = MMC5WRAM_MAXOPTS;
 	unsigned long CRC;
-	if (!(orig = EMU->GetPRG_ROM4(8)))
-		orig = -1;
+	orig = EMU->GetPRG_ROM4(8);
 
 	EMU->SetPRG_ROM4(8,0);
 	CRC = CalcCRC(EMU->GetPRG_Ptr4(8),ROM->INES_PRGSize << 14);
@@ -105,22 +109,20 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 			case MMC5WRAM_32KB_32KB:CheckRadioButton(hDlg,IDC_MAPPER5_0_0,IDC_MAPPER5_32_32,IDC_MAPPER5_32_32);	break;
 			}
 			SetDlgItemText(hDlg,IDC_MAPPER5_DESCRIBE,
-				"The following Famicom games have unknown SRAM sizes:\n"
-				"Aoki Ookami to Shiroki Mejika - Genchou Hishi\n"
-				"Ishin no Arashi\n"
-				"Metal Slader Glory\n"
-				"Nobunaga no Yabou - Bushou Fuuun Roku\n"
-				"Shin 4 Nin Uchi Mahjong - Yakuman Tengoku\n"
-				"Uchuu Keibitai SDF\n"
-				"\n"
-				"If you have any of these games and can open the cartridge without damaging it,\n"
-				"please email the author with the game's PCB label (should match 'HVC-E_ROM')."
+				"The following Famicom games have unknown SRAM sizes:\r\n"
+				"Aoki Ookami to Shiroki Mejika - Genchou Hishi\r\n"
+				"Ishin no Arashi\r\n"
+				"Metal Slader Glory\r\n"
+				"Nobunaga no Yabou - Bushou Fuuun Roku\r\n"
+				"Shin 4 Nin Uchi Mahjong - Yakuman Tengoku\r\n"
+				"Uchuu Keibitai SDF\r\n"
+				"If you have any of these games, please email the author with the game PCB's board name (HVC-E*ROM)."
 				);
-			return FALSE;
+			break;
 		case WM_COMMAND:
 			switch (LOWORD(wParam))
 			{
-			case IDOK:
+			case IDAPPLY:
 				if (IsDlgButtonChecked(hDlg,IDC_MAPPER5_0_0) == BST_CHECKED)
 					MMC5.WRAMsize = MMC5WRAM_0KB_0KB;
 				else if (IsDlgButtonChecked(hDlg,IDC_MAPPER5_0_8) == BST_CHECKED)
@@ -142,7 +144,8 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 				SetSRAM();
 				MMC5_SyncPRG();	
 				MessageBox(hWnd,"Please perform a SOFT reset to ensure proper functionality!","INES.DLL",MB_OK);
-			case IDCANCEL:
+				break;
+			case IDCLOSE:
 				Mapper.ConfigWindow = NULL;
 				DestroyWindow(hDlg);
 				return TRUE;		break;

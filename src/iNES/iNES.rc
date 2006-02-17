@@ -143,7 +143,8 @@ BEGIN
     CTEXT           "* - denotes modes used by commercial games",IDC_STATIC,
                     4,40,212,8
     EDITTEXT        IDC_MAPPER5_DESCRIBE,4,52,212,76,ES_CENTER | 
-                    ES_MULTILINE | ES_READONLY
+                    ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | NOT 
+                    WS_BORDER
     DEFPUSHBUTTON   "&Apply",IDAPPLY,4,132,68,16
     PUSHBUTTON      "&Close",IDCLOSE,152,132,64,16
 END
