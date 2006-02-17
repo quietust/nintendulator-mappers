@@ -84,8 +84,8 @@ static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
 	switch (Addr & 3)
 	{
 	case 0:	Mapper.CHR[0].n0 = Val & 0xF;	break;
-	case 1:	Mapper.CHR[0].n1 = Val & 0xF;	break;
-	case 2:	Mapper.CHR[1].n0 = Val & 0xF;	break;
+	case 1:	Mapper.CHR[1].n0 = Val & 0xF;	break;
+	case 2:	Mapper.CHR[0].n1 = Val & 0xF;	break;
 	case 3:	Mapper.CHR[1].n1 = Val & 0xF;	break;
 	}
 	Sync();
@@ -97,8 +97,8 @@ static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
 	switch (Addr & 3)
 	{
 	case 0:	Mapper.CHR[2].n0 = Val & 0xF;	break;
-	case 1:	Mapper.CHR[2].n1 = Val & 0xF;	break;
-	case 2:	Mapper.CHR[3].n0 = Val & 0xF;	break;
+	case 1:	Mapper.CHR[3].n0 = Val & 0xF;	break;
+	case 2:	Mapper.CHR[2].n1 = Val & 0xF;	break;
 	case 3:	Mapper.CHR[3].n1 = Val & 0xF;	break;
 	}
 	Sync();
@@ -110,8 +110,8 @@ static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
 	switch (Addr & 3)
 	{
 	case 0:	Mapper.CHR[4].n0 = Val & 0xF;	break;
-	case 1:	Mapper.CHR[4].n1 = Val & 0xF;	break;
-	case 2:	Mapper.CHR[5].n0 = Val & 0xF;	break;
+	case 1:	Mapper.CHR[5].n0 = Val & 0xF;	break;
+	case 2:	Mapper.CHR[4].n1 = Val & 0xF;	break;
 	case 3:	Mapper.CHR[5].n1 = Val & 0xF;	break;
 	}
 	Sync();
@@ -123,8 +123,8 @@ static	void	_MAPINT	WriteE (int Bank, int Addr, int Val)
 	switch (Addr & 3)
 	{
 	case 0:	Mapper.CHR[6].n0 = Val & 0xF;	break;
-	case 1:	Mapper.CHR[6].n1 = Val & 0xF;	break;
-	case 2:	Mapper.CHR[7].n0 = Val & 0xF;	break;
+	case 1:	Mapper.CHR[7].n0 = Val & 0xF;	break;
+	case 2:	Mapper.CHR[6].n1 = Val & 0xF;	break;
 	case 3:	Mapper.CHR[7].n1 = Val & 0xF;	break;
 	}
 	Sync();
