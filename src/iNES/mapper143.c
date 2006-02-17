@@ -11,7 +11,7 @@ static	int	_MAPINT	Read (int Bank, int Addr)
 		return (~Addr & 0x3F) | ((*EMU->OpenBus) & 0xC0);
 	else if (Bank == 4)
 		return Mapper.Read4(Bank,Addr);
-	else	return *EMU->OpenBus;
+	else	return -1;
 }
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
