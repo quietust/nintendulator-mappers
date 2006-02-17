@@ -4,11 +4,8 @@
 static	void	Sync (void)
 {
 	MMC1_SyncMirror();
-	if (ROM->INES_PRGSize > 16)
-	{
-		EMU->SetPRG_ROM16(0x8,MMC1_GetPRGBankLo() & 0xF | (MMC1_GetCHRBankLo() & 0x10));
-		EMU->SetPRG_ROM16(0xC,MMC1_GetPRGBankHi() & 0xF | (MMC1_GetCHRBankLo() & 0x10));
-	}
+	if (ROM->INES_PRGSize == 32)
+		MMC1_SyncPRG(0xF,MMC1_GetCHRBankLo() & 0x10);
 	else	MMC1_SyncPRG(0xF,0);
 	if (ROM->INES_CHRSize)
 		MMC1_SyncCHR_ROM(0x1F,0);
