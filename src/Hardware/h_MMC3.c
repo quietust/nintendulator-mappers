@@ -67,6 +67,7 @@ void	MMC3_SyncWRAM (void)
 		EMU->SetPRG_OB4(0x7);
 	}
 }
+
 void	MMC3_SyncCHR_ROM (int AND, int OR)
 {
 	u8 x;

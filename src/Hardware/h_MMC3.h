@@ -20,6 +20,7 @@ void		MMC3_SyncMirror	(void);
 int		MMC3_GetPRGBank	(int);
 int		MMC3_GetCHRBank	(int);
 void		MMC3_SyncPRG	(int,int);
+void		MMC3_SyncWRAM	(void);
 void		MMC3_SyncCHR_ROM(int,int);
 void		MMC3_SyncCHR_RAM(int,int);
 int	_MAPINT	MMC3_SaveLoad	(int,int,char *);

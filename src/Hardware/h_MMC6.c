@@ -13,13 +13,11 @@ void	MMC6_Init (void (*Sync)(void))
 	MMC6.Cmd = 0;
 	MMC6.WriteWRAM = 0;
 	MMC6.Mirror = 0;
-	EMU->SetPRG_RAM8(0x6,0);
-	MMC6.CPURead67 = EMU->GetCPUReadHandler(0x6);
-	EMU->SetCPUReadHandler(0x6,MMC6_CPURead67);
-	EMU->SetCPUReadHandler(0x7,MMC6_CPURead67);
-	MMC6.CPUWrite67 = EMU->GetCPUWriteHandler(0x6);
-	EMU->SetCPUWriteHandler(0x6,MMC6_CPUWrite67);
-	EMU->SetCPUWriteHandler(0x7,MMC6_CPUWrite67);
+	EMU->SetPRG_RAM4(0x7,0);
+	MMC6.CPURead7 = EMU->GetCPUReadHandler(0x7);
+	EMU->SetCPUReadHandler(0x7,MMC6_CPURead7);
+	MMC6.CPUWrite7 = EMU->GetCPUWriteHandler(0x7);
+	EMU->SetCPUWriteHandler(0x7,MMC6_CPUWrite7);
 	EMU->SetCPUWriteHandler(0x8,MMC6_CPUWrite89);
 	EMU->SetCPUWriteHandler(0x9,MMC6_CPUWrite89);
 	EMU->SetCPUWriteHandler(0xA,MMC6_CPUWriteAB);
@@ -110,15 +108,15 @@ int	_MAPINT	MMC6_SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-int	_MAPINT	MMC6_CPURead67 (int Bank, int Where)
+int	_MAPINT	MMC6_CPURead7 (int Bank, int Where)
 {
-	return MMC6.CPURead67(0x6,Where & 0x3FF);
+	return MMC6.CPURead7(0x7,Where & 0x3FF);
 }
 
-void	_MAPINT	MMC6_CPUWrite67 (int Bank, int Where, int What)
+void	_MAPINT	MMC6_CPUWrite7 (int Bank, int Where, int What)
 {
-//	if (MMC6.WriteWRAM & 0x80)	// it's more complicated than this, so we'll have to figure it out later
-		MMC6.CPUWrite67(0x6,Where & 0x3FF,What);
+	if (MMC6.WriteWRAM)	// it's more complicated than this, so we'll have to figure it out later
+		MMC6.CPUWrite7(0x7,Where & 0x3FF,What);
 }
 
 void	_MAPINT	MMC6_CPUWrite89 (int Bank, int Where, int What)
