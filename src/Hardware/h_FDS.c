@@ -194,18 +194,10 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 			switch (LOWORD(wParam))
 			{
 			case IDC_FDS_EJECT:
-				FDS.DiskNum = 0xFF;
-				EMU->StatusOut("Disk ejected!");
-				EnableWindow(GetDlgItem(hDlg,IDC_FDS_DISKSEL),TRUE);
-				EnableWindow(GetDlgItem(hDlg,IDC_FDS_INSERT),TRUE);
-				EnableWindow(GetDlgItem(hDlg,IDC_FDS_EJECT),FALSE);
+				FDS.ConfigCmd = 0xFF;
 				return TRUE;		break;
 			case IDC_FDS_INSERT:
-				FDS.DiskNum = (u8)SendDlgItemMessage(hDlg,IDC_FDS_DISKSEL,CB_GETCURSEL,0,0);
-				EMU->StatusOut("Disk %i side %s inserted!",(FDS.DiskNum >> 1) + 1, (FDS.DiskNum & 1) ? "B" : "A");
-				EnableWindow(GetDlgItem(hDlg,IDC_FDS_DISKSEL),FALSE);
-				EnableWindow(GetDlgItem(hDlg,IDC_FDS_INSERT),FALSE);
-				EnableWindow(GetDlgItem(hDlg,IDC_FDS_EJECT),TRUE);
+				FDS.ConfigCmd = (u8)SendDlgItemMessage(hDlg,IDC_FDS_DISKSEL,CB_GETCURSEL,0,0) + 1;
 				return TRUE;		break;
 			case IDCLOSE:
 				FDS.ConfigWindow = NULL;
@@ -236,8 +228,29 @@ unsigned char	_MAPINT	FDS_Config (CFG_TYPE mode, unsigned char data)
 		else	return FALSE;
 		break;
 	case CFG_QUERY:
+		return FDS.ConfigCmd;
 		break;
 	case CFG_CMD:
+		if (FDS.ConfigCmd)
+		{
+			if (FDS.ConfigCmd == 0xFF)
+			{
+				FDS.DiskNum = 0xFF;
+				EMU->StatusOut("Disk ejected!");
+				EnableWindow(GetDlgItem(FDS.ConfigWindow,IDC_FDS_DISKSEL),TRUE);
+				EnableWindow(GetDlgItem(FDS.ConfigWindow,IDC_FDS_INSERT),TRUE);
+				EnableWindow(GetDlgItem(FDS.ConfigWindow,IDC_FDS_EJECT),FALSE);
+			}
+			else
+			{
+				FDS.DiskNum = FDS.ConfigCmd - 1;
+				EMU->StatusOut("Disk %i side %s inserted!",(FDS.DiskNum >> 1) + 1, (FDS.DiskNum & 1) ? "B" : "A");
+				EnableWindow(GetDlgItem(FDS.ConfigWindow,IDC_FDS_DISKSEL),FALSE);
+				EnableWindow(GetDlgItem(FDS.ConfigWindow,IDC_FDS_INSERT),FALSE);
+				EnableWindow(GetDlgItem(FDS.ConfigWindow,IDC_FDS_EJECT),TRUE);
+			}
+		}
+		FDS.ConfigCmd = 0;
 		break;
 	}
 	return 0;
@@ -294,6 +307,8 @@ void	FDS_Init (int IsHardReset)
 
 	if (IsHardReset)
 		FDS.DiskNum = 0xFF;
+	FDS.ConfigWindow = NULL;
+	FDS.ConfigCmd = 0;
 
 	FDSsound_Init();
 }
@@ -302,8 +317,6 @@ void	FDS_Destroy (void)
 {
 	FDSsound_Destroy();
 	if (FDS.ConfigWindow)
-	{
 		DestroyWindow(FDS.ConfigWindow);
-		FDS.ConfigWindow = NULL;
-	}
+	FDS.ConfigWindow = NULL;
 }

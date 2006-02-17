@@ -256,6 +256,7 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	case CFG_QUERY:
 		break;
 	case CFG_CMD:
+		/* TODO - add signals for selecting NTSC/PAL so we can have the emulator switch with it */
 		break;
 	}
 	return 0;
@@ -360,10 +361,8 @@ static	void	_MAPINT	NSF_WriteF (int Bank, int Where, int What)
 static	void	_MAPINT	Shutdown (void)
 {
 	if (NSF.ControlWindow)
-	{
 		DestroyWindow(NSF.ControlWindow);
-		NSF.ControlWindow = NULL;
-	}
+	NSF.ControlWindow = NULL;
 
 	if (ROM->NSF_SoundChips & 0x01)
 		VRC6sound_Destroy();
@@ -424,7 +423,8 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	}
 	NSF_IRQ(NSFIRQ_INIT);		// Initialize first tune and start playing it
 					// (this also allows it to fetch the RESET vector)
-	Config(CFG_WINDOW,0);
+	NSF.ControlWindow = NULL;
+	Config(CFG_WINDOW,TRUE);
 }
 
 CTMapperInfo	MapperInfo_NSF =

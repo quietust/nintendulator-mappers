@@ -6,6 +6,7 @@ static	struct
 {
 	u8 Jumper;
 	HWND ConfigWindow;
+	u8 ConfigCmd;
 }	Mapper;
 
 static	u8 JumperData[0x1000];
@@ -47,12 +48,11 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 			switch (LOWORD(wParam))
 			{
 			case IDOK:
-				Mapper.Jumper = 0;
+				Mapper.ConfigCmd = 0x80;
 				if (IsDlgButtonChecked(hDlg,IDC_MAPPER59_J0) == BST_CHECKED)
-					Mapper.Jumper |= 0x01;
+					Mapper.ConfigCmd |= 0x01;
 				if (IsDlgButtonChecked(hDlg,IDC_MAPPER59_J1) == BST_CHECKED)
-					Mapper.Jumper |= 0x02;
-				Sync();
+					Mapper.ConfigCmd |= 0x02;
 				MessageBox(hDlg,"Please perform a SOFT RESET for this to take effect!","INES.DLL",MB_OK);
 			case IDCANCEL:
 				DestroyWindow(hDlg);
@@ -83,8 +83,15 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 		else	return FALSE;
 		break;
 	case CFG_QUERY:
+		return Mapper.ConfigCmd;
 		break;
 	case CFG_CMD:
+		if (Mapper.ConfigCmd & 0x80)
+		{
+			Mapper.Jumper = Mapper.ConfigCmd & 0x3;
+			Sync();
+		}
+		Mapper.ConfigCmd = 0;
 		break;
 	}
 	return 0;
@@ -104,6 +111,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	iNES_InitROM();
 
 	Mapper.ConfigWindow = NULL;
+	Mapper.ConfigCmd = 0;
 
 	Latch_Init(Sync,IsHardReset,FALSE);
 }

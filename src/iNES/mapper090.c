@@ -13,6 +13,7 @@ static	struct
 	u8 treg;
 	u8 Jumper;
 	HWND ConfigWindow;
+	u8 ConfigCmd;
 }	Mapper;
 
 static	u8 ReverseBits (u8 bits)
@@ -294,14 +295,13 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 			switch (LOWORD(wParam))
 			{
 			case IDOK:
-				Mapper.Jumper = 0;
+				Mapper.ConfigCmd = 0x80;
 				if (IsDlgButtonChecked(hDlg,IDC_MAPPER90_J0) == BST_CHECKED)
-					Mapper.Jumper |= 0x40;
+					Mapper.ConfigCmd |= 0x01;
 				if (IsDlgButtonChecked(hDlg,IDC_MAPPER90_J1) == BST_CHECKED)
-					Mapper.Jumper |= 0x80;
+					Mapper.ConfigCmd |= 0x02;
 				if (IsDlgButtonChecked(hDlg,IDC_MAPPER90_MIR) == BST_CHECKED)
-					Mapper.Jumper |= 0x01;
-				SyncNametables();
+					Mapper.ConfigCmd |= 0x04;
 				MessageBox(hDlg,"Please perform a SOFT RESET for this to take effect!","INES.DLL",MB_OK);
 			case IDCANCEL:
 				DestroyWindow(hDlg);
@@ -332,8 +332,21 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 		else	return FALSE;
 		break;
 	case CFG_QUERY:
+		return Mapper.ConfigCmd;
 		break;
 	case CFG_CMD:
+		if (Mapper.ConfigCmd & 0x80)
+		{
+			Mapper.Jumper = 0;
+			if (Mapper.ConfigCmd & 0x01)
+				Mapper.Jumper |= 0x40;
+			if (Mapper.ConfigCmd & 0x02)
+				Mapper.Jumper |= 0x80;
+			if (Mapper.ConfigCmd & 0x04)
+				Mapper.Jumper |= 0x01;
+			SyncNametables();
+		}
+		Mapper.ConfigCmd = 0;
 		break;
 	}
 	return 0;
@@ -360,6 +373,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	EMU->SetCPUWriteHandler(0xD,WriteD);
 	
 	Mapper.ConfigWindow = NULL;
+	Mapper.ConfigCmd = 0;
 	if (IsHardReset)
 	{
 		Mapper.IRQenabled = Mapper.IRQmode = Mapper.IRQcounterL = Mapper.IRQcounterH = Mapper.IRQxor = 0;

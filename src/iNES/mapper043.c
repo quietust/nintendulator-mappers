@@ -9,6 +9,7 @@ static	struct
 	u8 PRG;
 	u8 Title;
 	HWND ConfigWindow;
+	u8 ConfigCmd;
 }	Mapper;
 
 static	void	Sync (void)
@@ -79,10 +80,12 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 			switch (LOWORD(wParam))
 			{
 			case IDOK:
+				Mapper.ConfigCmd = 0x80;
 				if (IsDlgButtonChecked(hDlg,IDC_MAPPER43_BLANK) == BST_CHECKED)
-					Mapper.Title = 1;
+					Mapper.ConfigCmd |= 0x01;
 				else if (IsDlgButtonChecked(hDlg,IDC_MAPPER43_LOGO) == BST_CHECKED)
-					Mapper.Title = 0;
+					Mapper.ConfigCmd |= 0x00;
+				else	MessageBox(hWnd,"Impossible - neither radio button checked!","INES.DLL",MB_OK);
 				MessageBox(hWnd,"Please perform a SOFT reset for this to take effect!","INES.DLL",MB_OK);
 			case IDCANCEL:
 				DestroyWindow(hDlg);
@@ -113,8 +116,15 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 		else	return FALSE;
 		break;
 	case CFG_QUERY:
+		return Mapper.ConfigCmd;
 		break;
 	case CFG_CMD:
+		if (Mapper.ConfigCmd & 0x80)
+		{
+			Mapper.Title = Mapper.ConfigCmd & 0x1;
+			Sync();
+		}
+		Mapper.ConfigCmd = 0;
 		break;
 	}
 	return 0;
@@ -146,6 +156,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Mapper.IRQcounter.s0 = 0;
 
 	Mapper.ConfigWindow = NULL;
+	Mapper.ConfigCmd = 0;
 
 	Sync();
 }

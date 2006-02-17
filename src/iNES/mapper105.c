@@ -8,6 +8,7 @@ static	struct
 	u8 CounterEnabled;
 	u8 InitState;
 	HWND ConfigWindow;
+	u8 ConfigCmd;
 }	Mapper;
 
 static	void	Sync (void)
@@ -86,15 +87,15 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 			switch (LOWORD(wParam))
 			{
 			case IDOK:
-				Mapper.MaxCount = 0;
+				Mapper.ConfigCmd = 0x80;
 				if (IsDlgButtonChecked(hDlg,IDC_MAPPER105_J0) == BST_CHECKED)
-					Mapper.MaxCount |= 0x02000000;
+					Mapper.ConfigCmd |= 0x01;
 				if (IsDlgButtonChecked(hDlg,IDC_MAPPER105_J1) == BST_CHECKED)
-					Mapper.MaxCount |= 0x04000000;
+					Mapper.ConfigCmd |= 0x02;
 				if (IsDlgButtonChecked(hDlg,IDC_MAPPER105_J2) == BST_CHECKED)
-					Mapper.MaxCount |= 0x08000000;
+					Mapper.ConfigCmd |= 0x04;
 				if (IsDlgButtonChecked(hDlg,IDC_MAPPER105_J3) == BST_CHECKED)
-					Mapper.MaxCount |= 0x10000000;
+					Mapper.ConfigCmd |= 0x08;
 			case IDCANCEL:
 				Mapper.ConfigWindow = NULL;
 				DestroyWindow(hDlg);
@@ -121,11 +122,15 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 			Mapper.ConfigWindow = CreateDialog(hInstance,MAKEINTRESOURCE(IDD_MAPPER105),hWnd,(DLGPROC)ConfigProc);
 			SetWindowPos(Mapper.ConfigWindow,hWnd,0,0,0,0,SWP_SHOWWINDOW | SWP_NOSIZE);
 		}
-		else	return FALSE;
+		else	return TRUE;
 		break;
 	case CFG_QUERY:
+		return Mapper.ConfigCmd;
 		break;
 	case CFG_CMD:
+		if (Mapper.ConfigCmd & 0x80)
+			Mapper.MaxCount = (Mapper.ConfigCmd & 0xF) << 25;
+		Mapper.ConfigCmd = 0;
 		break;
 	}
 	return 0;
@@ -150,6 +155,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Mapper.CounterEnabled = 0;
 	Mapper.InitState = 0;
 	Mapper.ConfigWindow = NULL;
+	Mapper.ConfigCmd = 0;
 
 	MMC1_Init(Sync);
 }

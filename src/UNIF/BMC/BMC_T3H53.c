@@ -6,6 +6,7 @@ static	struct
 {
 	u8 Jumper;
 	HWND ConfigWindow;
+	u8 ConfigCmd;
 }	Mapper;
 
 static	void	Sync (void)
@@ -41,13 +42,11 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 			switch (LOWORD(wParam))
 			{
 			case IDOK:
-				Mapper.Jumper = 0;
+				Mapper.ConfigCmd = 0x80;
 				if (IsDlgButtonChecked(hDlg,IDC_BMC_T3H53_J0) == BST_CHECKED)
-					Mapper.Jumper |= 0x01;
+					Mapper.ConfigCmd |= 0x01;
 				if (IsDlgButtonChecked(hDlg,IDC_BMC_T3H53_J1) == BST_CHECKED)
-					Mapper.Jumper |= 0x02;
-				Sync();
-				MessageBox(hDlg,"Please perform a SOFT RESET for this to take effect!","INES.DLL",MB_OK);
+					Mapper.ConfigCmd |= 0x02;
 			case IDCANCEL:
 				DestroyWindow(hDlg);
 				Mapper.ConfigWindow = NULL;
@@ -74,11 +73,19 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 			Mapper.ConfigWindow = CreateDialog(hInstance,MAKEINTRESOURCE(IDD_BMC_T3H53),hWnd,(DLGPROC)ConfigProc);
 			SetWindowPos(Mapper.ConfigWindow,hWnd,0,0,0,0,SWP_SHOWWINDOW | SWP_NOSIZE);
 		}
-		else	return FALSE;
+		else	return TRUE;
 		break;
 	case CFG_QUERY:
+		return Mapper.ConfigCmd;
 		break;
 	case CFG_CMD:
+		if (Mapper.ConfigCmd & 0x80)
+		{
+			Mapper.Jumper = Mapper.ConfigCmd & 0x03;
+			Sync();
+			MessageBox(hWnd,"Please perform a SOFT RESET for this to take effect!","UNIF.DLL",MB_OK);
+		}
+		Mapper.ConfigCmd = 0;
 		break;
 	}
 	return 0;
@@ -98,6 +105,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 		Mapper.Jumper = 0;
 
 	Mapper.ConfigWindow = NULL;
+	Mapper.ConfigCmd = 0;
 
 	Latch_Init(Sync,IsHardReset,FALSE);
 }
