@@ -25,25 +25,13 @@ static	void	Sync (void)
 	if ((M.PRGbank & 0x60) == 0x60)
 		for (x = 0x8; x < 0x10; x++)
 			EMU->SetPRG_OB4(x);
-	switch ((M.PRGsizeH << 1) | M.PRGsizeL)
+	if (M.PRGSizeL)
+		EMU->SetPRG_ROM32(0x8,M.PRGbank);
+	else
 	{
-	case 0:	EMU->SetPRG_ROM16(0x8,(M.PRGbank << 1) | M.PRG16);
+		EMU->SetPRG_ROM16(0x8,(M.PRGbank << 1) | M.PRG16);
 		EMU->SetPRG_ROM16(0xC,(M.PRGbank << 1) | M.PRG16);
-							break;
-	case 1:	EMU->SetPRG_ROM32(0x8,M.PRGbank);	break;
-
-	case 2:	EMU->SetPRG_ROM8(0x8,((M.PRGbank & 0x7F) << 2) | (M.PRG16 << 1) | 0);
-		EMU->SetPRG_ROM8(0xA,((M.PRGbank & 0x7F) << 2) | (M.PRG16 << 1) | 1);
-		EMU->SetPRG_ROM8(0xC,((M.PRGbank & 0x7F) << 2) | (M.PRG16 << 1) | 0);
-		EMU->SetPRG_ROM8(0xE,((M.PRGbank & 0x1F) << 2) | (M.PRG16 << 1) | 1);
-							break;
-	case 3:	EMU->SetPRG_ROM8(0x8,((M.PRGbank & 0x7F) << 2) | 0);
-		EMU->SetPRG_ROM8(0xA,((M.PRGbank & 0x7F) << 2) | 1);
-		EMU->SetPRG_ROM8(0xC,((M.PRGbank & 0x7F) << 2) | 2);
-		EMU->SetPRG_ROM8(0xE,((M.PRGbank & 0x1F) << 2) | 3);
-							break;
 	}
-	
 	if (M.Mir_HV)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
