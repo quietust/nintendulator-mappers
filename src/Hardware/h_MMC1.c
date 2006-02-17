@@ -8,7 +8,7 @@ void	MMC1_Init (void (*Sync)(void))
 	MMC1.Regs[0] = 0x0C;
 	MMC1.Regs[1] = 0x00;
 	MMC1.Regs[2] = 0x00;
-	MMC1.Regs[3] = 0x10;
+	MMC1.Regs[3] = 0x00;
 	MMC1.Latch = 0;
 	MMC1.LatchPos = 0;
 	for (x = 0x8; x <= 0xF; x++)
