@@ -11,7 +11,7 @@ typedef	struct	Latch
 	u16_n Addr;
 	FSync Sync;
 	int BusConflicts;
-}	TLatch, PLatch;
+}	TLatch, *PLatch;
 
 extern	TLatch	Latch;
 
