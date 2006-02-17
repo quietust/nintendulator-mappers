@@ -239,7 +239,14 @@ static	void	_MAPINT	WriteC (int Bank, int Where, int What)
 	switch (Where & 7)
 	{
 	case 0:	/* usually unused */	break;
-	case 1:	Mapper.IRQmode = What;	break;
+	case 1:	Mapper.IRQmode = What;
+		switch (What & 3)
+		{
+		case 0:	EMU->DbgOut("Mapper 90 IRQ counter set to CPU M2");	break;
+		case 1:	EMU->DbgOut("Mapper 90 IRQ counter set to PPU A12");	break;
+		case 2:	EMU->DbgOut("Mapper 90 IRQ counter set to CPU R/W");	break;
+		case 3:	EMU->DbgOut("Mapper 90 IRQ counter set to PPU /RD");	break;
+		}	break;
 	case 2:	Mapper.IRQenabled = 0;
 		EMU->SetIRQ(1);		break;
 	case 3:	Mapper.IRQenabled = 1;	break;
