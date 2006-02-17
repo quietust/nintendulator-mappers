@@ -230,10 +230,10 @@
 //CTMapperInfo	MapperInfo_227 = {	NULL,	"Mapper 227",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_228 = {	NULL,	"Mapper 228",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_229 = {	NULL,	"Mapper 229",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
-  CTMapperInfo	MapperInfo_230 = {	NULL,	"Mapper 230",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
+//CTMapperInfo	MapperInfo_230 = {	NULL,	"Mapper 230",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_231 = {	NULL,	"Mapper 231",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_232 = {	NULL,	"Mapper 232",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
-  CTMapperInfo	MapperInfo_233 = {	NULL,	"Mapper 233",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
+//CTMapperInfo	MapperInfo_233 = {	NULL,	"Mapper 233",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_234 = {	NULL,	"Mapper 234",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_235 = {	NULL,	"Mapper 235",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   CTMapperInfo	MapperInfo_236 = {	NULL,	"Mapper 236",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
