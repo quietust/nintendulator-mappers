@@ -7,6 +7,7 @@ static	struct
 	u8 CHR[8];
 	u8 Bank;
 	u16_n IRQcounter;
+	u8 IRQenabled;
 }	Mapper;
 
 static	void	Sync (void)
@@ -38,6 +39,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[i])
 	SAVELOAD_BYTE(mode,x,data,Mapper.Bank)
 	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter.s0)
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
@@ -45,11 +47,14 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 static	void	_MAPINT	CPUCycle (void)
 {
-	if (Mapper.IRQcounter.s0)
+	if (Mapper.IRQenabled)
 	{
 		Mapper.IRQcounter.s0--;
 		if (!Mapper.IRQcounter.s0)
+		{
 			EMU->SetIRQ(0);
+			Mapper.IRQenabled = 0;
+		}
 	}
 }
 
@@ -63,7 +68,7 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	case 0x200:	Mapper.IRQcounter.b0 = Val;
 			EMU->SetIRQ(1);			break;
 	case 0x201:	Mapper.IRQcounter.b1 = Val;
-			EMU->SetIRQ(1);			break;
+			Mapper.IRQenabled = 1;		break;
 	case 0x300:	Mapper.PRG[0] = Val & 0x1F;	break;
 	case 0x301:	Mapper.PRG[1] = Val & 0x1F;	break;
 	case 0x302:	Mapper.PRG[2] = Val & 0x1F;	break;
