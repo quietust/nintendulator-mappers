@@ -147,20 +147,22 @@ void	_MAPINT	MMC3_CPUWriteAB (int Bank, int Where, int What)
 void	_MAPINT	MMC3_CPUWriteCD (int Bank, int Where, int What)
 {
 	if (Where & 1)
-		MMC3.IRQlatch = What;
-	else	MMC3.IRQcounter = MMC3.IRQlatch = What;
-	EMU->SetIRQ(1);
+		MMC3.IRQcounter = MMC3.IRQlatch;
+	else	MMC3.IRQlatch = What;
 }
 
 void	_MAPINT	MMC3_CPUWriteEF (int Bank, int Where, int What)
 {
 	MMC3.IRQenabled = (Where & 1);
-	EMU->SetIRQ(1);
+	if (!MMC3.IRQenabled)
+		EMU->SetIRQ(1);
 }
-
+int lastAddr = 0;
 void	_MAPINT	MMC3_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
-	if ((MMC3.IRQenabled) && (IsRendering) && (Cycle == 256))
+	if (Addr & 0x2000)
+		return;
+	if ((MMC3.IRQenabled) && !(lastAddr & 0x1000) && (Addr & 0x1000))
 	{
 		if (!MMC3.IRQcounter)
 		{
@@ -169,4 +171,5 @@ void	_MAPINT	MMC3_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 		}
 		else	MMC3.IRQcounter--;
 	}
+	lastAddr = Addr;
 }
