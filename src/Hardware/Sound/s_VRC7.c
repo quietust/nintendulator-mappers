@@ -1444,13 +1444,13 @@ int	_MAPINT	VRC7sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	if (mode == STATE_SAVE)
 	{
-		memcpy(data,OPL,sizeof(OPLL));
+		memcpy(data+x,OPL,sizeof(OPLL));
 		x += sizeof(OPLL);
 	}
 	else if (mode == STATE_LOAD)
 	{
 		int i;
-		memcpy(OPL,data,sizeof(OPLL));
+		memcpy(OPL,data+x,sizeof(OPLL));
 		x += sizeof(OPLL);
 		for (i = 0; i < 6; i++)
 		{
