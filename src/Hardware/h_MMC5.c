@@ -106,8 +106,10 @@ void	MMC5_Destroy (void)
 int	_MAPINT	MMC5_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
+	EMU->DbgOut("Saving/Loading MMC5 state (mode %i)",mode);
 	SAVELOAD_BYTE(mode,x,data,MMC5.PRGsize)
 	SAVELOAD_BYTE(mode,x,data,MMC5.CHRsize)
+	SAVELOAD_BYTE(mode,x,data,MMC5.WRAMsize)
 	SAVELOAD_BYTE(mode,x,data,MMC5.IRQenabled)
 	SAVELOAD_BYTE(mode,x,data,MMC5.IRQreads)
 	SAVELOAD_BYTE(mode,x,data,MMC5.IRQline)
