@@ -1,5 +1,5 @@
 /*
- * Nintendulator Mapper Interface v3.0
+ * Nintendulator Mapper Interface v3.2
  */
 
 #ifndef	WIN32_LEAN_AND_MEAN
@@ -17,9 +17,9 @@
 
 #define	MSGBOX_FLAGS	(MB_OK | MB_ICONERROR | MB_DEFBUTTON1 | MB_APPLMODAL)
 
-/* Mapper Interface version (3.1) */
+/* Mapper Interface version (3.2) */
 
-#define	CurrentMapperInterface 0x00030001
+#define	CurrentMapperInterface 0x00030002
 
 /* Integer types */
 
@@ -178,39 +178,34 @@ typedef	struct	EmulatorInterface
 		void		(_MAPINT *Load_SRAM)		(void);		/* Loads SRAM from disk */
 
 	/* Misc Callbacks */
-		void		(_MAPINT *DbgOut)		(char *);	/* Echo text to debug window */
-		void		(_MAPINT *StatusOut)		(char *);	/* Echo text on status bar */
+		void		(_MAPINT *DbgOut)		(char *,...);	/* Echo text to debug window */
+		void		(_MAPINT *StatusOut)		(char *,...);	/* Echo text on status bar */
 }	TEmulatorInterface, *PEmulatorInterface;
 typedef	const	TEmulatorInterface	CTEmulatorInterface, *CPEmulatorInterface;
 
-#define	COMPAT_NONE	0
-#define	COMPAT_PARTIAL	1
-#define	COMPAT_NEARLY	2
-#define	COMPAT_FULL	3
+typedef enum	{ COMPAT_FULL, COMPAT_NEARLY, COMPAT_PARTIAL, COMPAT_NONE } COMPAT_TYPE;
 
 /* Mapper Information structure - Contains pointers to mapper functions, sent to emulator on load mapper  */
+
+typedef	enum	{ STATE_SAVE, STATE_LOAD, STATE_SIZE } SAVELOAD_TYPE;
 
 typedef	struct	MapperInfo
 {
 	/* Mapper Information */
 		void *		MapperId;
 		char *		Description;
-		int		Compatibility;
+		COMPAT_TYPE	Compatibility;
 
 	/* Mapper Functions */
 		void		(_MAPINT *Reset)	(int);			/* IsHardReset */
 		void		(_MAPINT *Shutdown)	(void);
 		void		(_MAPINT *CPUCycle)	(void);
 		void		(_MAPINT *PPUCycle)	(int,int,int,int);	/* Address, Scanline, Cycle, IsRendering */
-		int		(_MAPINT *SaveLoad)	(int,int,char *);	/* Mode, Offset, Data */
+		int		(_MAPINT *SaveLoad)	(SAVELOAD_TYPE,int,char *);	/* Mode, Offset, Data */
 		int		(_MAPINT *GenSound)	(int);			/* Cycles */
 		void		(_MAPINT *Config)	(void);
 }	TMapperInfo, *PMapperInfo;
 typedef	const	TMapperInfo	CTMapperInfo, *CPMapperInfo;
-
-#define	STATE_SAVE	0
-#define	STATE_LOAD	1
-#define	STATE_SIZE	2
 
 #define	SAVELOAD_BYTE(mode,x,data,value) \
 { \
@@ -238,16 +233,12 @@ typedef	const	TMapperInfo	CTMapperInfo, *CPMapperInfo;
 
 /* ROM Information Structure:- Contains information about the ROM currently loaded */
 
-#define	ROM_UNDEFINED	0
-#define	ROM_INES	1
-#define	ROM_UNIF	2
-#define	ROM_FDS		3
-#define	ROM_NSF		4
+typedef	enum	{ ROM_INES, ROM_UNIF, ROM_FDS, ROM_NSF, ROM_UNDEFINED } ROM_TYPE;
 
 typedef	struct	ROMInfo
 {
-	char *	Filename;
-	int	ROMType;
+	char *		Filename;
+	ROM_TYPE	ROMType;
 	union
 	{
 		struct
