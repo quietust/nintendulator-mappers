@@ -37,8 +37,8 @@ static	CPMapperInfo	_MAPINT	LoadMapper (CPROMInfo _ROM)
 static	TDLLInfo	DLL_Info =
 {
 	_T("NSF.DLL by Quietust"),
-	0x20051113,
-	0x0004001b,
+	0x20060111,
+	0x00040001,
 	LoadMapper,
 	UnloadMapper
 };

@@ -181,8 +181,8 @@ static	CPMapperInfo	_MAPINT	LoadMapper (CPROMInfo _ROM)
 static	TDLLInfo	DLL_Info =
 {
 	_T("UNIF.DLL by Quietust"),
-	0x20051202,
-	0x0004001b,
+	0x20060111,
+	0x00040001,
 	LoadMapper,
 	UnloadMapper
 };
