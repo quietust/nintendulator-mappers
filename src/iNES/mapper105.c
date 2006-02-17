@@ -63,11 +63,11 @@ static	void	_MAPINT	CPUCycle (void)
 	if (!(Mapper.Counter % 1789773))
 	{
 		u32 SecondsLeft = ((Mapper.MaxCount | 0x20000000) - Mapper.Counter) / 1789773;
-		EMU->StatusOut("Time left: %02i:%02i",SecondsLeft / 60,SecondsLeft % 60);
+		EMU->StatusOut(_T("Time left: %02i:%02i"),SecondsLeft / 60,SecondsLeft % 60);
 	}
 	if (((Mapper.Counter | (Mapper.MaxCount ^ 0x1E000000)) & 0x3E000000) == 0x3E000000)
 	{
-		EMU->StatusOut("Time up!");
+		EMU->StatusOut(_T("Time up!"));
 		EMU->SetIRQ(0);
 		Mapper.CounterEnabled = 0;
 	}
