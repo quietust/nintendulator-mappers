@@ -11,7 +11,7 @@ void	MMC3_Init (void (*Sync)(void))
 
 	MMC3.IRQenabled = MMC3.IRQcounter = MMC3.IRQlatch = 0;
 	MMC3.Cmd = 0;
-	MMC3.WriteWRAM = 0;
+	MMC3.WRAMEnab = 0;
 	if (ROM->ROMType == ROM_INES)
 		MMC3.Mirror = (ROM->INES_Flags & 0x01) ? 0 : 1;
 	else	MMC3.Mirror = 0;
@@ -59,7 +59,7 @@ void	MMC3_SyncPRG (int AND, int OR)
 
 void	MMC3_SyncWRAM (void)
 {
-	if (MMC3.WriteWRAM & 0x80)
+	if (MMC3.WRAMEnab & 0x80)
 		EMU->SetPRG_RAM8(0x6,0);
 	else
 	{
@@ -109,7 +109,7 @@ int	_MAPINT	MMC3_SaveLoad (int mode, int x, char *data)
 	}
 	for (i = 4; i < 8; i++)
 		SAVELOAD_BYTE(mode,x,data,MMC3.CHR[i])
-	SAVELOAD_BYTE(mode,x,data,MMC3.WriteWRAM)
+	SAVELOAD_BYTE(mode,x,data,MMC3.WRAMEnab)
 	SAVELOAD_BYTE(mode,x,data,MMC3.Mirror)
 	if (mode == STATE_LOAD)
 		MMC3.Sync();
@@ -139,7 +139,7 @@ void	_MAPINT	MMC3_CPUWrite89 (int Bank, int Where, int What)
 void	_MAPINT	MMC3_CPUWriteAB (int Bank, int Where, int What)
 {
 	if (Where & 1)
-		MMC3.WriteWRAM = What;
+		MMC3.WRAMEnab = What;
 	else	MMC3.Mirror = What;
 	MMC3.Sync();
 }

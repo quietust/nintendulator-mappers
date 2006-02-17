@@ -9,7 +9,7 @@ typedef	struct	MMC3
 	u8 Cmd;
 	u8 PRG[4];
 	u8 CHR[8];
-	u8 WriteWRAM;
+	u8 WRAMEnab;
 	u8 Mirror;
 	void	(*Sync)	(void);
 }	TMMC3, *PMMC3;
