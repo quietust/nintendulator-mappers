@@ -2088,6 +2088,9 @@
 						</FileConfiguration>
 					</File>
 					<File
+						RelativePath="..\src\Unif\Unl\UNL_A9712.c">
+					</File>
+					<File
 						RelativePath="..\src\UNIF\UNL\UNL_Dripgame.c">
 						<FileConfiguration
 							Name="Release (ANSI)|Win32">
