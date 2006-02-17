@@ -23,7 +23,7 @@ static	void	_MAPINT	Reset_HKROM (int IsHardReset)
 CTMapperInfo	MapperInfo_NES_HKROM =
 {
 	"NES-HKROM",
-	"NES-HKROM",
+	"MMC6",
 	COMPAT_NEARLY,
 	Reset_HKROM,
 	Shutdown,

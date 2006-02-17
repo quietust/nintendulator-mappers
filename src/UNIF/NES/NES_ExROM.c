@@ -37,7 +37,7 @@ static	void	_MAPINT	Reset_EWROM (int IsHardReset)
 CTMapperInfo	MapperInfo_NES_EKROM =
 {
 	"NES-EKROM",
-	"NES-EKROM",
+	"MMC5 with 8KB SRAM",
 	COMPAT_NEARLY,
 	Reset_EKROM,
 	Shutdown,
@@ -50,7 +50,7 @@ CTMapperInfo	MapperInfo_NES_EKROM =
 CTMapperInfo	MapperInfo_NES_ELROM =
 {
 	"NES-ELROM",
-	"NES-ELROM",
+	"MMC5 with no WRAM",
 	COMPAT_NEARLY,
 	Reset_ELROM,
 	Shutdown,
@@ -63,7 +63,7 @@ CTMapperInfo	MapperInfo_NES_ELROM =
 CTMapperInfo	MapperInfo_NES_ETROM =
 {
 	"NES-ETROM",
-	"NES-ETROM",
+	"MMC5 with 16KB SRAM",
 	COMPAT_NEARLY,
 	Reset_ETROM,
 	Shutdown,
@@ -76,7 +76,7 @@ CTMapperInfo	MapperInfo_NES_ETROM =
 CTMapperInfo	MapperInfo_NES_EWROM =
 {
 	"NES-EWROM",
-	"NES-EWROM",
+	"MMC5 with 32KB SRAM",
 	COMPAT_NEARLY,
 	Reset_EWROM,
 	Shutdown,

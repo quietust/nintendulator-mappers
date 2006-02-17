@@ -33,7 +33,7 @@ static	void	_MAPINT	Reset_BTR (int IsHardReset)
 CTMapperInfo	MapperInfo_NES_JLROM =
 {
 	"NES-JLROM",
-	"NES-JLROM",
+	"Sunsoft FME-7",
 	COMPAT_FULL,
 	Reset_JLROM,
 	Shutdown,
@@ -46,7 +46,7 @@ CTMapperInfo	MapperInfo_NES_JLROM =
 CTMapperInfo	MapperInfo_NES_BTR =
 {
 	"NES-BTR",
-	"NES-BTR",
+	"Sunsoft FME-7 with WRAM",
 	COMPAT_FULL,
 	Reset_BTR,
 	Shutdown,

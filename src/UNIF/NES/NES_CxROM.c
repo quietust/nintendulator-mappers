@@ -34,7 +34,7 @@ static	void	_MAPINT	Reset_CPROM (int IsHardReset)
 CTMapperInfo	MapperInfo_NES_CNROM =
 {
 	"NES-CNROM",
-	"NES-CNROM",
+	"Standard 8KB CHR switch",
 	COMPAT_FULL,
 	Reset_CNROM,
 	Shutdown,
@@ -47,7 +47,7 @@ CTMapperInfo	MapperInfo_NES_CNROM =
 CTMapperInfo	MapperInfo_NES_CPROM =
 {
 	"NES-CPROM",
-	"NES-CPROM",
+	"4KB CHR RAM switch",
 	COMPAT_FULL,
 	Reset_CPROM,
 	Shutdown,

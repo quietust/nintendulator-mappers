@@ -21,7 +21,7 @@ static	void	_MAPINT	Reset_BNROM (int IsHardReset)
 CTMapperInfo	MapperInfo_NES_BNROM =
 {
 	"NES-BNROM",
-	"NES-BNROM",
+	"Standard 32KB PRG switch",
 	COMPAT_FULL,
 	Reset_BNROM,
 	Shutdown,

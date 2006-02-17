@@ -71,6 +71,13 @@ static	void	Sync_SOROM (void)
 		EMU->SetPRG_OB4(0x7);
 	}
 }
+static	void	Sync_SUROM (void)
+{
+	MMC1_SyncMirror();
+	MMC1_SyncPRG(0xF,MMC1_GetCHRBankLo() & 0x10);
+	MMC1_SyncCHR_RAM(0x01,0);
+	MMC1_SyncWRAM();
+}
 
 static	void	_MAPINT	Shutdown (void)
 {
@@ -112,7 +119,6 @@ static	void	_MAPINT	Reset_SL1ROM (int IsHardReset)
 {
 	MMC1_Init(Sync_SL1ROM);
 }
-
 static	void	_MAPINT	Reset_SNROM (int IsHardReset)
 {
 	UNIF_InitSRAM(8192);
@@ -123,11 +129,16 @@ static	void	_MAPINT	Reset_SOROM (int IsHardReset)
 	UNIF_InitSRAM(8192);
 	MMC1_Init(Sync_SOROM);
 }
+static	void	_MAPINT	Reset_SUROM (int IsHardReset)
+{
+	UNIF_InitSRAM(8192);
+	MMC1_Init(Sync_SUROM);
+}
 
 CTMapperInfo	MapperInfo_NES_SAROM =
 {
 	"NES-SAROM",
-	"NES-SAROM",
+	"MMC1 with SRAM",
 	COMPAT_FULL,
 	Reset_SAROM,
 	Shutdown,
@@ -140,7 +151,7 @@ CTMapperInfo	MapperInfo_NES_SAROM =
 CTMapperInfo	MapperInfo_NES_SBROM =
 {
 	"NES-SBROM",
-	"NES-SBROM",
+	"MMC1",
 	COMPAT_FULL,
 	Reset_SBROM,
 	NULL,
@@ -153,7 +164,7 @@ CTMapperInfo	MapperInfo_NES_SBROM =
 CTMapperInfo	MapperInfo_NES_SCROM =
 {
 	"NES-SCROM",
-	"NES-SCROM",
+	"MMC1",
 	COMPAT_FULL,
 	Reset_SCROM,
 	NULL,
@@ -166,7 +177,7 @@ CTMapperInfo	MapperInfo_NES_SCROM =
 CTMapperInfo	MapperInfo_NES_SEROM =
 {
 	"NES-SEROM",
-	"NES-SEROM",
+	"MMC1",
 	COMPAT_FULL,
 	Reset_SEROM,
 	NULL,
@@ -179,7 +190,7 @@ CTMapperInfo	MapperInfo_NES_SEROM =
 CTMapperInfo	MapperInfo_NES_SGROM =
 {
 	"NES-SGROM",
-	"NES-SGROM",
+	"MMC1 with CHR-RAM",
 	COMPAT_FULL,
 	Reset_SGROM,
 	NULL,
@@ -192,7 +203,7 @@ CTMapperInfo	MapperInfo_NES_SGROM =
 CTMapperInfo	MapperInfo_NES_SKROM =
 {
 	"NES-SKROM",
-	"NES-SKROM",
+	"MMC1 with CHR-ROM and SRAM",
 	COMPAT_FULL,
 	Reset_SKROM,
 	Shutdown,
@@ -205,7 +216,7 @@ CTMapperInfo	MapperInfo_NES_SKROM =
 CTMapperInfo	MapperInfo_NES_SLROM =
 {
 	"NES-SLROM",
-	"NES-SLROM",
+	"MMC1 with CHR-ROM",
 	COMPAT_FULL,
 	Reset_SLROM,
 	NULL,
@@ -218,7 +229,7 @@ CTMapperInfo	MapperInfo_NES_SLROM =
 CTMapperInfo	MapperInfo_NES_SL1ROM =
 {
 	"NES-SL1ROM",
-	"NES-SL1ROM",
+	"MMC1",
 	COMPAT_FULL,
 	Reset_SL1ROM,
 	NULL,
@@ -231,7 +242,7 @@ CTMapperInfo	MapperInfo_NES_SL1ROM =
 CTMapperInfo	MapperInfo_NES_SNROM =
 {
 	"NES-SNROM",
-	"NES-SNROM",
+	"MMC1 with CHR-RAM and SRAM",
 	COMPAT_FULL,
 	Reset_SNROM,
 	Shutdown,
@@ -244,9 +255,22 @@ CTMapperInfo	MapperInfo_NES_SNROM =
 CTMapperInfo	MapperInfo_NES_SOROM =
 {
 	"NES-SOROM",
-	"NES-SOROM",
+	"MMC1 with 16KB SRAM",
 	COMPAT_FULL,
 	Reset_SOROM,
+	Shutdown,
+	NULL,
+	NULL,
+	MMC1_SaveLoad,
+	NULL,
+	NULL
+};
+CTMapperInfo	MapperInfo_NES_SUROM =
+{
+	"NES-SUROM",
+	"MMC1 with 512KB PRG",
+	COMPAT_FULL,
+	Reset_SNROM,
 	Shutdown,
 	NULL,
 	NULL,

@@ -75,7 +75,7 @@ static	void	_MAPINT	Reset_TSROM (int IsHardReset)
 CTMapperInfo	MapperInfo_NES_TFROM =
 {
 	"NES-TFROM",
-	"NES-TFROM",
+	"MMC3 with optional hardwired mirroring",
 	COMPAT_NEARLY,
 	Reset_TFROM,
 	Shutdown,
@@ -88,7 +88,7 @@ CTMapperInfo	MapperInfo_NES_TFROM =
 CTMapperInfo	MapperInfo_NES_TGROM =
 {
 	"NES-TGROM",
-	"NES-TGROM",
+	"MMC3 with CHR-RAM",
 	COMPAT_NEARLY,
 	Reset_TGROM,
 	Shutdown,
@@ -101,7 +101,7 @@ CTMapperInfo	MapperInfo_NES_TGROM =
 CTMapperInfo	MapperInfo_NES_TKROM =
 {
 	"NES-TKROM",
-	"NES-TKROM",
+	"MMC3 with CHR-ROM and SRAM",
 	COMPAT_NEARLY,
 	Reset_TKROM,
 	Shutdown,
@@ -114,7 +114,7 @@ CTMapperInfo	MapperInfo_NES_TKROM =
 CTMapperInfo	MapperInfo_NES_TLROM =
 {
 	"NES-TLROM",
-	"NES-TLROM",
+	"MMC3 with CHR-ROM",
 	COMPAT_NEARLY,
 	Reset_TLROM,
 	Shutdown,
@@ -127,7 +127,7 @@ CTMapperInfo	MapperInfo_NES_TLROM =
 CTMapperInfo	MapperInfo_NES_TR1ROM =
 {
 	"NES-TR1ROM",
-	"NES-TR1ROM",
+	"MMC3 with 4-screen VRAM",
 	COMPAT_NEARLY,
 	Reset_TR1ROM,
 	Shutdown,
@@ -140,7 +140,7 @@ CTMapperInfo	MapperInfo_NES_TR1ROM =
 CTMapperInfo	MapperInfo_NES_TSROM =
 {
 	"NES-TSROM",
-	"NES-TSROM",
+	"MMC3 with WRAM",
 	COMPAT_NEARLY,
 	Reset_TSROM,
 	Shutdown,

@@ -21,7 +21,7 @@ static	void	_MAPINT	Reset_GNROM (int IsHardReset)
 CTMapperInfo	MapperInfo_NES_GNROM =
 {
 	"NES-GNROM",
-	"NES-GNROM",
+	"Standard 32KB PRG/8KB CHR switch",
 	COMPAT_FULL,
 	Reset_GNROM,
 	Shutdown,

@@ -42,7 +42,7 @@ static	void	_MAPINT	Reset_AOROM (int IsHardReset)
 CTMapperInfo	MapperInfo_NES_AMROM =
 {
 	"NES-AMROM",
-	"NES-AMROM",
+	"32KB PRG switch with nametable select",
 	COMPAT_FULL,
 	Reset_AMROM,
 	NULL,
@@ -55,7 +55,7 @@ CTMapperInfo	MapperInfo_NES_AMROM =
 CTMapperInfo	MapperInfo_NES_ANROM =
 {
 	"NES-ANROM",
-	"NES-ANROM",
+	"Standard 32KB PRG switch with nametable select",
 	COMPAT_FULL,
 	Reset_ANROM,
 	NULL,
@@ -68,7 +68,7 @@ CTMapperInfo	MapperInfo_NES_ANROM =
 CTMapperInfo	MapperInfo_NES_AOROM =
 {
 	"NES-AOROM",
-	"NES-AOROM",
+	"Oversize 32KB PRG switch with nametable select",
 	COMPAT_FULL,
 	Reset_AOROM,
 	NULL,

@@ -33,7 +33,7 @@ static	void	_MAPINT	Reset_UOROM (int IsHardReset)
 CTMapperInfo	MapperInfo_NES_UNROM =
 {
 	"NES-UNROM",
-	"NES-UNROM",
+	"Standard 16KB PRG switch",
 	COMPAT_FULL,
 	Reset_UNROM,
 	Shutdown,
@@ -46,7 +46,7 @@ CTMapperInfo	MapperInfo_NES_UNROM =
 CTMapperInfo	MapperInfo_NES_UOROM =
 {
 	"NES-UOROM",
-	"NES-UOROM",
+	"Oversize 16KB PRG switch",
 	COMPAT_FULL,
 	Reset_UOROM,
 	Shutdown,

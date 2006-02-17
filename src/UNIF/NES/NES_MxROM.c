@@ -21,7 +21,7 @@ static	void	_MAPINT	Reset_MHROM (int IsHardReset)
 CTMapperInfo	MapperInfo_NES_MHROM =
 {
 	"NES-MHROM",
-	"NES-MHROM",
+	"Super Mario Bros/Duck Hunt",
 	COMPAT_FULL,
 	Reset_MHROM,
 	Shutdown,
