@@ -7,6 +7,7 @@
 #include	"..\Hardware\Sound\s_N106.h"
 #include	"resource.h"
 #include	<commctrl.h>
+#include	<stdio.h>
 #include	<stdlib.h>
 
 /*
