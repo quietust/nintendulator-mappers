@@ -62,11 +62,25 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 	return FALSE;
 }
 
-static	unsigned char	_MAPINT	MapperConfig (int mode, unsigned char data)
+static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 {
-	Mapper.ConfigWindow = CreateDialog(hInstance,MAKEINTRESOURCE(IDD_BMC_T3H53),hWnd,(DLGPROC)ConfigProc);
-	if (Mapper.ConfigWindow)
-		SetWindowPos(Mapper.ConfigWindow,hWnd,0,0,0,0,SWP_SHOWWINDOW | SWP_NOSIZE);
+	switch (mode)
+	{
+	case CFG_WINDOW:
+		if (data)
+		{
+			if (Mapper.ConfigWindow)
+				break;
+			Mapper.ConfigWindow = CreateDialog(hInstance,MAKEINTRESOURCE(IDD_BMC_T3H53),hWnd,(DLGPROC)ConfigProc);
+			SetWindowPos(Mapper.ConfigWindow,hWnd,0,0,0,0,SWP_SHOWWINDOW | SWP_NOSIZE);
+		}
+		else	return FALSE;
+		break;
+	case CFG_QUERY:
+		break;
+	case CFG_CMD:
+		break;
+	}
 	return 0;
 }
 
@@ -99,5 +113,5 @@ CTMapperInfo	MapperInfo_BMC_T3H53 =
 	NULL,
 	Latch_SaveLoad_A,
 	NULL,
-	MapperConfig
+	Config
 };

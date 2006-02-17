@@ -221,12 +221,25 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 	return FALSE;
 }
 
-unsigned char	_MAPINT	FDS_Config (int mode, unsigned char data)
+unsigned char	_MAPINT	FDS_Config (CFG_TYPE mode, unsigned char data)
 {
-	if (FDS.ConfigWindow)
-		return 0;
-	FDS.ConfigWindow = CreateDialog(hInstance,MAKEINTRESOURCE(IDD_FDS),hWnd,(DLGPROC)ConfigProc);
-	SetWindowPos(FDS.ConfigWindow,hWnd,0,0,0,0,SWP_SHOWWINDOW | SWP_NOSIZE);
+	switch (mode)
+	{
+	case CFG_WINDOW:
+		if (data)
+		{
+			if (FDS.ConfigWindow)
+				break;
+			FDS.ConfigWindow = CreateDialog(hInstance,MAKEINTRESOURCE(IDD_FDS),hWnd,(DLGPROC)ConfigProc);
+			SetWindowPos(FDS.ConfigWindow,hWnd,0,0,0,0,SWP_SHOWWINDOW | SWP_NOSIZE);
+		}
+		else	return FALSE;
+		break;
+	case CFG_QUERY:
+		break;
+	case CFG_CMD:
+		break;
+	}
 	return 0;
 }
 
