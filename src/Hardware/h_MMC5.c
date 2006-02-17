@@ -99,9 +99,10 @@ void	MMC5_Reset (RESET_TYPE ResetType)
 	MMC5.SplitMode = MMC5.SplitBank = MMC5.SplitScroll = 0;
 	MMC5_SetPPUHandlers();
 
-	for (x = 0; x < 8; x++)	MMC5.CHR_A[x] = x;
-	for (x = 0; x < 4; x++)	MMC5.CHR_B[x] = x;
+	for (x = 0; x < 8; x++)	MMC5.CHR_A[x].s0 = x;
+	for (x = 0; x < 4; x++)	MMC5.CHR_B[x].s0 = x;
 	for (x = 0; x < 2; x++)	MMC5.WRAMprot[x] = 0;
+	MMC5.CHRhi = 0;
 
 	for (x = 0; x < 5; x++)	MMC5.PRG[x] = 0xFF;
 
@@ -128,9 +129,9 @@ int	_MAPINT	MMC5_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	SAVELOAD_BYTE(mode,x,data,MMC5.Mul2)
 	SAVELOAD_BYTE(mode,x,data,MMC5.GfxMode)
 	for (i = 0; i < 8; i++)
-		SAVELOAD_BYTE(mode,x,data,MMC5.CHR_A[i])
+		SAVELOAD_WORD(mode,x,data,MMC5.CHR_A[i].s0)
 	for (i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode,x,data,MMC5.CHR_B[i])
+		SAVELOAD_WORD(mode,x,data,MMC5.CHR_B[i].s0)
 	for (i = 0; i < 5; i++)
 		SAVELOAD_BYTE(mode,x,data,MMC5.PRG[i])
 	for (i = 0; i < 2; i++)
@@ -141,6 +142,7 @@ int	_MAPINT	MMC5_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	SAVELOAD_BYTE(mode,x,data,MMC5.Mirror)
 	SAVELOAD_WORD(mode,x,data,MMC5.LineCounter)
 	SAVELOAD_BYTE(mode,x,data,MMC5.SpriteMode)
+	SAVELOAD_BYTE(mode,x,data,MMC5.CHRhi)
 	x = MMC5sound_SaveLoad(mode,x,data);
 	if (mode == STATE_LOAD)
 	{
@@ -356,16 +358,18 @@ void	_MAPINT	MMC5_CPUWrite5 (int Bank, int Addr, int Val)
 		case 0x124:
 		case 0x125:
 		case 0x126:
-		case 0x127:	MMC5.CHR_A[Addr & 0x7] = Val;
+		case 0x127:	MMC5.CHR_A[Addr & 0x7].b0 = Val;
+				MMC5.CHR_A[Addr & 0x7].b1 = MMC5.CHRhi;
 				if (LastCHR != 2)
 					MMC5_SyncCHRA();break;
 		case 0x128:
 		case 0x129:
 		case 0x12A:
-		case 0x12B:	MMC5.CHR_B[Addr & 0x3] = Val;
+		case 0x12B:	MMC5.CHR_B[Addr & 0x3].b0 = Val;
+				MMC5.CHR_B[Addr & 0x3].b1 = MMC5.CHRhi;
 				if (LastCHR != 2)
 					MMC5_SyncCHRB();break;
-		case 0x130:	/* nobody knows... */	break;
+		case 0x130:	MMC5.CHRhi = Val & 3;	break;
 		}		break;
 	case 0x200:
 		switch (Addr)
