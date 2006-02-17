@@ -43,8 +43,8 @@ static	void	SyncNametables (void)
 	{
 		switch (Mapper.Mirror & 0x3)
 		{
-		case 0:	EMU->Mirror_V();		break;
-		case 1:	EMU->Mirror_H();		break;
+		case 0:	EMU->Mirror_V();	break;
+		case 1:	EMU->Mirror_H();	break;
 		case 2:	EMU->Mirror_S0();	break;
 		case 3:	EMU->Mirror_S1();	break;
 		}
@@ -92,24 +92,18 @@ static	void	_MAPINT	WriteB (int Bank, int Where, int What)
 
 static	void	_MAPINT	WriteC (int Bank, int Where, int What)
 {
-	if (Mapper.CHR_L == What)
-		return;
 	Mapper.CHR_L = What;
 	SyncNametables();
 }
 
 static	void	_MAPINT	WriteD (int Bank, int Where, int What)
 {
-	if (Mapper.CHR_H == What)
-		return;
 	Mapper.CHR_H = What;
 	SyncNametables();
 }
 
 static	void	_MAPINT	WriteE (int Bank, int Where, int What)
 {
-	if ((Mapper.Mirror == (What & 0x03)) && ((What & 0x10) == Mapper.VROM_use))
-		return;
 	Mapper.Mirror = What & 0x3;
 	Mapper.VROM_use = (What & 0x10);
 	SyncNametables();
@@ -150,11 +144,11 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	SyncNametables();
 }
 
+static	u8 MapperNum = 68;
 CTMapperInfo	MapperInfo_068 =
 {
-	68,
-	NULL,
-	"Sunsoft Mapper #4",
+	&MapperNum,
+	"SUNSOFT-4",
 	COMPAT_FULL,
 	Reset,
 	Shutdown,
