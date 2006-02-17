@@ -559,7 +559,11 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 	{
 		CurTile = -1;
 		if (Scanline == -1)
+		{
 			VScroll = MMC5.SplitScroll;
+			if (VScroll >= 240)
+				VScroll -= 16;
+		}
 		else if (Scanline < 240)
 			VScroll++;
 		if (VScroll >= 240)
