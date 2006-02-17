@@ -3,7 +3,7 @@
 
 static	struct
 {
-	FCPURead	Read5;
+	u8 Reg0, Reg1;
 }	Mapper;
 
 static	void	Sync (void)
@@ -12,20 +12,35 @@ static	void	Sync (void)
 	MMC3_SyncPRG(0x3F,0);
 	MMC3_SyncCHR_ROM(0xFF,0);
 	MMC3_SyncMirror();
+	if (Mapper.Reg0 & 0x40)
+	{
+		u8 BankNum = (Mapper.Reg0 & 0x05) | ((Mapper.Reg0 & 8) >> 2) | ((Mapper.Reg0 & 0x20) >> 2);
+		if (Mapper.Reg0 & 0x2)
+			EMU->SetPRG_ROM32(0x8,BankNum >> 1);
+		else
+		{
+			EMU->SetPRG_ROM16(0x8,BankNum);
+			EMU->SetPRG_ROM16(0xC,BankNum);
+		}
+	}
 }
 
 static	int	_MAPINT	Read (int Bank, int Addr)
 {
-	unsigned char Data = Mapper.Read5(Bank,Addr);
 	if (Addr & 0x800)
-		return (Data & 0xFE) | (((~Addr >> 8) | Addr) & 1);
-	else	return Data;
+		return (*EMU->OpenBus & 0xFE) | (((~Addr >> 8) | Addr) & 1);
+	else	return -1;
 }
 
 static	void	_MAPINT	Write5 (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
-		EMU->GetCPUWriteHandler(0x0)(Bank,Addr,Val);
+	{
+		if (Addr & 1)
+			Mapper.Reg1 = Val;
+		else	Mapper.Reg0 = Val;
+		Sync();
+	}
 }
 
 static	void	_MAPINT	Write89 (int Bank, int Addr, int Val)
@@ -47,11 +62,15 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	MMC3_Reset(ResetType);
-	Mapper.Read5 = EMU->GetCPUReadHandler(0x5);
 	EMU->SetCPUReadHandler(0x5,Read);
 	EMU->SetCPUWriteHandler(0x5,Write5);
 	for (x = 0x8; x < 0xA; x++)
 		EMU->SetCPUWriteHandler(x,Write89);	/* need to override writes to $8000 */
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.Reg0 = 0;
+		Mapper.Reg1 = 0;
+	}
 }
 static	void	_MAPINT	Unload (void)
 {
@@ -62,7 +81,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_UNL_H2288 =
 {
 	"UNL-H2288",
-	_T("?"),
+	_T("Earthworm Jim 2 Pirate (with insane copy protection)"),
 	COMPAT_NEARLY,
 	Load,
 	Reset,
