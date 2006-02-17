@@ -21,13 +21,17 @@ static	void	Sync (void)
 		else	EMU->SetCHR_RAM1(x,Mapper.CHR[x] & 0x1F);
 	}
 
-	EMU->Mirror_Custom(Mapper.NTab[0] & 1,Mapper.NTab[1] & 1,Mapper.NTab[2] & 1,Mapper.NTab[3] & 1);
 	for (x = 0; x < 4; x++)
 	{
 		if (Mapper.NTab[x] < 0xE0)
 		{
 			EMU->SetCHR_ROM1(x+0x8,Mapper.NTab[x]);
 			EMU->SetCHR_ROM1(x+0xC,Mapper.NTab[x]);
+		}
+		else
+		{
+			EMU->SetCHR_NT1(x+0x8,Mapper.NTab[x] & 1);
+			EMU->SetCHR_NT1(x+0xC,Mapper.NTab[x] & 1);
 		}
 	}
 	if (Mapper.PRG[0] & 0x40)

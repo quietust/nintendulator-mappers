@@ -18,18 +18,19 @@ static	void	Sync (void)
 
 static	void	SyncNametables (void)
 {
+	switch (Mapper.Mirror & 0x3)
+	{
+	case 0:	EMU->Mirror_V();	break;
+	case 1:	EMU->Mirror_H();	break;
+	case 2:	EMU->Mirror_S0();	break;
+	case 3:	EMU->Mirror_S1();	break;
+	}
 	if (Mapper.VROM_use)
 	{
-		u8 A,B,C,D;
-		switch (Mapper.Mirror)
-		{
-		case 0:	A = C = Mapper.CHR_L;
-			B = D = Mapper.CHR_H;		break;
-		case 1:	A = B = Mapper.CHR_L;
-			C = D = Mapper.CHR_H;		break;
-		case 2:	A = B = C = D = Mapper.CHR_L;	break;
-		case 3:	A = B = C = D = Mapper.CHR_H;	break;
-		}
+		u8 A = EMU->GetCHR_NT1(0x8) ? Mapper.CHR_H : Mapper.CHR_L;
+		u8 B = EMU->GetCHR_NT1(0x9) ? Mapper.CHR_H : Mapper.CHR_L;
+		u8 C = EMU->GetCHR_NT1(0xA) ? Mapper.CHR_H : Mapper.CHR_L;
+		u8 D = EMU->GetCHR_NT1(0xB) ? Mapper.CHR_H : Mapper.CHR_L;
 		EMU->SetCHR_ROM1(0x8,A | 0x80);
 		EMU->SetCHR_ROM1(0x9,B | 0x80);
 		EMU->SetCHR_ROM1(0xA,C | 0x80);
@@ -38,16 +39,6 @@ static	void	SyncNametables (void)
 		EMU->SetCHR_ROM1(0xD,B | 0x80);
 		EMU->SetCHR_ROM1(0xE,C | 0x80);
 		EMU->SetCHR_ROM1(0xF,D | 0x80);
-	}
-	else
-	{
-		switch (Mapper.Mirror & 0x3)
-		{
-		case 0:	EMU->Mirror_V();	break;
-		case 1:	EMU->Mirror_H();	break;
-		case 2:	EMU->Mirror_S0();	break;
-		case 3:	EMU->Mirror_S1();	break;
-		}
 	}
 }
 

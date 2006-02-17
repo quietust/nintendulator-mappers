@@ -89,15 +89,20 @@ static	void	SyncNametables (void)
 {
 	if ((Mapper.BankMode & 0x20) && (Mapper.Jumper & 0x01))
 	{
-		EMU->Mirror_Custom(
-			Mapper.Nametables[0].b0 & 1,
-			Mapper.Nametables[1].b0 & 1,
-			Mapper.Nametables[2].b0 & 1,
-			Mapper.Nametables[3].b0 & 1);
-		if ((Mapper.BankMode & 0x40) || ((Mapper.Nametables[0].b0 ^ Mapper.MirBank) & 0x80)) { EMU->SetCHR_ROM1(0x8,(Mapper.ExtBank & 0x20) ? Mapper.Nametables[0].s0 : (Mapper.Nametables[0].b0 | ((Mapper.ExtBank & 0x1F) << 8))); EMU->SetCHR_ROM1(0xC,(Mapper.ExtBank & 0x20) ? Mapper.Nametables[0].s0 : (Mapper.Nametables[0].b0 | ((Mapper.ExtBank & 0x1F) << 8))); }
-		if ((Mapper.BankMode & 0x40) || ((Mapper.Nametables[1].b0 ^ Mapper.MirBank) & 0x80)) { EMU->SetCHR_ROM1(0x9,(Mapper.ExtBank & 0x20) ? Mapper.Nametables[1].s0 : (Mapper.Nametables[1].b0 | ((Mapper.ExtBank & 0x1F) << 8))); EMU->SetCHR_ROM1(0xD,(Mapper.ExtBank & 0x20) ? Mapper.Nametables[1].s0 : (Mapper.Nametables[1].b0 | ((Mapper.ExtBank & 0x1F) << 8))); }
-		if ((Mapper.BankMode & 0x40) || ((Mapper.Nametables[2].b0 ^ Mapper.MirBank) & 0x80)) { EMU->SetCHR_ROM1(0xA,(Mapper.ExtBank & 0x20) ? Mapper.Nametables[2].s0 : (Mapper.Nametables[2].b0 | ((Mapper.ExtBank & 0x1F) << 8))); EMU->SetCHR_ROM1(0xE,(Mapper.ExtBank & 0x20) ? Mapper.Nametables[2].s0 : (Mapper.Nametables[2].b0 | ((Mapper.ExtBank & 0x1F) << 8))); }
-		if ((Mapper.BankMode & 0x40) || ((Mapper.Nametables[3].b0 ^ Mapper.MirBank) & 0x80)) { EMU->SetCHR_ROM1(0xB,(Mapper.ExtBank & 0x20) ? Mapper.Nametables[3].s0 : (Mapper.Nametables[3].b0 | ((Mapper.ExtBank & 0x1F) << 8))); EMU->SetCHR_ROM1(0xF,(Mapper.ExtBank & 0x20) ? Mapper.Nametables[3].s0 : (Mapper.Nametables[3].b0 | ((Mapper.ExtBank & 0x1F) << 8))); }
+		int i;
+		for (i = 0; i < 4; i++)
+		{
+			if ((Mapper.BankMode & 0x40) || ((Mapper.Nametables[i].b0 ^ Mapper.MirBank) & 0x80))
+			{
+				EMU->SetCHR_ROM1(0x8|i,(Mapper.ExtBank & 0x20) ? Mapper.Nametables[i].s0 : (Mapper.Nametables[i].b0 | ((Mapper.ExtBank & 0x1F) << 8)));
+				EMU->SetCHR_ROM1(0xC|i,(Mapper.ExtBank & 0x20) ? Mapper.Nametables[i].s0 : (Mapper.Nametables[i].b0 | ((Mapper.ExtBank & 0x1F) << 8)));
+			}
+			else
+			{
+				EMU->SetCHR_NT1(0x8|i,Mapper.Nametables[i].b0 & 1);
+				EMU->SetCHR_NT1(0xC|i,Mapper.Nametables[i].b0 & 1);
+			}
+		}
 	}
 	else
 	{
