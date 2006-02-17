@@ -5,8 +5,8 @@ static	void	Sync (void)
 {
 	EMU->SetPRG_ROM16(0x8,(Latch.Data & 0x70) >> 4);
 	EMU->SetPRG_ROM16(0xC,0x7);
-	EMU->SetCHR_ROM8(0,Latch.Data & 0xF);
-	if (Latch.Data & 0x80)
+	EMU->SetCHR_ROM8(0,(Latch.Data & 0x7) | ((Latch.Data & 0x80) >> 4));
+	if (Latch.Data & 0x08)
 		EMU->Mirror_S1();
 	else	EMU->Mirror_S0();
 }
@@ -23,11 +23,11 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	Latch_Init(ResetType,Sync,FALSE);
 }
 
-static	u8 MapperNum = 70;
-CTMapperInfo	MapperInfo_070 =
+static	u8 MapperNum = 89;
+CTMapperInfo	MapperInfo_089 =
 {
 	&MapperNum,
-	"Bandai 74161/7432",
+	"Sunsoft 74161/7432",
 	COMPAT_FULL,
 	Reset,
 	Shutdown,

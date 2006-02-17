@@ -399,6 +399,10 @@ SOURCE=..\src\iNES\mapper087.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\iNES\mapper089.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\iNES\mapper090.c
 # End Source File
 # Begin Source File
