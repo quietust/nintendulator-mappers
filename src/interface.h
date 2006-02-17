@@ -15,6 +15,8 @@
 
 #include	<windows.h>
 
+#define	MSGBOX_FLAGS	(MB_OK | MB_ICONERROR | MB_DEFBUTTON1 | MB_APPLMODAL)
+
 /* Mapper Interface version (3.6) */
 
 #define	CurrentMapperInterface 0x00030006
