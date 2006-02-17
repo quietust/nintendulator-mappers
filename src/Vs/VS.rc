@@ -1,0 +1,125 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_VS, DIALOG
+    BEGIN
+        LEFTMARGIN, 4
+        RIGHTMARGIN, 120
+        VERTGUIDE, 60
+        VERTGUIDE, 64
+        TOPMARGIN, 4
+        BOTTOMMARGIN, 69
+        HORZGUIDE, 12
+        HORZGUIDE, 20
+        HORZGUIDE, 28
+        HORZGUIDE, 36
+        HORZGUIDE, 44
+        HORZGUIDE, 52
+        HORZGUIDE, 60
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_VS DIALOGEX 0, 0, 124, 73
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "VS Controls"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Close",IDCLOSE,64,52,56,16
+    CONTROL         "DIP Switch 1",IDC_VS_DIP0,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,4,4,56,8
+    CONTROL         "DIP Switch 2",IDC_VS_DIP1,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,4,12,56,8
+    CONTROL         "DIP Switch 3",IDC_VS_DIP2,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,4,20,56,8
+    CONTROL         "DIP Switch 4",IDC_VS_DIP3,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,4,28,56,8
+    CONTROL         "DIP Switch 5",IDC_VS_DIP4,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,4,36,56,8
+    CONTROL         "DIP Switch 6",IDC_VS_DIP5,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,4,44,56,8
+    CONTROL         "DIP Switch 7",IDC_VS_DIP6,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,4,52,56,8
+    CONTROL         "DIP Switch 8",IDC_VS_DIP7,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,4,60,56,8
+    PUSHBUTTON      "Left Coin",IDC_VS_COIN1,64,4,56,16
+    PUSHBUTTON      "Right Coin",IDC_VS_COIN2,64,20,56,16
+    PUSHBUTTON      "Service Coin",IDC_VS_COIN3,64,36,56,16
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
