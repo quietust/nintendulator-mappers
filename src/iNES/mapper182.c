@@ -27,12 +27,9 @@ static	void	_MAPINT	WriteCD (int Bank, int Where, int What)
 
 static	void	_MAPINT	WriteEF (int Bank, int Where, int What)
 {
-	if (What)
-	{
-		MMC3_CPUWriteCD(Bank,0,What);
-		MMC3_CPUWriteEF(Bank,1,What);
-	}
-	else	MMC3_CPUWriteEF(Bank,0,What);
+	MMC3_CPUWriteCD(Bank,0,What);
+	MMC3_CPUWriteCD(Bank,1,What);
+	MMC3_CPUWriteEF(Bank,(Where & 1),What);
 }
 
 static	void	_MAPINT	Shutdown (void)
