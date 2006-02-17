@@ -2,7 +2,7 @@
 
 static	struct
 {
-	u8 Cmd, CHR0l, CHR1l, CHR0h, CHR1h, CHRch, PRG, CHRmode, Mirror;
+	u8 Cmd, CHRH, CHRL0, CHRL1, CHRL2, CHRL3, PRG, CHRO, Mirror;
 	FCPUWrite Write4;
 }	Mapper;
 
@@ -10,10 +10,15 @@ static	void	Sync (void)
 {
 	EMU->SetPRG_ROM32(0x8,Mapper.PRG);
 	EMU->SetCHR_RAM8(0,0);
-	EMU->SetCHR_ROM2(0,0 | (Mapper.CHR0l << 1) | (Mapper.CHRch << 4));
-	EMU->SetCHR_ROM2(2,1 | (Mapper.CHR0h << 1) | (Mapper.CHRch << 4));
-	EMU->SetCHR_ROM2(4,0 | (Mapper.CHR1l << 1) | (Mapper.CHRch << 4));
-	EMU->SetCHR_ROM2(6,1 | (Mapper.CHR1h << 1) | (Mapper.CHRch << 4));
+	if (Mapper.Mirror & 1)
+		EMU->SetCHR_ROM8(0,(Mapper.CHRH << 3) | Mapper.CHRL0);
+	else
+	{
+		EMU->SetCHR_ROM2(0,(Mapper.CHRH << 5) | (Mapper.CHRL0 << 2) | 0);
+		EMU->SetCHR_ROM2(2,(Mapper.CHRH << 5) | (Mapper.CHRL1 << 2) | 1);
+		EMU->SetCHR_ROM2(4,(Mapper.CHRH << 5) | (Mapper.CHRL2 << 2) | 2);
+		EMU->SetCHR_ROM2(6,(Mapper.CHRH << 5) | (Mapper.CHRL3 << 2) | 3);
+	}
 	switch (Mapper.Mirror >> 1)
 	{
 	case 0:	EMU->Mirror_Custom(0,0,0,1);	break;
@@ -26,13 +31,13 @@ static	void	Sync (void)
 static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Cmd)
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHR0l)
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHR0h)
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHR1l)
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHR1h)
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHRch)
+	SAVELOAD_BYTE(mode,x,data,Mapper.CHRH)
+	SAVELOAD_BYTE(mode,x,data,Mapper.CHRL0)
+	SAVELOAD_BYTE(mode,x,data,Mapper.CHRL1)
+	SAVELOAD_BYTE(mode,x,data,Mapper.CHRL2)
+	SAVELOAD_BYTE(mode,x,data,Mapper.CHRL3)
 	SAVELOAD_BYTE(mode,x,data,Mapper.PRG)
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHRmode)
+	SAVELOAD_BYTE(mode,x,data,Mapper.CHRO)
 	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror)
 	if (mode == STATE_LOAD)
 		Sync();
@@ -41,27 +46,23 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
-	u16 Loc = (Bank << 12) | Addr;
-	if (Loc < 0x4018)
-	{
+	if (Bank == 4)
 		Mapper.Write4(Bank,Addr,Val);
-		return;
-	}
 	Val &= 0x07;
-	switch (Loc & 0x4101)
+	switch (Addr & 0x101)
 	{
-	case 0x4100:
+	case 0x100:
 		Mapper.Cmd = Val;	break;
-	case 0x4101:
+	case 0x101:
 		switch (Mapper.Cmd)
 		{
-		case 0:	Mapper.CHR0l = Val;	break;
-		case 1:	Mapper.CHR0h = Val;	break;
-		case 2:	Mapper.CHR1l = Val;	break;
-		case 3:	Mapper.CHR1h = Val;	break;
-		case 4:	Mapper.CHRch = Val;	break;
+		case 0:	Mapper.CHRL0 = Val;	break;
+		case 1:	Mapper.CHRL1 = Val;	break;
+		case 2:	Mapper.CHRL2 = Val;	break;
+		case 3:	Mapper.CHRL3 = Val;	break;
+		case 4:	Mapper.CHRH = Val;	break;
 		case 5:	Mapper.PRG = Val;	break;
-		case 6:	Mapper.CHRmode = Val;	break;
+		case 6:	Mapper.CHRO = Val;	break;
 		case 7:	Mapper.Mirror = Val;	break;
 		}			break;
 	}
@@ -75,20 +76,20 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	iNES_InitROM();
 
 	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
-	for (x = 0x4; x < 0x8; x++)
+	for (x = 0x4; x < 0x6; x++)
 		EMU->SetCPUWriteHandler(x,Write);
 
-	Mapper.Cmd = Mapper.CHR0l = Mapper.CHR1l = Mapper.CHR0h = Mapper.CHR1h = Mapper.CHRch = Mapper.PRG = Mapper.Mirror = Mapper.CHRmode = 0;
+	Mapper.Cmd = Mapper.CHRH = Mapper.CHRL0 = Mapper.CHRL1 = Mapper.CHRL2 = Mapper.CHRL3 = Mapper.PRG = Mapper.CHRO = Mapper.Mirror = 0;
 
 	Sync();
 }
 
-static	u8 MapperNum = 141;
-CTMapperInfo	MapperInfo_141 =
+static	u8 MapperNum = 139;
+CTMapperInfo	MapperInfo_139 =
 {
 	&MapperNum,
-	"Mapper 141 (Sachen)",
-	COMPAT_PARTIAL,
+	"Sachen (SA8259A)",
+	COMPAT_FULL,
 	Reset,
 	NULL,
 	NULL,
