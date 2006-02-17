@@ -1,23 +1,46 @@
 #include	"..\DLL\d_iNES.h"
+#include	"..\Hardware\h_Latch.h"
 
 static	struct
 {
-	u8 Game;
+	u8 Mode;
 }	Mapper;
 
 static	void	Sync (void)
 {
-	EMU->SetCHR_ROM8(0,Mapper.Game);
-	EMU->SetPRG_ROM16(0x8,Mapper.Game);
-	EMU->SetPRG_ROM16(0xC,Mapper.Game);
+	EMU->SetCHR_RAM8(0,0);
+	if (Mapper.Mode)
+	{
+		if (Latch.Data & 0x20)
+		{
+			EMU->SetPRG_ROM16(0x8,(Latch.Data & 0x1F) + 0x8);
+			EMU->SetPRG_ROM16(0xC,(Latch.Data & 0x1F) + 0x8);
+		}
+		else	EMU->SetPRG_ROM32(0x8,((Latch.Data & 0x1E) >> 1) + 0x4);
+		if (Latch.Data & 0x40)
+			EMU->Mirror_V();
+		else	EMU->Mirror_H();
+	}
+	else
+	{
+		EMU->SetPRG_ROM16(0x8,Latch.Data & 0x7);
+		EMU->SetPRG_ROM16(0xC,0x7);
+		EMU->Mirror_V();
+	}
 }
 
 static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.Game)
+	x = Latch_SaveLoad_D(mode,x,data);
+	SAVELOAD_BYTE(mode,x,data,Mapper.Mode)
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
+}
+
+static	void	_MAPINT	Shutdown (void)
+{
+	Latch_Destroy();
 }
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
@@ -25,20 +48,20 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	iNES_InitROM();
 
 	if (ResetType == RESET_HARD)
-		Mapper.Game = 0;
-	else	Mapper.Game++;
+		Mapper.Mode = 0;
+	else	Mapper.Mode ^= 1;
 
-	Sync();
+	Latch_Init(ResetType,Sync,FALSE);
 }
 
-static	u8 MapperNum = 60;
-CTMapperInfo	MapperInfo_060 =
+static	u8 MapperNum = 230;
+CTMapperInfo	MapperInfo_230 =
 {
 	&MapperNum,
-	"Reset-triggered 4-in-1",
+	"22-in-1",
 	COMPAT_FULL,
 	Reset,
-	NULL,
+	Shutdown,
 	NULL,
 	NULL,
 	SaveLoad,
