@@ -210,21 +210,21 @@ void	MMC5_SyncCHRA (void)
 {
 	switch (MMC5.CHRsize)
 	{
-	case 0:	EMU->SetCHR_ROM8(0,MMC5.CHR_A[7]);	break;
-	case 1:	EMU->SetCHR_ROM4(0,MMC5.CHR_A[3]);
-		EMU->SetCHR_ROM4(4,MMC5.CHR_A[7]);	break;
-	case 2:	EMU->SetCHR_ROM2(0,MMC5.CHR_A[1]);
-		EMU->SetCHR_ROM2(2,MMC5.CHR_A[3]);
-		EMU->SetCHR_ROM2(4,MMC5.CHR_A[5]);
-		EMU->SetCHR_ROM2(6,MMC5.CHR_A[7]);	break;
-	case 3:	EMU->SetCHR_ROM1(0,MMC5.CHR_A[0]);
-		EMU->SetCHR_ROM1(1,MMC5.CHR_A[1]);
-		EMU->SetCHR_ROM1(2,MMC5.CHR_A[2]);
-		EMU->SetCHR_ROM1(3,MMC5.CHR_A[3]);
-		EMU->SetCHR_ROM1(4,MMC5.CHR_A[4]);
-		EMU->SetCHR_ROM1(5,MMC5.CHR_A[5]);
-		EMU->SetCHR_ROM1(6,MMC5.CHR_A[6]);
-		EMU->SetCHR_ROM1(7,MMC5.CHR_A[7]);	break;
+	case 0:	EMU->SetCHR_ROM8(0,MMC5.CHR_A[7].s0);	break;
+	case 1:	EMU->SetCHR_ROM4(0,MMC5.CHR_A[3].s0);
+		EMU->SetCHR_ROM4(4,MMC5.CHR_A[7].s0);	break;
+	case 2:	EMU->SetCHR_ROM2(0,MMC5.CHR_A[1].s0);
+		EMU->SetCHR_ROM2(2,MMC5.CHR_A[3].s0);
+		EMU->SetCHR_ROM2(4,MMC5.CHR_A[5].s0);
+		EMU->SetCHR_ROM2(6,MMC5.CHR_A[7].s0);	break;
+	case 3:	EMU->SetCHR_ROM1(0,MMC5.CHR_A[0].s0);
+		EMU->SetCHR_ROM1(1,MMC5.CHR_A[1].s0);
+		EMU->SetCHR_ROM1(2,MMC5.CHR_A[2].s0);
+		EMU->SetCHR_ROM1(3,MMC5.CHR_A[3].s0);
+		EMU->SetCHR_ROM1(4,MMC5.CHR_A[4].s0);
+		EMU->SetCHR_ROM1(5,MMC5.CHR_A[5].s0);
+		EMU->SetCHR_ROM1(6,MMC5.CHR_A[6].s0);
+		EMU->SetCHR_ROM1(7,MMC5.CHR_A[7].s0);	break;
 	}
 	LastCHR = 0;
 }
@@ -233,21 +233,21 @@ void	MMC5_SyncCHRB (void)
 {
 	switch (MMC5.CHRsize)
 	{
-	case 0:	EMU->SetCHR_ROM8(0,MMC5.CHR_B[3]);	break;
-	case 1:	EMU->SetCHR_ROM4(0,MMC5.CHR_B[3]);
-		EMU->SetCHR_ROM4(4,MMC5.CHR_B[3]);	break;
-	case 2:	EMU->SetCHR_ROM2(0,MMC5.CHR_B[1]);
-		EMU->SetCHR_ROM2(2,MMC5.CHR_B[3]);
-		EMU->SetCHR_ROM2(4,MMC5.CHR_B[1]);
-		EMU->SetCHR_ROM2(6,MMC5.CHR_B[3]);	break;
-	case 3:	EMU->SetCHR_ROM1(0,MMC5.CHR_B[0]);
-		EMU->SetCHR_ROM1(1,MMC5.CHR_B[1]);
-		EMU->SetCHR_ROM1(2,MMC5.CHR_B[2]);
-		EMU->SetCHR_ROM1(3,MMC5.CHR_B[3]);
-		EMU->SetCHR_ROM1(4,MMC5.CHR_B[0]);
-		EMU->SetCHR_ROM1(5,MMC5.CHR_B[1]);
-		EMU->SetCHR_ROM1(6,MMC5.CHR_B[2]);
-		EMU->SetCHR_ROM1(7,MMC5.CHR_B[3]);	break;
+	case 0:	EMU->SetCHR_ROM8(0,MMC5.CHR_B[3].s0);	break;
+	case 1:	EMU->SetCHR_ROM4(0,MMC5.CHR_B[3].s0);
+		EMU->SetCHR_ROM4(4,MMC5.CHR_B[3].s0);	break;
+	case 2:	EMU->SetCHR_ROM2(0,MMC5.CHR_B[1].s0);
+		EMU->SetCHR_ROM2(2,MMC5.CHR_B[3].s0);
+		EMU->SetCHR_ROM2(4,MMC5.CHR_B[1].s0);
+		EMU->SetCHR_ROM2(6,MMC5.CHR_B[3].s0);	break;
+	case 3:	EMU->SetCHR_ROM1(0,MMC5.CHR_B[0].s0);
+		EMU->SetCHR_ROM1(1,MMC5.CHR_B[1].s0);
+		EMU->SetCHR_ROM1(2,MMC5.CHR_B[2].s0);
+		EMU->SetCHR_ROM1(3,MMC5.CHR_B[3].s0);
+		EMU->SetCHR_ROM1(4,MMC5.CHR_B[0].s0);
+		EMU->SetCHR_ROM1(5,MMC5.CHR_B[1].s0);
+		EMU->SetCHR_ROM1(6,MMC5.CHR_B[2].s0);
+		EMU->SetCHR_ROM1(7,MMC5.CHR_B[3].s0);	break;
 	}
 	LastCHR = 1;
 }
