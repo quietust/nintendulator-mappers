@@ -527,11 +527,19 @@ SOURCE=..\src\iNES\mapper229.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\iNES\mapper230.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\iNES\mapper231.c
 # End Source File
 # Begin Source File
 
 SOURCE=..\src\iNES\mapper232.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\iNES\mapper233.c
 # End Source File
 # Begin Source File
 
