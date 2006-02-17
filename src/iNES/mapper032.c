@@ -10,6 +10,7 @@ static	struct
 static	void	Sync (void)
 {
 	u8 x;
+	EMU->SetPRG_RAM8(0x6,0);
 	EMU->SetPRG_ROM8(0x8,Mapper.PRG[0]);
 	EMU->SetPRG_ROM8(0xA,Mapper.PRG[1]);
 	EMU->SetPRG_ROM8(0xC,Mapper.PRG[2]);
