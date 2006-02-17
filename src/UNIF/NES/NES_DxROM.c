@@ -1,152 +1,158 @@
 #include	"..\..\DLL\d_UNIF.h"
-#include	"..\..\Hardware\h_MMC3.h"
 
-static	void	Sync_TFROM (void)
+typedef	struct	N108
 {
-	MMC3_SyncPRG(0x3F,0);
-	MMC3_SyncCHR_ROM(0x3F,0);
-	UNIF_SetMirroring(MMC3_SyncMirror);
+	u8 Cmd;
+	u8 PRG[2];
+	u8 CHR[6];
+	void	(*Sync)	(void);
+}	TN108, *PN108;
+static	TN108	N108;
+
+void	_MAPINT	N108_CPUWrite89 (int Bank, int Where, int What);
+
+void	N108_Init (void (*Sync)(void))
+{
+	N108.PRG[0] = 0x3C;	N108.PRG[1] = 0x3D;
+
+	N108.CHR[0] = 0x00;	N108.CHR[1] = 0x02;
+	N108.CHR[2] = 0x04;	N108.CHR[3] = 0x05;	N108.CHR[4] = 0x06;	N108.CHR[5] = 0x07;
+
+	N108.Cmd = 0;
+	EMU->SetCPUWriteHandler(0x8,N108_CPUWrite89);
+	EMU->SetCPUWriteHandler(0x9,N108_CPUWrite89);
+	(N108.Sync = Sync)();
 }
-static	void	Sync_TGROM (void)
+
+void	N108_Destroy (void)
 {
-	MMC3_SyncPRG(0x3F,0);
-	MMC3_SyncCHR_RAM(0x7,0);
-	MMC3_SyncMirror();
+	N108.Sync = NULL;
 }
-static	void	Sync_TKROM (void)
+
+void	N108_SyncPRG (void)
 {
-	MMC3_SyncWRAM();
-	MMC3_SyncPRG(0x3F,0);
-	MMC3_SyncCHR_ROM(0xFF,0);
-	MMC3_SyncMirror();
+	EMU->SetPRG_ROM8(0x8,N108.PRG[0]);
+	EMU->SetPRG_ROM8(0xA,N108.PRG[1]);
+	EMU->SetPRG_ROM16(0xC,0x3F);
 }
-static	void	Sync_TLROM (void)
+
+void	N108_SyncCHR (void)
 {
-	MMC3_SyncPRG(0x3F,0);
-	MMC3_SyncCHR_ROM(0xFF,0);
-	MMC3_SyncMirror();
+	EMU->SetCHR_ROM2(0,N108.CHR[0]);
+	EMU->SetCHR_ROM2(2,N108.CHR[1]);
+	EMU->SetCHR_ROM1(4,N108.CHR[2]);
+	EMU->SetCHR_ROM1(5,N108.CHR[3]);
+	EMU->SetCHR_ROM1(6,N108.CHR[4]);
+	EMU->SetCHR_ROM1(7,N108.CHR[5]);
 }
-static	void	Sync_TR1ROM (void)
+
+int	_MAPINT	N108_SaveLoad (int mode, int x, char *data)
 {
-	MMC3_SyncPRG(0x3F,0);
-	MMC3_SyncCHR_ROM(0x3F,0);
+	u8 i;
+	SAVELOAD_BYTE(mode,x,data,N108.Cmd)
+	for (i = 0; i < 2; i++)
+		SAVELOAD_BYTE(mode,x,data,N108.PRG[i])
+	for (i = 0; i < 6; i++)
+		SAVELOAD_BYTE(mode,x,data,N108.CHR[i])
+	if (mode == STATE_LOAD)
+		N108.Sync();
+	return x;
+}
+
+void	_MAPINT	N108_CPUWrite89 (int Bank, int Where, int What)
+{
+	What &= 0x3F;
+	if (Where & 1)
+		switch (N108.Cmd & 0x7)
+		{
+		case 0:	N108.CHR[0] = What >> 1;break;
+		case 1:	N108.CHR[1] = What >> 1;break;
+		case 2:	N108.CHR[2] = What;	break;
+		case 3:	N108.CHR[3] = What;	break;
+		case 4:	N108.CHR[4] = What;	break;
+		case 5:	N108.CHR[5] = What;	break;
+		case 6:	N108.PRG[0] = What;	break;
+		case 7:	N108.PRG[1] = What;	break;
+		}
+	else	N108.Cmd = What;
+	N108.Sync();
+}
+
+static	void	Sync_DEROM (void)
+{
+	N108_SyncPRG();
+	N108_SyncCHR();
+	UNIF_SetMirroring(NULL);
+}
+static	void	Sync_DEIROM (void)
+{
+	N108_SyncPRG();
+	N108_SyncCHR();
+	UNIF_SetMirroring(NULL);
+}
+static	void	Sync_DRROM (void)
+{
+	N108_SyncPRG();
+	N108_SyncCHR();
 	EMU->Mirror_4();
-}
-static	void	Sync_TSROM (void)
-{
-	MMC3_SyncWRAM();
-	MMC3_SyncPRG(0x3F,0);
-	MMC3_SyncCHR_ROM(0xFF,0);
-	MMC3_SyncMirror();
 }
 
 static	void	_MAPINT	Shutdown (void)
 {
 	UNIF_SaveSRAM();
-	MMC3_Destroy();
+	N108_Destroy();
 }
 
-static	void	_MAPINT	Reset_TFROM (int IsHardReset)
+static	void	_MAPINT	Reset_DEROM (int IsHardReset)
 {
-	MMC3_Init(Sync_TFROM);
+	N108_Init(Sync_DEROM);
 }
-static	void	_MAPINT	Reset_TGROM (int IsHardReset)
+static	void	_MAPINT	Reset_DEIROM (int IsHardReset)
 {
-	MMC3_Init(Sync_TGROM);
+	N108_Init(Sync_DEIROM);
 }
-static	void	_MAPINT	Reset_TKROM (int IsHardReset)
+static	void	_MAPINT	Reset_DRROM (int IsHardReset)
 {
-	UNIF_InitSRAM(8192);
-	MMC3_Init(Sync_TKROM);
-}
-static	void	_MAPINT	Reset_TLROM (int IsHardReset)
-{
-	MMC3_Init(Sync_TLROM);
-}
-static	void	_MAPINT	Reset_TR1ROM (int IsHardReset)
-{
-	MMC3_Init(Sync_TR1ROM);
-}
-static	void	_MAPINT	Reset_TSROM (int IsHardReset)
-{
-	MMC3_Init(Sync_TSROM);
+	N108_Init(Sync_DRROM);
 }
 
-CTMapperInfo	MapperInfo_NES_TFROM =
+CTMapperInfo	MapperInfo_NES_DEROM =
 {
-	"NES-TFROM",
-	"MMC3 with optional hardwired mirroring",
+	"NES-DEROM",
+	"Namco 108",
 	COMPAT_NEARLY,
-	Reset_TFROM,
+	Reset_DEROM,
 	Shutdown,
 	NULL,
-	MMC3_PPUCycle,
-	MMC3_SaveLoad,
+	NULL,
+	N108_SaveLoad,
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_TGROM =
+CTMapperInfo	MapperInfo_NES_DEIROM =
 {
-	"NES-TGROM",
-	"MMC3 with CHR-RAM",
+	"NES-DEIROM",
+	"Namco 108",
 	COMPAT_NEARLY,
-	Reset_TGROM,
+	Reset_DEIROM,
 	Shutdown,
 	NULL,
-	MMC3_PPUCycle,
-	MMC3_SaveLoad,
+	NULL,
+	N108_SaveLoad,
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_TKROM =
+CTMapperInfo	MapperInfo_NES_DRROM =
 {
-	"NES-TKROM",
-	"MMC3 with CHR-ROM and SRAM",
+	"NES-DRROM",
+	"Namco 108 with 4-screen VRAM",
 	COMPAT_NEARLY,
-	Reset_TKROM,
+	Reset_DRROM,
 	Shutdown,
 	NULL,
-	MMC3_PPUCycle,
-	MMC3_SaveLoad,
+	NULL,
+	N108_SaveLoad,
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_TLROM =
-{
-	"NES-TLROM",
-	"MMC3 with CHR-ROM",
-	COMPAT_NEARLY,
-	Reset_TLROM,
-	Shutdown,
-	NULL,
-	MMC3_PPUCycle,
-	MMC3_SaveLoad,
-	NULL,
-	NULL
-};
-CTMapperInfo	MapperInfo_NES_TR1ROM =
-{
-	"NES-TR1ROM",
-	"MMC3 with 4-screen VRAM",
-	COMPAT_NEARLY,
-	Reset_TR1ROM,
-	Shutdown,
-	NULL,
-	MMC3_PPUCycle,
-	MMC3_SaveLoad,
-	NULL,
-	NULL
-};
-CTMapperInfo	MapperInfo_NES_TSROM =
-{
-	"NES-TSROM",
-	"MMC3 with WRAM",
-	COMPAT_NEARLY,
-	Reset_TSROM,
-	Shutdown,
-	NULL,
-	MMC3_PPUCycle,
-	MMC3_SaveLoad,
-	NULL,
-	NULL
-};
+

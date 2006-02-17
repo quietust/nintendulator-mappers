@@ -154,6 +154,10 @@ SOURCE=..\src\Unif\Nes\NES_CxROM.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\UNIF\NES\NES_DxROM.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\Unif\Nes\NES_ExROM.c
 # End Source File
 # Begin Source File
