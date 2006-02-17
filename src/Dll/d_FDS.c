@@ -15,6 +15,17 @@ static	void	_MAPINT	UnloadMapper (void)
 static	CPMapperInfo	_MAPINT	LoadMapper (CPROMInfo _ROM)
 {
 	ROM = _ROM;
+	if (ROM->ROMType == ROM_UNDEFINED)	/* Allow enumerating mappers */
+	{
+		unsigned int i = (unsigned int)ROM->Filename;
+		if (i >= 1)
+		{
+			UnloadMapper();
+			return NULL;
+		}
+		((PROMInfo)ROM)->ROMType = ROM_FDS;
+		return &MapperInfo_FDS;
+	}
 	if (ROM->ROMType != ROM_FDS)
 	{
 		UnloadMapper();
@@ -27,8 +38,8 @@ static	CPMapperInfo	_MAPINT	LoadMapper (CPROMInfo _ROM)
 static	TDLLInfo	DLL_Info =
 {
 	"Quietust <quietust@ircN.org>",
-	0x20030409,
-	0x00030000,
+	0x20041201,
+	0x00030005,
 	LoadMapper,
 	UnloadMapper
 };

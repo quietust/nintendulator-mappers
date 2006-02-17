@@ -143,6 +143,19 @@ static	CPMapperInfo	_MAPINT	LoadMapper (CPROMInfo _ROM)
 	int x = 0;
 	char *BoardName;
 	ROM = _ROM;
+	
+	if (ROM->ROMType == ROM_UNDEFINED)	/* Allow enumerating mappers */
+	{
+		unsigned int i = (unsigned int)ROM->Filename;
+		if (i >= sizeof(BoardTable)/sizeof(CPMapperInfo))
+		{
+			UnloadMapper();
+			return NULL;
+		}
+		((PROMInfo)ROM)->ROMType = ROM_UNIF;
+		return BoardTable[i];
+	}
+
 	if (ROM->ROMType != ROM_UNIF)
 	{
 		UnloadMapper();
@@ -151,7 +164,7 @@ static	CPMapperInfo	_MAPINT	LoadMapper (CPROMInfo _ROM)
 	BoardName = _strdup(ROM->UNIF_BoardName);
 	if ((!strncmp(BoardName,"BTL-",4)) || (!strncmp(BoardName,"HVC-",4)) || (!strncmp(BoardName,"UNL-",4)))
 		strncpy(BoardName,"NES-",4);
-	for (x = 0; BoardTable[x]->MapperId; x++)
+	for (x = 0; BoardTable[x] != &MapperInfo_0; x++)
 	{
 		if ((!strcmp(BoardTable[x]->MapperId,BoardName)) || (!strcmp(BoardTable[x]->MapperId,ROM->UNIF_BoardName)))
 		{
@@ -166,9 +179,9 @@ static	CPMapperInfo	_MAPINT	LoadMapper (CPROMInfo _ROM)
 
 static	TDLLInfo	DLL_Info =
 {
-	"The Quietust <quietust@ircN.org>",
-	0x20020224,		/* Date */
-	0x00010002,		/* Version 1.2 */
+	"Quietust <quietust@ircN.org>",
+	0x20041201,
+	0x00030005,
 	LoadMapper,
 	UnloadMapper
 };
