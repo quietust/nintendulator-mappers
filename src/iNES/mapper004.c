@@ -30,7 +30,7 @@ CTMapperInfo	MapperInfo_004 =
 {
 	&MapperNum,
 	"MMC3/MMC6",
-	COMPAT_NEARLY,
+	COMPAT_FULL,
 	Reset,
 	Shutdown,
 	NULL,
