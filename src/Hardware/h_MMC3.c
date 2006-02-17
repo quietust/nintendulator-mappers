@@ -161,7 +161,7 @@ void	_MAPINT	MMC3_CPUWrite89 (int Bank, int Where, int What)
 void	_MAPINT	MMC3_CPUWriteAB (int Bank, int Where, int What)
 {
 	if (Where & 1)
-		MMC3.WRAMEnab = What;
+		MMC3.WRAMEnab = (ROM->ROMType == ROM_INES) ? 0x80 : What;
 	else	MMC3.Mirror = What;
 	MMC3.Sync();
 }
