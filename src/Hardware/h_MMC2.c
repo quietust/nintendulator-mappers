@@ -7,7 +7,7 @@ void	MMC2_Init (void (*Sync)(void))
 	u8 x;
 	for (x = 0; x < 2; x++)
 	{
-		MMC2.LatchState[x] = 0xFE;
+		MMC2.LatchState[x] = 0;
 		MMC2.Latch0[x] = 0;
 		MMC2.Latch1[x] = 0;
 	}
@@ -57,12 +57,8 @@ void	MMC2_SyncPRG (int AND, int OR)
 
 void	MMC2_SyncCHR (void)
 {
-	if (MMC2.LatchState[0])
-		EMU->SetCHR_ROM4(0,MMC2.Latch0[1]);
-	else 	EMU->SetCHR_ROM4(0,MMC2.Latch0[0]);
-	if (MMC2.LatchState[1])
-		EMU->SetCHR_ROM4(4,MMC2.Latch1[1]);
-	else 	EMU->SetCHR_ROM4(4,MMC2.Latch1[0]);
+	EMU->SetCHR_ROM4(0,MMC2.Latch0[MMC2.LatchState[0]]);
+	EMU->SetCHR_ROM4(4,MMC2.Latch1[MMC2.LatchState[1]]);
 }
 
 void	MMC2_SyncMirror (void)

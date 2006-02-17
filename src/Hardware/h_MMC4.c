@@ -7,7 +7,7 @@ void	MMC4_Init (void (*Sync)(void))
 	u8 x;
 	for (x = 0; x < 2; x++)
 	{
-		MMC4.LatchState[x] = 0xFE;
+		MMC4.LatchState[x] = 0;
 		MMC4.Latch0[x] = 0;
 		MMC4.Latch1[x] = 0;
 	}
@@ -55,12 +55,8 @@ void	MMC4_SyncPRG (int AND, int OR)
 
 void	MMC4_SyncCHR (void)
 {
-	if (MMC4.LatchState[0])
-		EMU->SetCHR_ROM4(0,MMC4.Latch0[1]);
-	else 	EMU->SetCHR_ROM4(0,MMC4.Latch0[0]);
-	if (MMC4.LatchState[1])
-		EMU->SetCHR_ROM4(4,MMC4.Latch1[1]);
-	else 	EMU->SetCHR_ROM4(4,MMC4.Latch1[0]);
+	EMU->SetCHR_ROM4(0,MMC4.Latch0[MMC4.LatchState[0]]);
+	EMU->SetCHR_ROM4(4,MMC4.Latch1[MMC4.LatchState[1]]);
 }
 
 void	MMC4_SyncMirror (void)
