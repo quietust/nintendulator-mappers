@@ -393,7 +393,11 @@ void	_MAPINT	MMC5_CPUWrite5 (int Bank, int Addr, int Val)
 	case 0xD00:
 	case 0xE00:
 	case 0xF00:	if (MMC5.GfxMode != 3)
-				MMC5.ExRAM[Addr & 0x3FF] = Val;
+			{
+				if ((MMC5.GfxMode == 2) || (MMC5.IRQreads & 0x40))
+					MMC5.ExRAM[Addr & 0x3FF] = Val;
+				else	MMC5.ExRAM[Addr & 0x3FF] = 0;
+			}
 							break;
 	}
 }
