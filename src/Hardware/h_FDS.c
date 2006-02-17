@@ -234,6 +234,8 @@ int	_MAPINT	FDS_MapperSnd (int Len)
 	return FDSsound_Get(Len);
 }
 
+unsigned char FDS_BIOS[2][0x1000];
+
 void	FDS_Init (int IsHardReset)
 {
 	FILE *BIOS;
@@ -248,12 +250,6 @@ void	FDS_Init (int IsHardReset)
 	EMU->SetPRG_RAM32(0x6,0);
 	EMU->SetCHR_RAM8(0,0);
 
-	EMU->SetPRG_RAM4(0xE,8);
-	EMU->SetCPUWriteHandler(0xE,WriteBIOS);
-	EMU->SetPRG_RAM4(0xF,9);
-	EMU->SetCPUWriteHandler(0xF,WriteBIOS);
-
-
 	if (!(i = GetModuleFileName(NULL,buf,255)))
 	{
 		MessageBox(hWnd,"Fatal error: failed to get directory!","FDS.DLL",MSGBOX_FLAGS);
@@ -267,13 +263,16 @@ void	FDS_Init (int IsHardReset)
 		MessageBox(hWnd,"Disk System BIOS (disksys.rom) not found!","FDS.DLL",MSGBOX_FLAGS);
 		return;
 	}
-	if ((fread(EMU->GetPRG_Ptr4(0xE),1,4096,BIOS) != 4096) || (fread(EMU->GetPRG_Ptr4(0xF),1,4096,BIOS) != 4096))
+	if ((fread(FDS_BIOS[0],1,0x1000,BIOS) != 0x1000) || (fread(FDS_BIOS[1],1,0x1000,BIOS) != 0x1000))
 	{
 		fclose(BIOS);
 		MessageBox(hWnd,"Disk System BIOS (disksys.rom) too small!","FDS.DLL",MSGBOX_FLAGS);
 		return;
 	}
 	fclose(BIOS);
+
+	EMU->SetPRG_Ptr4(0xE,FDS_BIOS[0],FALSE);
+	EMU->SetPRG_Ptr4(0xF,FDS_BIOS[1],FALSE);
 
 	EMU->StatusOut("FDS BIOS loaded!");
 

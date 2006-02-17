@@ -70,7 +70,6 @@ static	struct
 	u8 *ExtRam0, *ExtRam1;
 	u16 LastAddr, LastAddrTmp;
 	FPPURead PPUReadNT[4];
-	u8 M[4];
 }	Mapper;
 
 int	_MAPINT	ReadNT (int Bank, int Where)
@@ -78,7 +77,7 @@ int	_MAPINT	ReadNT (int Bank, int Where)
 	if ((Mapper.Flags & 0x4) && (Where >= 0x3C0) && ((Bank & 3) == ((Mapper.LastAddr >> 10) & 3)))
 	{
 		const unsigned char AttribBits[4] = {0x00,0x55,0xAA,0xFF};
-		if (Mapper.M[Bank & 3])
+		if (EMU->GetCHR_NT1(Bank))
 			return AttribBits[Mapper.ExtRam1[Mapper.LastAddr & 0x3FF]];
 		else	return AttribBits[Mapper.ExtRam0[Mapper.LastAddr & 0x3FF]];
 	}
@@ -95,10 +94,10 @@ static	void	Sync (void)
 	EMU->SetCHR_ROM2(0x6,Mapper.CHR[3]);
 	switch (Mapper.Flags & 0x3)
 	{
-	case 0:	EMU->Mirror_V();	Mapper.M[0] = 0; Mapper.M[1] = 1; Mapper.M[2] = 0; Mapper.M[3] = 1;	break;
-	case 1:	EMU->Mirror_H();	Mapper.M[0] = 0; Mapper.M[1] = 0; Mapper.M[2] = 1; Mapper.M[3] = 1;	break;
-	case 2:	EMU->Mirror_S0();	Mapper.M[0] = 0; Mapper.M[1] = 0; Mapper.M[2] = 0; Mapper.M[3] = 0;	break;
-	case 3:	EMU->Mirror_S1();	Mapper.M[0] = 1; Mapper.M[1] = 1; Mapper.M[2] = 1; Mapper.M[3] = 1;	break;
+	case 0:	EMU->Mirror_V();	break;
+	case 1:	EMU->Mirror_H();	break;
+	case 2:	EMU->Mirror_S0();	break;
+	case 3:	EMU->Mirror_S1();	break;
 	}
 	if (Mapper.Flags & 0x04)
 	{
