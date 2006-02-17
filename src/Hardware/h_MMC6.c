@@ -164,20 +164,22 @@ void	_MAPINT	MMC6_CPUWriteAB (int Bank, int Where, int What)
 void	_MAPINT	MMC6_CPUWriteCD (int Bank, int Where, int What)
 {
 	if (Where & 1)
-		MMC6.IRQlatch = What;
-	else	MMC6.IRQcounter = MMC6.IRQlatch = What;
-	EMU->SetIRQ(1);
+		MMC6.IRQcounter = MMC6.IRQlatch;
+	else	MMC6.IRQlatch = What;
 }
 
 void	_MAPINT	MMC6_CPUWriteEF (int Bank, int Where, int What)
 {
 	MMC6.IRQenabled = (Where & 1);
-	EMU->SetIRQ(1);
+	if (!MMC6.IRQenabled)
+		EMU->SetIRQ(1);
 }
-
+int lastAddr = 0;
 void	_MAPINT	MMC6_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
-	if ((MMC6.IRQenabled) && (IsRendering) && (Cycle == 262))
+	if (Addr & 0x2000)
+		return;
+	if ((MMC6.IRQenabled) && !(lastAddr & 0x1000) && (Addr & 0x1000))
 	{
 		if (!MMC6.IRQcounter)
 		{
@@ -186,4 +188,5 @@ void	_MAPINT	MMC6_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 		}
 		else	MMC6.IRQcounter--;
 	}
+	lastAddr = Addr;
 }
