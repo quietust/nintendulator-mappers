@@ -13,6 +13,7 @@ void	MMC6_Init (void (*Sync)(void))
 	MMC6.Cmd = 0;
 	MMC6.WriteWRAM = 0;
 	MMC6.Mirror = 0;
+	EMU->SetPRG_RAM8(0x6,0);
 	MMC6.CPURead67 = EMU->GetCPUReadHandler(0x6);
 	EMU->SetCPUReadHandler(0x6,MMC6_CPURead67);
 	EMU->SetCPUReadHandler(0x7,MMC6_CPURead67);

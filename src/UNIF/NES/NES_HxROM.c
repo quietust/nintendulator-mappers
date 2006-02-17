@@ -3,7 +3,6 @@
 
 static	void	Sync_HKROM (void)
 {
-	EMU->SetPRG_RAM8(0x6,0);
 	MMC6_SyncPRG(0x3F,0);
 	MMC6_SyncCHR_ROM(0xFF,0);
 	MMC6_SyncMirror();
