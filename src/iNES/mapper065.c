@@ -18,8 +18,8 @@ static	void	Sync (void)
 	for (x = 0; x < 8; x++)
 		EMU->SetCHR_ROM1(x,Mapper.CHR[x]);
 	if (Mapper.Mirror & 0x40)
-		EMU->Mirror_V();
-	else	EMU->Mirror_H();
+		EMU->Mirror_H();
+	else	EMU->Mirror_V();
 }
 
 static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
