@@ -17,13 +17,13 @@ int	_MAPINT	FDS_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	SAVELOAD_WORD(mode,x,data,FDS.BytePtr)
 	SAVELOAD_BYTE(mode,x,data,FDS.WriteSkip)
 	SAVELOAD_BYTE(mode,x,data,FDS.DiskIRQ)
+	SAVELOAD_BYTE(mode,x,data,FDS.Mirror)
 	x = FDSsound_SaveLoad(mode,x,data);
 	if (mode == STATE_LOAD)
 	{
-		EMU->SetPRG_RAM32(0x6,0);
-		EMU->SetPRG_RAM4(0xE,8);
-		EMU->SetPRG_RAM4(0xF,9);
-		EMU->SetCHR_RAM8(0,0);
+		if (FDS.Mirror)
+			EMU->Mirror_H();
+		else	EMU->Mirror_V();
 	}
 	return x;
 }
@@ -129,7 +129,7 @@ void	_MAPINT	FDS_Write (int Bank, int Addr, int Val)
 				}
 			}				break;
 	case 0x25:	EndIRQ(IRQ_DISK);
-			if (Val & 0x08)
+			if (FDS.Mirror = Val & 0x8)
 				EMU->Mirror_H();
 			else	EMU->Mirror_V();
 			if (FDS.DiskNum == 0xFF)	break;
