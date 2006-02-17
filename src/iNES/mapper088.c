@@ -106,7 +106,7 @@ static	u8 MapperNum = 88;
 CTMapperInfo	MapperInfo_088 =
 {
 	&MapperNum,
-	_T("Namco 118"),
+	_T("Namco 118 with special CHR banking"),
 	COMPAT_FULL,
 	Load,
 	Reset,
