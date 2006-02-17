@@ -21,20 +21,20 @@ static	void	Sync (void)
 			unsigned addr    :16;
 			unsigned data    : 8;
 		};
-	}	latch;
-	latch.addr = Latch.Addr;
-	latch.data = Latch.Data;
+	}	M;
+	M.addr = Latch.Addr.s0;
+	M.data = Latch.Data;
 
-	EMU->SetCHR_ROM8(0,(latch.CHRhi << 2) | latch.CHRlo);
+	EMU->SetCHR_ROM8(0,(M.CHRhi << 2) | M.CHRlo);
 
-	if (latch.PRGsize)
+	if (M.PRGsize)
 	{
-		EMU->SetPRG_ROM16(0x8,(latch.PRGchip << 6) | latch.PRG);
-		EMU->SetPRG_ROM16(0xC,(latch.PRGchip << 6) | latch.PRG);
+		EMU->SetPRG_ROM16(0x8,(M.PRGchip << 6) | M.PRG);
+		EMU->SetPRG_ROM16(0xC,(M.PRGchip << 6) | M.PRG);
 	}
-	else	EMU->SetPRG_ROM32(0x8,((latch.PRGchip << 6) | latch.PRG) >> 1);
+	else	EMU->SetPRG_ROM32(0x8,((M.PRGchip << 6) | M.PRG) >> 1);
 
-	if (latch.Mir_HV)
+	if (M.Mir_HV)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 }

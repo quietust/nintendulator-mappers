@@ -15,48 +15,45 @@ static	void	Sync (void)
 			unsigned PRGsizeH: 1;
 			unsigned         : 4;
 		};
-		struct
-		{
-			unsigned addr    :16;
-		};
-	}	latch;
+		u16 addr;
+	}	M;
 	u8 x;
-	latch.addr = Latch.Addr;
+	M.addr = Latch.Addr.s0;
 
 	EMU->SetCHR_RAM8(0,0);
 	
-	if ((latch.PRGbank & 0x60) == 0x60)
+	if ((M.PRGbank & 0x60) == 0x60)
 		for (x = 0x8; x < 0x10; x++)
 			EMU->SetPRG_OB4(x);
-	switch ((latch.PRGsizeH << 1) | latch.PRGsizeL)
+	switch ((M.PRGsizeH << 1) | M.PRGsizeL)
 	{
-	case 0:	EMU->SetPRG_ROM16(0x8,(latch.PRGbank << 1) | latch.PRG16);
-		EMU->SetPRG_ROM16(0xC,(latch.PRGbank << 1) | latch.PRG16);
+	case 0:	EMU->SetPRG_ROM16(0x8,(M.PRGbank << 1) | M.PRG16);
+		EMU->SetPRG_ROM16(0xC,(M.PRGbank << 1) | M.PRG16);
 							break;
-	case 1:	EMU->SetPRG_ROM32(0x8,latch.PRGbank);	break;
+	case 1:	EMU->SetPRG_ROM32(0x8,M.PRGbank);	break;
 
-	case 2:	EMU->SetPRG_ROM8(0x8,((latch.PRGbank & 0x7F) << 2) | (latch.PRG16 << 1) | 0);
-		EMU->SetPRG_ROM8(0xA,((latch.PRGbank & 0x7F) << 2) | (latch.PRG16 << 1) | 1);
-		EMU->SetPRG_ROM8(0xC,((latch.PRGbank & 0x7F) << 2) | (latch.PRG16 << 1) | 0);
-		EMU->SetPRG_ROM8(0xE,((latch.PRGbank & 0x1F) << 2) | (latch.PRG16 << 1) | 1);
+	case 2:	EMU->SetPRG_ROM8(0x8,((M.PRGbank & 0x7F) << 2) | (M.PRG16 << 1) | 0);
+		EMU->SetPRG_ROM8(0xA,((M.PRGbank & 0x7F) << 2) | (M.PRG16 << 1) | 1);
+		EMU->SetPRG_ROM8(0xC,((M.PRGbank & 0x7F) << 2) | (M.PRG16 << 1) | 0);
+		EMU->SetPRG_ROM8(0xE,((M.PRGbank & 0x1F) << 2) | (M.PRG16 << 1) | 1);
 							break;
-	case 3:	EMU->SetPRG_ROM8(0x8,((latch.PRGbank & 0x7F) << 2) | 0);
-		EMU->SetPRG_ROM8(0xA,((latch.PRGbank & 0x7F) << 2) | 1);
-		EMU->SetPRG_ROM8(0xC,((latch.PRGbank & 0x7F) << 2) | 2);
-		EMU->SetPRG_ROM8(0xE,((latch.PRGbank & 0x1F) << 2) | 3);
+	case 3:	EMU->SetPRG_ROM8(0x8,((M.PRGbank & 0x7F) << 2) | 0);
+		EMU->SetPRG_ROM8(0xA,((M.PRGbank & 0x7F) << 2) | 1);
+		EMU->SetPRG_ROM8(0xC,((M.PRGbank & 0x7F) << 2) | 2);
+		EMU->SetPRG_ROM8(0xE,((M.PRGbank & 0x1F) << 2) | 3);
 							break;
 	}
 	
-	if (latch.Mir_HV)
+	if (M.Mir_HV)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 
-	if (latch.PRGbank == 0) 
-	{
-		EMU->GetPRG_Ptr4(0xF)[0x02A7] = (u8)0x6F;
-		EMU->GetPRG_Ptr4(0xF)[0x02A8] = (u8)0xF2;
-		EMU->GetPRG_Ptr4(0xF)[0x028A] = (u8)0x6F;
-		EMU->GetPRG_Ptr4(0xF)[0x028B] = (u8)0xF2;
+	if (M.PRGbank == 0) 
+	{	// hack
+		EMU->GetPRG_Ptr4(0xF)[0x02A7] = 0x6F;
+		EMU->GetPRG_Ptr4(0xF)[0x02A8] = 0xF2;
+		EMU->GetPRG_Ptr4(0xF)[0x028A] = 0x6F;
+		EMU->GetPRG_Ptr4(0xF)[0x028B] = 0xF2;
 	}
 }
 

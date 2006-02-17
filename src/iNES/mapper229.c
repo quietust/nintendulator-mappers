@@ -3,14 +3,14 @@
 
 static	void	Sync (void)
 {
-	if (Latch.Addr & 0x1E)
+	if (Latch.Addr.b0 & 0x1E)
 	{
-		EMU->SetPRG_ROM16(0x8,Latch.Addr & 0x1F);
-		EMU->SetPRG_ROM16(0xC,Latch.Addr & 0x1F);
+		EMU->SetPRG_ROM16(0x8,Latch.Addr.b0 & 0x1F);
+		EMU->SetPRG_ROM16(0xC,Latch.Addr.b0 & 0x1F);
 	}
 	else	EMU->SetPRG_ROM32(0x8,0);
-	EMU->SetCHR_ROM8(0,Latch.Addr & 0x1F);
-	if (Latch.Addr & 0x20)
+	EMU->SetCHR_ROM8(0,Latch.Addr.b0 & 0x1F);
+	if (Latch.Addr.b0 & 0x20)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 }

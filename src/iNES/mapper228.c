@@ -16,22 +16,19 @@ static	void	Sync (void)
 			unsigned Mir_HV  : 1;
 			unsigned         : 2;
 		};
-		struct
-		{
-			unsigned n       :16;
-		};
-	}	Addr;
+		u16 addr;
+	}	M;
 	u8 openbus = 0;
-	Addr.n = Latch.Addr;
+	M.addr = Latch.Addr.s0;
 
-	if (Addr.Mir_HV)
+	if (M.Mir_HV)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 	
-	switch (Addr.PRGchip)
+	switch (M.PRGchip)
 	{
-	case 2:	openbus = 1;		break;
-	case 3:	Addr.PRGchip = 2;	break;
+	case 2:	openbus = 1;	break;
+	case 3:	M.PRGchip = 2;	break;
 	}
 	if (openbus)
 	{
@@ -40,14 +37,14 @@ static	void	Sync (void)
 	}
 	else
 	{
-		if (Addr.PRGsize)
+		if (M.PRGsize)
 		{
-			EMU->SetPRG_ROM16(0x8,(Addr.PRGchip << 5) | (Addr.PRGbank << 1) | (Addr.PRG16));
-			EMU->SetPRG_ROM16(0xC,(Addr.PRGchip << 5) | (Addr.PRGbank << 1) | (Addr.PRG16));
+			EMU->SetPRG_ROM16(0x8,(M.PRGchip << 5) | (M.PRGbank << 1) | (M.PRG16));
+			EMU->SetPRG_ROM16(0xC,(M.PRGchip << 5) | (M.PRGbank << 1) | (M.PRG16));
 		}
-		else EMU->SetPRG_ROM32(0x8,(Addr.PRGchip << 4) | (Addr.PRGbank));
+		else EMU->SetPRG_ROM32(0x8,(M.PRGchip << 4) | (M.PRGbank));
 	}
-	EMU->SetCHR_ROM8(0,(Addr.CHRbank << 2) | (Latch.Data & 0x3));
+	EMU->SetCHR_ROM8(0,(M.CHRbank << 2) | (Latch.Data & 0x3));
 }
 
 static	void	_MAPINT	Shutdown (void)

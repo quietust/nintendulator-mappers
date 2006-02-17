@@ -4,18 +4,18 @@
 static	void	Sync (void)
 {
 	EMU->SetCHR_RAM8(0,0);
-	if (Latch.Addr & 0x20)
-		EMU->SetPRG_ROM32(0x8,(Latch.Addr & 0x1E) >> 1);
+	if (Latch.Addr.b0 & 0x20)
+		EMU->SetPRG_ROM32(0x8,(Latch.Addr.b0 & 0x1E) >> 1);
 	else
 	{
-		EMU->SetPRG_ROM16(0x8,Latch.Addr & 0x1E);
-		EMU->SetPRG_ROM16(0xC,Latch.Addr & 0x1E);
+		EMU->SetPRG_ROM16(0x8,Latch.Addr.b0 & 0x1E);
+		EMU->SetPRG_ROM16(0xC,Latch.Addr.b0 & 0x1E);
 	}
-	switch ((Latch.Addr & 0xC0) >> 6)
+	switch ((Latch.Addr.b0 & 0xC0) >> 6)
 	{
 	case 0:	EMU->Mirror_S0();		break;
-	case 1:	EMU->Mirror_V();			break;
-	case 2:	EMU->Mirror_H();			break;
+	case 1:	EMU->Mirror_V();		break;
+	case 2:	EMU->Mirror_H();		break;
 	case 3:	EMU->Mirror_Custom(0,1,1,1);	break;
 	}
 }

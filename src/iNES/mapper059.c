@@ -8,20 +8,22 @@ static	struct
 	HWND ConfigWindow;
 }	Mapper;
 
+static	u8 JumperData[0x1000];
+
 static	void	Sync (void)
 {
-	u8 x;
-	EMU->SetCHR_ROM8(0,Latch.Addr & 0x07);
-	EMU->SetPRG_ROM32(0x8,(Latch.Addr & 0x70) >> 4);
-	if (Latch.Addr & 0x08)
+	EMU->SetCHR_ROM8(0,Latch.Addr.s0 & 0x07);
+	EMU->SetPRG_ROM32(0x8,(Latch.Addr.s0 & 0x70) >> 4);
+	if (Latch.Addr.s0 & 0x08)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
-	if (Latch.Addr & 0x100)
+	if (Latch.Addr.s0 & 0x100)
+	{
+		u8 x;
+		memset(JumperData,Mapper.Jumper,0x1000);
 		for (x = 0x8; x < 0x10; x++)
-		{
-			EMU->SetPRG_RAM4(x,x-8);
-			memset(EMU->GetPRG_Ptr4(x),Mapper.Jumper,0x1000);
-		}
+			EMU->SetPRG_Ptr4(x,JumperData,FALSE);
+	}
 }
 
 static	int	_MAPINT	SaveLoad (int mode, int x, char *data)

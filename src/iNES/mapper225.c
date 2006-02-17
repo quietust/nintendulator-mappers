@@ -14,21 +14,18 @@ static	void	Sync (void)
 			unsigned Mir_HV  : 1;
 			unsigned         : 2;
 		};
-		struct
-		{
-			unsigned n       :16;
-		};
-	}	Addr;
-	Addr.n = Latch.Addr;
+		u16 addr;
+	}	M;
+	M.addr = Latch.Addr.s0;
 
-	EMU->SetCHR_ROM8(0,Addr.CHRbank);
-	if (Addr.PRGsize)
+	EMU->SetCHR_ROM8(0,M.CHRbank);
+	if (M.PRGsize)
 	{
-		EMU->SetPRG_ROM16(0x8,(Addr.PRGbank << 1) | (Addr.PRG16));
-		EMU->SetPRG_ROM16(0xC,(Addr.PRGbank << 1) | (Addr.PRG16));
+		EMU->SetPRG_ROM16(0x8,(M.PRGbank << 1) | (M.PRG16));
+		EMU->SetPRG_ROM16(0xC,(M.PRGbank << 1) | (M.PRG16));
 	}
-	else	EMU->SetPRG_ROM32(0x8,Addr.PRGbank);
-	if (Addr.Mir_HV)
+	else	EMU->SetPRG_ROM32(0x8,M.PRGbank);
+	if (M.Mir_HV)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 }
