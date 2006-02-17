@@ -3,7 +3,7 @@
 
 static	void	Sync (void)
 {
-	MMC4_SyncPRG(0xFF,0);
+	MMC4_SyncPRG(0xF,0);
 	MMC4_SyncCHR();
 	MMC4_SyncMirror();
 	EMU->SetPRG_RAM8(0x6,0);
@@ -26,7 +26,7 @@ CTMapperInfo	MapperInfo_010 =
 {
 	&MapperNum,
 	"MMC4",
-	COMPAT_NEARLY,
+	COMPAT_FULL
 	Reset,
 	Shutdown,
 	NULL,
