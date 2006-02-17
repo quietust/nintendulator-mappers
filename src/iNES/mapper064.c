@@ -40,7 +40,7 @@ static	void	Sync (void)
 			EMU->SetCHR_ROM1(SwCHR ^ x,Mapper.CHR[x]);
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounter)
@@ -71,14 +71,14 @@ static	void	HBlank (void)
 	}
 }
 
-static	void	_MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
+static	void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
 	if (!(Mapper.IRQmode) && (IsRendering) && (Cycle == 264))
 		HBlank();
 }
 
 static int cycles = 4;
-static	void	_MAPINT	CPUCycle (void)
+static	void	MAPINT	CPUCycle (void)
 {
 	if ((Mapper.IRQmode) && (!--cycles))
 	{
@@ -87,7 +87,7 @@ static	void	_MAPINT	CPUCycle (void)
 	}
 }
 
-static	void	_MAPINT	Write89 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write89 (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
 		switch (Mapper.Cmd & 0xF)
@@ -109,7 +109,7 @@ static	void	_MAPINT	Write89 (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteAB (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
 		;
@@ -117,7 +117,7 @@ static	void	_MAPINT	WriteAB (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteCD (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteCD (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
 	{
@@ -127,14 +127,14 @@ static	void	_MAPINT	WriteCD (int Bank, int Addr, int Val)
 	else	Mapper.IRQlatch = Val;
 }
 
-static	void	_MAPINT	WriteEF (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteEF (int Bank, int Addr, int Val)
 {
 	Mapper.IRQenabled = (Addr & 1);
 	if (!Mapper.IRQenabled)
 		EMU->SetIRQ(1);
 }
 
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 

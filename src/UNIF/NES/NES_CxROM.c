@@ -15,20 +15,20 @@ static	void	Sync_CPROM (void)
 	EMU->SetCHR_RAM4(4,Latch.Data & 0x3);
 }
 
-static	void	_MAPINT	Load_CNROM (void)
+static	void	MAPINT	Load_CNROM (void)
 {
 	Latch_Load(Sync_CNROM,TRUE);
 }
-static	void	_MAPINT	Load_CPROM (void)
+static	void	MAPINT	Load_CPROM (void)
 {
 	Latch_Load(Sync_CPROM,TRUE);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	Latch_Reset(ResetType);
 	UNIF_SetMirroring(NULL);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	Latch_Unload();
 }

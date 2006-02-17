@@ -13,7 +13,7 @@ static	void	Sync (void)
 	EMU->SetCHR_RAM8(0,0);
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.WhichGame)
 	SAVELOAD_BYTE(mode,x,data,Mapper.WhichBank)
@@ -22,19 +22,19 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write89 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write89 (int Bank, int Addr, int Val)
 {
 	Mapper.WhichGame = (Val & 0x18) >> 1;
 	Sync();
 }
 
-static	void	_MAPINT	WriteABCDEF (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteABCDEF (int Bank, int Addr, int Val)
 {
 	Mapper.WhichBank = Val & 3;
 	Sync();
 }
 
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 

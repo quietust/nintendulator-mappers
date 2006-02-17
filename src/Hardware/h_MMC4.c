@@ -38,7 +38,7 @@ void	MMC4_Unload (void)
 {
 }
 
-int	_MAPINT	MMC4_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	MMC4_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,MMC4.Latch0[0])
 	SAVELOAD_BYTE(mode,x,data,MMC4.Latch0[1])
@@ -72,7 +72,7 @@ void	MMC4_SyncMirror (void)
 	else	EMU->Mirror_V();
 }
 
-int	_MAPINT	MMC4_PPURead3 (int Bank, int Addr)
+int	MAPINT	MMC4_PPURead3 (int Bank, int Addr)
 {
 	int result = MMC4.PPURead3(Bank,Addr);
 	register int addy = Addr & 0x3F8;
@@ -89,7 +89,7 @@ int	_MAPINT	MMC4_PPURead3 (int Bank, int Addr)
 	return result;
 }
 
-int	_MAPINT	MMC4_PPURead7 (int Bank, int Addr)
+int	MAPINT	MMC4_PPURead7 (int Bank, int Addr)
 {
 	int result = MMC4.PPURead7(Bank,Addr);
 	register int addy = Addr & 0x3F8;
@@ -106,37 +106,37 @@ int	_MAPINT	MMC4_PPURead7 (int Bank, int Addr)
 	return result;
 }
 
-void	_MAPINT	MMC4_CPUWriteA (int Bank, int Addr, int Val)
+void	MAPINT	MMC4_CPUWriteA (int Bank, int Addr, int Val)
 {
 	MMC4.PRG = Val & 0xF;
 	MMC4.Sync();
 }
 
-void	_MAPINT	MMC4_CPUWriteB (int Bank, int Addr, int Val)
+void	MAPINT	MMC4_CPUWriteB (int Bank, int Addr, int Val)
 {
 	MMC4.Latch0[0] = Val & 0x1F;
 	MMC4.Sync();
 }
 
-void	_MAPINT	MMC4_CPUWriteC (int Bank, int Addr, int Val)
+void	MAPINT	MMC4_CPUWriteC (int Bank, int Addr, int Val)
 {
 	MMC4.Latch0[1] = Val & 0x1F;
 	MMC4.Sync();
 }
 
-void	_MAPINT	MMC4_CPUWriteD (int Bank, int Addr, int Val)
+void	MAPINT	MMC4_CPUWriteD (int Bank, int Addr, int Val)
 {
 	MMC4.Latch1[0] = Val & 0x1F;
 	MMC4.Sync();
 }
 
-void	_MAPINT	MMC4_CPUWriteE (int Bank, int Addr, int Val)
+void	MAPINT	MMC4_CPUWriteE (int Bank, int Addr, int Val)
 {
 	MMC4.Latch1[1] = Val & 0x1F;
 	MMC4.Sync();
 }
 
-void	_MAPINT	MMC4_CPUWriteF (int Bank, int Addr, int Val)
+void	MAPINT	MMC4_CPUWriteF (int Bank, int Addr, int Val)
 {
 	MMC4.Mirror = Val & 0x01;
 	MMC4.Sync();

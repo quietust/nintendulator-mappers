@@ -1,11 +1,11 @@
 #include	"..\DLL\d_VS.h"
 #include	"..\Hardware\h_VS.h"
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	VS_Load();
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	VS_Reset(ResetType);
 	iNES_SetMirroring();
@@ -13,7 +13,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetPRG_ROM32(0x8,0);
 	EMU->SetCHR_ROM8(0,0);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	VS_Unload();
 }

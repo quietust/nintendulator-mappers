@@ -43,7 +43,7 @@ static	void	SyncNametables (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror)
@@ -58,60 +58,60 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
 	Mapper.CHR[0] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	Mapper.CHR[1] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
 	Mapper.CHR[2] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	Mapper.CHR[3] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
 	Mapper.CHR_L = Val;
 	SyncNametables();
 }
 
-static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteD (int Bank, int Addr, int Val)
 {
 	Mapper.CHR_H = Val;
 	SyncNametables();
 }
 
-static	void	_MAPINT	WriteE (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteE (int Bank, int Addr, int Val)
 {
 	Mapper.Mirror = Val & 0x3;
 	Mapper.VROM_use = (Val & 0x10);
 	SyncNametables();
 }
 
-static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
 	Mapper.PRG = Val;
 	Sync();
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	iNES_SetSRAM();
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 

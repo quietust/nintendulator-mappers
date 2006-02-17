@@ -7,18 +7,18 @@ static	void	Sync (void)
 	EMU->SetCHR_ROM8(0,(Latch.Data >> 0) & 0x3);
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	Latch_Load(Sync,FALSE);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 	EMU->SetCPUWriteHandler(0x6,Latch_Write);
 	EMU->SetCPUWriteHandler(0x7,Latch_Write);
 	Latch_Reset(ResetType);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	Latch_Unload();
 }

@@ -8,16 +8,16 @@ static	void	Sync (void)
 	MMC2_SyncMirror();
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	MMC2_Load(Sync);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 	MMC2_Reset(ResetType);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	MMC2_Unload();
 }

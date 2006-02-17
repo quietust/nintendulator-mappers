@@ -61,7 +61,7 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 	return FALSE;
 }
 
-static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
+static	unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 {
 	switch (mode)
 	{
@@ -91,12 +91,12 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	Latch_Load(Sync,FALSE);
 	Mapper.ConfigWindow = NULL;
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	if (ResetType == RESET_HARD)
 		Mapper.Jumper = 0;
@@ -104,7 +104,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	Mapper.ConfigCmd = 0;
 	Latch_Reset(ResetType);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	Latch_Unload();
 	if (Mapper.ConfigWindow)

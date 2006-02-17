@@ -17,7 +17,7 @@ static	void	Sync (void)
 	EMU->SetCHR_ROM8(0,0);
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
 	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter.s0)
@@ -27,7 +27,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	CPUCycle (void)
+static	void	MAPINT	CPUCycle (void)
 {
 	if (Mapper.IRQenabled)
 	{
@@ -37,25 +37,25 @@ static	void	_MAPINT	CPUCycle (void)
 	}
 }
 
-static	void	_MAPINT	Write89 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write89 (int Bank, int Addr, int Val)
 {
 	Mapper.IRQenabled = 0;
 	Mapper.IRQcounter.s0 = 0;
 	EMU->SetIRQ(1);
 }
 
-static	void	_MAPINT	WriteAB (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
 	Mapper.IRQenabled = 1;
 }
 
-static	void	_MAPINT	WriteEF (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteEF (int Bank, int Addr, int Val)
 {
 	Mapper.PRG = Val & 7;
 	Sync();
 }
 
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 

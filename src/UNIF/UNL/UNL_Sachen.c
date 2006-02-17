@@ -40,7 +40,7 @@ static	void	Sync_0037 (void)
 	EMU->SetCHR_ROM8(0,Latch.Data & 0x7);
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Latch)
 	if (mode == STATE_LOAD)
@@ -48,7 +48,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	WriteSA (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteSA (int Bank, int Addr, int Val)
 {
 	if ((Bank == 4) && (Addr < 0x018))
 		Mapper.Write4(Bank,Addr,Val);
@@ -56,7 +56,7 @@ static	void	_MAPINT	WriteSA (int Bank, int Addr, int Val)
 		Mapper.Latch = Val;
 	Mapper.Sync();
 }
-static	void	_MAPINT	WriteTC (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteTC (int Bank, int Addr, int Val)
 {
 	if ((Bank == 4) && (Addr < 0x018))
 		Mapper.Write4(Bank,Addr,Val);
@@ -75,22 +75,22 @@ static	void	Reset (RESET_TYPE ResetType)
 	Mapper.Sync();
 }
 
-static	void	_MAPINT	Reset_0161M (RESET_TYPE ResetType)
+static	void	MAPINT	Reset_0161M (RESET_TYPE ResetType)
 {
 	Mapper.Sync = Sync_0161M;
 	Reset(ResetType);
 }
-static	void	_MAPINT	Reset_72007 (RESET_TYPE ResetType)
+static	void	MAPINT	Reset_72007 (RESET_TYPE ResetType)
 {
 	Mapper.Sync = Sync_72007;
 	Reset(ResetType);
 }
-static	void	_MAPINT	Reset_72008 (RESET_TYPE ResetType)
+static	void	MAPINT	Reset_72008 (RESET_TYPE ResetType)
 {
 	Mapper.Sync = Sync_72008;
 	Reset(ResetType);
 }
-static	void	_MAPINT	Reset_U0115M (RESET_TYPE ResetType)
+static	void	MAPINT	Reset_U0115M (RESET_TYPE ResetType)
 {
 	Mapper.Latch = 0;
 	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
@@ -106,20 +106,20 @@ static	void	_MAPINT	Reset_U0115M (RESET_TYPE ResetType)
 	Sync_U0115M();
 }
 
-static	void	_MAPINT	Load_0036 (void)
+static	void	MAPINT	Load_0036 (void)
 {
 	Latch_Load(Sync_0036,FALSE);
 }
-static	void	_MAPINT	Load_0037 (void)
+static	void	MAPINT	Load_0037 (void)
 {
 	Latch_Load(Sync_0037,FALSE);
 }
-static	void	_MAPINT	Reset_003x (RESET_TYPE ResetType)
+static	void	MAPINT	Reset_003x (RESET_TYPE ResetType)
 {
 	Latch_Reset(ResetType);
 	UNIF_SetMirroring(NULL);
 }
-static	void	_MAPINT	Unload_003x (void)
+static	void	MAPINT	Unload_003x (void)
 {
 	Latch_Unload();
 }

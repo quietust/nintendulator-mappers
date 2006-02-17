@@ -1,34 +1,34 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\..\Hardware\h_MMC5.h"
 
-static	void	_MAPINT	Load_EKROM (void)
+static	void	MAPINT	Load_EKROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC5_Load(MMC5WRAM_8KB_0KB);
 }
 
-static	void	_MAPINT	Load_ELROM (void)
+static	void	MAPINT	Load_ELROM (void)
 {
 	MMC5_Load(MMC5WRAM_0KB_0KB);
 }
 
-static	void	_MAPINT	Load_ETROM (void)
+static	void	MAPINT	Load_ETROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC5_Load(MMC5WRAM_8KB_8KB);
 }
 
-static	void	_MAPINT	Load_EWROM (void)
+static	void	MAPINT	Load_EWROM (void)
 {
 	UNIF_SetSRAM(32768);
 	MMC5_Load(MMC5WRAM_32KB_0KB);
 }
 
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	MMC5_Reset(ResetType);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	MMC5_Unload();
 }

@@ -25,7 +25,7 @@ void	Latch_Unload (void)
 {
 }
 
-int	_MAPINT	Latch_SaveLoad_AD (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	Latch_SaveLoad_AD (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_WORD(mode,x,data,Latch.Addr.s0)
 	SAVELOAD_BYTE(mode,x,data,Latch.Data)
@@ -34,7 +34,7 @@ int	_MAPINT	Latch_SaveLoad_AD (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-int	_MAPINT	Latch_SaveLoad_AL (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	Latch_SaveLoad_AL (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Latch.Addr.b0)
 	if (mode == STATE_LOAD)
@@ -42,7 +42,7 @@ int	_MAPINT	Latch_SaveLoad_AL (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-int	_MAPINT	Latch_SaveLoad_A (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	Latch_SaveLoad_A (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_WORD(mode,x,data,Latch.Addr.s0)
 	if (mode == STATE_LOAD)
@@ -50,7 +50,7 @@ int	_MAPINT	Latch_SaveLoad_A (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-int	_MAPINT	Latch_SaveLoad_D (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	Latch_SaveLoad_D (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Latch.Data)
 	if (mode == STATE_LOAD)
@@ -59,7 +59,7 @@ int	_MAPINT	Latch_SaveLoad_D (STATE_TYPE mode, int x, unsigned char *data)
 }
 
 #include <stdlib.h>
-void	_MAPINT	Latch_Write (int Bank, int Addr, int Val)
+void	MAPINT	Latch_Write (int Bank, int Addr, int Val)
 {
 #ifdef BUS_CONFLICTS
 	int tmp;

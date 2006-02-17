@@ -26,13 +26,13 @@ int		MMC6_GetCHRBank	(int);
 void		MMC6_SyncPRG	(int,int);
 void		MMC6_SyncCHR_ROM(int,int);
 void		MMC6_SyncCHR_RAM(int,int);
-int	_MAPINT	MMC6_SaveLoad	(STATE_TYPE,int,unsigned char *);
-int	_MAPINT	MMC6_CPURead7	(int,int);
-void	_MAPINT	MMC6_CPUWrite7	(int,int,int);
-void	_MAPINT	MMC6_CPUWrite89	(int,int,int);
-void	_MAPINT	MMC6_CPUWriteAB	(int,int,int);
-void	_MAPINT	MMC6_CPUWriteCD	(int,int,int);
-void	_MAPINT	MMC6_CPUWriteEF	(int,int,int);
-void	_MAPINT	MMC6_PPUCycle	(int,int,int,int);
+int	MAPINT	MMC6_SaveLoad	(STATE_TYPE,int,unsigned char *);
+int	MAPINT	MMC6_CPURead7	(int,int);
+void	MAPINT	MMC6_CPUWrite7	(int,int,int);
+void	MAPINT	MMC6_CPUWrite89	(int,int,int);
+void	MAPINT	MMC6_CPUWriteAB	(int,int,int);
+void	MAPINT	MMC6_CPUWriteCD	(int,int,int);
+void	MAPINT	MMC6_CPUWriteEF	(int,int,int);
+void	MAPINT	MMC6_PPUCycle	(int,int,int,int);
 
 #endif	/* H_MMC6_H */

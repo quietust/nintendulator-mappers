@@ -14,14 +14,14 @@ static	void	Sync (void)
 	MMC3_SyncWRAM();
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	x = MMC3_SaveLoad(mode,x,data);
 	SAVELOAD_BYTE(mode,x,data,Mapper.WhichGame)
 	return x;
 }
 
-static	void	_MAPINT	WriteAB (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
 	switch (Addr & 1)
 	{
@@ -33,11 +33,11 @@ static	void	_MAPINT	WriteAB (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	MMC3_Load(Sync);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	if (ResetType == RESET_HARD)
 		Mapper.WhichGame = 0;
@@ -45,7 +45,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xA,WriteAB);
 	EMU->SetCPUWriteHandler(0xB,WriteAB);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	MMC3_Unload();
 }

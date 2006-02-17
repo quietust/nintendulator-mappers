@@ -9,7 +9,7 @@ typedef	struct	N108
 }	TN108, *PN108;
 static	TN108	N108;
 
-void	_MAPINT	N108_CPUWrite89 (int Bank, int Addr, int Val);
+void	MAPINT	N108_CPUWrite89 (int Bank, int Addr, int Val);
 
 void	N108_Load (FSync Sync)
 {
@@ -51,7 +51,7 @@ void	N108_SyncCHR (void)
 	EMU->SetCHR_ROM1(7,N108.CHR[5]);
 }
 
-int	_MAPINT	N108_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	N108_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,N108.Cmd)
@@ -64,7 +64,7 @@ int	_MAPINT	N108_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-void	_MAPINT	N108_CPUWrite89 (int Bank, int Addr, int Val)
+void	MAPINT	N108_CPUWrite89 (int Bank, int Addr, int Val)
 {
 	Val &= 0x3F;
 	if (Addr & 1)
@@ -102,23 +102,23 @@ static	void	Sync_DRROM (void)
 	EMU->Mirror_4();
 }
 
-static	void	_MAPINT	Load_DEROM (void)
+static	void	MAPINT	Load_DEROM (void)
 {
 	N108_Load(Sync_DEROM);
 }
-static	void	_MAPINT	Load_DEIROM (void)
+static	void	MAPINT	Load_DEIROM (void)
 {
 	N108_Load(Sync_DEIROM);
 }
-static	void	_MAPINT	Load_DRROM (void)
+static	void	MAPINT	Load_DRROM (void)
 {
 	N108_Load(Sync_DRROM);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	N108_Reset(ResetType);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	N108_Unload();
 }

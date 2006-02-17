@@ -13,7 +13,7 @@ static	void	Sync (void)
 	EMU->SetCHR_ROM4(4,((Mapper.Latch & 0x20) >> 4) | ((Mapper.Latch & 0x10) >> 1));
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Latch)
 	if (mode == STATE_LOAD)
@@ -21,13 +21,13 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write (int Bank, int Addr, int Val)
+static	void	MAPINT	Write (int Bank, int Addr, int Val)
 {
 	Mapper.Latch = Val;
 	Sync();
 }
 
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 

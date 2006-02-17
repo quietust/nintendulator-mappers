@@ -44,31 +44,31 @@ static	void	Sync (void)
 	}
 }
 
-void	_MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
+void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
 	if ((Mapper.Mode & 0x03) == 1)
 		MMC3_PPUCycle(Addr, Scanline, Cycle, IsRendering);
 }
 
-static	void	_MAPINT	VRC2_CPUWrite8 (int Bank, int Addr, int Val)
+static	void	MAPINT	VRC2_CPUWrite8 (int Bank, int Addr, int Val)
 {
 	VRC2.PRG[0] = Val & 0x1F;
 	Sync();
 }
 
-static	void	_MAPINT	VRC2_CPUWrite9 (int Bank, int Addr, int Val)
+static	void	MAPINT	VRC2_CPUWrite9 (int Bank, int Addr, int Val)
 {
 	VRC2.Mirror = Val & 0xF;
 	Sync();
 }
 
-static	void	_MAPINT	VRC2_CPUWriteA (int Bank, int Addr, int Val)
+static	void	MAPINT	VRC2_CPUWriteA (int Bank, int Addr, int Val)
 {
 	VRC2.PRG[1] = Val & 0x1F;
 	Sync();
 }
 
-static	void	_MAPINT	VRC2_CPUWriteB (int Bank, int Addr, int Val)
+static	void	MAPINT	VRC2_CPUWriteB (int Bank, int Addr, int Val)
 {
 	switch (Addr & 3)
 	{
@@ -80,7 +80,7 @@ static	void	_MAPINT	VRC2_CPUWriteB (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	VRC2_CPUWriteC (int Bank, int Addr, int Val)
+static	void	MAPINT	VRC2_CPUWriteC (int Bank, int Addr, int Val)
 {
 	switch (Addr & 3)
 	{
@@ -92,7 +92,7 @@ static	void	_MAPINT	VRC2_CPUWriteC (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	VRC2_CPUWriteD (int Bank, int Addr, int Val)
+static	void	MAPINT	VRC2_CPUWriteD (int Bank, int Addr, int Val)
 {
 	switch (Addr & 3)
 	{
@@ -104,7 +104,7 @@ static	void	_MAPINT	VRC2_CPUWriteD (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	VRC2_CPUWriteE (int Bank, int Addr, int Val)
+static	void	MAPINT	VRC2_CPUWriteE (int Bank, int Addr, int Val)
 {
 	switch (Addr & 3)
 	{
@@ -150,7 +150,7 @@ static	void	SetMode (void)
 	}
 }
 
-static	void	_MAPINT	Write (int Bank, int Addr, int Val)
+static	void	MAPINT	Write (int Bank, int Addr, int Val)
 {
 	if (Bank == 4)
 		Mapper.Write4(Bank,Addr,Val);
@@ -162,7 +162,7 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Mode)
 	{
@@ -183,13 +183,13 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	iNES_SetSRAM();
 	MMC1_Load(Sync);
 	MMC3_Load(Sync);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
@@ -213,7 +213,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	MMC1_Unload();
 	MMC3_Unload();

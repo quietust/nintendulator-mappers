@@ -12,7 +12,7 @@ static	void	Sync (void)
 	EMU->SetCHR_RAM8(0,0);
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.PRG)
 	if (mode == STATE_LOAD)
@@ -20,20 +20,20 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	WriteCDEF (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteCDEF (int Bank, int Addr, int Val)
 {
 	Mapper.PRG = Val;
 	Sync();
 }
 
-static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	if (Val & 0x10)
 		EMU->Mirror_S1();
 	else	EMU->Mirror_S0();
 }
 
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 

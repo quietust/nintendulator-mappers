@@ -32,14 +32,14 @@ static	int	MapperSnd_GenerateWave (struct MSChan *Chan, int Cycles)
 	}
 	return x / Cycles;
 }
-static	int	_MAPINT	MapperSnd (int Cycles)
+static	int	MAPINT	MapperSnd (int Cycles)
 {
 	int out = 0;
 	out += MapperSnd_GenerateWave(&MapSound.Chan[0],Cycles);
 	out += MapperSnd_GenerateWave(&MapSound.Chan[1],Cycles);
 	return out << 3;
 }
-static	int	_MAPINT	MapperSnd_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	MapperSnd_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	int i;
 	for (i = 0; i < 256; i++)
@@ -77,7 +77,7 @@ static	struct
 	u8 ConfigCmd;
 }	Mapper;
 
-int	_MAPINT	ReadNT (int Bank, int Addr)
+int	MAPINT	ReadNT (int Bank, int Addr)
 {
 	if ((Mapper.Flags & 0x4) && (Addr >= 0x3C0) && ((Bank & 3) == ((Mapper.LastAddr >> 10) & 3)))
 	{
@@ -127,7 +127,7 @@ static	void	Sync (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter)
@@ -145,25 +145,25 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	CPUCycle (void)
+static	void	MAPINT	CPUCycle (void)
 {
 	if ((Mapper.IRQenabled) && (!--Mapper.IRQcounter))
 		EMU->SetIRQ(0);
 }
-static	void	_MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
+static	void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
 	Mapper.LastAddr = Mapper.LastAddrTmp;
 	Mapper.LastAddrTmp = Addr;
 }
 
 
-static	int	_MAPINT	Read4 (int Bank, int Addr)
+static	int	MAPINT	Read4 (int Bank, int Addr)
 {
 	if (Addr & 0x800)
 		return Mapper.Jumper | 'd';
 	else	return Mapper.Read4(Bank,Addr);
 }
-static	int	_MAPINT	Read5 (int Bank, int Addr)
+static	int	MAPINT	Read5 (int Bank, int Addr)
 {
 	struct MSChan *Chan;
 	int result = 0;
@@ -176,7 +176,7 @@ static	int	_MAPINT	Read5 (int Bank, int Addr)
 		result |= 0x40;
 	return result;
 }
-static	void	_MAPINT	WriteL (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteL (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x8)
 	{
@@ -241,7 +241,7 @@ static	void	_MAPINT	WriteL (int Bank, int Addr, int Val)
 		}
 	}
 }
-static	void	_MAPINT	WriteH (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteH (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x400)
 		Mapper.ExtRam1[Addr & 0x3FF] = Val & 3;
@@ -276,7 +276,7 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 	return FALSE;
 }
 
-static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
+static	unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 {
 	switch (mode)
 	{
@@ -305,7 +305,7 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	Mapper.ConfigWindow = NULL;
 	EMU->Mirror_4();
@@ -313,7 +313,7 @@ static	void	_MAPINT	Load (void)
 	Mapper.ExtRam1 = EMU->GetCHR_Ptr1(0xB);
 	UNIF_SetSRAM(8192);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
@@ -348,7 +348,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	if (Mapper.ConfigWindow)
 		DestroyWindow(Mapper.ConfigWindow);

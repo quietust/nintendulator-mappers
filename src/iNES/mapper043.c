@@ -23,7 +23,7 @@ static	void	Sync (void)
 	EMU->SetCHR_ROM8(0,0);
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
 	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter.s0)
@@ -33,7 +33,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	CPUCycle (void)
+static	void	MAPINT	CPUCycle (void)
 {
 	if (Mapper.IRQenabled)
 	{
@@ -43,7 +43,7 @@ static	void	_MAPINT	CPUCycle (void)
 	}
 }
 
-static	void	_MAPINT	Write (int Bank, int Addr, int Val)
+static	void	MAPINT	Write (int Bank, int Addr, int Val)
 {
 	const u8 PRGbanks[8] = {4,3,4,4,4,7,5,6};
 	u16 Loc = (Bank << 12) | Addr;
@@ -101,7 +101,7 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 	return FALSE;
 }
 
-static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
+static	unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 {
 	switch (mode)
 	{
@@ -130,11 +130,11 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	Mapper.ConfigWindow = NULL;
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	iNES_SetMirroring();
@@ -156,7 +156,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	Mapper.ConfigCmd = 0;
 	Sync();
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	if (Mapper.ConfigWindow)
 		DestroyWindow(Mapper.ConfigWindow);

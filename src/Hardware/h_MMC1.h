@@ -15,8 +15,8 @@ extern	TMMC1	MMC1;
 void		MMC1_Load	(FSync);
 void		MMC1_Reset	(RESET_TYPE);
 void		MMC1_Unload	(void);
-int	_MAPINT	MMC1_SaveLoad		(STATE_TYPE,int,unsigned char *);
-void	_MAPINT	MMC1_Write		(int,int,int);
+int	MAPINT	MMC1_SaveLoad		(STATE_TYPE,int,unsigned char *);
+void	MAPINT	MMC1_Write		(int,int,int);
 
 void		MMC1_SyncMirror		(void);
 int		MMC1_GetPRGBankLo	(void);

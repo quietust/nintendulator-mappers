@@ -38,7 +38,7 @@ static  void    Sync_8259B (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Cmd)
 	SAVELOAD_BYTE(mode,x,data,Mapper.CHR0l)
@@ -54,7 +54,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static  void    _MAPINT	Write (int Bank, int Addr, int Val)
+static  void    MAPINT	Write (int Bank, int Addr, int Val)
 {
 	u16 Loc = (Bank << 12) | Addr;
 	if (Loc < 0x4018)
@@ -91,12 +91,12 @@ static  void    Reset (RESET_TYPE ResetType)
 	EMU->SetCHR_RAM8(0,0);	// in case there is no CHR ROM
 	Mapper.Sync();
 }
-static  void    _MAPINT	Reset_8259A (RESET_TYPE ResetType)
+static  void    MAPINT	Reset_8259A (RESET_TYPE ResetType)
 {
 	Mapper.Sync = Sync_8259A;
 	Reset(ResetType);
 }
-static  void    _MAPINT	Reset_8259B (RESET_TYPE ResetType)
+static  void    MAPINT	Reset_8259B (RESET_TYPE ResetType)
 {
 	Mapper.Sync = Sync_8259B;
 	Reset(ResetType);

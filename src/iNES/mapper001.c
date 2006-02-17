@@ -13,16 +13,16 @@ static	void	Sync (void)
 	MMC1_SyncWRAM();
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	MMC1_Load(Sync);
 	iNES_SetSRAM();
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	MMC1_Reset(ResetType);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	MMC1_Unload();
 }

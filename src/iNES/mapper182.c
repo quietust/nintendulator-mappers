@@ -9,13 +9,13 @@ static	void	Sync (void)
 	MMC3_SyncMirror();
 }
 
-static	void	_MAPINT	Write89 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write89 (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
 		MMC3_CPUWriteAB(Bank,0,Val);
 }
 
-static	void	_MAPINT	WriteAB (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
 	unsigned char LUT[8] = {0,3,1,5,6,7,2,4};
 	if (Addr & 1)
@@ -23,7 +23,7 @@ static	void	_MAPINT	WriteAB (int Bank, int Addr, int Val)
 	else	MMC3_CPUWrite89(Bank,0,LUT[Val & 0x7] | (Val & 0xC0));
 }
 
-static	void	_MAPINT	WriteCD (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteCD (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
 	{
@@ -33,18 +33,18 @@ static	void	_MAPINT	WriteCD (int Bank, int Addr, int Val)
 	else	MMC3_CPUWrite89(Bank,1,Val);
 }
 
-static	void	_MAPINT	WriteEF (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteEF (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
 		MMC3_CPUWriteEF(Bank,1,Val);
 	else	MMC3_CPUWriteEF(Bank,0,Val);
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	MMC3_Load(Sync);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	MMC3_Reset(ResetType);
 
@@ -57,7 +57,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xE,WriteEF);
 	EMU->SetCPUWriteHandler(0xF,WriteEF);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	MMC3_Unload();
 }

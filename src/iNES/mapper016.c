@@ -28,7 +28,7 @@ static	void	Sync (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter.s0)
@@ -43,7 +43,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	CPUCycle (void)
+static	void	MAPINT	CPUCycle (void)
 {
 	if ((Mapper.IRQenabled) && (!--Mapper.IRQcounter.s0))
 		EMU->SetIRQ(0);
@@ -76,14 +76,14 @@ wait a bit
 */
 }
 
-static	int	_MAPINT	Read (int Bank, int Addr)
+static	int	MAPINT	Read (int Bank, int Addr)
 {
 	if ((Addr & 0xF) == 0)
 		return ReadEPROM();
 	else	return -1;
 }
 
-static	void	_MAPINT	Write (int Bank, int Addr, int Val)
+static	void	MAPINT	Write (int Bank, int Addr, int Val)
 {
 	switch (Addr & 0xF)
 	{
@@ -106,11 +106,11 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	iNES_SetSRAM();
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	if (ROM->INES_Flags & 0x02)

@@ -172,7 +172,7 @@ void	MMC5_Unload (void)
 	MMC5sound_Unload();
 }
 
-int	_MAPINT	MMC5_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	MMC5_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,MMC5.WRAMsize)
@@ -349,7 +349,7 @@ void	MMC5_SyncMirror (void)
 	}
 }
 
-void	_MAPINT	MMC5_WritePPU (int Bank, int Addr, int Val)
+void	MAPINT	MMC5_WritePPU (int Bank, int Addr, int Val)
 {
 	MMC5.WritePPU(Bank,Addr,Val);
 	switch (Addr & 7)
@@ -363,7 +363,7 @@ void	_MAPINT	MMC5_WritePPU (int Bank, int Addr, int Val)
 	}
 }
 
-int	_MAPINT	MMC5_CPURead5 (int Bank, int Addr)
+int	MAPINT	MMC5_CPURead5 (int Bank, int Addr)
 {
 	register u8 read = -1;
 	switch (Addr & 0xF00)
@@ -387,7 +387,7 @@ int	_MAPINT	MMC5_CPURead5 (int Bank, int Addr)
 	}
 	return read;
 }
-void	_MAPINT	MMC5_CPUWrite5 (int Bank, int Addr, int Val)
+void	MAPINT	MMC5_CPUWrite5 (int Bank, int Addr, int Val)
 {
 	switch (Addr & 0xF00)
 	{
@@ -471,14 +471,14 @@ void	_MAPINT	MMC5_CPUWrite5 (int Bank, int Addr, int Val)
 	}
 }
 
-void	_MAPINT	MMC5_CPUWrite6F (int Bank, int Addr, int Val)
+void	MAPINT	MMC5_CPUWrite6F (int Bank, int Addr, int Val)
 {
 	if ((MMC5.WRAMprot[0] == 2) && (MMC5.WRAMprot[1] == 1))
 		MMC5.CPUWrite6F(Bank,Addr,Val);
 }
 
 #ifdef	MMC5_EXTENDED_VSPLIT
-int	_MAPINT	MMC5_PPUReadPT (int Bank, int Addr)
+int	MAPINT	MMC5_PPUReadPT (int Bank, int Addr)
 {
 	if (!InSplitArea)
 		return MMC5.PPURead[Bank](Bank,Addr);
@@ -487,7 +487,7 @@ int	_MAPINT	MMC5_PPUReadPT (int Bank, int Addr)
 #endif
 
 static int extile = 0;
-int	_MAPINT	MMC5_PPUReadNTSplitExt (int Bank, int Addr)
+int	MAPINT	MMC5_PPUReadNTSplitExt (int Bank, int Addr)
 {
 	if (CurTile >= 34)				// we only want to deal with background data
 		return MMC5.PPURead[Bank](Bank,Addr);	// sprite fetches can go through
@@ -520,7 +520,7 @@ int	_MAPINT	MMC5_PPUReadNTSplitExt (int Bank, int Addr)
 		}
 	}
 }
-int	_MAPINT	MMC5_PPUReadNTSplit (int Bank, int Addr)
+int	MAPINT	MMC5_PPUReadNTSplit (int Bank, int Addr)
 {
 	if (CurTile >= 34)				// we only want to deal with background data
 		return MMC5.PPURead[Bank](Bank,Addr);	// sprite fetches can go through
@@ -536,7 +536,7 @@ int	_MAPINT	MMC5_PPUReadNTSplit (int Bank, int Addr)
 	}
 	else	return MMC5.PPURead[Bank](Bank,Addr);	// weren't in split area, let it through
 }
-int	_MAPINT	MMC5_PPUReadNTExt (int Bank, int Addr)
+int	MAPINT	MMC5_PPUReadNTExt (int Bank, int Addr)
 {
 	if (CurTile >= 34)				// we only want to deal with background data
 		return MMC5.PPURead[Bank](Bank,Addr);	// sprite fetches can go through
@@ -590,7 +590,7 @@ static	void	MMC5_SetPPUHandlers (void)
 	}
 }
 
-void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
+void	MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
 	if ((Scanline == 240) && (Cycle == 0))
 	{
@@ -681,7 +681,7 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 	}
 }
 
-int	_MAPINT	MMC5_MapperSnd (int Cycles)
+int	MAPINT	MMC5_MapperSnd (int Cycles)
 {
 	return MMC5sound_Get(Cycles);
 }

@@ -14,7 +14,7 @@ static	void	Sync (void)
 	EMU->SetCHR_ROM8(0,Mapper.Reg1 | ((Mapper.Reg0 >> 1) & 0xC));
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Reg0)
 	SAVELOAD_BYTE(mode,x,data,Mapper.Reg1)
@@ -23,7 +23,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	WriteLo (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteLo (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
 		return;
@@ -31,7 +31,7 @@ static	void	_MAPINT	WriteLo (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteHi (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteHi (int Bank, int Addr, int Val)
 {
 	if (Mapper.Reg0 & 0x4)
 	{
@@ -40,7 +40,7 @@ static	void	_MAPINT	WriteHi (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 

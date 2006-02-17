@@ -80,7 +80,7 @@ void	FME7_SyncCHR (int AND, int OR)
 		EMU->SetCHR_ROM1(x,(FME7.CHR[x] & AND) | OR);
 }
 
-int	_MAPINT	FME7_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	FME7_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_WORD(mode,x,data,FME7.IRQcounter.s0)
@@ -97,12 +97,12 @@ int	_MAPINT	FME7_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-void	_MAPINT	FME7_Write89 (int Bank, int Addr, int Val)
+void	MAPINT	FME7_Write89 (int Bank, int Addr, int Val)
 {
 	FME7.Cmd = Val & 0xF;
 }
 
-void	_MAPINT	FME7_WriteAB (int Bank, int Addr, int Val)
+void	MAPINT	FME7_WriteAB (int Bank, int Addr, int Val)
 {
 	switch (FME7.Cmd)
 	{
@@ -128,19 +128,19 @@ void	_MAPINT	FME7_WriteAB (int Bank, int Addr, int Val)
 	FME7.Sync();
 }
 
-void	_MAPINT	FME7_WriteCDEF (int Bank, int Addr, int Val)
+void	MAPINT	FME7_WriteCDEF (int Bank, int Addr, int Val)
 {
 	FME7sound_Write((Bank << 12) | Addr,Val);
 	FME7.Sync();
 }
 
-void	_MAPINT	FME7_CPUCycle (void)
+void	MAPINT	FME7_CPUCycle (void)
 {
 	if ((FME7.IRQenabled & 0x80) && (!--FME7.IRQcounter.s0) && (FME7.IRQenabled & 0x01))
 		EMU->SetIRQ(0);
 }
 
-int	_MAPINT	FME7_GenSound (int Cycles)
+int	MAPINT	FME7_GenSound (int Cycles)
 {
 	return FME7sound_Get(Cycles);
 }

@@ -81,7 +81,7 @@ void	MMC6_SyncCHR_RAM (int AND, int OR)
 		EMU->SetCHR_RAM1(x,(MMC6_GetCHRBank(x) & AND) | OR);
 }
 
-int	_MAPINT	MMC6_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	MMC6_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,MMC6.IRQcounter)
@@ -117,7 +117,7 @@ int	_MAPINT	MMC6_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-int	_MAPINT	MMC6_CPURead7 (int Bank, int Addr)
+int	MAPINT	MMC6_CPURead7 (int Bank, int Addr)
 {
 	if (MMC6.WRAMEnab & 0xA0)
 	{
@@ -128,13 +128,13 @@ int	_MAPINT	MMC6_CPURead7 (int Bank, int Addr)
 	else	return -1;
 }
 
-void	_MAPINT	MMC6_CPUWrite7 (int Bank, int Addr, int Val)
+void	MAPINT	MMC6_CPUWrite7 (int Bank, int Addr, int Val)
 {
 	if (((MMC6.WRAMEnab >> ((Addr & 0x200) >> 8)) & 0x30) == 0x30)
 		MMC6.CPUWrite7(0x7,Addr & 0x3FF,Val);
 }
 
-void	_MAPINT	MMC6_CPUWrite89 (int Bank, int Addr, int Val)
+void	MAPINT	MMC6_CPUWrite89 (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
 		switch (MMC6.Cmd & 0x7)
@@ -159,7 +159,7 @@ void	_MAPINT	MMC6_CPUWrite89 (int Bank, int Addr, int Val)
 	MMC6.Sync();
 }
 
-void	_MAPINT	MMC6_CPUWriteAB (int Bank, int Addr, int Val)
+void	MAPINT	MMC6_CPUWriteAB (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
 	{
@@ -170,20 +170,20 @@ void	_MAPINT	MMC6_CPUWriteAB (int Bank, int Addr, int Val)
 	MMC6.Sync();
 }
 
-void	_MAPINT	MMC6_CPUWriteCD (int Bank, int Addr, int Val)
+void	MAPINT	MMC6_CPUWriteCD (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
 		MMC6.IRQreload = 1;
 	else	MMC6.IRQlatch = Val;
 }
 
-void	_MAPINT	MMC6_CPUWriteEF (int Bank, int Addr, int Val)
+void	MAPINT	MMC6_CPUWriteEF (int Bank, int Addr, int Val)
 {
 	MMC6.IRQenabled = (Addr & 1);
 	if (!MMC6.IRQenabled)
 		EMU->SetIRQ(1);
 }
-void	_MAPINT	MMC6_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
+void	MAPINT	MMC6_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
 	if (MMC6.IRQaddr)
 		MMC6.IRQaddr--;

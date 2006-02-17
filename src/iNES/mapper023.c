@@ -31,7 +31,7 @@ static	void	Sync (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	int i;
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
@@ -49,7 +49,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	CPUCycle (void)
+static	void	MAPINT	CPUCycle (void)
 {
 	if ((Mapper.IRQenabled & 2) && ((Mapper.IRQenabled & 4) || ((Mapper.IRQcycles -= 3) < 0)))
 	{
@@ -64,13 +64,13 @@ static	void	_MAPINT	CPUCycle (void)
 	}
 }
 
-static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
 	Mapper.PRG[0] = Val & 0xF;
 	Sync();
 }
 
-static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
 	if (Addr & 2)
@@ -79,13 +79,13 @@ static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
 	Mapper.PRG[1] = Val & 0xF;
 	Sync();
 }
 
-static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
 	switch (Addr & 3)
@@ -98,7 +98,7 @@ static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
 	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
 	switch (Addr & 3)
@@ -111,7 +111,7 @@ static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteD (int Bank, int Addr, int Val)
 {
 	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
 	switch (Addr & 3)
@@ -124,7 +124,7 @@ static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteE (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteE (int Bank, int Addr, int Val)
 {
 	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
 	switch (Addr & 3)
@@ -137,7 +137,7 @@ static	void	_MAPINT	WriteE (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
 	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
 	switch (Addr & 0x3)
@@ -158,11 +158,11 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	iNES_SetSRAM();
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 

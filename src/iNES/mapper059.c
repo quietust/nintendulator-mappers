@@ -27,7 +27,7 @@ static	void	Sync (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	x = Latch_SaveLoad_A(mode,x,data);
 	SAVELOAD_BYTE(mode,x,data,Mapper.Jumper)
@@ -68,7 +68,7 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 	return FALSE;
 }
 
-static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
+static	unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 {
 	switch (mode)
 	{
@@ -97,17 +97,17 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	Latch_Load(Sync,FALSE);
 	Mapper.ConfigWindow = NULL;
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	Latch_Reset(ResetType);
 	Mapper.ConfigCmd = 0;
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	Latch_Unload();
 	if (Mapper.ConfigWindow)

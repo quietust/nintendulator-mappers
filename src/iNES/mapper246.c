@@ -18,7 +18,7 @@ static	void	Sync (void)
 	EMU->SetPRG_RAM4(0x6,0);
 }
 
-static	int	_MAPINT	SaveLoad (RESET_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (RESET_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 4; i++)
@@ -30,14 +30,14 @@ static	int	_MAPINT	SaveLoad (RESET_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	int	_MAPINT	Read6 (int Bank, int Addr)
+static	int	MAPINT	Read6 (int Bank, int Addr)
 {
 	if (Addr & 0x800)
 		return Mapper.Read6(Bank,Addr & 0x7FF);
 	else	return -1;
 }
 
-static	void	_MAPINT	Write6 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write6 (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
 	{
@@ -58,11 +58,11 @@ static	void	_MAPINT	Write6 (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	iNES_SetSRAM();
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	iNES_SetMirroring();

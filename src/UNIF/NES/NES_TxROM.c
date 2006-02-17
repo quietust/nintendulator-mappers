@@ -46,40 +46,40 @@ static	void	Sync_TSROM (void)
 	MMC3_SyncMirror();
 }
 
-static	void	_MAPINT	Load_TFROM (void)
+static	void	MAPINT	Load_TFROM (void)
 {
 	MMC3_Load(Sync_TFROM);
 }
-static	void	_MAPINT	Load_TGROM (void)
+static	void	MAPINT	Load_TGROM (void)
 {
 	MMC3_Load(Sync_TGROM);
 }
-static	void	_MAPINT	Load_TKROM (void)
+static	void	MAPINT	Load_TKROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC3_Load(Sync_TKROM);
 }
-static	void	_MAPINT	Load_TLROM (void)
+static	void	MAPINT	Load_TLROM (void)
 {
 	MMC3_Load(Sync_TLROM);
 }
-static	void	_MAPINT	Load_TL1ROM (void)
+static	void	MAPINT	Load_TL1ROM (void)
 {
 	MMC3_Load(Sync_TL1ROM);
 }
-static	void	_MAPINT	Load_TR1ROM (void)
+static	void	MAPINT	Load_TR1ROM (void)
 {
 	MMC3_Load(Sync_TR1ROM);
 }
-static	void	_MAPINT	Load_TSROM (void)
+static	void	MAPINT	Load_TSROM (void)
 {
 	MMC3_Load(Sync_TSROM);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	MMC3_Reset(ResetType);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	MMC3_Unload();
 }

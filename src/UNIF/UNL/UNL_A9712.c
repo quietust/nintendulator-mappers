@@ -25,7 +25,7 @@ static	void	Sync (void)
 	}
 }
 
-static	void	_MAPINT	Write5 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write5 (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
 	{
@@ -36,11 +36,11 @@ static	void	_MAPINT	Write5 (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	MMC3_Load(Sync);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	MMC3_Reset(ResetType);
 	EMU->SetCPUWriteHandler(0x5,Write5);
@@ -50,7 +50,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 		Mapper.Reg1 = 0;
 	}
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	MMC3_Unload();
 }

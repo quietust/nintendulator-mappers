@@ -10,23 +10,23 @@ static	void	Sync (void)
 	EMU->SetCHR_RAM8(0,0);
 }
 
-static	int	_MAPINT	Read67 (int Bank, int Addr)
+static	int	MAPINT	Read67 (int Bank, int Addr)
 {
 	return 3;
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	Latch_Load(Sync,FALSE);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 	Latch_Reset(ResetType);
 	EMU->SetCPUReadHandler(0x6,Read67);
 	EMU->SetCPUReadHandler(0x7,Read67);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	Latch_Unload();
 }

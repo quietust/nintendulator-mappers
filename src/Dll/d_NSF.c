@@ -7,12 +7,12 @@ CPROMInfo		ROM;
 
 extern	CTMapperInfo	MapperInfo_NSF;
 
-static	void	_MAPINT	UnloadMapper (void)
+static	void	MAPINT	UnloadMapper (void)
 {
 	ROM = NULL;
 }
 
-static	CPMapperInfo	_MAPINT	LoadMapper (CPROMInfo _ROM)
+static	CPMapperInfo	MAPINT	LoadMapper (CPROMInfo _ROM)
 {
 	ROM = _ROM;
 	if (ROM->ROMType == ROM_UNDEFINED)	/* Allow enumerating mappers */
@@ -43,13 +43,13 @@ static	TDLLInfo	DLL_Info =
 	UnloadMapper
 };
 
-__declspec(dllexport)	void	_MAPINT	UnloadMapperDLL (void)
+__declspec(dllexport)	void	MAPINT	UnloadMapperDLL (void)
 {
 	EMU = NULL;
 	hWnd = NULL;
 }
 
-__declspec(dllexport)	PDLLInfo	_MAPINT	LoadMapperDLL (HWND hWndEmu, CPEmulatorInterface _EMU, int VersionRequired)
+__declspec(dllexport)	PDLLInfo	MAPINT	LoadMapperDLL (HWND hWndEmu, CPEmulatorInterface _EMU, int VersionRequired)
 {
 	hWnd = hWndEmu;
 	EMU = _EMU;

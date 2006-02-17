@@ -85,64 +85,64 @@ static	void	Sync_SUROM (void)
 	MMC1_SyncWRAM();
 }
 
-static	void	_MAPINT	Load_SAROM (void)
+static	void	MAPINT	Load_SAROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC1_Load(Sync_SAROM);
 }
-static	void	_MAPINT	Load_SBROM (void)
+static	void	MAPINT	Load_SBROM (void)
 {
 	MMC1_Load(Sync_SBROM);
 }
-static	void	_MAPINT	Load_SCROM (void)
+static	void	MAPINT	Load_SCROM (void)
 {
 	MMC1_Load(Sync_SCROM);
 }
-static	void	_MAPINT	Load_SEROM (void)
+static	void	MAPINT	Load_SEROM (void)
 {
 	MMC1_Load(Sync_SEROM);
 }
-static	void	_MAPINT	Load_SFROM (void)
+static	void	MAPINT	Load_SFROM (void)
 {
 	MMC1_Load(Sync_SFROM);
 }
-static	void	_MAPINT	Load_SGROM (void)
+static	void	MAPINT	Load_SGROM (void)
 {
 	MMC1_Load(Sync_SGROM);
 }
-static	void	_MAPINT	Load_SKROM (void)
+static	void	MAPINT	Load_SKROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC1_Load(Sync_SKROM);
 }
-static	void	_MAPINT	Load_SLROM (void)
+static	void	MAPINT	Load_SLROM (void)
 {
 	MMC1_Load(Sync_SLROM);
 }
-static	void	_MAPINT	Load_SL1ROM (void)
+static	void	MAPINT	Load_SL1ROM (void)
 {
 	MMC1_Load(Sync_SL1ROM);
 }
-static	void	_MAPINT	Load_SNROM (void)
+static	void	MAPINT	Load_SNROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC1_Load(Sync_SNROM);
 }
-static	void	_MAPINT	Load_SOROM (void)
+static	void	MAPINT	Load_SOROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC1_Load(Sync_SOROM);
 }
-static	void	_MAPINT	Load_SUROM (void)
+static	void	MAPINT	Load_SUROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC1_Load(Sync_SUROM);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	MMC1_Reset(ResetType);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	MMC1_Unload();
 }

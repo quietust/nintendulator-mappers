@@ -39,7 +39,7 @@ static	void	Sync (void)
 		EMU->Mirror_V();
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter.s0)
@@ -55,7 +55,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	CPUCycle (void)
+static	void	MAPINT	CPUCycle (void)
 {
 	if (Mapper.IRQcounter.b1 & 0x80)
 	{
@@ -65,14 +65,14 @@ static	void	_MAPINT	CPUCycle (void)
 	}
 }
 
-static	int	_MAPINT	Read4 (int Bank, int Addr)
+static	int	MAPINT	Read4 (int Bank, int Addr)
 {
 	if (Addr & 0x800)
 		return N106sound_Read((Bank << 12) | Addr);
 	else	return Mapper.Read4(Bank,Addr);
 }
 
-static	int	_MAPINT	Read5 (int Bank, int Addr)
+static	int	MAPINT	Read5 (int Bank, int Addr)
 {
 	EMU->SetIRQ(1);
 	if (Addr & 0x800)
@@ -80,14 +80,14 @@ static	int	_MAPINT	Read5 (int Bank, int Addr)
 	else	return Mapper.IRQcounter.b0;
 }
 
-static	void	_MAPINT	Write4 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write4 (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
 		N106sound_Write((Bank << 12) | Addr,Val);
 	else	Mapper.Write4(Bank,Addr,Val);
 }
 
-static	void	_MAPINT	Write5 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write5 (int Bank, int Addr, int Val)
 {
 	EMU->SetIRQ(1);
 	if (Addr & 0x800)
@@ -95,7 +95,7 @@ static	void	_MAPINT	Write5 (int Bank, int Addr, int Val)
 	else	Mapper.IRQcounter.b0 = Val;
 }
 
-static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
 		Mapper.CHR[1] = Val;
@@ -103,7 +103,7 @@ static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
 		Mapper.CHR[3] = Val;
@@ -111,7 +111,7 @@ static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
 		Mapper.CHR[5] = Val;
@@ -119,7 +119,7 @@ static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
 		Mapper.CHR[7] = Val;
@@ -127,7 +127,7 @@ static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
 		Mapper.NTab[1] = Val;
@@ -135,7 +135,7 @@ static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteD (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
 		Mapper.NTab[3] = Val;
@@ -143,7 +143,7 @@ static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteE (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteE (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
 		Mapper.PRG[1] = Val;
@@ -151,7 +151,7 @@ static	void	_MAPINT	WriteE (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
 		N106sound_Write((Bank << 12) | Addr,Val);
@@ -159,17 +159,17 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	int	_MAPINT	MapperSnd (int Cycles)
+static	int	MAPINT	MapperSnd (int Cycles)
 {
 	return N106sound_Get(Cycles);
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	N106sound_Load();
 	iNES_SetSRAM();
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
@@ -204,7 +204,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetIRQ(1);
 	Sync();
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	N106sound_Unload();
 }

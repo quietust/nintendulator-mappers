@@ -121,7 +121,7 @@ static	int	N106_GenerateWave (struct N106chan *Chan, int Cycles)
 	}
 	return (Chan->CurP - 0x8) * Chan->volume;
 }
-int	_MAPINT	N106sound_Get (int Cycles)
+int	MAPINT	N106sound_Get (int Cycles)
 {
 	int out = 0;
 	int i;
@@ -130,7 +130,7 @@ int	_MAPINT	N106sound_Get (int Cycles)
 	return out << 5;
 }
 
-int	_MAPINT	N106sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	N106sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	int i;
 	switch (mode)

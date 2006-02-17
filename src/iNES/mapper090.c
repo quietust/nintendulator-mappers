@@ -119,7 +119,7 @@ static	void	SyncNametables (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 4; i++)
@@ -178,12 +178,12 @@ static	void	IRQcount (void)
 		}
 	}
 }
-static	void	_MAPINT	CPUCycle (void)
+static	void	MAPINT	CPUCycle (void)
 {
 	if (Mapper.IRQenabled && ((Mapper.IRQmode & 0x3) == 0))
 		IRQcount();
 }
-static	void	_MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
+static	void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
 	if (Mapper.IRQenabled && ((Mapper.IRQmode & 0x3) == 1))
 	{
@@ -192,20 +192,20 @@ static	void	_MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering
 		Mapper.IRQaddr = Addr;
 	}
 }
-static	void	_MAPINT	CPUWrite (int Bank, int Addr, int Val)
+static	void	MAPINT	CPUWrite (int Bank, int Addr, int Val)
 {
 	if (Mapper.IRQenabled && ((Mapper.IRQmode & 0x3) == 2))
 		IRQcount();
 	Mapper.CPUWrite[Bank](Bank,Addr,Val);
 }
-static	int	_MAPINT	PPURead (int Bank, int Addr)
+static	int	MAPINT	PPURead (int Bank, int Addr)
 {
 	if (Mapper.IRQenabled && ((Mapper.IRQmode & 0x3) == 3))
 		IRQcount();
 	return Mapper.PPURead[Bank](Bank,Addr);
 }
 
-static	int	_MAPINT	Read5 (int Bank, int Addr)
+static	int	MAPINT	Read5 (int Bank, int Addr)
 {
 	switch (Addr & 0x803)
 	{
@@ -218,7 +218,7 @@ static	int	_MAPINT	Read5 (int Bank, int Addr)
 	return -1;
 }
 
-static	void	_MAPINT	Write5 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write5 (int Bank, int Addr, int Val)
 {
 	switch (Addr & 0x803)
 	{
@@ -228,25 +228,25 @@ static	void	_MAPINT	Write5 (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
 	Mapper.PRGbanks[Addr & 3] = Val;
 	SyncPRG();
 }
 
-static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	Mapper.CHRbanks[Addr & 7].b0 = Val;
 	SyncCHR();
 }
 
-static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
 	Mapper.CHRbanks[Addr & 7].b1 = Val;
 	SyncCHR();
 }
 
-static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	if (Addr & 4)
 		Mapper.Nametables[Addr & 3].b1 = Val;
@@ -254,7 +254,7 @@ static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
 	SyncNametables();
 }
 
-static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
 	switch (Addr & 7)
 	{
@@ -279,7 +279,7 @@ static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteD (int Bank, int Addr, int Val)
 {
 	switch (Addr & 3)
 	{
@@ -331,7 +331,7 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 	return FALSE;
 }
 
-static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
+static	unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 {
 	switch (mode)
 	{
@@ -366,11 +366,11 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	Mapper.ConfigWindow = NULL;
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
@@ -407,7 +407,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	SyncCHR();
 	SyncNametables();
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	if (Mapper.ConfigWindow)
 		DestroyWindow(Mapper.ConfigWindow);

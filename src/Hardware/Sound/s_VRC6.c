@@ -113,7 +113,7 @@ void	VRC6sound_Write (int Addr, int Val)
 	}
 }
 
-int	_MAPINT	VRC6sound_Get (int Cycles)
+int	MAPINT	VRC6sound_Get (int Cycles)
 {
 	int z = 0;
 	if (VRC6sound.Sq0.enabled)	z += VRC6_GenerateSquare(&VRC6sound.Sq0,Cycles);
@@ -122,7 +122,7 @@ int	_MAPINT	VRC6sound_Get (int Cycles)
 	return z << 8;
 }
 
-int	_MAPINT	VRC6sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	VRC6sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq0.byte0)
 	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq0.byte1)

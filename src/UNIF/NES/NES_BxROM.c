@@ -7,16 +7,16 @@ static	void	Sync_BNROM (void)
 	EMU->SetCHR_RAM8(0,0);
 }
 
-static	void	_MAPINT	Load_BNROM (void)
+static	void	MAPINT	Load_BNROM (void)
 {
 	Latch_Load(Sync_BNROM,TRUE);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	Latch_Reset(ResetType);
 	UNIF_SetMirroring(NULL);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	Latch_Unload();
 }

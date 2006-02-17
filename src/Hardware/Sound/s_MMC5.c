@@ -181,7 +181,7 @@ int	MMC5sound_Read (int Addr)
 	return read;
 }
 
-int	_MAPINT	MMC5sound_Get (int Cycles)
+int	MAPINT	MMC5sound_Get (int Cycles)
 {
 	int z = 0;
 	if (MMC5sound.Sqr0.Enabled)	z += MMC5_GenerateSquare(&MMC5sound.Sqr0,Cycles);
@@ -190,7 +190,7 @@ int	_MAPINT	MMC5sound_Get (int Cycles)
 	return z << 6;
 }
 
-int	_MAPINT	MMC5sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	MMC5sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	if (mode == STATE_SAVE)
 		memcpy(data+x,&MMC5sound,sizeof(MMC5sound));

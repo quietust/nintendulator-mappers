@@ -26,12 +26,12 @@ void		MMC3_SyncPRG	(int,int);
 void		MMC3_SyncWRAM	(void);
 void		MMC3_SyncCHR_ROM(int,int);
 void		MMC3_SyncCHR_RAM(int,int);
-int	_MAPINT	MMC3_SaveLoad	(STATE_TYPE,int,unsigned char *);
-void	_MAPINT	MMC3_CPUWrite67	(int,int,int);
-void	_MAPINT	MMC3_CPUWrite89	(int,int,int);
-void	_MAPINT	MMC3_CPUWriteAB	(int,int,int);
-void	_MAPINT	MMC3_CPUWriteCD	(int,int,int);
-void	_MAPINT	MMC3_CPUWriteEF	(int,int,int);
-void	_MAPINT	MMC3_PPUCycle	(int,int,int,int);
+int	MAPINT	MMC3_SaveLoad	(STATE_TYPE,int,unsigned char *);
+void	MAPINT	MMC3_CPUWrite67	(int,int,int);
+void	MAPINT	MMC3_CPUWrite89	(int,int,int);
+void	MAPINT	MMC3_CPUWriteAB	(int,int,int);
+void	MAPINT	MMC3_CPUWriteCD	(int,int,int);
+void	MAPINT	MMC3_CPUWriteEF	(int,int,int);
+void	MAPINT	MMC3_PPUCycle	(int,int,int,int);
 
 #endif	/* H_MMC3_H */

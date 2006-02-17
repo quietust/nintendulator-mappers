@@ -18,9 +18,9 @@ extern	TVS	VS;
 void			VS_Load		(void);
 void			VS_Reset	(RESET_TYPE);
 void			VS_Unload	(void);
-int		_MAPINT	VS_SaveLoad	(STATE_TYPE,int,unsigned char *);
-int		_MAPINT	VS_Read		(int,int);
-void		_MAPINT	VS_CPUCycle	(void);
-unsigned char	_MAPINT VS_Config	(CFG_TYPE,unsigned char);
+int		MAPINT	VS_SaveLoad	(STATE_TYPE,int,unsigned char *);
+int		MAPINT	VS_Read		(int,int);
+void		MAPINT	VS_CPUCycle	(void);
+unsigned char	MAPINT VS_Config	(CFG_TYPE,unsigned char);
 
 #endif	/* H_VS_H */

@@ -19,11 +19,11 @@ void		FME7_Unload	(void);
 void		FME7_SyncMirror	(void);
 void		FME7_SyncPRG	(int,int);
 void		FME7_SyncCHR	(int,int);
-int	_MAPINT	FME7_SaveLoad	(STATE_TYPE,int,unsigned char *);
-void	_MAPINT	FME7_Write89	(int,int,int);
-void	_MAPINT	FME7_WriteAB	(int,int,int);
-void	_MAPINT	FME7_WriteCDEF	(int,int,int);
-void	_MAPINT	FME7_CPUCycle	(void);
-int	_MAPINT	FME7_GenSound	(int);
+int	MAPINT	FME7_SaveLoad	(STATE_TYPE,int,unsigned char *);
+void	MAPINT	FME7_Write89	(int,int,int);
+void	MAPINT	FME7_WriteAB	(int,int,int);
+void	MAPINT	FME7_WriteCDEF	(int,int,int);
+void	MAPINT	FME7_CPUCycle	(void);
+int	MAPINT	FME7_GenSound	(int);
 
 #endif	/* H_FME7_H */

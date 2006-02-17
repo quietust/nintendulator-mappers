@@ -29,7 +29,7 @@ static	void	Sync (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	x = Latch_SaveLoad_D(mode,x,data);
 	SAVELOAD_BYTE(mode,x,data,Mapper.Mode)
@@ -38,12 +38,12 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	Latch_Load(Sync,FALSE);
 }
 
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	if (ResetType == RESET_HARD)
 		Mapper.Mode = 0;
@@ -52,7 +52,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	Latch_Reset(ResetType);
 }
 
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	Latch_Unload();
 }

@@ -8,24 +8,24 @@ static	struct
 	unsigned char ROM[0x1000];
 }	Mapper;
 
-static	int	_MAPINT	Read (int Bank, int Addr)
+static	int	MAPINT	Read (int Bank, int Addr)
 {
 	return Mapper.Read(Bank,Addr & 0x7FF);
 }
 
-static	void	_MAPINT	Write (int Bank, int Addr, int Val)
+static	void	MAPINT	Write (int Bank, int Addr, int Val)
 {
 	Mapper.Write(Bank,Addr & 0x7FF,Val);
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	EMU->SetPRG_ROM4(0x6,8);
 	memcpy(&Mapper.ROM[0x000],EMU->GetPRG_Ptr4(0x6),0x800);
 	memcpy(&Mapper.ROM[0x800],EMU->GetPRG_Ptr4(0x6),0x800);
 }
 
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	Mapper.Read = EMU->GetCPUReadHandler(0x7);
 	EMU->SetCPUReadHandler(0x7,Read);

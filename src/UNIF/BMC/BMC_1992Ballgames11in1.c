@@ -22,7 +22,7 @@ static	void	Sync (void)
 	else	EMU->Mirror_V();
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Bank)
 	SAVELOAD_BYTE(mode,x,data,Mapper.Mode)
@@ -31,13 +31,13 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write67 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write67 (int Bank, int Addr, int Val)
 {
 	Mapper.Mode = ((Val & 0x10) >> 3) | ((Val & 0x02) >> 1);
 	Sync();
 }
 
-static	void	_MAPINT	Write89ABCDEF (int Bank, int Addr, int Val)
+static	void	MAPINT	Write89ABCDEF (int Bank, int Addr, int Val)
 {
 	Mapper.Bank = (Val & 0xF) << 2;
 	if (Bank & 0x4)
@@ -45,7 +45,7 @@ static	void	_MAPINT	Write89ABCDEF (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 

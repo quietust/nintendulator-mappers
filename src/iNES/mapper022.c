@@ -21,7 +21,7 @@ static	void	Sync (void)
 	else	EMU->Mirror_V();
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 2; i++)
@@ -34,25 +34,25 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
 	Mapper.PRG[0] = Val & 0x1F;
 	Sync();
 }
 
-static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	Mapper.Mirror = Val & 0xF;
 	Sync();
 }
 
-static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
 	Mapper.PRG[1] = Val & 0x1F;
 	Sync();
 }
 
-static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	switch (Addr & 3)
 	{
@@ -64,7 +64,7 @@ static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
 	switch (Addr & 3)
 	{
@@ -76,7 +76,7 @@ static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteD (int Bank, int Addr, int Val)
 {
 	switch (Addr & 3)
 	{
@@ -88,7 +88,7 @@ static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteE (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteE (int Bank, int Addr, int Val)
 {
 	switch (Addr & 3)
 	{
@@ -100,11 +100,11 @@ static	void	_MAPINT	WriteE (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	iNES_SetSRAM();
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	EMU->SetCPUWriteHandler(0x8,Write8);

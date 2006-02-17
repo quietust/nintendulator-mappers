@@ -16,7 +16,7 @@ static	void	Sync (void)
 	EMU->SetCHR_ROM4(4,Mapper.CHR[1]);
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 3; i++)
@@ -29,42 +29,42 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
 	Mapper.PRG[0] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
 	Mapper.PRG[1] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
 	Mapper.PRG[2] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteE (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteE (int Bank, int Addr, int Val)
 {
 	Mapper.CHR[0] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
 	Mapper.CHR[1] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	VS_Load();
 }
 
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 
@@ -84,7 +84,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	VS_Unload();
 }

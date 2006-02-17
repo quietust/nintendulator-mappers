@@ -5,7 +5,7 @@ static	struct
 	FCPURead Read4;
 }	Mapper;
 
-static	int	_MAPINT	Read (int Bank, int Addr)
+static	int	MAPINT	Read (int Bank, int Addr)
 {
 	if (Addr & 0x100)
 		return (~Addr & 0x3F) | ((*EMU->OpenBus) & 0xC0);
@@ -14,7 +14,7 @@ static	int	_MAPINT	Read (int Bank, int Addr)
 	else	return -1;
 }
 
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 

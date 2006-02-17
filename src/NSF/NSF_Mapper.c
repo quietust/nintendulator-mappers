@@ -69,7 +69,7 @@ static	unsigned char NSFROM[256] =
 	0x8D,0x13,0x3E,0x4C,0x20,0x3F,0x6C,0x00,0x3E,0x6C,0x02,0x3E,0x0A,0x3F,0x23,0x3F
 };
 
-static	int	_MAPINT	NSF_ReadVector (int Bank, int Addr)
+static	int	MAPINT	NSF_ReadVector (int Bank, int Addr)
 {
 	if ((Addr >= 0xFFC) && (NSF.IRQstatus != NSFIRQ_NONE))
 		return NSFROM[Addr & 0xFF];
@@ -85,7 +85,7 @@ static	void	NSF_IRQ (int type)
 	else	EMU->SetCPUReadHandler(0xF,NSF.ReadF);
 }
 
-static	int	_MAPINT	NSF_Read (int Bank, int Addr)
+static	int	MAPINT	NSF_Read (int Bank, int Addr)
 {
 	if (Addr >= 0xF00)
 		return NSFROM[Addr & 0xFF];
@@ -115,7 +115,7 @@ static	int	_MAPINT	NSF_Read (int Bank, int Addr)
 	default:	return 0xFF;
 	}
 }
-static	void	_MAPINT	NSF_Write (int Bank, int Addr, int Val)
+static	void	MAPINT	NSF_Write (int Bank, int Addr, int Val)
 {
 	switch (Addr & 0xFF)
 	{
@@ -129,7 +129,7 @@ static	void	_MAPINT	NSF_Write (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	CPUCycle (void)
+static	void	MAPINT	CPUCycle (void)
 {
 	if (NSF.IRQenabled)
 	{
@@ -257,7 +257,7 @@ static	LRESULT CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPAR
 	return FALSE;
 }
 
-static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
+static	unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 {
 	switch (mode)
 	{
@@ -280,7 +280,7 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-static	int	_MAPINT	MapperSnd (int Cycles)
+static	int	MAPINT	MapperSnd (int Cycles)
 {
 	int x = 0;
 	if (ROM->NSF_SoundChips & 0x01)
@@ -298,7 +298,7 @@ static	int	_MAPINT	MapperSnd (int Cycles)
 	return x;
 }
 
-static	int	_MAPINT	NSF_Read4 (int Bank, int Addr)
+static	int	MAPINT	NSF_Read4 (int Bank, int Addr)
 {
 	if (Addr < 0x018)
 		return NSF.Read4(Bank,Addr);
@@ -308,7 +308,7 @@ static	int	_MAPINT	NSF_Read4 (int Bank, int Addr)
 		return N106sound_Read((Bank << 12) | Addr);
 	return -1;
 }
-static	int	_MAPINT	NSF_Read5 (int Bank, int Addr)
+static	int	MAPINT	NSF_Read5 (int Bank, int Addr)
 {
 	switch (Addr & 0xF00)
 	{
@@ -320,7 +320,7 @@ static	int	_MAPINT	NSF_Read5 (int Bank, int Addr)
 	}
 	return -1;
 }
-static	void	_MAPINT	NSF_Write4 (int Bank, int Addr, int Val)
+static	void	MAPINT	NSF_Write4 (int Bank, int Addr, int Val)
 {
 	if (Addr < 0x018)
 		NSF.Write4(Bank,Addr,Val);
@@ -329,7 +329,7 @@ static	void	_MAPINT	NSF_Write4 (int Bank, int Addr, int Val)
 	if (ROM->NSF_SoundChips & 0x10)
 		N106sound_Write((Bank << 12) | Addr,Val);
 }
-static	void	_MAPINT	NSF_Write5 (int Bank, int Addr, int Val)
+static	void	MAPINT	NSF_Write5 (int Bank, int Addr, int Val)
 {
 	if (Addr >= 0xFF6)
 	{
@@ -354,22 +354,22 @@ static	void	_MAPINT	NSF_Write5 (int Bank, int Addr, int Val)
 		}
 	}
 }
-static	void	_MAPINT	NSF_Write9 (int Bank, int Addr, int Val)
+static	void	MAPINT	NSF_Write9 (int Bank, int Addr, int Val)
 {
 	if (ROM->NSF_SoundChips & 0x01)
 		VRC6sound_Write((Bank << 12) | Addr,Val);
 	if (ROM->NSF_SoundChips & 0x02)
 		VRC7sound_Write((Bank << 12) | Addr,Val);
 }
-static	void	_MAPINT	NSF_WriteAB (int Bank, int Addr, int Val)
+static	void	MAPINT	NSF_WriteAB (int Bank, int Addr, int Val)
 {
 	VRC6sound_Write((Bank << 12) | Addr,Val);
 }
-static	void	_MAPINT	NSF_WriteCDE (int Bank, int Addr, int Val)
+static	void	MAPINT	NSF_WriteCDE (int Bank, int Addr, int Val)
 {
 	FME7sound_Write((Bank << 12) | Addr,Val);
 }
-static	void	_MAPINT	NSF_WriteF (int Bank, int Addr, int Val)
+static	void	MAPINT	NSF_WriteF (int Bank, int Addr, int Val)
 {
 	if (ROM->NSF_SoundChips & 0x10)
 		N106sound_Write((Bank << 12) | Addr,Val);
@@ -377,7 +377,7 @@ static	void	_MAPINT	NSF_WriteF (int Bank, int Addr, int Val)
 		FME7sound_Write((Bank << 12) | Addr,Val);
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	if (ROM->NSF_SoundChips & 0x01)
 		VRC6sound_Load();
@@ -399,7 +399,7 @@ static	void	_MAPINT	Load (void)
 	NSF.PALspeed.s0 = (int)(ROM->NSF_PALSpeed * (double)1.662607);
 }
 
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	NSF.Read4 = EMU->GetCPUReadHandler(0x4);
 	NSF.Write4 = EMU->GetCPUWriteHandler(0x4);
@@ -456,7 +456,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	Config(CFG_WINDOW,TRUE);
 }
 
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	if (NSF.ControlWindow)
 		DestroyWindow(NSF.ControlWindow);

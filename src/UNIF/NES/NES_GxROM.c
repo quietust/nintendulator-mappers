@@ -7,16 +7,16 @@ static	void	Sync_GNROM (void)
 	EMU->SetCHR_ROM8(0,(Latch.Data >> 0) & 0x3);
 }
 
-static	void	_MAPINT	Load_GNROM (void)
+static	void	MAPINT	Load_GNROM (void)
 {
 	Latch_Load(Sync_GNROM,TRUE);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	Latch_Reset(ResetType);
 	UNIF_SetMirroring(NULL);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	Latch_Unload();
 }

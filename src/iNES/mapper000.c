@@ -1,6 +1,6 @@
 #include	"..\DLL\d_iNES.h"
 
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 

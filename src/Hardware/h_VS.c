@@ -207,7 +207,7 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 	return FALSE;
 }
 
-unsigned char	_MAPINT	VS_Config (CFG_TYPE mode, unsigned char data)
+unsigned char	MAPINT	VS_Config (CFG_TYPE mode, unsigned char data)
 {
 	switch (mode)
 	{
@@ -280,7 +280,7 @@ void	VS_Unload (void)
 		DestroyWindow(VS.ConfigWindow);
 }
 
-int	_MAPINT	VS_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	VS_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,VS.DipSwitch)
 	SAVELOAD_BYTE(mode,x,data,VS.Coin)
@@ -288,7 +288,7 @@ int	_MAPINT	VS_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-void	_MAPINT	VS_CPUCycle (void)
+void	MAPINT	VS_CPUCycle (void)
 {
 	if ((VS.CoinDelay) && (!--VS.CoinDelay))
 	{
@@ -297,7 +297,7 @@ void	_MAPINT	VS_CPUCycle (void)
 	}
 }
 
-int	_MAPINT	VS_Read (int Bank, int Addr)
+int	MAPINT	VS_Read (int Bank, int Addr)
 {
 	int Val = VS.Read(Bank,Addr);
 	if (Addr == 0x016)

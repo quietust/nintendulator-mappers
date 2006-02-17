@@ -23,7 +23,7 @@ static	void	Sync (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Reg1)
 	SAVELOAD_BYTE(mode,x,data,Mapper.Reg2)
@@ -33,7 +33,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write (int Bank, int Addr, int Val)
+static	void	MAPINT	Write (int Bank, int Addr, int Val)
 {
 	switch (Addr & 0xFF8)
 	{
@@ -61,7 +61,7 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	}
 }
 
-static	int	_MAPINT	Read (int Bank, int Addr)
+static	int	MAPINT	Read (int Bank, int Addr)
 {
 	int Val = Mapper.Read(Bank,Addr);
 	if ((Addr & 0xF80) == 0xF80)
@@ -69,7 +69,7 @@ static	int	_MAPINT	Read (int Bank, int Addr)
 	return Val;
 }
 
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	Mapper.Read = EMU->GetCPUReadHandler(0xF);
 	EMU->SetCPUReadHandler(0xF,Read);

@@ -28,7 +28,7 @@ void	MMC1_Unload (void)
 {
 }
 
-int	_MAPINT	MMC1_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	MMC1_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 4; i++)
@@ -41,7 +41,7 @@ int	_MAPINT	MMC1_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 }
 
 static	int	LastReg;
-void	_MAPINT	MMC1_Write (int Bank, int Addr, int Val)
+void	MAPINT	MMC1_Write (int Bank, int Addr, int Val)
 {
 	u8 Reg = (Bank >> 1) & 3;
 	if (Val & 0x80)

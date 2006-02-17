@@ -27,11 +27,11 @@ extern	TFDS	FDS;
 void			FDS_Load	(void);
 void			FDS_Reset	(RESET_TYPE);
 void			FDS_Unload	(void);
-int		_MAPINT	FDS_SaveLoad	(STATE_TYPE,int,unsigned char *);
-void		_MAPINT	FDS_CPUCycle	(void);
-unsigned char	_MAPINT	FDS_Config	(CFG_TYPE,unsigned char);
-int		_MAPINT	FDS_MapperSnd	(int);
-int		_MAPINT	FDS_Read	(int,int);
-void		_MAPINT	FDS_Write	(int,int,int);
+int		MAPINT	FDS_SaveLoad	(STATE_TYPE,int,unsigned char *);
+void		MAPINT	FDS_CPUCycle	(void);
+unsigned char	MAPINT	FDS_Config	(CFG_TYPE,unsigned char);
+int		MAPINT	FDS_MapperSnd	(int);
+int		MAPINT	FDS_Read	(int,int);
+void		MAPINT	FDS_Write	(int,int,int);
 
 #endif	/* H_FDS_H */

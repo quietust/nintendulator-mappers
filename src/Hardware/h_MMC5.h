@@ -40,18 +40,18 @@ extern	TMMC5	MMC5;
 void		MMC5_Load	(int);
 void		MMC5_Reset	(RESET_TYPE);
 void		MMC5_Unload	(void);
-int	_MAPINT	MMC5_SaveLoad	(STATE_TYPE,int,unsigned char *);
+int	MAPINT	MMC5_SaveLoad	(STATE_TYPE,int,unsigned char *);
 void		MMC5_SetPRG	(int,int,int);
 void		MMC5_SyncPRG	(void);
 void		MMC5_SyncCHR	(int);
 void		MMC5_SyncCHRA	(void);
 void		MMC5_SyncCHRB	(void);
 void		MMC5_SyncMirror	(void);
-void	_MAPINT	MMC5_WritePPU	(int,int,int);
-int	_MAPINT	MMC5_CPURead5	(int,int);
-void	_MAPINT	MMC5_CPUWrite5	(int,int,int);
-void	_MAPINT	MMC5_CPUWrite6F	(int,int,int);
-void	_MAPINT	MMC5_PPUCycle	(int,int,int,int);
-int	_MAPINT	MMC5_MapperSnd	(int);
+void	MAPINT	MMC5_WritePPU	(int,int,int);
+int	MAPINT	MMC5_CPURead5	(int,int);
+void	MAPINT	MMC5_CPUWrite5	(int,int,int);
+void	MAPINT	MMC5_CPUWrite6F	(int,int,int);
+void	MAPINT	MMC5_PPUCycle	(int,int,int,int);
+int	MAPINT	MMC5_MapperSnd	(int);
 
 #endif	/* H_MMC5_H */

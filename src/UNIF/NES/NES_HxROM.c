@@ -8,16 +8,16 @@ static	void	Sync_HKROM (void)
 	MMC6_SyncMirror();
 }
 
-static	void	_MAPINT	Load_HKROM (void)
+static	void	MAPINT	Load_HKROM (void)
 {
 	UNIF_SetSRAM(1024);
 	MMC6_Load(Sync_HKROM);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	MMC6_Reset(ResetType);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	MMC6_Unload();
 }

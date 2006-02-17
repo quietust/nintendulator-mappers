@@ -9,16 +9,16 @@ static	void	Sync_FJROM (void)
 	EMU->SetPRG_RAM8(0x6,0);
 }
 
-static	void	_MAPINT	Load_FJROM (void)
+static	void	MAPINT	Load_FJROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC4_Load(Sync_FJROM);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	MMC4_Reset(ResetType);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	MMC4_Unload();
 }

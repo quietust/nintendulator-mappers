@@ -1449,12 +1449,12 @@ void	VRC7sound_Write (int Addr, int Val)
 	}
 }
 
-int	_MAPINT	VRC7sound_Get (int numCycles)
+int	MAPINT	VRC7sound_Get (int numCycles)
 {
 	return OPLL_calc(OPL) << 3;	// currently don't use numCycles
 }
 
-int	_MAPINT	VRC7sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	VRC7sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	if (mode == STATE_SAVE)
 	{

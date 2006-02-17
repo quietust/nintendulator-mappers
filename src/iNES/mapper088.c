@@ -9,7 +9,7 @@ typedef	struct	N118
 }	TN118, *PN118;
 static	TN118	N118;
 
-static	void	_MAPINT	N118_CPUWrite89 (int Bank, int Addr, int Val);
+static	void	MAPINT	N118_CPUWrite89 (int Bank, int Addr, int Val);
 
 static	void	N118_Load (FSync Sync)
 {
@@ -51,7 +51,7 @@ static	void	N118_SyncCHR (void)
 	EMU->SetCHR_ROM1(7,N118.CHR[5] | 0x40);
 }
 
-static	int	_MAPINT	N118_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	N118_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,N118.Cmd)
@@ -64,7 +64,7 @@ static	int	_MAPINT	N118_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	N118_CPUWrite89 (int Bank, int Addr, int Val)
+static	void	MAPINT	N118_CPUWrite89 (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
 		switch (N118.Cmd)
@@ -88,16 +88,16 @@ static	void	Sync (void)
 	N118_SyncCHR();
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	N118_Load(Sync);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 	N118_Reset(ResetType);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	N118_Unload();
 }

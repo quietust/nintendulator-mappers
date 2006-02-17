@@ -13,7 +13,7 @@ static	void	Sync (void)
 	MMC3_SyncCHR_ROM((Mapper.Game == 6) ? 0xFF : 0x7F,Mapper.Game << 7);
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	x = MMC3_SaveLoad(mode,x,data);
 	SAVELOAD_BYTE(mode,x,data,Mapper.Game)
@@ -22,7 +22,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write (int Bank, int Addr, int Val)
+static	void	MAPINT	Write (int Bank, int Addr, int Val)
 {
 	switch (Addr & 1)
 	{
@@ -34,11 +34,11 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	MMC3_Load(Sync);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	if (ResetType == RESET_HARD)
@@ -47,7 +47,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	for (x = 0xA; x < 0xC; x++)
 		EMU->SetCPUWriteHandler(x,Write);	/* need to override writes to $A001 */
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	MMC3_Unload();
 }

@@ -35,7 +35,7 @@ static	void	Sync (void)
 	else	EMU->Mirror_V();
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	x = Latch_SaveLoad_A(mode,x,data);
@@ -46,24 +46,24 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	int	_MAPINT	ReadRegs (int Bank, int Addr)
+static	int	MAPINT	ReadRegs (int Bank, int Addr)
 {
 	if (Addr & 0x800)
 		return Mapper.Regs[Addr & 3];
 	else	return 0;
 }
 
-static	void	_MAPINT	WriteRegs (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteRegs (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
 		Mapper.Regs[Addr & 3] = Val & 0xF;
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	Latch_Load(Sync,FALSE);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	EMU->SetCPUReadHandler(0x5,ReadRegs);
 	EMU->SetCPUWriteHandler(0x5,WriteRegs);
@@ -74,7 +74,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 		Mapper.Regs[1] = Mapper.Regs[3] = 0x0;
 	}
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	Latch_Unload();
 }

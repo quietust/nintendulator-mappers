@@ -18,10 +18,10 @@ extern	TLatch	Latch;
 void		Latch_Load		(FSync,BOOL);
 void		Latch_Reset		(RESET_TYPE);
 void		Latch_Unload		(void);
-int	_MAPINT	Latch_SaveLoad_AD	(STATE_TYPE,int,unsigned char *);
-int	_MAPINT	Latch_SaveLoad_AL	(STATE_TYPE,int,unsigned char *);
-int	_MAPINT	Latch_SaveLoad_A	(STATE_TYPE,int,unsigned char *);
-int	_MAPINT	Latch_SaveLoad_D	(STATE_TYPE,int,unsigned char *);
-void	_MAPINT	Latch_Write		(int,int,int);
+int	MAPINT	Latch_SaveLoad_AD	(STATE_TYPE,int,unsigned char *);
+int	MAPINT	Latch_SaveLoad_AL	(STATE_TYPE,int,unsigned char *);
+int	MAPINT	Latch_SaveLoad_A	(STATE_TYPE,int,unsigned char *);
+int	MAPINT	Latch_SaveLoad_D	(STATE_TYPE,int,unsigned char *);
+void	MAPINT	Latch_Write		(int,int,int);
 
 #endif	/* H_LATCH_H */

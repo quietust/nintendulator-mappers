@@ -11,7 +11,7 @@ static	void	Sync (void)
 	EMU->SetCHR_ROM8(0,(Mapper.Reg & 0x03) | ((Mapper.Reg & 0x40) >> 4));
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Reg)
 	if (mode == STATE_LOAD)
@@ -19,13 +19,13 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	WriteBank (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteBank (int Bank, int Addr, int Val)
 {
 	Mapper.Reg = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteSpeech (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteSpeech (int Bank, int Addr, int Val)
 {
 	if ((Val & 0x30) != 0x20)
 		return;
@@ -50,7 +50,7 @@ static	void	_MAPINT	WriteSpeech (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 

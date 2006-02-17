@@ -37,7 +37,7 @@ void	MMC2_Unload (void)
 {
 }
 
-int	_MAPINT	MMC2_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	MMC2_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,MMC2.Latch0[0])
 	SAVELOAD_BYTE(mode,x,data,MMC2.Latch0[1])
@@ -73,7 +73,7 @@ void	MMC2_SyncMirror (void)
 	else	EMU->Mirror_V();
 }
 
-int	_MAPINT	MMC2_PPURead3 (int Bank, int Addr)
+int	MAPINT	MMC2_PPURead3 (int Bank, int Addr)
 {
 	int result = MMC2.PPURead3(Bank,Addr);
 	register int addy = Addr & 0x3F8;
@@ -90,7 +90,7 @@ int	_MAPINT	MMC2_PPURead3 (int Bank, int Addr)
 	return result;
 }
 
-int	_MAPINT	MMC2_PPURead7 (int Bank, int Addr)
+int	MAPINT	MMC2_PPURead7 (int Bank, int Addr)
 {
 	int result = MMC2.PPURead7(Bank,Addr);
 	register int addy = Addr & 0x3F8;
@@ -107,37 +107,37 @@ int	_MAPINT	MMC2_PPURead7 (int Bank, int Addr)
 	return result;
 }
 
-void	_MAPINT	MMC2_CPUWriteA (int Bank, int Addr, int Val)
+void	MAPINT	MMC2_CPUWriteA (int Bank, int Addr, int Val)
 {
 	MMC2.PRG = Val & 0xF;
 	MMC2.Sync();
 }
 
-void	_MAPINT	MMC2_CPUWriteB (int Bank, int Addr, int Val)
+void	MAPINT	MMC2_CPUWriteB (int Bank, int Addr, int Val)
 {
 	MMC2.Latch0[0] = Val & 0x1F;
 	MMC2.Sync();
 }
 
-void	_MAPINT	MMC2_CPUWriteC (int Bank, int Addr, int Val)
+void	MAPINT	MMC2_CPUWriteC (int Bank, int Addr, int Val)
 {
 	MMC2.Latch0[1] = Val & 0x1F;
 	MMC2.Sync();
 }
 
-void	_MAPINT	MMC2_CPUWriteD (int Bank, int Addr, int Val)
+void	MAPINT	MMC2_CPUWriteD (int Bank, int Addr, int Val)
 {
 	MMC2.Latch1[0] = Val & 0x1F;
 	MMC2.Sync();
 }
 
-void	_MAPINT	MMC2_CPUWriteE (int Bank, int Addr, int Val)
+void	MAPINT	MMC2_CPUWriteE (int Bank, int Addr, int Val)
 {
 	MMC2.Latch1[1] = Val & 0x1F;
 	MMC2.Sync();
 }
 
-void	_MAPINT	MMC2_CPUWriteF (int Bank, int Addr, int Val)
+void	MAPINT	MMC2_CPUWriteF (int Bank, int Addr, int Val)
 {
 	MMC2.Mirror = Val & 0x1;
 	MMC2.Sync();

@@ -26,23 +26,23 @@ static	void	Sync_AOROM (void)
 	else	EMU->Mirror_S0();
 }
 
-static	void	_MAPINT	Load_AMROM (void)
+static	void	MAPINT	Load_AMROM (void)
 {
 	Latch_Load(Sync_AMROM,TRUE);
 }
-static	void	_MAPINT	Load_ANROM (void)
+static	void	MAPINT	Load_ANROM (void)
 {
 	Latch_Load(Sync_ANROM,FALSE);
 }
-static	void	_MAPINT	Load_AOROM (void)
+static	void	MAPINT	Load_AOROM (void)
 {
 	Latch_Load(Sync_AOROM,TRUE);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	Latch_Reset(ResetType);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	Latch_Unload();
 }

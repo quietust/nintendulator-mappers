@@ -94,7 +94,7 @@ void	MMC3_SyncCHR_RAM (int AND, int OR)
 		EMU->SetCHR_RAM1(x,(MMC3_GetCHRBank(x) & AND) | OR);
 }
 
-int	_MAPINT	MMC3_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	MMC3_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,MMC3.IRQcounter)
@@ -130,13 +130,13 @@ int	_MAPINT	MMC3_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-void	_MAPINT	MMC3_CPUWrite67 (int Bank, int Addr, int Val)
+void	MAPINT	MMC3_CPUWrite67 (int Bank, int Addr, int Val)
 {
 	if (!(MMC3.WRAMEnab & 0x40))
 		MMC3.CPUWrite67(Bank,Addr,Val);
 }
 
-void	_MAPINT	MMC3_CPUWrite89 (int Bank, int Addr, int Val)
+void	MAPINT	MMC3_CPUWrite89 (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
 		switch (MMC3.Cmd & 0x7)
@@ -156,7 +156,7 @@ void	_MAPINT	MMC3_CPUWrite89 (int Bank, int Addr, int Val)
 	MMC3.Sync();
 }
 
-void	_MAPINT	MMC3_CPUWriteAB (int Bank, int Addr, int Val)
+void	MAPINT	MMC3_CPUWriteAB (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
 		MMC3.WRAMEnab = (ROM->ROMType == ROM_INES) ? 0x80 : Val;
@@ -164,20 +164,20 @@ void	_MAPINT	MMC3_CPUWriteAB (int Bank, int Addr, int Val)
 	MMC3.Sync();
 }
 
-void	_MAPINT	MMC3_CPUWriteCD (int Bank, int Addr, int Val)
+void	MAPINT	MMC3_CPUWriteCD (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
 		MMC3.IRQreload = 1;
 	else	MMC3.IRQlatch = Val;
 }
 
-void	_MAPINT	MMC3_CPUWriteEF (int Bank, int Addr, int Val)
+void	MAPINT	MMC3_CPUWriteEF (int Bank, int Addr, int Val)
 {
 	MMC3.IRQenabled = (Addr & 1);
 	if (!MMC3.IRQenabled)
 		EMU->SetIRQ(1);
 }
-void	_MAPINT	MMC3_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
+void	MAPINT	MMC3_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
 	if (MMC3.IRQaddr)
 		MMC3.IRQaddr--;

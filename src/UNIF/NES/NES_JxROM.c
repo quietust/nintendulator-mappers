@@ -15,19 +15,19 @@ static	void	Sync_JSROM (void)
 	FME7_SyncMirror();
 }
 
-static	void	_MAPINT	Load_JLROM (void)
+static	void	MAPINT	Load_JLROM (void)
 {
 	FME7_Load(Sync_JLROM);
 }
-static	void	_MAPINT	Load_JSROM (void)
+static	void	MAPINT	Load_JSROM (void)
 {
 	FME7_Load(Sync_JSROM);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	FME7_Reset(ResetType);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	FME7_Unload();
 }

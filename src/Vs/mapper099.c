@@ -14,7 +14,7 @@ static	void	Sync (void)
 	EMU->SetCHR_ROM8(0,Mapper.CHR);
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.CHR)
 	x = VS_SaveLoad(mode,x,data);
@@ -23,7 +23,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write (int Bank, int Addr, int Val)
+static	void	MAPINT	Write (int Bank, int Addr, int Val)
 {
 	Mapper.Write(Bank,Addr,Val);
 	if (Addr == 0x016)
@@ -33,12 +33,12 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	VS_Load();
 }
 
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 
@@ -51,7 +51,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	VS_Unload();
 }

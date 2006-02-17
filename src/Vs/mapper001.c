@@ -12,24 +12,24 @@ static	void	Sync (void)
 	MMC1_SyncWRAM();
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	x = MMC1_SaveLoad(mode,x,data);
 	x = VS_SaveLoad(mode,x,data);
 	return x;
 }
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	VS_Load();
 	MMC1_Load(Sync);
 	iNES_SetSRAM();
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	VS_Reset(ResetType);
 	MMC1_Reset(ResetType);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	MMC1_Unload();
 	VS_Unload();

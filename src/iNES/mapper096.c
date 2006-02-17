@@ -13,7 +13,7 @@ static	void	Sync (void)
 	EMU->SetCHR_RAM4(4,(Latch.Data & 0x4) | 3);
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	x = Latch_SaveLoad_D(mode,x,data);
 	SAVELOAD_BYTE(mode,x,data,Mapper.Pos)
@@ -22,7 +22,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
+static	void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
 	u8 newpos;
 	if ((Addr & 0x3000) != 0x2000)	return;
@@ -35,11 +35,11 @@ static	void	_MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering
 	}
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	Latch_Load(Sync,FALSE);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 	Latch_Reset(ResetType);
@@ -49,7 +49,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 		Sync();
 	}
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	Latch_Unload();
 }

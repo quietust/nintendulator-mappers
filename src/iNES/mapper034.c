@@ -46,7 +46,7 @@ static	void	SetMode (int Mode)
 #endif
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Mode)
 	if (Mapper.Mode == 1)
@@ -62,7 +62,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	WriteNINA (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteNINA (int Bank, int Addr, int Val)
 {
 	Mapper.Write7(Bank,Addr,Val);
 	switch (Addr)
@@ -76,13 +76,13 @@ static	void	_MAPINT	WriteNINA (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	WriteBNROM (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteBNROM (int Bank, int Addr, int Val)
 {
 	Mapper.BNROM_PRG = Val;
 	SetMode(2);
 }
 
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	iNES_SetMirroring();

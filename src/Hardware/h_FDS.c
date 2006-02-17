@@ -5,7 +5,7 @@
 
 TFDS	FDS;
 
-int	_MAPINT	FDS_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	FDS_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,FDS.DiskNum)
 	SAVELOAD_WORD(mode,x,data,FDS.IRQcounter)
@@ -44,7 +44,7 @@ static	__inline void	EndIRQ (u8 flag)
 		EMU->SetIRQ(1);
 }
 
-void	_MAPINT	FDS_CPUCycle (void)
+void	MAPINT	FDS_CPUCycle (void)
 {
 	if ((FDS.IRQenabled & 0x2) && (FDS.IRQcounter) && (!--FDS.IRQcounter))
 	{
@@ -60,7 +60,7 @@ void	_MAPINT	FDS_CPUCycle (void)
 #define	DISKIRQ_SHORT	150
 #define	DISKIRQ_LONG	200
 
-int	_MAPINT	FDS_Read (int Bank, int Addr)
+int	MAPINT	FDS_Read (int Bank, int Addr)
 {
 	u8 result;
 	static u8 DiskVal = 0;
@@ -97,7 +97,7 @@ int	_MAPINT	FDS_Read (int Bank, int Addr)
 	return FDSsound_Read((Bank << 12) | Addr);
 }
 
-void	_MAPINT	FDS_Write (int Bank, int Addr, int Val)
+void	MAPINT	FDS_Write (int Bank, int Addr, int Val)
 {
 	if ((Addr & 0xFFF) < 0x18)
 		FDS.Write(Bank,Addr,Val);
@@ -159,7 +159,7 @@ void	_MAPINT	FDS_Write (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	WriteBIOS (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteBIOS (int Bank, int Addr, int Val)
 {	/* don't allow writing to BIOS! */	}
 
 
@@ -213,7 +213,7 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 	return FALSE;
 }
 
-unsigned char	_MAPINT	FDS_Config (CFG_TYPE mode, unsigned char data)
+unsigned char	MAPINT	FDS_Config (CFG_TYPE mode, unsigned char data)
 {
 	switch (mode)
 	{
@@ -256,7 +256,7 @@ unsigned char	_MAPINT	FDS_Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-int	_MAPINT	FDS_MapperSnd (int Len)
+int	MAPINT	FDS_MapperSnd (int Len)
 {
 	return FDSsound_Get(Len);
 }

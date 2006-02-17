@@ -8,15 +8,15 @@ static	void	Sync_PNROM (void)
 	MMC2_SyncMirror();
 }
 
-static	void	_MAPINT	Load_PNROM (void)
+static	void	MAPINT	Load_PNROM (void)
 {
 	MMC2_Load(Sync_PNROM);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	MMC2_Reset(ResetType);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	MMC2_Unload();
 }

@@ -37,7 +37,7 @@ static	void	Sync (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
@@ -55,7 +55,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	CPUCycle (void)
+static	void	MAPINT	CPUCycle (void)
 {
 	if ((Mapper.IRQenabled & 2) && ((Mapper.IRQenabled & 4) || ((Mapper.IRQcycles -= 3) < 0)))
 	{
@@ -70,7 +70,7 @@ static	void	_MAPINT	CPUCycle (void)
 	}
 }
 
-static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x18)
 		Mapper.PRG[1] = Val;
@@ -78,7 +78,7 @@ static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x18)
 		VRC7sound_Write((Bank << 12) | Addr,Val);
@@ -89,7 +89,7 @@ static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x18)
 		Mapper.CHR[1] = Val;
@@ -97,7 +97,7 @@ static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x18)
 		Mapper.CHR[3] = Val;
@@ -105,7 +105,7 @@ static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x18)
 		Mapper.CHR[5] = Val;
@@ -113,7 +113,7 @@ static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteD (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x18)
 		Mapper.CHR[7] = Val;
@@ -121,7 +121,7 @@ static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteE (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteE (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x18)
 		Mapper.IRQlatch = Val;
@@ -132,7 +132,7 @@ static	void	_MAPINT	WriteE (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
+static	void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x18)
 	{
@@ -152,17 +152,17 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 	EMU->SetIRQ(1);
 }
 
-static	int	_MAPINT	MapperSnd (int Cycles)
+static	int	MAPINT	MapperSnd (int Cycles)
 {
 	return VRC7sound_Get(Cycles);
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	VRC7sound_Load();
 	iNES_SetSRAM();
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
@@ -187,7 +187,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	VRC7sound_Reset(ResetType);
 	Sync();
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	VRC7sound_Unload();
 }

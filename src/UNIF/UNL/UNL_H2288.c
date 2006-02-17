@@ -25,14 +25,14 @@ static	void	Sync (void)
 	}
 }
 
-static	int	_MAPINT	Read (int Bank, int Addr)
+static	int	MAPINT	Read (int Bank, int Addr)
 {
 	if (Addr & 0x800)
 		return (*EMU->OpenBus & 0xFE) | (((~Addr >> 8) | Addr) & 1);
 	else	return -1;
 }
 
-static	void	_MAPINT	Write5 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write5 (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
 	{
@@ -43,7 +43,7 @@ static	void	_MAPINT	Write5 (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Write89 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write89 (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
 		MMC3_CPUWrite89(Bank,Addr,Val);
@@ -54,11 +54,11 @@ static	void	_MAPINT	Write89 (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	MMC3_Load(Sync);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	MMC3_Reset(ResetType);
@@ -72,7 +72,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 		Mapper.Reg1 = 0;
 	}
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	MMC3_Unload();
 }

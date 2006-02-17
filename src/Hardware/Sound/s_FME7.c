@@ -108,7 +108,7 @@ void	FME7sound_Write (int Addr, int Val)
 	}
 }
 
-int	_MAPINT	FME7sound_Get (int Cycles)
+int	MAPINT	FME7sound_Get (int Cycles)
 {
 	int z = 0;
 	if (!(FME7sound.tone & 1))	z += FME7_DoSquare(&FME7sound.Sqr[0],Cycles);
@@ -117,7 +117,7 @@ int	_MAPINT	FME7sound_Get (int Cycles)
 	return z << 6;
 }
 
-int	_MAPINT	FME7sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	FME7sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,FME7sound.select)
 	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[0].byte0)

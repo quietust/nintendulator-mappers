@@ -14,20 +14,20 @@ static	void	Sync_UOROM (void)
 	EMU->SetCHR_RAM8(0,0);
 }
 
-static	void	_MAPINT	Load_UNROM (void)
+static	void	MAPINT	Load_UNROM (void)
 {
 	Latch_Load(Sync_UNROM,TRUE);
 }
-static	void	_MAPINT	Load_UOROM (void)
+static	void	MAPINT	Load_UOROM (void)
 {
 	Latch_Load(Sync_UOROM,TRUE);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	Latch_Reset(ResetType);
 	UNIF_SetMirroring(NULL);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	Latch_Unload();
 }

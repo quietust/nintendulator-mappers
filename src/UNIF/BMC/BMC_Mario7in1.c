@@ -39,7 +39,7 @@ static	void	Sync (void)
 	MMC3_SyncCHR_ROM(CHRmask,CHRbank << 7);
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	x = MMC3_SaveLoad(mode,x,data);
 	SAVELOAD_BYTE(mode,x,data,Mapper.WhichGame)
@@ -49,7 +49,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write67 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write67 (int Bank, int Addr, int Val)
 {
 	Mapper.Write67(Bank,Addr,Val);
 	if (Mapper.DidWrite)
@@ -59,11 +59,11 @@ static	void	_MAPINT	Write67 (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	MMC3_Load(Sync);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	Mapper.Write67 = EMU->GetCPUWriteHandler(0x6);
 	EMU->SetCPUWriteHandler(0x6,Write67);
@@ -77,7 +77,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 
 	MMC3_Reset(ResetType);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	MMC3_Unload();
 }

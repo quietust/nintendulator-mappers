@@ -15,7 +15,7 @@ static	void	Sync (void)
 	MMC3_SyncMirror();
 }
 
-static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	x = MMC3_SaveLoad(mode,x,data);
 	SAVELOAD_BYTE(mode,x,data,Mapper.Latch)
@@ -24,7 +24,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write4 (int Bank, int Addr, int Val)
+static	void	MAPINT	Write4 (int Bank, int Addr, int Val)
 {
 	if (Addr == 0x120)
 	{
@@ -33,12 +33,12 @@ static	void	_MAPINT	Write4 (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Load (void)
+static	void	MAPINT	Load (void)
 {
 	iNES_SetSRAM();
 	MMC3_Load(Sync);
 }
-static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
 	EMU->SetCPUWriteHandler(0x4,Write4);
@@ -48,7 +48,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 
 	MMC3_Reset(ResetType);
 }
-static	void	_MAPINT	Unload (void)
+static	void	MAPINT	Unload (void)
 {
 	MMC3_Unload();
 }
