@@ -57,7 +57,7 @@ extern	CTMapperInfo
 	MapperInfo_NES_FJROM,
 	MapperInfo_NES_GNROM,
 	MapperInfo_NES_HKROM,
-	MapperInfo_NES_JLROM,	MapperInfo_NES_BTR,
+	MapperInfo_NES_JLROM,	MapperInfo_NES_JSROM,	MapperInfo_NES_BTR,
 	MapperInfo_NES_MHROM,
 	MapperInfo_NES_NROM_128,MapperInfo_NES_RROM_128,MapperInfo_NES_NROM_256,
 	MapperInfo_NES_PNROM,
@@ -113,7 +113,7 @@ static	CPMapperInfo	BoardTable[] =
 
 	&MapperInfo_NES_HKROM	,
 
-	&MapperInfo_NES_JLROM	,&MapperInfo_NES_BTR	,
+	&MapperInfo_NES_JLROM	,&MapperInfo_NES_JSROM	,&MapperInfo_NES_BTR	,
 
 	&MapperInfo_NES_MHROM	,
 
