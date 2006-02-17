@@ -163,6 +163,8 @@ void	MMC5_Reset (RESET_TYPE ResetType)
 	TileCache = -1;
 	MMC5sound_Reset(ResetType);
 	MMC5_SyncPRG();
+	MMC5_SyncCHR(0);
+	MMC5_SyncMirror();
 }
 
 void	MMC5_Unload (void)
