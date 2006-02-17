@@ -563,6 +563,10 @@ SOURCE=..\src\iNES\mapper185.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\iNES\mapper188.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\iNES\mapper189.c
 # End Source File
 # Begin Source File
