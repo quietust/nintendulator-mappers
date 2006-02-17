@@ -85,10 +85,10 @@ static	int	_MAPINT	NSF_Read (int Bank, int Where)
 	case 0x01:	return (ROM->NSF_InitAddr >> 8) & 0xFF;	break;
 	case 0x02:	return (ROM->NSF_PlayAddr >> 0) & 0xFF;	break;
 	case 0x03:	return (ROM->NSF_PlayAddr >> 8) & 0xFF;	break;
-	case 0x04:	return ((int)(ROM->NSF_NTSCSpeed * 1.789772727272727) >> 0) & 0xFF;	break;
-	case 0x05:	return ((int)(ROM->NSF_PALSpeed * 1.662607) >> 0) & 0xFF;		break;
-	case 0x06:	return ((int)(ROM->NSF_NTSCSpeed * 1.789772727272727) >> 8) & 0xFF;	break;
-	case 0x07:	return ((int)(ROM->NSF_PALSpeed * 1.662607) >> 8) & 0xFF;		break;
+	case 0x04:	return ((int)(ROM->NSF_NTSCSpeed * (double)1.789772727272727) >> 0) & 0xFF;	break;
+	case 0x06:	return ((int)(ROM->NSF_NTSCSpeed * (double)1.789772727272727) >> 8) & 0xFF;	break;
+	case 0x05:	return ((int)(ROM->NSF_PALSpeed * (double)1.662607) >> 0) & 0xFF;		break;
+	case 0x07:	return ((int)(ROM->NSF_PALSpeed * (double)1.662607) >> 8) & 0xFF;		break;
 	case 0x08:	case 0x09:	case 0x0A:	case 0x0B:
 	case 0x0C:	case 0x0D:	case 0x0E:	case 0x0F:
 			return ROM->NSF_InitBanks[Where & 0x7];	break;
