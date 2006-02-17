@@ -73,13 +73,13 @@ static	void	NSF_IRQ (int type)
 	EMU->SetIRQ(type == NSFIRQ_NONE);
 }
 
-static	int	_MAPINT	NSF_Read (int Bank, int Where)
+static	int	_MAPINT	NSF_Read (int Bank, int Addr)
 {
-	if (Where >= 0xF00)
-		return NSFROM[Where & 0xFF];
-	else if (Where < 0xE00)
+	if (Addr >= 0xF00)
+		return NSFROM[Addr & 0xFF];
+	else if (Addr < 0xE00)
 		return 0xFF;
-	switch (Where & 0xFF)
+	switch (Addr & 0xFF)
 	{
 	case 0x00:	return (ROM->NSF_InitAddr >> 0) & 0xFF;	break;
 	case 0x01:	return (ROM->NSF_InitAddr >> 8) & 0xFF;	break;
@@ -91,7 +91,7 @@ static	int	_MAPINT	NSF_Read (int Bank, int Where)
 	case 0x07:	return ((int)(ROM->NSF_PALSpeed * (double)1.662607) >> 8) & 0xFF;		break;
 	case 0x08:	case 0x09:	case 0x0A:	case 0x0B:
 	case 0x0C:	case 0x0D:	case 0x0E:	case 0x0F:
-			return ROM->NSF_InitBanks[Where & 0x7];	break;
+			return ROM->NSF_InitBanks[Addr & 0x7];	break;
 	case 0x10:	return NSF.songnum;			break;
 	case 0x11:	return NSF.ntscpal;			break;
 	case 0x12:	{
@@ -103,25 +103,25 @@ static	int	_MAPINT	NSF_Read (int Bank, int Where)
 	default:	return 0xFF;
 	}
 }
-static	void	_MAPINT	NSF_Write (int Bank, int Where, int What)
+static	void	_MAPINT	NSF_Write (int Bank, int Addr, int Val)
 {
-	switch (Where & 0xFF)
+	switch (Addr & 0xFF)
 	{
-	case 0x10:	NSF.IRQlatch.b0 = What;	break;
-	case 0x11:	NSF.IRQlatch.b1 = What;	break;
+	case 0x10:	NSF.IRQlatch.b0 = Val;	break;
+	case 0x11:	NSF.IRQlatch.b1 = Val;	break;
 	case 0x12:	NSF.IRQcounter = NSF.IRQlatch.s0 * 5;
 			NSF.WatchDog = 1;
-			NSF.IRQenabled = What;	break;
+			NSF.IRQenabled = Val;	break;
 	case 0x13:	NSF.IRQcounter = NSF.IRQlatch.s0;
 			NSF.WatchDog = 0;	break;
 	}
 }
 
-static	int	_MAPINT	NSF_ReadVector (int Bank, int Where)
+static	int	_MAPINT	NSF_ReadVector (int Bank, int Addr)
 {
-	if ((Where >= 0xFFC) && (NSF.IRQstatus != NSFIRQ_NONE))
-		return NSFROM[Where & 0xFF];
-	else	return NSF.ReadF(Bank,Where);
+	if ((Addr >= 0xFFC) && (NSF.IRQstatus != NSFIRQ_NONE))
+		return NSFROM[Addr & 0xFF];
+	else	return NSF.ReadF(Bank,Addr);
 }
 
 static	void	_MAPINT	CPUCycle (void)
@@ -280,82 +280,82 @@ static	int	_MAPINT	MapperSnd (int Cycles)
 	return x;
 }
 
-static	int	_MAPINT	NSF_Read4 (int Bank, int Where)
+static	int	_MAPINT	NSF_Read4 (int Bank, int Addr)
 {
-	if (Where < 0x018)
-		return NSF.Read4(Bank,Where);
-	if ((ROM->NSF_SoundChips & 0x04) && (Where < 0x800))
-		return FDSsound_Read((Bank << 12) | Where);
-	if ((ROM->NSF_SoundChips & 0x10) && (Where & 0x800))
-		return N106sound_Read((Bank << 12) | Where);
+	if (Addr < 0x018)
+		return NSF.Read4(Bank,Addr);
+	if ((ROM->NSF_SoundChips & 0x04) && (Addr < 0x800))
+		return FDSsound_Read((Bank << 12) | Addr);
+	if ((ROM->NSF_SoundChips & 0x10) && (Addr & 0x800))
+		return N106sound_Read((Bank << 12) | Addr);
 	return -1;
 }
-static	int	_MAPINT	NSF_Read5 (int Bank, int Where)
+static	int	_MAPINT	NSF_Read5 (int Bank, int Addr)
 {
 	if (ROM->NSF_SoundChips & 0x08)
 	{
-		switch (Where & 0xF00)
+		switch (Addr & 0xF00)
 		{
 		case 0xC00:
 		case 0xD00:
 		case 0xE00:
-		case 0xF00:	return NSF.ExRAM[Where & 0x3FF];	break;
+		case 0xF00:	return NSF.ExRAM[Addr & 0x3FF];	break;
 		}
 	}
 	return -1;
 }
-static	void	_MAPINT	NSF_Write4 (int Bank, int Where, int What)
+static	void	_MAPINT	NSF_Write4 (int Bank, int Addr, int Val)
 {
-	if (Where < 0x018)
-		NSF.Write4(Bank,Where,What);
+	if (Addr < 0x018)
+		NSF.Write4(Bank,Addr,Val);
 	if (ROM->NSF_SoundChips & 0x04)
-		FDSsound_Write((Bank << 12) | Where,What);
+		FDSsound_Write((Bank << 12) | Addr,Val);
 	if (ROM->NSF_SoundChips & 0x10)
-		N106sound_Write((Bank << 12) | Where,What);
+		N106sound_Write((Bank << 12) | Addr,Val);
 }
-static	void	_MAPINT	NSF_Write5 (int Bank, int Where, int What)
+static	void	_MAPINT	NSF_Write5 (int Bank, int Addr, int Val)
 {
-	if (Where >= 0xFF6)
+	if (Addr >= 0xFF6)
 	{
-		if (What >= 0xFE)
-			EMU->SetPRG_RAM4(Where & 0xF,What & 0x1);
-		else	EMU->SetPRG_ROM4(Where & 0xF,What);
+		if (Val >= 0xFE)
+			EMU->SetPRG_RAM4(Addr & 0xF,Val & 0x1);
+		else	EMU->SetPRG_ROM4(Addr & 0xF,Val);
 	}
 	if (ROM->NSF_SoundChips & 0x08)
 	{
-		switch (Where & 0xF00)
+		switch (Addr & 0xF00)
 		{
-		case 0x000:	MMC5sound_Write((Bank << 12) | Where, What);	break;
+		case 0x000:	MMC5sound_Write((Bank << 12) | Addr, Val);	break;
 		case 0xC00:
 		case 0xD00:
 		case 0xE00:
-		case 0xF00:	NSF.ExRAM[Where & 0x3FF] = What;		break;
+		case 0xF00:	NSF.ExRAM[Addr & 0x3FF] = Val;		break;
 		}
 	}
 }
-static	void	_MAPINT	NSF_Write9 (int Bank, int Where, int What)
+static	void	_MAPINT	NSF_Write9 (int Bank, int Addr, int Val)
 {
 	if (ROM->NSF_SoundChips & 0x01)
-		VRC6sound_Write((Bank << 12) | Where,What);
+		VRC6sound_Write((Bank << 12) | Addr,Val);
 	if (ROM->NSF_SoundChips & 0x02)
-		VRC7sound_Write((Bank << 12) | Where,What);
+		VRC7sound_Write((Bank << 12) | Addr,Val);
 }
-static	void	_MAPINT	NSF_WriteAB (int Bank, int Where, int What)
+static	void	_MAPINT	NSF_WriteAB (int Bank, int Addr, int Val)
 {
 	if (ROM->NSF_SoundChips & 0x01)
-		VRC6sound_Write((Bank << 12) | Where,What);
+		VRC6sound_Write((Bank << 12) | Addr,Val);
 }
-static	void	_MAPINT	NSF_WriteCDE (int Bank, int Where, int What)
+static	void	_MAPINT	NSF_WriteCDE (int Bank, int Addr, int Val)
 {
 	if (ROM->NSF_SoundChips & 0x20)
-		FME7sound_Write((Bank << 12) | Where,What);
+		FME7sound_Write((Bank << 12) | Addr,Val);
 }
-static	void	_MAPINT	NSF_WriteF (int Bank, int Where, int What)
+static	void	_MAPINT	NSF_WriteF (int Bank, int Addr, int Val)
 {
 	if (ROM->NSF_SoundChips & 0x10)
-		N106sound_Write((Bank << 12) | Where,What);
+		N106sound_Write((Bank << 12) | Addr,Val);
 	if (ROM->NSF_SoundChips & 0x20)
-		FME7sound_Write((Bank << 12) | Where,What);
+		FME7sound_Write((Bank << 12) | Addr,Val);
 }
 
 static	void	_MAPINT	Shutdown (void)
@@ -378,7 +378,7 @@ static	void	_MAPINT	Shutdown (void)
 		FME7sound_Destroy();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	NSF.Read4 = EMU->GetCPUReadHandler(0x4);
 	NSF.Write4 = EMU->GetCPUWriteHandler(0x4);
@@ -414,7 +414,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 		N106sound_Init();
 	if (ROM->NSF_SoundChips & 0x20)
 		FME7sound_Init();
-	if (IsHardReset)
+	if (ResetType == RESET_HARD)
 	{
 		NSF.songnum = ROM->NSF_InitSong - 1;
 		if (ROM->NSF_NTSCPAL == 1)

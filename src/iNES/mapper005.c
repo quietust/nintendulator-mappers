@@ -222,17 +222,17 @@ static	void	_MAPINT	Shutdown (void)
 	Mapper.ConfigWindow = NULL;
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
 
-	if (IsHardReset)
+	if (ResetType == RESET_HARD)
 		MMC5.WRAMsize = CheckSRAM();
 
 	Mapper.ConfigWindow = NULL;
 	SetSRAM();
 
-	MMC5_Init();
+	MMC5_Init(ResetType);
 }
 
 static	u8 MapperNum = 5;

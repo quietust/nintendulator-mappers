@@ -16,7 +16,7 @@ static	void	Sync (void)
 		EMU->SetPRG_ROM16(0x8,Mapper.PRG & 0xF);
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.PRG)
 	SAVELOAD_BYTE(mode,x,data,Mapper.Valid)
@@ -32,48 +32,48 @@ static	void	_MAPINT	Shutdown (void)
 	MMC3_Destroy();
 }
 
-static	void	_MAPINT	Write6 (int Bank, int Where, int What)
+static	void	_MAPINT	Write6 (int Bank, int Addr, int Val)
 {
-	switch (Where & 7)
+	switch (Addr & 7)
 	{
-	case 0:	Mapper.PRG = What;	break;
+	case 0:	Mapper.PRG = Val;	break;
 	}
 	Sync();
 }
 
-static	void	_MAPINT	Write89 (int Bank, int Where, int What)
+static	void	_MAPINT	Write89 (int Bank, int Addr, int Val)
 {
-	MMC3_CPUWriteAB(Bank,0,What);
+	MMC3_CPUWriteAB(Bank,0,Val);
 }
 
-static	void	_MAPINT	WriteAB (int Bank, int Where, int What)
+static	void	_MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
 	unsigned char LUT[8] = {0,3,1,5,6,7,2,4};
-		MMC3_CPUWrite89(Bank,0,(What & 0xC0) | LUT[What & 0x7]);
+		MMC3_CPUWrite89(Bank,0,(Val & 0xC0) | LUT[Val & 0x7]);
 	Mapper.Valid = 1;
 }
 
-static	void	_MAPINT	WriteCD (int Bank, int Where, int What)
+static	void	_MAPINT	WriteCD (int Bank, int Addr, int Val)
 {
 	if (Mapper.Valid)
-		MMC3_CPUWrite89(Bank,1,What);
+		MMC3_CPUWrite89(Bank,1,Val);
 	Mapper.Valid = 0;
 }
 
-static	void	_MAPINT	WriteEF (int Bank, int Where, int What)
+static	void	_MAPINT	WriteEF (int Bank, int Addr, int Val)
 {
-	if (What)
+	if (Val)
 	{
-		MMC3_CPUWriteCD(Bank,0,What);
-		MMC3_CPUWriteEF(Bank,1,What);
+		MMC3_CPUWriteCD(Bank,0,Val);
+		MMC3_CPUWriteEF(Bank,1,Val);
 	}
-	else	MMC3_CPUWriteEF(Bank,0,What);
+	else	MMC3_CPUWriteEF(Bank,0,Val);
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
-	MMC3_Init(Sync);
+	MMC3_Init(ResetType,Sync);
 	EMU->SetCPUWriteHandler(0x6,Write6);
 	EMU->SetCPUWriteHandler(0x8,Write89);
 	EMU->SetCPUWriteHandler(0x9,Write89);

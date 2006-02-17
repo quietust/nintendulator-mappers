@@ -22,7 +22,7 @@ static	void	Sync (void)
 	else	EMU->Mirror_V();
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Bank)
 	SAVELOAD_BYTE(mode,x,data,Mapper.Mode)
@@ -31,17 +31,17 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write67 (int Bank, int Where, int What)
+static	void	_MAPINT	Write67 (int Bank, int Addr, int Val)
 {
-	Mapper.Mode = ((What & 0x10) >> 3) | ((What & 0x02) >> 1);
+	Mapper.Mode = ((Val & 0x10) >> 3) | ((Val & 0x02) >> 1);
 	Sync();
 }
 
-static	void	_MAPINT	Write89ABCDEF (int Bank, int Where, int What)
+static	void	_MAPINT	Write89ABCDEF (int Bank, int Addr, int Val)
 {
-	Mapper.Bank = (What & 0xF) << 2;
+	Mapper.Bank = (Val & 0xF) << 2;
 	if (Bank & 0x4)
-		Mapper.Mode = (Mapper.Mode & 0x1) | ((What & 0x10) >> 3);
+		Mapper.Mode = (Mapper.Mode & 0x1) | ((Val & 0x10) >> 3);
 	Sync();
 }
 
@@ -50,7 +50,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 

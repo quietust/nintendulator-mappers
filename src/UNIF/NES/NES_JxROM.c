@@ -21,13 +21,13 @@ static	void	_MAPINT	Shutdown (void)
 	FME7_Destroy();
 }
 
-static	void	_MAPINT	Reset_JLROM (int IsHardReset)
+static	void	_MAPINT	Reset_JLROM (RESET_TYPE ResetType)
 {
-	FME7_Init(Sync_JLROM);
+	FME7_Init(ResetType,Sync_JLROM);
 }
-static	void	_MAPINT	Reset_BTR (int IsHardReset)
+static	void	_MAPINT	Reset_BTR (RESET_TYPE ResetType)
 {
-	FME7_Init(Sync_BTR);
+	FME7_Init(ResetType,Sync_BTR);
 }
 
 CTMapperInfo	MapperInfo_NES_JLROM =

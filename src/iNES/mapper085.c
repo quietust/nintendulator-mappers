@@ -35,7 +35,7 @@ static	void	Sync (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
@@ -69,71 +69,71 @@ static	void	_MAPINT	CPUCycle (void)
 	}
 }
 
-static	void	_MAPINT	Write8 (int Bank, int Where, int What)
+static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
 {
-	if (Where & 0x18)
-		Mapper.PRG[1] = What;
-	else	Mapper.PRG[0] = What;
+	if (Addr & 0x18)
+		Mapper.PRG[1] = Val;
+	else	Mapper.PRG[0] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	Write9 (int Bank, int Where, int What)
+static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
 {
-	if (Where & 0x18)
-		VRC7sound_Write((Bank << 12) | Where,What);
+	if (Addr & 0x18)
+		VRC7sound_Write((Bank << 12) | Addr,Val);
 	else
 	{
-		Mapper.PRG[2] = What;
+		Mapper.PRG[2] = Val;
 		Sync();
 	}
 }
 
-static	void	_MAPINT	WriteA (int Bank, int Where, int What)
+static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
 {
-	if (Where & 0x18)
-		Mapper.CHR[1] = What;
-	else	Mapper.CHR[0] = What;
+	if (Addr & 0x18)
+		Mapper.CHR[1] = Val;
+	else	Mapper.CHR[0] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteB (int Bank, int Where, int What)
+static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
 {
-	if (Where & 0x18)
-		Mapper.CHR[3] = What;
-	else	Mapper.CHR[2] = What;
+	if (Addr & 0x18)
+		Mapper.CHR[3] = Val;
+	else	Mapper.CHR[2] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteC (int Bank, int Where, int What)
+static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
 {
-	if (Where & 0x18)
-		Mapper.CHR[5] = What;
-	else	Mapper.CHR[4] = What;
+	if (Addr & 0x18)
+		Mapper.CHR[5] = Val;
+	else	Mapper.CHR[4] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteD (int Bank, int Where, int What)
+static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
 {
-	if (Where & 0x18)
-		Mapper.CHR[7] = What;
-	else	Mapper.CHR[6] = What;
+	if (Addr & 0x18)
+		Mapper.CHR[7] = Val;
+	else	Mapper.CHR[6] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteE (int Bank, int Where, int What)
+static	void	_MAPINT	WriteE (int Bank, int Addr, int Val)
 {
-	if (Where & 0x18)
-		Mapper.IRQlatch = What;
+	if (Addr & 0x18)
+		Mapper.IRQlatch = Val;
 	else
 	{
-		Mapper.Misc = What;
+		Mapper.Misc = Val;
 		Sync();
 	}
 }
 
-static	void	_MAPINT	WriteF (int Bank, int Where, int What)
+static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 {
-	if (Where & 0x18)
+	if (Addr & 0x18)
 	{
 		if (Mapper.IRQenabled & 0x1)
 			Mapper.IRQenabled |= 0x2;
@@ -141,7 +141,7 @@ static	void	_MAPINT	WriteF (int Bank, int Where, int What)
 	}
 	else
 	{
-		Mapper.IRQenabled = What & 0x7;
+		Mapper.IRQenabled = Val & 0x7;
 		if (Mapper.IRQenabled & 0x2)
 		{
 			Mapper.IRQcounter = Mapper.IRQlatch;
@@ -163,7 +163,7 @@ static	int	_MAPINT	MapperSnd (int Cycles)
 	return VRC7sound_Get(Cycles);
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 

@@ -9,35 +9,35 @@ static	void	Sync (void)
 	MMC3_SyncMirror();
 }
 
-static	void	_MAPINT	Write89 (int Bank, int Where, int What)
+static	void	_MAPINT	Write89 (int Bank, int Addr, int Val)
 {
-	if (Where & 1)
-		MMC3_CPUWriteAB(Bank,0,What);
+	if (Addr & 1)
+		MMC3_CPUWriteAB(Bank,0,Val);
 }
 
-static	void	_MAPINT	WriteAB (int Bank, int Where, int What)
+static	void	_MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
 	unsigned char LUT[8] = {0,3,1,5,6,7,2,4};
-	if (Where & 1)
+	if (Addr & 1)
 		;
-	else	MMC3_CPUWrite89(Bank,0,LUT[What & 0x7] | (What & 0xC0));
+	else	MMC3_CPUWrite89(Bank,0,LUT[Val & 0x7] | (Val & 0xC0));
 }
 
-static	void	_MAPINT	WriteCD (int Bank, int Where, int What)
+static	void	_MAPINT	WriteCD (int Bank, int Addr, int Val)
 {
-	if (Where & 1)
+	if (Addr & 1)
 	{
-		MMC3_CPUWriteCD(Bank,0,What);
-		MMC3_CPUWriteCD(Bank,1,What);
+		MMC3_CPUWriteCD(Bank,0,Val);
+		MMC3_CPUWriteCD(Bank,1,Val);
 	}
-	else	MMC3_CPUWrite89(Bank,1,What);
+	else	MMC3_CPUWrite89(Bank,1,Val);
 }
 
-static	void	_MAPINT	WriteEF (int Bank, int Where, int What)
+static	void	_MAPINT	WriteEF (int Bank, int Addr, int Val)
 {
-	if (Where & 1)
-		MMC3_CPUWriteEF(Bank,1,What);
-	else	MMC3_CPUWriteEF(Bank,0,What);
+	if (Addr & 1)
+		MMC3_CPUWriteEF(Bank,1,Val);
+	else	MMC3_CPUWriteEF(Bank,0,Val);
 }
 
 static	void	_MAPINT	Shutdown (void)
@@ -46,13 +46,13 @@ static	void	_MAPINT	Shutdown (void)
 	MMC3_Destroy();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
 
 	EMU->SetPRG_RAM8(0x6,0);
 
-	MMC3_Init(Sync);
+	MMC3_Init(ResetType,Sync);
 
 	EMU->SetCPUWriteHandler(0x8,Write89);
 	EMU->SetCPUWriteHandler(0x9,Write89);

@@ -26,17 +26,17 @@ static	void	Sync_AOROM (void)
 	else	EMU->Mirror_S0();
 }
 
-static	void	_MAPINT	Reset_AMROM (int IsHardReset)
+static	void	_MAPINT	Reset_AMROM (RESET_TYPE ResetType)
 {
-	Latch_Init(Sync_AMROM,IsHardReset,TRUE);
+	Latch_Init(ResetType,Sync_AMROM,TRUE);
 }
-static	void	_MAPINT	Reset_ANROM (int IsHardReset)
+static	void	_MAPINT	Reset_ANROM (RESET_TYPE ResetType)
 {
-	Latch_Init(Sync_ANROM,IsHardReset,FALSE);
+	Latch_Init(ResetType,Sync_ANROM,FALSE);
 }
-static	void	_MAPINT	Reset_AOROM (int IsHardReset)
+static	void	_MAPINT	Reset_AOROM (RESET_TYPE ResetType)
 {
-	Latch_Init(Sync_AOROM,IsHardReset,TRUE);
+	Latch_Init(ResetType,Sync_AOROM,TRUE);
 }
 
 CTMapperInfo	MapperInfo_NES_AMROM =

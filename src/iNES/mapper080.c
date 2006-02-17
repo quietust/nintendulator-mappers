@@ -23,7 +23,7 @@ static	void	Sync (void)
 	else	EMU->Mirror_V();
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror)
@@ -36,23 +36,23 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write (int Bank, int Where, int What)
+static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
-	switch (Where)
+	switch (Addr)
 	{
-	case 0xEF0:	Mapper.CHR[0] = What >> 1;	break;
-	case 0xEF1:	Mapper.CHR[1] = What >> 1;	break;
-	case 0xEF2:	Mapper.CHR[2] = What;		break;
-	case 0xEF3:	Mapper.CHR[3] = What;		break;
-	case 0xEF4:	Mapper.CHR[4] = What;		break;
-	case 0xEF5:	Mapper.CHR[5] = What;		break;
-	case 0xEF6:	Mapper.Mirror = What;		break;
+	case 0xEF0:	Mapper.CHR[0] = Val >> 1;	break;
+	case 0xEF1:	Mapper.CHR[1] = Val >> 1;	break;
+	case 0xEF2:	Mapper.CHR[2] = Val;		break;
+	case 0xEF3:	Mapper.CHR[3] = Val;		break;
+	case 0xEF4:	Mapper.CHR[4] = Val;		break;
+	case 0xEF5:	Mapper.CHR[5] = Val;		break;
+	case 0xEF6:	Mapper.Mirror = Val;		break;
 	case 0xEFA:
-	case 0xEFB:	Mapper.PRG[0] = What;		break;
+	case 0xEFB:	Mapper.PRG[0] = Val;		break;
 	case 0xEFC:
-	case 0xEFD:	Mapper.PRG[1] = What;		break;
+	case 0xEFD:	Mapper.PRG[1] = Val;		break;
 	case 0xEFE:
-	case 0xEFF:	Mapper.PRG[2] = What;		break;
+	case 0xEFF:	Mapper.PRG[2] = Val;		break;
 	}
 	Sync();
 }
@@ -62,7 +62,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 

@@ -19,14 +19,14 @@ static	void	_MAPINT	Shutdown (void)
 	Latch_Destroy();
 }
 
-static	void	_MAPINT	Reset_UNROM (int IsHardReset)
+static	void	_MAPINT	Reset_UNROM (RESET_TYPE ResetType)
 {
-	Latch_Init(Sync_UNROM,IsHardReset,TRUE);
+	Latch_Init(ResetType,Sync_UNROM,TRUE);
 	UNIF_SetMirroring(NULL);
 }
-static	void	_MAPINT	Reset_UOROM (int IsHardReset)
+static	void	_MAPINT	Reset_UOROM (RESET_TYPE ResetType)
 {
-	Latch_Init(Sync_UOROM,IsHardReset,TRUE);
+	Latch_Init(ResetType,Sync_UOROM,TRUE);
 	UNIF_SetMirroring(NULL);
 }
 

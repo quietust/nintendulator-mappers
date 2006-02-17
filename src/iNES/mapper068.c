@@ -42,7 +42,7 @@ static	void	SyncNametables (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror)
@@ -57,52 +57,52 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write8 (int Bank, int Where, int What)
+static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
 {
-	Mapper.CHR[0] = What;
+	Mapper.CHR[0] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	Write9 (int Bank, int Where, int What)
+static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
 {
-	Mapper.CHR[1] = What;
+	Mapper.CHR[1] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteA (int Bank, int Where, int What)
+static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
 {
-	Mapper.CHR[2] = What;
+	Mapper.CHR[2] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteB (int Bank, int Where, int What)
+static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
 {
-	Mapper.CHR[3] = What;
+	Mapper.CHR[3] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteC (int Bank, int Where, int What)
+static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
 {
-	Mapper.CHR_L = What;
+	Mapper.CHR_L = Val;
 	SyncNametables();
 }
 
-static	void	_MAPINT	WriteD (int Bank, int Where, int What)
+static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
 {
-	Mapper.CHR_H = What;
+	Mapper.CHR_H = Val;
 	SyncNametables();
 }
 
-static	void	_MAPINT	WriteE (int Bank, int Where, int What)
+static	void	_MAPINT	WriteE (int Bank, int Addr, int Val)
 {
-	Mapper.Mirror = What & 0x3;
-	Mapper.VROM_use = (What & 0x10);
+	Mapper.Mirror = Val & 0x3;
+	Mapper.VROM_use = (Val & 0x10);
 	SyncNametables();
 }
 
-static	void	_MAPINT	WriteF (int Bank, int Where, int What)
+static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 {
-	Mapper.PRG = What;
+	Mapper.PRG = Val;
 	Sync();
 }
 
@@ -111,7 +111,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 

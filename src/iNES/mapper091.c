@@ -18,7 +18,7 @@ static	void	Sync (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 4; i++)
@@ -40,18 +40,18 @@ static	void	_MAPINT	CPUCycle (void)
 		EMU->SetIRQ(0);
 }
 
-static	void	_MAPINT	Write6 (int Bank, int Where, int What)
+static	void	_MAPINT	Write6 (int Bank, int Addr, int Val)
 {
-	Mapper.CHR[Where & 3] = What;
+	Mapper.CHR[Addr & 3] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	Write7 (int Bank, int Where, int What)
+static	void	_MAPINT	Write7 (int Bank, int Addr, int Val)
 {
-	switch (Where & 3)
+	switch (Addr & 3)
 	{
-	case 0:	Mapper.PRG[0] = What & 0xF;	break;
-	case 1:	Mapper.PRG[1] = What & 0xF;	break;
+	case 0:	Mapper.PRG[0] = Val & 0xF;	break;
+	case 1:	Mapper.PRG[1] = Val & 0xF;	break;
 	case 2:	Mapper.IRQenabled = 0;
 		Mapper.IRQcounter.s0 = 0;
 		EMU->SetIRQ(1);			break;
@@ -65,7 +65,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
 

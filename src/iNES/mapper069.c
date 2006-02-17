@@ -14,11 +14,11 @@ static	void	_MAPINT	Shutdown (void)
 	FME7_Destroy();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
 
-	FME7_Init(Sync);
+	FME7_Init(ResetType,Sync);
 }
 
 static	u8 MapperNum = 69;

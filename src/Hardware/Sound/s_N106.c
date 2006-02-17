@@ -32,40 +32,40 @@ void	N106sound_Init (void)
 	N106sound.inc = 0x80;
 }
 
-void	N106sound_Write (int Where, int What)
+void	N106sound_Write (int Addr, int Val)
 {
-	switch (Where & 0xF800)
+	switch (Addr & 0xF800)
 	{
 	case 0xF800:
-		N106sound.addr = What & 0x7F;
-		N106sound.inc = What & 0x80;
+		N106sound.addr = Val & 0x7F;
+		N106sound.inc = Val & 0x80;
 		break;
 	case 0x4800:
-		N106sound.data[N106sound.addr] = What;
+		N106sound.data[N106sound.addr] = Val;
 		if (N106sound.addr & 0x40)
 		{
 			struct N106chan *Chan = &N106sound.Ch[(N106sound.addr & 0x3F) >> 3];
 			switch (N106sound.addr & 0x7)
 			{
-			case 0:	Chan->freql = What;
+			case 0:	Chan->freql = Val;
 				Chan->freq = Chan->freql | (Chan->freqm << 8) | (Chan->freqh << 16);
 				break;
-			case 2:	Chan->freqm = What;
+			case 2:	Chan->freqm = Val;
 				Chan->freq = Chan->freql | (Chan->freqm << 8) | (Chan->freqh << 16);
 				break;
-			case 4:	Chan->freqh = What & 3;
+			case 4:	Chan->freqh = Val & 3;
 				Chan->freq = Chan->freql | (Chan->freqm << 8) | (Chan->freqh << 16);
-				if (Chan->len != 0x20 - (What & 0x1C))
+				if (Chan->len != 0x20 - (Val & 0x1C))
 				{
-					Chan->len = 0x20 - (What & 0x1C);
+					Chan->len = 0x20 - (Val & 0x1C);
 					Chan->CurA = 0;
 				}
 				break;
-			case 6:	Chan->addr = What;
+			case 6:	Chan->addr = Val;
 				break;
-			case 7:	Chan->volume = What & 0xF;
+			case 7:	Chan->volume = Val & 0xF;
 				if (Chan == &N106sound.Ch[7])
-					N106sound.chans = 1 + ((What >> 4) & 0x7);
+					N106sound.chans = 1 + ((Val >> 4) & 0x7);
 				break;
 			}
 		}
@@ -78,7 +78,7 @@ void	N106sound_Write (int Where, int What)
 	}
 }
 
-int	N106sound_Read (int Where)
+int	N106sound_Read (int Addr)
 {
 	int data = N106sound.data[N106sound.addr];
 
@@ -122,7 +122,7 @@ int	_MAPINT	N106sound_Get (int Cycles)
 	return out << 5;
 }
 
-int	_MAPINT	N106sound_SaveLoad (int mode, int x, char *data)
+int	_MAPINT	N106sound_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	int i;
 	switch (mode)

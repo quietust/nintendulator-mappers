@@ -20,8 +20,6 @@ static	void	Sync (void)
 	}	M;
 	M.addr = Latch.Addr.s0;
 
-	EMU->SetCHR_RAM8(0,0);
-
 	if (M.Mir_HV)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
@@ -34,9 +32,12 @@ static	void	Sync (void)
 	}
 
 	if (M.CHRprot)
+	{
+		EMU->SetCHR_RAM8(0,0);
 		;	/* Protect CHR */
+	}
 	else
-	{	/* Unprotect CHR */
+	{	EMU->SetCHR_RAM8(0,0);
 		if (M.LastBank)
 			EMU->SetPRG_ROM16(0xC,(M.PRGchip << 5) | (M.PRGbank << 1) |  7);
 		else	EMU->SetPRG_ROM16(0xC,(M.PRGchip << 5) | (M.PRGbank << 1) & ~7);
@@ -49,11 +50,11 @@ static	void	_MAPINT	Shutdown (void)
 	Latch_Destroy();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
 
-	Latch_Init(Sync,IsHardReset,FALSE);
+	Latch_Init(ResetType,Sync,FALSE);
 }
 
 static	u8 MapperNum = 227;

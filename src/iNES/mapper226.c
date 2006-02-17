@@ -37,7 +37,7 @@ static	void	Sync (void)
 	else	EMU->SetPRG_ROM32(0x8,((Val.PRGhi) << 4) | (Val.PRGbank >> 1));
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Byte8000)
 	SAVELOAD_BYTE(mode,x,data,Mapper.Byte8001)
@@ -46,12 +46,12 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write (int Bank, int Where, int What)
+static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
-	switch (Where & 1)
+	switch (Addr & 1)
 	{
-	case 0:	Mapper.Byte8000 = What;		break;
-	case 1:	Mapper.Byte8001 = What;		break;
+	case 0:	Mapper.Byte8000 = Val;		break;
+	case 1:	Mapper.Byte8001 = Val;		break;
 	}
 	Sync();
 }
@@ -61,7 +61,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 

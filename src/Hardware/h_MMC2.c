@@ -2,7 +2,7 @@
 
 static	TMMC2	MMC2;
 
-void	MMC2_Init (void (*Sync)(void))
+void	MMC2_Init (RESET_TYPE ResetType, void (*Sync)(void))
 {
 	u8 x;
 	for (x = 0; x < 2; x++)
@@ -32,7 +32,7 @@ void	MMC2_Destroy (void)
 	EMU->SetPPUReadHandler(0x7,MMC2.PPURead7);
 }
 
-int	_MAPINT	MMC2_SaveLoad (int mode, int x, char *data)
+int	_MAPINT	MMC2_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,MMC2.Latch0[0])
 	SAVELOAD_BYTE(mode,x,data,MMC2.Latch0[1])

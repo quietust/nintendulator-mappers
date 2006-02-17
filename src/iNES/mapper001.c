@@ -19,10 +19,10 @@ static	void	_MAPINT	Shutdown (void)
 	MMC1_Destroy();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
-	MMC1_Init(Sync);
+	MMC1_Init(ResetType,Sync);
 }
 
 static	u8 MapperNum = 1;

@@ -8,8 +8,9 @@ static	void	Sync (void)
 	if (ROM->INES_CHRSize)
 		EMU->SetCHR_ROM8(0,0);
 	else	EMU->SetCHR_RAM8(0,0);
-	if (Latch.Data & 0x01) EMU->Mirror_H();
-	else EMU->Mirror_V();
+	if (Latch.Data & 0x01)
+		EMU->Mirror_H();
+	else	EMU->Mirror_V();
 }
 
 static	void	_MAPINT	Shutdown (void)
@@ -18,11 +19,11 @@ static	void	_MAPINT	Shutdown (void)
 	Latch_Destroy();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
 
-	Latch_Init(Sync,IsHardReset,FALSE);
+	Latch_Init(ResetType,Sync,FALSE);
 }
 
 static	u8 MapperNum = 93;

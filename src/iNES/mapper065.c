@@ -22,7 +22,7 @@ static	void	Sync (void)
 	else	EMU->Mirror_V();
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
@@ -47,67 +47,67 @@ static	void	_MAPINT	CPUCycle (void)
 	}
 }
 
-static	void	_MAPINT	Write8 (int Bank, int Where, int What)
+static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
 {
-	switch (Where)
+	switch (Addr)
 	{
-	case 0:	Mapper.PRG[0] = What;
+	case 0:	Mapper.PRG[0] = Val;
 		Sync();			break;
 	}
 }
 
-static	void	_MAPINT	Write9 (int Bank, int Where, int What)
+static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
 {
-	switch (Where)
+	switch (Addr)
 	{
-	case 0:	Mapper.Mirror = What;
+	case 0:	Mapper.Mirror = Val;
 		Sync();			break;
-	case 3:	Mapper.IRQenabled = What & 0x80;
+	case 3:	Mapper.IRQenabled = Val & 0x80;
 		EMU->SetIRQ(1);				break;
 	case 4:	Mapper.IRQcounter = Mapper.IRQlatch.s0;
 		EMU->SetIRQ(1);				break;
-	case 5:	Mapper.IRQlatch.b1 = What;		break;
-	case 6:	Mapper.IRQlatch.b0 = What;		break;
+	case 5:	Mapper.IRQlatch.b1 = Val;		break;
+	case 6:	Mapper.IRQlatch.b0 = Val;		break;
 	}
 }
 
-static	void	_MAPINT	WriteA (int Bank, int Where, int What)
+static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
 {
-	switch (Where)
+	switch (Addr)
 	{
-	case 0:	Mapper.PRG[1] = What;
-		Sync();			break;
-	}
-}
-
-static	void	_MAPINT	WriteB (int Bank, int Where, int What)
-{
-	switch (Where)
-	{
-	case 0:	Mapper.CHR[0] = What;
-		Sync();			break;
-	case 1:	Mapper.CHR[1] = What;
-		Sync();			break;
-	case 2:	Mapper.CHR[2] = What;
-		Sync();			break;
-	case 3:	Mapper.CHR[3] = What;
-		Sync();			break;
-	case 4:	Mapper.CHR[4] = What;
-		Sync();			break;
-	case 5:	Mapper.CHR[5] = What;
-		Sync();			break;
-	case 6:	Mapper.CHR[6] = What;
-		Sync();			break;
-	case 7:	Mapper.CHR[7] = What;
+	case 0:	Mapper.PRG[1] = Val;
 		Sync();			break;
 	}
 }
 
-static	void	_MAPINT	WriteC (int Bank, int Where, int What)
+static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
 {
-	switch (Where)
+	switch (Addr)
 	{
-	case 0:	Mapper.PRG[2] = What;
+	case 0:	Mapper.CHR[0] = Val;
+		Sync();			break;
+	case 1:	Mapper.CHR[1] = Val;
+		Sync();			break;
+	case 2:	Mapper.CHR[2] = Val;
+		Sync();			break;
+	case 3:	Mapper.CHR[3] = Val;
+		Sync();			break;
+	case 4:	Mapper.CHR[4] = Val;
+		Sync();			break;
+	case 5:	Mapper.CHR[5] = Val;
+		Sync();			break;
+	case 6:	Mapper.CHR[6] = Val;
+		Sync();			break;
+	case 7:	Mapper.CHR[7] = Val;
+		Sync();			break;
+	}
+}
+
+static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
+{
+	switch (Addr)
+	{
+	case 0:	Mapper.PRG[2] = Val;
 		Sync();			break;
 	}
 }
@@ -117,7 +117,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 

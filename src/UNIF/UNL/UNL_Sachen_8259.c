@@ -38,7 +38,7 @@ static  void    Sync_8259B (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Cmd)
 	SAVELOAD_BYTE(mode,x,data,Mapper.CHR0l)
@@ -54,34 +54,34 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static  void    _MAPINT	Write (int Bank, int Where, int What)
+static  void    _MAPINT	Write (int Bank, int Addr, int Val)
 {
-	u16 Loc = (Bank << 12) | Where;
+	u16 Loc = (Bank << 12) | Addr;
 	if (Loc < 0x4018)
 	{
-		Mapper.Write4(Bank,Where,What);
+		Mapper.Write4(Bank,Addr,Val);
 		return;
 	}
-	What &= 0x07;
+	Val &= 0x07;
 	switch (Loc & 0x4101)
 	{
-	case 0x4100:    Mapper.Cmd = What;      break;
+	case 0x4100:    Mapper.Cmd = Val;      break;
 	case 0x4101:    switch (Mapper.Cmd)
 			{
-			case 0: Mapper.CHR0l = What;    break;
-			case 1: Mapper.CHR0h = What;    break;
-			case 2: Mapper.CHR1l = What;    break;
-			case 3: Mapper.CHR1h = What;    break;
-			case 4: Mapper.CHRch = What;    break;
-			case 5: Mapper.PRG = What;      break;
-			case 6: Mapper.CHRmode = What;  break;
-			case 7: Mapper.Mirror = What;   break;
+			case 0: Mapper.CHR0l = Val;    break;
+			case 1: Mapper.CHR0h = Val;    break;
+			case 2: Mapper.CHR1l = Val;    break;
+			case 3: Mapper.CHR1h = Val;    break;
+			case 4: Mapper.CHRch = Val;    break;
+			case 5: Mapper.PRG = Val;      break;
+			case 6: Mapper.CHRmode = Val;  break;
+			case 7: Mapper.Mirror = Val;   break;
 			}                       break;
 	}
 	Mapper.Sync();
 }
 
-static  void    Reset (int IsHardReset)
+static  void    Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
@@ -91,15 +91,15 @@ static  void    Reset (int IsHardReset)
 	EMU->SetCHR_RAM8(0,0);	// in case there is no CHR ROM
 	Mapper.Sync();
 }
-static  void    _MAPINT	Reset_8259A (int IsHardReset)
+static  void    _MAPINT	Reset_8259A (RESET_TYPE ResetType)
 {
 	Mapper.Sync = Sync_8259A;
-	Reset(IsHardReset);
+	Reset(ResetType);
 }
-static  void    _MAPINT	Reset_8259B (int IsHardReset)
+static  void    _MAPINT	Reset_8259B (RESET_TYPE ResetType)
 {
 	Mapper.Sync = Sync_8259B;
-	Reset(IsHardReset);
+	Reset(ResetType);
 }
 
 CTMapperInfo    MapperInfo_UNL_Sachen_8259A =

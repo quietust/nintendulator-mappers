@@ -85,54 +85,54 @@ static	void	_MAPINT	Shutdown (void)
 	MMC1_Destroy();
 }
 
-static	void	_MAPINT	Reset_SAROM (int IsHardReset)
+static	void	_MAPINT	Reset_SAROM (RESET_TYPE ResetType)
 {
 	UNIF_InitSRAM(8192);
-	MMC1_Init(Sync_SAROM);
+	MMC1_Init(ResetType,Sync_SAROM);
 }
-static	void	_MAPINT	Reset_SBROM (int IsHardReset)
+static	void	_MAPINT	Reset_SBROM (RESET_TYPE ResetType)
 {
-	MMC1_Init(Sync_SBROM);
+	MMC1_Init(ResetType,Sync_SBROM);
 }
-static	void	_MAPINT	Reset_SCROM (int IsHardReset)
+static	void	_MAPINT	Reset_SCROM (RESET_TYPE ResetType)
 {
-	MMC1_Init(Sync_SCROM);
+	MMC1_Init(ResetType,Sync_SCROM);
 }
-static	void	_MAPINT	Reset_SEROM (int IsHardReset)
+static	void	_MAPINT	Reset_SEROM (RESET_TYPE ResetType)
 {
-	MMC1_Init(Sync_SEROM);
+	MMC1_Init(ResetType,Sync_SEROM);
 }
-static	void	_MAPINT	Reset_SGROM (int IsHardReset)
+static	void	_MAPINT	Reset_SGROM (RESET_TYPE ResetType)
 {
-	MMC1_Init(Sync_SGROM);
+	MMC1_Init(ResetType,Sync_SGROM);
 }
-static	void	_MAPINT	Reset_SKROM (int IsHardReset)
-{
-	UNIF_InitSRAM(8192);
-	MMC1_Init(Sync_SKROM);
-}
-static	void	_MAPINT	Reset_SLROM (int IsHardReset)
-{
-	MMC1_Init(Sync_SLROM);
-}
-static	void	_MAPINT	Reset_SL1ROM (int IsHardReset)
-{
-	MMC1_Init(Sync_SL1ROM);
-}
-static	void	_MAPINT	Reset_SNROM (int IsHardReset)
+static	void	_MAPINT	Reset_SKROM (RESET_TYPE ResetType)
 {
 	UNIF_InitSRAM(8192);
-	MMC1_Init(Sync_SNROM);
+	MMC1_Init(ResetType,Sync_SKROM);
 }
-static	void	_MAPINT	Reset_SOROM (int IsHardReset)
+static	void	_MAPINT	Reset_SLROM (RESET_TYPE ResetType)
+{
+	MMC1_Init(ResetType,Sync_SLROM);
+}
+static	void	_MAPINT	Reset_SL1ROM (RESET_TYPE ResetType)
+{
+	MMC1_Init(ResetType,Sync_SL1ROM);
+}
+static	void	_MAPINT	Reset_SNROM (RESET_TYPE ResetType)
 {
 	UNIF_InitSRAM(8192);
-	MMC1_Init(Sync_SOROM);
+	MMC1_Init(ResetType,Sync_SNROM);
 }
-static	void	_MAPINT	Reset_SUROM (int IsHardReset)
+static	void	_MAPINT	Reset_SOROM (RESET_TYPE ResetType)
 {
 	UNIF_InitSRAM(8192);
-	MMC1_Init(Sync_SUROM);
+	MMC1_Init(ResetType,Sync_SOROM);
+}
+static	void	_MAPINT	Reset_SUROM (RESET_TYPE ResetType)
+{
+	UNIF_InitSRAM(8192);
+	MMC1_Init(ResetType,Sync_SUROM);
 }
 
 CTMapperInfo	MapperInfo_NES_SAROM =

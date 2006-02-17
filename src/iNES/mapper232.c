@@ -13,7 +13,7 @@ static	void	Sync (void)
 	EMU->SetCHR_RAM8(0,0);
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.WhichGame)
 	SAVELOAD_BYTE(mode,x,data,Mapper.WhichBank)
@@ -39,7 +39,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
 

@@ -27,7 +27,7 @@ static	void	Sync (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	x = Latch_SaveLoad_A(mode,x,data);
 	SAVELOAD_BYTE(mode,x,data,Mapper.Jumper)
@@ -106,14 +106,14 @@ static	void	_MAPINT	Shutdown (void)
 	Mapper.ConfigWindow = NULL;
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
 
 	Mapper.ConfigWindow = NULL;
 	Mapper.ConfigCmd = 0;
 
-	Latch_Init(Sync,IsHardReset,FALSE);
+	Latch_Init(ResetType,Sync,FALSE);
 }
 
 static	u8 MapperNum = 59;

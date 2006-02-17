@@ -19,7 +19,7 @@ static	void	Sync (void)
 	else	EMU->Mirror_V();
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Reg0)
 	SAVELOAD_BYTE(mode,x,data,Mapper.Reg1)
@@ -28,19 +28,19 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write (int Bank, int Where, int What)
+static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
 	if (Mapper.Reg0 & 0x20)
 		return;
-	switch (Where & 1)
+	switch (Addr & 1)
 	{
-	case 0:	Mapper.Reg0 = What;	break;
-	case 1:	Mapper.Reg1 = What;	break;
+	case 0:	Mapper.Reg0 = Val;	break;
+	case 1:	Mapper.Reg1 = Val;	break;
 	}
 	Sync();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	EMU->SetCPUWriteHandler(0x6,Write);
 	Mapper.Reg0 = Mapper.Reg1 = 0;

@@ -4,7 +4,7 @@
 void	VRC7sound_Init (void);
 void	VRC7sound_Write (int,int);
 int	_MAPINT	VRC7sound_Get (int);
-int	_MAPINT	VRC7sound_SaveLoad (int,int,char *);
+int	_MAPINT	VRC7sound_SaveLoad (SAVELOAD_TYPE,int,unsigned char *);
 void	VRC7sound_Destroy (void);
 
 #endif	/* S_VRC7_H */

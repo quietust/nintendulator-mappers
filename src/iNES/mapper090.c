@@ -117,7 +117,7 @@ static	void	SyncNametables (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 4; i++)
@@ -191,9 +191,9 @@ static	void	_MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering
 	}
 }
 
-static	int	_MAPINT	Read5 (int Bank, int Where)
+static	int	_MAPINT	Read5 (int Bank, int Addr)
 {
-	switch (Where & 0x803)
+	switch (Addr & 0x803)
 	{
 	case 0x000:return (Mapper.Jumper & 0xC0) |
 			(EMU->GetCPUReadHandler(4)(4,0) & 0x3F);break;
@@ -204,49 +204,49 @@ static	int	_MAPINT	Read5 (int Bank, int Where)
 	return -1;
 }
 
-static	void	_MAPINT	Write5 (int Bank, int Where, int What)
+static	void	_MAPINT	Write5 (int Bank, int Addr, int Val)
 {
-	switch (Where & 0x803)
+	switch (Addr & 0x803)
 	{
-	case 0x800:Mapper.Mul1 = What;	break;
-	case 0x801:Mapper.Mul2 = What;	break;
-	case 0x803:Mapper.treg = What;	break;
+	case 0x800:Mapper.Mul1 = Val;	break;
+	case 0x801:Mapper.Mul2 = Val;	break;
+	case 0x803:Mapper.treg = Val;	break;
 	}
 }
 
-static	void	_MAPINT	Write8 (int Bank, int Where, int What)
+static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
 {
-	Mapper.PRGbanks[Where & 3] = What;
+	Mapper.PRGbanks[Addr & 3] = Val;
 	SyncPRG();
 }
 
-static	void	_MAPINT	Write9 (int Bank, int Where, int What)
+static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
 {
-	Mapper.CHRbanks[Where & 7].b0 = What;
+	Mapper.CHRbanks[Addr & 7].b0 = Val;
 	SyncCHR();
 }
 
-static	void	_MAPINT	WriteA (int Bank, int Where, int What)
+static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
 {
-	Mapper.CHRbanks[Where & 7].b1 = What;
+	Mapper.CHRbanks[Addr & 7].b1 = Val;
 	SyncCHR();
 }
 
-static	void	_MAPINT	WriteB (int Bank, int Where, int What)
+static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
 {
-	if (Where & 4)
-		Mapper.Nametables[Where & 3].b1 = What;
-	else	Mapper.Nametables[Where & 3].b0 = What;
+	if (Addr & 4)
+		Mapper.Nametables[Addr & 3].b1 = Val;
+	else	Mapper.Nametables[Addr & 3].b0 = Val;
 	SyncNametables();
 }
 
-static	void	_MAPINT	WriteC (int Bank, int Where, int What)
+static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
 {
-	switch (Where & 7)
+	switch (Addr & 7)
 	{
 	case 0:	/* usually unused */	break;
-	case 1:	Mapper.IRQmode = What;
-		switch (What & 3)
+	case 1:	Mapper.IRQmode = Val;
+		switch (Val & 3)
 		{
 		case 0:	EMU->DbgOut("Mapper 90 IRQ counter set to CPU M2");	break;
 		case 1:	EMU->DbgOut("Mapper 90 IRQ counter set to PPU A12");	break;
@@ -256,28 +256,28 @@ static	void	_MAPINT	WriteC (int Bank, int Where, int What)
 	case 2:	Mapper.IRQenabled = 0;
 		EMU->SetIRQ(1);		break;
 	case 3:	Mapper.IRQenabled = 1;	break;
-	case 4:	Mapper.IRQcounterL = What ^ Mapper.IRQxor;
+	case 4:	Mapper.IRQcounterL = Val ^ Mapper.IRQxor;
 					break;
-	case 5:	Mapper.IRQcounterH = What ^ Mapper.IRQxor;
+	case 5:	Mapper.IRQcounterH = Val ^ Mapper.IRQxor;
 					break;
-	case 6:	Mapper.IRQxor = What;	break;
+	case 6:	Mapper.IRQxor = Val;	break;
 	case 7:	/* usually unused */	break;
 	}
 }
 
-static	void	_MAPINT	WriteD (int Bank, int Where, int What)
+static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
 {
-	switch (Where & 3)
+	switch (Addr & 3)
 	{
-	case 0:	Mapper.BankMode = What;
+	case 0:	Mapper.BankMode = Val;
 		SyncPRG();
 		SyncCHR();
 		SyncNametables();	break;
-	case 1:	Mapper.Mirror = What;
+	case 1:	Mapper.Mirror = Val;
 		SyncNametables();	break;
-	case 2: Mapper.MirBank = What;
+	case 2: Mapper.MirBank = Val;
 		SyncNametables();	break;
-	case 3:	Mapper.ExtBank = What;
+	case 3:	Mapper.ExtBank = Val;
 		SyncCHR();		break;
 	}
 }
@@ -357,7 +357,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
@@ -374,7 +374,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	
 	Mapper.ConfigWindow = NULL;
 	Mapper.ConfigCmd = 0;
-	if (IsHardReset)
+	if (ResetType == RESET_HARD)
 	{
 		Mapper.IRQenabled = Mapper.IRQmode = Mapper.IRQcounterL = Mapper.IRQcounterH = Mapper.IRQxor = 0;
 		Mapper.IRQaddr = 0;

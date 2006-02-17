@@ -15,7 +15,7 @@ static	void	Sync (void)
 	EMU->SetCHR_RAM8(0,0);
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter.s0)
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
@@ -34,39 +34,39 @@ static	void	_MAPINT	CPUCycle (void)
 	}
 }
 
-static	void	_MAPINT	Write8 (int Bank, int Where, int What)
+static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
 {
-	Mapper.IRQcounter.n0 = What & 0xF;
+	Mapper.IRQcounter.n0 = Val & 0xF;
 }
 
-static	void	_MAPINT	Write9 (int Bank, int Where, int What)
+static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
 {
-	Mapper.IRQcounter.n1 = What & 0xF;
+	Mapper.IRQcounter.n1 = Val & 0xF;
 }
 
-static	void	_MAPINT	WriteA (int Bank, int Where, int What)
+static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
 {
-	Mapper.IRQcounter.n2 = What & 0xF;
+	Mapper.IRQcounter.n2 = Val & 0xF;
 }
 
-static	void	_MAPINT	WriteB (int Bank, int Where, int What)
+static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
 {
-	Mapper.IRQcounter.n3 = What & 0xF;
+	Mapper.IRQcounter.n3 = Val & 0xF;
 }
 
-static	void	_MAPINT	WriteC (int Bank, int Where, int What)
+static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
 {
-	Mapper.IRQenabled = What & 0x2;
+	Mapper.IRQenabled = Val & 0x2;
 }
 
-static	void	_MAPINT	WriteD (int Bank, int Where, int What)
+static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
 {
 	EMU->SetIRQ(1);
 }
 
-static	void	_MAPINT	WriteF (int Bank, int Where, int What)
+static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 {
-	Mapper.PRG = What & 0xF;
+	Mapper.PRG = Val & 0xF;
 	Sync();
 }
 
@@ -75,7 +75,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
 

@@ -14,7 +14,7 @@ static	void	Sync (void)
 	MMC3_SyncCHR_ROM(0xFF >> ((~Mapper.Regs[2]) & 0xF),(Mapper.Regs[0]) | ((Mapper.Regs[2] & 0xF0) << 4));
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	x = MMC3_SaveLoad(mode,x,data);
@@ -26,11 +26,11 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write (int Bank, int Where, int What)
+static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
 	if (Mapper.Regs[3] & 0x40)
 		return;
-	Mapper.Regs[Mapper.Pos++] = What;
+	Mapper.Regs[Mapper.Pos++] = Val;
 	Mapper.Pos &= 0x03;
 	Sync();
 }
@@ -40,7 +40,7 @@ static	void	_MAPINT	Shutdown (void)
 	MMC3_Destroy();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
@@ -51,7 +51,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 		Mapper.Regs[x] = 0;
 	Mapper.Pos = 0;
 
-	MMC3_Init(Sync);
+	MMC3_Init(ResetType,Sync);
 }
 
 CTMapperInfo	MapperInfo_BMC_Super1Min1 =

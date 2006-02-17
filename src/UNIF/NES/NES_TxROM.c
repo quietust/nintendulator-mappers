@@ -46,30 +46,30 @@ static	void	_MAPINT	Shutdown (void)
 	MMC3_Destroy();
 }
 
-static	void	_MAPINT	Reset_TFROM (int IsHardReset)
+static	void	_MAPINT	Reset_TFROM (RESET_TYPE ResetType)
 {
-	MMC3_Init(Sync_TFROM);
+	MMC3_Init(ResetType,Sync_TFROM);
 }
-static	void	_MAPINT	Reset_TGROM (int IsHardReset)
+static	void	_MAPINT	Reset_TGROM (RESET_TYPE ResetType)
 {
-	MMC3_Init(Sync_TGROM);
+	MMC3_Init(ResetType,Sync_TGROM);
 }
-static	void	_MAPINT	Reset_TKROM (int IsHardReset)
+static	void	_MAPINT	Reset_TKROM (RESET_TYPE ResetType)
 {
 	UNIF_InitSRAM(8192);
-	MMC3_Init(Sync_TKROM);
+	MMC3_Init(ResetType,Sync_TKROM);
 }
-static	void	_MAPINT	Reset_TLROM (int IsHardReset)
+static	void	_MAPINT	Reset_TLROM (RESET_TYPE ResetType)
 {
-	MMC3_Init(Sync_TLROM);
+	MMC3_Init(ResetType,Sync_TLROM);
 }
-static	void	_MAPINT	Reset_TR1ROM (int IsHardReset)
+static	void	_MAPINT	Reset_TR1ROM (RESET_TYPE ResetType)
 {
-	MMC3_Init(Sync_TR1ROM);
+	MMC3_Init(ResetType,Sync_TR1ROM);
 }
-static	void	_MAPINT	Reset_TSROM (int IsHardReset)
+static	void	_MAPINT	Reset_TSROM (RESET_TYPE ResetType)
 {
-	MMC3_Init(Sync_TSROM);
+	MMC3_Init(ResetType,Sync_TSROM);
 }
 
 CTMapperInfo	MapperInfo_NES_TFROM =

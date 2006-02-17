@@ -38,7 +38,7 @@ static	int	_MAPINT	MapperSnd (int Cycles)
 	out += MapperSnd_GenerateWave(&MapSound.Chan[1],Cycles);
 	return out << 3;
 }
-static	int	_MAPINT	MapperSnd_SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	MapperSnd_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	int i;
 	for (i = 0; i < 256; i++)
@@ -72,16 +72,16 @@ static	struct
 	FPPURead PPUReadNT[4];
 }	Mapper;
 
-int	_MAPINT	ReadNT (int Bank, int Where)
+int	_MAPINT	ReadNT (int Bank, int Addr)
 {
-	if ((Mapper.Flags & 0x4) && (Where >= 0x3C0) && ((Bank & 3) == ((Mapper.LastAddr >> 10) & 3)))
+	if ((Mapper.Flags & 0x4) && (Addr >= 0x3C0) && ((Bank & 3) == ((Mapper.LastAddr >> 10) & 3)))
 	{
 		const unsigned char AttribBits[4] = {0x00,0x55,0xAA,0xFF};
 		if (EMU->GetCHR_NT1(Bank))
 			return AttribBits[Mapper.ExtRam1[Mapper.LastAddr & 0x3FF]];
 		else	return AttribBits[Mapper.ExtRam0[Mapper.LastAddr & 0x3FF]];
 	}
-	else	return Mapper.PPUReadNT[Bank & 3](Bank,Where);
+	else	return Mapper.PPUReadNT[Bank & 3](Bank,Addr);
 }
 
 static	void	Sync (void)
@@ -122,7 +122,7 @@ static	void	Sync (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter)
@@ -151,11 +151,11 @@ static	void	_MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering
 	Mapper.LastAddrTmp = Addr;
 }
 
-static	int	_MAPINT	Read (int Bank, int Where)
+static	int	_MAPINT	Read (int Bank, int Addr)
 {
 	struct MSChan *Chan;
 	int result = 0;
-	if (Where & 0x800)
+	if (Addr & 0x800)
 		Chan = &MapSound.Chan[1];
 	else	Chan = &MapSound.Chan[0];
 	if (Chan->IsFull)
@@ -164,29 +164,29 @@ static	int	_MAPINT	Read (int Bank, int Where)
 		result |= 0x40;
 	return result;
 }
-static	void	_MAPINT	WriteL (int Bank, int Where, int What)
+static	void	_MAPINT	WriteL (int Bank, int Addr, int Val)
 {
-	if (Where & 0x8)
+	if (Addr & 0x8)
 	{
-		switch (Where & 0x7)
+		switch (Addr & 0x7)
 		{
-		case 0:	Mapper.IRQlatch = What;
+		case 0:	Mapper.IRQlatch = Val;
 			break;
-		case 1:	Mapper.IRQcounter = ((What & 0x7F) << 8) | Mapper.IRQlatch;
-			Mapper.IRQenabled = What & 0x80;
+		case 1:	Mapper.IRQcounter = ((Val & 0x7F) << 8) | Mapper.IRQlatch;
+			Mapper.IRQenabled = Val & 0x80;
 			EMU->SetIRQ(1);
 			break;
-		case 2:	Mapper.Flags = What & 0xF;
+		case 2:	Mapper.Flags = Val & 0xF;
 			break;
-		case 3:	Mapper.PRG = What & 0xF;
+		case 3:	Mapper.PRG = Val & 0xF;
 			break;
-		case 4:	Mapper.CHR[0] = What & 0xF;
+		case 4:	Mapper.CHR[0] = Val & 0xF;
 			break;
-		case 5:	Mapper.CHR[1] = What & 0xF;
+		case 5:	Mapper.CHR[1] = Val & 0xF;
 			break;
-		case 6:	Mapper.CHR[2] = What & 0xF;
+		case 6:	Mapper.CHR[2] = Val & 0xF;
 			break;
-		case 7:	Mapper.CHR[3] = What & 0xF;
+		case 7:	Mapper.CHR[3] = Val & 0xF;
 			break;
 		}
 		Sync();
@@ -194,11 +194,11 @@ static	void	_MAPINT	WriteL (int Bank, int Where, int What)
 	else
 	{
 		struct MSChan *Chan;
-		if (Where & 4)
+		if (Addr & 4)
 			Chan = &MapSound.Chan[1];
 		else	Chan = &MapSound.Chan[0];
 
-		switch (Where & 3)
+		switch (Addr & 3)
 		{
 		case 0x0:
 			memset(Chan->FIFO,0,256);
@@ -212,28 +212,28 @@ static	void	_MAPINT	WriteL (int Bank, int Where, int What)
 			if (Chan->ReadPos == Chan->WritePos)
 			{
 				Chan->IsEmpty = FALSE;
-				Chan->Pos = What * Chan->vol;
+				Chan->Pos = Val * Chan->vol;
 			}
-			Chan->FIFO[Chan->WritePos++] = What;
+			Chan->FIFO[Chan->WritePos++] = Val;
 			if (Chan->ReadPos == Chan->WritePos)
 				Chan->IsFull = TRUE;
 			break;
 		case 0x2:
-			Chan->freq = (Chan->freq & 0xF00) | What;
+			Chan->freq = (Chan->freq & 0xF00) | Val;
 			break;
 		case 0x3:
-			Chan->freq = (Chan->freq & 0xFF) | ((What & 0xF) << 8);
-			Chan->vol = (What & 0xF0) >> 4;
+			Chan->freq = (Chan->freq & 0xFF) | ((Val & 0xF) << 8);
+			Chan->vol = (Val & 0xF0) >> 4;
 			Chan->Pos = Chan->FIFO[Chan->ReadPos] * Chan->vol;
 			break;
 		}
 	}
 }
-static	void	_MAPINT	WriteH (int Bank, int Where, int What)
+static	void	_MAPINT	WriteH (int Bank, int Addr, int Val)
 {
-	if (Where & 0x400)
-		Mapper.ExtRam1[Where & 0x3FF] = What & 3;
-	else	Mapper.ExtRam0[Where & 0x3FF] = What & 3;
+	if (Addr & 0x400)
+		Mapper.ExtRam1[Addr & 0x3FF] = Val & 3;
+	else	Mapper.ExtRam0[Addr & 0x3FF] = Val & 3;
 }
 
 static	void	_MAPINT	Shutdown (void)
@@ -241,7 +241,7 @@ static	void	_MAPINT	Shutdown (void)
 	UNIF_SaveSRAM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	UNIF_InitSRAM(8192);

@@ -89,19 +89,19 @@ void	VRC6sound_Init (void)
 	VRC6sound.Saw.LCtr = 1;
 }
 
-void	VRC6sound_Write (int Where, int What)
+void	VRC6sound_Write (int Addr, int Val)
 {
-	switch (Where)
+	switch (Addr)
 	{
-	case 0x9000:	VRC6sound.Sq0.byte0 = What;	break;
-	case 0x9001:	VRC6sound.Sq0.byte1 = What;	break;
-	case 0x9002:	VRC6sound.Sq0.byte2 = What;	break;
-	case 0xA000:	VRC6sound.Sq1.byte0 = What;	break;
-	case 0xA001:	VRC6sound.Sq1.byte1 = What;	break;
-	case 0xA002:	VRC6sound.Sq1.byte2 = What;	break;
-	case 0xB000:	VRC6sound.Saw.byte0 = What;	break;
-	case 0xB001:	VRC6sound.Saw.byte1 = What;	break;
-	case 0xB002:	VRC6sound.Saw.byte2 = What;	break;
+	case 0x9000:	VRC6sound.Sq0.byte0 = Val;	break;
+	case 0x9001:	VRC6sound.Sq0.byte1 = Val;	break;
+	case 0x9002:	VRC6sound.Sq0.byte2 = Val;	break;
+	case 0xA000:	VRC6sound.Sq1.byte0 = Val;	break;
+	case 0xA001:	VRC6sound.Sq1.byte1 = Val;	break;
+	case 0xA002:	VRC6sound.Sq1.byte2 = Val;	break;
+	case 0xB000:	VRC6sound.Saw.byte0 = Val;	break;
+	case 0xB001:	VRC6sound.Saw.byte1 = Val;	break;
+	case 0xB002:	VRC6sound.Saw.byte2 = Val;	break;
 	}
 }
 
@@ -114,7 +114,7 @@ int	_MAPINT	VRC6sound_Get (int Cycles)
 	return z << 8;
 }
 
-int	_MAPINT	VRC6sound_SaveLoad (int mode, int x, char *data)
+int	_MAPINT	VRC6sound_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq0.byte0)
 	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq0.byte1)

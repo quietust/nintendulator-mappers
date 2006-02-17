@@ -13,9 +13,9 @@ static	void	_MAPINT	Shutdown (void)
 	MMC2_Destroy();
 }
 
-static	void	_MAPINT	Reset_PNROM (int IsHardReset)
+static	void	_MAPINT	Reset_PNROM (RESET_TYPE ResetType)
 {
-	MMC2_Init(Sync_PNROM);
+	MMC2_Init(ResetType,Sync_PNROM);
 }
 
 CTMapperInfo	MapperInfo_NES_PNROM =

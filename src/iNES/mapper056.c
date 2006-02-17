@@ -24,7 +24,7 @@ static	void	Sync (void)
 		EMU->SetCHR_ROM1(x,Mapper.CHR[x]);
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,Mapper.PRGcontrol)
@@ -55,55 +55,55 @@ static	void	_MAPINT	CPUCycle (void)
 	}
 }
 
-static	void	_MAPINT	Write8 (int Bank, int Where, int What)
+static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
 {
-	Mapper.IRQcounter.n0 = What & 0xF;
+	Mapper.IRQcounter.n0 = Val & 0xF;
 	EMU->SetIRQ(1);
 }
 
-static	void	_MAPINT	Write9 (int Bank, int Where, int What)
+static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
 {
-	Mapper.IRQcounter.n1 = What & 0xF;
+	Mapper.IRQcounter.n1 = Val & 0xF;
 	EMU->SetIRQ(1);
 }
 
-static	void	_MAPINT	WriteA (int Bank, int Where, int What)
+static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
 {
-	Mapper.IRQcounter.n2 = What & 0xF;
+	Mapper.IRQcounter.n2 = Val & 0xF;
 	EMU->SetIRQ(1);
 }
 
-static	void	_MAPINT	WriteB (int Bank, int Where, int What)
+static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
 {
-	Mapper.IRQcounter.n3 = What & 0xF;
+	Mapper.IRQcounter.n3 = Val & 0xF;
 	EMU->SetIRQ(1);
 }
 
-static	void	_MAPINT	WriteC (int Bank, int Where, int What)
+static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
 {
-	Mapper.IRQenabled = What & 0xF;
+	Mapper.IRQenabled = Val & 0xF;
 //	EMU->SetIRQ(1);
 }
 
-static	void	_MAPINT	WriteE (int Bank, int Where, int What)
+static	void	_MAPINT	WriteE (int Bank, int Addr, int Val)
 {
-	Mapper.PRGcontrol = What & 0xF;
+	Mapper.PRGcontrol = Val & 0xF;
 }
 
-static	void	_MAPINT	WriteF (int Bank, int Where, int What)
+static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 {
 	switch (Mapper.PRGcontrol)
 	{
-	case 0x1:	Mapper.PRGlow[0] = What & 0xF;	break;
-	case 0x2:	Mapper.PRGlow[1] = What & 0xF;	break;
-	case 0x3:	Mapper.PRGlow[2] = What & 0xF;	break;
-	case 0x4:	Mapper.PRGlow[3] = What & 0xF;	break;
+	case 0x1:	Mapper.PRGlow[0] = Val & 0xF;	break;
+	case 0x2:	Mapper.PRGlow[1] = Val & 0xF;	break;
+	case 0x3:	Mapper.PRGlow[2] = Val & 0xF;	break;
+	case 0x4:	Mapper.PRGlow[3] = Val & 0xF;	break;
 	}
-	switch (Where & 0xC00)
+	switch (Addr & 0xC00)
 	{
-	case 0x000:	Mapper.PRGhigh[Where & 0x03] = What & 0x10;	break;
-	case 0x800:	Mapper.Mirror = What & 0x01;			break;
-	case 0xC00:	Mapper.CHR[Where & 0x07] = What;		break;
+	case 0x000:	Mapper.PRGhigh[Addr & 0x03] = Val & 0x10;	break;
+	case 0x800:	Mapper.Mirror = Val & 0x01;			break;
+	case 0xC00:	Mapper.CHR[Addr & 0x07] = Val;		break;
 	}
 	Sync();
 }
@@ -113,7 +113,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	iNES_InitROM();

@@ -128,29 +128,29 @@ void	FME7sound_Init (void)
 #endif
 }
 
-void	FME7sound_Write (int Where, int What)
+void	FME7sound_Write (int Addr, int Val)
 {
-	switch (Where & 0xE000)
+	switch (Addr & 0xE000)
 	{
-	case 0xC000:	FME7sound.select = What & 0xF;	break;	
+	case 0xC000:	FME7sound.select = Val & 0xF;	break;	
 	case 0xE000:	switch (FME7sound.select)
 			{
-			case 0x0:	FME7sound.Sqr[0].byte0 = What;	break;
-			case 0x1:	FME7sound.Sqr[0].byte1 = What;	break;
-			case 0x2:	FME7sound.Sqr[1].byte0 = What;	break;
-			case 0x3:	FME7sound.Sqr[1].byte1 = What;	break;
-			case 0x4:	FME7sound.Sqr[2].byte0 = What;	break;
-			case 0x5:	FME7sound.Sqr[2].byte1 = What;	break;
+			case 0x0:	FME7sound.Sqr[0].byte0 = Val;	break;
+			case 0x1:	FME7sound.Sqr[0].byte1 = Val;	break;
+			case 0x2:	FME7sound.Sqr[1].byte0 = Val;	break;
+			case 0x3:	FME7sound.Sqr[1].byte1 = Val;	break;
+			case 0x4:	FME7sound.Sqr[2].byte0 = Val;	break;
+			case 0x5:	FME7sound.Sqr[2].byte1 = Val;	break;
 #ifdef	FME7_NOISE
-			case 0x6:	FME7sound.Noise.byte0 = What;	break;
+			case 0x6:	FME7sound.Noise.byte0 = Val;	break;
 #endif
-			case 0x7:	FME7sound.byte7 = What;	break;
-			case 0x8:	FME7sound.Sqr[0].byte2 = What;	break;
-			case 0x9:	FME7sound.Sqr[1].byte2 = What;	break;
-			case 0xA:	FME7sound.Sqr[2].byte2 = What;	break;
-			case 0xB:	FME7sound.byteB = What;	break;
-			case 0xC:	FME7sound.byteC = What;	break;
-			case 0xD:	FME7sound.byteD = What;	break;
+			case 0x7:	FME7sound.byte7 = Val;	break;
+			case 0x8:	FME7sound.Sqr[0].byte2 = Val;	break;
+			case 0x9:	FME7sound.Sqr[1].byte2 = Val;	break;
+			case 0xA:	FME7sound.Sqr[2].byte2 = Val;	break;
+			case 0xB:	FME7sound.byteB = Val;	break;
+			case 0xC:	FME7sound.byteC = Val;	break;
+			case 0xD:	FME7sound.byteD = Val;	break;
 			}				break;
 	}
 }
@@ -167,7 +167,7 @@ int	_MAPINT	FME7sound_Get (int Cycles)
 	return z << 6;
 }
 
-int	_MAPINT	FME7sound_SaveLoad (int mode, int x, char *data)
+int	_MAPINT	FME7sound_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,FME7sound.select)
 	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[0].byte0)

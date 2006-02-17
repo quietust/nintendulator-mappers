@@ -35,7 +35,7 @@ static	void	Sync (void)
 	else	EMU->Mirror_V();
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	x = Latch_SaveLoad_A(mode,x,data);
@@ -46,17 +46,17 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	int	_MAPINT	ReadRegs (int Bank, int Where)
+static	int	_MAPINT	ReadRegs (int Bank, int Addr)
 {
-	if (Where & 0x800)
-		return Mapper.Regs[Where & 3];
+	if (Addr & 0x800)
+		return Mapper.Regs[Addr & 3];
 	else	return 0;
 }
 
-static	void	_MAPINT	WriteRegs (int Bank, int Where, int What)
+static	void	_MAPINT	WriteRegs (int Bank, int Addr, int Val)
 {
-	if (Where & 0x800)
-		Mapper.Regs[Where & 3] = What & 0xF;
+	if (Addr & 0x800)
+		Mapper.Regs[Addr & 3] = Val & 0xF;
 }
 
 static	void	_MAPINT	Shutdown (void)
@@ -64,12 +64,12 @@ static	void	_MAPINT	Shutdown (void)
 	Latch_Destroy();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	EMU->SetCPUReadHandler(0x5,ReadRegs);
 	EMU->SetCPUWriteHandler(0x5,WriteRegs);
-	Latch_Init(Sync,IsHardReset,FALSE);
-	if (IsHardReset)
+	Latch_Init(ResetType,Sync,FALSE);
+	if (ResetType == RESET_HARD)
 	{
 		Mapper.Regs[0] = Mapper.Regs[2] = 0xF;
 		Mapper.Regs[1] = Mapper.Regs[3] = 0x0;

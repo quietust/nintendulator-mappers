@@ -6,9 +6,9 @@ static	void	_MAPINT	Shutdown (void)
 	FDS_Destroy();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	FDS_Init(IsHardReset);
+	FDS_Init(ResetType);
 }
 
 CTMapperInfo	MapperInfo_FDS =

@@ -12,9 +12,9 @@ static	void	_MAPINT	Shutdown (void)
 	Latch_Destroy();
 }
 
-static	void	_MAPINT	Reset_MHROM (int IsHardReset)
+static	void	_MAPINT	Reset_MHROM (RESET_TYPE ResetType)
 {
-	Latch_Init(Sync_MHROM,IsHardReset,TRUE);
+	Latch_Init(ResetType,Sync_MHROM,TRUE);
 	UNIF_SetMirroring(NULL);
 }
 

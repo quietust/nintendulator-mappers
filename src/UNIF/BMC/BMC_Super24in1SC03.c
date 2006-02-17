@@ -18,7 +18,7 @@ static	void	Sync (void)
 	else	MMC3_SyncCHR_ROM(0xFF,Mapper.CHRbank << 3);
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	x = MMC3_SaveLoad(mode,x,data);
 	SAVELOAD_BYTE(mode,x,data,Mapper.BankSize)
@@ -29,13 +29,13 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write (int Bank, int Where, int What)
+static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
-	switch (Where)
+	switch (Addr)
 	{
-	case 0xFF0:	Mapper.BankSize = What;	break;
-	case 0xFF1:	Mapper.PRGbank = What;	break;
-	case 0xFF2:	Mapper.CHRbank = What;	break;
+	case 0xFF0:	Mapper.BankSize = Val;	break;
+	case 0xFF1:	Mapper.PRGbank = Val;	break;
+	case 0xFF2:	Mapper.CHRbank = Val;	break;
 	}
 	Sync();
 }
@@ -45,14 +45,14 @@ static	void	_MAPINT	Shutdown (void)
 	MMC3_Destroy();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	EMU->SetCPUWriteHandler(0x5,Write);
 
 	Mapper.BankSize = 0x24;
 	Mapper.PRGbank = 0x9F;
 	Mapper.CHRbank = 0;
-	MMC3_Init(Sync);
+	MMC3_Init(ResetType,Sync);
 }
 
 CTMapperInfo	MapperInfo_BMC_Super24in1SC03 =

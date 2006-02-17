@@ -34,9 +34,9 @@ static	void	_MAPINT	Shutdown (void)
 	Latch_Destroy();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Latch_Init(Sync,IsHardReset,FALSE);
+	Latch_Init(ResetType,Sync,FALSE);
 }
 
 CTMapperInfo	MapperInfo_BMC_Generic20in1A =

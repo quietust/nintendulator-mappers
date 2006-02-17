@@ -17,13 +17,13 @@ static	void	Sync (void)
 	switch (Mapper.Mirror >> 1)
 	{
 	case 0:	EMU->Mirror_Custom(0,0,0,1);	break;
-	case 1:	EMU->Mirror_H();			break;
-	case 2:	EMU->Mirror_V();			break;
+	case 1:	EMU->Mirror_H();		break;
+	case 2:	EMU->Mirror_V();		break;
 	case 3:	EMU->Mirror_S0();		break;
 	}
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Cmd)
 	SAVELOAD_BYTE(mode,x,data,Mapper.CHR0l)
@@ -39,49 +39,31 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	int	_MAPINT	SaveState (int x, char *MI)
+static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
-	return x;
-}
-
-static	int	_MAPINT	LoadState (int x, const char *MI)
-{
-	Mapper.Cmd	= MI[x++];
-	Mapper.CHR0l	= MI[x++];
-	Mapper.CHR0h	= MI[x++];
-	Mapper.CHR1l	= MI[x++];
-	Mapper.CHR1h	= MI[x++];
-	Mapper.CHRch	= MI[x++];
-	Mapper.PRG	= MI[x++];
-	Mapper.CHRmode	= MI[x++];
-	Mapper.Mirror	= MI[x++];
-	Sync();
-	return x;
-}
-
-static	void	_MAPINT	Write (int Bank, int Where, int What)
-{
-	u16 Loc = (Bank << 12) | Where;
+	u16 Loc = (Bank << 12) | Addr;
 	if (Loc < 0x4018)
 	{
-		Mapper.Write4(Bank,Where,What);
+		Mapper.Write4(Bank,Addr,Val);
 		return;
 	}
-	What &= 0x07;
+	Val &= 0x07;
 	switch (Loc & 0x4101)
 	{
-	case 0x4100:	Mapper.Cmd = What;	break;
-	case 0x4101:	switch (Mapper.Cmd)
-			{
-			case 0:	Mapper.CHR0l = What;	break;
-			case 1:	Mapper.CHR0h = What;	break;
-			case 2:	Mapper.CHR1l = What;	break;
-			case 3:	Mapper.CHR1h = What;	break;
-			case 4:	Mapper.CHRch = What;	break;
-			case 5:	Mapper.PRG = What;	break;
-			case 6:	Mapper.CHRmode = What;	break;
-			case 7:	Mapper.Mirror = What;	break;
-			}			break;
+	case 0x4100:
+		Mapper.Cmd = Val;	break;
+	case 0x4101:
+		switch (Mapper.Cmd)
+		{
+		case 0:	Mapper.CHR0l = Val;	break;
+		case 1:	Mapper.CHR0h = Val;	break;
+		case 2:	Mapper.CHR1l = Val;	break;
+		case 3:	Mapper.CHR1h = Val;	break;
+		case 4:	Mapper.CHRch = Val;	break;
+		case 5:	Mapper.PRG = Val;	break;
+		case 6:	Mapper.CHRmode = Val;	break;
+		case 7:	Mapper.Mirror = Val;	break;
+		}			break;
 	}
 	Sync();
 }
@@ -91,7 +73,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 

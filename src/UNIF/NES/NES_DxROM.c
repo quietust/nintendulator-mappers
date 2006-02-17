@@ -9,9 +9,9 @@ typedef	struct	N108
 }	TN108, *PN108;
 static	TN108	N108;
 
-void	_MAPINT	N108_CPUWrite89 (int Bank, int Where, int What);
+void	_MAPINT	N108_CPUWrite89 (int Bank, int Addr, int Val);
 
-void	N108_Init (void (*Sync)(void))
+void	N108_Init (RESET_TYPE ResetType, void (*Sync)(void))
 {
 	N108.PRG[0] = 0x3C;	N108.PRG[1] = 0x3D;
 
@@ -46,7 +46,7 @@ void	N108_SyncCHR (void)
 	EMU->SetCHR_ROM1(7,N108.CHR[5]);
 }
 
-int	_MAPINT	N108_SaveLoad (int mode, int x, char *data)
+int	_MAPINT	N108_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,N108.Cmd)
@@ -59,22 +59,22 @@ int	_MAPINT	N108_SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-void	_MAPINT	N108_CPUWrite89 (int Bank, int Where, int What)
+void	_MAPINT	N108_CPUWrite89 (int Bank, int Addr, int Val)
 {
-	What &= 0x3F;
-	if (Where & 1)
+	Val &= 0x3F;
+	if (Addr & 1)
 		switch (N108.Cmd & 0x7)
 		{
-		case 0:	N108.CHR[0] = What >> 1;break;
-		case 1:	N108.CHR[1] = What >> 1;break;
-		case 2:	N108.CHR[2] = What;	break;
-		case 3:	N108.CHR[3] = What;	break;
-		case 4:	N108.CHR[4] = What;	break;
-		case 5:	N108.CHR[5] = What;	break;
-		case 6:	N108.PRG[0] = What;	break;
-		case 7:	N108.PRG[1] = What;	break;
+		case 0:	N108.CHR[0] = Val >> 1;break;
+		case 1:	N108.CHR[1] = Val >> 1;break;
+		case 2:	N108.CHR[2] = Val;	break;
+		case 3:	N108.CHR[3] = Val;	break;
+		case 4:	N108.CHR[4] = Val;	break;
+		case 5:	N108.CHR[5] = Val;	break;
+		case 6:	N108.PRG[0] = Val;	break;
+		case 7:	N108.PRG[1] = Val;	break;
 		}
-	else	N108.Cmd = What;
+	else	N108.Cmd = Val;
 	N108.Sync();
 }
 
@@ -103,17 +103,17 @@ static	void	_MAPINT	Shutdown (void)
 	N108_Destroy();
 }
 
-static	void	_MAPINT	Reset_DEROM (int IsHardReset)
+static	void	_MAPINT	Reset_DEROM (RESET_TYPE ResetType)
 {
-	N108_Init(Sync_DEROM);
+	N108_Init(ResetType,Sync_DEROM);
 }
-static	void	_MAPINT	Reset_DEIROM (int IsHardReset)
+static	void	_MAPINT	Reset_DEIROM (RESET_TYPE ResetType)
 {
-	N108_Init(Sync_DEIROM);
+	N108_Init(ResetType,Sync_DEIROM);
 }
-static	void	_MAPINT	Reset_DRROM (int IsHardReset)
+static	void	_MAPINT	Reset_DRROM (RESET_TYPE ResetType)
 {
-	N108_Init(Sync_DRROM);
+	N108_Init(ResetType,Sync_DRROM);
 }
 
 CTMapperInfo	MapperInfo_NES_DEROM =

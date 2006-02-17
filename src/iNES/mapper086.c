@@ -11,7 +11,7 @@ static	void	Sync (void)
 	EMU->SetCHR_ROM8(0,(Mapper.Reg & 0x03) | ((Mapper.Reg & 0x40) >> 4));
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Reg)
 	if (mode == STATE_LOAD)
@@ -19,17 +19,17 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	void	_MAPINT	WriteBank (int Bank, int Where, int What)
+static	void	_MAPINT	WriteBank (int Bank, int Addr, int Val)
 {
-	Mapper.Reg = What;
+	Mapper.Reg = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteSpeech (int Bank, int Where, int What)
+static	void	_MAPINT	WriteSpeech (int Bank, int Addr, int Val)
 {
-	if ((What & 0x30) != 0x20)
+	if ((Val & 0x30) != 0x20)
 		return;
-	switch (What & 0xF)
+	switch (Val & 0xF)
 	{
 	case 0x0:EMU->StatusOut("\"Strike!\"");	break;
 	case 0x1:EMU->StatusOut("\"Out!\"");	break;
@@ -55,7 +55,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
 

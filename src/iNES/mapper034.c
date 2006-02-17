@@ -46,7 +46,7 @@ static	void	SetMode (int Mode)
 #endif
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Mode)
 	if (Mapper.Mode == 1)
@@ -62,23 +62,23 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	void	_MAPINT	WriteNINA (int Bank, int Where, int What)
+static	void	_MAPINT	WriteNINA (int Bank, int Addr, int Val)
 {
-	Mapper.Write7(Bank,Where,What);
-	switch (Where)
+	Mapper.Write7(Bank,Addr,Val);
+	switch (Addr)
 	{
-	case 0xFFD:	Mapper.NINA_PRG = What;
+	case 0xFFD:	Mapper.NINA_PRG = Val;
 			SetMode(1);	break;
-	case 0xFFE:	Mapper.NINA_CHR[0] = What;
+	case 0xFFE:	Mapper.NINA_CHR[0] = Val;
 			SetMode(1);	break;
-	case 0xFFF:	Mapper.NINA_CHR[1] = What;
+	case 0xFFF:	Mapper.NINA_CHR[1] = Val;
 			SetMode(1);	break;
 	}
 }
 
-static	void	_MAPINT	WriteBNROM (int Bank, int Where, int What)
+static	void	_MAPINT	WriteBNROM (int Bank, int Addr, int Val)
 {
-	Mapper.BNROM_PRG = What;
+	Mapper.BNROM_PRG = Val;
 	SetMode(2);
 }
 
@@ -87,7 +87,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	iNES_InitROM();

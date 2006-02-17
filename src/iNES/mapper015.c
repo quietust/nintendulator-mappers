@@ -17,7 +17,7 @@ static	void	Sync (void)
 	else	EMU->Mirror_V();
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 4; i++)
@@ -28,13 +28,13 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write (int Bank, int Where, int What)
+static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
-	u8 PRGbank = (What & 0x3F) << 1;
-	switch (Where)
+	u8 PRGbank = (Val & 0x3F) << 1;
+	switch (Addr)
 	{
 	case 0x000:
-		if (What & 0x80)
+		if (Val & 0x80)
 		{
 			Mapper.PRG[0] = PRGbank + 1;
 			Mapper.PRG[1] = PRGbank + 0;
@@ -48,10 +48,10 @@ static	void	_MAPINT	Write (int Bank, int Where, int What)
 			Mapper.PRG[2] = PRGbank + 2;
 			Mapper.PRG[3] = PRGbank + 3;
 		}
-		Mapper.Mirror = What & 0x40;
+		Mapper.Mirror = Val & 0x40;
 		break;
 	case 0x001:
-		if (What & 0x80)
+		if (Val & 0x80)
 		{
 			Mapper.PRG[0] = PRGbank + 1;
 			Mapper.PRG[1] = PRGbank + 0;
@@ -63,7 +63,7 @@ static	void	_MAPINT	Write (int Bank, int Where, int What)
 		}
 		break;
 	case 0x002:
-		if (What & 0x80)
+		if (Val & 0x80)
 		{
 			Mapper.PRG[0] = PRGbank + 1;
 			Mapper.PRG[1] = PRGbank + 1;
@@ -79,7 +79,7 @@ static	void	_MAPINT	Write (int Bank, int Where, int What)
 		}
 		break;
 	case 0x003:
-		if (What & 0x80)
+		if (Val & 0x80)
 		{
 			Mapper.PRG[2] = PRGbank + 1;
 			Mapper.PRG[3] = PRGbank + 0;
@@ -89,7 +89,7 @@ static	void	_MAPINT	Write (int Bank, int Where, int What)
 			Mapper.PRG[2] = PRGbank + 0;
 			Mapper.PRG[3] = PRGbank + 1;
 		}
-		Mapper.Mirror = What & 0x40;
+		Mapper.Mirror = Val & 0x40;
 		break;
 	}
 	Sync();
@@ -100,7 +100,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 

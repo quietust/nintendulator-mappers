@@ -1425,13 +1425,13 @@ void	VRC7sound_Init (void)
 	}
 }
 
-void	VRC7sound_Write (int Where, int What)
+void	VRC7sound_Write (int Addr, int Val)
 {
 	static unsigned char addr = 0;
-	switch (Where & 0xF030)
+	switch (Addr & 0xF030)
 	{
-	case 0x9010:	addr = What;			break;
-	case 0x9030:	OPLL_writeReg(OPL,addr,What);	break;
+	case 0x9010:	addr = Val;			break;
+	case 0x9030:	OPLL_writeReg(OPL,addr,Val);	break;
 	}
 }
 
@@ -1440,7 +1440,7 @@ int	_MAPINT	VRC7sound_Get (int numCycles)
 	return OPLL_calc(OPL) << 3;	// currently don't use numCycles
 }
 
-int	_MAPINT	VRC7sound_SaveLoad (int mode, int x, char *data)
+int	_MAPINT	VRC7sound_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	if (mode == STATE_SAVE)
 	{

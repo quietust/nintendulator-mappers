@@ -20,14 +20,14 @@ static	void	_MAPINT	Shutdown (void)
 	Latch_Destroy();
 }
 
-static	void	_MAPINT	Reset_CNROM (int IsHardReset)
+static	void	_MAPINT	Reset_CNROM (RESET_TYPE ResetType)
 {
-	Latch_Init(Sync_CNROM,IsHardReset,TRUE);
+	Latch_Init(ResetType,Sync_CNROM,TRUE);
 	UNIF_SetMirroring(NULL);
 }
-static	void	_MAPINT	Reset_CPROM (int IsHardReset)
+static	void	_MAPINT	Reset_CPROM (RESET_TYPE ResetType)
 {
-	Latch_Init(Sync_CPROM,IsHardReset,TRUE);
+	Latch_Init(ResetType,Sync_CPROM,TRUE);
 	UNIF_SetMirroring(NULL);
 }
 

@@ -33,7 +33,7 @@ static	const	unsigned char	AttribShift[128] =
 
 static	void	MMC5_SetPPUHandlers (void);
 
-void	MMC5_Init (void)
+void	MMC5_Init (RESET_TYPE ResetType)
 {
 	u8 x;
 
@@ -103,7 +103,7 @@ void	MMC5_Destroy (void)
 	MMC5sound_Destroy();
 }
 
-int	_MAPINT	MMC5_SaveLoad (int mode, int x, char *data)
+int	_MAPINT	MMC5_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,MMC5.PRGsize)

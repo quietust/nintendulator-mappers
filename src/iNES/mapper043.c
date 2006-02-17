@@ -23,7 +23,7 @@ static	void	Sync (void)
 	EMU->SetCHR_ROM8(0,0);
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
 	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter.s0)
@@ -43,20 +43,20 @@ static	void	_MAPINT	CPUCycle (void)
 	}
 }
 
-static	void	_MAPINT	Write (int Bank, int Where, int What)
+static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
 	const u8 PRGbanks[8] = {4,3,4,4,4,7,5,6};
-	u16 Loc = (Bank << 12) | Where;
+	u16 Loc = (Bank << 12) | Addr;
 	if (Bank == 4)
-		Mapper.Write4(Bank,Where,What);
+		Mapper.Write4(Bank,Addr,Val);
 	if ((Loc & 0x71FF) == 0x4022)
 	{
-		Mapper.PRG = PRGbanks[What & 7];
+		Mapper.PRG = PRGbanks[Val & 7];
 		Sync();
 	}
 	if ((Loc & 0x71FF) == 0x0122)
 	{
-		if (What & 3)
+		if (Val & 3)
 			Mapper.IRQenabled = 1;
 		else
 		{
@@ -138,7 +138,7 @@ static	void	_MAPINT	Shutdown (void)
 	Mapper.ConfigWindow = NULL;
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	iNES_InitROM();
@@ -149,7 +149,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	for (x = 0x4; x < 0x10; x++)
 		EMU->SetCPUWriteHandler(x,Write);
 
-	if (IsHardReset)
+	if (ResetType == RESET_HARD)
 		Mapper.Title = 1;
 	Mapper.PRG = 0;
 	Mapper.IRQenabled = 1;

@@ -7,31 +7,31 @@ static	void	_MAPINT	Shutdown (void)
 	MMC5_Destroy();
 }
 
-static	void	_MAPINT	Reset_EKROM (int IsHardReset)
+static	void	_MAPINT	Reset_EKROM (RESET_TYPE ResetType)
 {
 	UNIF_InitSRAM(8192);
 	MMC5.WRAMsize = MMC5WRAM_8KB_0KB;
-	MMC5_Init();
+	MMC5_Init(ResetType);
 }
 
-static	void	_MAPINT	Reset_ELROM (int IsHardReset)
+static	void	_MAPINT	Reset_ELROM (RESET_TYPE ResetType)
 {
 	MMC5.WRAMsize = MMC5WRAM_0KB_0KB;
-	MMC5_Init();
+	MMC5_Init(ResetType);
 }
 
-static	void	_MAPINT	Reset_ETROM (int IsHardReset)
+static	void	_MAPINT	Reset_ETROM (RESET_TYPE ResetType)
 {
 	UNIF_InitSRAM(8192);
 	MMC5.WRAMsize = MMC5WRAM_8KB_8KB;
-	MMC5_Init();
+	MMC5_Init(ResetType);
 }
 
-static	void	_MAPINT	Reset_EWROM (int IsHardReset)
+static	void	_MAPINT	Reset_EWROM (RESET_TYPE ResetType)
 {
 	UNIF_InitSRAM(32768);
 	MMC5.WRAMsize = MMC5WRAM_32KB_0KB;
-	MMC5_Init();
+	MMC5_Init(ResetType);
 }
 
 CTMapperInfo	MapperInfo_NES_EKROM =

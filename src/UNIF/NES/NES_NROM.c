@@ -1,6 +1,6 @@
 #include	"..\..\DLL\d_UNIF.h"
 
-static	void	_MAPINT	Reset_NROM_128 (int IsHardReset)
+static	void	_MAPINT	Reset_NROM_128 (RESET_TYPE ResetType)
 {
 	EMU->SetPRG_ROM16(0x8,0);
 	EMU->SetPRG_ROM16(0xC,0);
@@ -12,7 +12,7 @@ static	void	_MAPINT	Reset_NROM_128 (int IsHardReset)
 	UNIF_SetMirroring(NULL);
 }
 
-static	void	_MAPINT	Reset_RROM_128 (int IsHardReset)
+static	void	_MAPINT	Reset_RROM_128 (RESET_TYPE ResetType)
 {
 	EMU->SetPRG_ROM16(0x8,0);
 	EMU->SetPRG_ROM16(0xC,0);
@@ -24,7 +24,7 @@ static	void	_MAPINT	Reset_RROM_128 (int IsHardReset)
 	UNIF_SetMirroring(NULL);
 }
 
-static	void	_MAPINT	Reset_NROM_256 (int IsHardReset)
+static	void	_MAPINT	Reset_NROM_256 (RESET_TYPE ResetType)
 {
 	EMU->SetPRG_ROM32(0x8,0);
 

@@ -15,9 +15,9 @@ static	void	_MAPINT	Shutdown (void)
 	MMC4_Destroy();
 }
 
-static	void	_MAPINT	Reset_FJROM (int IsHardReset)
+static	void	_MAPINT	Reset_FJROM (RESET_TYPE ResetType)
 {
-	MMC4_Init(Sync_FJROM);
+	MMC4_Init(ResetType,Sync_FJROM);
 	UNIF_InitSRAM(8192);
 }
 

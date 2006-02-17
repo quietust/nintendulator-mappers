@@ -35,49 +35,49 @@ static	void	_MAPINT	Shutdown (void)
 	MMC3_Destroy();
 }
 
-static	void	_MAPINT	Write5 (int Bank, int Where, int What)
+static	void	_MAPINT	Write5 (int Bank, int Addr, int Val)
 {
-	switch (Where & 7)
+	switch (Addr & 7)
 	{
-	case 0:	Mapper.PRG = What;	break;
-	case 1:	Mapper.CHR = What;	break;
+	case 0:	Mapper.PRG = Val;	break;
+	case 1:	Mapper.CHR = Val;	break;
 	}
 	Sync();
 }
 
 
-static	void	_MAPINT	Write89 (int Bank, int Where, int What)
+static	void	_MAPINT	Write89 (int Bank, int Addr, int Val)
 {
-	MMC3_CPUWriteAB(Bank,0,What | What >> 7);
+	MMC3_CPUWriteAB(Bank,0,Val | Val >> 7);
 }
 
-static	void	_MAPINT	WriteAB (int Bank, int Where, int What)
+static	void	_MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
 	unsigned char LUT[8] = {0,2,6,1,7,3,4,5};
-	MMC3_CPUWrite89(Bank,0,(What & 0xC0) | LUT[What & 0x7]);
+	MMC3_CPUWrite89(Bank,0,(Val & 0xC0) | LUT[Val & 0x7]);
 	Mapper.Valid = 1;
 }
 
-static	void	_MAPINT	WriteCD (int Bank, int Where, int What)
+static	void	_MAPINT	WriteCD (int Bank, int Addr, int Val)
 {
 	if (Mapper.Valid)
-		MMC3_CPUWrite89(Bank,1,What);
+		MMC3_CPUWrite89(Bank,1,Val);
 	Mapper.Valid = 0;
 }
 
-static	void	_MAPINT	WriteEF (int Bank, int Where, int What)
+static	void	_MAPINT	WriteEF (int Bank, int Addr, int Val)
 {
-	if (What)
+	if (Val)
 	{
-		MMC3_CPUWriteCD(Bank,0,What);
-		MMC3_CPUWriteEF(Bank,1,What);
+		MMC3_CPUWriteCD(Bank,0,Val);
+		MMC3_CPUWriteEF(Bank,1,Val);
 	}
-	else	MMC3_CPUWriteEF(Bank,0,What);
+	else	MMC3_CPUWriteEF(Bank,0,Val);
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	MMC3_Init(Sync);
+	MMC3_Init(ResetType,Sync);
 	EMU->SetCPUWriteHandler(0x5,Write5);
 	EMU->SetCPUWriteHandler(0x8,Write89);
 	EMU->SetCPUWriteHandler(0x9,Write89);

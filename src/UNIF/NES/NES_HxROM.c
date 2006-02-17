@@ -14,10 +14,10 @@ static	void	_MAPINT	Shutdown (void)
 	UNIF_SaveSRAM();
 }
 
-static	void	_MAPINT	Reset_HKROM (int IsHardReset)
+static	void	_MAPINT	Reset_HKROM (RESET_TYPE ResetType)
 {
-	MMC6_Init(Sync_HKROM);
 	UNIF_InitSRAM(1024);
+	MMC6_Init(ResetType,Sync_HKROM);
 }
 
 CTMapperInfo	MapperInfo_NES_HKROM =

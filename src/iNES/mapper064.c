@@ -40,7 +40,7 @@ static	void	Sync (void)
 			EMU->SetCHR_ROM1(SwCHR ^ x,Mapper.CHR[x]);
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounter)
@@ -90,49 +90,49 @@ static	void	_MAPINT	CPUCycle (void)
 	}
 }
 
-static	void	_MAPINT	Write89 (int Bank, int Where, int What)
+static	void	_MAPINT	Write89 (int Bank, int Addr, int Val)
 {
-	if (Where & 1)
+	if (Addr & 1)
 		switch (Mapper.Cmd & 0xF)
 		{
-		case 0:	Mapper.CHR[0] = What;	break;
-		case 1:	Mapper.CHR[2] = What;	break;
-		case 2:	Mapper.CHR[4] = What;	break;
-		case 3:	Mapper.CHR[5] = What;	break;
-		case 4:	Mapper.CHR[6] = What;	break;
-		case 5:	Mapper.CHR[7] = What;	break;
-		case 6:	Mapper.PRG[0] = What;	break;
-		case 7:	Mapper.PRG[1] = What;	break;
+		case 0:	Mapper.CHR[0] = Val;	break;
+		case 1:	Mapper.CHR[2] = Val;	break;
+		case 2:	Mapper.CHR[4] = Val;	break;
+		case 3:	Mapper.CHR[5] = Val;	break;
+		case 4:	Mapper.CHR[6] = Val;	break;
+		case 5:	Mapper.CHR[7] = Val;	break;
+		case 6:	Mapper.PRG[0] = Val;	break;
+		case 7:	Mapper.PRG[1] = Val;	break;
 
-		case 8:	Mapper.CHR[1] = What;	break;
-		case 9:	Mapper.CHR[3] = What;	break;
-		case 15:Mapper.PRG[2] = What;	break;
+		case 8:	Mapper.CHR[1] = Val;	break;
+		case 9:	Mapper.CHR[3] = Val;	break;
+		case 15:Mapper.PRG[2] = Val;	break;
 		}
-	else	Mapper.Cmd = What;
+	else	Mapper.Cmd = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteAB (int Bank, int Where, int What)
+static	void	_MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
-	if (Where & 1)
+	if (Addr & 1)
 		;
-	else	Mapper.Mirror = What;
+	else	Mapper.Mirror = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteCD (int Bank, int Where, int What)
+static	void	_MAPINT	WriteCD (int Bank, int Addr, int Val)
 {
-	if (Where & 1)
+	if (Addr & 1)
 	{
-		Mapper.IRQmode = What & 1;
+		Mapper.IRQmode = Val & 1;
 		Mapper.IRQreload = 2;
 	}
-	else	Mapper.IRQlatch = What;
+	else	Mapper.IRQlatch = Val;
 }
 
-static	void	_MAPINT	WriteEF (int Bank, int Where, int What)
+static	void	_MAPINT	WriteEF (int Bank, int Addr, int Val)
 {
-	Mapper.IRQenabled = (Where & 1);
+	Mapper.IRQenabled = (Addr & 1);
 	if (!Mapper.IRQenabled)
 		EMU->SetIRQ(1);
 }
@@ -142,7 +142,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 

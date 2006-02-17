@@ -12,9 +12,9 @@ static	void	_MAPINT	Shutdown (void)
 	Latch_Destroy();
 }
 
-static	void	_MAPINT	Reset_BNROM (int IsHardReset)
+static	void	_MAPINT	Reset_BNROM (RESET_TYPE ResetType)
 {
-	Latch_Init(Sync_BNROM,IsHardReset,TRUE);
+	Latch_Init(ResetType,Sync_BNROM,TRUE);
 	UNIF_SetMirroring(NULL);
 }
 

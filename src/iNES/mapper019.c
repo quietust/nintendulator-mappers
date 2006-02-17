@@ -38,7 +38,7 @@ static	void	Sync (void)
 		EMU->Mirror_V();
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter.s0)
@@ -64,97 +64,97 @@ static	void	_MAPINT	CPUCycle (void)
 	}
 }
 
-static	int	_MAPINT	Read4 (int Bank, int Where)
+static	int	_MAPINT	Read4 (int Bank, int Addr)
 {
-	if (Where & 0x800)
-		return N106sound_Read((Bank << 12) | Where);
-	else	return Mapper.Read4(Bank,Where);
+	if (Addr & 0x800)
+		return N106sound_Read((Bank << 12) | Addr);
+	else	return Mapper.Read4(Bank,Addr);
 }
 
-static	int	_MAPINT	Read5 (int Bank, int Where)
+static	int	_MAPINT	Read5 (int Bank, int Addr)
 {
 	EMU->SetIRQ(1);
-	if (Where & 0x800)
+	if (Addr & 0x800)
 		return Mapper.IRQcounter.b1;
 	else	return Mapper.IRQcounter.b0;
 }
 
-static	void	_MAPINT	Write4 (int Bank, int Where, int What)
+static	void	_MAPINT	Write4 (int Bank, int Addr, int Val)
 {
-	if (Where & 0x800)
-		N106sound_Write((Bank << 12) | Where,What);
-	else	Mapper.Write4(Bank,Where,What);
+	if (Addr & 0x800)
+		N106sound_Write((Bank << 12) | Addr,Val);
+	else	Mapper.Write4(Bank,Addr,Val);
 }
 
-static	void	_MAPINT	Write5 (int Bank, int Where, int What)
+static	void	_MAPINT	Write5 (int Bank, int Addr, int Val)
 {
 	EMU->SetIRQ(1);
-	if (Where & 0x800)
-		Mapper.IRQcounter.b1 = What;
-	else	Mapper.IRQcounter.b0 = What;
+	if (Addr & 0x800)
+		Mapper.IRQcounter.b1 = Val;
+	else	Mapper.IRQcounter.b0 = Val;
 }
 
-static	void	_MAPINT	Write8 (int Bank, int Where, int What)
+static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
 {
-	if (Where & 0x800)
-		Mapper.CHR[1] = What;
-	else	Mapper.CHR[0] = What;
+	if (Addr & 0x800)
+		Mapper.CHR[1] = Val;
+	else	Mapper.CHR[0] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	Write9 (int Bank, int Where, int What)
+static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
 {
-	if (Where & 0x800)
-		Mapper.CHR[3] = What;
-	else	Mapper.CHR[2] = What;
+	if (Addr & 0x800)
+		Mapper.CHR[3] = Val;
+	else	Mapper.CHR[2] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteA (int Bank, int Where, int What)
+static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
 {
-	if (Where & 0x800)
-		Mapper.CHR[5] = What;
-	else	Mapper.CHR[4] = What;
+	if (Addr & 0x800)
+		Mapper.CHR[5] = Val;
+	else	Mapper.CHR[4] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteB (int Bank, int Where, int What)
+static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
 {
-	if (Where & 0x800)
-		Mapper.CHR[7] = What;
-	else	Mapper.CHR[6] = What;
+	if (Addr & 0x800)
+		Mapper.CHR[7] = Val;
+	else	Mapper.CHR[6] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteC (int Bank, int Where, int What)
+static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
 {
-	if (Where & 0x800)
-		Mapper.NTab[1] = What;
-	else	Mapper.NTab[0] = What;
+	if (Addr & 0x800)
+		Mapper.NTab[1] = Val;
+	else	Mapper.NTab[0] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteD (int Bank, int Where, int What)
+static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
 {
-	if (Where & 0x800)
-		Mapper.NTab[3] = What;
-	else	Mapper.NTab[2] = What;
+	if (Addr & 0x800)
+		Mapper.NTab[3] = Val;
+	else	Mapper.NTab[2] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteE (int Bank, int Where, int What)
+static	void	_MAPINT	WriteE (int Bank, int Addr, int Val)
 {
-	if (Where & 0x800)
-		Mapper.PRG[1] = What;
-	else	Mapper.PRG[0] = What;
+	if (Addr & 0x800)
+		Mapper.PRG[1] = Val;
+	else	Mapper.PRG[0] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteF (int Bank, int Where, int What)
+static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 {
-	if (Where & 0x800)
-		N106sound_Write((Bank << 12) | Where,What);
-	else	Mapper.PRG[2] = What;
+	if (Addr & 0x800)
+		N106sound_Write((Bank << 12) | Addr,Val);
+	else	Mapper.PRG[2] = Val;
 	Sync();
 }
 
@@ -169,7 +169,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	iNES_InitROM();

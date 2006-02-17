@@ -59,7 +59,7 @@ static	void	Sync (void)
 	MMC3_SyncMirror();
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	x = MMC3_SaveLoad(mode,x,data);
 	SAVELOAD_BYTE(mode,x,data,Mapper.Reg0)
@@ -71,18 +71,18 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write (int Bank, int Where, int What)
+static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
-	switch (Where & 3)
+	switch (Addr & 3)
 	{
 	case 0:	if (Mapper.Reg3 & 0x80)
 			return;
-		Mapper.Reg0 = What;	break;
-	case 1:	Mapper.Reg1 = What;	break;
-	case 2:	Mapper.Reg2 = What;	break;
+		Mapper.Reg0 = Val;	break;
+	case 1:	Mapper.Reg1 = Val;	break;
+	case 2:	Mapper.Reg2 = Val;	break;
 	case 3:	if (Mapper.Reg3 & 0x80)
 			return;
-		Mapper.Reg3 = What;	break;
+		Mapper.Reg3 = Val;	break;
 	}
 	Sync();
 }
@@ -93,7 +93,7 @@ static	void	_MAPINT	Shutdown (void)
 	MMC3_Destroy();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
 
@@ -105,7 +105,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Mapper.Reg2 = 0;
 	Mapper.Reg3 = 0;
 
-	MMC3_Init(Sync);
+	MMC3_Init(ResetType,Sync);
 }
 
 static	u8 MapperNum = 126;

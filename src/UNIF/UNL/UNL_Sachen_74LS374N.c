@@ -16,7 +16,7 @@ static	void	Sync (void)
 	else	EMU->Mirror_H();
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Cmd)
 	SAVELOAD_BYTE(mode,x,data,Mapper.PRG)
@@ -27,39 +27,39 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write (int Bank, int Where, int What)
+static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
-	u16 Loc = (Bank << 12) | Where;
+	u16 Loc = (Bank << 12) | Addr;
 	if (Loc < 0x4018)
 	{
-		Mapper.Write4(Bank,Where,What);
+		Mapper.Write4(Bank,Addr,Val);
 		return;
 	}
-	What &= 0x07;
+	Val &= 0x07;
 	switch (Loc & 0x4101)
 	{
-	case 0x4100:	Mapper.Cmd = What;	break;
+	case 0x4100:	Mapper.Cmd = Val;	break;
 	case 0x4101:	switch (Mapper.Cmd)
 			{
 			case 0:	Mapper.PRG = 0;
 				Mapper.CHR = 3;				break;
 			case 4:	Mapper.CHR &= 0x6;
-				Mapper.CHR |= (What & 0x1) << 0;	break;
-			case 5:	Mapper.PRG = What & 0x7;		break;
+				Mapper.CHR |= (Val & 0x1) << 0;	break;
+			case 5:	Mapper.PRG = Val & 0x7;		break;
 			case 6:	Mapper.CHR &= 0x1;
-				Mapper.CHR |= (What & 0x3) << 1;		break;
+				Mapper.CHR |= (Val & 0x3) << 1;		break;
 /*			case 4:	Mapper.CHR &= 0x3;
-				Mapper.CHR |= What << 2;	break;
-			case 5:	Mapper.PRG = What;		break;
+				Mapper.CHR |= Val << 2;	break;
+			case 5:	Mapper.PRG = Val;		break;
 			case 6:	Mapper.CHR &= 0x1C;
-				Mapper.CHR |= What & 0x3;	break;*/
-			case 7:	Mapper.Mirror = (What & 1);		break;
+				Mapper.CHR |= Val & 0x3;	break;*/
+			case 7:	Mapper.Mirror = (Val & 1);		break;
 			}			break;
 	}
 	Sync();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 

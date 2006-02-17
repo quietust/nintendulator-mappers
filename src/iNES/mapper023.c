@@ -30,7 +30,7 @@ static	void	Sync (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 2; i++)
@@ -63,86 +63,86 @@ static	void	_MAPINT	CPUCycle (void)
 	}
 }
 
-static	void	_MAPINT	Write8 (int Bank, int Where, int What)
+static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
 {
-	Mapper.PRG[0] = What & 0xF;
+	Mapper.PRG[0] = Val & 0xF;
 	Sync();
 }
 
-static	void	_MAPINT	Write9 (int Bank, int Where, int What)
+static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
 {
-	if (Where & 3)
-		Mapper.PRGswap = What & 0x2;
-	else	Mapper.Mirror = What & 0xF;
+	if (Addr & 3)
+		Mapper.PRGswap = Val & 0x2;
+	else	Mapper.Mirror = Val & 0xF;
 	Sync();
 }
 
-static	void	_MAPINT	WriteA (int Bank, int Where, int What)
+static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
 {
-	Mapper.PRG[1] = What & 0xF;
+	Mapper.PRG[1] = Val & 0xF;
 	Sync();
 }
 
-static	void	_MAPINT	WriteB (int Bank, int Where, int What)
+static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
 {
-	Where |= Where >> 2 | Where >> 4 | Where >> 6;
-	switch (Where & 3)
+	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
+	switch (Addr & 3)
 	{
-	case 0:	Mapper.CHR[0].n0 = What & 0xF;	break;
-	case 1:	Mapper.CHR[0].n1 = What & 0xF;	break;
-	case 2:	Mapper.CHR[1].n0 = What & 0xF;	break;
-	case 3:	Mapper.CHR[1].n1 = What & 0xF;	break;
+	case 0:	Mapper.CHR[0].n0 = Val & 0xF;	break;
+	case 1:	Mapper.CHR[0].n1 = Val & 0xF;	break;
+	case 2:	Mapper.CHR[1].n0 = Val & 0xF;	break;
+	case 3:	Mapper.CHR[1].n1 = Val & 0xF;	break;
 	}
 	Sync();
 }
 
-static	void	_MAPINT	WriteC (int Bank, int Where, int What)
+static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
 {
-	Where |= Where >> 2 | Where >> 4 | Where >> 6;
-	switch (Where & 3)
+	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
+	switch (Addr & 3)
 	{
-	case 0:	Mapper.CHR[2].n0 = What & 0xF;	break;
-	case 1:	Mapper.CHR[2].n1 = What & 0xF;	break;
-	case 2:	Mapper.CHR[3].n0 = What & 0xF;	break;
-	case 3:	Mapper.CHR[3].n1 = What & 0xF;	break;
+	case 0:	Mapper.CHR[2].n0 = Val & 0xF;	break;
+	case 1:	Mapper.CHR[2].n1 = Val & 0xF;	break;
+	case 2:	Mapper.CHR[3].n0 = Val & 0xF;	break;
+	case 3:	Mapper.CHR[3].n1 = Val & 0xF;	break;
 	}
 	Sync();
 }
 
-static	void	_MAPINT	WriteD (int Bank, int Where, int What)
+static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
 {
-	Where |= Where >> 2 | Where >> 4 | Where >> 6;
-	switch (Where & 3)
+	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
+	switch (Addr & 3)
 	{
-	case 0:	Mapper.CHR[4].n0 = What & 0xF;	break;
-	case 1:	Mapper.CHR[4].n1 = What & 0xF;	break;
-	case 2:	Mapper.CHR[5].n0 = What & 0xF;	break;
-	case 3:	Mapper.CHR[5].n1 = What & 0xF;	break;
+	case 0:	Mapper.CHR[4].n0 = Val & 0xF;	break;
+	case 1:	Mapper.CHR[4].n1 = Val & 0xF;	break;
+	case 2:	Mapper.CHR[5].n0 = Val & 0xF;	break;
+	case 3:	Mapper.CHR[5].n1 = Val & 0xF;	break;
 	}
 	Sync();
 }
 
-static	void	_MAPINT	WriteE (int Bank, int Where, int What)
+static	void	_MAPINT	WriteE (int Bank, int Addr, int Val)
 {
-	Where |= Where >> 2 | Where >> 4 | Where >> 6;
-	switch (Where & 3)
+	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
+	switch (Addr & 3)
 	{
-	case 0:	Mapper.CHR[6].n0 = What & 0xF;	break;
-	case 1:	Mapper.CHR[6].n1 = What & 0xF;	break;
-	case 2:	Mapper.CHR[7].n0 = What & 0xF;	break;
-	case 3:	Mapper.CHR[7].n1 = What & 0xF;	break;
+	case 0:	Mapper.CHR[6].n0 = Val & 0xF;	break;
+	case 1:	Mapper.CHR[6].n1 = Val & 0xF;	break;
+	case 2:	Mapper.CHR[7].n0 = Val & 0xF;	break;
+	case 3:	Mapper.CHR[7].n1 = Val & 0xF;	break;
 	}
 	Sync();
 }
 
-static	void	_MAPINT	WriteF (int Bank, int Where, int What)
+static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 {
-	Where |= Where >> 2 | Where >> 4 | Where >> 6;
-	switch (Where & 0x3)
+	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
+	switch (Addr & 0x3)
 	{
-	case 0x0:	Mapper.IRQlatch.n0 = What & 0xF;	break;
-	case 0x1:	Mapper.IRQlatch.n1 = What & 0xF;	break;
-	case 0x2:	Mapper.IRQenabled = What & 0x7;
+	case 0x0:	Mapper.IRQlatch.n0 = Val & 0xF;	break;
+	case 0x1:	Mapper.IRQlatch.n1 = Val & 0xF;	break;
+	case 0x2:	Mapper.IRQenabled = Val & 0x7;
 			if (Mapper.IRQenabled & 0x2)
 			{
 				Mapper.IRQcounter = Mapper.IRQlatch.b0;
@@ -161,7 +161,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 

@@ -38,7 +38,7 @@ static	void	Sync (void)
 	EMU->SetPRG_ROM32(0x8,0);
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 Byte;
 	x = MMC1_SaveLoad(mode,x,data);
@@ -145,11 +145,11 @@ static	void	_MAPINT	Shutdown (void)
 	Mapper.ConfigWindow = NULL;
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
 
-	if (IsHardReset)
+	if (ResetType == RESET_HARD)
 		Mapper.MaxCount = 0x04000000;
 	Mapper.Counter = 0;
 	Mapper.CounterEnabled = 0;
@@ -157,7 +157,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Mapper.ConfigWindow = NULL;
 	Mapper.ConfigCmd = 0;
 
-	MMC1_Init(Sync);
+	MMC1_Init(ResetType,Sync);
 }
 
 static	u8 MapperNum = 105;

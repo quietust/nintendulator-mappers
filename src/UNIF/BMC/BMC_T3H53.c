@@ -99,15 +99,15 @@ static	void	_MAPINT	Shutdown (void)
 	Mapper.ConfigWindow = NULL;
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	if (IsHardReset)
+	if (ResetType == RESET_HARD)
 		Mapper.Jumper = 0;
 
 	Mapper.ConfigWindow = NULL;
 	Mapper.ConfigCmd = 0;
 
-	Latch_Init(Sync,IsHardReset,FALSE);
+	Latch_Init(ResetType,Sync,FALSE);
 }
 
 CTMapperInfo	MapperInfo_BMC_T3H53 =

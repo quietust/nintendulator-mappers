@@ -15,10 +15,10 @@ static	void	_MAPINT	Shutdown (void)
 	MMC4_Destroy();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
-	MMC4_Init(Sync);
+	MMC4_Init(ResetType,Sync);
 }
 
 static	u8 MapperNum = 10;

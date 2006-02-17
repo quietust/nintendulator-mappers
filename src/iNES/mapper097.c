@@ -10,8 +10,8 @@ static	void	Sync (void)
 	{
 	case 0:	/* EMU->Mirror_S0();
 		/* uncertain */		break;
-	case 1:	EMU->Mirror_H();		break;
-	case 2:	EMU->Mirror_V();		break;
+	case 1:	EMU->Mirror_H();	break;
+	case 2:	EMU->Mirror_V();	break;
 	case 3:	/* EMU->Mirror_S1();
 		/* uncertain */		break;
 	}
@@ -23,11 +23,11 @@ static	void	_MAPINT	Shutdown (void)
 	Latch_Destroy();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
 
-	Latch_Init(Sync,IsHardReset,FALSE);
+	Latch_Init(ResetType,Sync,FALSE);
 }
 
 static	u8 MapperNum = 97;

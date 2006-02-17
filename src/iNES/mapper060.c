@@ -12,7 +12,7 @@ static	void	Sync (void)
 	EMU->SetPRG_ROM16(0xC,Mapper.Game);
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Game)
 	if (mode == STATE_LOAD)
@@ -25,11 +25,11 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
 
-	if (IsHardReset)
+	if (ResetType == RESET_HARD)
 		Mapper.Game = 0;
 	else	Mapper.Game++;
 

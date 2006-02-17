@@ -19,14 +19,14 @@ static	void	Sync (void)
 		EMU->SetCHR_ROM1(x,Mapper.CHR[x]);
 	switch ((Mapper.Mirror >> 2) & 3)
 	{
-	case 0:	EMU->Mirror_V();		break;
-	case 1:	EMU->Mirror_H();		break;
+	case 0:	EMU->Mirror_V();	break;
+	case 1:	EMU->Mirror_H();	break;
 	case 2:	EMU->Mirror_S0();	break;
 	case 3:	EMU->Mirror_S1();	break;
 	}
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounter)
@@ -60,11 +60,11 @@ static	void	_MAPINT	CPUCycle (void)
 	}
 }
 
-static	void	_MAPINT	Write8 (int Bank, int Where, int What)
+static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
 {
-	switch (Mapper.SwapAddr[Where & 3])
+	switch (Mapper.SwapAddr[Addr & 3])
 	{
-	case 0:	Mapper.PRG[0] = What;
+	case 0:	Mapper.PRG[0] = Val;
 		Sync();			break;
 	case 1:				break;
 	case 2:				break;
@@ -72,34 +72,34 @@ static	void	_MAPINT	Write8 (int Bank, int Where, int What)
 	}
 }
 
-static	void	_MAPINT	Write9 (int Bank, int Where, int What)
+static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
 {
-	VRC6sound_Write(0x9000 | Mapper.SwapAddr[Where & 3],What);
+	VRC6sound_Write(0x9000 | Mapper.SwapAddr[Addr & 3],Val);
 }
 
-static	void	_MAPINT	WriteA (int Bank, int Where, int What)
+static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
 {
-	VRC6sound_Write(0xA000 | Mapper.SwapAddr[Where & 3],What);
+	VRC6sound_Write(0xA000 | Mapper.SwapAddr[Addr & 3],Val);
 }
 
-static	void	_MAPINT	WriteB (int Bank, int Where, int What)
+static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
 {
-	switch (Mapper.SwapAddr[Where & 3])
+	switch (Mapper.SwapAddr[Addr & 3])
 	{
 	case 0:	case 1:	case 2:
-		VRC6sound_Write(0xB000 | Mapper.SwapAddr[Where & 3],What);
+		VRC6sound_Write(0xB000 | Mapper.SwapAddr[Addr & 3],Val);
 					break;
-	case 3:	Mapper.Mirror = What;
+	case 3:	Mapper.Mirror = Val;
 		Sync();			break;
 	}
 	
 }
 
-static	void	_MAPINT	WriteC (int Bank, int Where, int What)
+static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
 {
-	switch (Mapper.SwapAddr[Where & 3])
+	switch (Mapper.SwapAddr[Addr & 3])
 	{
-	case 0:	Mapper.PRG[1] = What;
+	case 0:	Mapper.PRG[1] = Val;
 		Sync();			break;
 	case 1:				break;
 	case 2:				break;
@@ -107,24 +107,24 @@ static	void	_MAPINT	WriteC (int Bank, int Where, int What)
 	}
 }
 
-static	void	_MAPINT	WriteD (int Bank, int Where, int What)
+static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
 {
-	Mapper.CHR[Mapper.SwapAddr[Where & 3]] = What;
+	Mapper.CHR[Mapper.SwapAddr[Addr & 3]] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteE (int Bank, int Where, int What)
+static	void	_MAPINT	WriteE (int Bank, int Addr, int Val)
 {
-	Mapper.CHR[4 | Mapper.SwapAddr[Where & 3]] = What;
+	Mapper.CHR[4 | Mapper.SwapAddr[Addr & 3]] = Val;
 	Sync();
 }
 
-static	void	_MAPINT	WriteF (int Bank, int Where, int What)
+static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 {
-	switch (Mapper.SwapAddr[Where & 3])
+	switch (Mapper.SwapAddr[Addr & 3])
 	{
-	case 0:	Mapper.IRQlatch = What;	break;
-	case 1:	Mapper.IRQenabled = What & 0x7;
+	case 0:	Mapper.IRQlatch = Val;	break;
+	case 1:	Mapper.IRQenabled = Val & 0x7;
 		if (Mapper.IRQenabled & 0x2)
 		{
 			Mapper.IRQcounter = Mapper.IRQlatch;
@@ -151,7 +151,7 @@ static	void	_MAPINT	Shutdown (void)
 	VRC6sound_Destroy();
 }
 
-static	void	VRC6_Reset (int IsHardReset)
+static	void	VRC6_Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	iNES_InitROM();
@@ -175,18 +175,18 @@ static	void	VRC6_Reset (int IsHardReset)
 	Sync();
 }
 
-static	void	_MAPINT	Reset_024 (int IsHardReset)
+static	void	_MAPINT	Reset_024 (RESET_TYPE ResetType)
 {
-	VRC6_Reset(IsHardReset);
+	VRC6_Reset(ResetType);
 	Mapper.SwapAddr[0] = 0;
 	Mapper.SwapAddr[1] = 1;
 	Mapper.SwapAddr[2] = 2;
 	Mapper.SwapAddr[3] = 3;
 }
 
-static	void	_MAPINT	Reset_026 (int IsHardReset)
+static	void	_MAPINT	Reset_026 (RESET_TYPE ResetType)
 {
-	VRC6_Reset(IsHardReset);
+	VRC6_Reset(ResetType);
 	Mapper.SwapAddr[0] = 0;
 	Mapper.SwapAddr[1] = 2;
 	Mapper.SwapAddr[2] = 1;

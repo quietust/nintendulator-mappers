@@ -27,7 +27,7 @@ static	void	Sync (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter.s0)
@@ -67,7 +67,7 @@ static	int	ReadRAM (void)
 	return -1;
 }
 
-static	void	WriteRAM (int What)
+static	void	WriteRAM (int Val)
 {
 //	EMU->DbgOut("Mapper 16 WRAM write!");
 /*
@@ -82,32 +82,32 @@ static	void	WriteRAM (int What)
 */
 }
 
-static	int	_MAPINT	ReadWRAM (int Bank, int Where)
+static	int	_MAPINT	ReadWRAM (int Bank, int Addr)
 {
-	if ((Where & 0xF) == 0)
+	if ((Addr & 0xF) == 0)
 		return ReadRAM();
-	else	return (Bank << 4) | (Where >> 8);
+	else	return (Bank << 4) | (Addr >> 8);
 }
 
-static	void	_MAPINT	Write (int Bank, int Where, int What)
+static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
-	switch (Where & 0xF)
+	switch (Addr & 0xF)
 	{
-	case 0x0:	Mapper.CHR[0] = What;		break;
-	case 0x1:	Mapper.CHR[1] = What;		break;
-	case 0x2:	Mapper.CHR[2] = What;		break;
-	case 0x3:	Mapper.CHR[3] = What;		break;
-	case 0x4:	Mapper.CHR[4] = What;		break;
-	case 0x5:	Mapper.CHR[5] = What;		break;
-	case 0x6:	Mapper.CHR[6] = What;		break;
-	case 0x7:	Mapper.CHR[7] = What;		break;
-	case 0x8:	Mapper.PRG = What;		break;
-	case 0x9:	Mapper.Mirror = What & 0x3;	break;
-	case 0xA:	Mapper.IRQenabled = What & 1;
+	case 0x0:	Mapper.CHR[0] = Val;		break;
+	case 0x1:	Mapper.CHR[1] = Val;		break;
+	case 0x2:	Mapper.CHR[2] = Val;		break;
+	case 0x3:	Mapper.CHR[3] = Val;		break;
+	case 0x4:	Mapper.CHR[4] = Val;		break;
+	case 0x5:	Mapper.CHR[5] = Val;		break;
+	case 0x6:	Mapper.CHR[6] = Val;		break;
+	case 0x7:	Mapper.CHR[7] = Val;		break;
+	case 0x8:	Mapper.PRG = Val;		break;
+	case 0x9:	Mapper.Mirror = Val & 0x3;	break;
+	case 0xA:	Mapper.IRQenabled = Val & 1;
 			EMU->SetIRQ(1);			break;
-	case 0xB:	Mapper.IRQcounter.b0 = What;	break;
-	case 0xC:	Mapper.IRQcounter.b1 = What;	break;
-	case 0xD:	WriteRAM(What);			break;
+	case 0xB:	Mapper.IRQcounter.b0 = Val;	break;
+	case 0xC:	Mapper.IRQcounter.b1 = Val;	break;
+	case 0xD:	WriteRAM(Val);			break;
 	}
 	Sync();
 }
@@ -117,7 +117,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	iNES_InitROM();

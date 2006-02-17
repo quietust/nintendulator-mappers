@@ -18,12 +18,13 @@ typedef	struct	FDS
 	u8 WriteSkip;
 	u8 DiskIRQ;
 	HWND ConfigWindow;
+	u8 ConfigCmd;
 }	TFDS, *PFDS;
 
 extern	TFDS	FDS;
 
-int		_MAPINT	FDS_SaveLoad	(int,int,char *);
-void			FDS_Init	(int);
+void			FDS_Init	(RESET_TYPE);
+int		_MAPINT	FDS_SaveLoad	(SAVELOAD_TYPE,int,unsigned char *);
 void		_MAPINT	FDS_CPUCycle	(void);
 unsigned char	_MAPINT	FDS_Config	(int,unsigned char);
 int		_MAPINT	FDS_MapperSnd	(int);

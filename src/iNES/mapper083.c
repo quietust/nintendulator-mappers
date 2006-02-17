@@ -23,12 +23,12 @@ static	void	Sync (void)
 	{
 	case 0:	EMU->Mirror_V();	break;
 	case 1:	EMU->Mirror_H();	break;
-	case 2:	EMU->Mirror_S0();break;
-	case 3:	EMU->Mirror_S1();break;
+	case 2:	EMU->Mirror_S0();	break;
+	case 3:	EMU->Mirror_S1();	break;
 	}
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror)
@@ -53,29 +53,29 @@ static	void	_MAPINT	CPUCycle (void)
 	}
 }
 
-static	void	_MAPINT	Write (int Bank, int Where, int What)
+static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
-	switch (Where & 0x317)
+	switch (Addr & 0x317)
 	{
-	case 0x000:	Mapper.PRG[0] = ((What << 1) & 0x1E) | 0x0;
-			Mapper.PRG[1] = ((What << 1) & 0x1E) | 0x1;	break;
-	case 0x100:	Mapper.Mirror = What;		break;
-	case 0x200:	Mapper.IRQcounter.b0 = What;
+	case 0x000:	Mapper.PRG[0] = ((Val << 1) & 0x1E) | 0x0;
+			Mapper.PRG[1] = ((Val << 1) & 0x1E) | 0x1;	break;
+	case 0x100:	Mapper.Mirror = Val;		break;
+	case 0x200:	Mapper.IRQcounter.b0 = Val;
 			EMU->SetIRQ(1);			break;
-	case 0x201:	Mapper.IRQcounter.b1 = What;
+	case 0x201:	Mapper.IRQcounter.b1 = Val;
 			EMU->SetIRQ(1);			break;
-	case 0x300:	Mapper.PRG[0] = What & 0x1F;	break;
-	case 0x301:	Mapper.PRG[1] = What & 0x1F;	break;
-	case 0x302:	Mapper.PRG[2] = What & 0x1F;	break;
-//	case 0x303:	Mapper.PRG[3] = What & 0x1F;	break;
-	case 0x310:	Mapper.CHR[0] = What;	break;
-	case 0x311:	Mapper.CHR[1] = What;	break;
-	case 0x312:	Mapper.CHR[2] = What;	break;
-	case 0x313:	Mapper.CHR[3] = What;	break;
-	case 0x314:	Mapper.CHR[4] = What;	break;
-	case 0x315:	Mapper.CHR[5] = What;	break;
-	case 0x316:	Mapper.CHR[6] = What;	break;
-	case 0x317:	Mapper.CHR[7] = What;	break;
+	case 0x300:	Mapper.PRG[0] = Val & 0x1F;	break;
+	case 0x301:	Mapper.PRG[1] = Val & 0x1F;	break;
+	case 0x302:	Mapper.PRG[2] = Val & 0x1F;	break;
+//	case 0x303:	Mapper.PRG[3] = Val & 0x1F;	break;
+	case 0x310:	Mapper.CHR[0] = Val;	break;
+	case 0x311:	Mapper.CHR[1] = Val;	break;
+	case 0x312:	Mapper.CHR[2] = Val;	break;
+	case 0x313:	Mapper.CHR[3] = Val;	break;
+	case 0x314:	Mapper.CHR[4] = Val;	break;
+	case 0x315:	Mapper.CHR[5] = Val;	break;
+	case 0x316:	Mapper.CHR[6] = Val;	break;
+	case 0x317:	Mapper.CHR[7] = Val;	break;
 	}
 	Sync();
 }
@@ -85,7 +85,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 

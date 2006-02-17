@@ -12,7 +12,7 @@ static	void	Sync (void)
 	EMU->SetCHR_ROM8(0,((Mapper.Game & 0xF0) >> 1) | ((Latch.Data & 0x70) >> 4));
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	x = Latch_SaveLoad_D(mode,x,data);
 	SAVELOAD_BYTE(mode,x,data,Mapper.Game)
@@ -21,9 +21,9 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write (int Bank, int Where, int What)
+static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
-	Mapper.Game = What;
+	Mapper.Game = Val;
 	Sync();
 }
 
@@ -33,7 +33,7 @@ static	void	_MAPINT	Shutdown (void)
 	Latch_Destroy();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	iNES_InitROM();
@@ -41,7 +41,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	for (x = 0x6; x < 0x8; x++)
 		EMU->SetCPUWriteHandler(x,Write);
 	Mapper.Game = 0;
-	Latch_Init(Sync,IsHardReset,FALSE);
+	Latch_Init(ResetType,Sync,FALSE);
 }
 
 static	u8 MapperNum = 46;

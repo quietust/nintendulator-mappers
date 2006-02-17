@@ -8,17 +8,17 @@ static	struct
 	unsigned char ROM[0x1000];
 }	Mapper;
 
-static	int	_MAPINT	Read (int Bank, int Where)
+static	int	_MAPINT	Read (int Bank, int Addr)
 {
-	return Mapper.Read(Bank,Where & 0x7FF);
+	return Mapper.Read(Bank,Addr & 0x7FF);
 }
 
-static	void	_MAPINT	Write (int Bank, int Where, int What)
+static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
-	Mapper.Write(Bank,Where & 0x7FF,What);
+	Mapper.Write(Bank,Addr & 0x7FF,Val);
 }
 
-static	void	_MAPINT	InitMapper (int IsHardReset)
+static	void	_MAPINT	InitMapper (RESET_TYPE ResetType)
 {
 	Mapper.Read = EMU->GetCPUReadHandler(0x7);
 	EMU->SetCPUReadHandler(0x7,Read);

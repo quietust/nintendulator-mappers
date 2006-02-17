@@ -2,7 +2,7 @@
 
 static	TMMC3	MMC3;
 
-void	MMC3_Init (void (*Sync)(void))
+void	MMC3_Init (RESET_TYPE ResetType, void (*Sync)(void))
 {
 	MMC3.PRG[0] = 0x3C;	MMC3.PRG[1] = 0x3D;	MMC3.PRG[2] = 0x3E;	MMC3.PRG[3] = 0x3F;	// 2 and 3 never change, simplifies GetPRGBank()
 
@@ -87,7 +87,7 @@ void	MMC3_SyncCHR_RAM (int AND, int OR)
 		EMU->SetCHR_RAM1(x,(MMC3_GetCHRBank(x) & AND) | OR);
 }
 
-int	_MAPINT	MMC3_SaveLoad (int mode, int x, char *data)
+int	_MAPINT	MMC3_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,MMC3.IRQcounter)
@@ -123,50 +123,50 @@ int	_MAPINT	MMC3_SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-void	_MAPINT	MMC3_CPUWrite67 (int Bank, int Where, int What)
+void	_MAPINT	MMC3_CPUWrite67 (int Bank, int Addr, int Val)
 {
 	if (!(MMC3.WRAMEnab & 0x40))
-		MMC3.CPUWrite67(Bank,Where,What);
+		MMC3.CPUWrite67(Bank,Addr,Val);
 }
 
-void	_MAPINT	MMC3_CPUWrite89 (int Bank, int Where, int What)
+void	_MAPINT	MMC3_CPUWrite89 (int Bank, int Addr, int Val)
 {
-	if (Where & 1)
+	if (Addr & 1)
 		switch (MMC3.Cmd & 0x7)
 		{
-		case 0:	MMC3.CHR[0] = (What & 0xFE) | 0;
-			MMC3.CHR[1] = (What & 0xFE) | 1;break;
-		case 1:	MMC3.CHR[2] = (What & 0xFE) | 0;
-			MMC3.CHR[3] = (What & 0xFE) | 1;break;
-		case 2:	MMC3.CHR[4] = What;		break;
-		case 3:	MMC3.CHR[5] = What;		break;
-		case 4:	MMC3.CHR[6] = What;		break;
-		case 5:	MMC3.CHR[7] = What;		break;
-		case 6:	MMC3.PRG[0] = What & 0x3F;	break;
-		case 7:	MMC3.PRG[1] = What & 0x3F;	break;
+		case 0:	MMC3.CHR[0] = (Val & 0xFE) | 0;
+			MMC3.CHR[1] = (Val & 0xFE) | 1;break;
+		case 1:	MMC3.CHR[2] = (Val & 0xFE) | 0;
+			MMC3.CHR[3] = (Val & 0xFE) | 1;break;
+		case 2:	MMC3.CHR[4] = Val;		break;
+		case 3:	MMC3.CHR[5] = Val;		break;
+		case 4:	MMC3.CHR[6] = Val;		break;
+		case 5:	MMC3.CHR[7] = Val;		break;
+		case 6:	MMC3.PRG[0] = Val & 0x3F;	break;
+		case 7:	MMC3.PRG[1] = Val & 0x3F;	break;
 		}
-	else	MMC3.Cmd = What;
+	else	MMC3.Cmd = Val;
 	MMC3.Sync();
 }
 
-void	_MAPINT	MMC3_CPUWriteAB (int Bank, int Where, int What)
+void	_MAPINT	MMC3_CPUWriteAB (int Bank, int Addr, int Val)
 {
-	if (Where & 1)
-		MMC3.WRAMEnab = (ROM->ROMType == ROM_INES) ? 0x80 : What;
-	else	MMC3.Mirror = What;
+	if (Addr & 1)
+		MMC3.WRAMEnab = (ROM->ROMType == ROM_INES) ? 0x80 : Val;
+	else	MMC3.Mirror = Val;
 	MMC3.Sync();
 }
 
-void	_MAPINT	MMC3_CPUWriteCD (int Bank, int Where, int What)
+void	_MAPINT	MMC3_CPUWriteCD (int Bank, int Addr, int Val)
 {
-	if (Where & 1)
+	if (Addr & 1)
 		MMC3.IRQreload = 1;
-	else	MMC3.IRQlatch = What;
+	else	MMC3.IRQlatch = Val;
 }
 
-void	_MAPINT	MMC3_CPUWriteEF (int Bank, int Where, int What)
+void	_MAPINT	MMC3_CPUWriteEF (int Bank, int Addr, int Val)
 {
-	MMC3.IRQenabled = (Where & 1);
+	MMC3.IRQenabled = (Addr & 1);
 	if (!MMC3.IRQenabled)
 		EMU->SetIRQ(1);
 }

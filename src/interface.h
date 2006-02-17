@@ -174,6 +174,8 @@ typedef enum	{ COMPAT_FULL, COMPAT_NEARLY, COMPAT_PARTIAL, COMPAT_NONE } COMPAT_
 
 /* Mapper Information structure - Contains pointers to mapper functions, sent to emulator on load mapper  */
 
+typedef	enum	{ RESET_SOFT, RESET_HARD } RESET_TYPE;
+
 typedef	enum	{ STATE_SAVE, STATE_LOAD, STATE_SIZE } SAVELOAD_TYPE;
 
 typedef	enum	{ CFG_WINDOW, CFG_QUERY, CFG_CMD } CFG_TYPE;
@@ -186,11 +188,11 @@ typedef	struct	MapperInfo
 		COMPAT_TYPE	Compatibility;
 
 	/* Mapper Functions */
-		void		(_MAPINT *Reset)	(int);			/* IsHardReset */
+		void		(_MAPINT *Reset)	(RESET_TYPE);			/* IsHardReset */
 		void		(_MAPINT *Shutdown)	(void);
 		void		(_MAPINT *CPUCycle)	(void);
 		void		(_MAPINT *PPUCycle)	(int,int,int,int);	/* Address, Scanline, Cycle, IsRendering */
-		int		(_MAPINT *SaveLoad)	(SAVELOAD_TYPE,int,char *);	/* Mode, Offset, Data */
+		int		(_MAPINT *SaveLoad)	(SAVELOAD_TYPE,int,unsigned char *);	/* Mode, Offset, Data */
 		int		(_MAPINT *GenSound)	(int);			/* Cycles */
 		unsigned char	(_MAPINT *Config)	(CFG_TYPE,unsigned char);
 }	TMapperInfo, *PMapperInfo;

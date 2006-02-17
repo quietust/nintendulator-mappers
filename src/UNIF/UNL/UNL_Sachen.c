@@ -40,7 +40,7 @@ static	void	Sync_0037 (void)
 	EMU->SetCHR_ROM8(0,Latch.Data & 0x7);
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Latch)
 	if (mode == STATE_LOAD)
@@ -48,24 +48,24 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	void	_MAPINT	WriteSA (int Bank, int Where, int What)
+static	void	_MAPINT	WriteSA (int Bank, int Addr, int Val)
 {
-	if ((Bank == 4) && (Where < 0x018))
-		Mapper.Write4(Bank,Where,What);
-	if (Where & 0x100)
-		Mapper.Latch = What;
+	if ((Bank == 4) && (Addr < 0x018))
+		Mapper.Write4(Bank,Addr,Val);
+	if (Addr & 0x100)
+		Mapper.Latch = Val;
 	Mapper.Sync();
 }
-static	void	_MAPINT	WriteTC (int Bank, int Where, int What)
+static	void	_MAPINT	WriteTC (int Bank, int Addr, int Val)
 {
-	if ((Bank == 4) && (Where < 0x018))
-		Mapper.Write4(Bank,Where,What);
-	if ((Where & 0x103) == 0x102)
-		Mapper.Latch = What;
+	if ((Bank == 4) && (Addr < 0x018))
+		Mapper.Write4(Bank,Addr,Val);
+	if ((Addr & 0x103) == 0x102)
+		Mapper.Latch = Val;
 	Sync_U0115M();
 }
 
-static	void	Reset (int IsHardReset)
+static	void	Reset (RESET_TYPE ResetType)
 {
 	Mapper.Latch = 0;
 	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
@@ -75,22 +75,22 @@ static	void	Reset (int IsHardReset)
 	Mapper.Sync();
 }
 
-static	void	_MAPINT	Reset_0161M (int IsHardReset)
+static	void	_MAPINT	Reset_0161M (RESET_TYPE ResetType)
 {
 	Mapper.Sync = Sync_0161M;
-	Reset(IsHardReset);
+	Reset(ResetType);
 }
-static	void	_MAPINT	Reset_72007 (int IsHardReset)
+static	void	_MAPINT	Reset_72007 (RESET_TYPE ResetType)
 {
 	Mapper.Sync = Sync_72007;
-	Reset(IsHardReset);
+	Reset(ResetType);
 }
-static	void	_MAPINT	Reset_72008 (int IsHardReset)
+static	void	_MAPINT	Reset_72008 (RESET_TYPE ResetType)
 {
 	Mapper.Sync = Sync_72008;
-	Reset(IsHardReset);
+	Reset(ResetType);
 }
-static	void	_MAPINT	Reset_U0115M (int IsHardReset)
+static	void	_MAPINT	Reset_U0115M (RESET_TYPE ResetType)
 {
 	Mapper.Latch = 0;
 	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
@@ -105,14 +105,14 @@ static	void	_MAPINT	Reset_U0115M (int IsHardReset)
 	UNIF_SetMirroring(NULL);
 	Sync_U0115M();
 }
-static	void	_MAPINT	Reset_0036 (int IsHardReset)
+static	void	_MAPINT	Reset_0036 (RESET_TYPE ResetType)
 {
-	Latch_Init(Sync_0036,IsHardReset,FALSE);
+	Latch_Init(ResetType,Sync_0036,FALSE);
 	UNIF_SetMirroring(NULL);
 }
-static	void	_MAPINT	Reset_0037 (int IsHardReset)
+static	void	_MAPINT	Reset_0037 (RESET_TYPE ResetType)
 {
-	Latch_Init(Sync_0037,IsHardReset,FALSE);
+	Latch_Init(ResetType,Sync_0037,FALSE);
 	UNIF_SetMirroring(NULL);
 }
 

@@ -13,16 +13,16 @@ typedef	struct	FME7
 	void	(*Sync)	(void);
 }	TFME7, *PFME7;
 
-void		FME7_Init		(void (*)(void));
-void		FME7_Destroy		(void);
+void		FME7_Init	(RESET_TYPE,void (*)(void));
+void		FME7_Destroy	(void);
 void		FME7_SyncMirror	(void);
-void		FME7_SyncPRG		(int,int);
-void		FME7_SyncCHR		(int,int);
-int	_MAPINT	FME7_SaveLoad		(int,int,char *);
-void	_MAPINT	FME7_Write89		(int,int,int);
-void	_MAPINT	FME7_WriteAB		(int,int,int);
-void	_MAPINT	FME7_WriteCDEF		(int,int,int);
-void	_MAPINT	FME7_CPUCycle		(void);
-int	_MAPINT	FME7_GenSound		(int);
+void		FME7_SyncPRG	(int,int);
+void		FME7_SyncCHR	(int,int);
+int	_MAPINT	FME7_SaveLoad	(SAVELOAD_TYPE,int,unsigned char *);
+void	_MAPINT	FME7_Write89	(int,int,int);
+void	_MAPINT	FME7_WriteAB	(int,int,int);
+void	_MAPINT	FME7_WriteCDEF	(int,int,int);
+void	_MAPINT	FME7_CPUCycle	(void);
+int	_MAPINT	FME7_GenSound	(int);
 
 #endif	/* H_FME7_H */

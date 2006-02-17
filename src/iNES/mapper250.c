@@ -9,21 +9,21 @@ static	void	Sync (void)
 	MMC3_SyncCHR_ROM(0xFF,0);
 }
 
-static	void	_MAPINT	Write89 (int Bank, int Where, int What)
+static	void	_MAPINT	Write89 (int Bank, int Addr, int Val)
 {
-	MMC3_CPUWrite89(Bank,Where >> 10,Where & 0xFF);
+	MMC3_CPUWrite89(Bank,Addr >> 10,Addr & 0xFF);
 }
-static	void	_MAPINT	WriteAB (int Bank, int Where, int What)
+static	void	_MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
-	MMC3_CPUWriteAB(Bank,Where >> 10,Where & 0xFF);
+	MMC3_CPUWriteAB(Bank,Addr >> 10,Addr & 0xFF);
 }
-static	void	_MAPINT	WriteCD (int Bank, int Where, int What)
+static	void	_MAPINT	WriteCD (int Bank, int Addr, int Val)
 {
-	MMC3_CPUWriteCD(Bank,Where >> 10,Where & 0xFF);
+	MMC3_CPUWriteCD(Bank,Addr >> 10,Addr & 0xFF);
 }
-static	void	_MAPINT	WriteEF (int Bank, int Where, int What)
+static	void	_MAPINT	WriteEF (int Bank, int Addr, int Val)
 {
-	MMC3_CPUWriteEF(Bank,Where >> 10,Where & 0xFF);
+	MMC3_CPUWriteEF(Bank,Addr >> 10,Addr & 0xFF);
 }
 
 static	void	_MAPINT	Shutdown (void)
@@ -32,13 +32,13 @@ static	void	_MAPINT	Shutdown (void)
 	MMC3_Destroy();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
 
 	EMU->SetPRG_RAM8(0x6,0);
 
-	MMC3_Init(Sync);
+	MMC3_Init(ResetType,Sync);
 
 	EMU->SetCPUWriteHandler(0x8,Write89);
 	EMU->SetCPUWriteHandler(0x9,Write89);

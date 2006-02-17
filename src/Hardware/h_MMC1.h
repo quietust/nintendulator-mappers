@@ -12,9 +12,9 @@ typedef	struct	MMC1
 
 extern	TMMC1	MMC1;
 
-void		MMC1_Init		(void (*)(void));
+void		MMC1_Init		(RESET_TYPE,void (*)(void));
 void		MMC1_Destroy		(void);
-int	_MAPINT	MMC1_SaveLoad		(int,int,char *);
+int	_MAPINT	MMC1_SaveLoad		(SAVELOAD_TYPE,int,unsigned char *);
 void	_MAPINT	MMC1_Write		(int,int,int);
 
 void		MMC1_SyncMirror		(void);

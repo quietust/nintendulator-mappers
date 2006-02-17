@@ -3,7 +3,7 @@
 
 static	TFME7	FME7;
 
-void	FME7_Init (void (*Sync)(void))
+void	FME7_Init (RESET_TYPE ResetType, void (*Sync)(void))
 {
 	FME7.Cmd = 0;
 
@@ -70,7 +70,7 @@ void	FME7_SyncCHR (int AND, int OR)
 		EMU->SetCHR_ROM1(x,(FME7.CHR[x] & AND) | OR);
 }
 
-int	_MAPINT	FME7_SaveLoad (int mode, int x, char *data)
+int	_MAPINT	FME7_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_WORD(mode,x,data,FME7.IRQcounter.s0)
@@ -87,40 +87,40 @@ int	_MAPINT	FME7_SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-void	_MAPINT	FME7_Write89 (int Bank, int Where, int What)
+void	_MAPINT	FME7_Write89 (int Bank, int Addr, int Val)
 {
-	FME7.Cmd = What & 0xF;
+	FME7.Cmd = Val & 0xF;
 }
 
-void	_MAPINT	FME7_WriteAB (int Bank, int Where, int What)
+void	_MAPINT	FME7_WriteAB (int Bank, int Addr, int Val)
 {
 	switch (FME7.Cmd)
 	{
-	case 0x0:	FME7.CHR[0] = What;	break;
-	case 0x1:	FME7.CHR[1] = What;	break;
-	case 0x2:	FME7.CHR[2] = What;	break;
-	case 0x3:	FME7.CHR[3] = What;	break;
-	case 0x4:	FME7.CHR[4] = What;	break;
-	case 0x5:	FME7.CHR[5] = What;	break;
-	case 0x6:	FME7.CHR[6] = What;	break;
-	case 0x7:	FME7.CHR[7] = What;	break;
-	case 0x8:	FME7.PRG[0] = What;	break;
-	case 0x9:	FME7.PRG[1] = What & 0x3F;	break;
-	case 0xA:	FME7.PRG[2] = What & 0x3F;	break;
-	case 0xB:	FME7.PRG[3] = What & 0x3F;	break;
-	case 0xC:	FME7.Mirror = What & 3;	break;
-	case 0xD:	FME7.IRQenabled = What & 0x81;
+	case 0x0:	FME7.CHR[0] = Val;	break;
+	case 0x1:	FME7.CHR[1] = Val;	break;
+	case 0x2:	FME7.CHR[2] = Val;	break;
+	case 0x3:	FME7.CHR[3] = Val;	break;
+	case 0x4:	FME7.CHR[4] = Val;	break;
+	case 0x5:	FME7.CHR[5] = Val;	break;
+	case 0x6:	FME7.CHR[6] = Val;	break;
+	case 0x7:	FME7.CHR[7] = Val;	break;
+	case 0x8:	FME7.PRG[0] = Val;	break;
+	case 0x9:	FME7.PRG[1] = Val & 0x3F;	break;
+	case 0xA:	FME7.PRG[2] = Val & 0x3F;	break;
+	case 0xB:	FME7.PRG[3] = Val & 0x3F;	break;
+	case 0xC:	FME7.Mirror = Val & 3;	break;
+	case 0xD:	FME7.IRQenabled = Val & 0x81;
 			if (FME7.IRQenabled != 0x81)
 				EMU->SetIRQ(1);		break;
-	case 0xE:	FME7.IRQcounter.b0 = What;	break;
-	case 0xF:	FME7.IRQcounter.b1 = What;	break;
+	case 0xE:	FME7.IRQcounter.b0 = Val;	break;
+	case 0xF:	FME7.IRQcounter.b1 = Val;	break;
 	}
 	FME7.Sync();
 }
 
-void	_MAPINT	FME7_WriteCDEF (int Bank, int Where, int What)
+void	_MAPINT	FME7_WriteCDEF (int Bank, int Addr, int Val)
 {
-	FME7sound_Write((Bank << 12) | Where,What);
+	FME7sound_Write((Bank << 12) | Addr,Val);
 	FME7.Sync();
 }
 

@@ -138,25 +138,25 @@ void	MMC5sound_Init (void)
 	memset(&MMC5sound,0,sizeof(TMMC5sound));
 }
 
-void	MMC5sound_Write (int Where, int What)
+void	MMC5sound_Write (int Addr, int Val)
 {
-	switch (Where)
+	switch (Addr)
 	{
-	case 0x5000:	MMC5Square_Write(&MMC5sound.Sqr0,0,MMC5sound.byte0 = What);	break;
-	case 0x5002:	MMC5Square_Write(&MMC5sound.Sqr0,2,MMC5sound.byte2 = What);	break;
-	case 0x5003:	MMC5Square_Write(&MMC5sound.Sqr0,3,MMC5sound.byte3 = What);	break;
-	case 0x5004:	MMC5Square_Write(&MMC5sound.Sqr1,0,MMC5sound.byte4 = What);	break;
-	case 0x5006:	MMC5Square_Write(&MMC5sound.Sqr1,2,MMC5sound.byte6 = What);	break;
-	case 0x5007:	MMC5Square_Write(&MMC5sound.Sqr1,3,MMC5sound.byte7 = What);	break;
-	case 0x5010:	MMC5sound.byte10 = What;
-			if (What & 1)
+	case 0x5000:	MMC5Square_Write(&MMC5sound.Sqr0,0,MMC5sound.byte0 = Val);	break;
+	case 0x5002:	MMC5Square_Write(&MMC5sound.Sqr0,2,MMC5sound.byte2 = Val);	break;
+	case 0x5003:	MMC5Square_Write(&MMC5sound.Sqr0,3,MMC5sound.byte3 = Val);	break;
+	case 0x5004:	MMC5Square_Write(&MMC5sound.Sqr1,0,MMC5sound.byte4 = Val);	break;
+	case 0x5006:	MMC5Square_Write(&MMC5sound.Sqr1,2,MMC5sound.byte6 = Val);	break;
+	case 0x5007:	MMC5Square_Write(&MMC5sound.Sqr1,3,MMC5sound.byte7 = Val);	break;
+	case 0x5010:	MMC5sound.byte10 = Val;
+			if (Val & 1)
 				EMU->DbgOut("Ack! MMC5 RAW PCM is being used!");
 			break;
-	case 0x5011:	MMC5sound.PCM = MMC5sound.byte11 = What;
+	case 0x5011:	MMC5sound.PCM = MMC5sound.byte11 = Val;
 			break;
-	case 0x5015:	MMC5sound.byte15 = What;
-			MMC5Square_Write(&MMC5sound.Sqr0,4,What & 0x01);
-			MMC5Square_Write(&MMC5sound.Sqr1,4,What & 0x02);
+	case 0x5015:	MMC5sound.byte15 = Val;
+			MMC5Square_Write(&MMC5sound.Sqr0,4,Val & 0x01);
+			MMC5Square_Write(&MMC5sound.Sqr1,4,Val & 0x02);
 			break;
 	}
 }
@@ -170,7 +170,7 @@ int	_MAPINT	MMC5sound_Get (int Cycles)
 	return z << 6;
 }
 
-int	_MAPINT	MMC5sound_SaveLoad (int mode, int x, char *data)
+int	_MAPINT	MMC5sound_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	if (mode == STATE_SAVE)
 		memcpy(data,&MMC5sound,sizeof(MMC5sound));

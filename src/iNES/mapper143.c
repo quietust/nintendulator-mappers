@@ -5,11 +5,11 @@ static	struct
 	FCPURead Read4;
 }	Mapper;
 
-static	int	_MAPINT	Read (int Bank, int Where)
+static	int	_MAPINT	Read (int Bank, int Addr)
 {
-	if (Where & 0x100)
-		return (~Where & 0x3F);
-	else	return Mapper.Read4(Bank,Where);
+	if (Addr & 0x100)
+		return (~Addr & 0x3F);
+	else	return Mapper.Read4(Bank,Addr);
 }
 
 static	void	_MAPINT	Shutdown (void)
@@ -17,7 +17,7 @@ static	void	_MAPINT	Shutdown (void)
 	iNES_UnloadROM();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
 

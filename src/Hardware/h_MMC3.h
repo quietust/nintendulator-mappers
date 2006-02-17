@@ -16,7 +16,7 @@ typedef	struct	MMC3
 	void	(*Sync)	(void);
 }	TMMC3, *PMMC3;
 
-void		MMC3_Init	(void (*)(void));
+void		MMC3_Init	(RESET_TYPE, void (*)(void));
 void		MMC3_Destroy	(void);
 void		MMC3_SyncMirror	(void);
 int		MMC3_GetPRGBank	(int);
@@ -25,7 +25,7 @@ void		MMC3_SyncPRG	(int,int);
 void		MMC3_SyncWRAM	(void);
 void		MMC3_SyncCHR_ROM(int,int);
 void		MMC3_SyncCHR_RAM(int,int);
-int	_MAPINT	MMC3_SaveLoad	(int,int,char *);
+int	_MAPINT	MMC3_SaveLoad	(SAVELOAD_TYPE,int,unsigned char *);
 void	_MAPINT	MMC3_CPUWrite67	(int,int,int);
 void	_MAPINT	MMC3_CPUWrite89	(int,int,int);
 void	_MAPINT	MMC3_CPUWriteAB	(int,int,int);

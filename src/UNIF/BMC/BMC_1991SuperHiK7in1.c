@@ -14,19 +14,19 @@ static	void	Sync (void)
 	MMC3_SyncWRAM();
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	x = MMC3_SaveLoad(mode,x,data);
 	SAVELOAD_BYTE(mode,x,data,Mapper.WhichGame)
 	return x;
 }
 
-static	void	_MAPINT	WriteAB (int Bank,int Where,int What)
+static	void	_MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
-	switch (Where & 1)
+	switch (Addr & 1)
 	{
-	case 0:	MMC3_CPUWriteAB(Bank,Where,What);	break;
-	case 1:	Mapper.WhichGame = What & 0x07;
+	case 0:	MMC3_CPUWriteAB(Bank,Addr,Val);	break;
+	case 1:	Mapper.WhichGame = Val & 0x07;
 		if (Mapper.WhichGame == 7)
 			Mapper.WhichGame = 6;
 		Sync();				break;
@@ -38,10 +38,10 @@ static	void	_MAPINT	Shutdown (void)
 	MMC3_Destroy();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	Mapper.WhichGame = 0;
-	MMC3_Init(Sync);
+	MMC3_Init(ResetType,Sync);
 	EMU->SetCPUWriteHandler(0xA,WriteAB);
 	EMU->SetCPUWriteHandler(0xB,WriteAB);
 }

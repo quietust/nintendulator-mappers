@@ -21,40 +21,8 @@ static	void	Sync (void)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 }
-/*
-static	void	Sync (void)
-{
-	EMU->SetCHR_RAM8(0,0);
-	switch (Mapper.Mode)
-	{
-	case 0:	EMU->Mirror_V();
-		EMU->SetPRG_ROM8(0x6,Mapper.Bank | 0x2C | 3);
-		EMU->SetPRG_ROM8(0x8,Mapper.Bank | 0x00 | 0);
-		EMU->SetPRG_ROM8(0xA,Mapper.Bank | 0x00 | 1);
-		EMU->SetPRG_ROM8(0xC,Mapper.Bank | 0x0C | 2);
-		EMU->SetPRG_ROM8(0xE,Mapper.Bank | 0x0C | 3);		break;
-	case 1:	EMU->Mirror_V();
-		EMU->SetPRG_ROM8(0x6,Mapper.Bank | 0x20 | 3);
-		EMU->SetPRG_ROM8(0x8,Mapper.Bank | 0x00 | 0);
-		EMU->SetPRG_ROM8(0xA,Mapper.Bank | 0x00 | 1);
-		EMU->SetPRG_ROM8(0xC,Mapper.Bank | 0x00 | 2);
-		EMU->SetPRG_ROM8(0xE,Mapper.Bank | 0x00 | 3);		break;
-	case 2:	EMU->Mirror_V();
-		EMU->SetPRG_ROM8(0x6,Mapper.Bank | 0x2E | 3);
-		EMU->SetPRG_ROM8(0x8,Mapper.Bank | 0x02 | 0);
-		EMU->SetPRG_ROM8(0xA,Mapper.Bank | 0x02 | 1);
-		EMU->SetPRG_ROM8(0xC,Mapper.Bank | 0x0E | 2);
-		EMU->SetPRG_ROM8(0xE,Mapper.Bank | 0x0E | 3);		break;
-	case 3:	EMU->Mirror_H();
-		EMU->SetPRG_ROM8(0x6,Mapper.Bank | 0x20 | 3);
-		EMU->SetPRG_ROM8(0x8,Mapper.Bank | 0x00 | 0);
-		EMU->SetPRG_ROM8(0xA,Mapper.Bank | 0x00 | 1);
-		EMU->SetPRG_ROM8(0xC,Mapper.Bank | 0x00 | 2);
-		EMU->SetPRG_ROM8(0xE,Mapper.Bank | 0x00 | 3);		break;
-	}
-}
-*/
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Bank)
 	SAVELOAD_BYTE(mode,x,data,Mapper.Mode)
@@ -63,21 +31,21 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write67 (int Bank, int Where, int What)
+static	void	_MAPINT	Write67 (int Bank, int Addr, int Val)
 {
-	Mapper.Mode = ((What & 0x10) >> 3) | ((What & 0x02) >> 1);
+	Mapper.Mode = ((Val & 0x10) >> 3) | ((Val & 0x02) >> 1);
 	Sync();
 }
 
-static	void	_MAPINT	Write89ABCDEF (int Bank, int Where, int What)
+static	void	_MAPINT	Write89ABCDEF (int Bank, int Addr, int Val)
 {
-	Mapper.Bank = (What & 0xF) << 2;
+	Mapper.Bank = (Val & 0xF) << 2;
 	if (Bank & 0x4)
-		Mapper.Mode = (Mapper.Mode & 0x1) | ((What & 0x10) >> 3);
+		Mapper.Mode = (Mapper.Mode & 0x1) | ((Val & 0x10) >> 3);
 	Sync();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 

@@ -2,7 +2,7 @@
 
 static	TMMC1	MMC1;
 
-void	MMC1_Init (void (*Sync)(void))
+void	MMC1_Init (RESET_TYPE ResetType, void (*Sync)(void))
 {
 	u8 x;
 	MMC1.Regs[0] = 0x0C;
@@ -20,7 +20,7 @@ void	MMC1_Destroy (void)
 {
 }
 
-int	_MAPINT	MMC1_SaveLoad (int mode, int x, char *data)
+int	_MAPINT	MMC1_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 4; i++)
@@ -33,10 +33,10 @@ int	_MAPINT	MMC1_SaveLoad (int mode, int x, char *data)
 }
 
 static	int	LastReg;
-void	_MAPINT	MMC1_Write (int Bank, int Where, int What)
+void	_MAPINT	MMC1_Write (int Bank, int Addr, int Val)
 {
 	u8 Reg = (Bank >> 1) & 3;
-	if (What & 0x80)
+	if (Val & 0x80)
 	{
 		MMC1.Latch = MMC1.LatchPos = 0;
 		MMC1.Regs[0] |= 0x0C;
@@ -45,7 +45,7 @@ void	_MAPINT	MMC1_Write (int Bank, int Where, int What)
 	if (Reg != LastReg)
 		MMC1.Latch = MMC1.LatchPos = 0;
 	LastReg = Reg;
-	MMC1.Latch |= (What & 1) << MMC1.LatchPos++;
+	MMC1.Latch |= (Val & 1) << MMC1.LatchPos++;
 	if (MMC1.LatchPos == 5)
 	{
 		MMC1.Regs[Reg] = MMC1.Latch & 0x1F;

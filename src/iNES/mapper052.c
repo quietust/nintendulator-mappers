@@ -39,7 +39,7 @@ static	void	Sync (void)
 	MMC3_SyncCHR_ROM(CHRmask,CHRbank << 7);
 }
 
-static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
+static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	x = MMC3_SaveLoad(mode,x,data);
 	SAVELOAD_BYTE(mode,x,data,Mapper.WhichGame)
@@ -49,12 +49,12 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write (int Bank, int Where, int What)
+static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
-	Mapper.Write67(Bank,Where,What);
+	Mapper.Write67(Bank,Addr,Val);
 	if (Mapper.DidWrite)
 		return;
-	Mapper.WhichGame = What;
+	Mapper.WhichGame = Val;
 	Mapper.DidWrite = 1;
 	Sync();
 }
@@ -65,7 +65,7 @@ static	void	_MAPINT	Shutdown (void)
 	MMC3_Destroy();
 }
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
 
@@ -76,9 +76,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Mapper.WhichGame = 0;
 	Mapper.DidWrite = 0;
 
-	EMU->SetPRG_RAM8(0x6,0);		/* WRAM goes here */
-
-	MMC3_Init(Sync);
+	MMC3_Init(ResetType,Sync);
 }
 
 static	u8 MapperNum = 52;

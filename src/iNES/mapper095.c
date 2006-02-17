@@ -1,11 +1,6 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_MMC3.h"
 
-static	struct
-{
-	u8 LastMirror;
-}	Mapper;
-
 static	void	Sync (void)
 {
 	MMC3_SyncPRG(0x3F,0);
@@ -29,14 +24,10 @@ static	void	_MAPINT	Shutdown (void)
 }
 
 
-static	void	_MAPINT	Reset (int IsHardReset)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
-
-	Mapper.LastMirror = 0;
-	EMU->Mirror_S0();
-
-	MMC3_Init(Sync);
+	MMC3_Init(ResetType,Sync);
 }
 
 static	u8 MapperNum = 95;

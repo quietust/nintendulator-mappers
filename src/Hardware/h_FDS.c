@@ -5,7 +5,7 @@
 
 TFDS	FDS;
 
-int	_MAPINT	FDS_SaveLoad (int mode, int x, char *data)
+int	_MAPINT	FDS_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,FDS.DiskNum)
 	SAVELOAD_WORD(mode,x,data,FDS.IRQcounter)
@@ -60,13 +60,13 @@ void	_MAPINT	FDS_CPUCycle (void)
 #define	DISKIRQ_SHORT	150
 #define	DISKIRQ_LONG	200
 
-int	_MAPINT	FDS_Read (int Bank, int Where)
+int	_MAPINT	FDS_Read (int Bank, int Addr)
 {
 	u8 result;
 	static u8 DiskVal = 0;
-	if ((Where & 0xFFF) < 0x18)
-		return FDS.Read(Bank,Where);
-	switch (Where & 0xFFF)
+	if ((Addr & 0xFFF) < 0x18)
+		return FDS.Read(Bank,Addr);
+	switch (Addr & 0xFFF)
 	{
 	case 0x30:	result = FDS.IOstatus;
 			EndIRQ(0xFF);	// everything
@@ -94,24 +94,24 @@ int	_MAPINT	FDS_Read (int Bank, int Where)
 			return result;			break;
 	case 0x33:	return 0x80;			break;
 	}
-	return FDSsound_Read((Bank << 12) | Where);
+	return FDSsound_Read((Bank << 12) | Addr);
 }
 
-void	_MAPINT	FDS_Write (int Bank, int Where, int What)
+void	_MAPINT	FDS_Write (int Bank, int Addr, int Val)
 {
-	if ((Where & 0xFFF) < 0x18)
-		FDS.Write(Bank,Where,What);
-	FDSsound_Write((Bank << 12) | Where,What);
-	switch (Where & 0xFFF)
+	if ((Addr & 0xFFF) < 0x18)
+		FDS.Write(Bank,Addr,Val);
+	FDSsound_Write((Bank << 12) | Addr,Val);
+	switch (Addr & 0xFFF)
 	{
-	case 0x20:	FDS.IRQlatch.b0 = What;
+	case 0x20:	FDS.IRQlatch.b0 = Val;
 			EndIRQ(IRQ_TIMER);		break;
-	case 0x21:	FDS.IRQlatch.b1 = What;
+	case 0x21:	FDS.IRQlatch.b1 = Val;
 			EndIRQ(IRQ_TIMER);		break;
-	case 0x22:	FDS.IRQenabled = What & 0x3;
+	case 0x22:	FDS.IRQenabled = Val & 0x3;
 			FDS.IRQcounter = FDS.IRQlatch.s0;
 			EndIRQ(IRQ_TIMER);		break;
-	case 0x23:	FDS.IOenable = What;		break;
+	case 0x23:	FDS.IOenable = Val;		break;
 	case 0x24:	if ((FDS.DiskNum != 0xFF) && (!(FDS.IOcontrol & 0x04)) && (FDS.IOenable & 0x1))
 			{
 				if ((FDS.BytePtr >= 0) && (FDS.BytePtr < 65000))
@@ -122,20 +122,20 @@ void	_MAPINT	FDS_Write (int Bank, int Where, int What)
 						EMU->StatusOut("%i W",FDS.BytePtr);
 						FDS.BytePtr -= 2;
 						EMU->SetPRG_ROM4(0x5,(FDS.DiskNum << 4) | ((FDS.BytePtr >> 12) & 0xF));
-						EMU->GetPRG_Ptr4(0x5)[FDS.BytePtr & 0xFFF] = What;
+						EMU->GetPRG_Ptr4(0x5)[FDS.BytePtr & 0xFFF] = Val;
 						EMU->SetPRG_OB4(0x5);
 						FDS.BytePtr += 2;
 					}
 				}
 			}				break;
 	case 0x25:	EndIRQ(IRQ_DISK);
-			if (What & 0x08)
+			if (Val & 0x08)
 				EMU->Mirror_H();
 			else	EMU->Mirror_V();
 			if (FDS.DiskNum == 0xFF)	break;
-			if (!(What & 0x40))
+			if (!(Val & 0x40))
 			{
-				if ((FDS.IOcontrol & 0x40) && (!(What & 0x10)))
+				if ((FDS.IOcontrol & 0x40) && (!(Val & 0x10)))
 				{
 					EMU->StatusOut("%i S (Reverse)",FDS.BytePtr);
 					FDS.BytePtr -= 2;
@@ -144,22 +144,22 @@ void	_MAPINT	FDS_Write (int Bank, int Where, int What)
 				if (FDS.BytePtr < 0)
 					FDS.BytePtr = 0;
 			}
-			if (!(What & 0x04))
+			if (!(Val & 0x04))
 				FDS.WriteSkip = 2;
-			if (What & 0x02)
+			if (Val & 0x02)
 			{
 				EMU->StatusOut("%i S (Zero)",FDS.BytePtr);
 				FDS.BytePtr = 0;
 				FDS.DiskIRQ = DISKIRQ_LONG;
 			}
-			if (What & 0x40)
+			if (Val & 0x40)
 				FDS.DiskIRQ = DISKIRQ_LONG;
-			FDS.IOcontrol = What;
+			FDS.IOcontrol = Val;
 			break;
 	}
 }
 
-static	void	_MAPINT	WriteBIOS (int Bank, int Where, int What)
+static	void	_MAPINT	WriteBIOS (int Bank, int Addr, int Val)
 {	/* don't allow writing to BIOS! */	}
 
 
@@ -263,7 +263,7 @@ int	_MAPINT	FDS_MapperSnd (int Len)
 
 unsigned char FDS_BIOS[2][0x1000];
 
-void	FDS_Init (int IsHardReset)
+void	FDS_Init (RESET_TYPE ResetType)
 {
 	FILE *BIOS;
 	char buf[256];
@@ -305,7 +305,7 @@ void	FDS_Init (int IsHardReset)
 
 	EndIRQ(-1);
 
-	if (IsHardReset)
+	if (ResetType == RESET_HARD)
 		FDS.DiskNum = 0xFF;
 	FDS.ConfigWindow = NULL;
 	FDS.ConfigCmd = 0;
