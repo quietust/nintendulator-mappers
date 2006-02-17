@@ -86,7 +86,7 @@
 //CTMapperInfo	MapperInfo_083 = {	NULL,	"Mapper 83",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   CTMapperInfo	MapperInfo_084 = {	NULL,	"Mapper 84",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_085 = {	NULL,	"Mapper 85",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
-  CTMapperInfo	MapperInfo_086 = {	NULL,	"Mapper 86",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
+//CTMapperInfo	MapperInfo_086 = {	NULL,	"Mapper 86",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //CTMapperInfo	MapperInfo_087 = {	NULL,	"Mapper 87",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   CTMapperInfo	MapperInfo_088 = {	NULL,	"Mapper 88",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   CTMapperInfo	MapperInfo_089 = {	NULL,	"Mapper 89",	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
