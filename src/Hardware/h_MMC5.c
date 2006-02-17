@@ -565,7 +565,7 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 	if ((!(Cycle & 7)) && (Cycle < 336))
 	{
 		CurTile++;
-		if (MMC5.SplitMode & 0x80)
+		if ((MMC5.SplitMode & 0x80) && (MMC5.GfxMode < 2))
 		{
 			if (MMC5.SplitMode & 0x40)
 			{
