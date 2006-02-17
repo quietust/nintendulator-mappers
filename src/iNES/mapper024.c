@@ -200,7 +200,7 @@ static	u8 MapperNum = 24;
 CTMapperInfo	MapperInfo_024 =
 {
 	&MapperNum,
-	"Konami VRC6 A0/A1",
+	_T("Konami VRC6 (A0/A1)"),
 	COMPAT_FULL,
 	Load_024,
 	Reset,
@@ -216,7 +216,7 @@ static	u8 MapperNum2 = 26;
 CTMapperInfo	MapperInfo_026 =
 {
 	&MapperNum2,
-	"Konami VRC6 A1/A0",
+	_T("Konami VRC6 (A1/A0)"),
 	COMPAT_FULL,
 	Load_026,
 	Reset,

@@ -64,7 +64,7 @@ static	u8 MapperNum = 228;
 CTMapperInfo	MapperInfo_228 =
 {
 	&MapperNum,
-	"Action 52",
+	_T("Action 52"),
 	COMPAT_FULL,
 	Load,
 	Reset,

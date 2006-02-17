@@ -57,7 +57,7 @@ static	u8 MapperNum = 189;
 CTMapperInfo	MapperInfo_189 =
 {
 	&MapperNum,
-	"Mapper 189 (Thunder Warrior)",
+	_T("Mapper 189 (Thunder Warrior)"),
 	COMPAT_FULL,
 	Load,
 	Reset,

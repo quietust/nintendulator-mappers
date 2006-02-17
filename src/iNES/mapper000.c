@@ -14,7 +14,7 @@ static	u8 MapperNum = 0;
 CTMapperInfo	MapperInfo_000 =
 {
 	&MapperNum,
-	"NROM",
+	_T("NROM"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

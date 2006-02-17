@@ -66,7 +66,7 @@ static	u8 MapperNum = 51;
 CTMapperInfo	MapperInfo_051 =
 {
 	&MapperNum,
-	"11 in 1 Ball Games",
+	_T("11 in 1 Ball Games"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

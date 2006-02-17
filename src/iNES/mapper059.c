@@ -53,7 +53,7 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 					Mapper.ConfigCmd |= 0x01;
 				if (IsDlgButtonChecked(hDlg,IDC_MAPPER59_J1) == BST_CHECKED)
 					Mapper.ConfigCmd |= 0x02;
-				MessageBox(hDlg,"Please perform a SOFT RESET for this to take effect!","INES.DLL",MB_OK);
+				MessageBox(hDlg,_T("Please perform a SOFT RESET for this to take effect!"),_T("INES.DLL"),MB_OK);
 			case IDCANCEL:
 				DestroyWindow(hDlg);
 				Mapper.ConfigWindow = NULL;
@@ -118,7 +118,7 @@ static	u8 MapperNum = 59;
 CTMapperInfo	MapperInfo_059 =
 {
 	&MapperNum,
-	"T3H53",
+	_T("T3H53"),
 	COMPAT_FULL,
 	Load,
 	Reset,

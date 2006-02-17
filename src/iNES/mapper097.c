@@ -34,7 +34,7 @@ static	u8 MapperNum = 97;
 CTMapperInfo	MapperInfo_097 =
 {
 	&MapperNum,
-	"Kid Niki (J)",
+	_T("Kid Niki (J)"),
 	COMPAT_FULL,
 	Load,
 	Reset,

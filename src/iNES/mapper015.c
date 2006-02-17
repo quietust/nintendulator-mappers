@@ -89,7 +89,7 @@ static	u8 MapperNum = 15;
 CTMapperInfo	MapperInfo_015 =
 {
 	&MapperNum,
-	"100-in-1 Contra Function 16",
+	_T("100-in-1 Contra Function 16"),
 	COMPAT_FULL,
 	Load,
 	Reset,

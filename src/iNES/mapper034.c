@@ -33,16 +33,16 @@ static	void	SetMode (int Mode)
 	{
 		Sync();
 		if (Mapper.Mode != Mode)
-			EMU->DbgOut("WTF? Mapper 34 attempting to use both NINA-01 and NES-BNROM behaviour!");
+			EMU->DbgOut(_T("ERROR: Mapper 34 attempting to use both NINA-01 and NES-BNROM behaviour!"));
 		return;
 	}
 	Mapper.Mode = Mode;
 	Sync();
 #ifdef	DEBUG
 	if (Mode == 1)
-		EMU->StatusOut("Mapper 34 locked to NINA-01 subset");
+		EMU->StatusOut(_T("Mapper 34 locked to NINA-01 subset"));
 	else if (Mode == 2)
-		EMU->StatusOut("Mapper 34 locked to NES-BNROM subset");
+		EMU->StatusOut(_T("Mapper 34 locked to NES-BNROM subset"));
 #endif
 }
 
@@ -108,7 +108,7 @@ static	u8 MapperNum = 34;
 CTMapperInfo	MapperInfo_034 =
 {
 	&MapperNum,
-	"BNROM/Nina-01",
+	_T("BNROM/Nina-01"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

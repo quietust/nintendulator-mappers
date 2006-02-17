@@ -56,7 +56,7 @@ static	u8 MapperNum = 44;
 CTMapperInfo	MapperInfo_044 =
 {
 	&MapperNum,
-	"Super HiK 7 in 1 (MMC3)",
+	_T("Super HiK 7 in 1 (MMC3)"),
 	COMPAT_FULL,
 	Load,
 	Reset,

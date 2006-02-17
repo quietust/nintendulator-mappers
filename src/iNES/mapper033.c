@@ -83,7 +83,7 @@ static	u8 MapperNum = 33;
 CTMapperInfo	MapperInfo_033 =
 {
 	&MapperNum,
-	"Taito TC0190",
+	_T("Taito TC0190"),
 	COMPAT_PARTIAL,
 	NULL,
 	Reset,

@@ -164,7 +164,7 @@ static	u8 MapperNum = 105;
 CTMapperInfo	MapperInfo_105 =
 {
 	&MapperNum,
-	"Nintendo World Championship",
+	_T("Nintendo World Championship"),
 	COMPAT_FULL,
 	Load,
 	Reset,

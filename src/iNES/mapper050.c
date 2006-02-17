@@ -84,7 +84,7 @@ static	u8 MapperNum = 50;
 CTMapperInfo	MapperInfo_050 =
 {
 	&MapperNum,
-	"SMB2j rev. A",
+	_T("SMB2j rev. A"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

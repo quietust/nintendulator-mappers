@@ -28,7 +28,7 @@ static	u8 MapperNum = 70;
 CTMapperInfo	MapperInfo_070 =
 {
 	&MapperNum,
-	"Bandai 74161/7432",
+	_T("Bandai 74161/7432"),
 	COMPAT_FULL,
 	Load,
 	Reset,

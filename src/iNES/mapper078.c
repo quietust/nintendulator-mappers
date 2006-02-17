@@ -28,7 +28,7 @@ static	u8 MapperNum = 78;
 CTMapperInfo	MapperInfo_078 =
 {
 	&MapperNum,
-	"Irem 74161/32",
+	_T("Irem 74161/32"),
 	COMPAT_FULL,
 	Load,
 	Reset,

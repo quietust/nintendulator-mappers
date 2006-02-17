@@ -81,7 +81,7 @@ int	_MAPINT	FDS_Read (int Bank, int Addr)
 				if (FDS.BytePtr < 64999)
 					FDS.BytePtr++;
 				if ((FDS.BytePtr & 0xFF) == 0)
-					EMU->StatusOut("%i R/S",FDS.BytePtr);
+					EMU->StatusOut(_T("%i R/S"),FDS.BytePtr);
 				FDS.DiskIRQ = DISKIRQ_SHORT;
 				EndIRQ(IRQ_DISK);
 			}
@@ -119,7 +119,7 @@ void	_MAPINT	FDS_Write (int Bank, int Addr, int Val)
 					if (FDS.WriteSkip) FDS.WriteSkip--;
 					else if (FDS.BytePtr >= 2)
 					{
-						EMU->StatusOut("%i W",FDS.BytePtr);
+						EMU->StatusOut(_T("%i W"),FDS.BytePtr);
 						FDS.BytePtr -= 2;
 						EMU->SetPRG_ROM4(0x5,(FDS.DiskNum << 4) | ((FDS.BytePtr >> 12) & 0xF));
 						EMU->GetPRG_Ptr4(0x5)[FDS.BytePtr & 0xFFF] = Val;
@@ -137,7 +137,7 @@ void	_MAPINT	FDS_Write (int Bank, int Addr, int Val)
 			{
 				if ((FDS.IOcontrol & 0x40) && (!(Val & 0x10)))
 				{
-					EMU->StatusOut("%i S (Reverse)",FDS.BytePtr);
+					EMU->StatusOut(_T("%i S (Reverse)"),FDS.BytePtr);
 					FDS.BytePtr -= 2;
 					FDS.DiskIRQ = DISKIRQ_LONG;
 				}
@@ -148,7 +148,7 @@ void	_MAPINT	FDS_Write (int Bank, int Addr, int Val)
 				FDS.WriteSkip = 2;
 			if (Val & 0x02)
 			{
-				EMU->StatusOut("%i S (Zero)",FDS.BytePtr);
+				EMU->StatusOut(_T("%i S (Zero)"),FDS.BytePtr);
 				FDS.BytePtr = 0;
 				FDS.DiskIRQ = DISKIRQ_LONG;
 			}
@@ -236,7 +236,7 @@ unsigned char	_MAPINT	FDS_Config (CFG_TYPE mode, unsigned char data)
 			if (data == 0xFF)
 			{
 				FDS.DiskNum = 0xFF;
-				EMU->StatusOut("Disk ejected!");
+				EMU->StatusOut(_T("Disk ejected!"));
 				EnableWindow(GetDlgItem(FDS.ConfigWindow,IDC_FDS_DISKSEL),TRUE);
 				EnableWindow(GetDlgItem(FDS.ConfigWindow,IDC_FDS_INSERT),TRUE);
 				EnableWindow(GetDlgItem(FDS.ConfigWindow,IDC_FDS_EJECT),FALSE);
@@ -244,7 +244,7 @@ unsigned char	_MAPINT	FDS_Config (CFG_TYPE mode, unsigned char data)
 			else
 			{
 				FDS.DiskNum = data - 1;
-				EMU->StatusOut("Disk %i side %s inserted!",(FDS.DiskNum >> 1) + 1, (FDS.DiskNum & 1) ? "B" : "A");
+				EMU->StatusOut(_T("Disk %i side %s inserted!"),(FDS.DiskNum >> 1) + 1, (FDS.DiskNum & 1) ? _T("B") : _T("A"));
 				EnableWindow(GetDlgItem(FDS.ConfigWindow,IDC_FDS_DISKSEL),FALSE);
 				EnableWindow(GetDlgItem(FDS.ConfigWindow,IDC_FDS_INSERT),FALSE);
 				EnableWindow(GetDlgItem(FDS.ConfigWindow,IDC_FDS_EJECT),TRUE);
@@ -266,29 +266,29 @@ unsigned char FDS_BIOS[2][0x1000];
 void	FDS_Load (void)
 {
 	FILE *BIOS;
-	char buf[256];
+	TCHAR buf[MAX_PATH];
 	int i;
-	if (!(i = GetModuleFileName(NULL,buf,255)))
+	if (!(i = GetModuleFileName(NULL,buf,MAX_PATH)))
 	{
-		MessageBox(hWnd,"Fatal error: failed to get directory!","FDS.DLL",MSGBOX_FLAGS);
+		MessageBox(hWnd,_T("Fatal error: failed to get directory!"),_T("FDS.DLL"),MSGBOX_FLAGS);
 		return;
 	}
 	while (i > 0)
 		if (buf[--i] == '\\')	break;
 	buf[i] = 0;
-	if ((BIOS = fopen(strcat(buf,"\\disksys.rom"),"rb")) == NULL)
+	if ((BIOS = _tfopen(_tcscat(buf,_T("\\disksys.rom")),_T("rb"))) == NULL)
 	{
-		MessageBox(hWnd,"Disk System BIOS (disksys.rom) not found!","FDS.DLL",MSGBOX_FLAGS);
+		MessageBox(hWnd,_T("Disk System BIOS (disksys.rom) not found!"),_T("FDS.DLL"),MSGBOX_FLAGS);
 		return;
 	}
 	if ((fread(FDS_BIOS[0],1,0x1000,BIOS) != 0x1000) || (fread(FDS_BIOS[1],1,0x1000,BIOS) != 0x1000))
 	{
 		fclose(BIOS);
-		MessageBox(hWnd,"Disk System BIOS (disksys.rom) too small!","FDS.DLL",MSGBOX_FLAGS);
+		MessageBox(hWnd,_T("Disk System BIOS (disksys.rom) too small!"),_T("FDS.DLL"),MSGBOX_FLAGS);
 		return;
 	}
 	fclose(BIOS);
-	EMU->StatusOut("FDS BIOS loaded!");
+	EMU->StatusOut(_T("FDS BIOS loaded!"));
 	FDS.ConfigWindow = NULL;
 	FDSsound_Load();
 }

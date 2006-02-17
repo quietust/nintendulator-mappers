@@ -262,10 +262,10 @@ static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
 	case 1:	Mapper.IRQmode = Val;
 		switch (Val & 3)
 		{
-		case 0:	EMU->DbgOut("Mapper 90 IRQ counter set to CPU M2");	break;
-		case 1:	EMU->DbgOut("Mapper 90 IRQ counter set to PPU A12");	break;
-		case 2:	EMU->DbgOut("Mapper 90 IRQ counter set to CPU R/W");	break;
-		case 3:	EMU->DbgOut("Mapper 90 IRQ counter set to PPU /RD");	break;
+		case 0:	EMU->DbgOut(_T("Mapper 90 IRQ counter set to CPU M2"));		break;
+		case 1:	EMU->DbgOut(_T("Mapper 90 IRQ counter set to PPU A12"));	break;
+		case 2:	EMU->DbgOut(_T("Mapper 90 IRQ counter set to CPU R/W"));	break;
+		case 3:	EMU->DbgOut(_T("Mapper 90 IRQ counter set to PPU /RD"));	break;
 		}	break;
 	case 2:	Mapper.IRQenabled = 0;
 		EMU->SetIRQ(1);		break;
@@ -316,7 +316,7 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 					Mapper.ConfigCmd |= 0x02;
 				if (IsDlgButtonChecked(hDlg,IDC_MAPPER90_MIR) == BST_CHECKED)
 					Mapper.ConfigCmd |= 0x04;
-				MessageBox(hDlg,"Please perform a SOFT RESET for this to take effect!","INES.DLL",MB_OK);
+				MessageBox(hDlg,_T("Please perform a SOFT RESET for this to take effect!"),_T("INES.DLL"),MB_OK);
 			case IDCANCEL:
 				DestroyWindow(hDlg);
 				Mapper.ConfigWindow = NULL;
@@ -417,7 +417,7 @@ static	u8 MapperNum = 90;
 CTMapperInfo	MapperInfo_090 =
 {
 	&MapperNum,
-	"Mapper 90",
+	_T("Mapper 90"),
 	COMPAT_FULL,
 	Load,
 	Reset,

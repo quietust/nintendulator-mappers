@@ -102,7 +102,7 @@ static	u8 MapperNum = 127;
 CTMapperInfo	MapperInfo_127 =
 {
 	&MapperNum,
-	"Double Dragon pirate",
+	_T("Double Dragon pirate"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

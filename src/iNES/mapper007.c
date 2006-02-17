@@ -27,7 +27,7 @@ static	u8 MapperNum = 7;
 CTMapperInfo	MapperInfo_007 =
 {
 	&MapperNum,
-	"AOROM",
+	_T("AOROM"),
 	COMPAT_FULL,
 	Load,
 	Reset,

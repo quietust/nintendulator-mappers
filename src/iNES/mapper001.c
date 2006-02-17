@@ -31,7 +31,7 @@ static	u8 MapperNum = 1;
 CTMapperInfo	MapperInfo_001 =
 {
 	&MapperNum,
-	"MMC1",
+	_T("MMC1"),
 	COMPAT_FULL,
 	Load,
 	Reset,

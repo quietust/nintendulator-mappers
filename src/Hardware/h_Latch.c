@@ -68,9 +68,9 @@ void	_MAPINT	Latch_Write (int Bank, int Addr, int Val)
 		if (rand() & 1)
 		{
 			Val = tmp;
-			EMU->StatusOut("Bus conflict - using ROM data");
+			EMU->StatusOut(_T("Bus conflict - using ROM data"));
 		}
-		else	EMU->StatusOut("Bus conflict - using CPU data");
+		else	EMU->StatusOut(_T("Bus conflict - using CPU data"));
 	}
 #endif
 	Latch.Data = Val;

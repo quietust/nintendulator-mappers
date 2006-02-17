@@ -85,8 +85,8 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 					Mapper.ConfigCmd |= 0x01;
 				else if (IsDlgButtonChecked(hDlg,IDC_MAPPER43_LOGO) == BST_CHECKED)
 					Mapper.ConfigCmd |= 0x00;
-				else	MessageBox(hWnd,"Impossible - neither radio button checked!","INES.DLL",MB_OK);
-				MessageBox(hWnd,"Please perform a SOFT reset for this to take effect!","INES.DLL",MB_OK);
+				else	MessageBox(hWnd,_T("Impossible - neither radio button checked!"),_T("INES.DLL"),MB_OK);
+				MessageBox(hWnd,_T("Please perform a SOFT reset for this to take effect!"),_T("INES.DLL"),MB_OK);
 			case IDCANCEL:
 				DestroyWindow(hDlg);
 				Mapper.ConfigWindow = NULL;
@@ -166,7 +166,7 @@ static	u8 MapperNum = 43;
 CTMapperInfo	MapperInfo_043 =
 {
 	&MapperNum,
-	"SMB2j (LF36)",
+	_T("SMB2j (LF36)"),
 	COMPAT_FULL,
 	Load,
 	Reset,

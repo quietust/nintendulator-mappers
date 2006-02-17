@@ -19,7 +19,7 @@ static	void	_MAPINT	Unload (void)
 CTMapperInfo	MapperInfo_FDS =
 {
 	NULL,
-	"Famicom Disk System",
+	_T("Famicom Disk System"),
 	COMPAT_NEARLY,
 	Load,
 	Reset,

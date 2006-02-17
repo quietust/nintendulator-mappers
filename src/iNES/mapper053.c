@@ -63,7 +63,7 @@ static	u8 MapperNum = 53;
 CTMapperInfo	MapperInfo_053 =
 {
 	&MapperNum,
-	"Supervision 16-in-1",
+	_T("Supervision 16-in-1"),
 	COMPAT_FULL,
 	Load,
 	Reset,

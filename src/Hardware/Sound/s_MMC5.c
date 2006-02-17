@@ -197,7 +197,7 @@ int	_MAPINT	MMC5sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	else if (mode == STATE_LOAD)
 		memcpy(&MMC5sound,data+x,sizeof(MMC5sound));
 	else if (mode != STATE_SIZE)
-		MessageBox(hWnd,"Invalid save/load type!",__FILE__,MB_OK);
+		MessageBox(hWnd,_T("Invalid save/load type!"),_T(__FILE__),MB_OK);
 	x += sizeof(MMC5sound);
 	return x;
 }

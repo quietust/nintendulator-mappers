@@ -106,7 +106,7 @@ static	u8 MapperNum = 112;
 CTMapperInfo	MapperInfo_112 =
 {
 	&MapperNum,
-	"Mapper 112 (Asder)",
+	_T("Mapper 112 (Asder)"),
 	COMPAT_PARTIAL,
 	NULL,
 	Reset,

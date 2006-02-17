@@ -66,7 +66,7 @@ static	u8 MapperNum = 182;
 CTMapperInfo	MapperInfo_182 =
 {
 	&MapperNum,
-	"Super Donkey Kong",
+	_T("Super Donkey Kong"),
 	COMPAT_FULL,
 	Load,
 	Reset,

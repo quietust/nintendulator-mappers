@@ -73,7 +73,7 @@ static	u8 MapperNum = 226;
 CTMapperInfo	MapperInfo_226 =
 {
 	&MapperNum,
-	"76-in-1",
+	_T("76-in-1"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

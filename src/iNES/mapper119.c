@@ -34,7 +34,7 @@ static	u8 MapperNum = 119;
 CTMapperInfo	MapperInfo_119 =
 {
 	&MapperNum,
-	"TQROM (MMC3)",
+	_T("TQROM (MMC3)"),
 	COMPAT_FULL,
 	Load,
 	Reset,

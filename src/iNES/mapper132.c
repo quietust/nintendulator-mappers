@@ -61,7 +61,7 @@ static	u8 MapperNum = 132;
 CTMapperInfo	MapperInfo_132 =
 {
 	&MapperNum,
-	"Creatom",
+	_T("Creatom"),
 	COMPAT_NEARLY,
 	NULL,
 	Reset,

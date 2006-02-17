@@ -27,7 +27,7 @@ static	u8 MapperNum = 11;
 CTMapperInfo	MapperInfo_011 =
 {
 	&MapperNum,
-	"Color Dreams",
+	_T("Color Dreams"),
 	COMPAT_FULL,
 	Load,
 	Reset,

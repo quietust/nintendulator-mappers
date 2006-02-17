@@ -50,7 +50,7 @@ static	u8 MapperNum = 46;
 CTMapperInfo	MapperInfo_046 =
 {
 	&MapperNum,
-	"GameStation/RumbleStation",
+	_T("GameStation/RumbleStation"),
 	COMPAT_FULL,
 	Load,
 	Reset,

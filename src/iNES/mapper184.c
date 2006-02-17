@@ -44,7 +44,7 @@ static	u8 MapperNum = 184;
 CTMapperInfo	MapperInfo_184 =
 {
 	&MapperNum,
-	"Mapper 184 (Atlantis no Nazo)",
+	_T("Mapper 184 (Atlantis no Nazo)"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

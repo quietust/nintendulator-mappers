@@ -80,7 +80,7 @@ static	u8 MapperNum = 151;
 CTMapperInfo	MapperInfo_151 =
 {
 	&MapperNum,
-	"Extended VS Unisystem",
+	_T("Extended VS Unisystem"),
 	COMPAT_PARTIAL,
 	NULL,
 	Reset,

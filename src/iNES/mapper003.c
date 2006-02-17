@@ -25,7 +25,7 @@ static	u8 MapperNum = 3;
 CTMapperInfo	MapperInfo_003 =
 {
 	&MapperNum,
-	"CNROM",
+	_T("CNROM"),
 	COMPAT_FULL,
 	Load,
 	Reset,

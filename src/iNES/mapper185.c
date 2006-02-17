@@ -101,7 +101,7 @@ static	u8 MapperNum = 185;
 CTMapperInfo	MapperInfo_185 =
 {
 	&MapperNum,
-	"CNROM with CHR disable",
+	_T("CNROM with CHR disable"),
 	COMPAT_FULL,
 	Load,
 	Reset,

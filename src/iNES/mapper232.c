@@ -60,7 +60,7 @@ static	u8 MapperNum = 232;
 CTMapperInfo	MapperInfo_232 =
 {
 	&MapperNum,
-	"Camerica 9096",
+	_T("Camerica 9096"),
 	COMPAT_NEARLY,
 	NULL,
 	Reset,

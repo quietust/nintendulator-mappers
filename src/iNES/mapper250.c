@@ -53,7 +53,7 @@ static	u8 MapperNum = 250;
 CTMapperInfo	MapperInfo_250 =
 {
 	&MapperNum,
-	"Time Diver Avenger (MMC3 Variant)",
+	_T("Time Diver Avenger (MMC3 Variant)"),
 	COMPAT_FULL,
 	Load,
 	Reset,

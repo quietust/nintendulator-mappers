@@ -34,7 +34,7 @@ static	u8 MapperNum = 74;
 CTMapperInfo	MapperInfo_074 =
 {
 	&MapperNum,
-	"Mapper 74 (Taiwan MMC3)",
+	_T("Mapper 74 (Taiwan MMC3)"),
 	COMPAT_PARTIAL,
 	Load,
 	Reset,

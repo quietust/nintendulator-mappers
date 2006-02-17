@@ -164,7 +164,7 @@ static	u8 MapperNum = 64;
 CTMapperInfo	MapperInfo_064 =
 {
 	&MapperNum,
-	"Tengen RAMBO-1",
+	_T("Tengen RAMBO-1"),
 	COMPAT_PARTIAL,
 	NULL,
 	Reset,

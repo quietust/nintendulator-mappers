@@ -34,7 +34,7 @@ static	u8 MapperNum = 118;
 CTMapperInfo	MapperInfo_118 =
 {
 	&MapperNum,
-	"TKSROM/TLSROM (MMC3)",
+	_T("TKSROM/TLSROM (MMC3)"),
 	COMPAT_FULL,
 	Load,
 	Reset,

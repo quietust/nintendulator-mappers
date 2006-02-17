@@ -115,7 +115,7 @@ static	u8 MapperNum = 142;
 CTMapperInfo	MapperInfo_142 =
 {
 	&MapperNum,
-	"SMB2j Pirate (KS 202)",
+	_T("SMB2j Pirate (KS 202)"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

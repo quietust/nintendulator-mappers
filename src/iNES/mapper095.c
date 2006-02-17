@@ -34,7 +34,7 @@ static	u8 MapperNum = 95;
 CTMapperInfo	MapperInfo_095 =
 {
 	&MapperNum,
-	"Dragon Buster (MMC3 variant)",
+	_T("Dragon Buster (MMC3 variant)"),
 	COMPAT_NEARLY,
 	Load,
 	Reset,

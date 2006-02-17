@@ -84,7 +84,7 @@ static	u8 MapperNum = 234;
 CTMapperInfo	MapperInfo_234 =
 {
 	&MapperNum,
-	"Maxi 15",
+	_T("Maxi 15"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

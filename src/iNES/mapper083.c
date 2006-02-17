@@ -139,7 +139,7 @@ static	u8 MapperNum = 83;
 CTMapperInfo	MapperInfo_083 =
 {
 	&MapperNum,
-	"Cony",
+	_T("Cony"),
 	COMPAT_NEARLY,
 	NULL,
 	Reset,

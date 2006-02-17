@@ -141,7 +141,7 @@ static	u8 MapperNum = 56;
 CTMapperInfo	MapperInfo_056 =
 {
 	&MapperNum,
-	"SMB3 Pirate",
+	_T("SMB3 Pirate"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

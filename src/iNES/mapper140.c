@@ -42,7 +42,7 @@ static	u8 MapperNum = 140;
 CTMapperInfo	MapperInfo_140 =
 {
 	&MapperNum,
-	"Mapper 140 (Bio Senshi Dan)",
+	_T("Mapper 140 (Bio Senshi Dan)"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

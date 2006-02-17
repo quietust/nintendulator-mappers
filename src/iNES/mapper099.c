@@ -48,7 +48,7 @@ static	u8 MapperNum = 99;
 CTMapperInfo	MapperInfo_099 =
 {
 	&MapperNum,
-	"VS Unisystem",
+	_T("VS Unisystem"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

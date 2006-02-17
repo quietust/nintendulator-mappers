@@ -89,7 +89,7 @@ static	u8 MapperNum = 254;
 CTMapperInfo	MapperInfo_254 =
 {
 	&MapperNum,
-	"Ai Senshi Nicol (Pirate)",
+	_T("Ai Senshi Nicol (Pirate)"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

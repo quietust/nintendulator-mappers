@@ -80,7 +80,7 @@ static	u8 MapperNum = 40;
 CTMapperInfo	MapperInfo_040 =
 {
 	&MapperNum,
-	"SMB2j Pirate",
+	_T("SMB2j Pirate"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

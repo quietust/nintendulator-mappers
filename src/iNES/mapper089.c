@@ -28,7 +28,7 @@ static	u8 MapperNum = 89;
 CTMapperInfo	MapperInfo_089 =
 {
 	&MapperNum,
-	"Sunsoft 74161/7432",
+	_T("Sunsoft 74161/7432"),
 	COMPAT_FULL,
 	Load,
 	Reset,

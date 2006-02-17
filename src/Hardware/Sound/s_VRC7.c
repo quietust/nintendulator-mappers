@@ -1411,7 +1411,7 @@ void	VRC7sound_Load (void)
 {
 	if (OPL != NULL)
 	{
-		MessageBox(hWnd,"YM2413 already created!","VRC7",MSGBOX_FLAGS);
+		MessageBox(hWnd,_T("YM2413 already created!"),_T("VRC7"),MSGBOX_FLAGS);
 		return;
 	}
 	else
@@ -1419,7 +1419,7 @@ void	VRC7sound_Load (void)
 		OPL = OPLL_new(3579545,44100);
 		if (OPL == NULL)
 		{
-			MessageBox(hWnd,"Unable to create YM2413!","VRC7",MSGBOX_FLAGS);
+			MessageBox(hWnd,_T("Unable to create YM2413!"),_T("VRC7"),MSGBOX_FLAGS);
 			return;
 		}
 	}
@@ -1436,7 +1436,7 @@ void	VRC7sound_Unload (void)
 		OPLL_delete(OPL);
 		OPL = NULL;
 	}
-	else	MessageBox(hWnd,"Unable to destroy YM2413!","VRC7",MSGBOX_FLAGS);
+	else	MessageBox(hWnd,_T("Unable to destroy YM2413!"),_T("VRC7"),MSGBOX_FLAGS);
 }
 
 void	VRC7sound_Write (int Addr, int Val)
@@ -1474,6 +1474,6 @@ int	_MAPINT	VRC7sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	}
 	else if (mode == STATE_SIZE)
 		x += sizeof(OPLL);
-	else MessageBox(hWnd,"Invalid save/load type!",__FILE__,MB_OK);
+	else MessageBox(hWnd,_T("Invalid save/load type!"),_T(__FILE__),MB_OK);
 	return x;
 }

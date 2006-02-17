@@ -82,7 +82,7 @@ static	u8 MapperNum = 91;
 CTMapperInfo	MapperInfo_091 =
 {
 	&MapperNum,
-	"PC-HK-SF3",
+	_T("PC-HK-SF3"),
 	COMPAT_PARTIAL,
 	NULL,
 	Reset,

@@ -43,7 +43,7 @@ static	u8 MapperNum = 87;
 CTMapperInfo	MapperInfo_087 =
 {
 	&MapperNum,
-	"Jaleco 74138/7474",
+	_T("Jaleco 74138/7474"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

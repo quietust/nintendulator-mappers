@@ -51,7 +51,7 @@ static	u8 MapperNum = 113;
 CTMapperInfo	MapperInfo_113 =
 {
 	&MapperNum,
-	"Mapper 113 (HES)",
+	_T("Mapper 113 (HES)"),
 	COMPAT_PARTIAL,
 	NULL,
 	Reset,

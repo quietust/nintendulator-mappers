@@ -57,7 +57,7 @@ static	u8 MapperNum = 41;
 CTMapperInfo	MapperInfo_041 =
 {
 	&MapperNum,
-	"Caltron 6-in-1",
+	_T("Caltron 6-in-1"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

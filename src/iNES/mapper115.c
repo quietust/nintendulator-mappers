@@ -56,7 +56,7 @@ static	u8 MapperNum = 115;
 CTMapperInfo	MapperInfo_115 =
 {
 	&MapperNum,
-	"Mapper 115 (Expanded Pirate MMC3)",
+	_T("Mapper 115 (Expanded Pirate MMC3)"),
 	COMPAT_NEARLY,
 	Load,
 	Reset,

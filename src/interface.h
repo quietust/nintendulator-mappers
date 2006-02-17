@@ -14,12 +14,17 @@
 /* Standard header files, used by all mappers */
 
 #include	<windows.h>
+#include	<tchar.h>
 
 #define	MSGBOX_FLAGS	(MB_OK | MB_ICONERROR | MB_DEFBUTTON1 | MB_APPLMODAL)
 
 /* Mapper Interface version (3.6) */
 
-#define	CurrentMapperInterface 0x00030006
+#ifdef UNICODE
+#define	CurrentMapperInterface	0x80030006
+#else
+#define	CurrentMapperInterface	0x00030006
+#endif
 
 /* Integer types */
 
@@ -165,8 +170,8 @@ typedef	struct	EmulatorInterface
 	void		(_MAPINT *Set_SRAMSize)		(int);		/* Sets the size of the SRAM (in bytes) */
 
 /* Misc Callbacks */
-	void		(_MAPINT *DbgOut)		(char *,...);	/* Echo text to debug window */
-	void		(_MAPINT *StatusOut)		(char *,...);	/* Echo text on status bar */
+	void		(_MAPINT *DbgOut)		(TCHAR *,...);	/* Echo text to debug window */
+	void		(_MAPINT *StatusOut)		(TCHAR *,...);	/* Echo text on status bar */
 /* Data fields */
 	unsigned char *	OpenBus;			/* pointer to last value on the CPU data bus */
 }	TEmulatorInterface, *PEmulatorInterface;
@@ -186,7 +191,7 @@ typedef	struct	MapperInfo
 {
 /* Mapper Information */
 	void *		MapperId;
-	char *		Description;
+	TCHAR *		Description;
 	COMPAT_TYPE	Compatibility;
 
 /* Mapper Functions */
@@ -206,7 +211,7 @@ typedef	const	TMapperInfo	CTMapperInfo, *CPMapperInfo;
 	if (mode == STATE_SAVE) data[x++] = value; \
 	else if (mode == STATE_LOAD) value = data[x++]; \
 	else if (mode == STATE_SIZE) x++; \
-	else MessageBox(hWnd,"Invalid save/load type!",__FILE__,MB_OK); \
+	else MessageBox(hWnd,_T("Invalid save/load type!"),_T(__FILE__),MB_OK); \
 }
 #define	SAVELOAD_WORD(mode,x,data,value) \
 { \
@@ -214,7 +219,7 @@ typedef	const	TMapperInfo	CTMapperInfo, *CPMapperInfo;
 	if (mode == STATE_SAVE) { sl_tmp.s0 = value; data[x++] = sl_tmp.b0; data[x++] = sl_tmp.b1; } \
 	else if (mode == STATE_LOAD) { sl_tmp.b0 = data[x++]; sl_tmp.b1 = data[x++]; value = sl_tmp.s0; } \
 	else if (mode == STATE_SIZE) x += 2; \
-	else MessageBox(hWnd,"Invalid save/load type!",__FILE__,MB_OK); \
+	else MessageBox(hWnd,_T("Invalid save/load type!"),_T(__FILE__),MB_OK); \
 }
 #define	SAVELOAD_LONG(mode,x,data,value) \
 { \
@@ -222,7 +227,7 @@ typedef	const	TMapperInfo	CTMapperInfo, *CPMapperInfo;
 	if (mode == STATE_SAVE) { sl_tmp.l0 = value; data[x++] = sl_tmp.b0; data[x++] = sl_tmp.b1; data[x++] = sl_tmp.b2; data[x++] = sl_tmp.b3; } \
 	else if (mode == STATE_LOAD) { sl_tmp.b0 = data[x++]; sl_tmp.b1 = data[x++]; sl_tmp.b2 = data[x++]; sl_tmp.b3 = data[x++]; value = sl_tmp.l0; } \
 	else if (mode == STATE_SIZE) x += 4; \
-	else MessageBox(hWnd,"Invalid save/load type!",__FILE__,MB_OK); \
+	else MessageBox(hWnd,_T("Invalid save/load type!"),_T(__FILE__),MB_OK); \
 }
 
 /* ROM Information Structure:- Contains information about the ROM currently loaded */
@@ -231,7 +236,7 @@ typedef	enum	{ ROM_INES, ROM_UNIF, ROM_FDS, ROM_NSF, ROM_UNDEFINED } ROM_TYPE;
 
 typedef	struct	ROMInfo
 {
-	char *		Filename;
+	TCHAR *		Filename;
 	ROM_TYPE	ROMType;
 	union
 	{
@@ -285,7 +290,7 @@ typedef	const	TROMInfo	CTROMInfo, *CPROMInfo;
 
 typedef	struct	DLLInfo
 {
-	char *		Author;
+	TCHAR *		Author;
 	int		Date;
 	int		Version;
 	CPMapperInfo	(_MAPINT *LoadMapper)	(CPROMInfo);

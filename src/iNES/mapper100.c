@@ -47,7 +47,7 @@ static	void	GetPRGBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int C
 		CheckDlgButton(hDlg, CheckRAM, BST_CHECKED);
 	else if (Mapper.PRGtype[Slot] == BANK_OPEN)
 		CheckDlgButton(hDlg, CheckOpen, BST_CHECKED);
-	else	EMU->DbgOut("Impossible: no type selected for PRG bank %i!", Slot);
+	else	EMU->DbgOut(_T("Impossible: no type selected for PRG bank %i!"), Slot);
 }
 
 static	void	SetPRGBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int CheckOpen, int Slot)
@@ -68,7 +68,7 @@ static	void	SetPRGBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int C
 		Mapper.PRGtype[Slot] = BANK_OPEN;
 		Mapper.PRG[Slot] = 0;
 	}
-	else	EMU->DbgOut("Impossible: no type selected for PRG bank %i!", Slot);
+	else	EMU->DbgOut(_T("Impossible: no type selected for PRG bank %i!"), Slot);
 	Sync();
 }
 
@@ -83,7 +83,7 @@ static	void	GetCHRBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int C
 		CheckDlgButton(hDlg, CheckNT, BST_CHECKED);
 	else if (Mapper.CHRtype[Slot] == BANK_OPEN)
 		CheckDlgButton(hDlg, CheckOpen, BST_CHECKED);
-	else	EMU->DbgOut("Impossible: no type selected for CHR bank %i!", Slot);
+	else	EMU->DbgOut(_T("Impossible: no type selected for CHR bank %i!"), Slot);
 	if ((Slot >= 8) && (Slot < 12))
 		GetCHRBank(hDlg, Editbox, CheckROM, CheckRAM, CheckNT, CheckOpen, Slot + 4);
 }
@@ -111,7 +111,7 @@ static	void	SetCHRBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int C
 		Mapper.CHRtype[Slot] = BANK_OPEN;
 		Mapper.CHR[Slot] = 0;
 	}
-	else	EMU->DbgOut("Impossible: no type selected for CHR bank %i!", Slot);
+	else	EMU->DbgOut(_T("Impossible: no type selected for CHR bank %i!"), Slot);
 	Sync();
 	if ((Slot >= 8) && (Slot < 12))
 		SetCHRBank(hDlg, Editbox, CheckROM, CheckRAM, CheckNT, CheckOpen, Slot + 4);
@@ -229,7 +229,7 @@ static	u8 MapperNum = 100;
 CTMapperInfo	MapperInfo_100 =
 {
 	&MapperNum,
-	"Debugging Mapper",
+	_T("Debugging Mapper"),
 	COMPAT_FULL,
 	Load,
 	Reset,

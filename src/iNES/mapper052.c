@@ -85,7 +85,7 @@ static	u8 MapperNum = 52;
 CTMapperInfo	MapperInfo_052 =
 {
 	&MapperNum,
-	"Mario 7 in 1 (MMC3)",
+	_T("Mario 7 in 1 (MMC3)"),
 	COMPAT_FULL,
 	Load,
 	Reset,

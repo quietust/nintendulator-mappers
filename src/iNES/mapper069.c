@@ -26,7 +26,7 @@ static	u8 MapperNum = 69;
 CTMapperInfo	MapperInfo_069 =
 {
 	&MapperNum,
-	"Sunsoft FME-7",
+	_T("Sunsoft FME-7"),
 	COMPAT_FULL,
 	Load,
 	Reset,

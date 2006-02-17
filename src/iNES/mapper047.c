@@ -53,7 +53,7 @@ static	u8 MapperNum = 47;
 CTMapperInfo	MapperInfo_047 =
 {
 	&MapperNum,
-	"Super Spike & Nintendo World Cup Soccer (MMC3)",
+	_T("Super Spike & Nintendo World Cup Soccer (MMC3)"),
 	COMPAT_FULL,
 	Load,
 	Reset,

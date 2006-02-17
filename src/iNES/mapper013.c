@@ -26,7 +26,7 @@ static	u8 MapperNum = 13;
 CTMapperInfo	MapperInfo_013 =
 {
 	&MapperNum,
-	"CPROM",
+	_T("CPROM"),
 	COMPAT_FULL,
 	Load,
 	Reset,

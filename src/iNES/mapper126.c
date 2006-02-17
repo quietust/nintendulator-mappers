@@ -37,7 +37,7 @@ static	void	Sync (void)
 	CHRbank |= (Mapper.Reg0 & 0x10) << 5;
 
 	if (Mapper.Reg3 & 0x08)
-		EMU->DbgOut("Alternate PRG switching used in mapper 126!");
+		EMU->DbgOut(_T("Alternate PRG switching used in mapper 126!"));
 	else
 	{
 		switch (Mapper.Reg3 & 0x3)
@@ -109,7 +109,7 @@ static	u8 MapperNum = 126;
 CTMapperInfo	MapperInfo_126 =
 {
 	&MapperNum,
-	"Super Joy (MMC3)",
+	_T("Super Joy (MMC3)"),
 	COMPAT_FULL,
 	Load,
 	Reset,

@@ -53,7 +53,7 @@ static	u8 MapperNum = 71;
 CTMapperInfo	MapperInfo_071 =
 {
 	&MapperNum,
-	"Camerica BF9093/BF9097",
+	_T("Camerica BF9093/BF9097"),
 	COMPAT_NEARLY,
 	NULL,
 	Reset,

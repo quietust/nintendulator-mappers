@@ -213,7 +213,7 @@ static	u8 MapperNum = 19;
 CTMapperInfo	MapperInfo_019 =
 {
 	&MapperNum,
-	"Namcot 106",
+	_T("Namcot 106"),
 	COMPAT_NEARLY,
 	Load,
 	Reset,

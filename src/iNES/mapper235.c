@@ -80,7 +80,7 @@ static	u8 MapperNum = 235;
 CTMapperInfo	MapperInfo_235 =
 {
 	&MapperNum,
-	"Golden Game 150-in-1",
+	_T("Golden Game 150-in-1"),
 	COMPAT_FULL,
 	Load,
 	Reset,

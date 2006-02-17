@@ -26,7 +26,7 @@ static	u8 MapperNum = 58;
 CTMapperInfo	MapperInfo_058 =
 {
 	&MapperNum,
-	"Study & Game 32 in 1",
+	_T("Study & Game 32 in 1"),
 	COMPAT_FULL,
 	Load,
 	Reset,

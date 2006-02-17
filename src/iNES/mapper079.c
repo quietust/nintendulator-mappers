@@ -49,7 +49,7 @@ static	u8 MapperNum = 79;
 CTMapperInfo	MapperInfo_079 =
 {
 	&MapperNum,
-	"NINA-03/NINA-06",
+	_T("NINA-03/NINA-06"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

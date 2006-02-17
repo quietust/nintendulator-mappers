@@ -28,7 +28,7 @@ static	u8 MapperNum = 10;
 CTMapperInfo	MapperInfo_010 =
 {
 	&MapperNum,
-	"MMC4",
+	_T("MMC4"),
 	COMPAT_FULL,
 	Load,
 	Reset,

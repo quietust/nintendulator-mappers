@@ -84,7 +84,7 @@ static	u8 MapperNum = 42;
 CTMapperInfo	MapperInfo_042 =
 {
 	&MapperNum,
-	"Mario Baby",
+	_T("Mario Baby"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

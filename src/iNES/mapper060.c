@@ -35,7 +35,7 @@ static	u8 MapperNum = 60;
 CTMapperInfo	MapperInfo_060 =
 {
 	&MapperNum,
-	"Reset-triggered 4-in-1",
+	_T("Reset-triggered 4-in-1"),
 	COMPAT_FULL,
 	NULL,
 	Reset,

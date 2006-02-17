@@ -196,7 +196,7 @@ static	u8 MapperNum = 85;
 CTMapperInfo	MapperInfo_085 =
 {
 	&MapperNum,
-	"Konami VRC7",
+	_T("Konami VRC7"),
 	COMPAT_FULL,
 	Load,
 	Reset,

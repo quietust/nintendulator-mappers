@@ -26,7 +26,7 @@ static	u8 MapperNum = 2;
 CTMapperInfo	MapperInfo_002 =
 {
 	&MapperNum,
-	"UNROM",
+	_T("UNROM"),
 	COMPAT_FULL,
 	Load,
 	Reset,

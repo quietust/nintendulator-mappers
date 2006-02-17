@@ -86,7 +86,7 @@ static	u8 MapperNum = 246;
 CTMapperInfo	MapperInfo_246 =
 {
 	&MapperNum,
-	"Mapper 246",
+	_T("Mapper 246"),
 	COMPAT_PARTIAL,
 	Load,
 	Reset,
