@@ -10,9 +10,9 @@ static	void	Sync (void)
 	for (x = 0; x < 8; x++)
 	{
 		y = MMC3_GetCHRBank(x);
-		if (y & 0x40)
-			EMU->SetCHR_RAM1(x,y & 0x07);
-		else	EMU->SetCHR_ROM1(x,y & 0x3F);
+		if ((y & 0xFE) == ((ROM->INES_PRGSize >> 2) & 0x08))
+			EMU->SetCHR_RAM1(x,y & 0x01);
+		else	EMU->SetCHR_ROM1(x,y & 0xFF);
 	}
 }
 
@@ -30,12 +30,12 @@ static	void	_MAPINT	Unload (void)
 	MMC3_Unload();
 }
 
-static	u8 MapperNum = 119;
-CTMapperInfo	MapperInfo_119 =
+static	u8 MapperNum = 74;
+CTMapperInfo	MapperInfo_074 =
 {
 	&MapperNum,
-	"TQROM (MMC3)",
-	COMPAT_FULL,
+	"Mapper 74 (Taiwan MMC3)",
+	COMPAT_PARTIAL,
 	Load,
 	Reset,
 	Unload,
