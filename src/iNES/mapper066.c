@@ -17,6 +17,8 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
 
+	EMU->SetCPUWriteHandler(0x6,Latch_Write);
+	EMU->SetCPUWriteHandler(0x7,Latch_Write);
 	Latch_Init(ResetType,Sync,FALSE);
 }
 
@@ -24,7 +26,7 @@ static	u8 MapperNum = 66;
 CTMapperInfo	MapperInfo_066 =
 {
 	&MapperNum,
-	"GNROM",
+	"GNROM/compatible",
 	COMPAT_FULL,
 	Reset,
 	Shutdown,
