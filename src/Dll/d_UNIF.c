@@ -47,25 +47,26 @@ HINSTANCE		hInstance;
 CPEmulatorInterface	EMU;
 CPROMInfo		ROM;
 
-/* NES: NES boards */
 extern	CTMapperInfo
+/* NES/HVC: Official Nintendo boards */
 	MapperInfo_NES_AMROM,	MapperInfo_NES_ANROM,	MapperInfo_NES_AOROM,
 	MapperInfo_NES_BNROM,
 	MapperInfo_NES_CNROM,	MapperInfo_NES_CPROM,
 	MapperInfo_NES_DEROM,	MapperInfo_NES_DEIROM,	MapperInfo_NES_DRROM,
 	MapperInfo_NES_EKROM,	MapperInfo_NES_ELROM,	MapperInfo_NES_ETROM,	MapperInfo_NES_EWROM,
+	MapperInfo_NES_FJROM,
 	MapperInfo_NES_GNROM,
 	MapperInfo_NES_HKROM,
 	MapperInfo_NES_JLROM,	MapperInfo_NES_BTR,
 	MapperInfo_NES_MHROM,
 	MapperInfo_NES_NROM_128,MapperInfo_NES_RROM_128,MapperInfo_NES_NROM_256,
+	MapperInfo_NES_PNROM,
 	MapperInfo_NES_SAROM,	MapperInfo_NES_SBROM,	MapperInfo_NES_SCROM,	MapperInfo_NES_SEROM,
 	MapperInfo_NES_SGROM,	MapperInfo_NES_SKROM,	MapperInfo_NES_SLROM,	MapperInfo_NES_SL1ROM,
 	MapperInfo_NES_SNROM,	MapperInfo_NES_SOROM,	MapperInfo_NES_SUROM,
 	MapperInfo_NES_TFROM,	MapperInfo_NES_TGROM,	MapperInfo_NES_TKROM,	MapperInfo_NES_TLROM,
 	MapperInfo_NES_TR1ROM,	MapperInfo_NES_TSROM,
 	MapperInfo_NES_UNROM,	MapperInfo_NES_UOROM,
-/* HVC: Famicom boards */
 
 /* UNL: Unlicensed (legal) boards */
 	MapperInfo_UNL_SA_0161M,MapperInfo_UNL_SA_72007,MapperInfo_UNL_SA_72008,MapperInfo_UNL_TC_U0115M,
@@ -93,7 +94,7 @@ CTMapperInfo	MapperInfo_0 = {NULL,NULL,COMPAT_NONE,NULL,NULL,NULL,NULL,NULL,NULL
 
 static	CPMapperInfo	BoardTable[] =
 {
-	/* NES */
+	/* NES/HVC */
 	&MapperInfo_NES_AMROM	,&MapperInfo_NES_ANROM	,&MapperInfo_NES_AOROM	,
 
 	&MapperInfo_NES_BNROM	,
@@ -103,6 +104,8 @@ static	CPMapperInfo	BoardTable[] =
 	&MapperInfo_NES_DEROM	,&MapperInfo_NES_DEIROM	,&MapperInfo_NES_DRROM	,
 
 	&MapperInfo_NES_EKROM	,&MapperInfo_NES_ELROM	,&MapperInfo_NES_ETROM	,&MapperInfo_NES_EWROM	,
+
+	&MapperInfo_NES_FJROM	,
 
 	&MapperInfo_NES_GNROM	,
 
@@ -114,6 +117,8 @@ static	CPMapperInfo	BoardTable[] =
 
 	&MapperInfo_NES_NROM_128	,&MapperInfo_NES_RROM_128		,&MapperInfo_NES_NROM_256,
 
+	&MapperInfo_NES_PNROM	,
+
 	&MapperInfo_NES_SAROM	,&MapperInfo_NES_SBROM	,&MapperInfo_NES_SCROM	,&MapperInfo_NES_SEROM	,
 	&MapperInfo_NES_SGROM	,&MapperInfo_NES_SKROM	,&MapperInfo_NES_SLROM	,&MapperInfo_NES_SL1ROM	,
 	&MapperInfo_NES_SNROM	,&MapperInfo_NES_SOROM	,&MapperInfo_NES_SUROM	,
@@ -122,7 +127,6 @@ static	CPMapperInfo	BoardTable[] =
 	&MapperInfo_NES_TR1ROM	,&MapperInfo_NES_TSROM	,
 
 	&MapperInfo_NES_UNROM	,&MapperInfo_NES_UOROM	,
-	/* Famicom */
 	/* Unlicensed */
 	&MapperInfo_UNL_SA_0161M	,&MapperInfo_UNL_SA_72007	,&MapperInfo_UNL_SA_72008	,
 	&MapperInfo_UNL_TC_U0115M	,&MapperInfo_UNL_Sachen_74LS374N,&MapperInfo_UNL_SA_0036	,
