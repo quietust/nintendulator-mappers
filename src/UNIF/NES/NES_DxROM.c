@@ -11,20 +11,25 @@ static	TN108	N108;
 
 void	_MAPINT	N108_CPUWrite89 (int Bank, int Addr, int Val);
 
-void	N108_Init (RESET_TYPE ResetType, FSync Sync)
+void	N108_Load (FSync Sync)
 {
-	N108.PRG[0] = 0x3C;	N108.PRG[1] = 0x3D;
+	N108.Sync = Sync;
+}
+void	N108_Reset (RESET_TYPE ResetType)
+{
+	if (ResetType == RESET_HARD)
+	{
+		N108.PRG[0] = 0x3C;	N108.PRG[1] = 0x3D;
 
-	N108.CHR[0] = 0x00;	N108.CHR[1] = 0x02;
-	N108.CHR[2] = 0x04;	N108.CHR[3] = 0x05;	N108.CHR[4] = 0x06;	N108.CHR[5] = 0x07;
-
-	N108.Cmd = 0;
+		N108.CHR[0] = 0x00;	N108.CHR[1] = 0x02;
+		N108.CHR[2] = 0x04;	N108.CHR[3] = 0x05;	N108.CHR[4] = 0x06;	N108.CHR[5] = 0x07;
+		N108.Cmd = 0;
+	}
 	EMU->SetCPUWriteHandler(0x8,N108_CPUWrite89);
 	EMU->SetCPUWriteHandler(0x9,N108_CPUWrite89);
-	(N108.Sync = Sync)();
+	N108.Sync();
 }
-
-void	N108_Destroy (void)
+void	N108_Unload (void)
 {
 	N108.Sync = NULL;
 }
@@ -97,22 +102,25 @@ static	void	Sync_DRROM (void)
 	EMU->Mirror_4();
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load_DEROM (void)
 {
-	N108_Destroy();
+	N108_Load(Sync_DEROM);
 }
-
-static	void	_MAPINT	Reset_DEROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Load_DEIROM (void)
 {
-	N108_Init(ResetType,Sync_DEROM);
+	N108_Load(Sync_DEIROM);
 }
-static	void	_MAPINT	Reset_DEIROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Load_DRROM (void)
 {
-	N108_Init(ResetType,Sync_DEIROM);
+	N108_Load(Sync_DRROM);
 }
-static	void	_MAPINT	Reset_DRROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	N108_Init(ResetType,Sync_DRROM);
+	N108_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	N108_Unload();
 }
 
 CTMapperInfo	MapperInfo_NES_DEROM =
@@ -120,8 +128,9 @@ CTMapperInfo	MapperInfo_NES_DEROM =
 	"NES-DEROM",
 	"Namco 108",
 	COMPAT_NEARLY,
-	Reset_DEROM,
-	Shutdown,
+	Load_DEROM,
+	Reset,
+	Unload,
 	NULL,
 	NULL,
 	N108_SaveLoad,
@@ -133,8 +142,9 @@ CTMapperInfo	MapperInfo_NES_DEIROM =
 	"NES-DEIROM",
 	"Namco 108",
 	COMPAT_NEARLY,
-	Reset_DEIROM,
-	Shutdown,
+	Load_DEIROM,
+	Reset,
+	Unload,
 	NULL,
 	NULL,
 	N108_SaveLoad,
@@ -146,8 +156,9 @@ CTMapperInfo	MapperInfo_NES_DRROM =
 	"NES-DRROM",
 	"Namco 108 with 4-screen VRAM",
 	COMPAT_NEARLY,
-	Reset_DRROM,
-	Shutdown,
+	Load_DRROM,
+	Reset,
+	Unload,
 	NULL,
 	NULL,
 	N108_SaveLoad,

@@ -15,8 +15,9 @@ typedef	struct	Latch
 
 extern	TLatch	Latch;
 
-void		Latch_Init		(RESET_TYPE,FSync,BOOL);
-void		Latch_Destroy		(void);
+void		Latch_Load		(FSync,BOOL);
+void		Latch_Reset		(RESET_TYPE);
+void		Latch_Unload		(void);
 int	_MAPINT	Latch_SaveLoad_AD	(STATE_TYPE,int,unsigned char *);
 int	_MAPINT	Latch_SaveLoad_AL	(STATE_TYPE,int,unsigned char *);
 int	_MAPINT	Latch_SaveLoad_A	(STATE_TYPE,int,unsigned char *);

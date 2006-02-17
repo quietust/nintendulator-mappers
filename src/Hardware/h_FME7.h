@@ -13,8 +13,9 @@ typedef	struct	FME7
 	FSync Sync;
 }	TFME7, *PFME7;
 
-void		FME7_Init	(RESET_TYPE,FSync);
-void		FME7_Destroy	(void);
+void		FME7_Load	(FSync);
+void		FME7_Reset	(RESET_TYPE);
+void		FME7_Unload	(void);
 void		FME7_SyncMirror	(void);
 void		FME7_SyncPRG	(int,int);
 void		FME7_SyncCHR	(int,int);

@@ -1,36 +1,36 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\..\Hardware\h_MMC5.h"
 
-static	void	_MAPINT	Shutdown (void)
-{
-	MMC5_Destroy();
-}
-
-static	void	_MAPINT	Reset_EKROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Load_EKROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC5.WRAMsize = MMC5WRAM_8KB_0KB;
-	MMC5_Init(ResetType);
+	MMC5_Load(MMC5WRAM_8KB_0KB);
 }
 
-static	void	_MAPINT	Reset_ELROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Load_ELROM (void)
 {
-	MMC5.WRAMsize = MMC5WRAM_0KB_0KB;
-	MMC5_Init(ResetType);
+	MMC5_Load(MMC5WRAM_0KB_0KB);
 }
 
-static	void	_MAPINT	Reset_ETROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Load_ETROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC5.WRAMsize = MMC5WRAM_8KB_8KB;
-	MMC5_Init(ResetType);
+	MMC5_Load(MMC5WRAM_8KB_8KB);
 }
 
-static	void	_MAPINT	Reset_EWROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Load_EWROM (void)
 {
 	UNIF_SetSRAM(32768);
-	MMC5.WRAMsize = MMC5WRAM_32KB_0KB;
-	MMC5_Init(ResetType);
+	MMC5_Load(MMC5WRAM_32KB_0KB);
+}
+
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+{
+	MMC5_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC5_Unload();
 }
 
 CTMapperInfo	MapperInfo_NES_EKROM =
@@ -38,8 +38,9 @@ CTMapperInfo	MapperInfo_NES_EKROM =
 	"NES-EKROM",
 	"MMC5 with 8KB SRAM",
 	COMPAT_NEARLY,
-	Reset_EKROM,
-	Shutdown,
+	Load_EKROM,
+	Reset,
+	Unload,
 	NULL,
 	MMC5_PPUCycle,
 	MMC5_SaveLoad,
@@ -51,8 +52,9 @@ CTMapperInfo	MapperInfo_NES_ELROM =
 	"NES-ELROM",
 	"MMC5 with no WRAM",
 	COMPAT_NEARLY,
-	Reset_ELROM,
-	Shutdown,
+	Load_ELROM,
+	Reset,
+	Unload,
 	NULL,
 	MMC5_PPUCycle,
 	MMC5_SaveLoad,
@@ -64,8 +66,9 @@ CTMapperInfo	MapperInfo_NES_ETROM =
 	"NES-ETROM",
 	"MMC5 with 16KB SRAM",
 	COMPAT_NEARLY,
-	Reset_ETROM,
-	Shutdown,
+	Load_ETROM,
+	Reset,
+	Unload,
 	NULL,
 	MMC5_PPUCycle,
 	MMC5_SaveLoad,
@@ -77,8 +80,9 @@ CTMapperInfo	MapperInfo_NES_EWROM =
 	"NES-EWROM",
 	"MMC5 with 32KB SRAM",
 	COMPAT_NEARLY,
-	Reset_EWROM,
-	Shutdown,
+	Load_EWROM,
+	Reset,
+	Unload,
 	NULL,
 	MMC5_PPUCycle,
 	MMC5_SaveLoad,

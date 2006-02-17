@@ -91,23 +91,24 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	Latch_Destroy();
-	if (Mapper.ConfigWindow)
-		DestroyWindow(Mapper.ConfigWindow);
+	Latch_Load(Sync,FALSE);
 	Mapper.ConfigWindow = NULL;
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	if (ResetType == RESET_HARD)
 		Mapper.Jumper = 0;
 
-	Mapper.ConfigWindow = NULL;
 	Mapper.ConfigCmd = 0;
-
-	Latch_Init(ResetType,Sync,FALSE);
+	Latch_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
+	if (Mapper.ConfigWindow)
+		DestroyWindow(Mapper.ConfigWindow);
 }
 
 CTMapperInfo	MapperInfo_BMC_T3H53 =
@@ -115,8 +116,9 @@ CTMapperInfo	MapperInfo_BMC_T3H53 =
 	"BMC-T3H53",
 	"Pirate multicart mapper with dipswitches",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_A,

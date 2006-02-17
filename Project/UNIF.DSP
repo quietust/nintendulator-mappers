@@ -230,10 +230,6 @@ SOURCE=..\src\Unif\Bmc\BMC_1992Ballgames11in1.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Unif\Bmc\BMC_1995SuperHiK4in1.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\Unif\Bmc\BMC_Generic115in1.c
 # End Source File
 # Begin Source File

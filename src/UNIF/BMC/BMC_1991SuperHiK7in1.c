@@ -33,17 +33,21 @@ static	void	_MAPINT	WriteAB (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC3_Destroy();
+	MMC3_Load(Sync);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Mapper.WhichGame = 0;
-	MMC3_Init(ResetType,Sync);
+	if (ResetType == RESET_HARD)
+		Mapper.WhichGame = 0;
+	MMC3_Reset(ResetType);
 	EMU->SetCPUWriteHandler(0xA,WriteAB);
 	EMU->SetCPUWriteHandler(0xB,WriteAB);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
 }
 
 CTMapperInfo	MapperInfo_BMC_1991SuperHiK7in1 =
@@ -51,8 +55,9 @@ CTMapperInfo	MapperInfo_BMC_1991SuperHiK7in1 =
 	"BMC-1991SuperHiK7in1",
 	"Pirate multicart mapper",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	SaveLoad,

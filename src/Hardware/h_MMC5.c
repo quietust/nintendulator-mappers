@@ -33,36 +33,15 @@ static	const	unsigned char	AttribShift[128] =
 
 static	void	MMC5_SetPPUHandlers (void);
 
-void	MMC5_Init (RESET_TYPE ResetType)
+void	MMC5_Load (int WRAMsize)
 {
 	u8 x;
-
-	EMU->SetCPUReadHandler(0x5,MMC5_CPURead5);
-	EMU->SetCPUWriteHandler(0x5,MMC5_CPUWrite5);
-	MMC5.CPUWrite6F = EMU->GetCPUWriteHandler(0x8);
-	for (x = 6; x <= 0xF; x++)
-		EMU->SetCPUWriteHandler(x,MMC5_CPUWrite6F);
-	for (x = 0; x < 16; x++)
-		MMC5.PPURead[x] = EMU->GetPPUReadHandler(x);
-	
 	EMU->Mirror_4();
 	MMC5.NameTable0		= EMU->GetCHR_Ptr1(0x8);
 	MMC5.NameTable1		= EMU->GetCHR_Ptr1(0x9);
 	MMC5.ExRAM		= EMU->GetCHR_Ptr1(0xA);
 	MMC5.ExNameTable	= EMU->GetCHR_Ptr1(0xB);
 
-	MMC5.PRGsize = 3;
-	MMC5.CHRsize = 0;
-	
-	MMC5.IRQenabled = MMC5.IRQreads = MMC5.IRQline = 0;
-	MMC5.Mul1 = MMC5.Mul2 = MMC5.GfxMode = 0;
-	
-	MMC5.SplitMode = MMC5.SplitBank = MMC5.SplitScroll = 0;
-	MMC5_SetPPUHandlers();
-
-	for (x = 0; x < 8; x++)	MMC5.CHR_A[x] = x;
-	for (x = 0; x < 4; x++)	MMC5.CHR_B[x] = x;
-	for (x = 0; x < 2; x++)	MMC5.WRAMprot[x] = 0;
 	for (x = 0; x < 4; x++)
 	{
 		u8 y = x | 4;
@@ -90,17 +69,45 @@ void	MMC5_Init (RESET_TYPE ResetType)
 		MMC5.WRAMtable[MMC5WRAM_8KB_32KB][y] =
 		MMC5.WRAMtable[MMC5WRAM_32KB_32KB][y] = y;
 	}
+	MMC5.WRAMsize = WRAMsize;
+	MMC5sound_Load();
+}
+
+void	MMC5_Reset (RESET_TYPE ResetType)
+{
+	u8 x;
+
+	EMU->SetCPUReadHandler(0x5,MMC5_CPURead5);
+	EMU->SetCPUWriteHandler(0x5,MMC5_CPUWrite5);
+	MMC5.CPUWrite6F = EMU->GetCPUWriteHandler(0x8);
+	for (x = 6; x <= 0xF; x++)
+		EMU->SetCPUWriteHandler(x,MMC5_CPUWrite6F);
+	for (x = 0; x < 16; x++)
+		MMC5.PPURead[x] = EMU->GetPPUReadHandler(x);
+	
+	MMC5.PRGsize = 3;
+	MMC5.CHRsize = 0;
+	
+	MMC5.IRQenabled = MMC5.IRQreads = MMC5.IRQline = 0;
+	MMC5.Mul1 = MMC5.Mul2 = MMC5.GfxMode = 0;
+	
+	MMC5.SplitMode = MMC5.SplitBank = MMC5.SplitScroll = 0;
+	MMC5_SetPPUHandlers();
+
+	for (x = 0; x < 8; x++)	MMC5.CHR_A[x] = x;
+	for (x = 0; x < 4; x++)	MMC5.CHR_B[x] = x;
+	for (x = 0; x < 2; x++)	MMC5.WRAMprot[x] = 0;
 
 	for (x = 0; x < 5; x++)	MMC5.PRG[x] = 0xFF;
 
 	MMC5.TileCache = 0x40;
-	MMC5sound_Init();
+	MMC5sound_Reset(ResetType);
 	MMC5_SyncPRG();
 }
 
-void	MMC5_Destroy (void)
+void	MMC5_Unload (void)
 {
-	MMC5sound_Destroy();
+	MMC5sound_Unload();
 }
 
 int	_MAPINT	MMC5_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)

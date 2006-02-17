@@ -2,21 +2,26 @@
 
 TLatch	Latch;
 
-void	Latch_Init (RESET_TYPE ResetType, FSync Sync, BOOL BusConflicts)
+void	Latch_Load (FSync Sync, BOOL BusConflicts)
+{
+	Latch.BusConflicts = BusConflicts;
+	Latch.Sync = Sync;
+}
+
+void	Latch_Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	for (x = 0x8; x <= 0xF; x++)
-		EMU->SetCPUWriteHandler(x,Latch_Write);
 	if (ResetType == RESET_HARD)
 	{
 		Latch.Data = 0;
 		Latch.Addr.s0 = 0;
 	}
-	Latch.BusConflicts = BusConflicts;
-	(Latch.Sync = Sync)();
+	for (x = 0x8; x < 0x10; x++)
+		EMU->SetCPUWriteHandler(x,Latch_Write);
+	Latch.Sync();
 }
 
-void	Latch_Destroy (void)
+void	Latch_Unload (void)
 {
 }
 

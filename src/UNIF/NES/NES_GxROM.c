@@ -7,24 +7,29 @@ static	void	Sync_GNROM (void)
 	EMU->SetCHR_ROM8(0,(Latch.Data >> 0) & 0x3);
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load_GNROM (void)
 {
-	Latch_Destroy();
+	Latch_Load(Sync_GNROM,TRUE);
 }
-
-static	void	_MAPINT	Reset_GNROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Latch_Init(ResetType,Sync_GNROM,TRUE);
+	Latch_Reset(ResetType);
 	UNIF_SetMirroring(NULL);
 }
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
+}
+
 
 CTMapperInfo	MapperInfo_NES_GNROM =
 {
 	"NES-GNROM",
 	"Standard 32KB PRG/8KB CHR switch",
 	COMPAT_FULL,
-	Reset_GNROM,
-	Shutdown,
+	Load_GNROM,
+	Reset,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_D,

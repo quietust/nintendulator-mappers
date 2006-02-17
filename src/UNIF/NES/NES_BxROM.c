@@ -7,15 +7,18 @@ static	void	Sync_BNROM (void)
 	EMU->SetCHR_RAM8(0,0);
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load_BNROM (void)
 {
-	Latch_Destroy();
+	Latch_Load(Sync_BNROM,TRUE);
 }
-
-static	void	_MAPINT	Reset_BNROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Latch_Init(ResetType,Sync_BNROM,TRUE);
+	Latch_Reset(ResetType);
 	UNIF_SetMirroring(NULL);
+}
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
 }
 
 CTMapperInfo	MapperInfo_NES_BNROM =
@@ -23,8 +26,9 @@ CTMapperInfo	MapperInfo_NES_BNROM =
 	"NES-BNROM",
 	"Standard 32KB PRG switch",
 	COMPAT_FULL,
-	Reset_BNROM,
-	Shutdown,
+	Load_BNROM,
+	Reset,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_D,

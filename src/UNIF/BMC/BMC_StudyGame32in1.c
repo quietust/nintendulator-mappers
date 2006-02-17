@@ -8,15 +8,18 @@ static	void	Sync (void)
 	EMU->SetPRG_ROM32(0x8,Latch.Data & 0x1F);
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	Latch_Destroy();
+	Latch_Load(Sync,FALSE);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	UNIF_SetMirroring(NULL);
-	Latch_Init(ResetType,Sync,FALSE);
+	Latch_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
 }
 
 CTMapperInfo	MapperInfo_BMC_StudyGame32in1 =
@@ -24,8 +27,9 @@ CTMapperInfo	MapperInfo_BMC_StudyGame32in1 =
 	"BMC-StudyGame32in1",
 	"Pirate multicart mapper",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_D,

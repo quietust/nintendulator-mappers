@@ -14,8 +14,9 @@ typedef	struct	MMC2
 	FPPURead PPURead3, PPURead7;
 }	TMMC2, *PMMC2;
 
-void		MMC2_Init	(RESET_TYPE,FSync);
-void		MMC2_Destroy	(void);
+void		MMC2_Load	(FSync);
+void		MMC2_Reset	(RESET_TYPE);
+void		MMC2_Unload	(void);
 int	_MAPINT	MMC2_SaveLoad	(STATE_TYPE,int,unsigned char *);
 void		MMC2_SyncPRG	(int,int);
 void		MMC2_SyncCHR	(void);

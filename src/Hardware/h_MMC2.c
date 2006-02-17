@@ -2,17 +2,24 @@
 
 static	TMMC2	MMC2;
 
-void	MMC2_Init (RESET_TYPE ResetType, FSync Sync)
+void	MMC2_Load (FSync Sync)
+{
+	MMC2.Sync = Sync;
+}
+void	MMC2_Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	for (x = 0; x < 2; x++)
+	if (ResetType == RESET_HARD)
 	{
-		MMC2.LatchState[x] = 0;
-		MMC2.Latch0[x] = 0;
-		MMC2.Latch1[x] = 0;
+		for (x = 0; x < 2; x++)
+		{
+			MMC2.LatchState[x] = 0;
+			MMC2.Latch0[x] = 0;
+			MMC2.Latch1[x] = 0;
+		}
+		MMC2.PRG = 0;
+		MMC2.Mirror = 0;
 	}
-	MMC2.PRG = 0;
-	MMC2.Mirror = 0;
 	EMU->SetCPUWriteHandler(0xA,MMC2_CPUWriteA);
 	EMU->SetCPUWriteHandler(0xB,MMC2_CPUWriteB);
 	EMU->SetCPUWriteHandler(0xC,MMC2_CPUWriteC);
@@ -23,13 +30,11 @@ void	MMC2_Init (RESET_TYPE ResetType, FSync Sync)
 	EMU->SetPPUReadHandler(0x3,MMC2_PPURead3);
 	MMC2.PPURead7 = EMU->GetPPUReadHandler(0x7);
 	EMU->SetPPUReadHandler(0x7,MMC2_PPURead7);
-	(MMC2.Sync = Sync)();
+	MMC2.Sync();
 }
 
-void	MMC2_Destroy (void)
+void	MMC2_Unload (void)
 {
-	EMU->SetPPUReadHandler(0x3,MMC2.PPURead3);
-	EMU->SetPPUReadHandler(0x7,MMC2.PPURead7);
 }
 
 int	_MAPINT	MMC2_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)

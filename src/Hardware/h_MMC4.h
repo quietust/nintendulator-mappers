@@ -14,8 +14,9 @@ typedef	struct	MMC4
 	FPPURead PPURead3, PPURead7;
 }	TMMC4, *PMMC4;
 
-void		MMC4_Init	(RESET_TYPE,FSync);
-void		MMC4_Destroy	(void);
+void		MMC4_Load	(FSync);
+void		MMC4_Reset	(RESET_TYPE);
+void		MMC4_Unload	(void);
 int	_MAPINT	MMC4_SaveLoad	(STATE_TYPE,int,unsigned char *);
 void		MMC4_SyncPRG	(int,int);
 void		MMC4_SyncCHR	(void);

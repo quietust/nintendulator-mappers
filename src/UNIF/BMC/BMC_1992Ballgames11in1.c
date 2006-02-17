@@ -54,8 +54,11 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	for (x = 0x8; x <= 0xF; x++)
 		EMU->SetCPUWriteHandler(x,Write89ABCDEF);
 
-	Mapper.Bank = 0;
-	Mapper.Mode = 1;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.Bank = 0;
+		Mapper.Mode = 1;
+	}
 	Sync();
 }
 
@@ -64,6 +67,7 @@ CTMapperInfo	MapperInfo_BMC_1992Ballgames11in1 =
 	"BMC-1992Ballgames11in1",
 	"Pirate multicart mapper",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

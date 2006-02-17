@@ -14,20 +14,22 @@ static	void	Sync_UOROM (void)
 	EMU->SetCHR_RAM8(0,0);
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load_UNROM (void)
 {
-	Latch_Destroy();
+	Latch_Load(Sync_UNROM,TRUE);
 }
-
-static	void	_MAPINT	Reset_UNROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Load_UOROM (void)
 {
-	Latch_Init(ResetType,Sync_UNROM,TRUE);
+	Latch_Load(Sync_UOROM,TRUE);
+}
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+{
+	Latch_Reset(ResetType);
 	UNIF_SetMirroring(NULL);
 }
-static	void	_MAPINT	Reset_UOROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Unload (void)
 {
-	Latch_Init(ResetType,Sync_UOROM,TRUE);
-	UNIF_SetMirroring(NULL);
+	Latch_Unload();
 }
 
 CTMapperInfo	MapperInfo_NES_UNROM =
@@ -35,8 +37,9 @@ CTMapperInfo	MapperInfo_NES_UNROM =
 	"NES-UNROM",
 	"Standard 16KB PRG switch",
 	COMPAT_FULL,
-	Reset_UNROM,
-	Shutdown,
+	Load_UNROM,
+	Reset,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_D,
@@ -48,8 +51,9 @@ CTMapperInfo	MapperInfo_NES_UOROM =
 	"NES-UOROM",
 	"Oversize 16KB PRG switch",
 	COMPAT_FULL,
-	Reset_UOROM,
-	Shutdown,
+	Load_UOROM,
+	Reset,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_D,

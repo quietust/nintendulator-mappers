@@ -52,6 +52,7 @@ CTMapperInfo	MapperInfo_BMC_WS =
 	"BMC-WS",
 	"Pirate multicart mapper",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

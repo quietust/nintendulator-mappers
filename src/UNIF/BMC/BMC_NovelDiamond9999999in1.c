@@ -7,15 +7,18 @@ static	void	Sync (void)
 	EMU->SetCHR_ROM8(0,Latch.Addr.b0 & 0x7);
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	Latch_Destroy();
+	Latch_Load(Sync,FALSE);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Latch_Init(ResetType,Sync,FALSE);
+	Latch_Reset(ResetType);
 	UNIF_SetMirroring(NULL);
+}
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
 }
 
 CTMapperInfo	MapperInfo_BMC_NovelDiamond9999999in1 =
@@ -23,8 +26,9 @@ CTMapperInfo	MapperInfo_BMC_NovelDiamond9999999in1 =
 	"BMC-NovelDiamond9999999in1",
 	"Pirate multicart mapper",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_AL,

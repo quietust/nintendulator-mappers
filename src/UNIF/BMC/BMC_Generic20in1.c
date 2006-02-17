@@ -34,14 +34,17 @@ static	void	Sync (void)
 	}
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	Latch_Destroy();
+	Latch_Load(Sync,FALSE);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Latch_Init(ResetType,Sync,FALSE);
+	Latch_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
 }
 
 CTMapperInfo	MapperInfo_BMC_Generic20in1 =
@@ -49,8 +52,9 @@ CTMapperInfo	MapperInfo_BMC_Generic20in1 =
 	"BMC-Generic20in1",
 	"Pirate multicart mapper",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_A,

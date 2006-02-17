@@ -2,17 +2,25 @@
 
 static	TMMC4	MMC4;
 
-void	MMC4_Init (RESET_TYPE ResetType, FSync Sync)
+void	MMC4_Load (FSync Sync)
+{
+	MMC4.Sync = Sync;
+}
+
+void	MMC4_Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	for (x = 0; x < 2; x++)
+	if (ResetType == RESET_HARD)
 	{
-		MMC4.LatchState[x] = 0;
-		MMC4.Latch0[x] = 0;
-		MMC4.Latch1[x] = 0;
+		for (x = 0; x < 2; x++)
+		{
+			MMC4.LatchState[x] = 0;
+			MMC4.Latch0[x] = 0;
+			MMC4.Latch1[x] = 0;
+		}
+		MMC4.PRG = 0;
+		MMC4.Mirror = 0;
 	}
-	MMC4.PRG = 0;
-	MMC4.Mirror = 0;
 	EMU->SetCPUWriteHandler(0xA,MMC4_CPUWriteA);
 	EMU->SetCPUWriteHandler(0xB,MMC4_CPUWriteB);
 	EMU->SetCPUWriteHandler(0xC,MMC4_CPUWriteC);
@@ -23,13 +31,11 @@ void	MMC4_Init (RESET_TYPE ResetType, FSync Sync)
 	EMU->SetPPUReadHandler(0x3,MMC4_PPURead3);
 	MMC4.PPURead7 = EMU->GetPPUReadHandler(0x7);
 	EMU->SetPPUReadHandler(0x7,MMC4_PPURead7);
-	(MMC4.Sync = Sync)();
+	MMC4.Sync();
 }
 
-void	MMC4_Destroy (void)
+void	MMC4_Unload (void)
 {
-	EMU->SetPPUReadHandler(0x3,MMC4.PPURead3);
-	EMU->SetPPUReadHandler(0x7,MMC4.PPURead7);
 }
 
 int	_MAPINT	MMC4_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)

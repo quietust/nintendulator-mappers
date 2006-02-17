@@ -40,19 +40,25 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC3_Destroy();
+	MMC3_Load(Sync);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	EMU->SetCPUWriteHandler(0x5,Write);
 
-	Mapper.BankSize = 0x24;
-	Mapper.PRGbank = 0x9F;
-	Mapper.CHRbank = 0;
-	MMC3_Init(ResetType,Sync);
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.BankSize = 0x24;
+		Mapper.PRGbank = 0x9F;
+		Mapper.CHRbank = 0;
+	}
+	MMC3_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
 }
 
 CTMapperInfo	MapperInfo_BMC_Super24in1SC03 =
@@ -60,8 +66,9 @@ CTMapperInfo	MapperInfo_BMC_Super24in1SC03 =
 	"BMC-Super24in1SC03",
 	"Pirate multicart mapper",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	SaveLoad,

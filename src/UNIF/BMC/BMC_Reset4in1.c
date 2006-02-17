@@ -34,6 +34,7 @@ CTMapperInfo	MapperInfo_BMC_Reset4in1 =
 	"BMC-Reset4in1",
 	"Pirate multicart mapper",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

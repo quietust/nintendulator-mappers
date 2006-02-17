@@ -61,16 +61,16 @@ extern	CTMapperInfo
 	MapperInfo_BTL_MARIO1_MALEE2,
 /* BMC: Pirate multicarts */
 	MapperInfo_BMC_1991SuperHiK7in1,	MapperInfo_BMC_1992Ballgames11in1,
-	MapperInfo_BMC_1995SuperHiK4in1,	MapperInfo_BMC_Generic115in1,
-	MapperInfo_BMC_Generic15in1,		MapperInfo_BMC_Generic20in1,
-	MapperInfo_BMC_Generic20in1A,		MapperInfo_BMC_Generic42in1,
-	MapperInfo_BMC_Generic52in1,		MapperInfo_BMC_Generic76in1,
-	MapperInfo_BMC_GoldenGame150in1,	MapperInfo_BMC_Mario7in1,
-	MapperInfo_BMC_NovelDiamond9999999in1,	MapperInfo_BMC_Reset4in1,
-	MapperInfo_BMC_StudyGame32in1,		MapperInfo_BMC_Super1Min1,
-	MapperInfo_BMC_Super700in1,		MapperInfo_BMC_Supervision16in1,
-	MapperInfo_BMC_T3H53,			MapperInfo_BMC_Super24in1SC03,
-	MapperInfo_BMC_SV01,			MapperInfo_BMC_WS
+	MapperInfo_BMC_Generic115in1,		MapperInfo_BMC_Generic15in1,	
+	MapperInfo_BMC_Generic20in1,		MapperInfo_BMC_Generic20in1A,
+	MapperInfo_BMC_Generic42in1,		MapperInfo_BMC_Generic52in1,
+	MapperInfo_BMC_Generic76in1,		MapperInfo_BMC_GoldenGame150in1,
+	MapperInfo_BMC_Mario7in1,		MapperInfo_BMC_NovelDiamond9999999in1,
+	MapperInfo_BMC_Reset4in1,		MapperInfo_BMC_StudyGame32in1,
+	MapperInfo_BMC_Super1Min1,		MapperInfo_BMC_Super700in1,
+	MapperInfo_BMC_Supervision16in1,	MapperInfo_BMC_T3H53,
+	MapperInfo_BMC_Super24in1SC03,		MapperInfo_BMC_SV01,
+	MapperInfo_BMC_WS
 	;
 
 CTMapperInfo	MapperInfo_0 = {NULL,NULL,COMPAT_NONE,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
@@ -119,16 +119,16 @@ static	CPMapperInfo	BoardTable[] =
 	&MapperInfo_BTL_MARIO1_MALEE2	,
 	/* Bootleg Multicarts */
 	&MapperInfo_BMC_1991SuperHiK7in1	,&MapperInfo_BMC_1992Ballgames11in1	,
-	&MapperInfo_BMC_1995SuperHiK4in1	,&MapperInfo_BMC_Generic115in1		,
-	&MapperInfo_BMC_Generic15in1		,&MapperInfo_BMC_Generic20in1		,
-	&MapperInfo_BMC_Generic20in1A		,&MapperInfo_BMC_Generic42in1		,
-	&MapperInfo_BMC_Generic52in1		,&MapperInfo_BMC_Generic76in1		,
-	&MapperInfo_BMC_GoldenGame150in1	,&MapperInfo_BMC_Mario7in1		,
-	&MapperInfo_BMC_NovelDiamond9999999in1	,&MapperInfo_BMC_Reset4in1		,
-	&MapperInfo_BMC_StudyGame32in1		,&MapperInfo_BMC_Super1Min1		,
-	&MapperInfo_BMC_Super700in1		,&MapperInfo_BMC_Supervision16in1	,
-	&MapperInfo_BMC_T3H53			,&MapperInfo_BMC_Super24in1SC03		,
-	&MapperInfo_BMC_SV01			,&MapperInfo_BMC_WS			,
+	&MapperInfo_BMC_Generic115in1		,&MapperInfo_BMC_Generic15in1		,
+	&MapperInfo_BMC_Generic20in1		,&MapperInfo_BMC_Generic20in1A		,
+	&MapperInfo_BMC_Generic42in1		,&MapperInfo_BMC_Generic52in1		,
+	&MapperInfo_BMC_Generic76in1		,&MapperInfo_BMC_GoldenGame150in1	,
+	&MapperInfo_BMC_Mario7in1		,&MapperInfo_BMC_NovelDiamond9999999in1	,
+	&MapperInfo_BMC_Reset4in1		,&MapperInfo_BMC_StudyGame32in1		,
+	&MapperInfo_BMC_Super1Min1		,&MapperInfo_BMC_Super700in1		,
+	&MapperInfo_BMC_Supervision16in1	,&MapperInfo_BMC_T3H53			,
+	&MapperInfo_BMC_Super24in1SC03		,&MapperInfo_BMC_SV01			,
+	&MapperInfo_BMC_WS			,
 	/* Null-terminator */
 	&MapperInfo_0
 };

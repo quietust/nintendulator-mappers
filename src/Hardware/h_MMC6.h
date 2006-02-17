@@ -17,8 +17,9 @@ typedef	struct	MMC6
 	FSync Sync;
 }	TMMC6, *PMMC6;
 
-void		MMC6_Init	(RESET_TYPE,FSync);
-void		MMC6_Destroy	(void);
+void		MMC6_Load	(FSync);
+void		MMC6_Reset	(RESET_TYPE);
+void		MMC6_Unload	(void);
 void		MMC6_SyncMirror	(void);
 int		MMC6_GetPRGBank	(int);
 int		MMC6_GetCHRBank	(int);

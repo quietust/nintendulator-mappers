@@ -2,21 +2,29 @@
 
 static	TMMC1	MMC1;
 
-void	MMC1_Init (RESET_TYPE ResetType, FSync Sync)
+void	MMC1_Load (FSync Sync)
 {
-	u8 x;
-	MMC1.Regs[0] = 0x0C;
-	MMC1.Regs[1] = 0x00;
-	MMC1.Regs[2] = 0x00;
-	MMC1.Regs[3] = 0x00;
-	MMC1.Latch = 0;
-	MMC1.LatchPos = 0;
-	for (x = 0x8; x <= 0xF; x++)
-		EMU->SetCPUWriteHandler(x,MMC1_Write);
-	(MMC1.Sync = Sync)();
+	MMC1.Sync = Sync;
 }
 
-void	MMC1_Destroy (void)
+void	MMC1_Reset (RESET_TYPE ResetType)
+{
+	u8 x;
+	if (ResetType == RESET_HARD)
+	{
+		MMC1.Regs[0] = 0x0C;
+		MMC1.Regs[1] = 0x00;
+		MMC1.Regs[2] = 0x00;
+		MMC1.Regs[3] = 0x00;
+		MMC1.Latch = 0;
+		MMC1.LatchPos = 0;
+	}
+	for (x = 0x8; x < 0x10; x++)
+		EMU->SetCPUWriteHandler(x,MMC1_Write);
+	MMC1.Sync();
+}
+
+void	MMC1_Unload (void)
 {
 }
 

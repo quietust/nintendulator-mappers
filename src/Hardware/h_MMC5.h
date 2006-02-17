@@ -36,8 +36,9 @@ typedef	struct	MMC5
 
 extern	TMMC5	MMC5;
 
-void		MMC5_Init	(RESET_TYPE);
-void		MMC5_Destroy	(void);
+void		MMC5_Load	(int);
+void		MMC5_Reset	(RESET_TYPE);
+void		MMC5_Unload	(void);
 int	_MAPINT	MMC5_SaveLoad	(STATE_TYPE,int,unsigned char *);
 void		MMC5_SetPRG	(int,int,int);
 void		MMC5_SyncPRG	(void);

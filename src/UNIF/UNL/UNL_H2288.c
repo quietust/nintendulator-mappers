@@ -14,11 +14,6 @@ static	void	Sync (void)
 	MMC3_SyncMirror();
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	MMC3_Destroy();
-}
-
 static	int	_MAPINT	Read (int Bank, int Addr)
 {
 	unsigned char Data = Mapper.Read5(Bank,Addr);
@@ -44,24 +39,34 @@ static	void	_MAPINT	Write89 (int Bank, int Addr, int Val)
 	}
 }
 
+static	void	_MAPINT	Load (void)
+{
+	MMC3_Load(Sync);
+}
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	MMC3_Init(ResetType,Sync);
+	MMC3_Reset(ResetType);
 	Mapper.Read5 = EMU->GetCPUReadHandler(0x5);
 	EMU->SetCPUReadHandler(0x5,Read);
 	EMU->SetCPUWriteHandler(0x5,Write5);
 	for (x = 0x8; x < 0xA; x++)
 		EMU->SetCPUWriteHandler(x,Write89);	/* need to override writes to $8000 */
 }
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
+}
+
 
 CTMapperInfo	MapperInfo_UNL_H2288 =
 {
 	"UNL-H2288",
 	"?",
 	COMPAT_NEARLY,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	MMC3_SaveLoad,

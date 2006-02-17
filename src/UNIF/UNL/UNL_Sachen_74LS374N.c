@@ -79,6 +79,7 @@ CTMapperInfo	MapperInfo_UNL_Sachen_74LS374N =
 	"UNL-Sachen-74LS374N",
 	"Sachen mapper",
 	COMPAT_PARTIAL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

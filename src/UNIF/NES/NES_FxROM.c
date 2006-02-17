@@ -9,24 +9,29 @@ static	void	Sync_FJROM (void)
 	EMU->SetPRG_RAM8(0x6,0);
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load_FJROM (void)
 {
-	MMC4_Destroy();
+	UNIF_SetSRAM(8192);
+	MMC4_Load(Sync_FJROM);
+}
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+{
+	MMC4_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC4_Unload();
 }
 
-static	void	_MAPINT	Reset_FJROM (RESET_TYPE ResetType)
-{
-	MMC4_Init(ResetType,Sync_FJROM);
-	UNIF_SetSRAM(8192);
-}
 
 CTMapperInfo	MapperInfo_NES_FJROM =
 {
 	"NES-FJROM",
 	"MMC4",
 	COMPAT_FULL,
-	Reset_FJROM,
-	Shutdown,
+	Load_FJROM,
+	Reset,
+	Unload,
 	NULL,
 	NULL,
 	MMC4_SaveLoad,

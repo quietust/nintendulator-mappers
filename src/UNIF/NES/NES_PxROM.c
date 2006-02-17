@@ -8,14 +8,17 @@ static	void	Sync_PNROM (void)
 	MMC2_SyncMirror();
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load_PNROM (void)
 {
-	MMC2_Destroy();
+	MMC2_Load(Sync_PNROM);
 }
-
-static	void	_MAPINT	Reset_PNROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	MMC2_Init(ResetType,Sync_PNROM);
+	MMC2_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC2_Unload();
 }
 
 CTMapperInfo	MapperInfo_NES_PNROM =
@@ -23,8 +26,9 @@ CTMapperInfo	MapperInfo_NES_PNROM =
 	"NES-PNROM",
 	"MMC2",
 	COMPAT_FULL,
-	Reset_PNROM,
-	Shutdown,
+	Load_PNROM,
+	Reset,
+	Unload,
 	NULL,
 	NULL,
 	MMC2_SaveLoad,

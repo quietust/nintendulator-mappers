@@ -29,11 +29,6 @@ static	void	Sync (void)
 	else	MMC3_SyncPRG((Mapper.PRG & 0x40) ? 0x1F : 0x3F,0);
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	MMC3_Destroy();
-}
-
 static	void	_MAPINT	Write5 (int Bank, int Addr, int Val)
 {
 	switch (Addr & 7)
@@ -74,9 +69,13 @@ static	void	_MAPINT	WriteEF (int Bank, int Addr, int Val)
 	else	MMC3_CPUWriteEF(Bank,0,Val);
 }
 
+static	void	_MAPINT	Load (void)
+{
+	MMC3_Load(Sync);
+}
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	MMC3_Init(ResetType,Sync);
+	MMC3_Reset(ResetType);
 	EMU->SetCPUWriteHandler(0x5,Write5);
 	EMU->SetCPUWriteHandler(0x8,Write89);
 	EMU->SetCPUWriteHandler(0x9,Write89);
@@ -90,14 +89,19 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	Mapper.Valid = 1;
 	Sync();
 }
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
+}
 
 CTMapperInfo	MapperInfo_UNL_8237 =
 {
 	"UNL-8237",
 	"?",
 	COMPAT_NEARLY,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	MMC3_SaveLoad,

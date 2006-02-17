@@ -26,17 +26,25 @@ static	void	Sync_AOROM (void)
 	else	EMU->Mirror_S0();
 }
 
-static	void	_MAPINT	Reset_AMROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Load_AMROM (void)
 {
-	Latch_Init(ResetType,Sync_AMROM,TRUE);
+	Latch_Load(Sync_AMROM,TRUE);
 }
-static	void	_MAPINT	Reset_ANROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Load_ANROM (void)
 {
-	Latch_Init(ResetType,Sync_ANROM,FALSE);
+	Latch_Load(Sync_ANROM,FALSE);
 }
-static	void	_MAPINT	Reset_AOROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Load_AOROM (void)
 {
-	Latch_Init(ResetType,Sync_AOROM,TRUE);
+	Latch_Load(Sync_AOROM,TRUE);
+}
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+{
+	Latch_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
 }
 
 CTMapperInfo	MapperInfo_NES_AMROM =
@@ -44,8 +52,9 @@ CTMapperInfo	MapperInfo_NES_AMROM =
 	"NES-AMROM",
 	"32KB PRG switch with nametable select",
 	COMPAT_FULL,
-	Reset_AMROM,
-	NULL,
+	Load_AMROM,
+	Reset,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_D,
@@ -57,8 +66,9 @@ CTMapperInfo	MapperInfo_NES_ANROM =
 	"NES-ANROM",
 	"Standard 32KB PRG switch with nametable select",
 	COMPAT_FULL,
-	Reset_ANROM,
-	NULL,
+	Load_ANROM,
+	Reset,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_D,
@@ -70,8 +80,9 @@ CTMapperInfo	MapperInfo_NES_AOROM =
 	"NES-AOROM",
 	"Oversize 32KB PRG switch with nametable select",
 	COMPAT_FULL,
-	Reset_AOROM,
-	NULL,
+	Load_AOROM,
+	Reset,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_D,

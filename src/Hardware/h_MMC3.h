@@ -16,8 +16,9 @@ typedef	struct	MMC3
 	FSync Sync;
 }	TMMC3, *PMMC3;
 
-void		MMC3_Init	(RESET_TYPE, FSync);
-void		MMC3_Destroy	(void);
+void		MMC3_Load	(FSync);
+void		MMC3_Reset	(RESET_TYPE);
+void		MMC3_Unload	(void);
 void		MMC3_SyncMirror	(void);
 int		MMC3_GetPRGBank	(int);
 int		MMC3_GetCHRBank	(int);

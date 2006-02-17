@@ -2,21 +2,29 @@
 
 static	TMMC3	MMC3;
 
-void	MMC3_Init (RESET_TYPE ResetType, FSync Sync)
+void	MMC3_Load (FSync Sync)
 {
-	MMC3.PRG[0] = 0x3C;	MMC3.PRG[1] = 0x3D;	MMC3.PRG[2] = 0x3E;	MMC3.PRG[3] = 0x3F;	// 2 and 3 never change, simplifies GetPRGBank()
+	MMC3.Sync = Sync;
+}
 
-	MMC3.CHR[0] = 0x00;	MMC3.CHR[1] = 0x01;	MMC3.CHR[2] = 0x02;	MMC3.CHR[3] = 0x03;
-	MMC3.CHR[4] = 0x04;	MMC3.CHR[5] = 0x05;	MMC3.CHR[6] = 0x06;	MMC3.CHR[7] = 0x07;
+void	MMC3_Reset (RESET_TYPE ResetType)
+{
+	if (ResetType == RESET_HARD)
+	{
+		MMC3.PRG[0] = 0x3C;	MMC3.PRG[1] = 0x3D;	MMC3.PRG[2] = 0x3E;	MMC3.PRG[3] = 0x3F;	// 2 and 3 never change, simplifies GetPRGBank()
 
-	MMC3.IRQenabled = MMC3.IRQcounter = MMC3.IRQlatch = 0;
-	MMC3.Cmd = 0;
-	if (ROM->ROMType == ROM_INES)
-		MMC3.WRAMEnab = 0x80;
-	else	MMC3.WRAMEnab = 0;
-	if (ROM->ROMType == ROM_INES)
-		MMC3.Mirror = (ROM->INES_Flags & 0x01) ? 0 : 1;
-	else	MMC3.Mirror = 0;
+		MMC3.CHR[0] = 0x00;	MMC3.CHR[1] = 0x01;	MMC3.CHR[2] = 0x02;	MMC3.CHR[3] = 0x03;
+		MMC3.CHR[4] = 0x04;	MMC3.CHR[5] = 0x05;	MMC3.CHR[6] = 0x06;	MMC3.CHR[7] = 0x07;
+
+		MMC3.IRQenabled = MMC3.IRQcounter = MMC3.IRQlatch = 0;
+		MMC3.Cmd = 0;
+		if (ROM->ROMType == ROM_INES)
+			MMC3.WRAMEnab = 0x80;
+		else	MMC3.WRAMEnab = 0;
+		if (ROM->ROMType == ROM_INES)
+			MMC3.Mirror = (ROM->INES_Flags & 0x01) ? 0 : 1;
+		else	MMC3.Mirror = 0;
+	}
 	MMC3.CPUWrite67 = EMU->GetCPUWriteHandler(0x6);
 	EMU->SetCPUWriteHandler(0x6,MMC3_CPUWrite67);
 	EMU->SetCPUWriteHandler(0x7,MMC3_CPUWrite67);
@@ -28,12 +36,11 @@ void	MMC3_Init (RESET_TYPE ResetType, FSync Sync)
 	EMU->SetCPUWriteHandler(0xD,MMC3_CPUWriteCD);
 	EMU->SetCPUWriteHandler(0xE,MMC3_CPUWriteEF);
 	EMU->SetCPUWriteHandler(0xF,MMC3_CPUWriteEF);
-	(MMC3.Sync = Sync)();
+	MMC3.Sync();
 }
 
-void	MMC3_Destroy (void)
+void	MMC3_Unload (void)
 {
-	MMC3.Sync = NULL;
 }
 
 void	MMC3_SyncMirror (void)

@@ -105,15 +105,23 @@ static	void	_MAPINT	Reset_U0115M (RESET_TYPE ResetType)
 	UNIF_SetMirroring(NULL);
 	Sync_U0115M();
 }
-static	void	_MAPINT	Reset_0036 (RESET_TYPE ResetType)
+
+static	void	_MAPINT	Load_0036 (void)
 {
-	Latch_Init(ResetType,Sync_0036,FALSE);
+	Latch_Load(Sync_0036,FALSE);
+}
+static	void	_MAPINT	Load_0037 (void)
+{
+	Latch_Load(Sync_0037,FALSE);
+}
+static	void	_MAPINT	Reset_003x (RESET_TYPE ResetType)
+{
+	Latch_Reset(ResetType);
 	UNIF_SetMirroring(NULL);
 }
-static	void	_MAPINT	Reset_0037 (RESET_TYPE ResetType)
+static	void	_MAPINT	Unload_003x (void)
 {
-	Latch_Init(ResetType,Sync_0037,FALSE);
-	UNIF_SetMirroring(NULL);
+	Latch_Unload();
 }
 
 CTMapperInfo	MapperInfo_UNL_SA_0161M =
@@ -121,6 +129,7 @@ CTMapperInfo	MapperInfo_UNL_SA_0161M =
 	"UNL-SA-016-1M",
 	"Sachen mapper",
 	COMPAT_FULL,
+	NULL,
 	Reset_0161M,
 	NULL,
 	NULL,
@@ -134,6 +143,7 @@ CTMapperInfo	MapperInfo_UNL_SA_72007 =
 	"UNL-SA-72007",
 	"Sachen mapper",
 	COMPAT_FULL,
+	NULL,
 	Reset_72007,
 	NULL,
 	NULL,
@@ -147,6 +157,7 @@ CTMapperInfo	MapperInfo_UNL_SA_72008 =
 	"UNL-SA-72008",
 	"Sachen mapper",
 	COMPAT_FULL,
+	NULL,
 	Reset_72008,
 	NULL,
 	NULL,
@@ -160,6 +171,7 @@ CTMapperInfo	MapperInfo_UNL_TC_U0115M =
 	"UNL-TC-U01-1.5M",
 	"Sachen mapper",
 	COMPAT_FULL,
+	NULL,
 	Reset_U0115M,
 	NULL,
 	NULL,
@@ -173,8 +185,9 @@ CTMapperInfo	MapperInfo_UNL_SA_0036 =
 	"UNL-SA-0036",
 	"Sachen mapper",
 	COMPAT_FULL,
-	Reset_0036,
-	NULL,
+	Load_0036,
+	Reset_003x,
+	Unload_003x,
 	NULL,
 	NULL,
 	Latch_SaveLoad_D,
@@ -186,8 +199,9 @@ CTMapperInfo	MapperInfo_UNL_SA_0037 =
 	"UNL-SA-0037",
 	"Sachen mapper",
 	COMPAT_FULL,
-	Reset_0037,
-	NULL,
+	Load_0037,
+	Reset_003x,
+	Unload_003x,
 	NULL,
 	NULL,
 	Latch_SaveLoad_D,

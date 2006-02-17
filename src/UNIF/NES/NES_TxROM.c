@@ -40,35 +40,38 @@ static	void	Sync_TSROM (void)
 	MMC3_SyncMirror();
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load_TFROM (void)
 {
-	MMC3_Destroy();
+	MMC3_Load(Sync_TFROM);
 }
-
-static	void	_MAPINT	Reset_TFROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Load_TGROM (void)
 {
-	MMC3_Init(ResetType,Sync_TFROM);
+	MMC3_Load(Sync_TGROM);
 }
-static	void	_MAPINT	Reset_TGROM (RESET_TYPE ResetType)
-{
-	MMC3_Init(ResetType,Sync_TGROM);
-}
-static	void	_MAPINT	Reset_TKROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Load_TKROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC3_Init(ResetType,Sync_TKROM);
+	MMC3_Load(Sync_TKROM);
 }
-static	void	_MAPINT	Reset_TLROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Load_TLROM (void)
 {
-	MMC3_Init(ResetType,Sync_TLROM);
+	MMC3_Load(Sync_TLROM);
 }
-static	void	_MAPINT	Reset_TR1ROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Load_TR1ROM (void)
 {
-	MMC3_Init(ResetType,Sync_TR1ROM);
+	MMC3_Load(Sync_TR1ROM);
 }
-static	void	_MAPINT	Reset_TSROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Load_TSROM (void)
 {
-	MMC3_Init(ResetType,Sync_TSROM);
+	MMC3_Load(Sync_TSROM);
+}
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
+{
+	MMC3_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
 }
 
 CTMapperInfo	MapperInfo_NES_TFROM =
@@ -76,8 +79,9 @@ CTMapperInfo	MapperInfo_NES_TFROM =
 	"NES-TFROM",
 	"MMC3 with optional hardwired mirroring",
 	COMPAT_FULL,
-	Reset_TFROM,
-	Shutdown,
+	Load_TFROM,
+	Reset,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	MMC3_SaveLoad,
@@ -89,8 +93,9 @@ CTMapperInfo	MapperInfo_NES_TGROM =
 	"NES-TGROM",
 	"MMC3 with CHR-RAM",
 	COMPAT_FULL,
-	Reset_TGROM,
-	Shutdown,
+	Load_TGROM,
+	Reset,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	MMC3_SaveLoad,
@@ -102,8 +107,9 @@ CTMapperInfo	MapperInfo_NES_TKROM =
 	"NES-TKROM",
 	"MMC3 with CHR-ROM and SRAM",
 	COMPAT_FULL,
-	Reset_TKROM,
-	Shutdown,
+	Load_TKROM,
+	Reset,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	MMC3_SaveLoad,
@@ -115,8 +121,9 @@ CTMapperInfo	MapperInfo_NES_TLROM =
 	"NES-TLROM",
 	"MMC3 with CHR-ROM",
 	COMPAT_FULL,
-	Reset_TLROM,
-	Shutdown,
+	Load_TLROM,
+	Reset,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	MMC3_SaveLoad,
@@ -128,8 +135,9 @@ CTMapperInfo	MapperInfo_NES_TR1ROM =
 	"NES-TR1ROM",
 	"MMC3 with 4-screen VRAM",
 	COMPAT_FULL,
-	Reset_TR1ROM,
-	Shutdown,
+	Load_TR1ROM,
+	Reset,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	MMC3_SaveLoad,
@@ -141,8 +149,9 @@ CTMapperInfo	MapperInfo_NES_TSROM =
 	"NES-TSROM",
 	"MMC3 with WRAM",
 	COMPAT_FULL,
-	Reset_TSROM,
-	Shutdown,
+	Load_TSROM,
+	Reset,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	MMC3_SaveLoad,

@@ -3,19 +3,29 @@
 
 static	TFME7	FME7;
 
-void	FME7_Init (RESET_TYPE ResetType, FSync Sync)
+void	FME7_Load (FSync Sync)
 {
-	FME7.Cmd = 0;
+	FME7sound_Load();
+	FME7.Sync = Sync;
+}
 
-	FME7.PRG[0] = 0x00;	FME7.PRG[1] = 0x00;	FME7.PRG[2] = 0x01;	FME7.PRG[3] = 0xFE;
 
-	FME7.CHR[0] = 0x00;	FME7.CHR[1] = 0x01;	FME7.CHR[2] = 0x02;	FME7.CHR[3] = 0x03;
-	FME7.CHR[4] = 0x04;	FME7.CHR[5] = 0x05;	FME7.CHR[6] = 0x06;	FME7.CHR[7] = 0x07;
+void	FME7_Reset (RESET_TYPE ResetType)
+{
+	if (ResetType == RESET_HARD)
+	{
+		FME7.Cmd = 0;
 
-	FME7.Mirror = 0;
+		FME7.PRG[0] = 0x00;	FME7.PRG[1] = 0x00;	FME7.PRG[2] = 0x01;	FME7.PRG[3] = 0xFE;
 
-	FME7.IRQenabled = 0;
-	FME7.IRQcounter.s0 = 0;
+		FME7.CHR[0] = 0x00;	FME7.CHR[1] = 0x01;	FME7.CHR[2] = 0x02;	FME7.CHR[3] = 0x03;
+		FME7.CHR[4] = 0x04;	FME7.CHR[5] = 0x05;	FME7.CHR[6] = 0x06;	FME7.CHR[7] = 0x07;
+
+		FME7.Mirror = 0;
+
+		FME7.IRQenabled = 0;
+		FME7.IRQcounter.s0 = 0;
+	}
 	
 	EMU->SetCPUWriteHandler(0x8,FME7_Write89);
 	EMU->SetCPUWriteHandler(0x9,FME7_Write89);
@@ -26,13 +36,13 @@ void	FME7_Init (RESET_TYPE ResetType, FSync Sync)
 	EMU->SetCPUWriteHandler(0xE,FME7_WriteCDEF);
 	EMU->SetCPUWriteHandler(0xF,FME7_WriteCDEF);
 
-	FME7sound_Init();
-	(FME7.Sync = Sync)();
+	FME7sound_Reset(ResetType);
+	FME7.Sync();
 }
 
-void	FME7_Destroy (void)
+void	FME7_Unload (void)
 {
-	FME7sound_Destroy();
+	FME7sound_Unload();
 }
 
 void	FME7_SyncMirror (void)

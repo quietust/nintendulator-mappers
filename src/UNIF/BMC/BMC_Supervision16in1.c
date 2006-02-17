@@ -38,18 +38,22 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	Latch_Destroy();
+	Latch_Load(Sync,FALSE);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	for (x = 0x6; x < 0x8; x++)
 		EMU->SetCPUWriteHandler(x,Write);
-	Mapper.Game = 0;
-	Latch_Init(ResetType,Sync,FALSE);
+	if (ResetType == RESET_HARD)
+		Mapper.Game = 0;
+	Latch_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
 }
 
 CTMapperInfo	MapperInfo_BMC_Supervision16in1 =
@@ -57,8 +61,9 @@ CTMapperInfo	MapperInfo_BMC_Supervision16in1 =
 	"BMC-Supervision16in1",
 	"Pirate multicart mapper",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	NULL,
 	SaveLoad,

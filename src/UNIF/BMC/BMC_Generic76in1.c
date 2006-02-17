@@ -68,6 +68,7 @@ CTMapperInfo	MapperInfo_BMC_Generic76in1 =
 	"BMC-Generic76in1",
 	"Pirate multicart mapper",
 	COMPAT_FULL,
+	NULL,
 	Reset,
 	NULL,
 	NULL,

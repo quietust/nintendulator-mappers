@@ -30,10 +30,6 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
@@ -49,8 +45,9 @@ CTMapperInfo	MapperInfo_BMC_Generic15in1 =
 	"BMC-Generic15in1",
 	"Pirate multicart mapper",
 	COMPAT_FULL,
+	NULL,
 	Reset,
-	Shutdown,
+	NULL,
 	NULL,
 	NULL,
 	SaveLoad,

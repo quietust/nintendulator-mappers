@@ -59,21 +59,24 @@ static	void	_MAPINT	WriteRegs (int Bank, int Addr, int Val)
 		Mapper.Regs[Addr & 3] = Val & 0xF;
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	Latch_Destroy();
+	Latch_Load(Sync,FALSE);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	EMU->SetCPUReadHandler(0x5,ReadRegs);
 	EMU->SetCPUWriteHandler(0x5,WriteRegs);
-	Latch_Init(ResetType,Sync,FALSE);
+	Latch_Reset(ResetType);
 	if (ResetType == RESET_HARD)
 	{
 		Mapper.Regs[0] = Mapper.Regs[2] = 0xF;
 		Mapper.Regs[1] = Mapper.Regs[3] = 0x0;
 	}
+}
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
 }
 
 CTMapperInfo	MapperInfo_BMC_Generic115in1 =
@@ -81,8 +84,9 @@ CTMapperInfo	MapperInfo_BMC_Generic115in1 =
 	"BMC-Generic115in1",
 	"Pirate multicart mapper",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	NULL,
 	SaveLoad,

@@ -7,15 +7,18 @@ static	void	Sync_MHROM (void)
 	EMU->SetCHR_ROM8(0,(Latch.Data >> 0) & 0x1);
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load_MHROM (void)
 {
-	Latch_Destroy();
+	Latch_Load(Sync_MHROM,TRUE);
 }
-
-static	void	_MAPINT	Reset_MHROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Latch_Init(ResetType,Sync_MHROM,TRUE);
+	Latch_Reset(ResetType);
 	UNIF_SetMirroring(NULL);
+}
+static	void	_MAPINT	Unload (void)
+{
+	Latch_Unload();
 }
 
 CTMapperInfo	MapperInfo_NES_MHROM =
@@ -23,8 +26,9 @@ CTMapperInfo	MapperInfo_NES_MHROM =
 	"NES-MHROM",
 	"Super Mario Bros/Duck Hunt",
 	COMPAT_FULL,
-	Reset_MHROM,
-	Shutdown,
+	Load_MHROM,
+	Reset,
+	Unload,
 	NULL,
 	NULL,
 	Latch_SaveLoad_D,

@@ -15,22 +15,21 @@ static	void	Sync_JSROM (void)
 	FME7_SyncMirror();
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load_JLROM (void)
 {
-	FME7_Destroy();
+	FME7_Load(Sync_JLROM);
 }
-
-static	void	_MAPINT	Reset_JLROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Load_JSROM (void)
 {
-	FME7_Init(ResetType,Sync_JLROM);
+	FME7_Load(Sync_JSROM);
 }
-static	void	_MAPINT	Reset_JSROM (RESET_TYPE ResetType)
+static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
-	FME7_Init(ResetType,Sync_JSROM);
+	FME7_Reset(ResetType);
 }
-static	void	_MAPINT	Reset_BTR (RESET_TYPE ResetType)
+static	void	_MAPINT	Unload (void)
 {
-	FME7_Init(ResetType,Sync_JSROM);
+	FME7_Unload();
 }
 
 CTMapperInfo	MapperInfo_NES_JLROM =
@@ -38,8 +37,9 @@ CTMapperInfo	MapperInfo_NES_JLROM =
 	"NES-JLROM",
 	"Sunsoft FME-7",
 	COMPAT_FULL,
-	Reset_JLROM,
-	Shutdown,
+	Load_JLROM,
+	Reset,
+	Unload,
 	FME7_CPUCycle,
 	NULL,
 	FME7_SaveLoad,
@@ -51,8 +51,9 @@ CTMapperInfo	MapperInfo_NES_JSROM =
 	"NES-JSROM",
 	"Sunsoft FME-7 with WRAM",
 	COMPAT_FULL,
-	Reset_BTR,
-	Shutdown,
+	Load_JSROM,
+	Reset,
+	Unload,
 	FME7_CPUCycle,
 	NULL,
 	FME7_SaveLoad,
@@ -63,8 +64,9 @@ CTMapperInfo	MapperInfo_NES_JSROM =
 	"NES-BTR",
 	"Sunsoft FME-7 with WRAM (NES-JSROM)",
 	COMPAT_FULL,
-	Reset_BTR,
-	Shutdown,
+	Load_JSROM,
+	Reset,
+	Unload,
 	FME7_CPUCycle,
 	NULL,
 	FME7_SaveLoad,

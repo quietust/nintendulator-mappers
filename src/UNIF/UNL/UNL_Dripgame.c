@@ -305,18 +305,17 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	if (Mapper.ConfigWindow)
-		DestroyWindow(Mapper.ConfigWindow);
 	Mapper.ConfigWindow = NULL;
+	EMU->Mirror_4();
+	Mapper.ExtRam0 = EMU->GetCHR_Ptr1(0xA);
+	Mapper.ExtRam1 = EMU->GetCHR_Ptr1(0xB);
+	UNIF_SetSRAM(8192);
 }
-
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	UNIF_SetSRAM(8192);
 
 	Mapper.Read4 = EMU->GetCPUReadHandler(0x4);
 	EMU->SetCPUReadHandler(0x4,Read4);
@@ -335,20 +334,24 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	MapSound.Chan[0].IsEmpty = TRUE;
 	MapSound.Chan[1].IsEmpty = TRUE;
 
-	Mapper.PRG = 0;
-	for (x = 0; x < 4; x++)
-		Mapper.CHR[x] = x;
-	Mapper.Flags = 0;
-	Mapper.IRQenabled = Mapper.IRQlatch = 0;
-	Mapper.IRQcounter = 0;
-	Mapper.LastAddr = Mapper.LastAddrTmp = 0;
-	EMU->Mirror_4();
-	Mapper.ExtRam0 = EMU->GetCHR_Ptr1(0xA);
-	Mapper.ExtRam1 = EMU->GetCHR_Ptr1(0xB);
 	if (ResetType == RESET_HARD)
+	{
+		Mapper.PRG = 0;
+		for (x = 0; x < 4; x++)
+			Mapper.CHR[x] = x;
+		Mapper.Flags = 0;
+		Mapper.IRQenabled = Mapper.IRQlatch = 0;
+		Mapper.IRQcounter = 0;
+		Mapper.LastAddr = Mapper.LastAddrTmp = 0;
 		Mapper.Jumper = 0;
+	}
 
 	Sync();
+}
+static	void	_MAPINT	Unload (void)
+{
+	if (Mapper.ConfigWindow)
+		DestroyWindow(Mapper.ConfigWindow);
 }
 
 CTMapperInfo	MapperInfo_UNL_DRIPGAME =
@@ -356,8 +359,9 @@ CTMapperInfo	MapperInfo_UNL_DRIPGAME =
 	"UNL-DRIPGAME",
 	"Drip",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	CPUCycle,
 	PPUCycle,
 	SaveLoad,

@@ -59,21 +59,27 @@ static	void	_MAPINT	Write67 (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Shutdown (void)
+static	void	_MAPINT	Load (void)
 {
-	MMC3_Destroy();
+	MMC3_Load(Sync);
 }
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	Mapper.Write67 = EMU->GetCPUWriteHandler(0x6);
 	EMU->SetCPUWriteHandler(0x6,Write67);
 	EMU->SetCPUWriteHandler(0x7,Write67);
 
-	Mapper.WhichGame = 0;
-	Mapper.DidWrite = 0;
+	if (ResetType == RESET_HARD)
+	{
+		Mapper.WhichGame = 0;
+		Mapper.DidWrite = 0;
+	}
 
-	MMC3_Init(ResetType,Sync);
+	MMC3_Reset(ResetType);
+}
+static	void	_MAPINT	Unload (void)
+{
+	MMC3_Unload();
 }
 
 CTMapperInfo	MapperInfo_BMC_Mario7in1 =
@@ -81,8 +87,9 @@ CTMapperInfo	MapperInfo_BMC_Mario7in1 =
 	"BMC-Mario7in1",
 	"Pirate multicart mapper",
 	COMPAT_FULL,
+	Load,
 	Reset,
-	Shutdown,
+	Unload,
 	NULL,
 	MMC3_PPUCycle,
 	SaveLoad,

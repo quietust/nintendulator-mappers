@@ -2,17 +2,25 @@
 
 static	TMMC6	MMC6;
 
-void	MMC6_Init (RESET_TYPE ResetType, FSync Sync)
+void	MMC6_Load (FSync Sync)
 {
-	MMC6.PRG[0] = 0x00;	MMC6.PRG[1] = 0x01;	MMC6.PRG[2] = 0x3E;	MMC6.PRG[3] = 0x3F;	// 2 and 3 never change, simplifies GetPRGBank()
+	MMC6.Sync = Sync;
+}
 
-	MMC6.CHR[0] = 0x00;	MMC6.CHR[1] = 0x01;	MMC6.CHR[2] = 0x02;	MMC6.CHR[3] = 0x03;
-	MMC6.CHR[4] = 0x04;	MMC6.CHR[5] = 0x05;	MMC6.CHR[6] = 0x06;	MMC6.CHR[7] = 0x07;
+void	MMC6_Reset (RESET_TYPE ResetType)
+{
+	if (ResetType == RESET_HARD)
+	{
+		MMC6.PRG[0] = 0x00;	MMC6.PRG[1] = 0x01;	MMC6.PRG[2] = 0x3E;	MMC6.PRG[3] = 0x3F;	// 2 and 3 never change, simplifies GetPRGBank()
 
-	MMC6.IRQenabled = MMC6.IRQcounter = MMC6.IRQlatch = 0;
-	MMC6.Cmd = 0;
-	MMC6.WRAMEnab = 0;
-	MMC6.Mirror = 0;
+		MMC6.CHR[0] = 0x00;	MMC6.CHR[1] = 0x01;	MMC6.CHR[2] = 0x02;	MMC6.CHR[3] = 0x03;
+		MMC6.CHR[4] = 0x04;	MMC6.CHR[5] = 0x05;	MMC6.CHR[6] = 0x06;	MMC6.CHR[7] = 0x07;
+
+		MMC6.IRQenabled = MMC6.IRQcounter = MMC6.IRQlatch = 0;
+		MMC6.Cmd = 0;
+		MMC6.WRAMEnab = 0;
+		MMC6.Mirror = 0;
+	}
 	EMU->SetPRG_RAM4(0x7,0);
 	MMC6.CPURead7 = EMU->GetCPUReadHandler(0x7);
 	EMU->SetCPUReadHandler(0x7,MMC6_CPURead7);
@@ -26,12 +34,11 @@ void	MMC6_Init (RESET_TYPE ResetType, FSync Sync)
 	EMU->SetCPUWriteHandler(0xD,MMC6_CPUWriteCD);
 	EMU->SetCPUWriteHandler(0xE,MMC6_CPUWriteEF);
 	EMU->SetCPUWriteHandler(0xF,MMC6_CPUWriteEF);
-	(MMC6.Sync = Sync)();
+	MMC6.Sync();
 }
 
-void	MMC6_Destroy (void)
+void	MMC6_Unload (void)
 {
-	MMC6.Sync = NULL;
 }
 
 void	MMC6_SyncMirror (void)
