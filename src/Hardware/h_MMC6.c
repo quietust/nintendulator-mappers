@@ -199,5 +199,5 @@ void	_MAPINT	MMC6_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 			EMU->SetIRQ(0);
 	}
 	if (Addr & 0x1000)
-		MMC6.IRQaddr = 4;
+		MMC6.IRQaddr = 8;
 }
