@@ -227,7 +227,7 @@ void	MMC5_SyncMirror (void)
 
 int	_MAPINT	MMC5_CPURead5 (int Bank, int Where)
 {
-	register u8 read = (Bank << 4) | (Where >> 8);
+	register u8 read = -1;
 	switch (Where & 0xF00)
 	{
 	case 0x200:

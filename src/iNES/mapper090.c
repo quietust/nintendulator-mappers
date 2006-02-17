@@ -8,17 +8,18 @@ static	struct
 	u16_n CHRbanks[8];
 	u16_n Nametables[4];
 	u8 Mirror;
+	u8 treg;
+	u8 reset;
 }	Mapper;
 
 static	void	SyncPRG (void)
 {
 	switch (Mapper.BankMode & 0x3)
 	{
-	case 0:	EMU->SetPRG_ROM32(0x8,-1);	break;
-	case 1:	EMU->SetPRG_ROM16(0x8,Mapper.PRGbanks[1] << 1);
-		EMU->SetPRG_ROM16(0xC,-1);	break;
-	case 2:
-		EMU->SetPRG_ROM8(0x8,Mapper.PRGbanks[0]);
+//	case 0:	EMU->SetPRG_ROM32(0x8,-1);	break;
+	case 1:	EMU->SetPRG_ROM16(0x8,Mapper.PRGbanks[0]);
+		EMU->SetPRG_ROM16(0xC,Mapper.PRGbanks[2]);	break;
+	case 2:	EMU->SetPRG_ROM8(0x8,Mapper.PRGbanks[0]);
 		EMU->SetPRG_ROM8(0xA,Mapper.PRGbanks[1]);
 		EMU->SetPRG_ROM8(0xC,Mapper.PRGbanks[2]);
 		if (Mapper.BankMode & 0x04)
@@ -29,8 +30,7 @@ static	void	SyncPRG (void)
 			if (Mapper.BankMode & 0x80)
 				EMU->SetPRG_ROM8(0x6,Mapper.PRGbanks[3]);
 		}				break;
-	case 3:	
-		EMU->SetPRG_ROM8(0x8,Mapper.PRGbanks[0]);
+	case 3:	EMU->SetPRG_ROM8(0x8,Mapper.PRGbanks[0]);
 		EMU->SetPRG_ROM8(0xA,Mapper.PRGbanks[1]);
 		EMU->SetPRG_ROM8(0xC,Mapper.PRGbanks[2]);
 		EMU->SetPRG_ROM8(0xE,Mapper.PRGbanks[3]);
@@ -62,23 +62,27 @@ static	void	SyncCHR (void)
 
 static	void	SyncNametables (void)
 {
-	switch (Mapper.Mirror)
-	{
-	case 0:	EMU->Mirror_V();	break;
-	case 1:	EMU->Mirror_H();	break;
-	case 2:	EMU->Mirror_S0();	break;
-	case 3:	EMU->Mirror_S1();	break;
-	}
 	if (Mapper.BankMode & 0x20)
 	{
-		if (Mapper.Nametables[0].s0 & 0x80) EMU->SetCHR_ROM8(0x8,Mapper.Nametables[0].s0);
-		if (Mapper.Nametables[1].s0 & 0x80) EMU->SetCHR_ROM8(0x9,Mapper.Nametables[1].s0);
-		if (Mapper.Nametables[2].s0 & 0x80) EMU->SetCHR_ROM8(0xA,Mapper.Nametables[2].s0);
-		if (Mapper.Nametables[3].s0 & 0x80) EMU->SetCHR_ROM8(0xB,Mapper.Nametables[3].s0);
-		if (Mapper.Nametables[0].s0 & 0x80) EMU->SetCHR_ROM8(0xC,Mapper.Nametables[0].s0);
-		if (Mapper.Nametables[1].s0 & 0x80) EMU->SetCHR_ROM8(0xD,Mapper.Nametables[1].s0);
-		if (Mapper.Nametables[2].s0 & 0x80) EMU->SetCHR_ROM8(0xE,Mapper.Nametables[2].s0);
-		if (Mapper.Nametables[3].s0 & 0x80) EMU->SetCHR_ROM8(0xF,Mapper.Nametables[3].s0);
+		EMU->Mirror_Custom(Mapper.Nametables[0].b0 & 1,Mapper.Nametables[1].b0 & 1,Mapper.Nametables[2].b0 & 1,Mapper.Nametables[3].b0 & 1);
+		if (Mapper.Nametables[0].b1)	EMU->SetCHR_ROM8(0x8,Mapper.Nametables[0].s0);
+		if (Mapper.Nametables[1].b1)	EMU->SetCHR_ROM8(0x9,Mapper.Nametables[1].s0);
+		if (Mapper.Nametables[2].b1)	EMU->SetCHR_ROM8(0xA,Mapper.Nametables[2].s0);
+		if (Mapper.Nametables[3].b1)	EMU->SetCHR_ROM8(0xB,Mapper.Nametables[3].s0);
+		if (Mapper.Nametables[0].b1)	EMU->SetCHR_ROM8(0xC,Mapper.Nametables[0].s0);
+		if (Mapper.Nametables[1].b1)	EMU->SetCHR_ROM8(0xD,Mapper.Nametables[1].s0);
+		if (Mapper.Nametables[2].b1)	EMU->SetCHR_ROM8(0xE,Mapper.Nametables[2].s0);
+		if (Mapper.Nametables[3].b1)	EMU->SetCHR_ROM8(0xF,Mapper.Nametables[3].s0);
+	}
+	else
+	{
+		switch (Mapper.Mirror & 3)
+		{
+		case 0:	EMU->Mirror_V();	break;
+		case 1:	EMU->Mirror_H();	break;
+		case 2:	EMU->Mirror_S0();	break;
+		case 3:	EMU->Mirror_S1();	break;
+		}
 	}
 }
 
@@ -98,6 +102,8 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	for (i = 0; i < 4; i++)
 		SAVELOAD_WORD(mode,x,data,Mapper.Nametables[i].s0)
 	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror)
+	SAVELOAD_BYTE(mode,x,data,Mapper.reset)
+	SAVELOAD_BYTE(mode,x,data,Mapper.treg)
 	if (mode == STATE_LOAD)
 	{
 		SyncPRG();
@@ -123,9 +129,11 @@ static	int	_MAPINT	Read5 (int Bank, int Where)
 {
 	switch (Where)
 	{
-	case 0x000:	return (((Mapper.Mul1 * Mapper.Mul2) & 0x00FF) >> 0);	break;
-//	case 0x001:	return (((Mapper.Mul1 * Mapper.Mul2) & 0xFF00) >> 8);	break;
-	default:	return Where >> 8;
+	case 0x000:	return Mapper.reset;					break;
+	case 0x800:	return (((Mapper.Mul1 * Mapper.Mul2) & 0x00FF) >> 0);	break;
+	case 0x801:	return (((Mapper.Mul1 * Mapper.Mul2) & 0xFF00) >> 8);	break;
+	case 0x803:	return Mapper.treg;					break;
+	default:	return -1;
 	}
 }
 
@@ -133,8 +141,9 @@ static	void	_MAPINT	Write5 (int Bank, int Where, int What)
 {
 	switch (Where)
 	{
-	case 0x000:	Mapper.Mul1 = What;	break;
-	case 0x001:	Mapper.Mul2 = What;	break;
+	case 0x800:	Mapper.Mul1 = What;	break;
+	case 0x801:	Mapper.Mul2 = What;	break;
+	case 0x803:	Mapper.treg = What;
 	}
 }
 
@@ -153,7 +162,7 @@ static	void	_MAPINT	Write9 (int Bank, int Where, int What)
 static	void	_MAPINT	WriteA (int Bank, int Where, int What)
 {
 	Mapper.CHRbanks[Where & 7].b1 = What;
-	SyncPRG();
+	SyncCHR();
 }
 
 static	void	_MAPINT	WriteB (int Bank, int Where, int What)
@@ -168,12 +177,8 @@ static	void	_MAPINT	WriteC (int Bank, int Where, int What)
 {
 	switch (Where & 0x07)
 	{
-	case 0:
-	case 1:
-	case 6:
-	case 7:						break;
-
-	case 2:	Mapper.IRQenabled = 0;			break;
+	case 2:	Mapper.IRQenabled = 0;
+		EMU->SetIRQ(1);		break;
 	case 3:
 	case 4:	if (Mapper.IRQenabled == 0)
 		{
@@ -183,9 +188,9 @@ static	void	_MAPINT	WriteC (int Bank, int Where, int What)
 	case 5:	if (What >= 240)
 			What -= 240;
 		Mapper.IRQcounter = What;
-		Mapper.IRQlatch = What;			break;
+		Mapper.IRQlatch = What;
+		EMU->SetIRQ(1);		break;
 	}
-	EMU->SetIRQ(1);
 }
 
 static	void	_MAPINT	WriteD (int Bank, int Where, int What)
@@ -193,13 +198,11 @@ static	void	_MAPINT	WriteD (int Bank, int Where, int What)
 	switch (Where & 0x07)
 	{
 	case 0:	Mapper.BankMode = What;
-		SyncPRG();
-		SyncCHR();
+//		SyncPRG();
+//		SyncCHR();
 		SyncNametables();	break;
-	case 1:	Mapper.Mirror = What & 3;
+	case 1:	Mapper.Mirror = What;
 		SyncNametables();	break;
-	case 2:				break;
-	case 3:				break;
 	}
 }
 
@@ -223,17 +226,22 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	EMU->SetCPUWriteHandler(0xC,WriteC);
 	EMU->SetCPUWriteHandler(0xD,WriteD);
 
-	Mapper.IRQenabled = Mapper.IRQcounter = Mapper.IRQlatch = 0;
-	Mapper.Mul1 = Mapper.Mul2 = 0;
-	Mapper.BankMode = 0;
-	for (x = 0; x < 8; x++)	Mapper.CHRbanks[x].s0 = x;
-	for (x = 0; x < 4; x++)	Mapper.Nametables[x].s0 = 0;
-	Mapper.Mirror = 0;
-	EMU->SetPRG_ROM32(0x8,-1);
-	Mapper.PRGbanks[0] = EMU->GetPRG_ROM8(0x8);
-	Mapper.PRGbanks[1] = EMU->GetPRG_ROM8(0xA);
-	Mapper.PRGbanks[2] = EMU->GetPRG_ROM8(0xC);
-	Mapper.PRGbanks[3] = EMU->GetPRG_ROM8(0xE);
+	if (IsHardReset)
+	{
+		Mapper.IRQenabled = Mapper.IRQcounter = Mapper.IRQlatch = 0;
+		Mapper.Mul1 = Mapper.Mul2 = 0;
+		Mapper.BankMode = 0;
+		for (x = 0; x < 8; x++)	Mapper.CHRbanks[x].s0 = x;
+		for (x = 0; x < 4; x++)	Mapper.Nametables[x].s0 = 0;
+		Mapper.Mirror = 0;
+		EMU->SetPRG_ROM32(0x8,-1);
+		Mapper.PRGbanks[0] = EMU->GetPRG_ROM8(0x8);
+		Mapper.PRGbanks[1] = EMU->GetPRG_ROM8(0xA);
+		Mapper.PRGbanks[2] = EMU->GetPRG_ROM8(0xC);
+		Mapper.PRGbanks[3] = EMU->GetPRG_ROM8(0xE);
+		Mapper.reset = 0;
+	}
+	else	Mapper.reset ^= 0x80;
 
 	SyncPRG();
 	SyncCHR();

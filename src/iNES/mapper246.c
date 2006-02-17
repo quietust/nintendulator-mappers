@@ -31,14 +31,14 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 
 static	int	_MAPINT	Read6 (int Bank, int Where)
 {
-	if (Where > 0x7FF)
+	if (Where & 0x800)
 		return Mapper.Read6(Bank,Where);
-	else	return 0;
+	else	return -1;
 }
 
 static	void	_MAPINT	Write6 (int Bank, int Where, int What)
 {
-	if (Where > 0x7FF)
+	if (Where & 0x800)
 	{
 		Mapper.Write6(Bank,Where,What);
 		return;

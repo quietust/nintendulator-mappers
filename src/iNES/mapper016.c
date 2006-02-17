@@ -77,7 +77,7 @@ static	int	ReadRAM (void)
 5. synchronize data
 6. end transfer
 */
-	return 0x00;
+	return -1;
 }
 
 static	void	WriteRAM (int What)
