@@ -59,10 +59,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 113;
 CTMapperInfo	MapperInfo_113 =
 {
-	113,
-	NULL,
+	&MapperNum,
 	"Mapper 113 (HES)",
 	COMPAT_PARTIAL,
 	Reset,

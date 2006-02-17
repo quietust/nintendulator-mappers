@@ -20,10 +20,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	MMC4_Init(Sync);
 }
 
+static	u8 MapperNum = 10;
 CTMapperInfo	MapperInfo_010 =
 {
-	10,
-	NULL,
+	&MapperNum,
 	"MMC4",
 	COMPAT_FULL,
 	Reset,

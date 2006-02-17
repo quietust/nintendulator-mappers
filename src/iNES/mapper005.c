@@ -119,10 +119,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	MMC5_Init();
 }
 
-CTMapperInfo	MapperInfo_005  =
+static	u8 MapperNum = 5;
+CTMapperInfo	MapperInfo_005 =
 {
-	5,
-	NULL,
+	&MapperNum,
 	"MMC5",
 	COMPAT_NEARLY,
 	Reset,

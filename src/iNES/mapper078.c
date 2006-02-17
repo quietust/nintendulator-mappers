@@ -24,10 +24,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Latch_Init(Sync,IsHardReset,FALSE);
 }
 
+static	u8 MapperNum = 78;
 CTMapperInfo	MapperInfo_078 =
 {
-	78,
-	NULL,
+	&MapperNum,
 	"Irem 74161/32",
 	COMPAT_FULL,
 	Reset,

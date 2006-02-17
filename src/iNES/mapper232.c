@@ -57,10 +57,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 232;
 CTMapperInfo	MapperInfo_232 =
 {
-	232,
-	NULL,
+	&MapperNum,
 	"Camerica 9096",
 	COMPAT_NEARLY,
 	Reset,

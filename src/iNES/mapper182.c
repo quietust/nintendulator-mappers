@@ -58,10 +58,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	EMU->SetCPUWriteHandler(0xF,WriteEF);
 }
 
+static	u8 MapperNum = 182;
 CTMapperInfo	MapperInfo_182 =
 {
-	182,
-	NULL,
+	&MapperNum,
 	"Super Donkey Kong",
 	COMPAT_FULL,
 	Reset,

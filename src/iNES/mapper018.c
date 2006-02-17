@@ -197,10 +197,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 18;
 CTMapperInfo	MapperInfo_018 =
 {
-	18,
-	NULL,
+	&MapperNum,
 	"Jaleco SS8806",
 	COMPAT_PARTIAL,
 	Reset,

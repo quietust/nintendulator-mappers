@@ -199,10 +199,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 19;
 CTMapperInfo	MapperInfo_019 =
 {
-	19,
-	NULL,
+	&MapperNum,
 	"Namcot 106",
 	COMPAT_NEARLY,
 	Reset,

@@ -42,10 +42,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 87;
 CTMapperInfo	MapperInfo_087 =
 {
-	87,
-	NULL,
+	&MapperNum,
 	"Mapper 87",
 	COMPAT_FULL,
 	Reset,

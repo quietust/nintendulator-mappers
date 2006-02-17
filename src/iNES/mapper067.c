@@ -160,10 +160,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 67;
 CTMapperInfo	MapperInfo_067 =
 {
-	67,
-	NULL,
+	&MapperNum,
 	"Sunsoft Mapper #3",
 	COMPAT_FULL,
 	Reset,

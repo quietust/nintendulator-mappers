@@ -47,10 +47,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	MMC3_Init(Sync);
 }
 
+static	u8 MapperNum = 49;
 CTMapperInfo	MapperInfo_049 =
 {
-	49,
-	NULL,
+	&MapperNum,
 	"1993 Super HiK 4-in-1 (MMC3)",
 	COMPAT_FULL,
 	Reset,

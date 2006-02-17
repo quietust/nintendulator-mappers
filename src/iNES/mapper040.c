@@ -78,10 +78,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 40;
 CTMapperInfo	MapperInfo_040 =
 {
-	40,
-	NULL,
+	&MapperNum,
 	"SMB2j Pirate",
 	COMPAT_FULL,
 	Reset,

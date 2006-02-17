@@ -54,10 +54,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	EMU->SetCPUWriteHandler(0x9,Write);
 }
 
+static	u8 MapperNum = 118;
 CTMapperInfo	MapperInfo_118 =
 {
-	118,
-	NULL,
+	&MapperNum,
 	"TKSROM/TLSROM (MMC3)",
 	COMPAT_PARTIAL,
 	Reset,

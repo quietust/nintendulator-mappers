@@ -248,10 +248,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	SyncNametables();
 }
 
+static	u8 MapperNum = 90;
 CTMapperInfo	MapperInfo_090 =
 {
-	90,
-	NULL,
+	&MapperNum,
 	"Copyright",
 	COMPAT_PARTIAL,
 	Reset,

@@ -104,10 +104,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 22;
 CTMapperInfo	MapperInfo_022 =
 {
-	22,
-	NULL,
+	&MapperNum,
 	"Konami VRC2 Type A",
 	COMPAT_FULL,
 	Reset,

@@ -44,10 +44,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Latch_Init(Sync,IsHardReset,FALSE);
 }
 
+static	u8 MapperNum = 46;
 CTMapperInfo	MapperInfo_046 =
 {
-	46,
-	NULL,
+	&MapperNum,
 	"GameStation/RumbleStation",
 	COMPAT_FULL,
 	Reset,

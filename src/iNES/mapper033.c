@@ -83,10 +83,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 33;
 CTMapperInfo	MapperInfo_033 =
 {
-	33,
-	NULL,
+	&MapperNum,
 	"Taito TC0190",
 	COMPAT_PARTIAL,
 	Reset,

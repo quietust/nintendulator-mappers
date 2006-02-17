@@ -66,10 +66,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 51;
 CTMapperInfo	MapperInfo_051 =
 {
-	51,
-	NULL,
+	&MapperNum,
 	"11 in 1 Ball Games",
 	COMPAT_FULL,
 	Reset,

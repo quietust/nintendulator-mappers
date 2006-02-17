@@ -53,10 +53,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 71;
 CTMapperInfo	MapperInfo_071 =
 {
-	71,
-	NULL,
+	&MapperNum,
 	"Camerica (partial)",
 	COMPAT_PARTIAL,
 	Reset,

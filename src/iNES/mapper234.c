@@ -85,10 +85,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Mapper.Reg1 = Mapper.Reg2 = Mapper.Reg3 = 0;
 }
 
+static	u8 MapperNum = 234;
 CTMapperInfo	MapperInfo_234 =
 {
-	234,
-	NULL,
+	&MapperNum,
 	"Maxi 15",
 	COMPAT_FULL,
 	Reset,

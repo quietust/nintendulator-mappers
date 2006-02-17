@@ -79,10 +79,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Latch_Init(Sync,IsHardReset,FALSE);
 }
 
+static	u8 MapperNum = 235;
 CTMapperInfo	MapperInfo_235 =
 {
-	235,
-	NULL,
+	&MapperNum,
 	"Golden Game 150-in-1",
 	COMPAT_FULL,
 	Reset,

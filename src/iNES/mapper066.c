@@ -20,10 +20,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Latch_Init(Sync,IsHardReset,FALSE);
 }
 
+static	u8 MapperNum = 66;
 CTMapperInfo	MapperInfo_066 =
 {
-	66,
-	NULL,
+	&MapperNum,
 	"GNROM",
 	COMPAT_FULL,
 	Reset,

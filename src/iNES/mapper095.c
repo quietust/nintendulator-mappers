@@ -54,10 +54,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	EMU->SetCPUWriteHandler(0x9,Write);
 }
 
+static	u8 MapperNum = 95;
 CTMapperInfo	MapperInfo_095 =
 {
-	95,
-	NULL,
+	&MapperNum,
 	"Dragon Buster (MMC3 variant)",
 	COMPAT_PARTIAL,
 	Reset,

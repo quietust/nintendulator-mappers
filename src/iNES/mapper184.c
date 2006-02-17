@@ -48,10 +48,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 184;
 CTMapperInfo	MapperInfo_184 =
 {
-	184,
-	NULL,
+	&MapperNum,
 	"Mapper 184 (Atlantis no Nazo)",
 	COMPAT_FULL,
 	Reset,

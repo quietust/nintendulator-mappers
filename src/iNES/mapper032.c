@@ -83,10 +83,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 32;
 CTMapperInfo	MapperInfo_032 =
 {
-	32,
-	NULL,
+	&MapperNum,
 	"Irem G-101",
 	COMPAT_FULL,
 	Reset,

@@ -21,10 +21,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	FME07_Init(Sync);
 }
 
+static	u8 MapperNum = 69;
 CTMapperInfo	MapperInfo_069 =
 {
-	69,
-	NULL,
+	&MapperNum,
 	"Sunsoft FME-07",
 	COMPAT_FULL,
 	Reset,

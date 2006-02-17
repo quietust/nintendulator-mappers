@@ -193,8 +193,7 @@ typedef	const	TEmulatorInterface	CTEmulatorInterface, *CPEmulatorInterface;
 typedef	struct	MapperInfo
 {
 	/* Mapper Information */
-		int		MapperNum;
-		char *		BoardName;
+		void *		MapperId;
 		char *		Description;
 		int		Compatibility;
 

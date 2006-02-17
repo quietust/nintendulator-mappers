@@ -48,10 +48,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 79;
 CTMapperInfo	MapperInfo_079 =
 {
-	79,
-	NULL,
+	&MapperNum,
 	"NINA-03/NINA-06",
 	COMPAT_FULL,
 	Reset,

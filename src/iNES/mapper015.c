@@ -114,10 +114,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 15;
 CTMapperInfo	MapperInfo_015 =
 {
-	15,
-	NULL,
+	&MapperNum,
 	"100-in-1 Contra Function 16",
 	COMPAT_PARTIAL,
 	Reset,

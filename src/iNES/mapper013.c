@@ -20,10 +20,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Latch_Init(Sync,IsHardReset,FALSE);
 }
 
+static	u8 MapperNum = 13;
 CTMapperInfo	MapperInfo_013 =
 {
-	13,
-	NULL,
+	&MapperNum,
 	"CPROM",
 	COMPAT_FULL,
 	Reset,

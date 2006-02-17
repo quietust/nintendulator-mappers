@@ -48,10 +48,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 99;
 CTMapperInfo	MapperInfo_099 =
 {
-	99,
-	NULL,
+	&MapperNum,
 	"VS Unisystem",
 	COMPAT_FULL,
 	Reset,

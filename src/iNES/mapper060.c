@@ -36,10 +36,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 60;
 CTMapperInfo	MapperInfo_060 =
 {
-	60,
-	NULL,
+	&MapperNum,
 	"Reset-triggered 4-in-1",
 	COMPAT_FULL,
 	Reset,

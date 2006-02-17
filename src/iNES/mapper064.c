@@ -159,10 +159,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 64;
 CTMapperInfo	MapperInfo_064 =
 {
-	64,
-	NULL,
+	&MapperNum,
 	"Tengen RAMBO-1",
 	COMPAT_PARTIAL,
 	Reset,

@@ -28,10 +28,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	MMC1_Init(Sync);
 }
 
+static	u8 MapperNum = 1;
 CTMapperInfo	MapperInfo_001 =
 {
-	1,
-	NULL,
+	&MapperNum,
 	"MMC1",
 	COMPAT_FULL,
 	Reset,

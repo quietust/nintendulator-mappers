@@ -50,10 +50,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 		EMU->SetCPUWriteHandler(x,Write);	/* need to override writes to $A001 */
 }
 
+static	u8 MapperNum = 44;
 CTMapperInfo	MapperInfo_044 =
 {
-	44,
-	NULL,
+	&MapperNum,
 	"Super HiK 7 in 1 (MMC3)",
 	COMPAT_FULL,
 	Reset,

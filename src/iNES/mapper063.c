@@ -73,10 +73,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Latch_Init(Sync,IsHardReset,FALSE);
 }
 
+static	u8 MapperNum = 63;
 CTMapperInfo	MapperInfo_063 =
 {
-	63,
-	NULL,
+	&MapperNum,
 	"Hello Kitty 255 in 1",
 	COMPAT_FULL,
 	Reset,

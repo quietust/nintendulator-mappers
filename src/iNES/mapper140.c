@@ -42,10 +42,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 140;
 CTMapperInfo	MapperInfo_140 =
 {
-	140,
-	NULL,
+	&MapperNum,
 	"Mapper 140 (Bio Senshi Dan)",
 	COMPAT_FULL,
 	Reset,

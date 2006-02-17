@@ -102,10 +102,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 34;
 CTMapperInfo	MapperInfo_034 =
 {
-	34,
-	NULL,
+	&MapperNum,
 	"BNROM/Nina-01",
 	COMPAT_FULL,
 	Reset,

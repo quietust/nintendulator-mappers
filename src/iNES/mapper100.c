@@ -145,10 +145,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Mapper.ConfigWindow = NULL;
 }
 
+static	u8 MapperNum = 100;
 CTMapperInfo	MapperInfo_100 =
 {
-	100,
-	NULL,
+	&MapperNum,
 	"Debugging Mapper",
 	COMPAT_FULL,
 	Reset,

@@ -45,10 +45,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	MMC3_Init(Sync);
 }
 
+static	u8 MapperNum = 47;
 CTMapperInfo	MapperInfo_047 =
 {
-	47,
-	NULL,
+	&MapperNum,
 	"Super Spike & Nintendo World Cup Soccer (MMC3)",
 	COMPAT_FULL,
 	Reset,

@@ -142,10 +142,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	MMC1_Init(Sync);
 }
 
+static	u8 MapperNum = 105;
 CTMapperInfo	MapperInfo_105 =
 {
-	105,
-	NULL,
+	&MapperNum,
 	"Nintendo World Championship",
 	COMPAT_FULL,
 	Reset,

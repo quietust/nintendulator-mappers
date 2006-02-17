@@ -133,10 +133,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 56;
 CTMapperInfo	MapperInfo_056 =
 {
-	56,
-	NULL,
+	&MapperNum,
 	"SMB3 Pirate",
 	COMPAT_FULL,
 	Reset,

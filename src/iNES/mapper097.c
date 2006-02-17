@@ -30,10 +30,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Latch_Init(Sync,IsHardReset,FALSE);
 }
 
+static	u8 MapperNum = 97;
 CTMapperInfo	MapperInfo_097 =
 {
-	97,
-	NULL,
+	&MapperNum,
 	"Kid Niki (J)",
 	COMPAT_FULL,
 	Reset,

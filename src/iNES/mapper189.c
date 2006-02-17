@@ -51,10 +51,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	MMC3_Init(Sync);
 }
 
+static	u8 MapperNum = 189;
 CTMapperInfo	MapperInfo_189 =
 {
-	189,
-	NULL,
+	&MapperNum,
 	"Mapper 189 (Thunder Warrior)",
 	COMPAT_FULL,
 	Reset,

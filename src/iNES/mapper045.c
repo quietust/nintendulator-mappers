@@ -57,10 +57,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	MMC3_Init(Sync);
 }
 
+static	u8 MapperNum = 45;
 CTMapperInfo	MapperInfo_045 =
 {
-	45,
-	NULL,
+	&MapperNum,
 	"Super 1,000,000 in 1 (MMC3)",
 	COMPAT_FULL,
 	Reset,

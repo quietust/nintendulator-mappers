@@ -139,10 +139,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	EMU->SetIRQ(1);
 }
 
+static	u8 MapperNum = 65;
 CTMapperInfo	MapperInfo_065 =
 {
-	65,
-	NULL,
+	&MapperNum,
 	"Irem H-3001",
 	COMPAT_FULL,
 	Reset,

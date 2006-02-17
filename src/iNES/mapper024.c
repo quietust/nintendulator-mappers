@@ -194,10 +194,10 @@ static	void	_MAPINT	Reset_026 (int IsHardReset)
 	Mapper.SwapAddr[3] = 3;
 }
 
+static	u8 MapperNum = 24;
 CTMapperInfo	MapperInfo_024 =
 {
-	24,
-	NULL,
+	&MapperNum,
 	"Konami VRC6 A0/A1",
 	COMPAT_FULL,
 	Reset_024,
@@ -209,10 +209,10 @@ CTMapperInfo	MapperInfo_024 =
 	NULL
 };
 
+static	u8 MapperNum2 = 26;
 CTMapperInfo	MapperInfo_026 =
 {
-	24,
-	NULL,
+	&MapperNum2,
 	"Konami VRC6 A1/A0",
 	COMPAT_FULL,
 	Reset_026,

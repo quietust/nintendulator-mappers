@@ -21,10 +21,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Latch_Init(Sync,IsHardReset,FALSE);
 }
 
+static	u8 MapperNum = 94;
 CTMapperInfo	MapperInfo_094 =
 {
-	94,
-	NULL,
+	&MapperNum,
 	"Mapper 94",
 	COMPAT_FULL,
 	Reset,

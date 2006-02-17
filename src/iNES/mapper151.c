@@ -81,10 +81,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 151;
 CTMapperInfo	MapperInfo_151 =
 {
-	151,
-	NULL,
+	&MapperNum,
 	"Extended VS Unisystem",
 	COMPAT_PARTIAL,
 	Reset,

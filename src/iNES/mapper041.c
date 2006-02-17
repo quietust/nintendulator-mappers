@@ -58,10 +58,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 41;
 CTMapperInfo	MapperInfo_041 =
 {
-	41,
-	NULL,
+	&MapperNum,
 	"Caltron 6-in-1",
 	COMPAT_FULL,
 	Reset,

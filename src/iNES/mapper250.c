@@ -49,10 +49,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	EMU->SetCPUWriteHandler(0xF,WriteEF);
 }
 
+static	u8 MapperNum = 250;
 CTMapperInfo	MapperInfo_250 =
 {
-	250,
-	NULL,
+	&MapperNum,
 	"Time Diver Avenger (MMC3 Variant)",
 	COMPAT_FULL,
 	Reset,

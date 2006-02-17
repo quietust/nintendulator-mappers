@@ -78,10 +78,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 91;
 CTMapperInfo	MapperInfo_091 =
 {
-	91,
-	NULL,
+	&MapperNum,
 	"PC-HK-SF3",
 	COMPAT_PARTIAL,
 	Reset,

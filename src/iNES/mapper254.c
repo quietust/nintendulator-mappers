@@ -89,10 +89,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 254;
 CTMapperInfo	MapperInfo_254 =
 {
-	254,
-	NULL,
+	&MapperNum,
 	"Ai Senshi Nicol (Pirate)",
 	COMPAT_FULL,
 	Reset,

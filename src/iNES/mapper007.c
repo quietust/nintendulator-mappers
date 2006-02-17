@@ -22,10 +22,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Latch_Init(Sync,IsHardReset,FALSE);
 }
 
+static	u8 MapperNum = 7;
 CTMapperInfo	MapperInfo_007 =
 {
-	7,
-	NULL,
+	&MapperNum,
 	"AOROM",
 	COMPAT_FULL,
 	Reset,

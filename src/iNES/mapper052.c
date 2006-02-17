@@ -80,10 +80,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	MMC3_Init(Sync);
 }
 
+static	u8 MapperNum = 52;
 CTMapperInfo	MapperInfo_052 =
 {
-	52,
-	NULL,
+	&MapperNum,
 	"Mario 7 in 1 (MMC3)",
 	COMPAT_FULL,
 	Reset,

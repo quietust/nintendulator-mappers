@@ -28,10 +28,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	EMU->SetCHR_ROM8(0,0);
 }
 
+static	u8 MapperNum = 143;
 CTMapperInfo	MapperInfo_143 =
 {
-	143,
-	NULL,
+	&MapperNum,
 	"Sachen Pathetic Copy-Protection",
 	COMPAT_PARTIAL,
 	Reset,

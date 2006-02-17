@@ -148,10 +148,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 16;
 CTMapperInfo	MapperInfo_016 =
 {
-	16,
-	NULL,
+	&MapperNum,
 	"Bandai",
 	COMPAT_PARTIAL,
 	Reset,

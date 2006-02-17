@@ -79,10 +79,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 42;
 CTMapperInfo	MapperInfo_042 =
 {
-	42,
-	NULL,
+	&MapperNum,
 	"Mario Baby",
 	COMPAT_FULL,
 	Reset,

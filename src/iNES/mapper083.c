@@ -104,10 +104,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 83;
 CTMapperInfo	MapperInfo_083 =
 {
-	83,
-	NULL,
+	&MapperNum,
 	"Cony",
 	COMPAT_PARTIAL,
 	Reset,

@@ -15,10 +15,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	else	EMU->SetCHR_RAM8(0,0);
 }
 
+static	u8 MapperNum = 0;
 CTMapperInfo	MapperInfo_000 =
 {
-	0,
-	NULL,
+	&MapperNum,
 	"NROM",
 	COMPAT_FULL,
 	Reset,

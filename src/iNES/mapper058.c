@@ -20,10 +20,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Latch_Init(Sync,IsHardReset,FALSE);
 }
 
+static	u8 MapperNum = 58;
 CTMapperInfo	MapperInfo_058 =
 {
-	58,
-	NULL,
+	&MapperNum,
 	"Study & Game 32 in 1",
 	COMPAT_FULL,
 	Reset,

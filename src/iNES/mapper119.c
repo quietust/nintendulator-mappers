@@ -28,10 +28,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	MMC3_Init(Sync);
 }
 
+static	u8 MapperNum = 119;
 CTMapperInfo	MapperInfo_119 =
 {
-	119,
-	NULL,
+	&MapperNum,
 	"TQROM (MMC3)",
 	COMPAT_FULL,
 	Reset,

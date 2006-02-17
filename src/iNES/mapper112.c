@@ -103,10 +103,10 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Sync();
 }
 
+static	u8 MapperNum = 112;
 CTMapperInfo	MapperInfo_112 =
 {
-	112,
-	NULL,
+	&MapperNum,
 	"Mapper 112 (Asder)",
 	COMPAT_PARTIAL,
 	Reset,
