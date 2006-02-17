@@ -7,8 +7,9 @@ static	struct
 
 static	void	Sync (void)
 {
+	const unsigned char lut[4] = {0x00,0x02,0x01,0x03};
 	EMU->SetPRG_ROM32(0x8,0);
-	EMU->SetCHR_ROM8(0,(Mapper.Latch & 0x02) >> 1);
+	EMU->SetCHR_ROM8(0,lut[Mapper.Latch & 0x3]);
 }
 
 static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
@@ -46,7 +47,7 @@ static	u8 MapperNum = 87;
 CTMapperInfo	MapperInfo_087 =
 {
 	&MapperNum,
-	"Mapper 87",
+	"Jaleco 74138/7474",
 	COMPAT_FULL,
 	Reset,
 	Shutdown,
