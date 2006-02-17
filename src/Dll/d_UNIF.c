@@ -12,7 +12,7 @@ void	UNIF_SetMirroring (FSync MapMirror)
 	case 2:	EMU->Mirror_S0();	break;
 	case 3:	EMU->Mirror_S1();	break;
 	case 4:	EMU->Mirror_4();	break;
-	case 5:	if (!MapMirror)		break;
+	case 5:	if (MapMirror)		break;
 			MapMirror();	break;
 	}
 }
