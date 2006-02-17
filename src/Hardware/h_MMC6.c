@@ -193,14 +193,13 @@ void	_MAPINT	MMC6_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 		return;
 	if ((MMC6.IRQenabled) && !(MMC6.IRQaddr & 0x1000) && (Addr & 0x1000))
 	{
-		unsigned char count = MMC6.IRQcounter;
-		if (!count || MMC6.IRQreload)
+		if (!MMC6.IRQcounter || MMC6.IRQreload)
 		{
 			MMC6.IRQcounter = MMC6.IRQlatch;
 			MMC6.IRQreload = 0;
 		}
 		else	MMC6.IRQcounter--;
-		if (count && !MMC6.IRQcounter)
+		if (!MMC6.IRQcounter)
 			EMU->SetIRQ(0);
 	}
 	MMC6.IRQaddr = Addr;
