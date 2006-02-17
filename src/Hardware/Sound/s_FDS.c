@@ -214,56 +214,56 @@ void	FDSsound_Unload (void)
 {
 }
 
-int	FDSsound_Read (int Where)
+int	FDSsound_Read (int Addr)
 {
-	if ((0x4040 <= Where) && (Where <= 0x407F))
-		return FDSsound.op[0].wg.wave[Where & 0x3F] + 0x20;
-	if (0x4090 == Where)
+	if ((0x4040 <= Addr) && (Addr <= 0x407F))
+		return FDSsound.op[0].wg.wave[Addr & 0x3F] + 0x20;
+	if (0x4090 == Addr)
 		return FDSsound.op[0].eg.volume | 0x40;
-	if (0x4092 == Where) /* 4094? */
+	if (0x4092 == Addr) /* 4094? */
 		return FDSsound.op[1].eg.volume | 0x40;
 	return -1;
 }
 
-void	FDSsound_Write (int Where, int What)
+void	FDSsound_Write (int Addr, int Val)
 {
-	if (0x4040 <= Where && Where <= 0x407F)
+	if (0x4040 <= Addr && Addr <= 0x407F)
 	{
-		FDSsound.op[0].wg.wave[Where - 0x4040] = ((int)(What & 0x3F)) - 0x20;
+		FDSsound.op[0].wg.wave[Addr - 0x4040] = ((int)(Val & 0x3F)) - 0x20;
 	}
-	else if (0x4080 <= Where && Where <= 0x408F)
+	else if (0x4080 <= Addr && Addr <= 0x408F)
 	{
-		struct FDS_OP *pop = &FDSsound.op[(Where & 4) >> 2];
-		FDSsound.reg[Where - 0x4080] = What;
-		switch (Where & 0xf)
+		struct FDS_OP *pop = &FDSsound.op[(Addr & 4) >> 2];
+		FDSsound.reg[Addr - 0x4080] = Val;
+		switch (Addr & 0xf)
 		{
 			case 0:
 			case 4:
-				pop->eg.mode = What & 0xc0;
+				pop->eg.mode = Val & 0xc0;
 				if (pop->eg.mode & 0x80)
 				{
-					pop->eg.volume = (What & 0x3f);
+					pop->eg.volume = (Val & 0x3f);
 				}
 				else
 				{
-					pop->eg.spd = What & 0x3f;
+					pop->eg.spd = Val & 0x3f;
 				}
 				break;
 			case 5:
-				FDSsound.op[1].bias = What & 255;
+				FDSsound.op[1].bias = Val & 255;
 				break;
 			case 2:	case 6:
 				pop->pg.freq &= 0x00000F00;
-				pop->pg.freq |= (What & 0xFF) << 0;
+				pop->pg.freq |= (Val & 0xFF) << 0;
 				pop->pg.spdbase = pop->pg.freq * FDSsound.phasecps;
 				break;
 			case 3:
-				FDSsound.envdisable = What & 0x40;
+				FDSsound.envdisable = Val & 0x40;
 			case 7:
 				pop->pg.freq &= 0x000000FF;
-				pop->pg.freq |= (What & 0x0F) << 8;
+				pop->pg.freq |= (Val & 0x0F) << 8;
 				pop->pg.spdbase = pop->pg.freq * FDSsound.phasecps;
-				pop->wg.disable = What & 0x80;
+				pop->wg.disable = Val & 0x80;
 				if (pop->wg.disable)
 				{
 					pop->wg.phase = 0;
@@ -274,7 +274,7 @@ void	FDSsound_Write (int Where, int What)
 			case 8:
 				if (FDSsound.op[1].wg.disable)
 				{
-					s32 idx = What & 7;
+					s32 idx = Val & 7;
 					if (idx == 4)
 					{
 						FDSsound.op[1].wavebase = 0;
@@ -287,11 +287,11 @@ void	FDSsound_Write (int Where, int What)
 				}
 				break;
 			case 9:
-				FDSsound.lvl = (What & 3);
-				FDSsound.op[0].wg.disable2 = What & 0x80;
+				FDSsound.lvl = (Val & 3);
+				FDSsound.op[0].wg.disable2 = Val & 0x80;
 				break;
 			case 10:
-				FDSsound.envspd = What << EGCPS_BITS;
+				FDSsound.envspd = Val << EGCPS_BITS;
 				break;
 		}
 	}

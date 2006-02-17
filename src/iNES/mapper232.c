@@ -22,15 +22,15 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write89 (int Bank, int Where, int What)
+static	void	_MAPINT	Write89 (int Bank, int Addr, int Val)
 {
-	Mapper.WhichGame = (What & 0x18) >> 1;
+	Mapper.WhichGame = (Val & 0x18) >> 1;
 	Sync();
 }
 
-static	void	_MAPINT	WriteABCDEF (int Bank, int Where, int What)
+static	void	_MAPINT	WriteABCDEF (int Bank, int Addr, int Val)
 {
-	Mapper.WhichBank = What & 3;
+	Mapper.WhichBank = Val & 3;
 	Sync();
 }
 

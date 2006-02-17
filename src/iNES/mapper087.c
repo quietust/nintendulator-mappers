@@ -20,9 +20,9 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	_MAPINT	Write (int Bank, int Where, int What)
+static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 {
-	Mapper.Latch = What;
+	Mapper.Latch = Val;
 	Sync();
 }
 
