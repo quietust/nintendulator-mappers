@@ -53,13 +53,19 @@ int	_MAPINT	Latch_SaveLoad_D (int mode, int x, char *data)
 	return x;
 }
 
+#include <stdlib.h>
 void	_MAPINT	Latch_Write (int Bank, int Where, int What)
 {
 #ifdef BUS_CONFLICTS
-	if ((Latch.BusConflicts) && (EMU->GetReadHandler(Bank)(Bank,Where) != What))
+	int tmp;
+	if ((Latch.BusConflicts) && ((tmp = EMU->GetCPUReadHandler(Bank)(Bank,Where)) != What))
 	{
-		EMU->DbgOut("Bus conflict!");
-		return;
+		if (rand() & 1)
+		{
+			What = tmp;
+			EMU->StatusOut("Bus conflict - using ROM data");
+		}
+		else	EMU->StatusOut("Bus conflict - using CPU data");
 	}
 #endif
 	Latch.Data = What;
