@@ -207,7 +207,9 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 		for (x = 0; x < 8; x++)
 			VRC2.CHR[x].b0 = x;
 		VRC2.Mirror = 0;
+		Mapper.Mode = 0;
 	}
+	SetMode();
 	Sync();
 }
 
