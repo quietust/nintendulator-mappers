@@ -48,9 +48,9 @@ static	void	_MAPINT	CPUCycle (void)
 		EMU->SetIRQ(0);
 }
 
-static	int	ReadRAM (void)
+static	int	ReadEPROM (void)
 {
-//	EMU->DbgOut("Mapper 16 WRAM read!");
+//	EMU->DbgOut("Mapper 16 EPROM read!");
 /*
 1. start transfer - 00, 40, 60, 20, 00
 2. address+mode selection - R/W is MSB, address is lower bits
@@ -59,12 +59,12 @@ static	int	ReadRAM (void)
 3. data sync - 40, 60, E0 (and wait for 5 zero bits in a row on reading $xxx0)
 6. end transfer - 00, 20, 50, 40, 00
 */
-	return -1;
+	return 0;
 }
 
-static	void	WriteRAM (int Val)
+static	void	WriteEPROM (int Val)
 {
-//	EMU->DbgOut("Mapper 16 WRAM write!");
+//	EMU->DbgOut("Mapper 16 EPROM write!");
 /*
 1. start transfer - 00, 40, 60, 20, 00
 2. address+mode selection - R/W is MSB, address is lower bits
@@ -75,11 +75,11 @@ wait a bit
 */
 }
 
-static	int	_MAPINT	ReadWRAM (int Bank, int Addr)
+static	int	_MAPINT	Read (int Bank, int Addr)
 {
 	if ((Addr & 0xF) == 0)
-		return ReadRAM();
-	else	return *EMU->OpenBus;
+		return ReadEPROM();
+	else	return -1;
 }
 
 static	void	_MAPINT	Write (int Bank, int Addr, int Val)
@@ -100,7 +100,7 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 			EMU->SetIRQ(1);			break;
 	case 0xB:	Mapper.IRQcounter.b0 = Val;	break;
 	case 0xC:	Mapper.IRQcounter.b1 = Val;	break;
-	case 0xD:	WriteRAM(Val);			break;
+	case 0xD:	WriteEPROM(Val);		break;
 	}
 	Sync();
 }
@@ -114,7 +114,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	u8 x;
 
 	for (x = 0x6; x < 0x8; x++)
-		EMU->SetCPUReadHandler(x,ReadWRAM);
+		EMU->SetCPUReadHandler(x,Read);
 	for (x = 0x6; x < 0x10; x++)
 		EMU->SetCPUWriteHandler(x,Write);
 
