@@ -42,19 +42,6 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static	int	_MAPINT	LoadState (int x, const char *MI)
-{
-	u8 i;
-			Mapper.IRQcounter.b0	= MI[x++];
-			Mapper.IRQcounter.b1	= MI[x++];
-			Mapper.IRQenabled	= MI[x++];
-			Mapper.PRG		= MI[x++];
-for (i = 0; i < 8; i++)	Mapper.CHR[i]		= MI[x++];
-			Mapper.Mirror		= MI[x++];
-	Sync();
-	return x;
-}
-
 static	void	_MAPINT	CPUCycle (void)
 {
 	if (Mapper.IRQenabled)
