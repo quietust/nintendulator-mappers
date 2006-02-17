@@ -26,6 +26,12 @@ static	void	Sync_SEROM (void)
 	MMC1_SyncPRG(0x1,0);
 	MMC1_SyncCHR_ROM(0x0F,0);
 }
+static	void	Sync_SFROM (void)
+{
+	MMC1_SyncMirror();
+	MMC1_SyncPRG(0xF,0);
+	MMC1_SyncCHR_ROM(0x0F,0);
+}
 static	void	Sync_SGROM (void)
 {
 	MMC1_SyncMirror();
@@ -95,6 +101,10 @@ static	void	_MAPINT	Load_SCROM (void)
 static	void	_MAPINT	Load_SEROM (void)
 {
 	MMC1_Load(Sync_SEROM);
+}
+static	void	_MAPINT	Load_SFROM (void)
+{
+	MMC1_Load(Sync_SFROM);
 }
 static	void	_MAPINT	Load_SGROM (void)
 {
@@ -186,6 +196,20 @@ CTMapperInfo	MapperInfo_NES_SEROM =
 	_T("MMC1"),
 	COMPAT_FULL,
 	Load_SEROM,
+	Reset,
+	Unload,
+	NULL,
+	NULL,
+	MMC1_SaveLoad,
+	NULL,
+	NULL
+};
+CTMapperInfo	MapperInfo_NES_SFROM =
+{
+	"NES-SFROM",
+	_T("MMC1"),
+	COMPAT_FULL,
+	Load_SFROM,
 	Reset,
 	Unload,
 	NULL,

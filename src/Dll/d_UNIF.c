@@ -43,10 +43,10 @@ extern	CTMapperInfo
 	MapperInfo_NES_NROM_128,MapperInfo_NES_RROM_128,MapperInfo_NES_NROM_256,
 	MapperInfo_NES_PNROM,
 	MapperInfo_NES_SAROM,	MapperInfo_NES_SBROM,	MapperInfo_NES_SCROM,	MapperInfo_NES_SEROM,
-	MapperInfo_NES_SGROM,	MapperInfo_NES_SKROM,	MapperInfo_NES_SLROM,	MapperInfo_NES_SL1ROM,
-	MapperInfo_NES_SNROM,	MapperInfo_NES_SOROM,	MapperInfo_NES_SUROM,
+	MapperInfo_NES_SFROM,	MapperInfo_NES_SGROM,	MapperInfo_NES_SKROM,	MapperInfo_NES_SLROM,
+	MapperInfo_NES_SL1ROM,	MapperInfo_NES_SNROM,	MapperInfo_NES_SOROM,	MapperInfo_NES_SUROM,
 	MapperInfo_NES_TFROM,	MapperInfo_NES_TGROM,	MapperInfo_NES_TKROM,	MapperInfo_NES_TLROM,
-	MapperInfo_NES_TR1ROM,	MapperInfo_NES_TSROM,
+	MapperInfo_NES_TL1ROM,	MapperInfo_NES_TR1ROM,	MapperInfo_NES_TSROM,
 	MapperInfo_NES_UNROM,	MapperInfo_NES_UOROM,
 
 /* UNL: Unlicensed (legal) boards */
@@ -103,11 +103,11 @@ static	CPMapperInfo	BoardTable[] =
 	&MapperInfo_NES_PNROM	,
 
 	&MapperInfo_NES_SAROM	,&MapperInfo_NES_SBROM	,&MapperInfo_NES_SCROM	,&MapperInfo_NES_SEROM	,
-	&MapperInfo_NES_SGROM	,&MapperInfo_NES_SKROM	,&MapperInfo_NES_SLROM	,&MapperInfo_NES_SL1ROM	,
-	&MapperInfo_NES_SNROM	,&MapperInfo_NES_SOROM	,&MapperInfo_NES_SUROM	,
+	&MapperInfo_NES_SFROM	,&MapperInfo_NES_SGROM	,&MapperInfo_NES_SKROM	,&MapperInfo_NES_SLROM	,
+	&MapperInfo_NES_SL1ROM	,&MapperInfo_NES_SNROM	,&MapperInfo_NES_SOROM	,&MapperInfo_NES_SUROM	,
 
 	&MapperInfo_NES_TFROM	,&MapperInfo_NES_TGROM	,&MapperInfo_NES_TKROM	,&MapperInfo_NES_TLROM	,
-	&MapperInfo_NES_TR1ROM	,&MapperInfo_NES_TSROM	,
+	&MapperInfo_NES_TL1ROM	,&MapperInfo_NES_TR1ROM	,&MapperInfo_NES_TSROM	,
 
 	&MapperInfo_NES_UNROM	,&MapperInfo_NES_UOROM	,
 	/* Unlicensed */
@@ -181,7 +181,7 @@ static	CPMapperInfo	_MAPINT	LoadMapper (CPROMInfo _ROM)
 static	TDLLInfo	DLL_Info =
 {
 	_T("UNIF.DLL by Quietust"),
-	0x20051113,
+	0x20051202,
 	0x0004001b,
 	LoadMapper,
 	UnloadMapper

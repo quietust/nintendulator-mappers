@@ -26,6 +26,12 @@ static	void	Sync_TLROM (void)
 	MMC3_SyncCHR_ROM(0xFF,0);
 	MMC3_SyncMirror();
 }
+static	void	Sync_TL1ROM (void)
+{
+	MMC3_SyncPRG(0x3F,0);
+	MMC3_SyncCHR_ROM(0x7F,0);
+	MMC3_SyncMirror();
+}
 static	void	Sync_TR1ROM (void)
 {
 	MMC3_SyncPRG(0x3F,0);
@@ -56,6 +62,10 @@ static	void	_MAPINT	Load_TKROM (void)
 static	void	_MAPINT	Load_TLROM (void)
 {
 	MMC3_Load(Sync_TLROM);
+}
+static	void	_MAPINT	Load_TL1ROM (void)
+{
+	MMC3_Load(Sync_TL1ROM);
 }
 static	void	_MAPINT	Load_TR1ROM (void)
 {
@@ -122,6 +132,20 @@ CTMapperInfo	MapperInfo_NES_TLROM =
 	_T("MMC3 with CHR-ROM"),
 	COMPAT_FULL,
 	Load_TLROM,
+	Reset,
+	Unload,
+	NULL,
+	MMC3_PPUCycle,
+	MMC3_SaveLoad,
+	NULL,
+	NULL
+};
+CTMapperInfo	MapperInfo_NES_TL1ROM =
+{
+	"NES-TL1ROM",
+	_T("MMC3 with CHR-ROM"),
+	COMPAT_FULL,
+	Load_TL1ROM,
 	Reset,
 	Unload,
 	NULL,
