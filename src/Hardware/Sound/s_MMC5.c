@@ -159,8 +159,7 @@ void	MMC5sound_Write (int Addr, int Val)
 	case 0x5006:	MMC5Square_Write(&MMC5sound.Sqr1,2,MMC5sound.byte6 = Val);	break;
 	case 0x5007:	MMC5Square_Write(&MMC5sound.Sqr1,3,MMC5sound.byte7 = Val);	break;
 	case 0x5010:	MMC5sound.byte10 = Val;
-			if (Val & 1)
-				EMU->DbgOut("Ack! MMC5 RAW PCM is being used!");
+//			EMU->DbgOut("MMC5 - $5010 set to %02X",Val);
 			break;
 	case 0x5011:	MMC5sound.PCM = MMC5sound.byte11 = Val;
 			break;
