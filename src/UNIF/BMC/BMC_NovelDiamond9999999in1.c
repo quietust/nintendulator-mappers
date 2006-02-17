@@ -3,8 +3,8 @@
 
 static	void	Sync (void)
 {
-	EMU->SetPRG_ROM32(0x8,Latch.Addr & 0x3);
-	EMU->SetCHR_ROM8(0,Latch.Addr & 0x7);
+	EMU->SetPRG_ROM32(0x8,Latch.Addr.b0 & 0x3);
+	EMU->SetCHR_ROM8(0,Latch.Addr.b0 & 0x7);
 }
 
 static	void	_MAPINT	Shutdown (void)

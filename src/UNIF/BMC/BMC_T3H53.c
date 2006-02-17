@@ -11,17 +11,17 @@ static	struct
 static	void	Sync (void)
 {
 	u8 x;
-	EMU->SetCHR_ROM8(0,Latch.Addr & 0x07);
-	if (Latch.Addr & 0x80)
+	EMU->SetCHR_ROM8(0,Latch.Addr.s0 & 0x07);
+	if (Latch.Addr.b0 & 0x80)
 	{
-		EMU->SetPRG_ROM16(0x8,(Latch.Addr & 0x70) >> 4);
-		EMU->SetPRG_ROM16(0xC,(Latch.Addr & 0x70) >> 4);
+		EMU->SetPRG_ROM16(0x8,(Latch.Addr.s0 & 0x70) >> 4);
+		EMU->SetPRG_ROM16(0xC,(Latch.Addr.s0 & 0x70) >> 4);
 	}
-	else	EMU->SetPRG_ROM32(0x8,(Latch.Addr & 0x60) >> 5);
-	if (Latch.Addr & 0x08)
+	else	EMU->SetPRG_ROM32(0x8,(Latch.Addr.s0 & 0x60) >> 5);
+	if (Latch.Addr.s0 & 0x08)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
-	if (Latch.Addr & 0x100)
+	if (Latch.Addr.s0 & 0x100)
 		for (x = 0x8; x < 0x10; x++)
 		{
 			EMU->SetPRG_RAM4(x,x-8);

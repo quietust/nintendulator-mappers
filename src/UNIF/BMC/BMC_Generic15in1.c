@@ -3,7 +3,7 @@
 
 static	void	Sync (void)
 {
-	u8 What = EMU->GetCPUReadHandler(Latch.Addr >> 12)(Latch.Addr >> 12,Latch.Addr & 0xFFF);
+	u8 What = EMU->GetCPUReadHandler(Latch.Addr.s0 >> 12)(Latch.Addr.n3,Latch.Addr.s0 & 0xFFF);
 	if (What & 0x0E)
 	{
 		EMU->SetPRG_ROM16(0x8,0x0F);
