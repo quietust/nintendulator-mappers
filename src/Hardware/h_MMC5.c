@@ -77,6 +77,11 @@ void	MMC5_Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
+	MMC5.WritePPU = EMU->GetCPUWriteHandler(0x2);
+
+	EMU->SetCPUWriteHandler(0x2,MMC5_WritePPU);
+	EMU->SetCPUWriteHandler(0x3,MMC5_WritePPU);
+
 	EMU->SetCPUReadHandler(0x5,MMC5_CPURead5);
 	EMU->SetCPUWriteHandler(0x5,MMC5_CPUWrite5);
 	MMC5.CPUWrite6F = EMU->GetCPUWriteHandler(0x8);
@@ -134,11 +139,13 @@ int	_MAPINT	MMC5_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	SAVELOAD_BYTE(mode,x,data,MMC5.SplitBank)
 	SAVELOAD_BYTE(mode,x,data,MMC5.SplitScroll)
 	SAVELOAD_BYTE(mode,x,data,MMC5.Mirror)
+	SAVELOAD_WORD(mode,x,data,MMC5.LineCounter)
+	SAVELOAD_BYTE(mode,x,data,MMC5.SpriteMode)
 	x = MMC5sound_SaveLoad(mode,x,data);
 	if (mode == STATE_LOAD)
 	{
 		MMC5_SyncPRG();
-		MMC5_SyncCHR();
+		MMC5_SyncCHRA();
 		MMC5_SyncMirror();
 		MMC5_SetPPUHandlers();
 	}
@@ -271,6 +278,17 @@ void	MMC5_SyncMirror (void)
 			EMU->SetCHR_NT1(0xC|i,mirror & 3);
 		}
 		mirror >>= 2;
+	}
+}
+
+void	_MAPINT	MMC5_WritePPU (int Bank, int Addr, int Val)
+{
+	MMC5.WritePPU(Bank,Addr,Val);
+	switch (Addr & 7)
+	{
+	case 0:	MMC5.SpriteMode = (Val & 0x20);	break;
+	case 1:	if (!(Val & 0x18))
+			MMC5.LineCounter = -1;	break;
 	}
 }
 
@@ -491,20 +509,19 @@ static	void	MMC5_SetPPUHandlers (void)
 
 void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
-	static int LineCounter = 0;
 	if (!IsRendering)
 		return;
 	if (Cycle == 0)
 	{
-		LineCounter++;
-		if (LineCounter == 240)
+		MMC5.LineCounter++;
+		if (MMC5.LineCounter == 240)
 			MMC5.IRQreads &= ~0x40;
-		if (LineCounter == MMC5.IRQline)
+		if (MMC5.LineCounter == MMC5.IRQline)
 			MMC5.IRQreads |= 0x80;
 		if ((MMC5.IRQreads & 0x80) && (MMC5.IRQenabled & 0x80))
 			EMU->SetIRQ(0);
 	}
-	if (Cycle == 256)
+	if ((Cycle == 256) && (MMC5.SpriteMode))
 		MMC5_SyncCHRA();
 	else if (Cycle == 320)
 	{
@@ -516,14 +533,16 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 			VScroll++;
 		if (VScroll >= 240)
 			VScroll -= 240;
-		MMC5_SyncCHRB();
+		if (MMC5.SpriteMode)
+			MMC5_SyncCHRB();
 	}
 	else if ((Scanline == 239) && (Cycle == 338))
 	{
 		MMC5.CurTile = 0;
-		LineCounter = -1;
+		MMC5.LineCounter = -1;
 		MMC5.IRQreads = 0x40;
-		MMC5_SyncCHRA();
+		if (MMC5.SpriteMode)
+			MMC5_SyncCHRA();
 	}
 	if ((!(Cycle & 7)) && (Cycle < 336))
 		MMC5.CurTile++;
@@ -555,7 +574,9 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 				InSplitArea = FALSE;
 				if (MMC5.GfxMode == 1)
 					MMC5.TileCache = 0x40;
-				else	MMC5_SyncCHRB();
+				else if (MMC5.SpriteMode)
+					MMC5_SyncCHRB();
+				else	MMC5_SyncCHRA();
 			}
 		}
 	}
