@@ -27,14 +27,10 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 
 static	void	_MAPINT	CPUCycle (void)
 {
-	if (Mapper.IRQenabled)
+	if ((Mapper.IRQenabled) && (!++Mapper.IRQcounter.s0))
 	{
-		if (Mapper.IRQcounter.s0 == 0xFFFF)
-		{
-			Mapper.IRQenabled = 0;
-			EMU->SetIRQ(0);
-		}
-		else	Mapper.IRQcounter.s0++;
+		EMU->SetIRQ(0);
+		Mapper.IRQenabled = 0;
 	}
 }
 
@@ -61,6 +57,10 @@ static	void	_MAPINT	WriteB (int Bank, int Where, int What)
 static	void	_MAPINT	WriteC (int Bank, int Where, int What)
 {
 	Mapper.IRQenabled = What & 0x2;
+}
+
+static	void	_MAPINT	WriteD (int Bank, int Where, int What)
+{
 	EMU->SetIRQ(1);
 }
 
@@ -84,6 +84,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	EMU->SetCPUWriteHandler(0xA,WriteA);
 	EMU->SetCPUWriteHandler(0xB,WriteB);
 	EMU->SetCPUWriteHandler(0xC,WriteC);
+	EMU->SetCPUWriteHandler(0xD,WriteD);
 	EMU->SetCPUWriteHandler(0xF,WriteF);
 
 	Mapper.IRQenabled = 0;
