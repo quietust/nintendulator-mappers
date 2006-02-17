@@ -69,10 +69,20 @@ static	unsigned char NSFROM[256] =
 	0x8D,0x13,0x3E,0x4C,0x20,0x3F,0x6C,0x00,0x3E,0x6C,0x02,0x3E,0x0A,0x3F,0x23,0x3F
 };
 
+static	int	_MAPINT	NSF_ReadVector (int Bank, int Addr)
+{
+	if ((Addr >= 0xFFC) && (NSF.IRQstatus != NSFIRQ_NONE))
+		return NSFROM[Addr & 0xFF];
+	else	return NSF.ReadF(Bank,Addr);
+}
+
 static	void	NSF_IRQ (int type)
 {
 	NSF.IRQstatus = type;
 	EMU->SetIRQ(type == NSFIRQ_NONE);
+	if (type != NSFIRQ_NONE)
+		EMU->SetCPUReadHandler(0xF,NSF_ReadVector);
+	else	EMU->SetCPUReadHandler(0xF,NSF.ReadF);
 }
 
 static	int	_MAPINT	NSF_Read (int Bank, int Addr)
@@ -117,13 +127,6 @@ static	void	_MAPINT	NSF_Write (int Bank, int Addr, int Val)
 	case 0x13:	NSF.IRQcounter = NSF.IRQlatch.s0;
 			NSF.WatchDog = 0;	break;
 	}
-}
-
-static	int	_MAPINT	NSF_ReadVector (int Bank, int Addr)
-{
-	if ((Addr >= 0xFFC) && (NSF.IRQstatus != NSFIRQ_NONE))
-		return NSFROM[Addr & 0xFF];
-	else	return NSF.ReadF(Bank,Addr);
 }
 
 static	void	_MAPINT	CPUCycle (void)
@@ -395,8 +398,6 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUReadHandler(0x3,NSF_Read);
 	EMU->SetCPUWriteHandler(0x3,NSF_Write);
 
-	EMU->SetCPUReadHandler(0xF,NSF_ReadVector);
-	
 	EMU->SetCPUReadHandler(0x4,NSF_Read4);
 	EMU->SetCPUReadHandler(0x5,NSF_Read5);
 	EMU->SetCPUWriteHandler(0x4,NSF_Write4);
