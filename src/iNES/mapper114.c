@@ -64,6 +64,7 @@ static	void	_MAPINT	WriteEF (int Bank, int Addr, int Val)
 	if (Val)
 	{
 		MMC3_CPUWriteCD(Bank,0,Val);
+		MMC3_CPUWriteCD(Bank,1,Val);
 		MMC3_CPUWriteEF(Bank,1,Val);
 	}
 	else	MMC3_CPUWriteEF(Bank,0,Val);
