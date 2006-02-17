@@ -47,13 +47,13 @@ static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	WriteA (int Bank, int Addr, int Val)
+static	void	_MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
 	Mapper.PRG[1] = Val & 0xF;
 	Sync();
 }
 
-static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
+static	void	_MAPINT	WriteCD (int Bank, int Addr, int Val)
 {
 	Mapper.PRG[2] = Val & 0xF;
 	Sync();
@@ -77,8 +77,10 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 
 	EMU->SetCPUWriteHandler(0x8,Write8);
 	EMU->SetCPUWriteHandler(0x9,Write9);
-	EMU->SetCPUWriteHandler(0xA,WriteA);
-	EMU->SetCPUWriteHandler(0xC,WriteC);
+	EMU->SetCPUWriteHandler(0xA,WriteAB);
+	EMU->SetCPUWriteHandler(0xB,WriteAB);
+	EMU->SetCPUWriteHandler(0xC,WriteCD);
+	EMU->SetCPUWriteHandler(0xD,WriteCD);
 	EMU->SetCPUWriteHandler(0xE,WriteE);
 	EMU->SetCPUWriteHandler(0xF,WriteF);
 
