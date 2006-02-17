@@ -149,7 +149,7 @@ static	LRESULT CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPAR
 		SetDlgItemText(hDlg,IDC_NSF_ARTIST,ROM->NSF_Artist);
 		SetDlgItemText(hDlg,IDC_NSF_COPYRIGHT,ROM->NSF_Copyright);
 		SetDlgItemInt(hDlg,IDC_NSF_SONGS,ROM->NSF_NumSongs,FALSE);
-		SetDlgItemInt(hDlg,IDC_NSF_PLAYING,NSF.songnum,FALSE);
+		SetDlgItemInt(hDlg,IDC_NSF_PLAYING,NSF.songnum+1,FALSE);
 		if (ROM->NSF_NTSCPAL == 2)
 		{
 			EnableWindow(GetDlgItem(hDlg,IDC_NSF_NTSC),TRUE);
@@ -165,7 +165,7 @@ static	LRESULT CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPAR
 		SendDlgItemMessage(hDlg,IDC_NSF_SELECT,TBM_SETRANGEMAX,TRUE,ROM->NSF_NumSongs - 1);
 		SendDlgItemMessage(hDlg,IDC_NSF_SELECT,TBM_SETPOS,TRUE,NSF.songnum);
 		SendDlgItemMessage(hDlg,IDC_NSF_SELECT,TBM_SETPAGESIZE,0,1);
-		SetDlgItemInt(hDlg,IDC_NSF_SELECTED,NSF.songnum,FALSE);
+		SetDlgItemInt(hDlg,IDC_NSF_SELECTED,NSF.songnum+1,FALSE);
 
 		{
 			char chiplist[9];
@@ -209,10 +209,10 @@ static	LRESULT CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPAR
 		case IDC_NSF_NEXT:
 			i++;
 			SendDlgItemMessage(hDlg,IDC_NSF_SELECT,TBM_SETPOS,TRUE,i);
-			SetDlgItemInt(hDlg,IDC_NSF_SELECTED,SendDlgItemMessage(hDlg,IDC_NSF_SELECT,TBM_GETPOS,0,0),FALSE);
+			SetDlgItemInt(hDlg,IDC_NSF_SELECTED,SendDlgItemMessage(hDlg,IDC_NSF_SELECT,TBM_GETPOS,0,0)+1,FALSE);
 		case IDC_NSF_PLAY:
-			NSF.songnum = GetDlgItemInt(hDlg,IDC_NSF_SELECTED,NULL,FALSE);
-			SetDlgItemInt(hDlg,IDC_NSF_PLAYING,NSF.songnum,FALSE);
+			NSF.songnum = GetDlgItemInt(hDlg,IDC_NSF_SELECTED,NULL,FALSE)-1;
+			SetDlgItemInt(hDlg,IDC_NSF_PLAYING,NSF.songnum+1,FALSE);
 			if (IsDlgButtonChecked(hDlg,IDC_NSF_PAL) == BST_CHECKED)
 				NSF.ntscpal = 1;
 			else	NSF.ntscpal = 0;
@@ -229,7 +229,7 @@ static	LRESULT CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPAR
 		break;
 	case WM_HSCROLL:
 		if ((HWND)lParam == GetDlgItem(hDlg,IDC_NSF_SELECT))
-			SetDlgItemInt(hDlg,IDC_NSF_SELECTED,SendDlgItemMessage(hDlg,IDC_NSF_SELECT,TBM_GETPOS,0,0),FALSE);
+			SetDlgItemInt(hDlg,IDC_NSF_SELECTED,SendDlgItemMessage(hDlg,IDC_NSF_SELECT,TBM_GETPOS,0,0)+1,FALSE);
 		break;
 	case WM_CLOSE:
 		NSF.ControlWindow = NULL;
