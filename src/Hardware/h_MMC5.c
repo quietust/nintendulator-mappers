@@ -357,12 +357,14 @@ void	_MAPINT	MMC5_CPUWrite5 (int Bank, int Addr, int Val)
 		case 0x125:
 		case 0x126:
 		case 0x127:	MMC5.CHR_A[Addr & 0x7] = Val;
-				MMC5_SyncCHR();		break;
+				if (LastCHR != 2)
+					MMC5_SyncCHRA();break;
 		case 0x128:
 		case 0x129:
 		case 0x12A:
 		case 0x12B:	MMC5.CHR_B[Addr & 0x3] = Val;
-				MMC5_SyncCHR();		break;
+				if (LastCHR != 2)
+					MMC5_SyncCHRB();break;
 		case 0x130:	/* nobody knows... */	break;
 		}		break;
 	case 0x200:
@@ -525,7 +527,7 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 		if ((MMC5.IRQreads & 0x80) && (MMC5.IRQenabled & 0x80))
 			EMU->SetIRQ(0);
 	}
-	if ((Cycle == 256) && ((MMC5.SpriteMode) || (MMC5.GfxMode == 1)))
+	if (Cycle == 256)
 		MMC5_SyncCHRA();
 	else if (Cycle == 320)
 	{
@@ -545,8 +547,7 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 		MMC5.CurTile = 0;
 		MMC5.LineCounter = -1;
 		MMC5.IRQreads = 0x40;
-		if ((MMC5.SpriteMode) || (MMC5.GfxMode == 1))
-			MMC5_SyncCHRA();
+		MMC5_SyncCHRA();
 	}
 	if ((!(Cycle & 7)) && (Cycle < 336))
 		MMC5.CurTile++;
