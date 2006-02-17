@@ -6,6 +6,7 @@ static	void	Sync (void)
 	MMC4_SyncPRG(0xFF,0);
 	MMC4_SyncCHR();
 	MMC4_SyncMirror();
+	EMU->SetPRG_RAM8(0x6,0);
 }
 
 static	void	_MAPINT	Shutdown (void)
