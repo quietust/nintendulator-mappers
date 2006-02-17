@@ -11,7 +11,9 @@ void	MMC3_Init (void (*Sync)(void))
 
 	MMC3.IRQenabled = MMC3.IRQcounter = MMC3.IRQlatch = 0;
 	MMC3.Cmd = 0;
-	MMC3.WRAMEnab = 0;
+	if (ROM->ROMType == ROM_INES)
+		MMC3.WRAMEnab = 0x80;
+	else	MMC3.WRAMEnab = 0;
 	if (ROM->ROMType == ROM_INES)
 		MMC3.Mirror = (ROM->INES_Flags & 0x01) ? 0 : 1;
 	else	MMC3.Mirror = 0;
