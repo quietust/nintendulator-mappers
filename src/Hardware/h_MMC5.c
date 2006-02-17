@@ -535,7 +535,7 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 		if ((MMC5.IRQreads & 0x80) && (MMC5.IRQenabled & 0x80))
 			EMU->SetIRQ(0);
 	}
-	if (Cycle == 256)
+	if ((Cycle == 256) && ((MMC5.SpriteMode) || (MMC5.GfxMode == 1)))
 		MMC5_SyncCHRA();
 	else if (Cycle == 320)
 	{
