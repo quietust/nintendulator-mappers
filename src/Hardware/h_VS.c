@@ -3,52 +3,6 @@
 
 static	TVS	VS;
 
-void	VS_Load (void)
-{
-	VS.ConfigWindow = NULL;
-	VS.DipSwitch = 0;	/* clear dipswitches on load */
-}
-
-void	VS_Reset (RESET_TYPE ResetType)
-{
-	VS.CoinDelay = 0;
-	VS.Coin = 0;			/* always clear coins */
-
-	VS.Read = EMU->GetCPUReadHandler(0x4);
-	EMU->SetCPUReadHandler(0x4,VS_Read);
-}
-
-void	VS_Unload (void)
-{
-	if (VS.ConfigWindow)
-		DestroyWindow(VS.ConfigWindow);
-}
-
-int	_MAPINT	VS_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
-{
-	SAVELOAD_BYTE(mode,x,data,VS.DipSwitch)
-	SAVELOAD_BYTE(mode,x,data,VS.Coin)
-	SAVELOAD_LONG(mode,x,data,VS.CoinDelay)
-	return x;
-}
-
-int	_MAPINT	VS_Read (int Bank, int Addr)
-{
-	int Val = VS.Read(Bank,Addr);
-	if (Addr == 0x016)
-	{
-		Val &= 0x83;
-		Val |= VS.Coin;
-		Val |= ((VS.DipSwitch & 0x03) << 3);
-	}
-	else if (Addr == 0x017)
-	{
-		Val &= 0x03;
-		Val |= VS.DipSwitch & 0xFC;
-	}
-	return Val;
-}
-
 static	void	BlockDialog (HWND hDlg, int dlgItem)
 {
 	if (!hDlg)
@@ -253,15 +207,6 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 	return FALSE;
 }
 
-void	_MAPINT	VS_CPUCycle (void)
-{
-	if ((VS.CoinDelay) && (!--VS.CoinDelay))
-	{
-		VS.Coin = 0;
-		UnblockDialog(VS.ConfigWindow);
-	}
-}
-
 unsigned char	_MAPINT	VS_Config (CFG_TYPE mode, unsigned char data)
 {
 	switch (mode)
@@ -307,4 +252,64 @@ unsigned char	_MAPINT	VS_Config (CFG_TYPE mode, unsigned char data)
 		break;
 	}
 	return 0;
+}
+
+
+void	VS_Load (void)
+{
+	VS.ConfigWindow = NULL;
+	VS.DipSwitch = 0;	/* clear dipswitches on load */
+	VS_Config(CFG_WINDOW,TRUE);	/* open control window automatically */
+}
+
+void	VS_Reset (RESET_TYPE ResetType)
+{
+	VS.CoinDelay = 0;
+	VS.Coin = 0;		/* clear coins */
+
+	VS.Read = EMU->GetCPUReadHandler(0x4);
+	EMU->SetCPUReadHandler(0x4,VS_Read);
+	
+	VS.ConfigCmd = 0;
+	UnblockDialog(VS.ConfigWindow);	/* free up the dialog */
+}
+
+void	VS_Unload (void)
+{
+	if (VS.ConfigWindow)
+		DestroyWindow(VS.ConfigWindow);
+}
+
+int	_MAPINT	VS_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+{
+	SAVELOAD_BYTE(mode,x,data,VS.DipSwitch)
+	SAVELOAD_BYTE(mode,x,data,VS.Coin)
+	SAVELOAD_LONG(mode,x,data,VS.CoinDelay)
+	return x;
+}
+
+void	_MAPINT	VS_CPUCycle (void)
+{
+	if ((VS.CoinDelay) && (!--VS.CoinDelay))
+	{
+		VS.Coin = 0;
+		UnblockDialog(VS.ConfigWindow);
+	}
+}
+
+int	_MAPINT	VS_Read (int Bank, int Addr)
+{
+	int Val = VS.Read(Bank,Addr);
+	if (Addr == 0x016)
+	{
+		Val &= 0x83;
+		Val |= VS.Coin;
+		Val |= ((VS.DipSwitch & 0x03) << 3);
+	}
+	else if (Addr == 0x017)
+	{
+		Val &= 0x03;
+		Val |= VS.DipSwitch & 0xFC;
+	}
+	return Val;
 }
