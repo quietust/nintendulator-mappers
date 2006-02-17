@@ -14,11 +14,10 @@ static	void	Sync (void)
 {
 	u8 x;
 	EMU->SetPRG_RAM8(0x6,0);
-	EMU->SetPRG_ROM16(0xC,-1);
-	if (Mapper.PRGswap)
-		EMU->SetPRG_ROM8(0xC,Mapper.PRG[0]);
-	else	EMU->SetPRG_ROM8(0x8,Mapper.PRG[0]);
+	EMU->SetPRG_ROM8(Mapper.Byte9002 ? 0xC : 0x8,Mapper.PRG[0]);
 	EMU->SetPRG_ROM8(0xA,Mapper.PRG[1]);
+	EMU->SetPRG_ROM8(Mapper.Byte9002 ? 0x8 : 0xC,0x1E);
+	EMU->SetPRG_ROM8(0xE,0x1F);
 	for (x = 0; x < 8; x++)
 		EMU->SetCHR_ROM1(x,Mapper.CHR[x].b0);
 	switch (Mapper.Mirror & 1)
