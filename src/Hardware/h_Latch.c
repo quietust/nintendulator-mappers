@@ -10,7 +10,7 @@ void	Latch_Init (void (*Sync)(void), BOOL Reset, BOOL BusConflicts)
 	if (Reset)
 	{
 		Latch.Data = 0;
-		Latch.Addr = 0;
+		Latch.Addr.s0 = 0;
 	}
 	Latch.BusConflicts = BusConflicts;
 	(Latch.Sync = Sync)();
@@ -22,7 +22,7 @@ void	Latch_Destroy (void)
 
 int	_MAPINT	Latch_SaveLoad_AD (int mode, int x, char *data)
 {
-	SAVELOAD_WORD(mode,x,data,Latch.Addr)
+	SAVELOAD_WORD(mode,x,data,Latch.Addr.s0)
 	SAVELOAD_BYTE(mode,x,data,Latch.Data)
 	if (mode == STATE_LOAD)
 		Latch.Sync();
@@ -31,7 +31,7 @@ int	_MAPINT	Latch_SaveLoad_AD (int mode, int x, char *data)
 
 int	_MAPINT	Latch_SaveLoad_AL (int mode, int x, char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Latch.AddrL)
+	SAVELOAD_BYTE(mode,x,data,Latch.Addr.b0)
 	if (mode == STATE_LOAD)
 		Latch.Sync();
 	return x;
@@ -39,7 +39,7 @@ int	_MAPINT	Latch_SaveLoad_AL (int mode, int x, char *data)
 
 int	_MAPINT	Latch_SaveLoad_A (int mode, int x, char *data)
 {
-	SAVELOAD_WORD(mode,x,data,Latch.Addr)
+	SAVELOAD_WORD(mode,x,data,Latch.Addr.s0)
 	if (mode == STATE_LOAD)
 		Latch.Sync();
 	return x;
@@ -69,6 +69,7 @@ void	_MAPINT	Latch_Write (int Bank, int Where, int What)
 	}
 #endif
 	Latch.Data = What;
-	Latch.Addr = (Bank << 12) | Where;
+	Latch.Addr.s0 = Where;
+	Latch.Addr.n3 = Bank;
 	Latch.Sync();
 }

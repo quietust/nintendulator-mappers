@@ -3,23 +3,12 @@
 
 #include	"..\interface.h"
 
-#define	BUS_CONFLICTS	/* Enable bus conflict checking, only use for debug builds */
+#define	BUS_CONFLICTS	/* Enable bus conflicts */
 
 typedef	struct	Latch
 {
 	u8 Data;
-	union
-	{
-		struct
-		{
-			unsigned AddrL : 8;
-			unsigned AddrH : 8;
-		};
-		struct
-		{
-			unsigned Addr  :16;
-		};
-	};
+	u16_n Addr;
 	void	(*Sync)	(void);
 	int BusConflicts;
 }	TLatch, PLatch;
