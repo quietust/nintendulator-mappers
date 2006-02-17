@@ -45,6 +45,8 @@ static	struct
 	u8 IRQenabled;
 	u8 IRQstatus;
 	u8 WatchDog;
+
+	u16_n InitAddr, PlayAddr, NTSCspeed, PALspeed;
 }	NSF;
 
 static	unsigned char NSFROM[256] =
@@ -81,14 +83,14 @@ static	int	_MAPINT	NSF_Read (int Bank, int Addr)
 		return 0xFF;
 	switch (Addr & 0xFF)
 	{
-	case 0x00:	return (ROM->NSF_InitAddr >> 0) & 0xFF;	break;
-	case 0x01:	return (ROM->NSF_InitAddr >> 8) & 0xFF;	break;
-	case 0x02:	return (ROM->NSF_PlayAddr >> 0) & 0xFF;	break;
-	case 0x03:	return (ROM->NSF_PlayAddr >> 8) & 0xFF;	break;
-	case 0x04:	return ((int)(ROM->NSF_NTSCSpeed * (double)1.789772727272727) >> 0) & 0xFF;	break;
-	case 0x06:	return ((int)(ROM->NSF_NTSCSpeed * (double)1.789772727272727) >> 8) & 0xFF;	break;
-	case 0x05:	return ((int)(ROM->NSF_PALSpeed * (double)1.662607) >> 0) & 0xFF;		break;
-	case 0x07:	return ((int)(ROM->NSF_PALSpeed * (double)1.662607) >> 8) & 0xFF;		break;
+	case 0x00:	return NSF.InitAddr.b0;			break;
+	case 0x01:	return NSF.InitAddr.b1;			break;
+	case 0x02:	return NSF.PlayAddr.b0;			break;
+	case 0x03:	return NSF.PlayAddr.b1;			break;
+	case 0x04:	return NSF.NTSCspeed.b0;		break;
+	case 0x06:	return NSF.NTSCspeed.b1;		break;
+	case 0x05:	return NSF.PALspeed.b0;			break;
+	case 0x07:	return NSF.PALspeed.b1;			break;
 	case 0x08:	case 0x09:	case 0x0A:	case 0x0B:
 	case 0x0C:	case 0x0D:	case 0x0E:	case 0x0F:
 			return ROM->NSF_InitBanks[Addr & 0x7];	break;
@@ -377,6 +379,11 @@ static	void	_MAPINT	Load (void)
 	if (ROM->NSF_SoundChips & 0x20)
 		FME7sound_Load();
 	NSF.ControlWindow = NULL;
+
+	NSF.InitAddr.s0 = ROM->NSF_InitAddr;
+	NSF.PlayAddr.s0 = ROM->NSF_PlayAddr;
+	NSF.NTSCspeed.s0 = (int)(ROM->NSF_NTSCSpeed * (double)1.789772727272727);
+	NSF.PALspeed.s0 = (int)(ROM->NSF_PALSpeed * (double)1.662607);
 }
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
