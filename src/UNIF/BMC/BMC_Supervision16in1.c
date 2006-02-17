@@ -21,7 +21,7 @@ static	void	Sync (void)
 	else	EMU->Mirror_V();
 }
 
-static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	x = Latch_SaveLoad_D(mode,x,data);
 	SAVELOAD_BYTE(mode,x,data,Mapper.Game)

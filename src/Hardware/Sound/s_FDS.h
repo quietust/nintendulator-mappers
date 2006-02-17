@@ -5,7 +5,7 @@ void		FDSsound_Init		(void);
 int		FDSsound_Read		(int);
 void		FDSsound_Write		(int,int);
 int	_MAPINT	FDSsound_Get		(int);
-int	_MAPINT	FDSsound_SaveLoad	(SAVELOAD_TYPE,int,unsigned char *);
+int	_MAPINT	FDSsound_SaveLoad	(STATE_TYPE,int,unsigned char *);
 void		FDSsound_Destroy	(void);
 
 #endif	/* S_FDS_H */

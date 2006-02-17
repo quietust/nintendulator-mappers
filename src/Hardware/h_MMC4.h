@@ -10,13 +10,13 @@ typedef	struct	MMC4
 	u8 Latch0[2];
 	u8 Latch1[2];
 	u8 Mirror;
-	void	(*Sync)	(void);
+	FSync Sync;
 	FPPURead PPURead3, PPURead7;
 }	TMMC4, *PMMC4;
 
-void		MMC4_Init	(RESET_TYPE,void (*)(void));
+void		MMC4_Init	(RESET_TYPE,FSync);
 void		MMC4_Destroy	(void);
-int	_MAPINT	MMC4_SaveLoad	(int,int,unsigned char *);
+int	_MAPINT	MMC4_SaveLoad	(STATE_TYPE,int,unsigned char *);
 void		MMC4_SyncPRG	(int,int);
 void		MMC4_SyncCHR	(void);
 void		MMC4_SyncMirror	(void);

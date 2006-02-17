@@ -16,7 +16,7 @@ static	void	Sync (void)
 		EMU->SetPRG_ROM16(0x8,Mapper.PRG & 0xF);
 }
 
-static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.PRG)
 	SAVELOAD_BYTE(mode,x,data,Mapper.Valid)

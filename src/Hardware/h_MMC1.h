@@ -7,14 +7,14 @@ typedef	struct	MMC1
 {
 	u8 Latch, LatchPos;
 	u8 Regs[4];
-	void	(*Sync)	(void);
+	FSync Sync;
 }	TMMC1, *PMMC1;
 
 extern	TMMC1	MMC1;
 
-void		MMC1_Init		(RESET_TYPE,void (*)(void));
+void		MMC1_Init		(RESET_TYPE,FSync);
 void		MMC1_Destroy		(void);
-int	_MAPINT	MMC1_SaveLoad		(SAVELOAD_TYPE,int,unsigned char *);
+int	_MAPINT	MMC1_SaveLoad		(STATE_TYPE,int,unsigned char *);
 void	_MAPINT	MMC1_Write		(int,int,int);
 
 void		MMC1_SyncMirror		(void);

@@ -5,7 +5,7 @@
 
 TFDS	FDS;
 
-int	_MAPINT	FDS_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+int	_MAPINT	FDS_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,FDS.DiskNum)
 	SAVELOAD_WORD(mode,x,data,FDS.IRQcounter)

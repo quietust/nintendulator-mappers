@@ -37,7 +37,7 @@ static	void	Sync (void)
 	else	EMU->SetPRG_ROM32(0x8,((Val.PRGhi) << 4) | (Val.PRGbank >> 1));
 }
 
-static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Byte8000)
 	SAVELOAD_BYTE(mode,x,data,Mapper.Byte8001)

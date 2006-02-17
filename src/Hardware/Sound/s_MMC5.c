@@ -170,7 +170,7 @@ int	_MAPINT	MMC5sound_Get (int Cycles)
 	return z << 6;
 }
 
-int	_MAPINT	MMC5sound_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+int	_MAPINT	MMC5sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	if (mode == STATE_SAVE)
 		memcpy(data,&MMC5sound,sizeof(MMC5sound));

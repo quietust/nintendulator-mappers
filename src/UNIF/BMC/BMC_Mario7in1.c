@@ -39,7 +39,7 @@ static	void	Sync (void)
 	MMC3_SyncCHR_ROM(CHRmask,CHRbank << 7);
 }
 
-static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	x = MMC3_SaveLoad(mode,x,data);
 	SAVELOAD_BYTE(mode,x,data,Mapper.WhichGame)

@@ -122,7 +122,7 @@ int	_MAPINT	N106sound_Get (int Cycles)
 	return out << 5;
 }
 
-int	_MAPINT	N106sound_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+int	_MAPINT	N106sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	int i;
 	switch (mode)

@@ -4,7 +4,7 @@
 void	VRC6sound_Init (void);
 void	VRC6sound_Write (int,int);
 int	_MAPINT	VRC6sound_Get (int);
-int	_MAPINT	VRC6sound_SaveLoad (SAVELOAD_TYPE,int,unsigned char *);
+int	_MAPINT	VRC6sound_SaveLoad (STATE_TYPE,int,unsigned char *);
 void	VRC6sound_Destroy (void);
 
 #endif	/* S_VRC6_H */

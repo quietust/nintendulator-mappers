@@ -2,7 +2,7 @@
 
 static	TMMC3	MMC3;
 
-void	MMC3_Init (RESET_TYPE ResetType, void (*Sync)(void))
+void	MMC3_Init (RESET_TYPE ResetType, FSync Sync)
 {
 	MMC3.PRG[0] = 0x3C;	MMC3.PRG[1] = 0x3D;	MMC3.PRG[2] = 0x3E;	MMC3.PRG[3] = 0x3F;	// 2 and 3 never change, simplifies GetPRGBank()
 
@@ -87,7 +87,7 @@ void	MMC3_SyncCHR_RAM (int AND, int OR)
 		EMU->SetCHR_RAM1(x,(MMC3_GetCHRBank(x) & AND) | OR);
 }
 
-int	_MAPINT	MMC3_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+int	_MAPINT	MMC3_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,MMC3.IRQcounter)
@@ -135,9 +135,9 @@ void	_MAPINT	MMC3_CPUWrite89 (int Bank, int Addr, int Val)
 		switch (MMC3.Cmd & 0x7)
 		{
 		case 0:	MMC3.CHR[0] = (Val & 0xFE) | 0;
-			MMC3.CHR[1] = (Val & 0xFE) | 1;break;
+			MMC3.CHR[1] = (Val & 0xFE) | 1;	break;
 		case 1:	MMC3.CHR[2] = (Val & 0xFE) | 0;
-			MMC3.CHR[3] = (Val & 0xFE) | 1;break;
+			MMC3.CHR[3] = (Val & 0xFE) | 1;	break;
 		case 2:	MMC3.CHR[4] = Val;		break;
 		case 3:	MMC3.CHR[5] = Val;		break;
 		case 4:	MMC3.CHR[6] = Val;		break;

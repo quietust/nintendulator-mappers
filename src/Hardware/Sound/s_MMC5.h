@@ -4,7 +4,7 @@
 void	MMC5sound_Init (void);
 void	MMC5sound_Write (int,int);
 int	_MAPINT	MMC5sound_Get (int);
-int	_MAPINT	MMC5sound_SaveLoad (SAVELOAD_TYPE,int,unsigned char *);
+int	_MAPINT	MMC5sound_SaveLoad (STATE_TYPE,int,unsigned char *);
 void	MMC5sound_Destroy (void);
 
 #endif	/* S_MMC5_H */

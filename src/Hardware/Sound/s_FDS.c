@@ -296,7 +296,7 @@ int	_MAPINT	FDSsound_Get (int numCycles)
 	return FDSSoundRender() >> 9;	// current code does not run per-cycle
 }
 
-int	_MAPINT	FDSsound_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+int	_MAPINT	FDSsound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	return x;
 }

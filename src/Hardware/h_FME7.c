@@ -3,7 +3,7 @@
 
 static	TFME7	FME7;
 
-void	FME7_Init (RESET_TYPE ResetType, void (*Sync)(void))
+void	FME7_Init (RESET_TYPE ResetType, FSync Sync)
 {
 	FME7.Cmd = 0;
 
@@ -70,7 +70,7 @@ void	FME7_SyncCHR (int AND, int OR)
 		EMU->SetCHR_ROM1(x,(FME7.CHR[x] & AND) | OR);
 }
 
-int	_MAPINT	FME7_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+int	_MAPINT	FME7_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_WORD(mode,x,data,FME7.IRQcounter.s0)

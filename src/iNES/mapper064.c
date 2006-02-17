@@ -40,7 +40,7 @@ static	void	Sync (void)
 			EMU->SetCHR_ROM1(SwCHR ^ x,Mapper.CHR[x]);
 }
 
-static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounter)

@@ -2,7 +2,7 @@
 
 TLatch	Latch;
 
-void	Latch_Init (RESET_TYPE ResetType, void (*Sync)(void), BOOL BusConflicts)
+void	Latch_Init (RESET_TYPE ResetType, FSync Sync, BOOL BusConflicts)
 {
 	u8 x;
 	for (x = 0x8; x <= 0xF; x++)
@@ -20,7 +20,7 @@ void	Latch_Destroy (void)
 {
 }
 
-int	_MAPINT	Latch_SaveLoad_AD (SAVELOAD_TYPE mode, int x, unsigned char *data)
+int	_MAPINT	Latch_SaveLoad_AD (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_WORD(mode,x,data,Latch.Addr.s0)
 	SAVELOAD_BYTE(mode,x,data,Latch.Data)
@@ -29,7 +29,7 @@ int	_MAPINT	Latch_SaveLoad_AD (SAVELOAD_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-int	_MAPINT	Latch_SaveLoad_AL (SAVELOAD_TYPE mode, int x, unsigned char *data)
+int	_MAPINT	Latch_SaveLoad_AL (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Latch.Addr.b0)
 	if (mode == STATE_LOAD)
@@ -37,7 +37,7 @@ int	_MAPINT	Latch_SaveLoad_AL (SAVELOAD_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-int	_MAPINT	Latch_SaveLoad_A (SAVELOAD_TYPE mode, int x, unsigned char *data)
+int	_MAPINT	Latch_SaveLoad_A (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_WORD(mode,x,data,Latch.Addr.s0)
 	if (mode == STATE_LOAD)
@@ -45,7 +45,7 @@ int	_MAPINT	Latch_SaveLoad_A (SAVELOAD_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-int	_MAPINT	Latch_SaveLoad_D (SAVELOAD_TYPE mode, int x, unsigned char *data)
+int	_MAPINT	Latch_SaveLoad_D (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Latch.Data)
 	if (mode == STATE_LOAD)

@@ -38,7 +38,7 @@ extern	TMMC5	MMC5;
 
 void		MMC5_Init	(RESET_TYPE);
 void		MMC5_Destroy	(void);
-int	_MAPINT	MMC5_SaveLoad	(SAVELOAD_TYPE,int,unsigned char *);
+int	_MAPINT	MMC5_SaveLoad	(STATE_TYPE,int,unsigned char *);
 void		MMC5_SetPRG	(int,int,int);
 void		MMC5_SyncPRG	(void);
 void		MMC5_SyncCHR	(void);

@@ -14,10 +14,10 @@ typedef	struct	MMC6
 	u8 Mirror;
 	FCPURead CPURead7;
 	FCPUWrite CPUWrite7;
-	void	(*Sync)	(void);
+	FSync Sync;
 }	TMMC6, *PMMC6;
 
-void		MMC6_Init	(RESET_TYPE,void (*)(void));
+void		MMC6_Init	(RESET_TYPE,FSync);
 void		MMC6_Destroy	(void);
 void		MMC6_SyncMirror	(void);
 int		MMC6_GetPRGBank	(int);
@@ -25,7 +25,7 @@ int		MMC6_GetCHRBank	(int);
 void		MMC6_SyncPRG	(int,int);
 void		MMC6_SyncCHR_ROM(int,int);
 void		MMC6_SyncCHR_RAM(int,int);
-int	_MAPINT	MMC6_SaveLoad	(SAVELOAD_TYPE,int,unsigned char *);
+int	_MAPINT	MMC6_SaveLoad	(STATE_TYPE,int,unsigned char *);
 int	_MAPINT	MMC6_CPURead7	(int,int);
 void	_MAPINT	MMC6_CPUWrite7	(int,int,int);
 void	_MAPINT	MMC6_CPUWrite89	(int,int,int);

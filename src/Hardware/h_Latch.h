@@ -9,18 +9,18 @@ typedef	struct	Latch
 {
 	u8 Data;
 	u16_n Addr;
-	void	(*Sync)	(void);
+	FSync Sync;
 	int BusConflicts;
 }	TLatch, PLatch;
 
 extern	TLatch	Latch;
 
-void		Latch_Init		(RESET_TYPE,void (*)(void),BOOL);
+void		Latch_Init		(RESET_TYPE,FSync,BOOL);
 void		Latch_Destroy		(void);
-int	_MAPINT	Latch_SaveLoad_AD	(SAVELOAD_TYPE,int,unsigned char *);
-int	_MAPINT	Latch_SaveLoad_AL	(SAVELOAD_TYPE,int,unsigned char *);
-int	_MAPINT	Latch_SaveLoad_A	(SAVELOAD_TYPE,int,unsigned char *);
-int	_MAPINT	Latch_SaveLoad_D	(SAVELOAD_TYPE,int,unsigned char *);
+int	_MAPINT	Latch_SaveLoad_AD	(STATE_TYPE,int,unsigned char *);
+int	_MAPINT	Latch_SaveLoad_AL	(STATE_TYPE,int,unsigned char *);
+int	_MAPINT	Latch_SaveLoad_A	(STATE_TYPE,int,unsigned char *);
+int	_MAPINT	Latch_SaveLoad_D	(STATE_TYPE,int,unsigned char *);
 void	_MAPINT	Latch_Write		(int,int,int);
 
 #endif	/* H_LATCH_H */

@@ -114,7 +114,7 @@ int	_MAPINT	VRC6sound_Get (int Cycles)
 	return z << 8;
 }
 
-int	_MAPINT	VRC6sound_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+int	_MAPINT	VRC6sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq0.byte0)
 	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq0.byte1)

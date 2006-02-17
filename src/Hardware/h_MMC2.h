@@ -10,13 +10,13 @@ typedef	struct	MMC2
 	u8 Latch0[2];
 	u8 Latch1[2];
 	u8 Mirror;
-	void	(*Sync)	(void);
+	FSync Sync;
 	FPPURead PPURead3, PPURead7;
 }	TMMC2, *PMMC2;
 
-void		MMC2_Init	(RESET_TYPE,void (*)(void));
+void		MMC2_Init	(RESET_TYPE,FSync);
 void		MMC2_Destroy	(void);
-int	_MAPINT	MMC2_SaveLoad	(SAVELOAD_TYPE,int,unsigned char *);
+int	_MAPINT	MMC2_SaveLoad	(STATE_TYPE,int,unsigned char *);
 void		MMC2_SyncPRG	(int,int);
 void		MMC2_SyncCHR	(void);
 void		MMC2_SyncMirror	(void);

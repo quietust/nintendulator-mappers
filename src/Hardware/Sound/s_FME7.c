@@ -167,7 +167,7 @@ int	_MAPINT	FME7sound_Get (int Cycles)
 	return z << 6;
 }
 
-int	_MAPINT	FME7sound_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+int	_MAPINT	FME7sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,FME7sound.select)
 	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[0].byte0)

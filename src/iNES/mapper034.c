@@ -46,7 +46,7 @@ static	void	SetMode (int Mode)
 #endif
 }
 
-static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Mode)
 	if (Mapper.Mode == 1)

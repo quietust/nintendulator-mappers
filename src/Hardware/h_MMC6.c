@@ -2,7 +2,7 @@
 
 static	TMMC6	MMC6;
 
-void	MMC6_Init (RESET_TYPE ResetType, void (*Sync)(void))
+void	MMC6_Init (RESET_TYPE ResetType, FSync Sync)
 {
 	MMC6.PRG[0] = 0x00;	MMC6.PRG[1] = 0x01;	MMC6.PRG[2] = 0x3E;	MMC6.PRG[3] = 0x3F;	// 2 and 3 never change, simplifies GetPRGBank()
 
@@ -74,7 +74,7 @@ void	MMC6_SyncCHR_RAM (int AND, int OR)
 		EMU->SetCHR_RAM1(x,(MMC6_GetCHRBank(x) & AND) | OR);
 }
 
-int	_MAPINT	MMC6_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+int	_MAPINT	MMC6_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,MMC6.IRQcounter)

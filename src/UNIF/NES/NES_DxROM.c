@@ -5,13 +5,13 @@ typedef	struct	N108
 	u8 Cmd;
 	u8 PRG[2];
 	u8 CHR[6];
-	void	(*Sync)	(void);
+	FSync Sync;
 }	TN108, *PN108;
 static	TN108	N108;
 
 void	_MAPINT	N108_CPUWrite89 (int Bank, int Addr, int Val);
 
-void	N108_Init (RESET_TYPE ResetType, void (*Sync)(void))
+void	N108_Init (RESET_TYPE ResetType, FSync Sync)
 {
 	N108.PRG[0] = 0x3C;	N108.PRG[1] = 0x3D;
 
@@ -46,7 +46,7 @@ void	N108_SyncCHR (void)
 	EMU->SetCHR_ROM1(7,N108.CHR[5]);
 }
 
-int	_MAPINT	N108_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+int	_MAPINT	N108_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,N108.Cmd)

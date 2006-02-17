@@ -103,7 +103,7 @@ void	MMC5_Destroy (void)
 	MMC5sound_Destroy();
 }
 
-int	_MAPINT	MMC5_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+int	_MAPINT	MMC5_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_BYTE(mode,x,data,MMC5.PRGsize)

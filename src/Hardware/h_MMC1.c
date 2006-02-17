@@ -2,7 +2,7 @@
 
 static	TMMC1	MMC1;
 
-void	MMC1_Init (RESET_TYPE ResetType, void (*Sync)(void))
+void	MMC1_Init (RESET_TYPE ResetType, FSync Sync)
 {
 	u8 x;
 	MMC1.Regs[0] = 0x0C;
@@ -20,7 +20,7 @@ void	MMC1_Destroy (void)
 {
 }
 
-int	_MAPINT	MMC1_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+int	_MAPINT	MMC1_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 4; i++)

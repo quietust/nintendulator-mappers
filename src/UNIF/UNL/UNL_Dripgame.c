@@ -38,7 +38,7 @@ static	int	_MAPINT	MapperSnd (int Cycles)
 	out += MapperSnd_GenerateWave(&MapSound.Chan[1],Cycles);
 	return out << 3;
 }
-static	int	_MAPINT	MapperSnd_SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+static	int	_MAPINT	MapperSnd_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	int i;
 	for (i = 0; i < 256; i++)
@@ -122,7 +122,7 @@ static	void	Sync (void)
 	}
 }
 
-static	int	_MAPINT	SaveLoad (SAVELOAD_TYPE mode, int x, unsigned char *data)
+static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter)
