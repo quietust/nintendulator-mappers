@@ -44,24 +44,17 @@ static	__inline void	EndIRQ (u8 flag)
 		EMU->SetIRQ(1);
 }
 
-
 void	_MAPINT	FDS_CPUCycle (void)
 {
-	if (FDS.IRQenabled)
+	if ((FDS.IRQenabled & 0x2) && (FDS.IRQcounter) && (!--FDS.IRQcounter))
 	{
-		FDS.IRQcounter--;
-		if (!FDS.IRQcounter)
-		{
-			FDS.IRQenabled = 0;
-			StartIRQ(IRQ_TIMER);
-		}
+		if (FDS.IRQenabled & 0x1)
+			FDS.IRQcounter = FDS.IRQlatch.s0;
+		else	FDS.IRQenabled &= 1;
+		StartIRQ(IRQ_TIMER);
 	}
-	if (FDS.DiskIRQ)
-	{
-		FDS.DiskIRQ--;
-		if ((!FDS.DiskIRQ) && (FDS.IOcontrol & 0x80))
-			StartIRQ(IRQ_DISK);
-	}
+	if ((FDS.DiskIRQ) && (!--FDS.DiskIRQ) && (FDS.IOcontrol & 0x80))
+		StartIRQ(IRQ_DISK);
 }
 
 #define	DISKIRQ_SHORT	150
@@ -69,9 +62,9 @@ void	_MAPINT	FDS_CPUCycle (void)
 
 int	_MAPINT	FDS_Read (int Bank, int Where)
 {
-	int result;
-	static int DiskVal = 0;
-	if ((Where & 0xFFF) < 0x20)
+	u8 result;
+	static u8 DiskVal = 0;
+	if ((Where & 0xFFF) < 0x18)
 		return FDS.Read(Bank,Where);
 	switch (Where & 0xFFF)
 	{
@@ -80,19 +73,15 @@ int	_MAPINT	FDS_Read (int Bank, int Where)
 			return result;		break;
 	case 0x31:	if (FDS.DiskNum == 0xFF)
 				return DiskVal;
-			EMU->SetPRG_ROM4(0x6,(FDS.DiskNum << 4) | ((FDS.BytePtr >> 12) & 0xF));
-			DiskVal = EMU->GetPRG_Ptr4(0x6)[FDS.BytePtr & 0xFFF];
-			EMU->SetPRG_RAM4(0x6,0);
+			EMU->SetPRG_ROM4(0x5,(FDS.DiskNum << 4) | ((FDS.BytePtr >> 12) & 0xF));
+			DiskVal = EMU->GetPRG_Ptr4(0x5)[FDS.BytePtr & 0xFFF];
+			EMU->SetPRG_OB4(0x5);
 //			if (FDS.IOcontrol & 0x01)
 			{
 				if (FDS.BytePtr < 64999)
 					FDS.BytePtr++;
 				if ((FDS.BytePtr & 0xFF) == 0)
-				{
-					char tmp[256];
-					sprintf(tmp,"%i R/S",FDS.BytePtr);
-					EMU->StatusOut(tmp);
-				}
+					EMU->StatusOut("%i R/S",FDS.BytePtr);
 				FDS.DiskIRQ = DISKIRQ_SHORT;
 				EndIRQ(IRQ_DISK);
 			}
@@ -110,7 +99,7 @@ int	_MAPINT	FDS_Read (int Bank, int Where)
 
 void	_MAPINT	FDS_Write (int Bank, int Where, int What)
 {
-	if ((Where & 0xFFF) < 0x20)
+	if ((Where & 0xFFF) < 0x18)
 		FDS.Write(Bank,Where,What);
 	FDSsound_Write((Bank << 12) | Where,What);
 	switch (Where & 0xFFF)
@@ -119,7 +108,7 @@ void	_MAPINT	FDS_Write (int Bank, int Where, int What)
 			EndIRQ(IRQ_TIMER);		break;
 	case 0x21:	FDS.IRQlatch.b1 = What;
 			EndIRQ(IRQ_TIMER);		break;
-	case 0x22:	FDS.IRQenabled = What & 0x2;
+	case 0x22:	FDS.IRQenabled = What & 0x3;
 			FDS.IRQcounter = FDS.IRQlatch.s0;
 			EndIRQ(IRQ_TIMER);		break;
 	case 0x23:	FDS.IOenable = What;		break;
@@ -130,13 +119,11 @@ void	_MAPINT	FDS_Write (int Bank, int Where, int What)
 					if (FDS.WriteSkip) FDS.WriteSkip--;
 					else if (FDS.BytePtr >= 2)
 					{
-						char tmp[256];
-						sprintf(tmp,"%i W",FDS.BytePtr);
-						EMU->StatusOut(tmp);
+						EMU->StatusOut("%i W",FDS.BytePtr);
 						FDS.BytePtr -= 2;
-						EMU->SetPRG_ROM4(0x6,(FDS.DiskNum << 4) | ((FDS.BytePtr >> 12) & 0xF));
-						EMU->GetPRG_Ptr4(0x6)[FDS.BytePtr & 0xFFF] = What;
-						EMU->SetPRG_RAM4(0x6,0);
+						EMU->SetPRG_ROM4(0x5,(FDS.DiskNum << 4) | ((FDS.BytePtr >> 12) & 0xF));
+						EMU->GetPRG_Ptr4(0x5)[FDS.BytePtr & 0xFFF] = What;
+						EMU->SetPRG_OB4(0x5);
 						FDS.BytePtr += 2;
 					}
 				}
@@ -150,9 +137,7 @@ void	_MAPINT	FDS_Write (int Bank, int Where, int What)
 			{
 				if ((FDS.IOcontrol & 0x40) && (!(What & 0x10)))
 				{
-//					char tmp[256];
-//					sprintf(tmp,"%i S (Reverse)",FDS.BytePtr);
-//					EMU->StatusOut(tmp);
+					EMU->StatusOut("%i S (Reverse)",FDS.BytePtr);
 					FDS.BytePtr -= 2;
 					FDS.DiskIRQ = DISKIRQ_LONG;
 				}
@@ -163,9 +148,7 @@ void	_MAPINT	FDS_Write (int Bank, int Where, int What)
 				FDS.WriteSkip = 2;
 			if (What & 0x02)
 			{
-//				char tmp[256];
-//				sprintf(tmp,"%i S (Zero)",FDS.BytePtr);
-//				EMU->StatusOut(tmp);
+				EMU->StatusOut("%i S (Zero)",FDS.BytePtr);
 				FDS.BytePtr = 0;
 				FDS.DiskIRQ = DISKIRQ_LONG;
 			}
@@ -219,8 +202,7 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 				return TRUE;		break;
 			case IDC_FDS_INSERT:
 				FDS.DiskNum = (u8)SendDlgItemMessage(hDlg,IDC_FDS_DISKSEL,CB_GETCURSEL,0,0);
-				sprintf(buf,"Disk %i side %s inserted!",(FDS.DiskNum >> 1) + 1, (FDS.DiskNum & 1) ? "B" : "A");
-				EMU->StatusOut(buf);
+				EMU->StatusOut("Disk %i side %s inserted!",(FDS.DiskNum >> 1) + 1, (FDS.DiskNum & 1) ? "B" : "A");
 				EnableWindow(GetDlgItem(hDlg,IDC_FDS_DISKSEL),FALSE);
 				EnableWindow(GetDlgItem(hDlg,IDC_FDS_INSERT),FALSE);
 				EnableWindow(GetDlgItem(hDlg,IDC_FDS_EJECT),TRUE);
