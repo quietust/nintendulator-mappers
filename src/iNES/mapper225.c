@@ -47,7 +47,7 @@ CTMapperInfo	MapperInfo_225 =
 {
 	&MapperNum,
 	"72-in-1",
-	COMPAT_FULL,
+	COMPAT_NEARLY,
 	Reset,
 	Shutdown,
 	NULL,
