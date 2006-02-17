@@ -26,7 +26,7 @@ static	void	_MAPINT	WriteCDEF (int Bank, int Where, int What)
 	Sync();
 }
 
-static	void	_MAPINT	Write9 (int Bank, int Where, int What)
+static	void	_MAPINT	Write89 (int Bank, int Where, int What)
 {
 	if (What & 0x10)
 		EMU->Mirror_S1();
@@ -42,7 +42,8 @@ static	void	_MAPINT	Reset (int IsHardReset)
 {
 	iNES_InitROM();
 
-	EMU->SetCPUWriteHandler(0x9,Write9);	// Fire Hawk needs this
+	EMU->SetCPUWriteHandler(0x8,Write89);
+	EMU->SetCPUWriteHandler(0x9,Write89);	/* Fire Hawk needs this */
 	EMU->SetCPUWriteHandler(0xC,WriteCDEF);
 	EMU->SetCPUWriteHandler(0xD,WriteCDEF);
 	EMU->SetCPUWriteHandler(0xE,WriteCDEF);
@@ -57,8 +58,8 @@ static	u8 MapperNum = 71;
 CTMapperInfo	MapperInfo_071 =
 {
 	&MapperNum,
-	"Camerica (partial)",
-	COMPAT_PARTIAL,
+	"Camerica BF9093/BF9097",
+	COMPAT_NEARLY,
 	Reset,
 	Shutdown,
 	NULL,
