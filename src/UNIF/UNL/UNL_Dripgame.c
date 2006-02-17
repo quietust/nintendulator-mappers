@@ -23,7 +23,7 @@ static	int	MapperSnd_GenerateWave (struct MSChan *Chan, int Cycles)
 			Chan->timer = Chan->freq;
 			if (Chan->ReadPos == Chan->WritePos)
 				Chan->IsFull = FALSE;
-			Chan->Pos = Chan->FIFO[++Chan->ReadPos] * Chan->vol;
+			Chan->Pos = (Chan->FIFO[++Chan->ReadPos] - 0x80) * Chan->vol;
 			if (Chan->ReadPos == Chan->WritePos)
 				Chan->IsEmpty = TRUE;
 		}
