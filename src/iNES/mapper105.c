@@ -128,8 +128,8 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 		return Mapper.ConfigCmd;
 		break;
 	case CFG_CMD:
-		if (Mapper.ConfigCmd & 0x80)
-			Mapper.MaxCount = (Mapper.ConfigCmd & 0xF) << 25;
+		if (data & 0x80)
+			Mapper.MaxCount = (data & 0xF) << 25;
 		Mapper.ConfigCmd = 0;
 		break;
 	}

@@ -119,9 +119,9 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 		return Mapper.ConfigCmd;
 		break;
 	case CFG_CMD:
-		if (Mapper.ConfigCmd & 0x80)
+		if (data & 0x80)
 		{
-			Mapper.Title = Mapper.ConfigCmd & 0x1;
+			Mapper.Title = data & 0x1;
 			Sync();
 		}
 		Mapper.ConfigCmd = 0;

@@ -335,14 +335,14 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 		return Mapper.ConfigCmd;
 		break;
 	case CFG_CMD:
-		if (Mapper.ConfigCmd & 0x80)
+		if (data & 0x80)
 		{
 			Mapper.Jumper = 0;
-			if (Mapper.ConfigCmd & 0x01)
+			if (data & 0x01)
 				Mapper.Jumper |= 0x40;
-			if (Mapper.ConfigCmd & 0x02)
+			if (data & 0x02)
 				Mapper.Jumper |= 0x80;
-			if (Mapper.ConfigCmd & 0x04)
+			if (data & 0x04)
 				Mapper.Jumper |= 0x01;
 			SyncNametables();
 		}

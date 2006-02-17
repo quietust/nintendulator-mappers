@@ -231,9 +231,9 @@ unsigned char	_MAPINT	FDS_Config (CFG_TYPE mode, unsigned char data)
 		return FDS.ConfigCmd;
 		break;
 	case CFG_CMD:
-		if (FDS.ConfigCmd)
+		if (data)
 		{
-			if (FDS.ConfigCmd == 0xFF)
+			if (data == 0xFF)
 			{
 				FDS.DiskNum = 0xFF;
 				EMU->StatusOut("Disk ejected!");
@@ -243,7 +243,7 @@ unsigned char	_MAPINT	FDS_Config (CFG_TYPE mode, unsigned char data)
 			}
 			else
 			{
-				FDS.DiskNum = FDS.ConfigCmd - 1;
+				FDS.DiskNum = data - 1;
 				EMU->StatusOut("Disk %i side %s inserted!",(FDS.DiskNum >> 1) + 1, (FDS.DiskNum & 1) ? "B" : "A");
 				EnableWindow(GetDlgItem(FDS.ConfigWindow,IDC_FDS_DISKSEL),FALSE);
 				EnableWindow(GetDlgItem(FDS.ConfigWindow,IDC_FDS_INSERT),FALSE);

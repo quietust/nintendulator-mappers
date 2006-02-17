@@ -79,9 +79,9 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 		return Mapper.ConfigCmd;
 		break;
 	case CFG_CMD:
-		if (Mapper.ConfigCmd & 0x80)
+		if (data & 0x80)
 		{
-			Mapper.Jumper = Mapper.ConfigCmd & 0x03;
+			Mapper.Jumper = data & 0x03;
 			Sync();
 			MessageBox(hWnd,"Please perform a SOFT RESET for this to take effect!","UNIF.DLL",MB_OK);
 		}
