@@ -57,7 +57,7 @@ void	_MAPINT	FDS_CPUCycle (void)
 		StartIRQ(IRQ_DISK);
 }
 
-#define	DISKIRQ_SHORT	64
+#define	DISKIRQ_SHORT	80
 #define	DISKIRQ_LONG	255
 
 int	_MAPINT	FDS_Read (int Bank, int Addr)
@@ -225,7 +225,7 @@ unsigned char	_MAPINT	FDS_Config (CFG_TYPE mode, unsigned char data)
 			FDS.ConfigWindow = CreateDialog(hInstance,MAKEINTRESOURCE(IDD_FDS),hWnd,(DLGPROC)ConfigProc);
 			SetWindowPos(FDS.ConfigWindow,hWnd,0,0,0,0,SWP_SHOWWINDOW | SWP_NOSIZE);
 		}
-		else	return FALSE;
+		else	return TRUE;
 		break;
 	case CFG_QUERY:
 		return FDS.ConfigCmd;
