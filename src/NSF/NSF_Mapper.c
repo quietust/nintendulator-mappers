@@ -132,7 +132,10 @@ static	void	_MAPINT	CPUCycle (void)
 		if (!NSF.IRQcounter)
 		{
 			if (NSF.WatchDog)
+			{
 				EMU->DbgOut("Watchdog timer triggered - this NSF either uses RAW PCM or is corrupted!");
+				NSF.WatchDog = 0;
+			}
 			NSF.IRQcounter = NSF.IRQlatch.s0;
 			NSF_IRQ(NSFIRQ_PLAY);
 		}
