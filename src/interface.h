@@ -1,5 +1,5 @@
 /*
- * Nintendulator Mapper Interface v3.2
+ * Nintendulator Mapper Interface
  */
 
 #ifndef	WIN32_LEAN_AND_MEAN
@@ -17,9 +17,9 @@
 
 #define	MSGBOX_FLAGS	(MB_OK | MB_ICONERROR | MB_DEFBUTTON1 | MB_APPLMODAL)
 
-/* Mapper Interface version (3.2) */
+/* Mapper Interface version (3.3) */
 
-#define	CurrentMapperInterface 0x00030002
+#define	CurrentMapperInterface 0x00030003
 
 /* Integer types */
 
@@ -143,6 +143,7 @@ typedef	struct	EmulatorInterface
 #define		GetPRG_RAM8(x)	GetPRG_RAM4(x) >> 1
 
 		unsigned char *	(_MAPINT *GetPRG_Ptr4)		(int);
+		void		(_MAPINT *SetPRG_Ptr4)		(int, unsigned char *, BOOL);
 		void		(_MAPINT *SetPRG_OB4)		(int);		/* Open bus */
 
 	/* Functions for mapping CHR */
@@ -158,7 +159,11 @@ typedef	struct	EmulatorInterface
 		void		(_MAPINT *SetCHR_RAM8)		(int,int);
 		int		(_MAPINT *GetCHR_RAM1)		(int);		/* -1 if no RAM mapped */
 
+		void		(_MAPINT *SetCHR_NT1)		(int,int);
+		int		(_MAPINT *GetCHR_NT1)		(int);		/* -1 if no nametable mapped */
+
 		unsigned char *	(_MAPINT *GetCHR_Ptr1)		(int);
+		void		(_MAPINT *SetCHR_Ptr1)		(int, unsigned char *, BOOL);
 		void		(_MAPINT *SetCHR_OB1)		(int);		/* Open bus */
 
 	/* Functions for controlling mirroring */
