@@ -188,15 +188,15 @@ static	LRESULT CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPAR
 		{
 			TCHAR chiplist[9];
 			u8 c = ROM->NSF_SoundChips;
-			_stprintf(chiplist,_T("%s%s%s%s%s%s%s%s"),
-				(c & 0x80) ? _T("1") : _T("0"),
-				(c & 0x40) ? _T("1") : _T("0"),
-				(c & 0x20) ? _T("1") : _T("0"),
-				(c & 0x10) ? _T("1") : _T("0"),
-				(c & 0x08) ? _T("1") : _T("0"),
-				(c & 0x04) ? _T("1") : _T("0"),
-				(c & 0x02) ? _T("1") : _T("0"),
-				(c & 0x01) ? _T("1") : _T("0"));
+			_stprintf(chiplist,_T("%i%i%i%i%i%i%i%i"),
+				(c & 0x80) ? 1 : 0,
+				(c & 0x40) ? 1 : 0,
+				(c & 0x20) ? 1 : 0,
+				(c & 0x10) ? 1 : 0,
+				(c & 0x08) ? 1 : 0,
+				(c & 0x04) ? 1 : 0,
+				(c & 0x02) ? 1 : 0,
+				(c & 0x01) ? 1 : 0);
 			SetDlgItemText(hDlg,IDC_NSF_CHIPLIST,chiplist);
 		}
 
@@ -211,7 +211,7 @@ static	LRESULT CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPAR
 		else if (ROM->NSF_SoundChips & 0x10)
 			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Namco 106"));
 		else if (ROM->NSF_SoundChips & 0x20)
-			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Sunsoft FME-07"));
+			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Sunsoft FME-7"));
 		else if (ROM->NSF_SoundChips & 0x40)
 			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Unknown!"));
 		else if (ROM->NSF_SoundChips & 0x80)
@@ -412,6 +412,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 		EMU->SetCPUReadHandler(0x4,NSF_Read4);
 	if (ROM->NSF_SoundChips & 0x08)
 		EMU->SetCPUReadHandler(0x5,NSF_Read5);
+
 	if (ROM->NSF_SoundChips & 0x14)
 		EMU->SetCPUWriteHandler(0x4,NSF_Write4);
 	EMU->SetCPUWriteHandler(0x5,NSF_Write5);
