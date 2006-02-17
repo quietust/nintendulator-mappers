@@ -147,7 +147,7 @@ static	CPMapperInfo	_MAPINT	LoadMapper (CPROMInfo _ROM)
 	if (ROM->ROMType == ROM_UNDEFINED)	/* Allow enumerating mappers */
 	{
 		unsigned int i = (unsigned int)ROM->Filename;
-		if (i >= sizeof(BoardTable)/sizeof(CPMapperInfo))
+		if (i >= sizeof(BoardTable)/sizeof(CPMapperInfo)-1)
 		{
 			UnloadMapper();
 			return NULL;
