@@ -57,8 +57,8 @@ void	_MAPINT	FDS_CPUCycle (void)
 		StartIRQ(IRQ_DISK);
 }
 
-#define	DISKIRQ_SHORT	150
-#define	DISKIRQ_LONG	200
+#define	DISKIRQ_SHORT	64
+#define	DISKIRQ_LONG	256
 
 int	_MAPINT	FDS_Read (int Bank, int Addr)
 {
