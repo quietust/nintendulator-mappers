@@ -27,7 +27,27 @@ static	void	_MAPINT	WriteBank (int Bank, int Where, int What)
 
 static	void	_MAPINT	WriteSpeech (int Bank, int Where, int What)
 {
-	/* Most likely never to be implemented */
+	if ((What & 0x30) != 0x20)
+		return;
+	switch (What & 0xF)
+	{
+	case 0x0:EMU->StatusOut("\"Strike!\"");	break;
+	case 0x1:EMU->StatusOut("\"Out!\"");	break;
+	case 0x2:EMU->StatusOut("'?'");	break;
+	case 0x3:EMU->StatusOut("'?'");	break;
+	case 0x4:EMU->StatusOut("'?'");	break;
+	case 0x5:EMU->StatusOut("'?'");	break;
+	case 0x6:EMU->StatusOut("'?'");	break;
+	case 0x7:EMU->StatusOut("'?'");	break;
+	case 0x8:EMU->StatusOut("\"Play ball!\"");	break;
+	case 0x9:EMU->StatusOut("'?'");	break;
+	case 0xA:EMU->StatusOut("'?'");	break;
+	case 0xB:EMU->StatusOut("'?'");	break;
+	case 0xC:EMU->StatusOut("'?'");	break;
+	case 0xD:EMU->StatusOut("'?'");	break;
+	case 0xE:EMU->StatusOut("'?'");	break;
+	case 0xF:EMU->StatusOut("*cheer*");	break;
+	}
 }
 
 static	void	_MAPINT	Shutdown (void)
