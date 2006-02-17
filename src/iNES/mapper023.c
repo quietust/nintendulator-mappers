@@ -140,19 +140,19 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
 	switch (Addr & 0x3)
 	{
-	case 0x0:	Mapper.IRQlatch.n0 = Val & 0xF;	break;
-	case 0x1:	Mapper.IRQlatch.n1 = Val & 0xF;	break;
-	case 0x2:	Mapper.IRQenabled = Val & 0x7;
-			if (Mapper.IRQenabled & 0x2)
-			{
-				Mapper.IRQcounter = Mapper.IRQlatch.b0;
-				IRQcycles = IRQ_CYCLES;
-			}
-			EMU->SetIRQ(1);				break;
-	case 0x3:	if (Mapper.IRQenabled & 0x1)
-				Mapper.IRQenabled |= 0x2;
-			else	Mapper.IRQenabled &= ~0x2;
-			EMU->SetIRQ(1);				break;
+	case 0:	Mapper.IRQlatch.n0 = Val & 0xF;	break;
+	case 1:	Mapper.IRQlatch.n1 = Val & 0xF;	break;
+	case 2:	Mapper.IRQenabled = Val & 0x7;
+		if (Mapper.IRQenabled & 0x2)
+		{
+			Mapper.IRQcounter = Mapper.IRQlatch.b0;
+			IRQcycles = IRQ_CYCLES;
+		}
+		EMU->SetIRQ(1);			break;
+	case 3:	if (Mapper.IRQenabled & 0x1)
+			Mapper.IRQenabled |= 0x2;
+		else	Mapper.IRQenabled &= ~0x2;
+		EMU->SetIRQ(1);			break;
 	}
 }
 
