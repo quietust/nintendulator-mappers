@@ -14,15 +14,9 @@ static	void	Sync (void)
 	u8 x;
 	for (x = 0; x < 4; x++)
 		EMU->SetPRG_ROM8(8 | (x << 1),Mapper.PRG[x] & 0x3F);
-	for (x = 0; x < 4; x++)
+	for (x = 0; x < 8; x++)
 	{
-		if ((Mapper.CHR[x] < 0xE0) || (Mapper.PRG[0] & 0x40))
-			EMU->SetCHR_ROM1(x,Mapper.CHR[x]);
-		else	EMU->SetCHR_RAM1(x,Mapper.CHR[x] & 0x1F);
-	}
-	for (x = 4; x < 8; x++)
-	{
-		if ((Mapper.CHR[x] < 0xE0) || (Mapper.PRG[0] & 0x80))
+		if ((Mapper.CHR[x] < 0xE0) || (Mapper.PRG[1] & (0x40 << (x >> 2))))
 			EMU->SetCHR_ROM1(x,Mapper.CHR[x]);
 		else	EMU->SetCHR_RAM1(x,Mapper.CHR[x] & 0x1F);
 	}
@@ -36,6 +30,8 @@ static	void	Sync (void)
 			EMU->SetCHR_ROM1(x+0xC,Mapper.NTab[x]);
 		}
 	}
+	if (Mapper.PRG[0] & 0x40)
+		EMU->Mirror_V();
 }
 
 static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
