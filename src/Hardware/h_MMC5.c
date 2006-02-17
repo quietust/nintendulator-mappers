@@ -3,7 +3,7 @@
 
 TMMC5	MMC5;
 
-#define	MMC5_EXTENDED_VSPLIT	/* equivalent to selecting 'SL' mode on a cartridge rather than 'CL' mode */
+//#define	MMC5_EXTENDED_VSPLIT	/* equivalent to selecting 'SL' mode on a cartridge rather than 'CL' mode */
 
 static	void	MMC5_SetPPUHandlers (void);
 
@@ -434,11 +434,12 @@ int	_MAPINT	MMC5_PPUReadNTExt (int Bank, int Where)
 static	void	MMC5_SetPPUHandlers (void)
 {
 	int x;
-#ifdef	MMC5_EXTENDED_VSPLIT
 	if ((MMC5.SplitMode & 0x80) && (MMC5.GfxMode < 2))	// split mode
 	{
+#ifdef	MMC5_EXTENDED_VSPLIT
 		for (x = 0; x < 8; x++)
 			EMU->SetPPUReadHandler(x,MMC5_PPUReadPT);
+#endif
 		if (MMC5.GfxMode == 1)	
 			for (x = 8; x < 0x10; x++)		// + exgfx
 				EMU->SetPPUReadHandler(x,MMC5_PPUReadNTSplitExt);
@@ -448,28 +449,22 @@ static	void	MMC5_SetPPUHandlers (void)
 	}
 	else if (MMC5.GfxMode == 1)				// exgfx only
 	{
+#ifdef	MMC5_EXTENDED_VSPLIT
 		for (x = 0; x < 8; x++)
 			EMU->SetPPUReadHandler(x,MMC5.PPURead[x]);
+#endif
 		for (x = 8; x < 0x10; x++)
 			EMU->SetPPUReadHandler(x,MMC5_PPUReadNTExt);
 	}
 	else							// normal
 	{
-		for (x = 0; x < 0x10; x++)
+#ifdef	MMC5_EXTENDED_VSPLIT
+		for (x = 0; x < 8; x++)
 			EMU->SetPPUReadHandler(x,MMC5.PPURead[x]);
-	}
-#else
-	if (((MMC5.GfxMode < 2) && (MMC5.SplitMode & 0x80)) || (MMC5.GfxMode == 1))	// split mode and/or exgfx
-	{
-		for (x = 8; x < 0x10; x++)
-			EMU->SetPPUReadHandler(x,MMC5_PPUReadNTSplitExt);
-	}
-	else							// normal
-	{
-		for (x = 8; x < 0x10; x++)
-			EMU->SetPPUReadHandler(x,MMC5.PPURead[x]);
-	}
 #endif
+		for (x = 8; x < 0x10; x++)
+			EMU->SetPPUReadHandler(x,MMC5.PPURead[x]);
+	}
 }
 
 void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
@@ -484,7 +479,7 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 		MMC5.TileCache = 0x40;
 		MMC5.CurTile = -1;
 		if (Scanline == -1)
-			VScroll = MMC5.SplitScroll + 1;
+			VScroll = MMC5.SplitScroll;
 		else if (Scanline < 240)
 			VScroll++;
 		if (VScroll >= 240)
