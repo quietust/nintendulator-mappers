@@ -34,6 +34,7 @@ static	void	Sync (void)
 		CHRbank = ((Mapper.WhichGame & 0x20) >> 3) | ((Mapper.WhichGame & 0x10) >> 4);
 	}
 	MMC3_SyncMirror();
+	MMC3_SyncWRAM();
 	MMC3_SyncPRG(PRGmask,PRGbank << 4);
 	MMC3_SyncCHR_ROM(CHRmask,CHRbank << 7);
 }
@@ -68,8 +69,6 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	Mapper.Write67 = EMU->GetCPUWriteHandler(0x6);
 	EMU->SetCPUWriteHandler(0x6,Write67);
 	EMU->SetCPUWriteHandler(0x7,Write67);
-
-	EMU->SetPRG_RAM8(0x6,0);		/* WRAM goes here */
 
 	Mapper.WhichGame = 0;
 	Mapper.DidWrite = 0;

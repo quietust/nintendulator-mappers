@@ -11,6 +11,7 @@ static	void	Sync (void)
 	MMC3_SyncMirror();
 	MMC3_SyncPRG((Mapper.WhichGame == 6) ? 0x1F : 0x0F,Mapper.WhichGame << 4);
 	MMC3_SyncCHR_ROM((Mapper.WhichGame == 6) ? 0xFF : 0x7F,Mapper.WhichGame << 7);
+	MMC3_SyncWRAM();
 }
 
 static	int	_MAPINT	SaveLoad (int mode, int x, char *data)

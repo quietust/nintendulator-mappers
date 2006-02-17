@@ -11,6 +11,7 @@ static	void	Sync (void)
 {
 	int PRGmask[8] = {0x3F,0x1F,0x0F,0x01,0x03,0x00,0x00,0x00};
 	MMC3_SyncMirror();
+	MMC3_SyncWRAM();
 	MMC3_SyncPRG(PRGmask[Mapper.BankSize & 0x7],Mapper.PRGbank << 1);
 	if (Mapper.BankSize & 0x20)
 		MMC3_SyncCHR_RAM(0x07,0);
