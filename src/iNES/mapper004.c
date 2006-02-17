@@ -6,8 +6,8 @@ static	void	Sync (void)
 	if (ROM->INES_Flags & 0x08)
 		EMU->Mirror_4();
 	else	MMC3_SyncMirror();
+	MMC3_SyncWRAM();	// assume WRAM is here
 	MMC3_SyncPRG(0x3F,0);
-
 	if (ROM->INES_CHRSize)
 		MMC3_SyncCHR_ROM(0xFF,0);
 	else	MMC3_SyncCHR_RAM(0x07,0);
@@ -22,9 +22,6 @@ static	void	_MAPINT	Shutdown (void)
 static	void	_MAPINT	Reset (int IsHardReset)
 {
 	iNES_InitROM();
-
-	EMU->SetPRG_RAM8(0x6,0);	/* Map WRAM no matter what */
-
 	MMC3_Init(Sync);
 }
 
