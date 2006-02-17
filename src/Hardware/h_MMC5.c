@@ -545,7 +545,7 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 	else if ((Scanline == 239) && (Cycle == 338))
 	{
 		MMC5.CurTile = 0;
-		MMC5.LineCounter = -1;
+		MMC5.LineCounter = -2;
 		MMC5.IRQreads = 0x40;
 		MMC5_SyncCHRA();
 	}
