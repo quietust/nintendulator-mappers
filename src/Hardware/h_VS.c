@@ -54,12 +54,14 @@ void	_MAPINT	VS_CPUCycle (void)
 	if ((VS.CoinDelay) && (!--VS.CoinDelay))
 	{
 		VS.Coin = 0;
-		if (
+		UnblockDialog(VS.ConfigWindow);
 	}
 }
 
 static	void	BlockDialog (HWND hDlg, int dlgItem)
 {
+	if (!hDlg)
+		return;
 	if (dlgItem != IDC_VS_DIP0)	EnableWindow(GetDlgItem(hDlg,IDC_VS_DIP0),FALSE);
 	if (dlgItem != IDC_VS_DIP1)	EnableWindow(GetDlgItem(hDlg,IDC_VS_DIP1),FALSE);
 	if (dlgItem != IDC_VS_DIP2)	EnableWindow(GetDlgItem(hDlg,IDC_VS_DIP2),FALSE);
@@ -75,6 +77,8 @@ static	void	BlockDialog (HWND hDlg, int dlgItem)
 
 static	void	UnblockDialog (HWND hDlg)
 {
+	if (!hDlg)
+		return;
 	EnableWindow(GetDlgItem(hDlg,IDC_VS_DIP0),TRUE);
 	EnableWindow(GetDlgItem(hDlg,IDC_VS_DIP1),TRUE);
 	EnableWindow(GetDlgItem(hDlg,IDC_VS_DIP2),TRUE);
