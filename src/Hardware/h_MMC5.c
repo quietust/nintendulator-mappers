@@ -535,6 +535,14 @@ static	void	MMC5_SetPPUHandlers (void)
 
 void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
+	if ((Scanline == 240) && (Cycle == 0))
+	{
+		InSplitArea = FALSE;
+		MMC5.TileCache = 0x40;
+		MMC5.LineCounter = -2;
+		MMC5.IRQreads &= 0x80;
+		MMC5_SyncCHR(-1);
+	}
 	if (!IsRendering)
 		return;
 	if (Cycle == 0)
@@ -570,12 +578,6 @@ void	_MAPINT	MMC5_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 		if (VScroll >= 240)
 			VScroll -= 240;
 		MMC5_SyncCHR(1);
-	}
-	else if ((Scanline == 239) && (Cycle == 338))
-	{
-		MMC5.LineCounter = -2;
-		MMC5.IRQreads &= 0x80;
-		MMC5_SyncCHR(-1);
 	}
 	if ((!(Cycle & 7)) && (Cycle < 336))
 	{
