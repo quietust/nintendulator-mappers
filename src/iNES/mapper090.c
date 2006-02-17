@@ -210,7 +210,7 @@ static	int	_MAPINT	Read5 (int Bank, int Addr)
 	switch (Addr & 0x803)
 	{
 	case 0x000:return (Mapper.Jumper & 0xC0) |
-			(EMU->GetCPUReadHandler(4)(4,0) & 0x3F);break;
+			(*EMU->OpenBus & 0x3F);			break;
 	case 0x800:return (Mapper.Mul1 * Mapper.Mul2) & 0xFF;	break;
 	case 0x801:return (Mapper.Mul1 * Mapper.Mul2) >> 8;	break;
 	case 0x803:return Mapper.treg;				break;

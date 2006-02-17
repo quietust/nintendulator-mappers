@@ -8,7 +8,7 @@ static	struct
 static	int	_MAPINT	Read (int Bank, int Addr)
 {
 	if (Addr & 0x100)
-		return (~Addr & 0x3F);
+		return (~Addr & 0x3F) | ((*EMU->OpenBus) & 0xC0);
 	else	return Mapper.Read4(Bank,Addr);
 }
 
