@@ -296,6 +296,7 @@ static	int	_MAPINT	NSF_Read5 (int Bank, int Addr)
 	{
 		switch (Addr & 0xF00)
 		{
+		case 0x000:	return MMC5sound_Read((Bank << 12) | Addr);
 		case 0xC00:
 		case 0xD00:
 		case 0xE00:
