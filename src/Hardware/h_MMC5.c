@@ -292,7 +292,7 @@ void	_MAPINT	MMC5_WritePPU (int Bank, int Addr, int Val)
 	{
 	case 0:	MMC5.SpriteMode = (Val & 0x20);	break;
 	case 1:	if (!(Val & 0x18))
-			MMC5.LineCounter = -1;	break;
+			MMC5.LineCounter = -2;	break;
 	}
 }
 
