@@ -279,7 +279,7 @@ void	_MAPINT	MMC5_CPUWrite5 (int Bank, int Where, int What)
 							break;
 		case 0x107:	memset(MMC5.ExNameTable+0x3C0,((What & 3) |
 				((What & 3) << 2) | ((What & 3) << 4) |
-				((What & 3) << 6)),0x3C);
+				((What & 3) << 6)),0x40);
 							break;
 		case 0x113:
 		case 0x114:
