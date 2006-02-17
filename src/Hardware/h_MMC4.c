@@ -50,7 +50,7 @@ int	_MAPINT	MMC4_SaveLoad (int mode, int x, char *data)
 void	MMC4_SyncPRG (int AND, int OR)
 {
 	EMU->SetPRG_ROM16(0x8,(MMC4.PRG & AND) | OR);
-	EMU->SetPRG_ROM16(0xC,(0xFF & AND) | OR);
+	EMU->SetPRG_ROM16(0xC,(0xF & AND) | OR);
 }
 
 void	MMC4_SyncCHR (void)
@@ -65,7 +65,7 @@ void	MMC4_SyncCHR (void)
 
 void	MMC4_SyncMirror (void)
 {
-	if (MMC4.Mirror & 1)
+	if (MMC4.Mirror)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 }
@@ -104,38 +104,38 @@ int	_MAPINT	MMC4_PPURead7 (int Bank, int Addr)
 	return result;
 }
 
-void	_MAPINT	MMC4_CPUWriteA (int Bank, int Where, int What)
+void	_MAPINT	MMC4_CPUWriteA (int Bank, int Addr, int Val)
 {
-	MMC4.PRG = What;
+	MMC4.PRG = Val & 0xF;
 	MMC4.Sync();
 }
 
-void	_MAPINT	MMC4_CPUWriteB (int Bank, int Where, int What)
+void	_MAPINT	MMC4_CPUWriteB (int Bank, int Addr, int Val)
 {
-	MMC4.Latch0[0] = What;
+	MMC4.Latch0[0] = Val & 0x1F;
 	MMC4.Sync();
 }
 
-void	_MAPINT	MMC4_CPUWriteC (int Bank, int Where, int What)
+void	_MAPINT	MMC4_CPUWriteC (int Bank, int Addr, int Val)
 {
-	MMC4.Latch0[1] = What;
+	MMC4.Latch0[1] = Val & 0x1F;
 	MMC4.Sync();
 }
 
-void	_MAPINT	MMC4_CPUWriteD (int Bank, int Where, int What)
+void	_MAPINT	MMC4_CPUWriteD (int Bank, int Addr, int Val)
 {
-	MMC4.Latch1[0] = What;
+	MMC4.Latch1[0] = Val & 0x1F;
 	MMC4.Sync();
 }
 
-void	_MAPINT	MMC4_CPUWriteE (int Bank, int Where, int What)
+void	_MAPINT	MMC4_CPUWriteE (int Bank, int Addr, int Val)
 {
-	MMC4.Latch1[1] = What;
+	MMC4.Latch1[1] = Val & 0x1F;
 	MMC4.Sync();
 }
 
-void	_MAPINT	MMC4_CPUWriteF (int Bank, int Where, int What)
+void	_MAPINT	MMC4_CPUWriteF (int Bank, int Addr, int Val)
 {
-	MMC4.Mirror = What;
+	MMC4.Mirror = Val & 0x01;
 	MMC4.Sync();
 }
