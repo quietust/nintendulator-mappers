@@ -1,11 +1,13 @@
 #include	"..\DLL\d_iNES.h"
 
+#define IRQ_CYCLES 341
 static	struct
 {
 	u8 IRQenabled, IRQcounter;
 	u8_n IRQlatch;
+	s16 IRQcycles;
 	u8 PRGswap;
-	u8 PRG[3];
+	u8 PRG[2];
 	u8_n CHR[8];
 	u8 Mirror;
 }	Mapper;
@@ -31,11 +33,12 @@ static	void	Sync (void)
 static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounter)
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounter)
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQlatch.b0)
+	SAVELOAD_WORD(mode,x,data,Mapper.IRQcycles)
 	SAVELOAD_BYTE(mode,x,data,Mapper.PRGswap)
-	for (i = 0; i < 3; i++)
+	for (i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode,x,data,Mapper.PRG[i])
 	for (i = 0; i < 8; i++)
 		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[i].b0)
@@ -45,14 +48,12 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-#define IRQ_CYCLES 341
-static int IRQcycles = IRQ_CYCLES;
 static	void	_MAPINT	CPUCycle (void)
 {
-	if ((Mapper.IRQenabled & 2) && ((Mapper.IRQenabled & 4) || ((IRQcycles -= 3) < 0)))
+	if ((Mapper.IRQenabled & 2) && ((Mapper.IRQenabled & 4) || ((Mapper.IRQcycles -= 3) < 0)))
 	{
-		if (!(Mapper.IRQenabled & 4))
-			IRQcycles += IRQ_CYCLES;
+		if (Mapper.IRQenabled & 4)
+			Mapper.IRQcycles += IRQ_CYCLES;
 		if (Mapper.IRQcounter == 0xFF)
 		{
 			Mapper.IRQcounter = Mapper.IRQlatch.b0;
@@ -146,7 +147,7 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 		if (Mapper.IRQenabled & 0x2)
 		{
 			Mapper.IRQcounter = Mapper.IRQlatch.b0;
-			IRQcycles = IRQ_CYCLES;
+			Mapper.IRQcycles = IRQ_CYCLES;
 		}
 		EMU->SetIRQ(1);			break;
 	case 6:	if (Mapper.IRQenabled & 0x1)
@@ -174,6 +175,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	Mapper.IRQenabled = Mapper.IRQcounter = Mapper.IRQlatch.b0 = 0;
 	Mapper.PRGswap = 0;
 	Mapper.PRG[0] = 0;	Mapper.PRG[1] = 1;
+	Mapper.IRQcycles = 0;
 	for (x = 0; x < 8; x++)
 		Mapper.CHR[x].b0 = x;
 	Sync();
@@ -183,8 +185,8 @@ static	u8 MapperNum = 21;
 CTMapperInfo	MapperInfo_021 =
 {
 	&MapperNum,
-	"Konami VRC4",
-	COMPAT_FULL,
+	"Konami VRC2/VRC4",
+	COMPAT_PARTIAL,
 	Reset,
 	NULL,
 	CPUCycle,

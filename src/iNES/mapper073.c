@@ -18,9 +18,9 @@ static	void	Sync (void)
 
 static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
 	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter)
 	SAVELOAD_WORD(mode,x,data,Mapper.IRQlatch.s0)
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
 	SAVELOAD_BYTE(mode,x,data,Mapper.PRG)
 	if (mode == STATE_LOAD)
 		Sync();
@@ -29,8 +29,16 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 static	void	_MAPINT	CPUCycle (void)
 {
-	if ((Mapper.IRQenabled) && (!++Mapper.IRQcounter))
-		EMU->SetIRQ(0);
+	if (Mapper.IRQenabled & 2)
+	{
+		int mask = (Mapper.IRQenabled & 4) ? 0xFF : 0xFFFF;
+		if ((Mapper.IRQcounter & mask) == mask)
+		{
+			Mapper.IRQcounter = Mapper.IRQlatch.s0;
+			EMU->SetIRQ(0);
+		}
+		else	Mapper.IRQcounter++;
+	}
 }
 
 static	void	_MAPINT	Write8 (int Bank, int Addr, int Val)
@@ -55,15 +63,17 @@ static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
 
 static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
 {
-	Mapper.IRQenabled = Val & 0x2;
-	EMU->SetIRQ(1);
-	if (Mapper.IRQenabled)
+	Mapper.IRQenabled = Val & 0x7;
+	if (Mapper.IRQenabled & 0x2)
 		Mapper.IRQcounter = Mapper.IRQlatch.s0;
+	EMU->SetIRQ(1);
 }
 
 static	void	_MAPINT	WriteD (int Bank, int Addr, int Val)
 {
-	Mapper.IRQenabled = 0;
+	if (Mapper.IRQenabled & 0x1)
+		Mapper.IRQenabled |= 0x2;
+	else	Mapper.IRQenabled &= ~0x2;
 	EMU->SetIRQ(1);
 }
 

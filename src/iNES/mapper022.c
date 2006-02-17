@@ -123,8 +123,8 @@ static	u8 MapperNum = 22;
 CTMapperInfo	MapperInfo_022 =
 {
 	&MapperNum,
-	"Konami VRC2 Type A",
-	COMPAT_NEARLY,
+	"Konami VRC2/VRC4",
+	COMPAT_PARTIAL,
 	Reset,
 	NULL,
 	NULL,

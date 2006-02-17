@@ -1,9 +1,11 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\Sound\s_VRC7.h"
 
+#define IRQ_CYCLES 341
 static	struct
 {
-	u8 IRQenabled, IRQlatch, IRQcounter;
+	u8 IRQenabled, IRQcounter, IRQlatch;
+	s16 IRQcycles;
 	u8 PRG[3], CHR[8], Misc;
 }	Mapper;
 
@@ -41,6 +43,7 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounter)
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQlatch)
+	SAVELOAD_WORD(mode,x,data,Mapper.IRQcycles)
 	for (i = 0; i < 3; i++)
 		SAVELOAD_BYTE(mode,x,data,Mapper.PRG[i])
 	for (i = 0; i < 8; i++)
@@ -52,14 +55,12 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-#define IRQ_CYCLES 341
-static int IRQcycles = IRQ_CYCLES;
 static	void	_MAPINT	CPUCycle (void)
 {
-	if ((Mapper.IRQenabled & 2) && ((Mapper.IRQenabled & 4) || ((IRQcycles -= 3) < 0)))
+	if ((Mapper.IRQenabled & 2) && ((Mapper.IRQenabled & 4) || ((Mapper.IRQcycles -= 3) < 0)))
 	{
-		if (!(Mapper.IRQenabled & 4))
-			IRQcycles += IRQ_CYCLES;
+		if (Mapper.IRQenabled & 4)
+			Mapper.IRQcycles += IRQ_CYCLES;
 		if (Mapper.IRQcounter == 0xFF)
 		{
 			Mapper.IRQcounter = Mapper.IRQlatch;
@@ -145,7 +146,7 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 		if (Mapper.IRQenabled & 0x2)
 		{
 			Mapper.IRQcounter = Mapper.IRQlatch;
-			IRQcycles = IRQ_CYCLES;
+			Mapper.IRQcycles = IRQ_CYCLES;
 		}
 	}
 	EMU->SetIRQ(1);
@@ -177,9 +178,11 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xE,WriteE);
 	EMU->SetCPUWriteHandler(0xF,WriteF);
 
-	Mapper.IRQenabled = Mapper.IRQlatch = Mapper.IRQcounter = 0;
+	Mapper.IRQenabled = Mapper.IRQcounter = Mapper.IRQlatch = 0;
+	Mapper.IRQcycles = 0;
 	Mapper.PRG[0] = 0x00;	Mapper.PRG[0] = 0x01;	Mapper.PRG[2] = 0xFE;
 	for (x = 0; x < 8; x++)	Mapper.CHR[x] = x;
+	Mapper.Misc = 0;
 
 	VRC7sound_Init();
 	Sync();

@@ -1,11 +1,13 @@
 #include	"..\DLL\d_iNES.h"
 
+#define IRQ_CYCLES 341
 static	struct
 {
 	u8 IRQenabled, IRQcounter;
 	u8_n IRQlatch;
-	u8 PRG[2];
+	s16 IRQcycles;
 	u8 PRGswap;
+	u8 PRG[2];
 	u8_n CHR[8];
 	u8 Mirror;
 }	Mapper;
@@ -32,9 +34,10 @@ static	void	Sync (void)
 static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	int i;
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounter)
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounter)
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQlatch.b0)
+	SAVELOAD_WORD(mode,x,data,Mapper.IRQcycles)
 	SAVELOAD_BYTE(mode,x,data,Mapper.PRGswap)
 	for (i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode,x,data,Mapper.PRG[i])
@@ -46,14 +49,12 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-#define IRQ_CYCLES 341
-static int IRQcycles = IRQ_CYCLES;
 static	void	_MAPINT	CPUCycle (void)
 {
-	if ((Mapper.IRQenabled & 2) && ((Mapper.IRQenabled & 4) || ((IRQcycles -= 3) < 0)))
+	if ((Mapper.IRQenabled & 2) && ((Mapper.IRQenabled & 4) || ((Mapper.IRQcycles -= 3) < 0)))
 	{
-		if (!(Mapper.IRQenabled & 4))
-			IRQcycles += IRQ_CYCLES;
+		if (Mapper.IRQenabled & 4)
+			Mapper.IRQcycles += IRQ_CYCLES;
 		if (Mapper.IRQcounter == 0xFF)
 		{
 			Mapper.IRQcounter = Mapper.IRQlatch.b0;
@@ -147,7 +148,7 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 		if (Mapper.IRQenabled & 0x2)
 		{
 			Mapper.IRQcounter = Mapper.IRQlatch.b0;
-			IRQcycles = IRQ_CYCLES;
+			Mapper.IRQcycles = IRQ_CYCLES;
 		}
 		EMU->SetIRQ(1);			break;
 	case 3:	if (Mapper.IRQenabled & 0x1)
@@ -177,6 +178,7 @@ static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 	Mapper.PRG[0] = 0;	Mapper.PRG[1] = 1;
 	Mapper.Mirror = 0;
 	Mapper.IRQenabled = Mapper.IRQcounter = Mapper.IRQlatch.b0 = 0;
+	Mapper.IRQcycles = 0;
 
 	Sync();
 }
@@ -185,7 +187,7 @@ static	u8 MapperNum = 23;
 CTMapperInfo	MapperInfo_023 =
 {
 	&MapperNum,
-	"Konami VRC4 Type B",
+	"Konami VRC2/VRC4",
 	COMPAT_PARTIAL,
 	Reset,
 	NULL,
