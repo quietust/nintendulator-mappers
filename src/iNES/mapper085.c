@@ -21,8 +21,8 @@ static	void	Sync (void)
 			EMU->SetCHR_RAM1(x,Mapper.CHR[x] & 7);
 	switch (Mapper.Mirror & 0x3)
 	{
-	case 0:	EMU->Mirror_V();		break;
-	case 1:	EMU->Mirror_H();		break;
+	case 0:	EMU->Mirror_V();	break;
+	case 1:	EMU->Mirror_H();	break;
 	case 2:	EMU->Mirror_S0();	break;
 	case 3:	EMU->Mirror_S1();	break;
 	}
@@ -46,22 +46,19 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 	return x;
 }
 
-static int IRQcycles = 341;
+#define IRQ_CYCLES 114
+static int IRQcycles = IRQ_CYCLES;
 static	void	_MAPINT	CPUCycle (void)
 {
-	if (Mapper.IRQenabled)
+	if ((Mapper.IRQenabled) && (!--IRQcycles))
 	{
-		IRQcycles -= 3;
-		if (IRQcycles <= 0)
+		IRQcycles = IRQ_CYCLES;
+		if (Mapper.IRQcounter == 0xFF)
 		{
-			IRQcycles = 341;
-			if (Mapper.IRQcounter == 0xFF)
-			{
-				Mapper.IRQcounter = Mapper.IRQlatch;
-				EMU->SetIRQ(0);
-			}
-			else	Mapper.IRQcounter++;
+			Mapper.IRQcounter = Mapper.IRQlatch;
+			EMU->SetIRQ(0);
 		}
+		else	Mapper.IRQcounter++;
 	}
 }
 
@@ -132,7 +129,7 @@ static	void	_MAPINT	WriteF (int Bank, int Where, int What)
 	if (Where & 0x18)
 	{
 		Mapper.IRQenabled = Mapper.IRQtoggle;
-		IRQcycles = 341;
+		IRQcycles = IRQ_CYCLES;
 	}
 	else
 	{
