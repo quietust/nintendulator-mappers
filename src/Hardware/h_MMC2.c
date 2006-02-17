@@ -67,7 +67,7 @@ void	MMC2_SyncCHR (void)
 
 void	MMC2_SyncMirror (void)
 {
-	if (MMC2.Mirror & 1)
+	if (MMC2.Mirror)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 }
