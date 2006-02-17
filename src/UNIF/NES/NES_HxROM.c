@@ -11,12 +11,11 @@ static	void	Sync_HKROM (void)
 static	void	_MAPINT	Shutdown (void)
 {
 	MMC6_Destroy();
-	UNIF_SaveSRAM();
 }
 
 static	void	_MAPINT	Reset_HKROM (RESET_TYPE ResetType)
 {
-	UNIF_InitSRAM(1024);
+	UNIF_SetSRAM(1024);
 	MMC6_Init(ResetType,Sync_HKROM);
 }
 

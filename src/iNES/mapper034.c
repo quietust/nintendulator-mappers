@@ -82,11 +82,6 @@ static	void	_MAPINT	WriteBNROM (int Bank, int Addr, int Val)
 	SetMode(2);
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
@@ -113,7 +108,7 @@ CTMapperInfo	MapperInfo_034 =
 	"BNROM/Nina-01",
 	COMPAT_FULL,
 	Reset,
-	Shutdown,
+	NULL,
 	NULL,
 	NULL,
 	SaveLoad,

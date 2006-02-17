@@ -352,11 +352,6 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
@@ -398,7 +393,7 @@ CTMapperInfo	MapperInfo_090 =
 	"Mapper 90",
 	COMPAT_FULL,
 	Reset,
-	Shutdown,
+	NULL,
 	CPUCycle,
 	PPUCycle,
 	SaveLoad,

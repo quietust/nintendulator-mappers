@@ -138,7 +138,6 @@ static	unsigned char	_MAPINT	Config (CFG_TYPE mode, unsigned char data)
 
 static	void	_MAPINT	Shutdown (void)
 {
-	iNES_UnloadROM();
 	MMC1_Destroy();
 	if (Mapper.ConfigWindow)
 		DestroyWindow(Mapper.ConfigWindow);

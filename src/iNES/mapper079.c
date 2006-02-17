@@ -30,11 +30,6 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	if (Bank == 4) Mapper.Write4(Bank,Addr,Val);
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
@@ -55,7 +50,7 @@ CTMapperInfo	MapperInfo_079 =
 	"NINA-03/NINA-06",
 	COMPAT_FULL,
 	Reset,
-	Shutdown,
+	NULL,
 	NULL,
 	NULL,
 	SaveLoad,

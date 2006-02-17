@@ -60,11 +60,6 @@ static	void	_MAPINT	WriteB (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
@@ -90,7 +85,7 @@ CTMapperInfo	MapperInfo_032 =
 	"Irem G-101",
 	COMPAT_FULL,
 	Reset,
-	Shutdown,
+	NULL,
 	NULL,
 	NULL,
 	SaveLoad,

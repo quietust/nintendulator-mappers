@@ -147,7 +147,6 @@ static	int	_MAPINT	MapperSnd (int Cycles)
 
 static	void	_MAPINT	Shutdown (void)
 {
-	iNES_UnloadROM();
 	VRC6sound_Destroy();
 }
 

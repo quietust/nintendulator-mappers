@@ -17,7 +17,6 @@ static	void	Sync_JSROM (void)
 
 static	void	_MAPINT	Shutdown (void)
 {
-	UNIF_SaveSRAM();
 	FME7_Destroy();
 }
 

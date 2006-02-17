@@ -166,11 +166,6 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
@@ -204,7 +199,7 @@ CTMapperInfo	MapperInfo_018 =
 	"Jaleco SS8806",
 	COMPAT_PARTIAL,
 	Reset,
-	Shutdown,
+	NULL,
 	CPUCycle,
 	NULL,
 	SaveLoad,

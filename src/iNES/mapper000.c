@@ -1,10 +1,5 @@
 #include	"..\DLL\d_iNES.h"
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
@@ -22,7 +17,7 @@ CTMapperInfo	MapperInfo_000 =
 	"NROM",
 	COMPAT_FULL,
 	Reset,
-	Shutdown,
+	NULL,
 	NULL,
 	NULL,
 	NULL,

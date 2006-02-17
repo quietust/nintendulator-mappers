@@ -99,7 +99,6 @@ static	void	Sync_DRROM (void)
 
 static	void	_MAPINT	Shutdown (void)
 {
-	UNIF_SaveSRAM();
 	N108_Destroy();
 }
 

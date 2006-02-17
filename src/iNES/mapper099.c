@@ -31,11 +31,6 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
@@ -55,7 +50,7 @@ CTMapperInfo	MapperInfo_099 =
 	"VS Unisystem",
 	COMPAT_FULL,
 	Reset,
-	Shutdown,
+	NULL,
 	NULL,
 	NULL,
 	SaveLoad,

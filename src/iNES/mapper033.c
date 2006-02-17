@@ -61,11 +61,6 @@ static	void	_MAPINT	WriteAB (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
@@ -90,7 +85,7 @@ CTMapperInfo	MapperInfo_033 =
 	"Taito TC0190",
 	COMPAT_PARTIAL,
 	Reset,
-	Shutdown,
+	NULL,
 	NULL,
 	NULL,
 	SaveLoad,

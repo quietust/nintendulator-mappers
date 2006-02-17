@@ -50,11 +50,6 @@ static	void	_MAPINT	WriteSpeech (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
@@ -74,7 +69,7 @@ CTMapperInfo	MapperInfo_086 =
 	"Mapper 86 (Jaleco)",
 	COMPAT_FULL,
 	Reset,
-	Shutdown,
+	NULL,
 	NULL,
 	NULL,
 	SaveLoad,

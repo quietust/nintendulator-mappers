@@ -45,11 +45,6 @@ static	void	_MAPINT	Write89ABCDEF (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
@@ -73,7 +68,7 @@ CTMapperInfo	MapperInfo_051 =
 	"11 in 1 Ball Games",
 	COMPAT_FULL,
 	Reset,
-	Shutdown,
+	NULL,
 	NULL,
 	NULL,
 	SaveLoad,

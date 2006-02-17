@@ -238,13 +238,12 @@ static	void	_MAPINT	WriteH (int Bank, int Addr, int Val)
 
 static	void	_MAPINT	Shutdown (void)
 {
-	UNIF_SaveSRAM();
 }
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
-	UNIF_InitSRAM(8192);
+	UNIF_SetSRAM(8192);
 
 	EMU->SetCPUReadHandler(0x5,Read);
 	for (x = 0x8; x < 0xC; x++)

@@ -55,11 +55,6 @@ static	void	_MAPINT	WriteEF (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
@@ -85,7 +80,7 @@ CTMapperInfo	MapperInfo_040 =
 	"SMB2j Pirate",
 	COMPAT_FULL,
 	Reset,
-	Shutdown,
+	NULL,
 	CPUCycle,
 	NULL,
 	SaveLoad,

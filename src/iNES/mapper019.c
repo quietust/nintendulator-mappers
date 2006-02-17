@@ -166,7 +166,6 @@ static	int	_MAPINT	MapperSnd (int Cycles)
 static	void	_MAPINT	Shutdown (void)
 {
 	N106sound_Destroy();
-	iNES_UnloadROM();
 }
 
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)

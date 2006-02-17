@@ -9,8 +9,6 @@ void	iNES_InitROM (void)
 	if (ROM->INES_Flags & 0x02)
 	{
 		EMU->Set_SRAMSize(8192);
-		EMU->Load_SRAM();
-		EMU->DbgOut("Save RAM loaded!");
 		EMU->SetPRG_RAM8(0x6,0);
 	}
 	if (ROM->INES_Flags & 0x04)
@@ -18,15 +16,6 @@ void	iNES_InitROM (void)
 	if (ROM->INES_Flags & 0x08)
 		EMU->Mirror_4();
 	EMU->SetIRQ(1);
-}
-
-void	iNES_UnloadROM (void)
-{
-	if (ROM->INES_Flags & 0x02)
-	{
-		EMU->Save_SRAM();
-		EMU->DbgOut("Save RAM saved!");
-	}
 }
 
 HWND			hWnd;

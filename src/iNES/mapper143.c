@@ -12,11 +12,6 @@ static	int	_MAPINT	Read (int Bank, int Addr)
 	else	return Mapper.Read4(Bank,Addr);
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
@@ -35,7 +30,7 @@ CTMapperInfo	MapperInfo_143 =
 	"Sachen Pathetic Copy-Protection",
 	COMPAT_PARTIAL,
 	Reset,
-	Shutdown,
+	NULL,
 	NULL,
 	NULL,
 	NULL,

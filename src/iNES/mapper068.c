@@ -106,11 +106,6 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 	Sync();
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
@@ -142,7 +137,7 @@ CTMapperInfo	MapperInfo_068 =
 	"SUNSOFT-4",
 	COMPAT_FULL,
 	Reset,
-	Shutdown,
+	NULL,
 	NULL,
 	NULL,
 	SaveLoad,

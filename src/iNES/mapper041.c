@@ -40,11 +40,6 @@ static	void	_MAPINT	WriteHi (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
@@ -65,7 +60,7 @@ CTMapperInfo	MapperInfo_041 =
 	"Caltron 6-in-1",
 	COMPAT_FULL,
 	Reset,
-	Shutdown,
+	NULL,
 	NULL,
 	NULL,
 	SaveLoad,

@@ -16,7 +16,6 @@ static	void	Sync (void)
 
 static	void	_MAPINT	Shutdown (void)
 {
-	UNIF_SaveSRAM();
 	MMC3_Destroy();
 }
 

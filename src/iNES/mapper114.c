@@ -28,7 +28,6 @@ static	int	_MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 static	void	_MAPINT	Shutdown (void)
 {
-	iNES_UnloadROM();
 	MMC3_Destroy();
 }
 

@@ -112,11 +112,6 @@ static	void	_MAPINT	WriteC (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
@@ -146,7 +141,7 @@ CTMapperInfo	MapperInfo_065 =
 	"Irem H-3001",
 	COMPAT_FULL,
 	Reset,
-	Shutdown,
+	NULL,
 	CPUCycle,
 	NULL,
 	SaveLoad,

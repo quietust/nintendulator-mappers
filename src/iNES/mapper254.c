@@ -67,11 +67,6 @@ static	void	_MAPINT	WriteEF (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	int x;
@@ -96,7 +91,7 @@ CTMapperInfo	MapperInfo_254 =
 	"Ai Senshi Nicol (Pirate)",
 	COMPAT_FULL,
 	Reset,
-	Shutdown,
+	NULL,
 	CPUCycle,
 	NULL,
 	SaveLoad,

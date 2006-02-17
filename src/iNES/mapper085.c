@@ -154,7 +154,6 @@ static	void	_MAPINT	WriteF (int Bank, int Addr, int Val)
 
 static	void	_MAPINT	Shutdown (void)
 {
-	iNES_UnloadROM();
 	VRC7sound_Destroy();
 }
 

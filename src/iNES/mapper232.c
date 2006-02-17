@@ -34,11 +34,6 @@ static	void	_MAPINT	WriteABCDEF (int Bank, int Where, int What)
 	Sync();
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
@@ -65,7 +60,7 @@ CTMapperInfo	MapperInfo_232 =
 	"Camerica 9096",
 	COMPAT_NEARLY,
 	Reset,
-	Shutdown,
+	NULL,
 	NULL,
 	NULL,
 	SaveLoad,

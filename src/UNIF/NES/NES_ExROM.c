@@ -3,13 +3,12 @@
 
 static	void	_MAPINT	Shutdown (void)
 {
-	UNIF_SaveSRAM();
 	MMC5_Destroy();
 }
 
 static	void	_MAPINT	Reset_EKROM (RESET_TYPE ResetType)
 {
-	UNIF_InitSRAM(8192);
+	UNIF_SetSRAM(8192);
 	MMC5.WRAMsize = MMC5WRAM_8KB_0KB;
 	MMC5_Init(ResetType);
 }
@@ -22,14 +21,14 @@ static	void	_MAPINT	Reset_ELROM (RESET_TYPE ResetType)
 
 static	void	_MAPINT	Reset_ETROM (RESET_TYPE ResetType)
 {
-	UNIF_InitSRAM(8192);
+	UNIF_SetSRAM(8192);
 	MMC5.WRAMsize = MMC5WRAM_8KB_8KB;
 	MMC5_Init(ResetType);
 }
 
 static	void	_MAPINT	Reset_EWROM (RESET_TYPE ResetType)
 {
-	UNIF_InitSRAM(32768);
+	UNIF_SetSRAM(32768);
 	MMC5.WRAMsize = MMC5WRAM_32KB_0KB;
 	MMC5_Init(ResetType);
 }

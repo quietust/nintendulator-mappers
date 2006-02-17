@@ -81,13 +81,12 @@ static	void	Sync_SUROM (void)
 
 static	void	_MAPINT	Shutdown (void)
 {
-	UNIF_SaveSRAM();
 	MMC1_Destroy();
 }
 
 static	void	_MAPINT	Reset_SAROM (RESET_TYPE ResetType)
 {
-	UNIF_InitSRAM(8192);
+	UNIF_SetSRAM(8192);
 	MMC1_Init(ResetType,Sync_SAROM);
 }
 static	void	_MAPINT	Reset_SBROM (RESET_TYPE ResetType)
@@ -108,7 +107,7 @@ static	void	_MAPINT	Reset_SGROM (RESET_TYPE ResetType)
 }
 static	void	_MAPINT	Reset_SKROM (RESET_TYPE ResetType)
 {
-	UNIF_InitSRAM(8192);
+	UNIF_SetSRAM(8192);
 	MMC1_Init(ResetType,Sync_SKROM);
 }
 static	void	_MAPINT	Reset_SLROM (RESET_TYPE ResetType)
@@ -121,17 +120,17 @@ static	void	_MAPINT	Reset_SL1ROM (RESET_TYPE ResetType)
 }
 static	void	_MAPINT	Reset_SNROM (RESET_TYPE ResetType)
 {
-	UNIF_InitSRAM(8192);
+	UNIF_SetSRAM(8192);
 	MMC1_Init(ResetType,Sync_SNROM);
 }
 static	void	_MAPINT	Reset_SOROM (RESET_TYPE ResetType)
 {
-	UNIF_InitSRAM(8192);
+	UNIF_SetSRAM(8192);
 	MMC1_Init(ResetType,Sync_SOROM);
 }
 static	void	_MAPINT	Reset_SUROM (RESET_TYPE ResetType)
 {
-	UNIF_InitSRAM(8192);
+	UNIF_SetSRAM(8192);
 	MMC1_Init(ResetType,Sync_SUROM);
 }
 

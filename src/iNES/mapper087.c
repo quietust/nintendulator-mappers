@@ -26,11 +26,6 @@ static	void	_MAPINT	Write (int Bank, int Where, int What)
 	Sync();
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
@@ -50,7 +45,7 @@ CTMapperInfo	MapperInfo_087 =
 	"Jaleco 74138/7474",
 	COMPAT_FULL,
 	Reset,
-	Shutdown,
+	NULL,
 	NULL,
 	NULL,
 	SaveLoad,

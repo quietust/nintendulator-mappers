@@ -209,13 +209,10 @@ static	void	SetSRAM (void)
 		//Config();
 		break;
 	}
-	if (ROM->INES_Flags & 0x02)
-		EMU->Load_SRAM();
 }
 
 static	void	_MAPINT	Shutdown (void)
 {
-	iNES_UnloadROM();
 	MMC5_Destroy();
 	if (Mapper.ConfigWindow)
 		DestroyWindow(Mapper.ConfigWindow);

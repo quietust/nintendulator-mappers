@@ -11,14 +11,13 @@ static	void	Sync_FJROM (void)
 
 static	void	_MAPINT	Shutdown (void)
 {
-	UNIF_SaveSRAM();
 	MMC4_Destroy();
 }
 
 static	void	_MAPINT	Reset_FJROM (RESET_TYPE ResetType)
 {
 	MMC4_Init(ResetType,Sync_FJROM);
-	UNIF_InitSRAM(8192);
+	UNIF_SetSRAM(8192);
 }
 
 CTMapperInfo	MapperInfo_NES_FJROM =

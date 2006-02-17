@@ -61,7 +61,6 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 
 static	void	_MAPINT	Shutdown (void)
 {
-	iNES_UnloadROM();
 	MMC3_Destroy();
 }
 

@@ -33,11 +33,6 @@ static	void	_MAPINT	Write9 (int Bank, int Addr, int Val)
 	else	EMU->Mirror_S0();
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
@@ -60,7 +55,7 @@ CTMapperInfo	MapperInfo_071 =
 	"Camerica BF9093/BF9097",
 	COMPAT_NEARLY,
 	Reset,
-	Shutdown,
+	NULL,
 	NULL,
 	NULL,
 	SaveLoad,

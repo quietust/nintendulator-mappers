@@ -42,7 +42,6 @@ static	void	Sync_TSROM (void)
 
 static	void	_MAPINT	Shutdown (void)
 {
-	UNIF_SaveSRAM();
 	MMC3_Destroy();
 }
 
@@ -56,7 +55,7 @@ static	void	_MAPINT	Reset_TGROM (RESET_TYPE ResetType)
 }
 static	void	_MAPINT	Reset_TKROM (RESET_TYPE ResetType)
 {
-	UNIF_InitSRAM(8192);
+	UNIF_SetSRAM(8192);
 	MMC3_Init(ResetType,Sync_TKROM);
 }
 static	void	_MAPINT	Reset_TLROM (RESET_TYPE ResetType)

@@ -69,11 +69,6 @@ static	int	_MAPINT	Read (int Bank, int Addr)
 	return Val;
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_InitROM();
@@ -93,7 +88,7 @@ CTMapperInfo	MapperInfo_234 =
 	"Maxi 15",
 	COMPAT_FULL,
 	Reset,
-	Shutdown,
+	NULL,
 	NULL,
 	NULL,
 	SaveLoad,

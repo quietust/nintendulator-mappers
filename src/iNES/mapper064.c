@@ -134,11 +134,6 @@ static	void	_MAPINT	WriteEF (int Bank, int Addr, int Val)
 		EMU->SetIRQ(1);
 }
 
-static	void	_MAPINT	Shutdown (void)
-{
-	iNES_UnloadROM();
-}
-
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
@@ -171,7 +166,7 @@ CTMapperInfo	MapperInfo_064 =
 	"Tengen RAMBO-1",
 	COMPAT_PARTIAL,
 	Reset,
-	Shutdown,
+	NULL,
 	CPUCycle,
 	PPUCycle,
 	SaveLoad,

@@ -3,7 +3,7 @@
 #include	<malloc.h>
 #include	"d_UNIF.h"
 
-void	UNIF_SetMirroring (void (*MapMirror)(void))
+void	UNIF_SetMirroring (FSync MapMirror)
 {
 	switch (ROM->UNIF_Mirroring)
 	{
@@ -17,29 +17,10 @@ void	UNIF_SetMirroring (void (*MapMirror)(void))
 	}
 }
 
-void	UNIF_InitSRAM (int Amt)
+void	UNIF_SetSRAM (int Amt)
 {
 	if (ROM->UNIF_Battery)
 		EMU->Set_SRAMSize(Amt);
-	UNIF_LoadSRAM();
-}
-
-void	UNIF_LoadSRAM (void)
-{
-	if (ROM->UNIF_Battery)
-	{
-		EMU->Load_SRAM();
-		EMU->DbgOut("Save RAM loaded!");
-	}
-}
-
-void	UNIF_SaveSRAM (void)
-{
-	if (ROM->UNIF_Battery)
-	{
-		EMU->Save_SRAM();
-		EMU->DbgOut("Save RAM saved!");
-	}
 }
 
 HWND			hWnd;

@@ -13,7 +13,6 @@ static	void	Sync (void)
 
 static	void	_MAPINT	Shutdown (void)
 {
-	iNES_UnloadROM();
 	Latch_Destroy();
 }
 
