@@ -9,6 +9,7 @@ static	struct
 static	void	Sync (void)
 {
 	u8 x;
+	EMU->SetPRG_RAM8(0x6,0);
 	for (x = 0; x < 4; x++)
 		EMU->SetPRG_ROM8(0x8 | (x << 1),Mapper.PRG[x]);
 	EMU->SetCHR_RAM8(0,0);
@@ -64,6 +65,11 @@ static	void	_MAPINT	Write (int Bank, int Addr, int Val)
 	Sync();
 }
 
+static	void	_MAPINT	Load (void)
+{
+	iNES_SetSRAM();
+}
+
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
@@ -85,7 +91,7 @@ CTMapperInfo	MapperInfo_015 =
 	&MapperNum,
 	"100-in-1 Contra Function 16",
 	COMPAT_FULL,
-	NULL,
+	Load,
 	Reset,
 	NULL,
 	NULL,
