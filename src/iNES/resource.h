@@ -7,6 +7,7 @@
 #define IDD_MAPPER59                    103
 #define IDD_MAPPER100                   104
 #define IDD_MAPPER105                   105
+#define IDD_MAPPER90                    106
 #define IDB_BITMAP1                     108
 #define IDAPPLY                         1000
 #define IDC_MAPPER5_0_0                 1001
@@ -53,6 +54,9 @@
 #define IDC_MAPPER100_CHR6R             1024
 #define IDC_MAPPER100_CHR7              1025
 #define IDC_MAPPER100_CHR7R             1026
+#define IDC_MAPPER90_J0                 1029
+#define IDC_MAPPER90_J1                 1030
+#define IDC_MAPPER90_MIR                1031
 
 // Next default values for new objects
 // 
@@ -61,7 +65,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        109
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1029
+#define _APS_NEXT_CONTROL_VALUE         1031
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
