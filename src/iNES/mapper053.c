@@ -1,5 +1,5 @@
-#include	"..\..\DLL\d_UNIF.h"
-#include	"..\..\Hardware\h_Latch.h"
+#include	"..\DLL\d_iNES.h"
+#include	"..\Hardware\h_Latch.h"
 
 static	struct
 {
@@ -8,13 +8,13 @@ static	struct
 
 static	void	Sync (void)
 {
-	EMU->SetPRG_ROM8(0x6,((Mapper.Game & 0xF) << 4) | 0xF);
+	EMU->SetPRG_ROM8(0x6,(((Mapper.Game & 0xF) << 4) | 0xF)+4);
 	if (Mapper.Game & 0x10)
 	{
-		EMU->SetPRG_ROM16(0x8,((Mapper.Game & 0xF) << 3) | (Latch.Data & 0x7));
-		EMU->SetPRG_ROM16(0xC,((Mapper.Game & 0xF) << 3) | 0x7);
+		EMU->SetPRG_ROM16(0x8,(((Mapper.Game & 0xF) << 3) | (Latch.Data & 0x7))+2);
+		EMU->SetPRG_ROM16(0xC,(((Mapper.Game & 0xF) << 3) | 0x7)+2);
 	}
-	else	EMU->SetPRG_ROM32(0x8,0x40); /* the EPROM at the end */
+	else	EMU->SetPRG_ROM32(0x8,0); /* the EPROM at the end, now inconveniently at the BEGINNING */
 	EMU->SetCHR_RAM8(0,0);
 	if (Mapper.Game & 0x20)
 		EMU->Mirror_H();
@@ -46,16 +46,18 @@ static	void	_MAPINT	Shutdown (void)
 static	void	_MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
+	iNES_InitROM();
 	for (x = 0x6; x < 0x8; x++)
 		EMU->SetCPUWriteHandler(x,Write);
 	Mapper.Game = 0;
 	Latch_Init(ResetType,Sync,FALSE);
 }
 
-CTMapperInfo	MapperInfo_BMC_Supervision16in1 =
+static	u8 MapperNum = 53;
+CTMapperInfo	MapperInfo_053 =
 {
-	"BMC-Supervision16in1",
-	"Pirate multicart mapper",
+	&MapperNum,
+	"Supervision 16-in-1",
 	COMPAT_FULL,
 	Reset,
 	Shutdown,
