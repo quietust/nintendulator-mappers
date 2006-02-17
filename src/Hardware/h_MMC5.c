@@ -360,14 +360,18 @@ void	_MAPINT	MMC5_CPUWrite5 (int Bank, int Addr, int Val)
 		case 0x126:
 		case 0x127:	MMC5.CHR_A[Addr & 0x7].b0 = Val;
 				MMC5.CHR_A[Addr & 0x7].b1 = MMC5.CHRhi;
-				if (LastCHR != 2)
+				if (MMC5.SpriteMode)
+					MMC5_SyncCHR();
+				else if (LastCHR != 2)
 					MMC5_SyncCHRA();break;
 		case 0x128:
 		case 0x129:
 		case 0x12A:
 		case 0x12B:	MMC5.CHR_B[Addr & 0x3].b0 = Val;
 				MMC5.CHR_B[Addr & 0x3].b1 = MMC5.CHRhi;
-				if (LastCHR != 2)
+				if (MMC5.SpriteMode)
+					MMC5_SyncCHR();
+				else if (LastCHR != 2)
 					MMC5_SyncCHRB();break;
 		case 0x130:	MMC5.CHRhi = Val & 3;	break;
 		}		break;
