@@ -83,6 +83,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	EMU->SetCPUWriteHandler(0xF,Write);
 
 	Mapper.Reg1 = Mapper.Reg2 = Mapper.Reg3 = 0;
+	Sync();
 }
 
 static	u8 MapperNum = 234;
