@@ -49,15 +49,6 @@ int	_MAPINT	VS_Read (int Bank, int Addr)
 	return Val;
 }
 
-void	_MAPINT	VS_CPUCycle (void)
-{
-	if ((VS.CoinDelay) && (!--VS.CoinDelay))
-	{
-		VS.Coin = 0;
-		UnblockDialog(VS.ConfigWindow);
-	}
-}
-
 static	void	BlockDialog (HWND hDlg, int dlgItem)
 {
 	if (!hDlg)
@@ -260,6 +251,15 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 		return TRUE;		break;
 	}
 	return FALSE;
+}
+
+void	_MAPINT	VS_CPUCycle (void)
+{
+	if ((VS.CoinDelay) && (!--VS.CoinDelay))
+	{
+		VS.Coin = 0;
+		UnblockDialog(VS.ConfigWindow);
+	}
 }
 
 unsigned char	_MAPINT	VS_Config (CFG_TYPE mode, unsigned char data)
