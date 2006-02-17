@@ -188,7 +188,10 @@ static	void	SetSRAM (void)
 		break;
 
 	case MMC5WRAM_MAXOPTS:
-		Config();
+		MMC5.WRAMsize = MMC5WRAM_32KB_8KB;
+		EMU->Set_SRAMSize(32768);
+		EMU->DbgOut("Unable to determine SRAM size for this game! Please set it via the GAME menu!");
+		//Config();
 		break;
 	}
 	if (ROM->INES_Flags & 0x02)
