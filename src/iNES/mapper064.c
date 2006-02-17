@@ -73,11 +73,8 @@ static	void	HBlank (void)
 
 static	void	_MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
-	if (Addr & 0x2000)
-		return;
-	if (!(Mapper.IRQmode) && !(Mapper.IRQaddr & 0x1000) && (Addr & 0x1000))
+	if (!(Mapper.IRQmode) && (IsRendering) && (Cycle == 264))
 		HBlank();
-	Mapper.IRQaddr = Addr;
 }
 
 static int cycles = 4;
@@ -125,7 +122,7 @@ static	void	_MAPINT	WriteCD (int Bank, int Addr, int Val)
 	if (Addr & 1)
 	{
 		Mapper.IRQmode = Val & 1;
-		Mapper.IRQreload = 2;
+		Mapper.IRQreload = 1;
 	}
 	else	Mapper.IRQlatch = Val;
 }
