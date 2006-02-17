@@ -154,9 +154,16 @@ static	void	_MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering
 
 static	int	_MAPINT	Read (int Bank, int Where)
 {
-	if (Where & 0x800)
-		return MapSound.Chan[1].IsFull ? 0x80 : 0x00;
-	else	return MapSound.Chan[0].IsFull ? 0x80 : 0x00;
+	struct MSChan *Chan;
+	int result = 0;
+	if (Where & 4)
+		Chan = &MapSound.Chan[0];
+	else	Chan = &MapSound.Chan[1];
+	if (Chan->IsFull)
+		result |= 0x80;
+	if (Chan->IsEmpty)
+		result |= 0x01;
+	return result;
 }
 static	void	_MAPINT	WriteL (int Bank, int Where, int What)
 {
