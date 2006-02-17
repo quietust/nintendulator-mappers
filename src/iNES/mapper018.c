@@ -12,6 +12,7 @@ static	struct
 	FCPUWrite WriteSRAM;
 }	Mapper;
 
+static	u16 IRQmask;
 static	void	Sync (void)
 {
 	u8 x;
@@ -28,6 +29,13 @@ static	void	Sync (void)
 	case 2:	EMU->Mirror_S0();	break;
 	case 3:	EMU->Mirror_S1();	break;
 	}
+	if (Mapper.IRQcontrol & 0x8)
+		IRQmask = 0xF;
+	else if (Mapper.IRQcontrol & 0x4)
+		IRQmask = 0xFF;
+	else if (Mapper.IRQcontrol & 0x2)
+		IRQmask = 0xFFF;
+	else	IRQmask = 0xFFFF;
 }
 
 static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
@@ -49,17 +57,12 @@ static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 
 static	void	_MAPINT	CPUCycle (void)
 {
-	u16 IRQmask;
-	if (Mapper.IRQcontrol & 0x8)
-		IRQmask = 0xF;
-	else if (Mapper.IRQcontrol & 0x4)
-		IRQmask = 0xFF;
-	else if (Mapper.IRQcontrol & 0x2)
-		IRQmask = 0xFFF;
-	else	IRQmask = 0xFFFF;
-	if ((Mapper.IRQcontrol & 1) && !(Mapper.IRQcounter & IRQmask))
-		EMU->SetIRQ(0);
-	Mapper.IRQcounter--;
+	if (Mapper.IRQcontrol & 1)
+	{
+		if (!(Mapper.IRQcounter & IRQmask))
+			EMU->SetIRQ(0);
+		Mapper.IRQcounter--;
+	}
 }
 
 static	void	_MAPINT	Write8 (int Bank, int Where, int What)
@@ -150,11 +153,12 @@ static	void	_MAPINT	WriteF (int Bank, int Where, int What)
 {
 	switch (Where & 3)
 	{
-	case 0:	if (What & 1)
+	case 0:	//if (What & 1)
 			Mapper.IRQcounter = Mapper.IRQlatch.s0;
-		else	Mapper.IRQcounter = 0;
+		//else	Mapper.IRQcounter = 0;
 		EMU->SetIRQ(1);			break;
 	case 1:	Mapper.IRQcontrol = What & 0xF;
+		Sync();
 		EMU->SetIRQ(1);			break;
 	case 2:	Mapper.Mirror = What & 0x03;
 		Sync();				break;
