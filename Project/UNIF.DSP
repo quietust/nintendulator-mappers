@@ -111,7 +111,15 @@ SOURCE=..\src\Hardware\h_MMC1.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\Hardware\h_MMC2.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\Hardware\h_MMC3.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Hardware\h_MMC4.c
 # End Source File
 # Begin Source File
 
@@ -162,6 +170,10 @@ SOURCE=..\src\Unif\Nes\NES_ExROM.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\UNIF\NES\NES_FxROM.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\Unif\Nes\NES_GxROM.c
 # End Source File
 # Begin Source File
@@ -182,6 +194,10 @@ SOURCE=..\src\Unif\Nes\NES_NROM.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\UNIF\NES\NES_PxROM.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\Unif\Nes\NES_SxROM.c
 # End Source File
 # Begin Source File
@@ -192,10 +208,6 @@ SOURCE=..\src\Unif\Nes\NES_TxROM.c
 
 SOURCE=..\src\Unif\Nes\NES_UxROM.c
 # End Source File
-# End Group
-# Begin Group "HVC"
-
-# PROP Default_Filter "c;cpp;cxx;tli"
 # End Group
 # Begin Group "BTL"
 
@@ -351,7 +363,15 @@ SOURCE=..\src\Hardware\h_MMC1.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\Hardware\h_MMC2.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\Hardware\h_MMC3.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Hardware\h_MMC4.h
 # End Source File
 # Begin Source File
 
