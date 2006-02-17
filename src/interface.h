@@ -236,7 +236,7 @@ typedef	const	TMapperInfo	CTMapperInfo, *CPMapperInfo;
 	else MessageBox(hWnd,"Invalid save/load type!",__FILE__,MB_OK); \
 }
 
-/* DLL Information Structure:- Contains general information about the mapper DLL */
+/* ROM Information Structure:- Contains information about the ROM currently loaded */
 
 #define	ROM_UNDEFINED	0
 #define	ROM_INES	1
