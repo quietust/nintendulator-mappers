@@ -48,11 +48,15 @@ static	void	SetMode (int Mode)
 
 static	int	_MAPINT	SaveLoad (int mode, int x, char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.BNROM_PRG)
-	SAVELOAD_BYTE(mode,x,data,Mapper.NINA_PRG)
-	SAVELOAD_BYTE(mode,x,data,Mapper.NINA_CHR[0])
-	SAVELOAD_BYTE(mode,x,data,Mapper.NINA_CHR[1])
 	SAVELOAD_BYTE(mode,x,data,Mapper.Mode)
+	if (Mapper.Mode == 1)
+	{
+		SAVELOAD_BYTE(mode,x,data,Mapper.NINA_PRG)
+		SAVELOAD_BYTE(mode,x,data,Mapper.NINA_CHR[0])
+		SAVELOAD_BYTE(mode,x,data,Mapper.NINA_CHR[1])
+	}
+	if (Mapper.Mode == 2)
+		SAVELOAD_BYTE(mode,x,data,Mapper.BNROM_PRG)
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
