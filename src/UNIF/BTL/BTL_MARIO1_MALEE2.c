@@ -42,7 +42,6 @@ static	void	_MAPINT	InitMapper (int IsHardReset)
 
 CTMapperInfo	MapperInfo_BTL_MARIO1_MALEE2 =
 {
-	-1,
 	"BTL-MARIO1-MALEE2",
 	"BTL-MARIO1-MALEE2",
 	COMPAT_FULL,

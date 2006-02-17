@@ -32,7 +32,6 @@ static	void	_MAPINT	Reset_BTR (int IsHardReset)
 
 CTMapperInfo	MapperInfo_NES_JLROM =
 {
-	-1,
 	"NES-JLROM",
 	"NES-JLROM",
 	COMPAT_FULL,
@@ -46,7 +45,6 @@ CTMapperInfo	MapperInfo_NES_JLROM =
 };
 CTMapperInfo	MapperInfo_NES_BTR =
 {
-	-1,
 	"NES-BTR",
 	"NES-BTR",
 	COMPAT_FULL,

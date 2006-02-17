@@ -13,8 +13,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 
 CTMapperInfo	MapperInfo_FDS =
 {
-	20,
-	"HVC-FMR",
+	NULL,
 	"Famicom Disk System",
 	COMPAT_PARTIAL,
 	Reset,

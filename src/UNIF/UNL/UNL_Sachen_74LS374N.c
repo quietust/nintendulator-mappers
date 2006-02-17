@@ -76,7 +76,6 @@ static	void	_MAPINT	Reset (int IsHardReset)
 
 CTMapperInfo	MapperInfo_UNL_Sachen_74LS374N =
 {
-	-1,
 	"UNL-Sachen-74LS374N",
 	"UNL-Sachen-74LS374N",
 	COMPAT_PARTIAL,

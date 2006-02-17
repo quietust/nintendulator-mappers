@@ -82,7 +82,7 @@ extern	CTMapperInfo
 	MapperInfo_BMC_SV01,			MapperInfo_BMC_WS
 	;
 
-CTMapperInfo	MapperInfo_0 = {0,NULL,NULL,COMPAT_NONE,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
+CTMapperInfo	MapperInfo_0 = {NULL,NULL,COMPAT_NONE,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
 
 static	CPMapperInfo	BoardTable[] =
 {
@@ -155,9 +155,9 @@ static	CPMapperInfo	_MAPINT	LoadMapper (CPROMInfo _ROM)
 	BoardName = _strdup(ROM->UNIF_BoardName);
 	if ((!strncmp(BoardName,"BTL-",4)) || (!strncmp(BoardName,"HVC-",4)) || (!strncmp(BoardName,"UNL-",4)))
 		strncpy(BoardName,"NES-",4);
-	for (x = 0; BoardTable[x]->BoardName; x++)
+	for (x = 0; BoardTable[x]->MapperId; x++)
 	{
-		if ((!strcmp(BoardTable[x]->BoardName,BoardName)) || (!strcmp(BoardTable[x]->BoardName,ROM->UNIF_BoardName)))
+		if ((!strcmp(BoardTable[x]->MapperId,BoardName)) || (!strcmp(BoardTable[x]->MapperId,ROM->UNIF_BoardName)))
 		{
 			free(BoardName);
 			return BoardTable[x];

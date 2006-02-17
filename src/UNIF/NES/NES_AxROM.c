@@ -41,7 +41,6 @@ static	void	_MAPINT	Reset_AOROM (int IsHardReset)
 
 CTMapperInfo	MapperInfo_NES_AMROM =
 {
-	-1,
 	"NES-AMROM",
 	"NES-AMROM",
 	COMPAT_FULL,
@@ -55,7 +54,6 @@ CTMapperInfo	MapperInfo_NES_AMROM =
 };
 CTMapperInfo	MapperInfo_NES_ANROM =
 {
-	-1,
 	"NES-ANROM",
 	"NES-ANROM",
 	COMPAT_FULL,
@@ -69,7 +67,6 @@ CTMapperInfo	MapperInfo_NES_ANROM =
 };
 CTMapperInfo	MapperInfo_NES_AOROM =
 {
-	-1,
 	"NES-AOROM",
 	"NES-AOROM",
 	COMPAT_FULL,

@@ -74,7 +74,6 @@ static	void	_MAPINT	Reset_TSROM (int IsHardReset)
 
 CTMapperInfo	MapperInfo_NES_TFROM =
 {
-	-1,
 	"NES-TFROM",
 	"NES-TFROM",
 	COMPAT_NEARLY,
@@ -88,7 +87,6 @@ CTMapperInfo	MapperInfo_NES_TFROM =
 };
 CTMapperInfo	MapperInfo_NES_TGROM =
 {
-	-1,
 	"NES-TGROM",
 	"NES-TGROM",
 	COMPAT_NEARLY,
@@ -102,7 +100,6 @@ CTMapperInfo	MapperInfo_NES_TGROM =
 };
 CTMapperInfo	MapperInfo_NES_TKROM =
 {
-	-1,
 	"NES-TKROM",
 	"NES-TKROM",
 	COMPAT_NEARLY,
@@ -116,7 +113,6 @@ CTMapperInfo	MapperInfo_NES_TKROM =
 };
 CTMapperInfo	MapperInfo_NES_TLROM =
 {
-	-1,
 	"NES-TLROM",
 	"NES-TLROM",
 	COMPAT_NEARLY,
@@ -130,7 +126,6 @@ CTMapperInfo	MapperInfo_NES_TLROM =
 };
 CTMapperInfo	MapperInfo_NES_TR1ROM =
 {
-	-1,
 	"NES-TR1ROM",
 	"NES-TR1ROM",
 	COMPAT_NEARLY,
@@ -144,7 +139,6 @@ CTMapperInfo	MapperInfo_NES_TR1ROM =
 };
 CTMapperInfo	MapperInfo_NES_TSROM =
 {
-	-1,
 	"NES-TSROM",
 	"NES-TSROM",
 	COMPAT_NEARLY,

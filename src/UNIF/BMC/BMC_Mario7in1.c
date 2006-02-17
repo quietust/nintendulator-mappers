@@ -79,7 +79,6 @@ static	void	_MAPINT	Reset (int IsHardReset)
 
 CTMapperInfo	MapperInfo_BMC_Mario7in1 =
 {
-	-1,
 	"BMC-Mario7in1",
 	"BMC-Mario7in1",
 	COMPAT_FULL,

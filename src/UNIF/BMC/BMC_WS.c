@@ -49,7 +49,6 @@ static	void	_MAPINT	Reset (int IsHardReset)
 
 CTMapperInfo	MapperInfo_BMC_WS =
 {
-	-1,
 	"BMC-WS",
 	"BMC-WS",
 	COMPAT_FULL,

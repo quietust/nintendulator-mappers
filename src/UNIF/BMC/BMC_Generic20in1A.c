@@ -44,7 +44,6 @@ static	void	_MAPINT	Reset (int IsHardReset)
 
 CTMapperInfo	MapperInfo_BMC_Generic20in1A =
 {
-	-1,
 	"BMC-Generic20in1A",
 	"BMC-Generic20in1A",
 	COMPAT_FULL,

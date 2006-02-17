@@ -126,7 +126,6 @@ static	void	_MAPINT	Reset_SOROM (int IsHardReset)
 
 CTMapperInfo	MapperInfo_NES_SAROM =
 {
-	-1,
 	"NES-SAROM",
 	"NES-SAROM",
 	COMPAT_FULL,
@@ -140,7 +139,6 @@ CTMapperInfo	MapperInfo_NES_SAROM =
 };
 CTMapperInfo	MapperInfo_NES_SBROM =
 {
-	-1,
 	"NES-SBROM",
 	"NES-SBROM",
 	COMPAT_FULL,
@@ -154,7 +152,6 @@ CTMapperInfo	MapperInfo_NES_SBROM =
 };
 CTMapperInfo	MapperInfo_NES_SCROM =
 {
-	-1,
 	"NES-SCROM",
 	"NES-SCROM",
 	COMPAT_FULL,
@@ -168,7 +165,6 @@ CTMapperInfo	MapperInfo_NES_SCROM =
 };
 CTMapperInfo	MapperInfo_NES_SEROM =
 {
-	-1,
 	"NES-SEROM",
 	"NES-SEROM",
 	COMPAT_FULL,
@@ -182,7 +178,6 @@ CTMapperInfo	MapperInfo_NES_SEROM =
 };
 CTMapperInfo	MapperInfo_NES_SGROM =
 {
-	-1,
 	"NES-SGROM",
 	"NES-SGROM",
 	COMPAT_FULL,
@@ -196,7 +191,6 @@ CTMapperInfo	MapperInfo_NES_SGROM =
 };
 CTMapperInfo	MapperInfo_NES_SKROM =
 {
-	-1,
 	"NES-SKROM",
 	"NES-SKROM",
 	COMPAT_FULL,
@@ -210,7 +204,6 @@ CTMapperInfo	MapperInfo_NES_SKROM =
 };
 CTMapperInfo	MapperInfo_NES_SLROM =
 {
-	-1,
 	"NES-SLROM",
 	"NES-SLROM",
 	COMPAT_FULL,
@@ -224,7 +217,6 @@ CTMapperInfo	MapperInfo_NES_SLROM =
 };
 CTMapperInfo	MapperInfo_NES_SL1ROM =
 {
-	-1,
 	"NES-SL1ROM",
 	"NES-SL1ROM",
 	COMPAT_FULL,
@@ -238,7 +230,6 @@ CTMapperInfo	MapperInfo_NES_SL1ROM =
 };
 CTMapperInfo	MapperInfo_NES_SNROM =
 {
-	-1,
 	"NES-SNROM",
 	"NES-SNROM",
 	COMPAT_FULL,
@@ -252,7 +243,6 @@ CTMapperInfo	MapperInfo_NES_SNROM =
 };
 CTMapperInfo	MapperInfo_NES_SOROM =
 {
-	-1,
 	"NES-SOROM",
 	"NES-SOROM",
 	COMPAT_FULL,

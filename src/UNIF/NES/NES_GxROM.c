@@ -20,7 +20,6 @@ static	void	_MAPINT	Reset_GNROM (int IsHardReset)
 
 CTMapperInfo	MapperInfo_NES_GNROM =
 {
-	-1,
 	"NES-GNROM",
 	"NES-GNROM",
 	COMPAT_FULL,

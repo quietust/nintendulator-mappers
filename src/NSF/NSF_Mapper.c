@@ -429,8 +429,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 
 CTMapperInfo	MapperInfo_NSF =
 {
-	-1,
-	"",
+	NULL,
 	"NES Sound File",
 	COMPAT_FULL,
 	Reset,

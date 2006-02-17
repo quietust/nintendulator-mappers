@@ -32,7 +32,6 @@ static	void	_MAPINT	Reset_UOROM (int IsHardReset)
 
 CTMapperInfo	MapperInfo_NES_UNROM =
 {
-	-1,
 	"NES-UNROM",
 	"NES-UNROM",
 	COMPAT_FULL,
@@ -46,7 +45,6 @@ CTMapperInfo	MapperInfo_NES_UNROM =
 };
 CTMapperInfo	MapperInfo_NES_UOROM =
 {
-	-1,
 	"NES-UOROM",
 	"NES-UOROM",
 	COMPAT_FULL,

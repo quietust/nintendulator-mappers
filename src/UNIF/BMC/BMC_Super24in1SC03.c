@@ -56,7 +56,6 @@ static	void	_MAPINT	Reset (int IsHardReset)
 
 CTMapperInfo	MapperInfo_BMC_Super24in1SC03 =
 {
-	-1,
 	"BMC-Super24in1SC03",
 	"BMC-Super24in1SC03",
 	COMPAT_FULL,

@@ -20,7 +20,6 @@ static	void	_MAPINT	Reset_MHROM (int IsHardReset)
 
 CTMapperInfo	MapperInfo_NES_MHROM =
 {
-	-1,
 	"NES-MHROM",
 	"NES-MHROM",
 	COMPAT_FULL,

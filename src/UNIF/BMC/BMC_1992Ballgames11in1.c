@@ -93,7 +93,6 @@ static	void	_MAPINT	Reset (int IsHardReset)
 
 CTMapperInfo	MapperInfo_BMC_1992Ballgames11in1 =
 {
-	-1,
 	"BMC-1992Ballgames11in1",
 	"BMC-1992Ballgames11in1",
 	COMPAT_FULL,

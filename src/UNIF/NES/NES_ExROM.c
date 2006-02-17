@@ -36,7 +36,6 @@ static	void	_MAPINT	Reset_EWROM (int IsHardReset)
 
 CTMapperInfo	MapperInfo_NES_EKROM =
 {
-	-1,
 	"NES-EKROM",
 	"NES-EKROM",
 	COMPAT_NEARLY,
@@ -50,7 +49,6 @@ CTMapperInfo	MapperInfo_NES_EKROM =
 };
 CTMapperInfo	MapperInfo_NES_ELROM =
 {
-	-1,
 	"NES-ELROM",
 	"NES-ELROM",
 	COMPAT_NEARLY,
@@ -64,7 +62,6 @@ CTMapperInfo	MapperInfo_NES_ELROM =
 };
 CTMapperInfo	MapperInfo_NES_ETROM =
 {
-	-1,
 	"NES-ETROM",
 	"NES-ETROM",
 	COMPAT_NEARLY,
@@ -78,7 +75,6 @@ CTMapperInfo	MapperInfo_NES_ETROM =
 };
 CTMapperInfo	MapperInfo_NES_EWROM =
 {
-	-1,
 	"NES-EWROM",
 	"NES-EWROM",
 	COMPAT_NEARLY,

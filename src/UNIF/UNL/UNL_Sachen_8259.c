@@ -104,7 +104,6 @@ static  void    _MAPINT	Reset_8259B (int IsHardReset)
 
 CTMapperInfo    MapperInfo_UNL_Sachen_8259A =
 {
-	-1,
 	"UNL-Sachen-8259A",
 	"UNL-Sachen-8259A",
 	COMPAT_FULL,
@@ -118,7 +117,6 @@ CTMapperInfo    MapperInfo_UNL_Sachen_8259A =
 };
 CTMapperInfo    MapperInfo_UNL_Sachen_8259B =
 {
-	-1,
 	"UNL-Sachen-8259B",
 	"UNL-Sachen-8259B",
 	COMPAT_FULL,

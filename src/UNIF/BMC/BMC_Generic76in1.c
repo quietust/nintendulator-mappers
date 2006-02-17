@@ -65,7 +65,6 @@ static	void	_MAPINT	Reset (int IsHardReset)
 
 CTMapperInfo	MapperInfo_BMC_Generic76in1 =
 {
-	-1,
 	"BMC-Generic76in1",
 	"BMC-Generic76in1",
 	COMPAT_FULL,

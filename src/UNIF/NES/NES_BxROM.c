@@ -20,7 +20,6 @@ static	void	_MAPINT	Reset_BNROM (int IsHardReset)
 
 CTMapperInfo	MapperInfo_NES_BNROM =
 {
-	-1,
 	"NES-BNROM",
 	"NES-BNROM",
 	COMPAT_FULL,
