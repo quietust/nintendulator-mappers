@@ -33,19 +33,19 @@ static	void	_MAPINT	WriteSpeech (int Bank, int Addr, int Val)
 	{
 	case 0x0:EMU->StatusOut("\"Strike!\"");	break;
 	case 0x1:EMU->StatusOut("\"Ball!\"");	break;
-	case 0x2:EMU->StatusOut("'?' (2)");	break;
+	case 0x2:EMU->StatusOut("\"Out!\"");	break;
 	case 0x3:EMU->StatusOut("'?' (3)");	break;
 	case 0x4:EMU->StatusOut("'?' (4)");	break;
-	case 0x5:EMU->StatusOut("'?' (5)");	break;
+	case 0x5:EMU->StatusOut("\"Foul!\"");	break;
 	case 0x6:EMU->StatusOut("'?' (6)");	break;
-	case 0x7:EMU->StatusOut("'?' (7)");	break;
+	case 0x7:EMU->StatusOut("\"You're out!\"");	break;
 	case 0x8:EMU->StatusOut("\"Play ball!\"");	break;
-	case 0x9:EMU->StatusOut("'?' (9)");	break;
+	case 0x9:EMU->StatusOut("\"Ball 4!\"");	break;
 	case 0xA:EMU->StatusOut("'?' (A)");	break;
 	case 0xB:EMU->StatusOut("'?' (B)");	break;
 	case 0xC:EMU->StatusOut("'?' (C)");	break;
 	case 0xD:EMU->StatusOut("'?' (D)");	break;
-	case 0xE:EMU->StatusOut("'?' (E)");	break;
+	case 0xE:EMU->StatusOut("*crack*");	break;
 	case 0xF:EMU->StatusOut("*cheer*");	break;
 	}
 }
