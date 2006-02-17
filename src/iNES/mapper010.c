@@ -26,7 +26,7 @@ CTMapperInfo	MapperInfo_010 =
 {
 	&MapperNum,
 	"MMC4",
-	COMPAT_FULL
+	COMPAT_FULL,
 	Reset,
 	Shutdown,
 	NULL,
