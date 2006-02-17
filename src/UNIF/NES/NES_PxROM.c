@@ -16,7 +16,6 @@ static	void	_MAPINT	Shutdown (void)
 static	void	_MAPINT	Reset_PNROM (int IsHardReset)
 {
 	MMC2_Init(Sync_PNROM);
-	UNIF_SetMirroring(NULL);
 }
 
 CTMapperInfo	MapperInfo_NES_PNROM =
