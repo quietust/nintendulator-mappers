@@ -59,7 +59,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 CTMapperInfo	MapperInfo_UNL_H2288 =
 {
 	"UNL-H2288",
-	"UNL-H2288",
+	"?",
 	COMPAT_NEARLY,
 	Reset,
 	Shutdown,

@@ -50,7 +50,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 CTMapperInfo	MapperInfo_BMC_WS =
 {
 	"BMC-WS",
-	"BMC-WS",
+	"Pirate multicart mapper",
 	COMPAT_FULL,
 	Reset,
 	NULL,

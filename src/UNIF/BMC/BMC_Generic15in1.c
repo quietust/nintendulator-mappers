@@ -27,7 +27,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 CTMapperInfo	MapperInfo_BMC_Generic15in1 =
 {
 	"BMC-Generic15in1",
-	"BMC-Generic15in1",
+	"Pirate multicart mapper",
 	COMPAT_FULL,
 	Reset,
 	Shutdown,

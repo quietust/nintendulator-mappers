@@ -119,7 +119,7 @@ static	void	_MAPINT	Reset_0037 (int IsHardReset)
 CTMapperInfo	MapperInfo_UNL_SA_0161M =
 {
 	"UNL-SA-016-1M",
-	"UNL-SA-016-1M",
+	"Sachen mapper",
 	COMPAT_FULL,
 	Reset_0161M,
 	NULL,
@@ -132,7 +132,7 @@ CTMapperInfo	MapperInfo_UNL_SA_0161M =
 CTMapperInfo	MapperInfo_UNL_SA_72007 =
 {
 	"UNL-SA-72007",
-	"UNL-SA-72007",
+	"Sachen mapper",
 	COMPAT_FULL,
 	Reset_72007,
 	NULL,
@@ -145,7 +145,7 @@ CTMapperInfo	MapperInfo_UNL_SA_72007 =
 CTMapperInfo	MapperInfo_UNL_SA_72008 =
 {
 	"UNL-SA-72008",
-	"UNL-SA-72008",
+	"Sachen mapper",
 	COMPAT_FULL,
 	Reset_72008,
 	NULL,
@@ -158,7 +158,7 @@ CTMapperInfo	MapperInfo_UNL_SA_72008 =
 CTMapperInfo	MapperInfo_UNL_TC_U0115M =
 {
 	"UNL-TC-U01-1.5M",
-	"UNL-TC-U01-1.5M",
+	"Sachen mapper",
 	COMPAT_FULL,
 	Reset_U0115M,
 	NULL,
@@ -171,7 +171,7 @@ CTMapperInfo	MapperInfo_UNL_TC_U0115M =
 CTMapperInfo	MapperInfo_UNL_SA_0036 =
 {
 	"UNL-SA-0036",
-	"UNL-SA-0036",
+	"Sachen mapper",
 	COMPAT_FULL,
 	Reset_0036,
 	NULL,
@@ -184,7 +184,7 @@ CTMapperInfo	MapperInfo_UNL_SA_0036 =
 CTMapperInfo	MapperInfo_UNL_SA_0037 =
 {
 	"UNL-SA-0037",
-	"UNL-SA-0037",
+	"Sachen mapper",
 	COMPAT_FULL,
 	Reset_0037,
 	NULL,

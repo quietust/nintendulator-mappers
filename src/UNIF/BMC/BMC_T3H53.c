@@ -90,7 +90,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 CTMapperInfo	MapperInfo_BMC_T3H53 =
 {
 	"BMC-T3H53",
-	"BMC-T3H53",
+	"Pirate multicart mapper with dipswitches",
 	COMPAT_FULL,
 	Reset,
 	Shutdown,

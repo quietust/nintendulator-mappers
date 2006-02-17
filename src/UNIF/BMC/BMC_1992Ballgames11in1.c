@@ -94,7 +94,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 CTMapperInfo	MapperInfo_BMC_1992Ballgames11in1 =
 {
 	"BMC-1992Ballgames11in1",
-	"BMC-1992Ballgames11in1",
+	"Pirate multicart mapper",
 	COMPAT_FULL,
 	Reset,
 	NULL,
