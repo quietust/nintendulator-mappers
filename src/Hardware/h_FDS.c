@@ -309,7 +309,15 @@ void	FDS_Reset (RESET_TYPE ResetType)
 	EndIRQ(-1);
 
 	if (ResetType == RESET_HARD)
+	{
 		FDS.DiskNum = 0xFF;
+		if (FDS.ConfigWindow)
+		{
+			EnableWindow(GetDlgItem(FDS.ConfigWindow,IDC_FDS_DISKSEL),TRUE);
+			EnableWindow(GetDlgItem(FDS.ConfigWindow,IDC_FDS_INSERT),TRUE);
+			EnableWindow(GetDlgItem(FDS.ConfigWindow,IDC_FDS_EJECT),FALSE);
+		}
+	}
 	FDS.ConfigCmd = 0;
 
 	FDSsound_Reset(ResetType);
