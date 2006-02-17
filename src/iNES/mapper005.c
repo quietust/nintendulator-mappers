@@ -24,7 +24,23 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 			case MMC5WRAM_32KB_8KB:	CheckRadioButton(hDlg,IDC_MAPPER5_0_0,IDC_MAPPER5_32_32,IDC_MAPPER5_32_8);	break;
 			case MMC5WRAM_32KB_32KB:CheckRadioButton(hDlg,IDC_MAPPER5_0_0,IDC_MAPPER5_32_32,IDC_MAPPER5_32_32);	break;
 			}
-			SetDlgItemText(hDlg,IDC_MAPPER5_DESCRIBE,"Games and their RAM sizes go here");
+			SetDlgItemText(hDlg,IDC_MAPPER5_DESCRIBE,
+				"Bandit Kings of Ancient China // Suikoden - Tenmei no Chikai\n"
+				"Shin 4 Nin Uchi Mahjong - Yakuman Tengoku\n"
+				"Uchuu Keibitai SDF\n"
+				"Sangokushi 2 // Romance of the Three Kingdoms II\n"
+				"Royal Blood // Gemfire\n"
+				"Nobunaga no Yabou - Sengoku Gunyuu Den // Nobunaga's Ambition 2\n"
+				"Nobunaga no Yabou - Bushou Fuuun Roku // ???\n"
+				"Metal Slader Glory (norm/alt)\n"
+				"Gun Sight (norm/alt) // Laser Invasion\n"
+				"L'Empereur // L'Empereur (norm/alt)\n"
+				"Just Breed\n"
+				"Ishin no Arashi // ???\n"
+				"Daokoukai Jidai // Uncharted Waters\n"
+				"Aoki Ookami to Shiroki Mejika - Genchou Hishi // ???\n"
+				"Castlevania 3\n"
+				);
 			return FALSE;
 		case WM_COMMAND:
 			switch (LOWORD(wParam))
@@ -112,7 +128,8 @@ static	void	_MAPINT	Reset (int IsHardReset)
 {
 	iNES_InitROM();
 
-	MMC5.WRAMsize = MMC5WRAM_8KB_8KB;
+	if (IsHardReset)
+		MMC5.WRAMsize = MMC5WRAM_8KB_8KB;
 
 	Mapper.ConfigWindow = NULL;
 
