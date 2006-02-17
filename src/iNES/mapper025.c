@@ -81,70 +81,67 @@ static	void	_MAPINT	WriteA (int Bank, int Where, int What)
 
 static	void	_MAPINT	WriteB (int Bank, int Where, int What)
 {
-	switch (Where)
+	Where |= (Where >> 2) & 0x3;
+	switch (Where & 3)
 	{
-	case 0x000:	Mapper.CHR[0].n0 = What & 0xF;	break;
-	case 0x002:	Mapper.CHR[0].n1 = What & 0xF;	break;
-	case 0x001:
-	case 0x004:	Mapper.CHR[1].n0 = What & 0xF;	break;
-	case 0x003:
-	case 0x006:	Mapper.CHR[1].n1 = What & 0xF;	break;
+	case 0:	Mapper.CHR[0].n0 = What & 0xF;	break;
+	case 1:	Mapper.CHR[0].n1 = What & 0xF;	break;
+	case 2:	Mapper.CHR[1].n0 = What & 0xF;	break;
+	case 3:	Mapper.CHR[1].n1 = What & 0xF;	break;
 	}
 	Sync();
 }
 
 static	void	_MAPINT	WriteC (int Bank, int Where, int What)
 {
-	switch (Where)
+	Where |= (Where >> 2) & 0x3;
+	switch (Where & 3)
 	{
-	case 0x000:	Mapper.CHR[2].n0 = What & 0xF;	break;
-	case 0x002:	Mapper.CHR[2].n1 = What & 0xF;	break;
-	case 0x001:
-	case 0x004:	Mapper.CHR[3].n0 = What & 0xF;	break;
-	case 0x003:
-	case 0x006:	Mapper.CHR[3].n1 = What & 0xF;	break;
+	case 0:	Mapper.CHR[2].n0 = What & 0xF;	break;
+	case 1:	Mapper.CHR[2].n1 = What & 0xF;	break;
+	case 2:	Mapper.CHR[3].n0 = What & 0xF;	break;
+	case 3:	Mapper.CHR[3].n1 = What & 0xF;	break;
 	}
 	Sync();
 }
 
 static	void	_MAPINT	WriteD (int Bank, int Where, int What)
 {
-	switch (Where)
+	Where |= (Where >> 2) & 0x3;
+	switch (Where & 3)
 	{
-	case 0x000:	Mapper.CHR[4].n0 = What & 0xF;	break;
-	case 0x002:	Mapper.CHR[4].n1 = What & 0xF;	break;
-	case 0x001:
-	case 0x004:	Mapper.CHR[5].n0 = What & 0xF;	break;
-	case 0x003:
-	case 0x006:	Mapper.CHR[5].n1 = What & 0xF;	break;
+	case 0:	Mapper.CHR[4].n0 = What & 0xF;	break;
+	case 1:	Mapper.CHR[4].n1 = What & 0xF;	break;
+	case 2:	Mapper.CHR[5].n0 = What & 0xF;	break;
+	case 3:	Mapper.CHR[5].n1 = What & 0xF;	break;
 	}
 	Sync();
 }
 
 static	void	_MAPINT	WriteE (int Bank, int Where, int What)
 {
-	switch (Where)
+	Where |= (Where >> 2) & 0x3;
+	switch (Where & 3)
 	{
-	case 0x000:	Mapper.CHR[6].n0 = What & 0xF;	break;
-	case 0x002:	Mapper.CHR[6].n1 = What & 0xF;	break;
-	case 0x001:
-	case 0x004:	Mapper.CHR[7].n0 = What & 0xF;	break;
-	case 0x003:
-	case 0x006:	Mapper.CHR[7].n1 = What & 0xF;	break;
+	case 0:	Mapper.CHR[6].n0 = What & 0xF;	break;
+	case 1:	Mapper.CHR[6].n1 = What & 0xF;	break;
+	case 2:	Mapper.CHR[7].n0 = What & 0xF;	break;
+	case 3:	Mapper.CHR[7].n1 = What & 0xF;	break;
 	}
 	Sync();
 }
 
 static	void	_MAPINT	WriteF (int Bank, int Where, int What)
 {
-	switch (Where)
+	Where |= (Where >> 2) & 0x3;
+	switch (Where & 3)
 	{
-	case 0x000:	Mapper.IRQlatch.n0 = What & 0xF;		break;
-	case 0x002:	Mapper.IRQlatch.n1 = What & 0xF;		break;
-	case 0x001:	Mapper.IRQenabled = What & 3;
+	case 0:	Mapper.IRQlatch.n0 = What & 0xF;		break;
+	case 2:	Mapper.IRQlatch.n1 = What & 0xF;		break;
+	case 1:	Mapper.IRQenabled = What & 3;
 			if (Mapper.IRQenabled & 2)
 				Mapper.IRQcounter = Mapper.IRQlatch.b0;	break;
-	case 0x003:	if (Mapper.IRQenabled & 1)
+	case 3:	if (Mapper.IRQenabled & 1)
 				Mapper.IRQenabled |= 2;
 			else	Mapper.IRQenabled &= 1;			break;
 	}
