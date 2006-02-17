@@ -221,12 +221,13 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 	return FALSE;
 }
 
-void	_MAPINT	FDS_Config (void)
+unsigned char	_MAPINT	FDS_Config (int mode, unsigned char data)
 {
 	if (FDS.ConfigWindow)
-		return;
+		return 0;
 	FDS.ConfigWindow = CreateDialog(hInstance,MAKEINTRESOURCE(IDD_FDS),hWnd,(DLGPROC)ConfigProc);
 	SetWindowPos(FDS.ConfigWindow,hWnd,0,0,0,0,SWP_SHOWWINDOW | SWP_NOSIZE);
+	return 0;
 }
 
 int	_MAPINT	FDS_MapperSnd (int Len)

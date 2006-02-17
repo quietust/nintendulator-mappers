@@ -239,12 +239,13 @@ static	LRESULT CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPAR
 	return FALSE;
 }
 
-void	_MAPINT	Config (void)
+static	unsigned char	_MAPINT	Config (int mode, unsigned char data)
 {
 	if (NSF.ControlWindow)
-		return;
+		return 0;
 	NSF.ControlWindow = CreateDialog(hInstance,MAKEINTRESOURCE(IDD_NSF),hWnd,(DLGPROC)ControlProc);
 	SetWindowPos(NSF.ControlWindow,hWnd,0,0,0,0,SWP_SHOWWINDOW | SWP_NOSIZE);
+	return 0;
 }
 
 static	int	_MAPINT	MapperSnd (int Cycles)
@@ -410,7 +411,7 @@ static	void	_MAPINT	Reset (int IsHardReset)
 	}
 	NSF_IRQ(NSFIRQ_INIT);		// Initialize first tune and start playing it
 					// (this also allows it to fetch the RESET vector)
-	Config();
+	Config(CFG_WINDOW,0);
 }
 
 CTMapperInfo	MapperInfo_NSF =

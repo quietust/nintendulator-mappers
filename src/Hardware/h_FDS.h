@@ -22,13 +22,13 @@ typedef	struct	FDS
 
 extern	TFDS	FDS;
 
-int	_MAPINT	FDS_SaveLoad	(int,int,char *);
-void		FDS_Init	(int);
-void	_MAPINT	FDS_CPUCycle	(void);
-void	_MAPINT	FDS_Config	(void);
-int	_MAPINT	FDS_MapperSnd	(int);
-int	_MAPINT	FDS_Read	(int,int);
-void	_MAPINT	FDS_Write	(int,int,int);
-void		FDS_Destroy	(void);
+int		_MAPINT	FDS_SaveLoad	(int,int,char *);
+void			FDS_Init	(int);
+void		_MAPINT	FDS_CPUCycle	(void);
+unsigned char	_MAPINT	FDS_Config	(int,unsigned char);
+int		_MAPINT	FDS_MapperSnd	(int);
+int		_MAPINT	FDS_Read	(int,int);
+void		_MAPINT	FDS_Write	(int,int,int);
+void			FDS_Destroy	(void);
 
 #endif	/* __FDS_H__ */

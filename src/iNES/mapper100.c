@@ -120,11 +120,14 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 	return FALSE;
 }
 
-static	void	_MAPINT	Config (void)
+static	unsigned char	_MAPINT	Config (int mode, unsigned char data)
 {
+	if (Mapper.ConfigWindow)
+		return 0;
 	Mapper.ConfigWindow = CreateDialog(hInstance,MAKEINTRESOURCE(IDD_MAPPER100),hWnd,(DLGPROC)ConfigProc);
 	if (Mapper.ConfigWindow)
 		SetWindowPos(Mapper.ConfigWindow,hWnd,0,0,0,0,SWP_SHOWWINDOW | SWP_NOSIZE);
+	return 0;
 }
 
 static	void	_MAPINT	Shutdown (void)
