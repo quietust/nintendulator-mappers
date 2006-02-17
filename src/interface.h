@@ -17,9 +17,9 @@
 
 #define	MSGBOX_FLAGS	(MB_OK | MB_ICONERROR | MB_DEFBUTTON1 | MB_APPLMODAL)
 
-/* Mapper Interface version (3.3) */
+/* Mapper Interface version (3.4) */
 
-#define	CurrentMapperInterface 0x00030003
+#define	CurrentMapperInterface 0x00030004
 
 /* Integer types */
 
@@ -194,6 +194,8 @@ typedef enum	{ COMPAT_FULL, COMPAT_NEARLY, COMPAT_PARTIAL, COMPAT_NONE } COMPAT_
 
 typedef	enum	{ STATE_SAVE, STATE_LOAD, STATE_SIZE } SAVELOAD_TYPE;
 
+typedef	enum	{ CFG_WINDOW, CFG_QUERY, CFG_CMD } CFG_TYPE;
+
 typedef	struct	MapperInfo
 {
 	/* Mapper Information */
@@ -208,7 +210,7 @@ typedef	struct	MapperInfo
 		void		(_MAPINT *PPUCycle)	(int,int,int,int);	/* Address, Scanline, Cycle, IsRendering */
 		int		(_MAPINT *SaveLoad)	(SAVELOAD_TYPE,int,char *);	/* Mode, Offset, Data */
 		int		(_MAPINT *GenSound)	(int);			/* Cycles */
-		void		(_MAPINT *Config)	(void);
+		unsigned char	(_MAPINT *Config)	(CFG_TYPE,unsigned char);
 }	TMapperInfo, *PMapperInfo;
 typedef	const	TMapperInfo	CTMapperInfo, *CPMapperInfo;
 
