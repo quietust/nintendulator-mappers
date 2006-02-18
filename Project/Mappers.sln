@@ -20,34 +20,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VS", "VS.vcproj", "{C6A6508
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 6
-		SccProjectName0 = \u0022$/Mappers\u0022,\u0020DEAAAAAA
-		SccLocalPath0 = .
-		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
-		CanCheckoutShared = false
-		SolutionUniqueID = {B7899CB9-67C8-4F38-8836-FA48AAB53B8C}
-		SccProjectUniqueName1 = FDS.vcproj
-		SccLocalPath1 = ..
-		CanCheckoutShared = false
-		SccProjectFilePathRelativizedFromConnection1 = Project\\
-		SccProjectUniqueName2 = NSF.vcproj
-		SccLocalPath2 = ..
-		CanCheckoutShared = false
-		SccProjectFilePathRelativizedFromConnection2 = Project\\
-		SccProjectUniqueName3 = UNIF.vcproj
-		SccLocalPath3 = ..
-		CanCheckoutShared = false
-		SccProjectFilePathRelativizedFromConnection3 = Project\\
-		SccProjectUniqueName4 = INES.vcproj
-		SccLocalPath4 = ..
-		CanCheckoutShared = false
-		SccProjectFilePathRelativizedFromConnection4 = Project\\
-		SccProjectUniqueName5 = VS.vcproj
-		SccLocalPath5 = ..
-		CanCheckoutShared = false
-		SccProjectFilePathRelativizedFromConnection5 = Project\\
-	EndGlobalSection
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug (ANSI) = Debug (ANSI)
 		Debug (Unicode) = Debug (Unicode)

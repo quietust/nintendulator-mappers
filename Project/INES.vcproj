@@ -3,10 +3,10 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="iNES"
-	SccProjectName="&quot;$/Mappers&quot;, DEAAAAAA"
+	SccProjectName=""
 	SccAuxPath=""
-	SccLocalPath=".."
-	SccProvider="MSSCCI:Microsoft Visual SourceSafe">
+	SccLocalPath=""
+	SccProvider="">
 	<Platforms>
 		<Platform
 			Name="Win32"/>

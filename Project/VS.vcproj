@@ -4,10 +4,10 @@
 	Version="7.10"
 	Name="VS"
 	ProjectGUID="{C6A65084-8590-4192-8E89-2B872BF29BAD}"
-	SccProjectName="&quot;$/Mappers&quot;, DEAAAAAA"
+	SccProjectName=""
 	SccAuxPath=""
-	SccLocalPath=".."
-	SccProvider="MSSCCI:Microsoft Visual SourceSafe">
+	SccLocalPath=""
+	SccProvider="">
 	<Platforms>
 		<Platform
 			Name="Win32"/>
