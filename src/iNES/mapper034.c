@@ -2,63 +2,42 @@
 
 static	struct
 {
-	u8 BNROM_PRG;
-	u8 NINA_PRG;
-	u8 NINA_CHR[2];
 	u8 Mode;
+	u8 PRG;
+	u8 CHR[2];
 	FCPUWrite Write7;
 }	Mapper;
 
-static	void	Sync (void)
+static	void	Sync_NINA (void)
 {
-	switch (Mapper.Mode)
-	{
-	case 0:	EMU->SetPRG_ROM32(0x8,-1);
-		EMU->SetCHR_RAM8(0,0);
-		break;
-	case 1:	EMU->SetPRG_RAM8(0x6,0);
-		EMU->SetPRG_ROM32(0x8,Mapper.NINA_PRG);
-		EMU->SetCHR_ROM4(0,Mapper.NINA_CHR[0]);
-		EMU->SetCHR_ROM4(4,Mapper.NINA_CHR[1]);
-		break;
-	case 2:	EMU->SetPRG_ROM32(0x8,Mapper.BNROM_PRG);
-		EMU->SetCHR_RAM8(0,0);
-		break;
-	}
+	EMU->SetPRG_RAM8(0x6,0);
+	EMU->SetPRG_ROM32(0x8,Mapper.PRG);
+	EMU->SetCHR_ROM4(0,Mapper.CHR[0]);
+	EMU->SetCHR_ROM4(4,Mapper.CHR[1]);
 }
 
-static	void	SetMode (int Mode)
+static	void	Sync_BNROM (void)
 {
-	if (Mapper.Mode)
-	{
-		Sync();
-		if (Mapper.Mode != Mode)
-			EMU->DbgOut(_T("ERROR: Mapper 34 attempting to use both NINA-01 and NES-BNROM behaviour!"));
-		return;
-	}
-	Mapper.Mode = Mode;
-	Sync();
-#ifdef	DEBUG
-	if (Mode == 1)
-		EMU->StatusOut(_T("Mapper 34 locked to NINA-01 subset"));
-	else if (Mode == 2)
-		EMU->StatusOut(_T("Mapper 34 locked to NES-BNROM subset"));
-#endif
+	EMU->SetPRG_ROM32(0x8,Mapper.PRG);
+	EMU->SetCHR_RAM8(0,0);
 }
 
 static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode,x,data,Mapper.Mode)
+	SAVELOAD_BYTE(mode,x,data,Mapper.PRG)
 	if (Mapper.Mode == 1)
 	{
-		SAVELOAD_BYTE(mode,x,data,Mapper.NINA_PRG)
-		SAVELOAD_BYTE(mode,x,data,Mapper.NINA_CHR[0])
-		SAVELOAD_BYTE(mode,x,data,Mapper.NINA_CHR[1])
+		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[0])
+		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[1])
 	}
-	if (Mapper.Mode == 2)
-		SAVELOAD_BYTE(mode,x,data,Mapper.BNROM_PRG)
 	if (mode == STATE_LOAD)
-		Sync();
+	{
+		if (Mapper.Mode == 1)
+			Sync_NINA();
+		if (Mapper.Mode == 2)
+			Sync_BNROM();
+	}
 	return x;
 }
 
@@ -67,19 +46,26 @@ static	void	MAPINT	WriteNINA (int Bank, int Addr, int Val)
 	Mapper.Write7(Bank,Addr,Val);
 	switch (Addr)
 	{
-	case 0xFFD:	Mapper.NINA_PRG = Val;
-			SetMode(1);	break;
-	case 0xFFE:	Mapper.NINA_CHR[0] = Val;
-			SetMode(1);	break;
-	case 0xFFF:	Mapper.NINA_CHR[1] = Val;
-			SetMode(1);	break;
+	case 0xFFD:	Mapper.PRG = Val;
+			Sync_NINA();		break;
+	case 0xFFE:	Mapper.CHR[0] = Val;
+			Sync_NINA();		break;
+	case 0xFFF:	Mapper.CHR[1] = Val;
+			Sync_NINA();		break;
 	}
 }
 
 static	void	MAPINT	WriteBNROM (int Bank, int Addr, int Val)
 {
-	Mapper.BNROM_PRG = Val;
-	SetMode(2);
+	Mapper.PRG = Val;
+	Sync_BNROM();
+}
+
+static	void	MAPINT	Load (void)
+{
+	if (ROM->INES_CHRSize == 0)
+		Mapper.Mode = 2;
+	else	Mapper.Mode = 1;
 }
 
 static	void	MAPINT	Reset (RESET_TYPE ResetType)
@@ -87,21 +73,26 @@ static	void	MAPINT	Reset (RESET_TYPE ResetType)
 	u8 x;
 	iNES_SetMirroring();
 
-	Mapper.Write7 = EMU->GetCPUWriteHandler(0x7);
-	EMU->SetCPUWriteHandler(0x7,WriteNINA);
-
-	for (x = 0x8; x < 0x10; x++)
-		EMU->SetCPUWriteHandler(x,WriteBNROM);
-
 	if (ResetType == RESET_HARD)
 	{
-		Mapper.BNROM_PRG = 0;
-		Mapper.NINA_PRG = 0;
-		Mapper.NINA_CHR[0] = 0;
-		Mapper.NINA_CHR[1] = 1;
-		Mapper.Mode = 0;
+		Mapper.PRG = 0;
+		Mapper.CHR[0] = 0;
+		Mapper.CHR[1] = 1;
 	}
-	Sync();
+
+	if (Mapper.Mode == 1)
+	{
+		Mapper.Write7 = EMU->GetCPUWriteHandler(0x7);
+		EMU->SetCPUWriteHandler(0x7,WriteNINA);
+		Sync_NINA();
+	}
+	if (Mapper.Mode == 2)
+	{
+		for (x = 0x8; x < 0x10; x++)
+			EMU->SetCPUWriteHandler(x,WriteBNROM);
+		Sync_BNROM();
+	}
+
 }
 
 static	u8 MapperNum = 34;
@@ -110,7 +101,7 @@ CTMapperInfo	MapperInfo_034 =
 	&MapperNum,
 	_T("BNROM/Nina-01"),
 	COMPAT_FULL,
-	NULL,
+	Load,
 	Reset,
 	NULL,
 	NULL,
