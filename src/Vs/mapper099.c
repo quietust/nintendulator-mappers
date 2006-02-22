@@ -40,8 +40,7 @@ static	void	MAPINT	Load (void)
 
 static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_SetMirroring();
-
+	EMU->Mirror_4();
 	VS_Reset(ResetType);
 	Mapper.Write = EMU->GetCPUWriteHandler(0x4);
 	EMU->SetCPUWriteHandler(0x4,Write);
