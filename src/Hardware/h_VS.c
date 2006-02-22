@@ -244,7 +244,7 @@ unsigned char	MAPINT	VS_Config (CFG_TYPE mode, unsigned char data)
 				VS.Coin |= 0x40;
 			if (data == 19)
 				VS.Coin |= 0x04;
-			VS.CoinDelay = 888888;
+			VS.CoinDelay = 222222;
 			UnblockDialog(VS.ConfigWindow);
 			break;
 		}
