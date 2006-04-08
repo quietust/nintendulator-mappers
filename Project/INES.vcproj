@@ -405,6 +405,9 @@
 					RelativePath="..\src\iNES\mapper034.c">
 				</File>
 				<File
+					RelativePath="..\src\iNES\mapper037.c">
+				</File>
+				<File
 					RelativePath="..\src\iNES\mapper040.c">
 				</File>
 				<File
