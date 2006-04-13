@@ -66,7 +66,7 @@ static	void	MAPINT	CPUCycle (void)
 
 static	void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
-	Mapper.PRG[0] = Val & 0xF;
+	Mapper.PRG[0] = Val & 0x1F;
 	Sync();
 }
 
@@ -81,7 +81,7 @@ static	void	MAPINT	Write9 (int Bank, int Addr, int Val)
 
 static	void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
-	Mapper.PRG[1] = Val & 0xF;
+	Mapper.PRG[1] = Val & 0x1F;
 	Sync();
 }
 

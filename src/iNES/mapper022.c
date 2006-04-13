@@ -13,7 +13,7 @@ static	void	Sync (void)
 	EMU->SetPRG_RAM8(0x6,0);
 	EMU->SetPRG_ROM8(0x8,Mapper.PRG[0]);
 	EMU->SetPRG_ROM8(0xA,Mapper.PRG[1]);
-	EMU->SetPRG_ROM16(0xC,0xF);
+	EMU->SetPRG_ROM16(0xC,0x1F);
 	for (x = 0; x < 8; x++)
 		EMU->SetCHR_ROM1(x,Mapper.CHR[x].b0 >> 1);
 	if (Mapper.Mirror & 0x1)

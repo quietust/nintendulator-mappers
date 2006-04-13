@@ -18,8 +18,8 @@ static	void	Sync (void)
 	EMU->SetPRG_RAM8(0x6,0);
 	EMU->SetPRG_ROM8(Mapper.PRGswap ? 0xC : 0x8,Mapper.PRG[0]);
 	EMU->SetPRG_ROM8(0xA,Mapper.PRG[1]);
-	EMU->SetPRG_ROM8(Mapper.PRGswap ? 0x8 : 0xC,-2);
-	EMU->SetPRG_ROM8(0xE,-1);
+	EMU->SetPRG_ROM8(Mapper.PRGswap ? 0x8 : 0xC,0x1E);
+	EMU->SetPRG_ROM8(0xE,0x1F);
 	for (x = 0; x < 8; x++)
 		EMU->SetCHR_ROM1(x,Mapper.CHR[x].b0);
 	switch (Mapper.Mirror & 3)
@@ -66,7 +66,7 @@ static	void	MAPINT	CPUCycle (void)
 
 static	void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
-	Mapper.PRG[0] = Val;
+	Mapper.PRG[0] = Val & 0x1F;
 	Sync();
 }
 
@@ -81,7 +81,7 @@ static	void	MAPINT	Write9 (int Bank, int Addr, int Val)
 
 static	void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
-	Mapper.PRG[1] = Val;
+	Mapper.PRG[1] = Val & 0x1F;
 	Sync();
 }
 
