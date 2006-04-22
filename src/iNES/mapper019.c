@@ -57,12 +57,8 @@ static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 static	void	MAPINT	CPUCycle (void)
 {
-	if (Mapper.IRQcounter.b1 & 0x80)
-	{
-		Mapper.IRQcounter.s0++;
-		if (!(Mapper.IRQcounter.b1 & 0x80))
-			EMU->SetIRQ(0);
-	}
+	if ((Mapper.IRQcounter.s0 & 0x8000) && ((Mapper.IRQcounter.s0 & 0x7FFF) != 0x7FFF) && ((++Mapper.IRQcounter.s0 & 0x7FFF) == 0x7FFF))
+		EMU->SetIRQ(0);
 }
 
 static	int	MAPINT	Read4 (int Bank, int Addr)
