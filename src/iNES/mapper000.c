@@ -1,5 +1,10 @@
 #include	"..\DLL\d_iNES.h"
 
+static	void	MAPINT	Load (void)
+{
+	iNES_SetSRAM();
+}
+
 static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
@@ -8,6 +13,10 @@ static	void	MAPINT	Reset (RESET_TYPE ResetType)
 	if (ROM->INES_CHRSize)
 		EMU->SetCHR_ROM8(0,0);
 	else	EMU->SetCHR_RAM8(0,0);
+	
+	// a few carts, like Family Basic, are effectively NROM with battery-backed RAM
+	if (ROM->INES_Flags & 0x02)
+		EMU->SetPRG_RAM8(0x6,0);
 }
 
 static	u8 MapperNum = 0;
@@ -16,7 +25,7 @@ CTMapperInfo	MapperInfo_000 =
 	&MapperNum,
 	_T("NROM"),
 	COMPAT_FULL,
-	NULL,
+	Load,
 	Reset,
 	NULL,
 	NULL,
