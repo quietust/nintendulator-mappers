@@ -130,6 +130,7 @@ static	void	Sync (void)
 static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
+	x = MapperSnd_SaveLoad(mode,x,data);
 	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter)
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
 	SAVELOAD_BYTE(mode,x,data,Mapper.IRQlatch)
@@ -344,6 +345,7 @@ static	void	MAPINT	Reset (RESET_TYPE ResetType)
 		Mapper.IRQcounter = 0;
 		Mapper.LastAddr = Mapper.LastAddrTmp = 0;
 		Mapper.Jumper = 0;
+		EMU->SetIRQ(1);
 	}
 
 	Sync();
