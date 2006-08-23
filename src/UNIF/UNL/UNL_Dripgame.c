@@ -225,7 +225,7 @@ static	void	MAPINT	WriteL (int Bank, int Addr, int Val)
 			if (Chan->ReadPos == Chan->WritePos)
 			{
 				Chan->IsEmpty = FALSE;
-				Chan->Pos = Val * Chan->vol;
+				Chan->Pos = (Val - 0x80) * Chan->vol;
 			}
 			Chan->FIFO[Chan->WritePos++] = Val;
 			if (Chan->ReadPos == Chan->WritePos)
@@ -237,7 +237,8 @@ static	void	MAPINT	WriteL (int Bank, int Addr, int Val)
 		case 0x3:
 			Chan->freq = (Chan->freq & 0xFF) | ((Val & 0xF) << 8);
 			Chan->vol = (Val & 0xF0) >> 4;
-			Chan->Pos = Chan->FIFO[Chan->ReadPos] * Chan->vol;
+			if (!Chan->IsEmpty)
+				Chan->Pos = (Chan->FIFO[Chan->ReadPos] - 0x80) * Chan->vol;
 			break;
 		}
 	}
