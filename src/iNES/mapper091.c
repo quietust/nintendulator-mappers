@@ -2,16 +2,16 @@
 
 static	struct
 {
-	u16_n IRQcounter;
-	u8 IRQenabled;
 	u8 PRG[2];
 	u8 CHR[4];
+	u8 IRQenabled;
+	u8 IRQcounter;
 }	Mapper;
 
 static	void	Sync (void)
 {
 	EMU->SetPRG_ROM8(0x8,Mapper.PRG[0]);
-	EMU->SetPRG_ROM8(0xA,Mapper.PRG[0]);
+	EMU->SetPRG_ROM8(0xA,Mapper.PRG[1]);
 	EMU->SetPRG_ROM16(0xC,-1);
 	EMU->SetCHR_ROM2(0,Mapper.CHR[0]);
 	EMU->SetCHR_ROM2(2,Mapper.CHR[1]);
@@ -22,23 +22,25 @@ static	void	Sync (void)
 static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
-	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter.s0)
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
 	for (i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode,x,data,Mapper.PRG[i])
 	for (i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[i])
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounter)
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	CPUCycle (void)
+static	void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
-	if (Mapper.IRQenabled)
-		Mapper.IRQcounter.s0++;
-	if (Mapper.IRQcounter.s0 >= 896)
-		EMU->SetIRQ(0);
+	if ((Mapper.IRQenabled) && (Cycle == 0) && IsRendering)
+	{
+		Mapper.IRQcounter++;
+		if (Mapper.IRQcounter >= 8)
+			EMU->SetIRQ(0);
+	}
 }
 
 static	void	MAPINT	Write6 (int Bank, int Addr, int Val)
@@ -54,7 +56,7 @@ static	void	MAPINT	Write7 (int Bank, int Addr, int Val)
 	case 0:	Mapper.PRG[0] = Val & 0xF;	break;
 	case 1:	Mapper.PRG[1] = Val & 0xF;	break;
 	case 2:	Mapper.IRQenabled = 0;
-		Mapper.IRQcounter.s0 = 0;
+		Mapper.IRQcounter = 0;
 		EMU->SetIRQ(1);			break;
 	case 3:	Mapper.IRQenabled = 1;		break;
 	}
@@ -70,10 +72,11 @@ static	void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	if (ResetType == RESET_HARD)
 	{
-		Mapper.IRQcounter.s0 = 0;
-		Mapper.IRQenabled = 0;
 		Mapper.PRG[0] = Mapper.PRG[1] = 0;
 		Mapper.CHR[0] = Mapper.CHR[1] = Mapper.CHR[2] = Mapper.CHR[3] = 0;
+		Mapper.IRQenabled = 0;
+		Mapper.IRQcounter = 0;
+		EMU->SetIRQ(1);
 	}
 	Sync();
 }
@@ -83,12 +86,12 @@ CTMapperInfo	MapperInfo_091 =
 {
 	&MapperNum,
 	_T("PC-HK-SF3"),
-	COMPAT_PARTIAL,
+	COMPAT_FULL,
 	NULL,
 	Reset,
 	NULL,
-	CPUCycle,
 	NULL,
+	PPUCycle,
 	SaveLoad,
 	NULL,
 	NULL
