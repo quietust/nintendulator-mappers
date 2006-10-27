@@ -45,6 +45,7 @@ extern	CTMapperInfo
 	MapperInfo_NES_SAROM,	MapperInfo_NES_SBROM,	MapperInfo_NES_SCROM,	MapperInfo_NES_SEROM,
 	MapperInfo_NES_SFROM,	MapperInfo_NES_SGROM,	MapperInfo_NES_SKROM,	MapperInfo_NES_SLROM,
 	MapperInfo_NES_SL1ROM,	MapperInfo_NES_SNROM,	MapperInfo_NES_SOROM,	MapperInfo_NES_SUROM,
+	MapperInfo_NES_SXROM,
 	MapperInfo_NES_TFROM,	MapperInfo_NES_TGROM,	MapperInfo_NES_TKROM,	MapperInfo_NES_TLROM,
 	MapperInfo_NES_TL1ROM,	MapperInfo_NES_TR1ROM,	MapperInfo_NES_TSROM,
 	MapperInfo_NES_UNROM,	MapperInfo_NES_UOROM,
@@ -105,6 +106,7 @@ static	CPMapperInfo	BoardTable[] =
 	&MapperInfo_NES_SAROM	,&MapperInfo_NES_SBROM	,&MapperInfo_NES_SCROM	,&MapperInfo_NES_SEROM	,
 	&MapperInfo_NES_SFROM	,&MapperInfo_NES_SGROM	,&MapperInfo_NES_SKROM	,&MapperInfo_NES_SLROM	,
 	&MapperInfo_NES_SL1ROM	,&MapperInfo_NES_SNROM	,&MapperInfo_NES_SOROM	,&MapperInfo_NES_SUROM	,
+	&MapperInfo_NES_SXROM	,
 
 	&MapperInfo_NES_TFROM	,&MapperInfo_NES_TGROM	,&MapperInfo_NES_TKROM	,&MapperInfo_NES_TLROM	,
 	&MapperInfo_NES_TL1ROM	,&MapperInfo_NES_TR1ROM	,&MapperInfo_NES_TSROM	,

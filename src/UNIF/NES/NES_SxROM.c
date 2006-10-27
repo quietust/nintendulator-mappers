@@ -84,6 +84,19 @@ static	void	Sync_SUROM (void)
 	MMC1_SyncCHR_RAM(0x01,0);
 	MMC1_SyncWRAM();
 }
+static	void	Sync_SXROM (void)
+{
+	MMC1_SyncMirror();
+	MMC1_SyncPRG(0xF,MMC1_GetCHRBankLo() & 0x10);
+	MMC1_SyncCHR_RAM(0x01,0);
+	if (MMC1_GetWRAMEnabled())
+		EMU->SetPRG_RAM8(0x6,(MMC1_GetCHRBankLo() & 0x0C) >> 2);
+	else
+	{
+		EMU->SetPRG_OB4(0x6);
+		EMU->SetPRG_OB4(0x7);
+	}
+}
 
 static	void	MAPINT	Load_SAROM (void)
 {
@@ -137,6 +150,11 @@ static	void	MAPINT	Load_SUROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC1_Load(Sync_SUROM);
+}
+static	void	MAPINT	Load_SXROM (void)
+{
+	UNIF_SetSRAM(32768);
+	MMC1_Load(Sync_SXROM);
 }
 static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
@@ -307,7 +325,21 @@ CTMapperInfo	MapperInfo_NES_SUROM =
 	"NES-SUROM",
 	_T("MMC1 with 512KB PRG"),
 	COMPAT_FULL,
-	Load_SNROM,
+	Load_SUROM,
+	Reset,
+	Unload,
+	NULL,
+	NULL,
+	MMC1_SaveLoad,
+	NULL,
+	NULL
+};
+CTMapperInfo	MapperInfo_NES_SXROM =
+{
+	"NES-SXROM",
+	_T("MMC1 with 512KB PRG and 32KB SRAM"),
+	COMPAT_FULL,
+	Load_SXROM,
 	Reset,
 	Unload,
 	NULL,
