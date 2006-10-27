@@ -70,7 +70,7 @@ static	void	Sync_SOROM (void)
 	MMC1_SyncPRG(0xF,0);
 	MMC1_SyncCHR_RAM(0x01,0);
 	if (MMC1_GetWRAMEnabled())
-		EMU->SetPRG_RAM8(0x6,((MMC1_GetCHRBankLo() & 0x10) >> 4) ^ 1);
+		EMU->SetPRG_RAM8(0x6,((MMC1_GetCHRBankLo() & 0x08) >> 3) ^ 1);
 	else
 	{
 		EMU->SetPRG_OB4(0x6);
