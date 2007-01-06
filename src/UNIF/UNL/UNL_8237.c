@@ -29,6 +29,15 @@ static	void	Sync (void)
 	else	MMC3_SyncPRG((Mapper.PRG & 0x40) ? 0x1F : 0x3F,0);
 }
 
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+{
+	x = MMC3_SaveLoad(mode,x,data);
+	SAVELOAD_BYTE(mode,x,data,Mapper.PRG)
+	SAVELOAD_BYTE(mode,x,data,Mapper.CHR)
+	SAVELOAD_BYTE(mode,x,data,Mapper.Valid)
+	return x;
+}
+
 static	void	MAPINT	Write5 (int Bank, int Addr, int Val)
 {
 	switch (Addr & 7)
@@ -104,7 +113,7 @@ CTMapperInfo	MapperInfo_UNL_8237 =
 	Unload,
 	NULL,
 	MMC3_PPUCycle,
-	MMC3_SaveLoad,
+	SaveLoad,
 	NULL,
 	NULL
 };
