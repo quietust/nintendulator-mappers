@@ -25,6 +25,14 @@ static	void	Sync (void)
 	}
 }
 
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+{
+	x = MMC3_SaveLoad(mode,x,data);
+	SAVELOAD_BYTE(mode,x,data,Mapper.Reg0)
+	SAVELOAD_BYTE(mode,x,data,Mapper.Reg1)
+	return x;
+}
+
 static	int	MAPINT	Read (int Bank, int Addr)
 {
 	if (Addr & 0x800)
@@ -88,7 +96,7 @@ CTMapperInfo	MapperInfo_UNL_H2288 =
 	Unload,
 	NULL,
 	MMC3_PPUCycle,
-	MMC3_SaveLoad,
+	SaveLoad,
 	NULL,
 	NULL
 };
