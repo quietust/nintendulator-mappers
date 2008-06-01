@@ -226,6 +226,7 @@ static	void	MAPINT	WriteL (int Bank, int Addr, int Val)
 			{
 				Chan->IsEmpty = FALSE;
 				Chan->Pos = (Val - 0x80) * Chan->vol;
+				Chan->timer = Chan->freq;
 			}
 			Chan->FIFO[Chan->WritePos++] = Val;
 			if (Chan->ReadPos == Chan->WritePos)
