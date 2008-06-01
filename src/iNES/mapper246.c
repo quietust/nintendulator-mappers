@@ -22,9 +22,9 @@ static	int	MAPINT	SaveLoad (RESET_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.PRG[i])
+		SAVELOAD_BYTE(mode,x,data,Mapper.PRG[i]);
 	for (i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[i])
+		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[i]);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;

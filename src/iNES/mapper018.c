@@ -41,14 +41,14 @@ static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 3; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.PRG[i].b0)
+		SAVELOAD_BYTE(mode,x,data,Mapper.PRG[i].b0);
 	for (i = 0; i < 8; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[i].b0)
-	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter)
-	SAVELOAD_WORD(mode,x,data,Mapper.IRQlatch.s0)
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcontrol)
-	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror)
-	SAVELOAD_BYTE(mode,x,data,Mapper.DisableSRAM)
+		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[i].b0);
+	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter);
+	SAVELOAD_WORD(mode,x,data,Mapper.IRQlatch.s0);
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcontrol);
+	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror);
+	SAVELOAD_BYTE(mode,x,data,Mapper.DisableSRAM);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;

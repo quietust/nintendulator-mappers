@@ -164,15 +164,13 @@ static	void	MAPINT	Write (int Bank, int Addr, int Val)
 
 static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.Mode)
-	{
-		u8 i;
-		for (i = 0; i < 2; i++)
-			SAVELOAD_BYTE(mode,x,data,VRC2.PRG[i])
-		for (i = 0; i < 8; i++)
-			SAVELOAD_BYTE(mode,x,data,VRC2.CHR[i].b0)
-		SAVELOAD_BYTE(mode,x,data,VRC2.Mirror)
-	}
+	u8 i;
+	SAVELOAD_BYTE(mode,x,data,Mapper.Mode);
+	for (i = 0; i < 2; i++)
+		SAVELOAD_BYTE(mode,x,data,VRC2.PRG[i]);
+	for (i = 0; i < 8; i++)
+		SAVELOAD_BYTE(mode,x,data,VRC2.CHR[i].b0);
+	SAVELOAD_BYTE(mode,x,data,VRC2.Mirror);
 	x += MMC3_SaveLoad(mode,x,data);
 	x += MMC1_SaveLoad(mode,x,data);
 	if (mode == STATE_LOAD)

@@ -20,8 +20,8 @@ static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	u8 i;
 	x = MMC3_SaveLoad(mode,x,data);
 	for (i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.Regs[i])
-	SAVELOAD_BYTE(mode,x,data,Mapper.Pos)
+		SAVELOAD_BYTE(mode,x,data,Mapper.Regs[i]);
+	SAVELOAD_BYTE(mode,x,data,Mapper.Pos);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;

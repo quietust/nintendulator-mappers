@@ -42,14 +42,14 @@ static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 Byte;
 	x = MMC1_SaveLoad(mode,x,data);
-	SAVELOAD_LONG(mode,x,data,Mapper.Counter)
+	SAVELOAD_LONG(mode,x,data,Mapper.Counter);
 	if (mode == STATE_SAVE)
 		Byte = (u8)(Mapper.MaxCount >> 24);
-	SAVELOAD_BYTE(mode,x,data,Byte)
+	SAVELOAD_BYTE(mode,x,data,Byte);
 	if (mode == STATE_LOAD)
 		Mapper.MaxCount = Byte << 24;
-	SAVELOAD_BYTE(mode,x,data,Mapper.CounterEnabled)
-	SAVELOAD_BYTE(mode,x,data,Mapper.InitState)
+	SAVELOAD_BYTE(mode,x,data,Mapper.CounterEnabled);
+	SAVELOAD_BYTE(mode,x,data,Mapper.InitState);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;

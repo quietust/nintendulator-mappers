@@ -119,21 +119,21 @@ int	MAPINT	FME7sound_Get (int Cycles)
 
 int	MAPINT	FME7sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,FME7sound.select)
-	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[0].byte0)
-	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[0].byte1)
-	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[0].byte2)
-	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[0].CurP)
-	SAVELOAD_LONG(mode,x,data,FME7sound.Sqr[0].LCtr)
-	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[1].byte0)
-	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[1].byte1)
-	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[1].byte2)
-	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[1].CurP)
-	SAVELOAD_LONG(mode,x,data,FME7sound.Sqr[1].LCtr)
-	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[2].byte0)
-	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[2].byte1)
-	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[2].byte2)
-	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[2].CurP)
-	SAVELOAD_LONG(mode,x,data,FME7sound.Sqr[2].LCtr)
+	SAVELOAD_BYTE(mode,x,data,FME7sound.select);
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[0].byte0);
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[0].byte1);
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[0].byte2);
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[0].CurP);
+	SAVELOAD_LONG(mode,x,data,FME7sound.Sqr[0].LCtr);
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[1].byte0);
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[1].byte1);
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[1].byte2);
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[1].CurP);
+	SAVELOAD_LONG(mode,x,data,FME7sound.Sqr[1].LCtr);
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[2].byte0);
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[2].byte1);
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[2].byte2);
+	SAVELOAD_BYTE(mode,x,data,FME7sound.Sqr[2].CurP);
+	SAVELOAD_LONG(mode,x,data,FME7sound.Sqr[2].LCtr);
 	return x;
 }

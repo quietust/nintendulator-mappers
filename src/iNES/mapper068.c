@@ -46,13 +46,13 @@ static	void	SyncNametables (void)
 static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
-	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror)
-	SAVELOAD_BYTE(mode,x,data,Mapper.VROM_use)
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHR_L)
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHR_H)
-	SAVELOAD_BYTE(mode,x,data,Mapper.PRG)
+	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror);
+	SAVELOAD_BYTE(mode,x,data,Mapper.VROM_use);
+	SAVELOAD_BYTE(mode,x,data,Mapper.CHR_L);
+	SAVELOAD_BYTE(mode,x,data,Mapper.CHR_H);
+	SAVELOAD_BYTE(mode,x,data,Mapper.PRG);
 	for (i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[i])
+		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[i]);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;

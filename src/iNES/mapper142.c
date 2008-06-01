@@ -21,11 +21,11 @@ static	void	Sync (void)
 static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
-	SAVELOAD_BYTE(mode,x,data,Mapper.PRGcontrol)
+	SAVELOAD_BYTE(mode,x,data,Mapper.PRGcontrol);
 	for (i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.PRG[i])
-	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter.s0)
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
+		SAVELOAD_BYTE(mode,x,data,Mapper.PRG[i]);
+	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter.s0);
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;

@@ -40,7 +40,7 @@ static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	u8 i;
 	x = Latch_SaveLoad_A(mode,x,data);
 	for (i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.Regs[i])
+		SAVELOAD_BYTE(mode,x,data,Mapper.Regs[i]);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;

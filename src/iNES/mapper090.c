@@ -123,25 +123,25 @@ static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.PRGbanks[i])
+		SAVELOAD_BYTE(mode,x,data,Mapper.PRGbanks[i]);
 	for (i = 0; i < 8; i++)
-		SAVELOAD_WORD(mode,x,data,Mapper.CHRbanks[i].s0)
+		SAVELOAD_WORD(mode,x,data,Mapper.CHRbanks[i].s0);
 	for (i = 0; i < 4; i++)
-		SAVELOAD_WORD(mode,x,data,Mapper.Nametables[i].s0)
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQmode)
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounterL)
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounterH)
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQxor)
-	SAVELOAD_WORD(mode,x,data,Mapper.IRQaddr)
-	SAVELOAD_BYTE(mode,x,data,Mapper.BankMode)
-	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror)
-	SAVELOAD_BYTE(mode,x,data,Mapper.MirBank)
-	SAVELOAD_BYTE(mode,x,data,Mapper.ExtBank)
-	SAVELOAD_BYTE(mode,x,data,Mapper.Mul1)
-	SAVELOAD_BYTE(mode,x,data,Mapper.Mul2)
-	SAVELOAD_BYTE(mode,x,data,Mapper.Jumper)
-	SAVELOAD_BYTE(mode,x,data,Mapper.treg)
+		SAVELOAD_WORD(mode,x,data,Mapper.Nametables[i].s0);
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled);
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQmode);
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounterL);
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounterH);
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQxor);
+	SAVELOAD_WORD(mode,x,data,Mapper.IRQaddr);
+	SAVELOAD_BYTE(mode,x,data,Mapper.BankMode);
+	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror);
+	SAVELOAD_BYTE(mode,x,data,Mapper.MirBank);
+	SAVELOAD_BYTE(mode,x,data,Mapper.ExtBank);
+	SAVELOAD_BYTE(mode,x,data,Mapper.Mul1);
+	SAVELOAD_BYTE(mode,x,data,Mapper.Mul2);
+	SAVELOAD_BYTE(mode,x,data,Mapper.Jumper);
+	SAVELOAD_BYTE(mode,x,data,Mapper.treg);
 	if (mode == STATE_LOAD)
 	{
 		SyncPRG();

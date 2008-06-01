@@ -54,11 +54,11 @@ void	N108_SyncCHR (void)
 int	MAPINT	N108_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
-	SAVELOAD_BYTE(mode,x,data,N108.Cmd)
+	SAVELOAD_BYTE(mode,x,data,N108.Cmd);
 	for (i = 0; i < 2; i++)
-		SAVELOAD_BYTE(mode,x,data,N108.PRG[i])
+		SAVELOAD_BYTE(mode,x,data,N108.PRG[i]);
 	for (i = 0; i < 6; i++)
-		SAVELOAD_BYTE(mode,x,data,N108.CHR[i])
+		SAVELOAD_BYTE(mode,x,data,N108.CHR[i]);
 	if (mode == STATE_LOAD)
 		N108.Sync();
 	return x;

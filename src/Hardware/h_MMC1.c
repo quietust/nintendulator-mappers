@@ -32,9 +32,9 @@ int	MAPINT	MMC1_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode,x,data,MMC1.Regs[i])
-	SAVELOAD_BYTE(mode,x,data,MMC1.Latch)
-	SAVELOAD_BYTE(mode,x,data,MMC1.LatchPos)
+		SAVELOAD_BYTE(mode,x,data,MMC1.Regs[i]);
+	SAVELOAD_BYTE(mode,x,data,MMC1.Latch);
+	SAVELOAD_BYTE(mode,x,data,MMC1.LatchPos);
 	if (mode == STATE_LOAD)
 		MMC1.Sync();
 	return x;

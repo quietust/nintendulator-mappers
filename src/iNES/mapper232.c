@@ -15,8 +15,8 @@ static	void	Sync (void)
 
 static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.WhichGame)
-	SAVELOAD_BYTE(mode,x,data,Mapper.WhichBank)
+	SAVELOAD_BYTE(mode,x,data,Mapper.WhichGame);
+	SAVELOAD_BYTE(mode,x,data,Mapper.WhichBank);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;

@@ -39,14 +39,14 @@ void	MMC2_Unload (void)
 
 int	MAPINT	MMC2_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,MMC2.Latch0[0])
-	SAVELOAD_BYTE(mode,x,data,MMC2.Latch0[1])
-	SAVELOAD_BYTE(mode,x,data,MMC2.Latch1[0])
-	SAVELOAD_BYTE(mode,x,data,MMC2.Latch1[1])
-	SAVELOAD_BYTE(mode,x,data,MMC2.LatchState[0])
-	SAVELOAD_BYTE(mode,x,data,MMC2.LatchState[1])
-	SAVELOAD_BYTE(mode,x,data,MMC2.PRG)
-	SAVELOAD_BYTE(mode,x,data,MMC2.Mirror)
+	SAVELOAD_BYTE(mode,x,data,MMC2.Latch0[0]);
+	SAVELOAD_BYTE(mode,x,data,MMC2.Latch0[1]);
+	SAVELOAD_BYTE(mode,x,data,MMC2.Latch1[0]);
+	SAVELOAD_BYTE(mode,x,data,MMC2.Latch1[1]);
+	SAVELOAD_BYTE(mode,x,data,MMC2.LatchState[0]);
+	SAVELOAD_BYTE(mode,x,data,MMC2.LatchState[1]);
+	SAVELOAD_BYTE(mode,x,data,MMC2.PRG);
+	SAVELOAD_BYTE(mode,x,data,MMC2.Mirror);
 	if (mode == STATE_LOAD)
 		MMC2.Sync();
 	return x;

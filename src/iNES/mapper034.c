@@ -24,12 +24,12 @@ static	void	Sync_BNROM (void)
 
 static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.Mode)
-	SAVELOAD_BYTE(mode,x,data,Mapper.PRG)
+	SAVELOAD_BYTE(mode,x,data,Mapper.Mode);
+	SAVELOAD_BYTE(mode,x,data,Mapper.PRG);
 	if (Mapper.Mode == 1)
 	{
-		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[0])
-		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[1])
+		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[0]);
+		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[1]);
 	}
 	if (mode == STATE_LOAD)
 	{

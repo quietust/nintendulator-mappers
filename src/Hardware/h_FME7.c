@@ -9,7 +9,6 @@ void	FME7_Load (FSync Sync)
 	FME7.Sync = Sync;
 }
 
-
 void	FME7_Reset (RESET_TYPE ResetType)
 {
 	if (ResetType == RESET_HARD)
@@ -83,14 +82,14 @@ void	FME7_SyncCHR (int AND, int OR)
 int	MAPINT	FME7_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
-	SAVELOAD_WORD(mode,x,data,FME7.IRQcounter.s0)
-	SAVELOAD_BYTE(mode,x,data,FME7.IRQenabled)
-	SAVELOAD_BYTE(mode,x,data,FME7.Cmd)
+	SAVELOAD_WORD(mode,x,data,FME7.IRQcounter.s0);
+	SAVELOAD_BYTE(mode,x,data,FME7.IRQenabled);
+	SAVELOAD_BYTE(mode,x,data,FME7.Cmd);
 	for (i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode,x,data,FME7.PRG[i])
+		SAVELOAD_BYTE(mode,x,data,FME7.PRG[i]);
 	for (i = 0; i < 8; i++)
-		SAVELOAD_BYTE(mode,x,data,FME7.CHR[i])
-	SAVELOAD_BYTE(mode,x,data,FME7.Mirror)
+		SAVELOAD_BYTE(mode,x,data,FME7.CHR[i]);
+	SAVELOAD_BYTE(mode,x,data,FME7.Mirror);
 	x = FME7sound_SaveLoad(mode,x,data);
 	if (mode == STATE_LOAD)
 		FME7.Sync();

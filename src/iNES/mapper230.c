@@ -32,7 +32,7 @@ static	void	Sync (void)
 static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	x = Latch_SaveLoad_D(mode,x,data);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Mode)
+	SAVELOAD_BYTE(mode,x,data,Mapper.Mode);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;

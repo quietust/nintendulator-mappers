@@ -175,31 +175,31 @@ void	MMC5_Unload (void)
 int	MAPINT	MMC5_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
-	SAVELOAD_BYTE(mode,x,data,MMC5.WRAMsize)
-	SAVELOAD_BYTE(mode,x,data,MMC5.PRGsize)
-	SAVELOAD_BYTE(mode,x,data,MMC5.CHRsize)
+	SAVELOAD_BYTE(mode,x,data,MMC5.WRAMsize);
+	SAVELOAD_BYTE(mode,x,data,MMC5.PRGsize);
+	SAVELOAD_BYTE(mode,x,data,MMC5.CHRsize);
 	for (i = 0; i < 2; i++)
-		SAVELOAD_BYTE(mode,x,data,MMC5.WRAMprot[i])
-	SAVELOAD_BYTE(mode,x,data,MMC5.GfxMode)
-	SAVELOAD_BYTE(mode,x,data,MMC5.Mirror)
+		SAVELOAD_BYTE(mode,x,data,MMC5.WRAMprot[i]);
+	SAVELOAD_BYTE(mode,x,data,MMC5.GfxMode);
+	SAVELOAD_BYTE(mode,x,data,MMC5.Mirror);
 	for (i = 0; i < 5; i++)
-		SAVELOAD_BYTE(mode,x,data,MMC5.PRG[i])
+		SAVELOAD_BYTE(mode,x,data,MMC5.PRG[i]);
 	for (i = 0; i < 8; i++)
-		SAVELOAD_WORD(mode,x,data,MMC5.CHR_A[i].s0)
+		SAVELOAD_WORD(mode,x,data,MMC5.CHR_A[i].s0);
 	for (i = 0; i < 4; i++)
-		SAVELOAD_WORD(mode,x,data,MMC5.CHR_B[i].s0)
-	SAVELOAD_BYTE(mode,x,data,MMC5.CHRhi)
-	SAVELOAD_BYTE(mode,x,data,MMC5.CHRmode)
-	SAVELOAD_BYTE(mode,x,data,MMC5.SplitMode)
-	SAVELOAD_BYTE(mode,x,data,MMC5.SplitScroll)
-	SAVELOAD_BYTE(mode,x,data,MMC5.SplitBank)
-	SAVELOAD_BYTE(mode,x,data,MMC5.IRQline)
-	SAVELOAD_BYTE(mode,x,data,MMC5.IRQenabled)
-	SAVELOAD_BYTE(mode,x,data,MMC5.IRQreads)
-	SAVELOAD_BYTE(mode,x,data,MMC5.Mul1)
-	SAVELOAD_BYTE(mode,x,data,MMC5.Mul2)
-	SAVELOAD_WORD(mode,x,data,MMC5.LineCounter)
-	SAVELOAD_BYTE(mode,x,data,MMC5.SpriteMode)
+		SAVELOAD_WORD(mode,x,data,MMC5.CHR_B[i].s0);
+	SAVELOAD_BYTE(mode,x,data,MMC5.CHRhi);
+	SAVELOAD_BYTE(mode,x,data,MMC5.CHRmode);
+	SAVELOAD_BYTE(mode,x,data,MMC5.SplitMode);
+	SAVELOAD_BYTE(mode,x,data,MMC5.SplitScroll);
+	SAVELOAD_BYTE(mode,x,data,MMC5.SplitBank);
+	SAVELOAD_BYTE(mode,x,data,MMC5.IRQline);
+	SAVELOAD_BYTE(mode,x,data,MMC5.IRQenabled);
+	SAVELOAD_BYTE(mode,x,data,MMC5.IRQreads);
+	SAVELOAD_BYTE(mode,x,data,MMC5.Mul1);
+	SAVELOAD_BYTE(mode,x,data,MMC5.Mul2);
+	SAVELOAD_WORD(mode,x,data,MMC5.LineCounter);
+	SAVELOAD_BYTE(mode,x,data,MMC5.SpriteMode);
 	x = MMC5sound_SaveLoad(mode,x,data);
 	if (mode == STATE_LOAD)
 	{

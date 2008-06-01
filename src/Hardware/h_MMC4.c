@@ -40,14 +40,14 @@ void	MMC4_Unload (void)
 
 int	MAPINT	MMC4_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,MMC4.Latch0[0])
-	SAVELOAD_BYTE(mode,x,data,MMC4.Latch0[1])
-	SAVELOAD_BYTE(mode,x,data,MMC4.Latch1[0])
-	SAVELOAD_BYTE(mode,x,data,MMC4.Latch1[1])
-	SAVELOAD_BYTE(mode,x,data,MMC4.LatchState[0])
-	SAVELOAD_BYTE(mode,x,data,MMC4.LatchState[1])
-	SAVELOAD_BYTE(mode,x,data,MMC4.PRG)
-	SAVELOAD_BYTE(mode,x,data,MMC4.Mirror)
+	SAVELOAD_BYTE(mode,x,data,MMC4.Latch0[0]);
+	SAVELOAD_BYTE(mode,x,data,MMC4.Latch0[1]);
+	SAVELOAD_BYTE(mode,x,data,MMC4.Latch1[0]);
+	SAVELOAD_BYTE(mode,x,data,MMC4.Latch1[1]);
+	SAVELOAD_BYTE(mode,x,data,MMC4.LatchState[0]);
+	SAVELOAD_BYTE(mode,x,data,MMC4.LatchState[1]);
+	SAVELOAD_BYTE(mode,x,data,MMC4.PRG);
+	SAVELOAD_BYTE(mode,x,data,MMC4.Mirror);
 	if (mode == STATE_LOAD)
 		MMC4.Sync();
 	return x;

@@ -282,9 +282,9 @@ void	VS_Unload (void)
 
 int	MAPINT	VS_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,VS.DipSwitch)
-	SAVELOAD_BYTE(mode,x,data,VS.Coin)
-	SAVELOAD_LONG(mode,x,data,VS.CoinDelay)
+	SAVELOAD_BYTE(mode,x,data,VS.DipSwitch);
+	SAVELOAD_BYTE(mode,x,data,VS.Coin);
+	SAVELOAD_LONG(mode,x,data,VS.CoinDelay);
 	return x;
 }
 

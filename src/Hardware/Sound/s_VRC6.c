@@ -124,21 +124,21 @@ int	MAPINT	VRC6sound_Get (int Cycles)
 
 int	MAPINT	VRC6sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq0.byte0)
-	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq0.byte1)
-	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq0.byte2)
-	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq0.CurP)
-	SAVELOAD_LONG(mode,x,data,VRC6sound.Sq0.LCtr)
-	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq1.byte0)
-	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq1.byte1)
-	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq1.byte2)
-	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq1.CurP)
-	SAVELOAD_LONG(mode,x,data,VRC6sound.Sq1.LCtr)
-	SAVELOAD_BYTE(mode,x,data,VRC6sound.Saw.byte0)
-	SAVELOAD_BYTE(mode,x,data,VRC6sound.Saw.byte1)
-	SAVELOAD_BYTE(mode,x,data,VRC6sound.Saw.byte2)
-	SAVELOAD_BYTE(mode,x,data,VRC6sound.Saw.CurP)
-	SAVELOAD_BYTE(mode,x,data,VRC6sound.Saw.Acc)
-	SAVELOAD_LONG(mode,x,data,VRC6sound.Saw.LCtr)
+	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq0.byte0);
+	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq0.byte1);
+	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq0.byte2);
+	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq0.CurP);
+	SAVELOAD_LONG(mode,x,data,VRC6sound.Sq0.LCtr);
+	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq1.byte0);
+	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq1.byte1);
+	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq1.byte2);
+	SAVELOAD_BYTE(mode,x,data,VRC6sound.Sq1.CurP);
+	SAVELOAD_LONG(mode,x,data,VRC6sound.Sq1.LCtr);
+	SAVELOAD_BYTE(mode,x,data,VRC6sound.Saw.byte0);
+	SAVELOAD_BYTE(mode,x,data,VRC6sound.Saw.byte1);
+	SAVELOAD_BYTE(mode,x,data,VRC6sound.Saw.byte2);
+	SAVELOAD_BYTE(mode,x,data,VRC6sound.Saw.CurP);
+	SAVELOAD_BYTE(mode,x,data,VRC6sound.Saw.Acc);
+	SAVELOAD_LONG(mode,x,data,VRC6sound.Saw.LCtr);
 	return x;
 }

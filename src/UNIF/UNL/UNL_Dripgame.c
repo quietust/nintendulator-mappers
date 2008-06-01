@@ -43,23 +43,23 @@ static	int	MAPINT	MapperSnd_SaveLoad (STATE_TYPE mode, int x, unsigned char *dat
 {
 	int i;
 	for (i = 0; i < 256; i++)
-		SAVELOAD_BYTE(mode,x,data,MapSound.Chan[0].FIFO[i])
+		SAVELOAD_BYTE(mode,x,data,MapSound.Chan[0].FIFO[i]);
 	for (i = 0; i < 256; i++)
-		SAVELOAD_BYTE(mode,x,data,MapSound.Chan[1].FIFO[i])
-	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[0].ReadPos)
-	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[1].ReadPos)
-	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[0].WritePos)
-	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[1].WritePos)
-	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[0].IsFull)
-	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[1].IsFull)
-	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[0].IsEmpty)
-	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[1].IsEmpty)
-	SAVELOAD_WORD(mode,x,data,MapSound.Chan[0].freq)
-	SAVELOAD_WORD(mode,x,data,MapSound.Chan[1].freq)
-	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[0].vol)
-	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[1].vol)
-	SAVELOAD_WORD(mode,x,data,MapSound.Chan[0].timer)
-	SAVELOAD_WORD(mode,x,data,MapSound.Chan[1].timer)
+		SAVELOAD_BYTE(mode,x,data,MapSound.Chan[1].FIFO[i]);
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[0].ReadPos);
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[1].ReadPos);
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[0].WritePos);
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[1].WritePos);
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[0].IsFull);
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[1].IsFull);
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[0].IsEmpty);
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[1].IsEmpty);
+	SAVELOAD_WORD(mode,x,data,MapSound.Chan[0].freq);
+	SAVELOAD_WORD(mode,x,data,MapSound.Chan[1].freq);
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[0].vol);
+	SAVELOAD_BYTE(mode,x,data,MapSound.Chan[1].vol);
+	SAVELOAD_WORD(mode,x,data,MapSound.Chan[0].timer);
+	SAVELOAD_WORD(mode,x,data,MapSound.Chan[1].timer);
 	return x;
 }
 
@@ -131,16 +131,16 @@ static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	x = MapperSnd_SaveLoad(mode,x,data);
-	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter)
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQlatch)
-	SAVELOAD_BYTE(mode,x,data,Mapper.PRG)
+	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter);
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled);
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQlatch);
+	SAVELOAD_BYTE(mode,x,data,Mapper.PRG);
 	for (i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[i])
-	SAVELOAD_BYTE(mode,x,data,Mapper.Flags)
-	SAVELOAD_WORD(mode,x,data,Mapper.LastAddr)
-	SAVELOAD_WORD(mode,x,data,Mapper.LastAddrTmp)
-	SAVELOAD_BYTE(mode,x,data,Mapper.Jumper)
+		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[i]);
+	SAVELOAD_BYTE(mode,x,data,Mapper.Flags);
+	SAVELOAD_WORD(mode,x,data,Mapper.LastAddr);
+	SAVELOAD_WORD(mode,x,data,Mapper.LastAddrTmp);
+	SAVELOAD_BYTE(mode,x,data,Mapper.Jumper);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;

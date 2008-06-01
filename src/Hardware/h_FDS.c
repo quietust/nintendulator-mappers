@@ -7,17 +7,17 @@ TFDS	FDS;
 
 int	MAPINT	FDS_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,FDS.DiskNum)
-	SAVELOAD_WORD(mode,x,data,FDS.IRQcounter)
-	SAVELOAD_WORD(mode,x,data,FDS.IRQlatch.s0)
-	SAVELOAD_BYTE(mode,x,data,FDS.IRQenabled)
-	SAVELOAD_BYTE(mode,x,data,FDS.IOenable)
-	SAVELOAD_BYTE(mode,x,data,FDS.IOcontrol)
-	SAVELOAD_BYTE(mode,x,data,FDS.IOstatus)
-	SAVELOAD_WORD(mode,x,data,FDS.BytePtr)
-	SAVELOAD_BYTE(mode,x,data,FDS.WriteSkip)
-	SAVELOAD_BYTE(mode,x,data,FDS.DiskIRQ)
-	SAVELOAD_BYTE(mode,x,data,FDS.Mirror)
+	SAVELOAD_BYTE(mode,x,data,FDS.DiskNum);
+	SAVELOAD_WORD(mode,x,data,FDS.IRQcounter);
+	SAVELOAD_WORD(mode,x,data,FDS.IRQlatch.s0);
+	SAVELOAD_BYTE(mode,x,data,FDS.IRQenabled);
+	SAVELOAD_BYTE(mode,x,data,FDS.IOenable);
+	SAVELOAD_BYTE(mode,x,data,FDS.IOcontrol);
+	SAVELOAD_BYTE(mode,x,data,FDS.IOstatus);
+	SAVELOAD_WORD(mode,x,data,FDS.BytePtr);
+	SAVELOAD_BYTE(mode,x,data,FDS.WriteSkip);
+	SAVELOAD_BYTE(mode,x,data,FDS.DiskIRQ);
+	SAVELOAD_BYTE(mode,x,data,FDS.Mirror);
 	x = FDSsound_SaveLoad(mode,x,data);
 	if (mode == STATE_LOAD)
 	{

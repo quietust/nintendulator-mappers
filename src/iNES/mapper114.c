@@ -18,8 +18,8 @@ static	void	Sync (void)
 
 static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.PRG)
-	SAVELOAD_BYTE(mode,x,data,Mapper.Valid)
+	SAVELOAD_BYTE(mode,x,data,Mapper.PRG);
+	SAVELOAD_BYTE(mode,x,data,Mapper.Valid);
 	x = MMC3_SaveLoad(mode,x,data);
 	if (mode == STATE_LOAD)
 		Sync();

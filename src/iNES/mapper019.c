@@ -42,13 +42,13 @@ static	void	Sync (void)
 static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
-	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter.s0)
+	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter.s0);
 	for (i = 0; i < 3; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.PRG[i])
+		SAVELOAD_BYTE(mode,x,data,Mapper.PRG[i]);
 	for (i = 0; i < 8; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[i])
+		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[i]);
 	for (i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.NTab[i])
+		SAVELOAD_BYTE(mode,x,data,Mapper.NTab[i]);
 	x = N106sound_SaveLoad(mode,x,data);
 	if (mode == STATE_LOAD)
 		Sync();

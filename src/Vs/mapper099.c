@@ -16,7 +16,7 @@ static	void	Sync (void)
 
 static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHR)
+	SAVELOAD_BYTE(mode,x,data,Mapper.CHR);
 	x = VS_SaveLoad(mode,x,data);
 	if (mode == STATE_LOAD)
 		Sync();

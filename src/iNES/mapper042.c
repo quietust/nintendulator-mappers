@@ -20,10 +20,10 @@ static	void	Sync (void)
 
 static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled)
-	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter.s0)
-	SAVELOAD_BYTE(mode,x,data,Mapper.PRG)
-	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror)
+	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled);
+	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter.s0);
+	SAVELOAD_BYTE(mode,x,data,Mapper.PRG);
+	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;

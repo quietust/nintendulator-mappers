@@ -152,9 +152,9 @@ int	MAPINT	N106sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	}
 	for (i = 0; i < 8; i++)
 	{
-		SAVELOAD_BYTE(mode,x,data,N106sound.Ch[i].CurP)
-		SAVELOAD_BYTE(mode,x,data,N106sound.Ch[i].CurA)
-		SAVELOAD_LONG(mode,x,data,N106sound.Ch[i].LCtr)
+		SAVELOAD_BYTE(mode,x,data,N106sound.Ch[i].CurP);
+		SAVELOAD_BYTE(mode,x,data,N106sound.Ch[i].CurA);
+		SAVELOAD_LONG(mode,x,data,N106sound.Ch[i].LCtr);
 	}
 	return x;
 }

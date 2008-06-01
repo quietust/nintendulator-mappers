@@ -34,15 +34,15 @@ static	void	Sync (void)
 
 static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.Cmd)
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHRH)
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHRL0)
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHRL1)
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHRL2)
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHRL3)
-	SAVELOAD_BYTE(mode,x,data,Mapper.PRG)
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHRO)
-	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror)
+	SAVELOAD_BYTE(mode,x,data,Mapper.Cmd);
+	SAVELOAD_BYTE(mode,x,data,Mapper.CHRH);
+	SAVELOAD_BYTE(mode,x,data,Mapper.CHRL0);
+	SAVELOAD_BYTE(mode,x,data,Mapper.CHRL1);
+	SAVELOAD_BYTE(mode,x,data,Mapper.CHRL2);
+	SAVELOAD_BYTE(mode,x,data,Mapper.CHRL3);
+	SAVELOAD_BYTE(mode,x,data,Mapper.PRG);
+	SAVELOAD_BYTE(mode,x,data,Mapper.CHRO);
+	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;

@@ -27,8 +27,8 @@ void	Latch_Unload (void)
 
 int	MAPINT	Latch_SaveLoad_AD (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_WORD(mode,x,data,Latch.Addr.s0)
-	SAVELOAD_BYTE(mode,x,data,Latch.Data)
+	SAVELOAD_WORD(mode,x,data,Latch.Addr.s0);
+	SAVELOAD_BYTE(mode,x,data,Latch.Data);
 	if (mode == STATE_LOAD)
 		Latch.Sync();
 	return x;
@@ -36,7 +36,7 @@ int	MAPINT	Latch_SaveLoad_AD (STATE_TYPE mode, int x, unsigned char *data)
 
 int	MAPINT	Latch_SaveLoad_AL (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Latch.Addr.b0)
+	SAVELOAD_BYTE(mode,x,data,Latch.Addr.b0);
 	if (mode == STATE_LOAD)
 		Latch.Sync();
 	return x;
@@ -44,7 +44,7 @@ int	MAPINT	Latch_SaveLoad_AL (STATE_TYPE mode, int x, unsigned char *data)
 
 int	MAPINT	Latch_SaveLoad_A (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_WORD(mode,x,data,Latch.Addr.s0)
+	SAVELOAD_WORD(mode,x,data,Latch.Addr.s0);
 	if (mode == STATE_LOAD)
 		Latch.Sync();
 	return x;
@@ -52,7 +52,7 @@ int	MAPINT	Latch_SaveLoad_A (STATE_TYPE mode, int x, unsigned char *data)
 
 int	MAPINT	Latch_SaveLoad_D (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Latch.Data)
+	SAVELOAD_BYTE(mode,x,data,Latch.Data);
 	if (mode == STATE_LOAD)
 		Latch.Sync();
 	return x;

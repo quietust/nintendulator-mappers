@@ -84,12 +84,12 @@ void	MMC6_SyncCHR_RAM (int AND, int OR)
 int	MAPINT	MMC6_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
-	SAVELOAD_BYTE(mode,x,data,MMC6.IRQcounter)
-	SAVELOAD_BYTE(mode,x,data,MMC6.IRQlatch)
-	SAVELOAD_BYTE(mode,x,data,MMC6.IRQenabled)
-	SAVELOAD_BYTE(mode,x,data,MMC6.Cmd)
+	SAVELOAD_BYTE(mode,x,data,MMC6.IRQcounter);
+	SAVELOAD_BYTE(mode,x,data,MMC6.IRQlatch);
+	SAVELOAD_BYTE(mode,x,data,MMC6.IRQenabled);
+	SAVELOAD_BYTE(mode,x,data,MMC6.Cmd);
 	for (i = 0; i < 2; i++)
-		SAVELOAD_BYTE(mode,x,data,MMC6.PRG[i])
+		SAVELOAD_BYTE(mode,x,data,MMC6.PRG[i]);
 	switch (mode)
 	{
 	case STATE_SAVE:
@@ -107,11 +107,11 @@ int	MAPINT	MMC6_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 		break;
 	}
 	for (i = 4; i < 8; i++)
-		SAVELOAD_BYTE(mode,x,data,MMC6.CHR[i])
-	SAVELOAD_BYTE(mode,x,data,MMC6.WRAMEnab)
-	SAVELOAD_BYTE(mode,x,data,MMC6.Mirror)
-	SAVELOAD_BYTE(mode,x,data,MMC6.IRQreload)
-	SAVELOAD_BYTE(mode,x,data,MMC6.IRQaddr)
+		SAVELOAD_BYTE(mode,x,data,MMC6.CHR[i]);
+	SAVELOAD_BYTE(mode,x,data,MMC6.WRAMEnab);
+	SAVELOAD_BYTE(mode,x,data,MMC6.Mirror);
+	SAVELOAD_BYTE(mode,x,data,MMC6.IRQreload);
+	SAVELOAD_BYTE(mode,x,data,MMC6.IRQaddr);
 	if (mode == STATE_LOAD)
 		MMC6.Sync();
 	return x;
