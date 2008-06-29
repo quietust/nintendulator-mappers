@@ -1,3 +1,10 @@
+/* Nintendulator Mapper DLLs
+ * Copyright (C) 2002-2008 QMT Productions
+ *
+ * $URL$
+ * $Id$
+ */
+
 #include	"h_MMC3.h"
 
 static	TMMC3	MMC3;

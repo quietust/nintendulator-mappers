@@ -1,3 +1,10 @@
+/* Nintendulator Mapper DLLs
+ * Copyright (C) 2002-2008 QMT Productions
+ *
+ * $URL$
+ * $Id$
+ */
+
 #ifndef	S_VRC7_H
 #define	S_VRC7_H
 

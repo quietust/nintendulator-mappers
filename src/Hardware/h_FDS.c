@@ -1,3 +1,10 @@
+/* Nintendulator Mapper DLLs
+ * Copyright (C) 2002-2008 QMT Productions
+ *
+ * $URL$
+ * $Id$
+ */
+
 #include	"h_FDS.h"
 #include	"Sound\s_FDS.h"
 #include	"..\FDS\resource.h"

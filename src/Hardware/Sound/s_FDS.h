@@ -1,3 +1,10 @@
+/* Nintendulator Mapper DLLs
+ * Copyright (C) 2002-2008 QMT Productions
+ *
+ * $URL$
+ * $Id$
+ */
+
 #ifndef	S_FDS_H
 #define	S_FDS_H
 

@@ -1,3 +1,10 @@
+/* Nintendulator Mapper DLLs
+ * Copyright (C) 2002-2008 QMT Productions
+ *
+ * $URL$
+ * $Id$
+ */
+
 #include "..\DLL\d_iNES.h"
 
 //CTMapperInfo	MapperInfo_000 = {	NULL,	_T("Mapper 0"),		COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};

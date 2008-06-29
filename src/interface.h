@@ -1,5 +1,8 @@
-/*
- * Nintendulator Mapper Interface
+/* Nintendulator Mapper Interface
+ * Copyright (C) 2002-2008 QMT Productions
+ *
+ * $URL$
+ * $Id$
  */
 
 #ifndef	WIN32_LEAN_AND_MEAN

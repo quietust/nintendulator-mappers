@@ -1,3 +1,10 @@
+/* Nintendulator Mapper DLLs
+ * Copyright (C) 2002-2008 QMT Productions
+ *
+ * $URL$
+ * $Id$
+ */
+
 #include	"..\..\DLL\d_UNIF.h"
 
 static	void	MAPINT	Reset_NROM_128 (RESET_TYPE ResetType)

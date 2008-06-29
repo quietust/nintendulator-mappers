@@ -1,3 +1,10 @@
+/* Nintendulator Mapper DLLs
+ * Copyright (C) 2002-2008 QMT Productions
+ *
+ * $URL$
+ * $Id$
+ */
+
 #include	"..\DLL\d_VS.h"
 #include	"..\Hardware\h_Latch.h"
 #include	"..\Hardware\h_VS.h"
