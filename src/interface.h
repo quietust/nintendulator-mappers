@@ -9,8 +9,6 @@
 #define	WIN32_LEAN_AND_MEAN
 #endif
 
-/* So this file only gets included once */
-
 #ifndef	INTERFACE_H
 #define	INTERFACE_H
 
@@ -255,22 +253,22 @@ typedef	struct	ROMInfo
 			BYTE	INES2_PRGRAM;	/* iNES 2.0 - PRG RAM counts, batteried and otherwise */
 			BYTE	INES2_CHRRAM;	/* iNES 2.0 - CHR RAM counts, batteried and otherwise */
 			BYTE	INES2_VSDATA;	/* iNES 2.0 - VS Unisystem information */
-		};	// INES
+		};	/* INES */
 		struct
 		{
 			char *	UNIF_BoardName;
 			BYTE	UNIF_Mirroring;
-			BYTE	UNIF_NTSCPAL;	// 0 for NTSC, 1 for PAL, 2 for either
+			BYTE	UNIF_NTSCPAL;	/* 0 for NTSC, 1 for PAL, 2 for either */
 			BOOL	UNIF_Battery;
-			BYTE	UNIF_NumPRG;	// number of PRG# blocks
-			BYTE	UNIF_NumCHR;	// number of CHR# blocks
-			DWORD	UNIF_PRGSize[16];	// size of each PRG block, in bytes
-			DWORD	UNIF_CHRSize[16];	// size of each CHR block, in bytes
-		};	// UNIF
+			BYTE	UNIF_NumPRG;	/* number of PRG# blocks */
+			BYTE	UNIF_NumCHR;	/* number of CHR# blocks */
+			DWORD	UNIF_PRGSize[16];	/* size of each PRG block, in bytes */
+			DWORD	UNIF_CHRSize[16];	/* size of each CHR block, in bytes */
+		};	/* UNIF */
 		struct
 		{
 			BYTE	FDS_NumSides;
-		};	// FDS
+		};	/* FDS */
 		struct
 		{
 			BYTE	NSF_NumSongs;
@@ -280,22 +278,22 @@ typedef	struct	ROMInfo
 			char *	NSF_Title;
 			char *	NSF_Artist;
 			char *	NSF_Copyright;
-			WORD	NSF_NTSCSpeed;	// Number of microseconds between PLAY calls for NTSC
-			WORD	NSF_PALSpeed;	// Number of microseconds between PLAY calls for PAL
-			BYTE	NSF_NTSCPAL;	// 0 for NTSC, 1 for PAL, 2 for either
+			WORD	NSF_NTSCSpeed;	/* Number of microseconds between PLAY calls for NTSC */
+			WORD	NSF_PALSpeed;	/* Number of microseconds between PLAY calls for PAL */
+			BYTE	NSF_NTSCPAL;	/* 0 for NTSC, 1 for PAL, 2 for either */
 			BYTE	NSF_SoundChips;
 			BYTE	NSF_InitBanks[8];
-			DWORD	NSF_DataSize;	// total amount of (PRG) data present
-		};	// NSF
+			DWORD	NSF_DataSize;	/* total amount of (PRG) data present */
+		};	/* NSF */
 		struct
 		{
 			BYTE	reserved[256];
-		};	// reserved for additional file types
+		};	/* reserved for additional file types */
 	};
 }	TROMInfo, *PROMInfo;
 typedef	const	TROMInfo	CTROMInfo, *CPROMInfo;
 
-/* DLL Information Structure:- Contains general information about the mapper DLL */
+/* DLL Information Structure - Contains general information about the mapper DLL */
 
 typedef	struct	DLLInfo
 {
