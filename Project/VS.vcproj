@@ -292,8 +292,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (ANSI)|Win32">
@@ -301,8 +300,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (Unicode)|Win32">
@@ -310,16 +308,14 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 				</File>
 				<File
@@ -329,8 +325,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (ANSI)|Win32">
@@ -338,8 +333,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (Unicode)|Win32">
@@ -347,16 +341,14 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 				</File>
 				<File
@@ -366,8 +358,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (ANSI)|Win32">
@@ -375,8 +366,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (Unicode)|Win32">
@@ -384,16 +374,14 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 				</File>
 				<File
@@ -414,8 +402,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (ANSI)|Win32">
@@ -423,8 +410,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (Unicode)|Win32">
@@ -432,16 +418,14 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 				</File>
 				<File
@@ -451,8 +435,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (ANSI)|Win32">
@@ -460,8 +443,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (Unicode)|Win32">
@@ -469,16 +451,14 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 				</File>
 				<File
@@ -488,8 +468,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (ANSI)|Win32">
@@ -497,8 +476,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (Unicode)|Win32">
@@ -506,16 +484,14 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 				</File>
 				<File
@@ -525,8 +501,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (ANSI)|Win32">
@@ -534,8 +509,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (Unicode)|Win32">
@@ -543,16 +517,14 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 				</File>
 				<File
@@ -562,8 +534,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (ANSI)|Win32">
@@ -571,8 +542,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (Unicode)|Win32">
@@ -580,16 +550,14 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 				</File>
 				<File
@@ -599,8 +567,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (ANSI)|Win32">
@@ -608,8 +575,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (Unicode)|Win32">
@@ -617,16 +583,14 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 				</File>
 				<File
@@ -636,8 +600,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (ANSI)|Win32">
@@ -645,8 +608,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (Unicode)|Win32">
@@ -654,16 +616,14 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 				</File>
 				<File
@@ -673,8 +633,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (ANSI)|Win32">
@@ -682,8 +641,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (Unicode)|Win32">
@@ -691,16 +649,14 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 				</File>
 			</Filter>
@@ -714,8 +670,7 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (ANSI)|Win32">
@@ -723,8 +678,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug (Unicode)|Win32">
@@ -732,16 +686,14 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							PreprocessorDefinitions=""
-							BasicRuntimeChecks="3"
-							BrowseInformation="1"/>
+							BasicRuntimeChecks="3"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release (Unicode)|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="2"
-							PreprocessorDefinitions=""
-							BrowseInformation="1"/>
+							PreprocessorDefinitions=""/>
 					</FileConfiguration>
 				</File>
 			</Filter>
