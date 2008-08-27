@@ -369,7 +369,7 @@
 		</Filter>
 		<Filter
 			Name="Resource Files"
-			Filter="rc">
+			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 			<File
 				RelativePath="..\src\VS\resource.h">
 			</File>
