@@ -305,14 +305,14 @@
 			</Filter>
 			<Filter
 				Name="Mapper Source Files"
-				Filter="">
+				Filter="c;cpp;cxx;tli">
 				<File
 					RelativePath="..\src\NSF\NSF_Mapper.c">
 				</File>
 			</Filter>
 			<Filter
 				Name="DLL Source Files"
-				Filter="">
+				Filter="c;cpp;cxx;tli">
 				<File
 					RelativePath="..\src\DLL\d_NSF.c">
 				</File>
@@ -348,7 +348,7 @@
 			</Filter>
 			<Filter
 				Name="DLL Header Files"
-				Filter="">
+				Filter="h;hpp;hxx;hm;inl">
 				<File
 					RelativePath="..\src\Dll\d_NSF.h">
 				</File>
@@ -356,7 +356,7 @@
 		</Filter>
 		<Filter
 			Name="Resource Files"
-			Filter="">
+			Filter="rc">
 			<File
 				RelativePath="..\src\NSF\NSF.rc">
 			</File>

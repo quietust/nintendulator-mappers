@@ -3,7 +3,6 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="FDS"
-	RootNamespace="FDS"
 	SccProjectName=""
 	SccAuxPath=""
 	SccLocalPath=""
@@ -341,7 +340,7 @@
 		</Filter>
 		<Filter
 			Name="Resource Files"
-			Filter="">
+			Filter="rc">
 			<File
 				RelativePath="..\src\FDS\FDS.rc">
 			</File>
