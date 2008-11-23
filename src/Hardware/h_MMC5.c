@@ -372,7 +372,7 @@ void	MAPINT	MMC5_WritePPU (int Bank, int Addr, int Val)
 
 int	MAPINT	MMC5_CPURead5 (int Bank, int Addr)
 {
-	register u8 read = -1;
+	register int read = -1;
 	switch (Addr & 0xF00)
 	{
 	case 0x000:
