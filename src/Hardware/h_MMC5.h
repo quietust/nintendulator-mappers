@@ -21,32 +21,11 @@
 #define	MMC5WRAM_32KB_32KB	8
 #define	MMC5WRAM_MAXOPTS	9
 
-typedef	struct	MMC5
-{
-	u8 WRAMsize;
-	u8 PRGsize, CHRsize;
-	u8 WRAMprot[2];
-	u8 GfxMode;
-	u8 Mirror;
-	u8 PRG[5];
-	u16_n CHR_A[8], CHR_B[4];
-	u8 CHRhi, CHRmode;
-	u8 SplitMode, SplitScroll, SplitBank;
-	u8 IRQline, IRQenabled, IRQreads;
-	u8 Mul1, Mul2;
-	s16 LineCounter;
-	u8 SpriteMode;
-	u8 *NameTable0, *NameTable1, *ExRAM, *ExNameTable;
-	FCPUWrite WritePPU;
-	FCPUWrite CPUWrite6F;
-	FPPURead PPURead[16];
-}	TMMC5, *PMMC5;
-
-extern	TMMC5	MMC5;
-
 void		MMC5_Load	(int);
 void		MMC5_Reset	(RESET_TYPE);
 void		MMC5_Unload	(void);
+void		MMC5_SetRAMSize	(int);
+int		MMC5_GetRAMSize	(void);
 int	MAPINT	MMC5_SaveLoad	(STATE_TYPE,int,unsigned char *);
 void		MMC5_SetPRG	(int,int,int);
 void		MMC5_SyncPRG	(void);

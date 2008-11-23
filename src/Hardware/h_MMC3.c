@@ -7,6 +7,18 @@
 
 #include	"h_MMC3.h"
 
+typedef	struct	MMC3
+{
+	u8 IRQenabled, IRQcounter, IRQlatch, IRQreload;
+	u8 IRQaddr;
+	u8 Cmd;
+	u8 PRG[4];
+	u8 CHR[8];
+	u8 WRAMEnab;
+	u8 Mirror;
+	FCPUWrite CPUWrite67;
+	FSync Sync;
+}	TMMC3, *PMMC3;
 static	TMMC3	MMC3;
 
 void	MMC3_Load (FSync Sync)

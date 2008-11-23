@@ -7,6 +7,16 @@
 
 #include	"h_MMC4.h"
 
+typedef	struct	MMC4
+{
+	u8 PRG;
+	u8 LatchState[2];
+	u8 Latch0[2];
+	u8 Latch1[2];
+	u8 Mirror;
+	FSync Sync;
+	FPPURead PPURead3, PPURead7;
+}	TMMC4, *PMMC4;
 static	TMMC4	MMC4;
 
 void	MMC4_Load (FSync Sync)

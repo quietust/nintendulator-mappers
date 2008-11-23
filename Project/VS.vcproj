@@ -27,12 +27,10 @@
 				ExceptionHandling="FALSE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				PrecompiledHeaderFile="$(IntDir)/VS.pch"
 				AssemblerListingLocation="$(IntDir)/"
 				ObjectFile="$(IntDir)/"
 				ProgramDataBaseFileName="$(IntDir)/"
-				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
+				WarningLevel="4"
 				DebugInformationFormat="4"
 				CallingConvention="1"
 				CompileAs="1"/>
@@ -41,7 +39,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)/VS.dll"
-				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/VS.pdb"
@@ -63,7 +60,6 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"
 				ResourceOutputFileName="$(IntDir)/VS.res"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
@@ -87,22 +83,18 @@
 			WholeProgramOptimization="TRUE">
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
 				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="1"
 				FavorSizeOrSpeed="1"
-				OptimizeForWindowsApplication="TRUE"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;VS_EXPORTS"
 				StringPooling="TRUE"
 				ExceptionHandling="FALSE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="FALSE"
-				PrecompiledHeaderFile="$(IntDir)/VS.pch"
 				AssemblerListingLocation="$(IntDir)/"
 				ObjectFile="$(IntDir)/"
 				ProgramDataBaseFileName="$(IntDir)/"
-				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
+				WarningLevel="4"
 				CallingConvention="1"
 				CompileAs="1"/>
 			<Tool
@@ -130,7 +122,6 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="1033"
 				ResourceOutputFileName="$(IntDir)/VS.res"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
@@ -158,12 +149,10 @@
 				ExceptionHandling="FALSE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				PrecompiledHeaderFile="$(IntDir)/VS.pch"
 				AssemblerListingLocation="$(IntDir)/"
 				ObjectFile="$(IntDir)/"
 				ProgramDataBaseFileName="$(IntDir)/"
-				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
+				WarningLevel="4"
 				DebugInformationFormat="4"
 				CallingConvention="1"
 				CompileAs="1"/>
@@ -172,7 +161,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)/VS.dll"
-				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/VS.pdb"
@@ -194,7 +182,6 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"
 				ResourceOutputFileName="$(IntDir)/VS.res"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
@@ -218,22 +205,18 @@
 			WholeProgramOptimization="TRUE">
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
 				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="1"
 				FavorSizeOrSpeed="1"
-				OptimizeForWindowsApplication="TRUE"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;VS_EXPORTS"
 				StringPooling="TRUE"
 				ExceptionHandling="FALSE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="FALSE"
-				PrecompiledHeaderFile="$(IntDir)/VS.pch"
 				AssemblerListingLocation="$(IntDir)/"
 				ObjectFile="$(IntDir)/"
 				ProgramDataBaseFileName="$(IntDir)/"
-				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
+				WarningLevel="4"
 				CallingConvention="1"
 				CompileAs="1"/>
 			<Tool
@@ -261,7 +244,6 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="1033"
 				ResourceOutputFileName="$(IntDir)/VS.res"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>

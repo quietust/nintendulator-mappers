@@ -8,6 +8,15 @@
 #include	"h_FME7.h"
 #include	"Sound\s_FME7.h"
 
+typedef	struct	FME7
+{
+	u8 IRQenabled;
+	u16_n IRQcounter;
+	u8 Cmd;
+	u8 PRG[4], CHR[8];
+	u8 Mirror;
+	FSync Sync;
+}	TFME7, *PFME7;
 static	TFME7	FME7;
 
 void	FME7_Load (FSync Sync)

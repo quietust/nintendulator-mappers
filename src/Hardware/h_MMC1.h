@@ -10,15 +10,6 @@
 
 #include	"..\interface.h"
 
-typedef	struct	MMC1
-{
-	u8 Latch, LatchPos;
-	u8 Regs[4];
-	FSync Sync;
-}	TMMC1, *PMMC1;
-
-extern	TMMC1	MMC1;
-
 void		MMC1_Load	(FSync);
 void		MMC1_Reset	(RESET_TYPE);
 void		MMC1_Unload	(void);

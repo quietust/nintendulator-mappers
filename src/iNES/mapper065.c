@@ -129,7 +129,7 @@ static	void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	if (ResetType == RESET_HARD)
 	{
-		Mapper.PRG[0] = 0;	Mapper.PRG[1] = 1;	Mapper.PRG[2] = -2;	Mapper.PRG[3] = -1;
+		Mapper.PRG[0] = 0;	Mapper.PRG[1] = 1;	Mapper.PRG[2] = 0xFE;	Mapper.PRG[3] = 0xFF;
 		for (x = 0; x < 8; x++)
 			Mapper.CHR[x] = x;
 		Mapper.IRQenabled = 0;

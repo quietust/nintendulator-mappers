@@ -86,7 +86,7 @@ static	void	MAPINT	Reset (RESET_TYPE ResetType)
 	{
 		Mapper.PRG[0] = 0;
 		Mapper.PRG[1] = 1;
-		Mapper.PRG[2] = -2;
+		Mapper.PRG[2] = 0xFE;
 		for (x = 0; x < 4; x++)
 			Mapper.CHR[x] = 0;
 		Mapper.Cmd = 0;

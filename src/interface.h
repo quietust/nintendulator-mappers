@@ -17,6 +17,11 @@
 #include	<windows.h>
 #include	<tchar.h>
 
+#pragma warning(disable:4100)	// "unreferenced formal parameter" - functions which don't use every parameter
+#pragma warning(disable:4127)	// "conditional expression is constant" - do {} while (0)
+#pragma warning(disable:4201)	// "nonstandard extension used : nameless struct/union" - used in lots of places
+#pragma warning(disable:4244)	// "conversion from 'foo' to 'bar', possible loss of data" - I/O handlers all pass 'int' values and get crammed into bytes/shorts
+
 #define	MSGBOX_FLAGS	(MB_OK | MB_ICONERROR | MB_DEFBUTTON1 | MB_APPLMODAL)
 
 /* Mapper Interface version (3.7) */

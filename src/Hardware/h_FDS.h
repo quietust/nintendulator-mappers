@@ -10,27 +10,6 @@
 
 #include	"..\interface.h"
 
-typedef	struct	FDS
-{
-	FCPURead Read;
-	FCPUWrite Write;
-	u8 DiskNum;
-	u16 IRQcounter;
-	u16_n IRQlatch;
-	u8 IRQenabled;
-	u8 IOenable;
-	u8 IOcontrol;
-	u8 IOstatus;
-	int BytePtr;
-	u8 WriteSkip;
-	u8 DiskIRQ;
-	u8 Mirror;
-	HWND ConfigWindow;
-	u8 ConfigCmd;
-}	TFDS, *PFDS;
-
-extern	TFDS	FDS;
-
 void			FDS_Load	(void);
 void			FDS_Reset	(RESET_TYPE);
 void			FDS_Unload	(void);

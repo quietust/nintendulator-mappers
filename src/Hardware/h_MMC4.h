@@ -10,17 +10,6 @@
 
 #include	"..\interface.h"
 
-typedef	struct	MMC4
-{
-	u8 PRG;
-	u8 LatchState[2];
-	u8 Latch0[2];
-	u8 Latch1[2];
-	u8 Mirror;
-	FSync Sync;
-	FPPURead PPURead3, PPURead7;
-}	TMMC4, *PMMC4;
-
 void		MMC4_Load	(FSync);
 void		MMC4_Reset	(RESET_TYPE);
 void		MMC4_Unload	(void);

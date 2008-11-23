@@ -20,6 +20,7 @@ typedef	struct	Latch
 	int BusConflicts;
 }	TLatch, *PLatch;
 
+// declared external so that mappers can read it directly
 extern	TLatch	Latch;
 
 void		Latch_Load		(FSync,BOOL);

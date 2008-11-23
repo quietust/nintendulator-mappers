@@ -8,7 +8,8 @@
 #include	"..\..\interface.h"
 #include	"s_FME7.h"
 
-// Sunsoft FME-7, based on the AY-8910
+// Sunsoft 5, based on the AY-8910
+// Named FME7 for legacy reasons
 
 typedef	struct	FME7sqr
 {

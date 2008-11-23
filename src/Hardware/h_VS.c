@@ -8,6 +8,15 @@
 #include	"h_VS.h"
 #include	"..\VS\resource.h"
 
+typedef	struct	VS
+{
+	FCPURead Read;
+	u8 DipSwitch, Coin;
+	u32 CoinDelay;
+
+	HWND ConfigWindow;
+	u8 ConfigCmd;
+}	TVS, *PVS;
 static	TVS	VS;
 
 static	void	BlockDialog (HWND hDlg, int dlgItem)

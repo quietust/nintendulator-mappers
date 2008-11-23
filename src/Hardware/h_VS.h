@@ -10,18 +10,6 @@
 
 #include	"..\interface.h"
 
-typedef	struct	VS
-{
-	FCPURead Read;
-	u8 DipSwitch, Coin;
-	u32 CoinDelay;
-
-	HWND ConfigWindow;
-	u8 ConfigCmd;
-}	TVS, *PVS;
-
-extern	TVS	VS;
-
 void			VS_Load		(void);
 void			VS_Reset	(RESET_TYPE);
 void			VS_Unload	(void);

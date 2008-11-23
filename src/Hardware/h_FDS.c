@@ -10,7 +10,25 @@
 #include	"..\FDS\resource.h"
 #include	<stdio.h>
 
-TFDS	FDS;
+typedef	struct	FDS
+{
+	FCPURead Read;
+	FCPUWrite Write;
+	u8 DiskNum;
+	u16 IRQcounter;
+	u16_n IRQlatch;
+	u8 IRQenabled;
+	u8 IOenable;
+	u8 IOcontrol;
+	u8 IOstatus;
+	int BytePtr;
+	u8 WriteSkip;
+	u8 DiskIRQ;
+	u8 Mirror;
+	HWND ConfigWindow;
+	u8 ConfigCmd;
+}	TFDS, *PFDS;
+static	TFDS	FDS;
 
 int	MAPINT	FDS_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
@@ -136,7 +154,8 @@ void	MAPINT	FDS_Write (int Bank, int Addr, int Val)
 				}
 			}				break;
 	case 0x25:	EndIRQ(IRQ_DISK);
-			if (FDS.Mirror = Val & 0x8)
+			FDS.Mirror = Val & 0x8;
+			if (FDS.Mirror)
 				EMU->Mirror_H();
 			else	EMU->Mirror_V();
 			if (FDS.DiskNum == 0xFF)	break;
@@ -274,8 +293,8 @@ void	FDS_Load (void)
 {
 	FILE *BIOS;
 	TCHAR buf[MAX_PATH];
-	int i;
-	if (!(i = GetModuleFileName(NULL,buf,MAX_PATH)))
+	int i = GetModuleFileName(NULL,buf,MAX_PATH);
+	if (!i)
 	{
 		MessageBox(hWnd,_T("Fatal error: failed to get directory!"),_T("FDS.DLL"),MSGBOX_FLAGS);
 		return;
@@ -313,7 +332,7 @@ void	FDS_Reset (RESET_TYPE ResetType)
 	EMU->SetPRG_Ptr4(0xE,FDS_BIOS[0],FALSE);
 	EMU->SetPRG_Ptr4(0xF,FDS_BIOS[1],FALSE);
 
-	EndIRQ(-1);
+	EndIRQ(0xFF);
 
 	if (ResetType == RESET_HARD)
 	{

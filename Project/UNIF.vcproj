@@ -27,12 +27,10 @@
 				ExceptionHandling="FALSE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				PrecompiledHeaderFile="$(IntDir)/UNIF.pch"
 				AssemblerListingLocation="$(IntDir)/"
 				ObjectFile="$(IntDir)/"
 				ProgramDataBaseFileName="$(IntDir)/"
-				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
+				WarningLevel="4"
 				DebugInformationFormat="4"
 				CallingConvention="1"
 				CompileAs="1"/>
@@ -41,7 +39,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)/UNIF.dll"
-				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/UNIF.pdb"
@@ -63,7 +60,6 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"
 				ResourceOutputFileName="$(IntDir)/UNIF.res"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
@@ -87,22 +83,18 @@
 			WholeProgramOptimization="TRUE">
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
 				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="1"
 				FavorSizeOrSpeed="1"
-				OptimizeForWindowsApplication="TRUE"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;UNIF_EXPORTS"
 				StringPooling="TRUE"
 				ExceptionHandling="FALSE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="FALSE"
-				PrecompiledHeaderFile="$(IntDir)/UNIF.pch"
 				AssemblerListingLocation="$(IntDir)/"
 				ObjectFile="$(IntDir)/"
 				ProgramDataBaseFileName="$(IntDir)/"
-				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
+				WarningLevel="4"
 				CallingConvention="1"
 				CompileAs="1"/>
 			<Tool
@@ -130,7 +122,6 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="1033"
 				ResourceOutputFileName="$(IntDir)/UNIF.res"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
@@ -158,12 +149,10 @@
 				ExceptionHandling="FALSE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				PrecompiledHeaderFile="$(IntDir)/UNIF.pch"
 				AssemblerListingLocation="$(IntDir)/"
 				ObjectFile="$(IntDir)/"
 				ProgramDataBaseFileName="$(IntDir)/"
-				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
+				WarningLevel="4"
 				DebugInformationFormat="4"
 				CallingConvention="1"
 				CompileAs="1"/>
@@ -172,7 +161,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)/UNIF.dll"
-				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/UNIF.pdb"
@@ -194,7 +182,6 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"
 				ResourceOutputFileName="$(IntDir)/UNIF.res"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
@@ -218,22 +205,18 @@
 			WholeProgramOptimization="TRUE">
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
 				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="1"
 				FavorSizeOrSpeed="1"
-				OptimizeForWindowsApplication="TRUE"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;UNIF_EXPORTS"
 				StringPooling="TRUE"
 				ExceptionHandling="FALSE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="FALSE"
-				PrecompiledHeaderFile="$(IntDir)/UNIF.pch"
 				AssemblerListingLocation="$(IntDir)/"
 				ObjectFile="$(IntDir)/"
 				ProgramDataBaseFileName="$(IntDir)/"
-				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
+				WarningLevel="4"
 				CallingConvention="1"
 				CompileAs="1"/>
 			<Tool
@@ -261,7 +244,6 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="1033"
 				ResourceOutputFileName="$(IntDir)/UNIF.res"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
@@ -307,16 +289,6 @@
 				</File>
 				<File
 					RelativePath="..\src\Hardware\h_MMC6.c">
-				</File>
-			</Filter>
-			<Filter
-				Name="Sound Source Files"
-				Filter="c;cpp;cxx;tli">
-				<File
-					RelativePath="..\src\Hardware\Sound\s_FME7.c">
-				</File>
-				<File
-					RelativePath="..\src\Hardware\Sound\s_MMC5.c">
 				</File>
 			</Filter>
 			<Filter
@@ -476,6 +448,16 @@
 				Filter="c;cpp;cxx;tli">
 				<File
 					RelativePath="..\src\Dll\d_UNIF.c">
+				</File>
+			</Filter>
+			<Filter
+				Name="Sound Source Files"
+				Filter="c;cpp;cxx;tli">
+				<File
+					RelativePath="..\src\Hardware\Sound\s_FME7.c">
+				</File>
+				<File
+					RelativePath="..\src\Hardware\Sound\s_MMC5.c">
 				</File>
 			</Filter>
 		</Filter>

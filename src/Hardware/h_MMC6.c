@@ -7,6 +7,19 @@
 
 #include	"h_MMC6.h"
 
+typedef	struct	MMC6
+{
+	u8 IRQenabled, IRQcounter, IRQlatch, IRQreload;
+	u8 IRQaddr;
+	u8 Cmd;
+	u8 PRG[4];
+	u8 CHR[8];
+	u8 WRAMEnab;
+	u8 Mirror;
+	FCPURead CPURead7;
+	FCPUWrite CPUWrite7;
+	FSync Sync;
+}	TMMC6, *PMMC6;
 static	TMMC6	MMC6;
 
 void	MMC6_Load (FSync Sync)

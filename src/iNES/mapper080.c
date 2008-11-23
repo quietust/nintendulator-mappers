@@ -83,7 +83,7 @@ static	void	MAPINT	Reset (RESET_TYPE ResetType)
 			Mapper.CHR[x] = x;
 		Mapper.PRG[0] = 0;
 		Mapper.PRG[1] = 1;
-		Mapper.PRG[2] = -1;
+		Mapper.PRG[2] = 0xFF;
 	}
 
 	Sync();

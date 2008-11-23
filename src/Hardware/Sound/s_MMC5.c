@@ -64,7 +64,8 @@ const	signed char	Duties[4][8] = {
 
 static	void	MMC5Square_CheckActive (PMMC5sqr Chan)
 {
-	if ((Chan->ValidFreq = (Chan->freq >= 0x8)) && (Chan->Timer))
+	Chan->ValidFreq = (Chan->freq >= 0x8);
+	if ((Chan->ValidFreq) && (Chan->Timer))
 	{
 		Chan->Active = TRUE;
 		Chan->Pos = Duties[Chan->duty][Chan->CurD] * Chan->Vol;
@@ -95,7 +96,8 @@ static	void	MMC5Square_Write (PMMC5sqr Chan, int Reg, int Val)
 		Chan->CurD = 0;
 		Chan->EnvClk = TRUE;
 		break;
-	case 4:	if (!(Chan->Enabled = Val ? TRUE : FALSE))
+	case 4:	Chan->Enabled = Val ? TRUE : FALSE;
+		if (!Chan->Enabled)
 			Chan->Timer = 0;
 		break;
 	}
