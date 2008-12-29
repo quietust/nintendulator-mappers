@@ -185,10 +185,6 @@ void	MAPINT	FDS_Write (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	MAPINT	WriteBIOS (int Bank, int Addr, int Val)
-{	/* don't allow writing to BIOS! */	}
-
-
 static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	int i;
