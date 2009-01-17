@@ -303,20 +303,20 @@ BEGIN
     PUSHBUTTON      "&Cancel",IDCANCEL,100,52,52,16
 END
 
-IDD_MAPPER90 DIALOG  0, 0, 148, 47
+IDD_MAPPER90 DIALOGEX 0, 0, 148, 47
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Mapper 90 Settings"
-FONT 8, "MS Sans Serif"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
     CONTROL         "Jumper 0",IDC_MAPPER90_J0,"Button",BS_AUTOCHECKBOX | 
                     BS_VCENTER | WS_TABSTOP,4,4,44,8
     CONTROL         "Jumper 1",IDC_MAPPER90_J1,"Button",BS_AUTOCHECKBOX | 
                     BS_VCENTER | WS_TABSTOP,4,16,44,8
-    DEFPUSHBUTTON   "&OK",IDOK,4,28,68,16
-    PUSHBUTTON      "&Cancel",IDCANCEL,76,28,68,16
     CONTROL         "Extended Mirroring\n(Shin Samurai Spirits 2)",
                     IDC_MAPPER90_MIR,"Button",BS_AUTOCHECKBOX | BS_VCENTER | 
                     BS_MULTILINE | WS_TABSTOP,56,4,88,20
+    DEFPUSHBUTTON   "&OK",IDOK,4,28,68,16
+    PUSHBUTTON      "&Cancel",IDCANCEL,76,28,68,16
 END
 
 
