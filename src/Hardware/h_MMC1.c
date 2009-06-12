@@ -63,6 +63,8 @@ void	MAPINT	MMC1_Write (int Bank, int Addr, int Val)
 		MMC1.Regs[0] |= 0x0C;
 		return;
 	}
+	// Ugly hack to get Bill & Ted's Excellent Video Game Adventure to run
+	// since the mapper interface currently doesn't expose a CPU timestamp
 	if (Reg != LastReg)
 		MMC1.Latch = MMC1.LatchPos = 0;
 	LastReg = Reg;
