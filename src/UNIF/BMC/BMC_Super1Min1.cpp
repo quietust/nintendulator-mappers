@@ -8,64 +8,64 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\..\Hardware\h_MMC3.h"
 
-static	struct
+namespace
 {
-	u8 Regs[4];
-	u8 Pos;
-}	Mapper;
+u8 Regs[4];
+u8 Pos;
 
-static	void	Sync (void)
+void	Sync (void)
 {
-	MMC3_SyncMirror();
-	MMC3_SyncPRG(~Mapper.Regs[3] & 0x3F,Mapper.Regs[1]);
-	MMC3_SyncCHR_ROM(0xFF >> ((~Mapper.Regs[2]) & 0xF),(Mapper.Regs[0]) | ((Mapper.Regs[2] & 0xF0) << 4));
-	MMC3_SyncWRAM();
+	MMC3::SyncMirror();
+	MMC3::SyncPRG(~Regs[3] & 0x3F, Regs[1]);
+	MMC3::SyncCHR_ROM(0xFF >> ((~Regs[2]) & 0xF), (Regs[0]) | ((Regs[2] & 0xF0) << 4));
+	MMC3::SyncWRAM();
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
-	x = MMC3_SaveLoad(mode,x,data);
+	x = MMC3::SaveLoad(mode, x, data);
 	for (i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.Regs[i]);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Pos);
+		SAVELOAD_BYTE(mode, x, data, Regs[i]);
+	SAVELOAD_BYTE(mode, x, data, Pos);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	Write (int Bank, int Addr, int Val)
+void	MAPINT	Write (int Bank, int Addr, int Val)
 {
-	MMC3_CPUWrite67(Bank, Addr, Val);
-	if (Mapper.Regs[3] & 0x40)
+	MMC3::CPUWrite67(Bank, Addr, Val);
+	if (Regs[3] & 0x40)
 		return;
-	Mapper.Regs[Mapper.Pos++] = Val;
-	Mapper.Pos &= 0x03;
+	Regs[Pos++] = Val;
+	Pos &= 0x03;
 	Sync();
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	MMC3_Load(Sync);
+	MMC3::Load(Sync);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	if (ResetType == RESET_HARD)
 	{
 		for (x = 0; x < 4; x++)
-			Mapper.Regs[x] = 0;
-		Mapper.Pos = 0;
+			Regs[x] = 0;
+		Pos = 0;
 	}
-	MMC3_Reset(ResetType);
+	MMC3::Reset(ResetType);
 
-	EMU->SetCPUWriteHandler(0x6,Write);
-	EMU->SetCPUWriteHandler(0x7,Write);
+	EMU->SetCPUWriteHandler(0x6, Write);
+	EMU->SetCPUWriteHandler(0x7, Write);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC3_Unload();
+	MMC3::Unload();
 }
+} // namespace
 
 CTMapperInfo	MapperInfo_BMC_Super1Min1 =
 {
@@ -76,7 +76,7 @@ CTMapperInfo	MapperInfo_BMC_Super1Min1 =
 	Reset,
 	Unload,
 	NULL,
-	MMC3_PPUCycle,
+	MMC3::PPUCycle,
 	SaveLoad,
 	NULL,
 	NULL

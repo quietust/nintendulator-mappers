@@ -8,43 +8,43 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	<memory.h>
 
-static	struct
+namespace
 {
-	FCPURead Read;
-	FCPUWrite Write;
-	unsigned char ROM[0x1000];
-}	Mapper;
+FCPURead _Read;
+FCPUWrite _Write;
+unsigned char ROM[0x1000];
 
 static	int	MAPINT	Read (int Bank, int Addr)
 {
-	return Mapper.Read(Bank,Addr & 0x7FF);
+	return _Read(Bank, Addr & 0x7FF);
 }
 
 static	void	MAPINT	Write (int Bank, int Addr, int Val)
 {
-	Mapper.Write(Bank,Addr & 0x7FF,Val);
+	_Write(Bank, Addr & 0x7FF, Val);
 }
 
 static	void	MAPINT	Load (void)
 {
-	EMU->SetPRG_ROM4(0x6,8);
-	memcpy(&Mapper.ROM[0x000],EMU->GetPRG_Ptr4(0x6),0x800);
-	memcpy(&Mapper.ROM[0x800],EMU->GetPRG_Ptr4(0x6),0x800);
+	EMU->SetPRG_ROM4(0x6, 8);
+	memcpy(&ROM[0x000], EMU->GetPRG_Ptr4(0x6), 0x800);
+	memcpy(&ROM[0x800], EMU->GetPRG_Ptr4(0x6), 0x800);
 }
 
 static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Mapper.Read = EMU->GetCPUReadHandler(0x7);
-	EMU->SetCPUReadHandler(0x7,Read);
-	Mapper.Write = EMU->GetCPUWriteHandler(0x7);
-	EMU->SetCPUWriteHandler(0x7,Write);
+	_Read = EMU->GetCPUReadHandler(0x7);
+	EMU->SetCPUReadHandler(0x7, Read);
+	_Write = EMU->GetCPUWriteHandler(0x7);
+	EMU->SetCPUWriteHandler(0x7, Write);
 
-	EMU->SetPRG_Ptr4(0x6,Mapper.ROM,FALSE);
-	EMU->SetPRG_RAM4(0x7,0);
-	EMU->SetPRG_ROM32(0x8,0);
-	EMU->SetCHR_ROM8(0,0);
+	EMU->SetPRG_Ptr4(0x6, ROM, FALSE);
+	EMU->SetPRG_RAM4(0x7, 0);
+	EMU->SetPRG_ROM32(0x8, 0);
+	EMU->SetCHR_ROM8(0, 0);
 	UNIF_SetMirroring(NULL);
 }
+} // namespace
 
 CTMapperInfo	MapperInfo_BTL_MARIO1_MALEE2 =
 {

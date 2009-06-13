@@ -8,36 +8,39 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\..\Hardware\h_FME7.h"
 
-static	void	Sync_JLROM (void)
+namespace
 {
-	FME7_SyncPRG(0x3F,0);
-	FME7_SyncCHR(0xFF,0);
-	FME7_SyncMirror();
+void	Sync_JLROM (void)
+{
+	FME7::SyncPRG(0x3F, 0);
+	FME7::SyncCHR(0xFF, 0);
+	FME7::SyncMirror();
 }
 
-static	void	Sync_JSROM (void)
+void	Sync_JSROM (void)
 {
-	FME7_SyncPRG(0x3F,0);
-	FME7_SyncCHR(0xFF,0);
-	FME7_SyncMirror();
+	FME7::SyncPRG(0x3F, 0);
+	FME7::SyncCHR(0xFF, 0);
+	FME7::SyncMirror();
 }
 
-static	void	MAPINT	Load_JLROM (void)
+void	MAPINT	Load_JLROM (void)
 {
-	FME7_Load(Sync_JLROM);
+	FME7::Load(Sync_JLROM);
 }
-static	void	MAPINT	Load_JSROM (void)
+void	MAPINT	Load_JSROM (void)
 {
-	FME7_Load(Sync_JSROM);
+	FME7::Load(Sync_JSROM);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	FME7_Reset(ResetType);
+	FME7::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	FME7_Unload();
+	FME7::Unload();
 }
+} // namespace
 
 CTMapperInfo	MapperInfo_NES_JLROM =
 {
@@ -47,10 +50,10 @@ CTMapperInfo	MapperInfo_NES_JLROM =
 	Load_JLROM,
 	Reset,
 	Unload,
-	FME7_CPUCycle,
+	FME7::CPUCycle,
 	NULL,
-	FME7_SaveLoad,
-	FME7_GenSound,
+	FME7::SaveLoad,
+	FME7::GenSound,
 	NULL
 };
 CTMapperInfo	MapperInfo_NES_JSROM =
@@ -61,10 +64,10 @@ CTMapperInfo	MapperInfo_NES_JSROM =
 	Load_JSROM,
 	Reset,
 	Unload,
-	FME7_CPUCycle,
+	FME7::CPUCycle,
 	NULL,
-	FME7_SaveLoad,
-	FME7_GenSound,
+	FME7::SaveLoad,
+	FME7::GenSound,
 	NULL
 };CTMapperInfo	MapperInfo_NES_BTR =
 {
@@ -74,9 +77,9 @@ CTMapperInfo	MapperInfo_NES_JSROM =
 	Load_JSROM,
 	Reset,
 	Unload,
-	FME7_CPUCycle,
+	FME7::CPUCycle,
 	NULL,
-	FME7_SaveLoad,
-	FME7_GenSound,
+	FME7::SaveLoad,
+	FME7::GenSound,
 	NULL
 };

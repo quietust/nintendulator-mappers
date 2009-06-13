@@ -8,37 +8,40 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\..\Hardware\h_MMC5.h"
 
-static	void	MAPINT	Load_EKROM (void)
+namespace
+{
+void	MAPINT	Load_EKROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC5_Load(MMC5WRAM_8KB_0KB);
+	MMC5::Load(MMC5WRAM_8KB_0KB);
 }
 
-static	void	MAPINT	Load_ELROM (void)
+void	MAPINT	Load_ELROM (void)
 {
-	MMC5_Load(MMC5WRAM_0KB_0KB);
+	MMC5::Load(MMC5WRAM_0KB_0KB);
 }
 
-static	void	MAPINT	Load_ETROM (void)
+void	MAPINT	Load_ETROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC5_Load(MMC5WRAM_8KB_8KB);
+	MMC5::Load(MMC5WRAM_8KB_8KB);
 }
 
-static	void	MAPINT	Load_EWROM (void)
+void	MAPINT	Load_EWROM (void)
 {
 	UNIF_SetSRAM(32768);
-	MMC5_Load(MMC5WRAM_32KB_0KB);
+	MMC5::Load(MMC5WRAM_32KB_0KB);
 }
 
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	MMC5_Reset(ResetType);
+	MMC5::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC5_Unload();
+	MMC5::Unload();
 }
+} // namespace
 
 CTMapperInfo	MapperInfo_NES_EKROM =
 {
@@ -49,9 +52,9 @@ CTMapperInfo	MapperInfo_NES_EKROM =
 	Reset,
 	Unload,
 	NULL,
-	MMC5_PPUCycle,
-	MMC5_SaveLoad,
-	MMC5_MapperSnd,
+	MMC5::PPUCycle,
+	MMC5::SaveLoad,
+	MMC5::MapperSnd,
 	NULL
 };
 CTMapperInfo	MapperInfo_NES_ELROM =
@@ -63,9 +66,9 @@ CTMapperInfo	MapperInfo_NES_ELROM =
 	Reset,
 	Unload,
 	NULL,
-	MMC5_PPUCycle,
-	MMC5_SaveLoad,
-	MMC5_MapperSnd,
+	MMC5::PPUCycle,
+	MMC5::SaveLoad,
+	MMC5::MapperSnd,
 	NULL
 };
 CTMapperInfo	MapperInfo_NES_ETROM =
@@ -77,9 +80,9 @@ CTMapperInfo	MapperInfo_NES_ETROM =
 	Reset,
 	Unload,
 	NULL,
-	MMC5_PPUCycle,
-	MMC5_SaveLoad,
-	MMC5_MapperSnd,
+	MMC5::PPUCycle,
+	MMC5::SaveLoad,
+	MMC5::MapperSnd,
 	NULL
 };
 CTMapperInfo	MapperInfo_NES_EWROM =
@@ -91,8 +94,8 @@ CTMapperInfo	MapperInfo_NES_EWROM =
 	Reset,
 	Unload,
 	NULL,
-	MMC5_PPUCycle,
-	MMC5_SaveLoad,
-	MMC5_MapperSnd,
+	MMC5::PPUCycle,
+	MMC5::SaveLoad,
+	MMC5::MapperSnd,
 	NULL
 };

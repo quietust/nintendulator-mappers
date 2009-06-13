@@ -7,45 +7,45 @@
 
 #include	"..\..\DLL\d_UNIF.h"
 
-struct
+namespace
 {
-	u8 Data;
-}	Mapper;
+u8 Data;
 
-static	void	Sync (void)
+void	Sync (void)
 {
-	if (Mapper.Data & 0x0E)
+	if (Data & 0x0E)
 	{
-		EMU->SetPRG_ROM16(0x8,0x0F);
-		EMU->SetPRG_ROM16(0xC,Mapper.Data & 0x0F);
+		EMU->SetPRG_ROM16(0x8, 0x0F);
+		EMU->SetPRG_ROM16(0xC, Data & 0x0F);
 	}
-	else	EMU->SetPRG_ROM32(0x8,0);
-	EMU->SetCHR_ROM8(0,Mapper.Data & 0x0F);
+	else	EMU->SetPRG_ROM32(0x8, 0);
+	EMU->SetCHR_ROM8(0, Data & 0x0F);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.Data);
+	SAVELOAD_BYTE(mode, x, data, Data);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	Write (int Bank, int Addr, int Val)
+void	MAPINT	Write (int Bank, int Addr, int Val)
 {
-	Mapper.Data = EMU->GetCPUReadHandler(Bank)(Bank,Addr);
+	Data = EMU->GetCPUReadHandler(Bank)(Bank, Addr);
 	Sync();
 }
 
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	for (x = 0x8; x <= 0xF; x++)
-		EMU->SetCPUWriteHandler(x,Write);
-	Mapper.Data = 0;
+		EMU->SetCPUWriteHandler(x, Write);
+	Data = 0;
 	UNIF_SetMirroring(NULL);
 	Sync();
 }
+} // namespace
 
 CTMapperInfo	MapperInfo_BMC_Generic15in1 =
 {

@@ -7,12 +7,11 @@
 
 #include	"..\..\DLL\d_UNIF.h"
 
-static	struct
+namespace
 {
-	u8 Regs[2];
-}	Mapper;
+u8 Regs[2];
 
-static	void	Sync (void)
+void	Sync (void)
 {
 	union
 	{
@@ -29,46 +28,48 @@ static	void	Sync (void)
 			unsigned byte0   : 8;
 			unsigned byte1   : 8;
 		};
-	}	Latch;
+	};
 
-	Latch.byte0 = Mapper.Regs[0];
-	Latch.byte1 = Mapper.Regs[1];
+	byte0 = Regs[0];
+	byte1 = Regs[1];
 
-	if (Latch.Mir_VH)
+	if (Mir_VH)
 		EMU->Mirror_V();
 	else	EMU->Mirror_H();
-	if (Latch.PRGsize)
+	if (PRGsize)
 	{
-		EMU->SetPRG_ROM16(0x8,((Latch.PRGhi) << 5) | (Latch.PRGbank));
-		EMU->SetPRG_ROM16(0xC,((Latch.PRGhi) << 5) | (Latch.PRGbank));
+		EMU->SetPRG_ROM16(0x8, (PRGhi << 5) | PRGbank);
+		EMU->SetPRG_ROM16(0xC, (PRGhi << 5) | PRGbank);
 	}
-	else	EMU->SetPRG_ROM32(0x8,((Latch.PRGhi) << 4) | (Latch.PRGbank >> 1));
+	else	EMU->SetPRG_ROM32(0x8, (PRGhi << 4) | (PRGbank >> 1));
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 2; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.Regs[i]);
+		SAVELOAD_BYTE(mode, x, data, Regs[i]);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	Write (int Bank, int Addr, int Val)
+void	MAPINT	Write (int Bank, int Addr, int Val)
 {
-	Mapper.Regs[Addr & 1] = Val;
+	Regs[Addr & 1] = Val;
 	Sync();
 }
 
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	for (x = 0x8; x <= 0xF; x++)
-		EMU->SetCPUWriteHandler(x,Write);
-	for (x = 0; x < 2; x++)	Mapper.Regs[x] = 0;
+		EMU->SetCPUWriteHandler(x, Write);
+	for (x = 0; x < 2; x++)
+		Regs[x] = 0;
 	Sync();
 }
+} // namespace
 
 CTMapperInfo	MapperInfo_BMC_Generic42in1 =
 {

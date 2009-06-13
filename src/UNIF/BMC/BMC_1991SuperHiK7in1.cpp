@@ -8,54 +8,54 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\..\Hardware\h_MMC3.h"
 
-static	struct
+namespace
 {
-	u8 WhichGame;
-}	Mapper;
+u8 WhichGame;
 
-static	void	Sync (void)
+void	Sync (void)
 {
-	MMC3_SyncMirror();
-	MMC3_SyncPRG((Mapper.WhichGame == 6) ? 0x1F : 0x0F,Mapper.WhichGame << 4);
-	MMC3_SyncCHR_ROM((Mapper.WhichGame == 6) ? 0xFF : 0x7F,Mapper.WhichGame << 7);
-	MMC3_SyncWRAM();
+	MMC3::SyncMirror();
+	MMC3::SyncPRG((WhichGame == 6) ? 0x1F : 0x0F, WhichGame << 4);
+	MMC3::SyncCHR_ROM((WhichGame == 6) ? 0xFF : 0x7F, WhichGame << 7);
+	MMC3::SyncWRAM();
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	x = MMC3_SaveLoad(mode,x,data);
-	SAVELOAD_BYTE(mode,x,data,Mapper.WhichGame);
+	x = MMC3::SaveLoad(mode, x, data);
+	SAVELOAD_BYTE(mode, x, data, WhichGame);
 	return x;
 }
 
-static	void	MAPINT	WriteAB (int Bank, int Addr, int Val)
+void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
 	switch (Addr & 1)
 	{
-	case 0:	MMC3_CPUWriteAB(Bank,Addr,Val);	break;
-	case 1:	Mapper.WhichGame = Val & 0x07;
-		if (Mapper.WhichGame == 7)
-			Mapper.WhichGame = 6;
+	case 0:	MMC3::CPUWriteAB(Bank, Addr, Val);	break;
+	case 1:	WhichGame = Val & 0x07;
+		if (WhichGame == 7)
+			WhichGame = 6;
 		Sync();				break;
 	}
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	MMC3_Load(Sync);
+	MMC3::Load(Sync);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	if (ResetType == RESET_HARD)
-		Mapper.WhichGame = 0;
-	MMC3_Reset(ResetType);
-	EMU->SetCPUWriteHandler(0xA,WriteAB);
-	EMU->SetCPUWriteHandler(0xB,WriteAB);
+		WhichGame = 0;
+	MMC3::Reset(ResetType);
+	EMU->SetCPUWriteHandler(0xA, WriteAB);
+	EMU->SetCPUWriteHandler(0xB, WriteAB);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC3_Unload();
+	MMC3::Unload();
 }
+} // namespace
 
 CTMapperInfo	MapperInfo_BMC_1991SuperHiK7in1 =
 {
@@ -66,7 +66,7 @@ CTMapperInfo	MapperInfo_BMC_1991SuperHiK7in1 =
 	Reset,
 	Unload,
 	NULL,
-	MMC3_PPUCycle,
+	MMC3::PPUCycle,
 	SaveLoad,
 	NULL,
 	NULL

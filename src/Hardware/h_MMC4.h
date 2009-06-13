@@ -10,20 +10,23 @@
 
 #include	"..\interface.h"
 
-void		MMC4_Load	(FSync);
-void		MMC4_Reset	(RESET_TYPE);
-void		MMC4_Unload	(void);
-int	MAPINT	MMC4_SaveLoad	(STATE_TYPE,int,unsigned char *);
-void		MMC4_SyncPRG	(int,int);
-void		MMC4_SyncCHR	(void);
-void		MMC4_SyncMirror	(void);
-void	MAPINT	MMC4_CPUWriteA	(int,int,int);
-void	MAPINT	MMC4_CPUWriteB	(int,int,int);
-void	MAPINT	MMC4_CPUWriteC	(int,int,int);
-void	MAPINT	MMC4_CPUWriteD	(int,int,int);
-void	MAPINT	MMC4_CPUWriteE	(int,int,int);
-void	MAPINT	MMC4_CPUWriteF	(int,int,int);
-int	MAPINT	MMC4_PPURead3	(int,int);
-int	MAPINT	MMC4_PPURead7	(int,int);
+namespace MMC4
+{
+void		Load		(FSync);
+void		Reset		(RESET_TYPE);
+void		Unload		(void);
+int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
+void		SyncPRG		(int,int);
+void		SyncCHR		(void);
+void		SyncMirror	(void);
+void	MAPINT	CPUWriteA	(int,int,int);
+void	MAPINT	CPUWriteB	(int,int,int);
+void	MAPINT	CPUWriteC	(int,int,int);
+void	MAPINT	CPUWriteD	(int,int,int);
+void	MAPINT	CPUWriteE	(int,int,int);
+void	MAPINT	CPUWriteF	(int,int,int);
+int	MAPINT	PPURead3	(int,int);
+int	MAPINT	PPURead7	(int,int);
+} // namespace MMC4
 
-#endif	/* H_MMC4_H */
+#endif	// H_MMC4_H

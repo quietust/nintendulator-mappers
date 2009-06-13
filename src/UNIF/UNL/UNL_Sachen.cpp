@@ -8,128 +8,129 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\..\Hardware\h_Latch.h"
 
-static	struct
+namespace
 {
-	u8 Latch;
-	FCPUWrite Write4;
-	void (*Sync)(void);
-}	Mapper;
+u8 Latch;
+FCPUWrite _Write4;
+FSync Sync;
 
-static	void	Sync_72007 (void)
+void	Sync_72007 (void)
 {
-	EMU->SetPRG_ROM16(0x8,0);
-	EMU->SetPRG_ROM16(0xC,1);
-	EMU->SetCHR_ROM8(0,(Mapper.Latch >> 7) & 0x1);
+	EMU->SetPRG_ROM16(0x8, 0);
+	EMU->SetPRG_ROM16(0xC, 1);
+	EMU->SetCHR_ROM8(0, (Latch >> 7) & 0x1);
 }
-static	void	Sync_72008 (void)
+void	Sync_72008 (void)
 {
-	EMU->SetPRG_ROM32(0x8,(Mapper.Latch >> 2) & 0x1);
-	EMU->SetCHR_ROM8(0,Mapper.Latch & 0x3);
+	EMU->SetPRG_ROM32(0x8, (Latch >> 2) & 0x1);
+	EMU->SetCHR_ROM8(0, Latch & 0x3);
 }
-static	void	Sync_0161M (void)
+void	Sync_0161M (void)
 {
-	EMU->SetPRG_ROM32(0x8,(Mapper.Latch >> 3) & 0x1);
-	EMU->SetCHR_ROM8(0,Mapper.Latch & 0x7);
+	EMU->SetPRG_ROM32(0x8, (Latch >> 3) & 0x1);
+	EMU->SetCHR_ROM8(0, Latch & 0x7);
 }
-static	void	Sync_U0115M (void)
+void	Sync_U0115M (void)
 {
-	EMU->SetPRG_ROM32(0x8,(Mapper.Latch >> 2) & 0x1);
-	EMU->SetCHR_ROM8(0,(Mapper.Latch >> 3) & 0xF);
+	EMU->SetPRG_ROM32(0x8, (Latch >> 2) & 0x1);
+	EMU->SetCHR_ROM8(0, (Latch >> 3) & 0xF);
 }
-static	void	Sync_0036 (void)
+void	Sync_0036 (void)
 {
-	EMU->SetPRG_ROM32(0x8,0);
-	EMU->SetCHR_ROM8(0,(Latch.Data & 0x80) >> 7);
+	EMU->SetPRG_ROM32(0x8, 0);
+	EMU->SetCHR_ROM8(0, (Latch::Data & 0x80) >> 7);
 }
-static	void	Sync_0037 (void)
+void	Sync_0037 (void)
 {
-	EMU->SetPRG_ROM32(0x8,(Latch.Data & 0x8) >> 3);
-	EMU->SetCHR_ROM8(0,Latch.Data & 0x7);
+	EMU->SetPRG_ROM32(0x8, (Latch::Data & 0x8) >> 3);
+	EMU->SetCHR_ROM8(0, Latch::Data & 0x7);
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.Latch);
+	SAVELOAD_BYTE(mode, x, data, Latch);
 	if (mode == STATE_LOAD)
-		Mapper.Sync();
+		Sync();
 	return x;
 }
 
-static	void	MAPINT	WriteSA (int Bank, int Addr, int Val)
+void	MAPINT	WriteSA (int Bank, int Addr, int Val)
 {
 	if ((Bank == 4) && (Addr < 0x018))
-		Mapper.Write4(Bank,Addr,Val);
+		_Write4(Bank, Addr, Val);
 	if (Addr & 0x100)
-		Mapper.Latch = Val;
-	Mapper.Sync();
+		Latch = Val;
+	Sync();
 }
-static	void	MAPINT	WriteTC (int Bank, int Addr, int Val)
+void	MAPINT	WriteTC (int Bank, int Addr, int Val)
 {
 	if ((Bank == 4) && (Addr < 0x018))
-		Mapper.Write4(Bank,Addr,Val);
+		_Write4(Bank, Addr, Val);
 	if ((Addr & 0x103) == 0x102)
-		Mapper.Latch = Val;
-	Sync_U0115M();
+		Latch = Val;
+	Sync();
 }
 
-static	void	Reset (RESET_TYPE ResetType)
+void	Reset (RESET_TYPE ResetType)
 {
-	Mapper.Latch = 0;
-	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
-	EMU->SetCPUWriteHandler(0x4,WriteSA);
-	EMU->SetCPUWriteHandler(0x5,WriteSA);
+	Latch = 0;
+	_Write4 = EMU->GetCPUWriteHandler(0x4);
+	EMU->SetCPUWriteHandler(0x4, WriteSA);
+	EMU->SetCPUWriteHandler(0x5, WriteSA);
 	UNIF_SetMirroring(NULL);
-	Mapper.Sync();
+	Sync();
 }
 
-static	void	MAPINT	Reset_0161M (RESET_TYPE ResetType)
+void	MAPINT	Reset_0161M (RESET_TYPE ResetType)
 {
-	Mapper.Sync = Sync_0161M;
+	Sync = Sync_0161M;
 	Reset(ResetType);
 }
-static	void	MAPINT	Reset_72007 (RESET_TYPE ResetType)
+void	MAPINT	Reset_72007 (RESET_TYPE ResetType)
 {
-	Mapper.Sync = Sync_72007;
+	Sync = Sync_72007;
 	Reset(ResetType);
 }
-static	void	MAPINT	Reset_72008 (RESET_TYPE ResetType)
+void	MAPINT	Reset_72008 (RESET_TYPE ResetType)
 {
-	Mapper.Sync = Sync_72008;
+	Sync = Sync_72008;
 	Reset(ResetType);
 }
-static	void	MAPINT	Reset_U0115M (RESET_TYPE ResetType)
+void	MAPINT	Reset_U0115M (RESET_TYPE ResetType)
 {
-	Mapper.Latch = 0;
-	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
-	EMU->SetCPUWriteHandler(0x4,WriteTC);
-	EMU->SetCPUWriteHandler(0x5,WriteTC);
-	EMU->SetCPUWriteHandler(0x6,WriteTC);
-	EMU->SetCPUWriteHandler(0x7,WriteTC);
-	EMU->SetCPUWriteHandler(0xC,WriteTC);
-	EMU->SetCPUWriteHandler(0xD,WriteTC);
-	EMU->SetCPUWriteHandler(0xE,WriteTC);
-	EMU->SetCPUWriteHandler(0xF,WriteTC);
+	Latch = 0;
+	_Write4 = EMU->GetCPUWriteHandler(0x4);
+	EMU->SetCPUWriteHandler(0x4, WriteTC);
+	EMU->SetCPUWriteHandler(0x5, WriteTC);
+	EMU->SetCPUWriteHandler(0x6, WriteTC);
+	EMU->SetCPUWriteHandler(0x7, WriteTC);
+	EMU->SetCPUWriteHandler(0xC, WriteTC);
+	EMU->SetCPUWriteHandler(0xD, WriteTC);
+	EMU->SetCPUWriteHandler(0xE, WriteTC);
+	EMU->SetCPUWriteHandler(0xF, WriteTC);
 	UNIF_SetMirroring(NULL);
-	Sync_U0115M();
+	Sync = Sync_U0115M;
+	Sync();
 }
 
-static	void	MAPINT	Load_0036 (void)
+void	MAPINT	Load_0036 (void)
 {
-	Latch_Load(Sync_0036,FALSE);
+	Latch::Load(Sync_0036, FALSE);
 }
-static	void	MAPINT	Load_0037 (void)
+void	MAPINT	Load_0037 (void)
 {
-	Latch_Load(Sync_0037,FALSE);
+	Latch::Load(Sync_0037, FALSE);
 }
-static	void	MAPINT	Reset_003x (RESET_TYPE ResetType)
+void	MAPINT	Reset_003x (RESET_TYPE ResetType)
 {
-	Latch_Reset(ResetType);
+	Latch::Reset(ResetType);
 	UNIF_SetMirroring(NULL);
 }
-static	void	MAPINT	Unload_003x (void)
+void	MAPINT	Unload_003x (void)
 {
-	Latch_Unload();
+	Latch::Unload();
 }
+} // namespace
 
 CTMapperInfo	MapperInfo_UNL_SA_0161M =
 {
@@ -197,7 +198,7 @@ CTMapperInfo	MapperInfo_UNL_SA_0036 =
 	Unload_003x,
 	NULL,
 	NULL,
-	Latch_SaveLoad_D,
+	Latch::SaveLoad_D,
 	NULL,
 	NULL
 };
@@ -211,7 +212,7 @@ CTMapperInfo	MapperInfo_UNL_SA_0037 =
 	Unload_003x,
 	NULL,
 	NULL,
-	Latch_SaveLoad_D,
+	Latch::SaveLoad_D,
 	NULL,
 	NULL
 };

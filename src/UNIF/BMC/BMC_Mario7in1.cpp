@@ -8,86 +8,86 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\..\Hardware\h_MMC3.h"
 
-static	struct
+namespace
 {
-	u8 WhichGame;
-	u8 DidWrite;
-	FCPUWrite Write67;
-}	Mapper;
+u8 WhichGame;
+u8 DidWrite;
+FCPUWrite _Write67;
 
-static	void	Sync (void)
+void	Sync (void)
 {
 	u8 PRGmask, CHRmask;
 	u8 PRGbank, CHRbank;
 
-	if (Mapper.WhichGame & 0x8)
+	if (WhichGame & 0x8)
 	{
 		PRGmask = 0x0F;
-		PRGbank = Mapper.WhichGame & 0x07;
+		PRGbank = WhichGame & 0x07;
 	}
 	else
 	{
 		PRGmask = 0x1F;
-		PRGbank = Mapper.WhichGame & 0x06;
+		PRGbank = WhichGame & 0x06;
 	}
-	if (Mapper.WhichGame & 0x40)
+	if (WhichGame & 0x40)
 	{
 		CHRmask = 0x7F;
-		CHRbank = ((Mapper.WhichGame & 0x20) >> 3) | ((Mapper.WhichGame & 0x10) >> 4) | ((Mapper.WhichGame & 0x04) >> 1);
+		CHRbank = ((WhichGame & 0x20) >> 3) | ((WhichGame & 0x10) >> 4) | ((WhichGame & 0x04) >> 1);
 	}
 	else
 	{
 		CHRmask = 0xFF;
-		CHRbank = ((Mapper.WhichGame & 0x20) >> 3) | ((Mapper.WhichGame & 0x10) >> 4);
+		CHRbank = ((WhichGame & 0x20) >> 3) | ((WhichGame & 0x10) >> 4);
 	}
-	MMC3_SyncMirror();
-	MMC3_SyncWRAM();
-	MMC3_SyncPRG(PRGmask,PRGbank << 4);
-	MMC3_SyncCHR_ROM(CHRmask,CHRbank << 7);
+	MMC3::SyncMirror();
+	MMC3::SyncWRAM();
+	MMC3::SyncPRG(PRGmask, PRGbank << 4);
+	MMC3::SyncCHR_ROM(CHRmask, CHRbank << 7);
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	x = MMC3_SaveLoad(mode,x,data);
-	SAVELOAD_BYTE(mode,x,data,Mapper.WhichGame);
-	SAVELOAD_BYTE(mode,x,data,Mapper.DidWrite);
+	x = MMC3::SaveLoad(mode, x, data);
+	SAVELOAD_BYTE(mode, x, data, WhichGame);
+	SAVELOAD_BYTE(mode, x, data, DidWrite);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	Write67 (int Bank, int Addr, int Val)
+void	MAPINT	Write67 (int Bank, int Addr, int Val)
 {
-	Mapper.Write67(Bank,Addr,Val);
-	if (Mapper.DidWrite)
+	_Write67(Bank, Addr, Val);
+	if (DidWrite)
 		return;
-	Mapper.WhichGame = Val;
-	Mapper.DidWrite = 1;
+	WhichGame = Val;
+	DidWrite = 1;
 	Sync();
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	MMC3_Load(Sync);
+	MMC3::Load(Sync);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Mapper.Write67 = EMU->GetCPUWriteHandler(0x6);
-	EMU->SetCPUWriteHandler(0x6,Write67);
-	EMU->SetCPUWriteHandler(0x7,Write67);
+	_Write67 = EMU->GetCPUWriteHandler(0x6);
+	EMU->SetCPUWriteHandler(0x6, Write67);
+	EMU->SetCPUWriteHandler(0x7, Write67);
 
 	if (ResetType == RESET_HARD)
 	{
-		Mapper.WhichGame = 0;
-		Mapper.DidWrite = 0;
+		WhichGame = 0;
+		DidWrite = 0;
 	}
 
-	MMC3_Reset(ResetType);
+	MMC3::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC3_Unload();
+	MMC3::Unload();
 }
+} // namespace
 
 CTMapperInfo	MapperInfo_BMC_Mario7in1 =
 {
@@ -98,7 +98,7 @@ CTMapperInfo	MapperInfo_BMC_Mario7in1 =
 	Reset,
 	Unload,
 	NULL,
-	MMC3_PPUCycle,
+	MMC3::PPUCycle,
 	SaveLoad,
 	NULL,
 	NULL

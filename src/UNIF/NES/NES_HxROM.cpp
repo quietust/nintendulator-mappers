@@ -8,26 +8,29 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\..\Hardware\h_MMC6.h"
 
-static	void	Sync_HKROM (void)
+namespace
 {
-	MMC6_SyncPRG(0x3F,0);
-	MMC6_SyncCHR_ROM(0xFF,0);
-	MMC6_SyncMirror();
+void	Sync_HKROM (void)
+{
+	MMC6::SyncPRG(0x3F, 0);
+	MMC6::SyncCHR_ROM(0xFF, 0);
+	MMC6::SyncMirror();
 }
 
-static	void	MAPINT	Load_HKROM (void)
+void	MAPINT	Load_HKROM (void)
 {
 	UNIF_SetSRAM(1024);
-	MMC6_Load(Sync_HKROM);
+	MMC6::Load(Sync_HKROM);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	MMC6_Reset(ResetType);
+	MMC6::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC6_Unload();
+	MMC6::Unload();
 }
+} // namespace
 
 CTMapperInfo	MapperInfo_NES_HKROM =
 {
@@ -38,8 +41,8 @@ CTMapperInfo	MapperInfo_NES_HKROM =
 	Reset,
 	Unload,
 	NULL,
-	MMC6_PPUCycle,
-	MMC6_SaveLoad,
+	MMC6::PPUCycle,
+	MMC6::SaveLoad,
 	NULL,
 	NULL
 };

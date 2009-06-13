@@ -8,12 +8,11 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\..\Hardware\h_Latch.h"
 
-static	struct
+namespace
 {
-	u8 Regs[4];
-}	Mapper;
+u8 Regs[4];
 
-static	void	Sync (void)
+void	Sync (void)
 {
 	union
 	{
@@ -28,63 +27,64 @@ static	void	Sync (void)
 			unsigned         : 1;
 		};
 		u16 addr;
-	}	M;
-	M.addr = Latch.Addr.s0;
-	EMU->SetCHR_ROM8(0,M.CHRbank);
-	if (M.PRGsize)
+	};
+	addr = Latch::Addr.s0;
+	EMU->SetCHR_ROM8(0, CHRbank);
+	if (PRGsize)
 	{
-		EMU->SetPRG_ROM16(0x8,(M.PRGchip << 6) | (M.PRGbank << 1) | (M.PRG16));
-		EMU->SetPRG_ROM16(0xC,(M.PRGchip << 6) | (M.PRGbank << 1) | (M.PRG16));
+		EMU->SetPRG_ROM16(0x8, (PRGchip << 6) | (PRGbank << 1) | (PRG16));
+		EMU->SetPRG_ROM16(0xC, (PRGchip << 6) | (PRGbank << 1) | (PRG16));
 	}
-	else	EMU->SetPRG_ROM32(0x8,(M.PRGchip << 5) | M.PRGbank);
-	if (M.Mir_HV)
+	else	EMU->SetPRG_ROM32(0x8, (PRGchip << 5) | PRGbank);
+	if (Mir_HV)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
-	x = Latch_SaveLoad_A(mode,x,data);
+	x = Latch::SaveLoad_A(mode, x, data);
 	for (i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.Regs[i]);
+		SAVELOAD_BYTE(mode, x, data, Regs[i]);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	int	MAPINT	ReadRegs (int Bank, int Addr)
+int	MAPINT	Read (int Bank, int Addr)
 {
 	if (Addr & 0x800)
-		return Mapper.Regs[Addr & 3];
+		return Regs[Addr & 3];
 	else	return 0;
 }
 
-static	void	MAPINT	WriteRegs (int Bank, int Addr, int Val)
+void	MAPINT	Write (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
-		Mapper.Regs[Addr & 3] = Val & 0xF;
+		Regs[Addr & 3] = Val & 0xF;
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	Latch_Load(Sync,FALSE);
+	Latch::Load(Sync, FALSE);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	EMU->SetCPUReadHandler(0x5,ReadRegs);
-	EMU->SetCPUWriteHandler(0x5,WriteRegs);
-	Latch_Reset(ResetType);
+	EMU->SetCPUReadHandler(0x5, Read);
+	EMU->SetCPUWriteHandler(0x5, Write);
+	Latch::Reset(ResetType);
 	if (ResetType == RESET_HARD)
 	{
-		Mapper.Regs[0] = Mapper.Regs[2] = 0xF;
-		Mapper.Regs[1] = Mapper.Regs[3] = 0x0;
+		Regs[0] = Regs[2] = 0xF;
+		Regs[1] = Regs[3] = 0x0;
 	}
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	Latch_Unload();
+	Latch::Unload();
 }
+} // namespace
 
 CTMapperInfo	MapperInfo_BMC_Generic115in1 =
 {

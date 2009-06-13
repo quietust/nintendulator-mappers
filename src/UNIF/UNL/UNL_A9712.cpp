@@ -8,76 +8,75 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\..\Hardware\h_MMC3.h"
 
-static	struct
+namespace
 {
-	u8 Reg0, Reg1;
-}	Mapper;
+u8 Reg0, Reg1;
 
-static	void	Sync (void)
+void	Sync (void)
 {
-	MMC3_SyncWRAM();
-	MMC3_SyncCHR_ROM(0xFF,0);
-	MMC3_SyncMirror();
-	MMC3_SyncPRG(0x3F,0);
-	if (Mapper.Reg1 == 0xAB)
-		EMU->SetPRG_ROM8(0xE,0x07);
-	if (Mapper.Reg1 == 0xFF)
-		EMU->SetPRG_ROM8(0xE,0x09);
+	MMC3::SyncWRAM();
+	MMC3::SyncCHR_ROM(0xFF, 0);
+	MMC3::SyncMirror();
+	MMC3::SyncPRG(0x3F, 0);
+	if (Reg1 == 0xAB)
+		EMU->SetPRG_ROM8(0xE, 0x07);
+	if (Reg1 == 0xFF)
+		EMU->SetPRG_ROM8(0xE, 0x09);
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	x = MMC3_SaveLoad(mode,x,data);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Reg0);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Reg1);
+	x = MMC3::SaveLoad(mode, x, data);
+	SAVELOAD_BYTE(mode, x, data, Reg0);
+	SAVELOAD_BYTE(mode, x, data, Reg1);
 	return x;
 }
 
-static	int	MAPINT	Read5 (int Bank, int Addr)
+int	MAPINT	Read5 (int Bank, int Addr)
 {
 	if (Addr & 0x80)
 		return -1;
 	else	return 0x9F;
 }
 
-static	void	MAPINT	Write5 (int Bank, int Addr, int Val)
+void	MAPINT	Write5 (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x80)
-		Mapper.Reg0 = Val;
+		Reg0 = Val;
 }
 
-static	void	MAPINT	Write89 (int Bank, int Addr, int Val)
+void	MAPINT	Write89 (int Bank, int Addr, int Val)
 {
 	if ((Addr & 0x3) == 3)
 	{
-		Mapper.Reg1 = Val;
+		Reg1 = Val;
 		Sync();
 	}
-	else	MMC3_CPUWrite89(Bank, Addr, Val);
+	else	MMC3::CPUWrite89(Bank, Addr, Val);
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	MMC3_Load(Sync);
+	MMC3::Load(Sync);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	MMC3_Reset(ResetType);
-	EMU->SetCPUReadHandler(0x5,Read5);
-	EMU->SetCPUWriteHandler(0x5,Write5);
-	EMU->SetCPUWriteHandler(0x8,Write89);
-	EMU->SetCPUWriteHandler(0x9,Write89);
+	MMC3::Reset(ResetType);
+	EMU->SetCPUReadHandler(0x5, Read5);
+	EMU->SetCPUWriteHandler(0x5, Write5);
+	EMU->SetCPUWriteHandler(0x8, Write89);
+	EMU->SetCPUWriteHandler(0x9, Write89);
 	if (ResetType == RESET_HARD)
 	{
-		Mapper.Reg0 = 0;
-		Mapper.Reg1 = 0;
+		Reg0 = 0;
+		Reg1 = 0;
 	}
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC3_Unload();
+	MMC3::Unload();
 }
-
+} // namespace
 
 CTMapperInfo	MapperInfo_UNL_A9712 =
 {
@@ -88,7 +87,7 @@ CTMapperInfo	MapperInfo_UNL_A9712 =
 	Reset,
 	Unload,
 	NULL,
-	MMC3_PPUCycle,
+	MMC3::PPUCycle,
 	SaveLoad,
 	NULL,
 	NULL

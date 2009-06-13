@@ -10,17 +10,20 @@
 
 #include	"..\interface.h"
 
-void		FME7_Load	(FSync);
-void		FME7_Reset	(RESET_TYPE);
-void		FME7_Unload	(void);
-void		FME7_SyncMirror	(void);
-void		FME7_SyncPRG	(int,int);
-void		FME7_SyncCHR	(int,int);
-int	MAPINT	FME7_SaveLoad	(STATE_TYPE,int,unsigned char *);
-void	MAPINT	FME7_Write89	(int,int,int);
-void	MAPINT	FME7_WriteAB	(int,int,int);
-void	MAPINT	FME7_WriteCDEF	(int,int,int);
-void	MAPINT	FME7_CPUCycle	(void);
-int	MAPINT	FME7_GenSound	(int);
+namespace FME7
+{
+void		Load		(FSync);
+void		Reset		(RESET_TYPE);
+void		Unload		(void);
+void		SyncMirror	(void);
+void		SyncPRG		(int,int);
+void		SyncCHR		(int,int);
+int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
+void	MAPINT	Write89		(int,int,int);
+void	MAPINT	WriteAB		(int,int,int);
+void	MAPINT	WriteCDEF	(int,int,int);
+void	MAPINT	CPUCycle	(void);
+int	MAPINT	GenSound	(int);
+} // namespace FME7
 
-#endif	/* H_FME7_H */
+#endif	// H_FME7_H

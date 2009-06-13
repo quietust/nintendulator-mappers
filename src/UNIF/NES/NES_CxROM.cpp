@@ -8,38 +8,40 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\..\Hardware\h_Latch.h"
 
-static	void	Sync_CNROM (void)
+namespace
 {
-	EMU->SetPRG_ROM16(0x8,0);
-	EMU->SetPRG_ROM16(0xC,1);
-	EMU->SetCHR_ROM8(0,Latch.Data & 0x03);
+void	Sync_CNROM (void)
+{
+	EMU->SetPRG_ROM16(0x8, 0);
+	EMU->SetPRG_ROM16(0xC, 1);
+	EMU->SetCHR_ROM8(0, Latch::Data & 0x03);
 }
-static	void	Sync_CPROM (void)
+void	Sync_CPROM (void)
 {
-	EMU->SetPRG_ROM16(0x8,0);
-	EMU->SetPRG_ROM16(0xC,1);
-	EMU->SetCHR_RAM4(0,0);
-	EMU->SetCHR_RAM4(4,Latch.Data & 0x3);
+	EMU->SetPRG_ROM16(0x8, 0);
+	EMU->SetPRG_ROM16(0xC, 1);
+	EMU->SetCHR_RAM4(0, 0);
+	EMU->SetCHR_RAM4(4, Latch::Data & 0x3);
 }
 
-static	void	MAPINT	Load_CNROM (void)
+void	MAPINT	Load_CNROM (void)
 {
-	Latch_Load(Sync_CNROM,TRUE);
+	Latch::Load(Sync_CNROM, TRUE);
 }
-static	void	MAPINT	Load_CPROM (void)
+void	MAPINT	Load_CPROM (void)
 {
-	Latch_Load(Sync_CPROM,TRUE);
+	Latch::Load(Sync_CPROM, TRUE);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Latch_Reset(ResetType);
+	Latch::Reset(ResetType);
 	UNIF_SetMirroring(NULL);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	Latch_Unload();
+	Latch::Unload();
 }
-
+} // namespace
 
 CTMapperInfo	MapperInfo_NES_CNROM =
 {
@@ -51,7 +53,7 @@ CTMapperInfo	MapperInfo_NES_CNROM =
 	Unload,
 	NULL,
 	NULL,
-	Latch_SaveLoad_D,
+	Latch::SaveLoad_D,
 	NULL,
 	NULL
 };
@@ -65,7 +67,7 @@ CTMapperInfo	MapperInfo_NES_CPROM =
 	Unload,
 	NULL,
 	NULL,
-	Latch_SaveLoad_D,
+	Latch::SaveLoad_D,
 	NULL,
 	NULL
 };

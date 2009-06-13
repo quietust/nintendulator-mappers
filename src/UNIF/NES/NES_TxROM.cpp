@@ -8,88 +8,91 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\..\Hardware\h_MMC3.h"
 
-static	void	Sync_TFROM (void)
+namespace
 {
-	MMC3_SyncPRG(0x3F,0);
-	MMC3_SyncCHR_ROM(0x3F,0);
-	UNIF_SetMirroring(MMC3_SyncMirror);
+void	Sync_TFROM (void)
+{
+	MMC3::SyncPRG(0x3F, 0);
+	MMC3::SyncCHR_ROM(0x3F, 0);
+	UNIF_SetMirroring(MMC3::SyncMirror);
 }
-static	void	Sync_TGROM (void)
+void	Sync_TGROM (void)
 {
-	MMC3_SyncPRG(0x3F,0);
-	MMC3_SyncCHR_RAM(0x7,0);
-	MMC3_SyncMirror();
+	MMC3::SyncPRG(0x3F, 0);
+	MMC3::SyncCHR_RAM(0x7, 0);
+	MMC3::SyncMirror();
 }
-static	void	Sync_TKROM (void)
+void	Sync_TKROM (void)
 {
-	MMC3_SyncWRAM();
-	MMC3_SyncPRG(0x3F,0);
-	MMC3_SyncCHR_ROM(0xFF,0);
-	MMC3_SyncMirror();
+	MMC3::SyncWRAM();
+	MMC3::SyncPRG(0x3F, 0);
+	MMC3::SyncCHR_ROM(0xFF, 0);
+	MMC3::SyncMirror();
 }
-static	void	Sync_TLROM (void)
+void	Sync_TLROM (void)
 {
-	MMC3_SyncPRG(0x3F,0);
-	MMC3_SyncCHR_ROM(0xFF,0);
-	MMC3_SyncMirror();
+	MMC3::SyncPRG(0x3F, 0);
+	MMC3::SyncCHR_ROM(0xFF, 0);
+	MMC3::SyncMirror();
 }
-static	void	Sync_TL1ROM (void)
+void	Sync_TL1ROM (void)
 {
-	MMC3_SyncPRG(0x3F,0);
-	MMC3_SyncCHR_ROM(0x7F,0);
-	MMC3_SyncMirror();
+	MMC3::SyncPRG(0x3F, 0);
+	MMC3::SyncCHR_ROM(0x7F, 0);
+	MMC3::SyncMirror();
 }
-static	void	Sync_TR1ROM (void)
+void	Sync_TR1ROM (void)
 {
-	MMC3_SyncPRG(0x3F,0);
-	MMC3_SyncCHR_ROM(0x3F,0);
+	MMC3::SyncPRG(0x3F, 0);
+	MMC3::SyncCHR_ROM(0x3F, 0);
 	EMU->Mirror_4();
 }
-static	void	Sync_TSROM (void)
+void	Sync_TSROM (void)
 {
-	MMC3_SyncWRAM();
-	MMC3_SyncPRG(0x3F,0);
-	MMC3_SyncCHR_ROM(0xFF,0);
-	MMC3_SyncMirror();
+	MMC3::SyncWRAM();
+	MMC3::SyncPRG(0x3F, 0);
+	MMC3::SyncCHR_ROM(0xFF, 0);
+	MMC3::SyncMirror();
 }
 
-static	void	MAPINT	Load_TFROM (void)
+void	MAPINT	Load_TFROM (void)
 {
-	MMC3_Load(Sync_TFROM);
+	MMC3::Load(Sync_TFROM);
 }
-static	void	MAPINT	Load_TGROM (void)
+void	MAPINT	Load_TGROM (void)
 {
-	MMC3_Load(Sync_TGROM);
+	MMC3::Load(Sync_TGROM);
 }
-static	void	MAPINT	Load_TKROM (void)
+void	MAPINT	Load_TKROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC3_Load(Sync_TKROM);
+	MMC3::Load(Sync_TKROM);
 }
-static	void	MAPINT	Load_TLROM (void)
+void	MAPINT	Load_TLROM (void)
 {
-	MMC3_Load(Sync_TLROM);
+	MMC3::Load(Sync_TLROM);
 }
-static	void	MAPINT	Load_TL1ROM (void)
+void	MAPINT	Load_TL1ROM (void)
 {
-	MMC3_Load(Sync_TL1ROM);
+	MMC3::Load(Sync_TL1ROM);
 }
-static	void	MAPINT	Load_TR1ROM (void)
+void	MAPINT	Load_TR1ROM (void)
 {
-	MMC3_Load(Sync_TR1ROM);
+	MMC3::Load(Sync_TR1ROM);
 }
-static	void	MAPINT	Load_TSROM (void)
+void	MAPINT	Load_TSROM (void)
 {
-	MMC3_Load(Sync_TSROM);
+	MMC3::Load(Sync_TSROM);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	MMC3_Reset(ResetType);
+	MMC3::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC3_Unload();
+	MMC3::Unload();
 }
+} // namespace
 
 CTMapperInfo	MapperInfo_NES_TFROM =
 {
@@ -100,8 +103,8 @@ CTMapperInfo	MapperInfo_NES_TFROM =
 	Reset,
 	Unload,
 	NULL,
-	MMC3_PPUCycle,
-	MMC3_SaveLoad,
+	MMC3::PPUCycle,
+	MMC3::SaveLoad,
 	NULL,
 	NULL
 };
@@ -114,8 +117,8 @@ CTMapperInfo	MapperInfo_NES_TGROM =
 	Reset,
 	Unload,
 	NULL,
-	MMC3_PPUCycle,
-	MMC3_SaveLoad,
+	MMC3::PPUCycle,
+	MMC3::SaveLoad,
 	NULL,
 	NULL
 };
@@ -128,8 +131,8 @@ CTMapperInfo	MapperInfo_NES_TKROM =
 	Reset,
 	Unload,
 	NULL,
-	MMC3_PPUCycle,
-	MMC3_SaveLoad,
+	MMC3::PPUCycle,
+	MMC3::SaveLoad,
 	NULL,
 	NULL
 };
@@ -142,8 +145,8 @@ CTMapperInfo	MapperInfo_NES_TLROM =
 	Reset,
 	Unload,
 	NULL,
-	MMC3_PPUCycle,
-	MMC3_SaveLoad,
+	MMC3::PPUCycle,
+	MMC3::SaveLoad,
 	NULL,
 	NULL
 };
@@ -156,8 +159,8 @@ CTMapperInfo	MapperInfo_NES_TL1ROM =
 	Reset,
 	Unload,
 	NULL,
-	MMC3_PPUCycle,
-	MMC3_SaveLoad,
+	MMC3::PPUCycle,
+	MMC3::SaveLoad,
 	NULL,
 	NULL
 };
@@ -170,8 +173,8 @@ CTMapperInfo	MapperInfo_NES_TR1ROM =
 	Reset,
 	Unload,
 	NULL,
-	MMC3_PPUCycle,
-	MMC3_SaveLoad,
+	MMC3::PPUCycle,
+	MMC3::SaveLoad,
 	NULL,
 	NULL
 };
@@ -184,8 +187,8 @@ CTMapperInfo	MapperInfo_NES_TSROM =
 	Reset,
 	Unload,
 	NULL,
-	MMC3_PPUCycle,
-	MMC3_SaveLoad,
+	MMC3::PPUCycle,
+	MMC3::SaveLoad,
 	NULL,
 	NULL
 };

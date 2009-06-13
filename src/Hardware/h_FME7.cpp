@@ -8,61 +8,59 @@
 #include	"h_FME7.h"
 #include	"Sound\s_FME7.h"
 
-typedef	struct	FME7
+namespace FME7
 {
-	u8 IRQenabled;
-	u16_n IRQcounter;
-	u8 Cmd;
-	u8 PRG[4], CHR[8];
-	u8 Mirror;
-	FSync Sync;
-}	TFME7, *PFME7;
-static	TFME7	FME7;
+u8 IRQenabled;
+u16_n IRQcounter;
+u8 Cmd;
+u8 PRG[4], CHR[8];
+u8 Mirror;
+FSync Sync;
 
-void	FME7_Load (FSync Sync)
+void	Load (FSync _Sync)
 {
-	FME7sound_Load();
-	FME7.Sync = Sync;
+	FME7sound::Load();
+	Sync = _Sync;
 }
 
-void	FME7_Reset (RESET_TYPE ResetType)
+void	Reset (RESET_TYPE ResetType)
 {
 	if (ResetType == RESET_HARD)
 	{
-		FME7.Cmd = 0;
+		Cmd = 0;
 
-		FME7.PRG[0] = 0x00;	FME7.PRG[1] = 0x00;	FME7.PRG[2] = 0x01;	FME7.PRG[3] = 0xFE;
+		PRG[0] = 0x00;	PRG[1] = 0x00;	PRG[2] = 0x01;	PRG[3] = 0xFE;
 
-		FME7.CHR[0] = 0x00;	FME7.CHR[1] = 0x01;	FME7.CHR[2] = 0x02;	FME7.CHR[3] = 0x03;
-		FME7.CHR[4] = 0x04;	FME7.CHR[5] = 0x05;	FME7.CHR[6] = 0x06;	FME7.CHR[7] = 0x07;
+		CHR[0] = 0x00;	CHR[1] = 0x01;	CHR[2] = 0x02;	CHR[3] = 0x03;
+		CHR[4] = 0x04;	CHR[5] = 0x05;	CHR[6] = 0x06;	CHR[7] = 0x07;
 
-		FME7.Mirror = 0;
+		Mirror = 0;
 
-		FME7.IRQenabled = 0;
-		FME7.IRQcounter.s0 = 0;
+		IRQenabled = 0;
+		IRQcounter.s0 = 0;
 	}
 	
-	EMU->SetCPUWriteHandler(0x8,FME7_Write89);
-	EMU->SetCPUWriteHandler(0x9,FME7_Write89);
-	EMU->SetCPUWriteHandler(0xA,FME7_WriteAB);
-	EMU->SetCPUWriteHandler(0xB,FME7_WriteAB);
-	EMU->SetCPUWriteHandler(0xC,FME7_WriteCDEF);
-	EMU->SetCPUWriteHandler(0xD,FME7_WriteCDEF);
-	EMU->SetCPUWriteHandler(0xE,FME7_WriteCDEF);
-	EMU->SetCPUWriteHandler(0xF,FME7_WriteCDEF);
+	EMU->SetCPUWriteHandler(0x8, Write89);
+	EMU->SetCPUWriteHandler(0x9, Write89);
+	EMU->SetCPUWriteHandler(0xA, WriteAB);
+	EMU->SetCPUWriteHandler(0xB, WriteAB);
+	EMU->SetCPUWriteHandler(0xC, WriteCDEF);
+	EMU->SetCPUWriteHandler(0xD, WriteCDEF);
+	EMU->SetCPUWriteHandler(0xE, WriteCDEF);
+	EMU->SetCPUWriteHandler(0xF, WriteCDEF);
 
-	FME7sound_Reset(ResetType);
-	FME7.Sync();
+	FME7sound::Reset(ResetType);
+	Sync();
 }
 
-void	FME7_Unload (void)
+void	Unload (void)
 {
-	FME7sound_Unload();
+	FME7sound::Unload();
 }
 
-void	FME7_SyncMirror (void)
+void	SyncMirror (void)
 {
-	switch (FME7.Mirror)
+	switch (Mirror)
 	{
 	case 0:	EMU->Mirror_V();	break;
 	case 1:	EMU->Mirror_H();	break;
@@ -71,91 +69,92 @@ void	FME7_SyncMirror (void)
 	}
 }
 
-void	FME7_SyncPRG (int AND, int OR)
+void	SyncPRG (int AND, int OR)
 {
-	if (FME7.PRG[0] & 0x40)
-		if (FME7.PRG[0] & 0x80)
-			EMU->SetPRG_RAM8(0x6,0);
+	if (PRG[0] & 0x40)
+		if (PRG[0] & 0x80)
+			EMU->SetPRG_RAM8(0x6, 0);
 		else
 		{
 			EMU->SetPRG_OB4(0x6);
 			EMU->SetPRG_OB4(0x7);
 		}
-	else	EMU->SetPRG_ROM8(0x6,(FME7.PRG[0] & 0x3F & AND) | OR);
-	EMU->SetPRG_ROM8(0x8,(FME7.PRG[1] & AND) | OR);
-	EMU->SetPRG_ROM8(0xA,(FME7.PRG[2] & AND) | OR);
-	EMU->SetPRG_ROM8(0xC,(FME7.PRG[3] & AND) | OR);
-	EMU->SetPRG_ROM8(0xE,(0xFF & AND) | OR);
+	else	EMU->SetPRG_ROM8(0x6, (PRG[0] & 0x3F & AND) | OR);
+	EMU->SetPRG_ROM8(0x8, (PRG[1] & AND) | OR);
+	EMU->SetPRG_ROM8(0xA, (PRG[2] & AND) | OR);
+	EMU->SetPRG_ROM8(0xC, (PRG[3] & AND) | OR);
+	EMU->SetPRG_ROM8(0xE, (0xFF & AND) | OR);
 }
 
-void	FME7_SyncCHR (int AND, int OR)
+void	SyncCHR (int AND, int OR)
 {
 	u8 x;
 	for (x = 0; x < 8; x++)
-		EMU->SetCHR_ROM1(x,(FME7.CHR[x] & AND) | OR);
+		EMU->SetCHR_ROM1(x, (CHR[x] & AND) | OR);
 }
 
-int	MAPINT	FME7_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
-	SAVELOAD_WORD(mode,x,data,FME7.IRQcounter.s0);
-	SAVELOAD_BYTE(mode,x,data,FME7.IRQenabled);
-	SAVELOAD_BYTE(mode,x,data,FME7.Cmd);
+	SAVELOAD_WORD(mode, x, data, IRQcounter.s0);
+	SAVELOAD_BYTE(mode, x, data, IRQenabled);
+	SAVELOAD_BYTE(mode, x, data, Cmd);
 	for (i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode,x,data,FME7.PRG[i]);
+		SAVELOAD_BYTE(mode, x, data, PRG[i]);
 	for (i = 0; i < 8; i++)
-		SAVELOAD_BYTE(mode,x,data,FME7.CHR[i]);
-	SAVELOAD_BYTE(mode,x,data,FME7.Mirror);
-	x = FME7sound_SaveLoad(mode,x,data);
+		SAVELOAD_BYTE(mode, x, data, CHR[i]);
+	SAVELOAD_BYTE(mode, x, data, Mirror);
+	x = FME7sound::SaveLoad(mode, x, data);
 	if (mode == STATE_LOAD)
-		FME7.Sync();
+		Sync();
 	return x;
 }
 
-void	MAPINT	FME7_Write89 (int Bank, int Addr, int Val)
+void	MAPINT	Write89 (int Bank, int Addr, int Val)
 {
-	FME7.Cmd = Val & 0xF;
+	Cmd = Val & 0xF;
 }
 
-void	MAPINT	FME7_WriteAB (int Bank, int Addr, int Val)
+void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
-	switch (FME7.Cmd)
+	switch (Cmd)
 	{
-	case 0x0:	FME7.CHR[0] = Val;	break;
-	case 0x1:	FME7.CHR[1] = Val;	break;
-	case 0x2:	FME7.CHR[2] = Val;	break;
-	case 0x3:	FME7.CHR[3] = Val;	break;
-	case 0x4:	FME7.CHR[4] = Val;	break;
-	case 0x5:	FME7.CHR[5] = Val;	break;
-	case 0x6:	FME7.CHR[6] = Val;	break;
-	case 0x7:	FME7.CHR[7] = Val;	break;
-	case 0x8:	FME7.PRG[0] = Val;	break;
-	case 0x9:	FME7.PRG[1] = Val & 0x3F;	break;
-	case 0xA:	FME7.PRG[2] = Val & 0x3F;	break;
-	case 0xB:	FME7.PRG[3] = Val & 0x3F;	break;
-	case 0xC:	FME7.Mirror = Val & 3;	break;
-	case 0xD:	FME7.IRQenabled = Val & 0x81;
-			if (FME7.IRQenabled != 0x81)
+	case 0x0:	CHR[0] = Val;	break;
+	case 0x1:	CHR[1] = Val;	break;
+	case 0x2:	CHR[2] = Val;	break;
+	case 0x3:	CHR[3] = Val;	break;
+	case 0x4:	CHR[4] = Val;	break;
+	case 0x5:	CHR[5] = Val;	break;
+	case 0x6:	CHR[6] = Val;	break;
+	case 0x7:	CHR[7] = Val;	break;
+	case 0x8:	PRG[0] = Val;	break;
+	case 0x9:	PRG[1] = Val & 0x3F;	break;
+	case 0xA:	PRG[2] = Val & 0x3F;	break;
+	case 0xB:	PRG[3] = Val & 0x3F;	break;
+	case 0xC:	Mirror = Val & 3;	break;
+	case 0xD:	IRQenabled = Val & 0x81;
+			if (IRQenabled != 0x81)
 				EMU->SetIRQ(1);		break;
-	case 0xE:	FME7.IRQcounter.b0 = Val;	break;
-	case 0xF:	FME7.IRQcounter.b1 = Val;	break;
+	case 0xE:	IRQcounter.b0 = Val;	break;
+	case 0xF:	IRQcounter.b1 = Val;	break;
 	}
-	FME7.Sync();
+	Sync();
 }
 
-void	MAPINT	FME7_WriteCDEF (int Bank, int Addr, int Val)
+void	MAPINT	WriteCDEF (int Bank, int Addr, int Val)
 {
-	FME7sound_Write((Bank << 12) | Addr,Val);
-	FME7.Sync();
+	FME7sound::Write((Bank << 12) | Addr,Val);
+	Sync();
 }
 
-void	MAPINT	FME7_CPUCycle (void)
+void	MAPINT	CPUCycle (void)
 {
-	if ((FME7.IRQenabled & 0x80) && (!--FME7.IRQcounter.s0) && (FME7.IRQenabled & 0x01))
+	if ((IRQenabled & 0x80) && (!--IRQcounter.s0) && (IRQenabled & 0x01))
 		EMU->SetIRQ(0);
 }
 
-int	MAPINT	FME7_GenSound (int Cycles)
+int	MAPINT	GenSound (int Cycles)
 {
-	return FME7sound_Get(Cycles);
+	return FME7sound::Get(Cycles);
 }
+} // namespace FME7

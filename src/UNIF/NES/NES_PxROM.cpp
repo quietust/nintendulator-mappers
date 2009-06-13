@@ -8,25 +8,28 @@
 #include "..\..\DLL\d_UNIF.h"
 #include "..\..\Hardware\h_MMC2.h"
 
-static	void	Sync_PNROM (void)
+namespace
 {
-	MMC2_SyncPRG(0xF,0);
-	MMC2_SyncCHR();
-	MMC2_SyncMirror();
+void	Sync_PNROM (void)
+{
+	MMC2::SyncPRG(0xF, 0);
+	MMC2::SyncCHR();
+	MMC2::SyncMirror();
 }
 
-static	void	MAPINT	Load_PNROM (void)
+void	MAPINT	Load_PNROM (void)
 {
-	MMC2_Load(Sync_PNROM);
+	MMC2::Load(Sync_PNROM);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	MMC2_Reset(ResetType);
+	MMC2::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC2_Unload();
+	MMC2::Unload();
 }
+} // namespace
 
 CTMapperInfo	MapperInfo_NES_PNROM =
 {
@@ -38,7 +41,7 @@ CTMapperInfo	MapperInfo_NES_PNROM =
 	Unload,
 	NULL,
 	NULL,
-	MMC2_SaveLoad,
+	MMC2::SaveLoad,
 	NULL,
 	NULL
 };

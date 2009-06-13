@@ -7,79 +7,79 @@
 
 #include	"..\..\DLL\d_UNIF.h"
 
-static	struct
+namespace
 {
-	u8 Cmd, PRG, CHR, Mirror;
-	FCPUWrite Write4;
-}	Mapper;
+u8 Cmd, PRG, CHR, Mirror;
+FCPUWrite _Write4;
 
-static	void	Sync (void)
+void	Sync (void)
 {
-	EMU->SetPRG_ROM16(0x8,(Mapper.PRG << 1) | 0);
-	EMU->SetPRG_ROM16(0xC,(Mapper.PRG << 1) | 1);
-	EMU->SetCHR_ROM8(0,Mapper.CHR);
-	if (Mapper.Mirror)
+	EMU->SetPRG_ROM16(0x8, (PRG << 1) | 0);
+	EMU->SetPRG_ROM16(0xC, (PRG << 1) | 1);
+	EMU->SetCHR_ROM8(0, CHR);
+	if (Mirror)
 		EMU->Mirror_V();
 	else	EMU->Mirror_H();
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.Cmd);
-	SAVELOAD_BYTE(mode,x,data,Mapper.PRG);
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHR);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror);
+	SAVELOAD_BYTE(mode, x, data, Cmd);
+	SAVELOAD_BYTE(mode, x, data, PRG);
+	SAVELOAD_BYTE(mode, x, data, CHR);
+	SAVELOAD_BYTE(mode, x, data, Mirror);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	Write (int Bank, int Addr, int Val)
+void	MAPINT	Write (int Bank, int Addr, int Val)
 {
 	u16 Loc = (Bank << 12) | Addr;
 	if (Loc < 0x4018)
 	{
-		Mapper.Write4(Bank,Addr,Val);
+		_Write4(Bank, Addr, Val);
 		return;
 	}
 	Val &= 0x07;
 	switch (Loc & 0x4101)
 	{
-	case 0x4100:	Mapper.Cmd = Val;	break;
-	case 0x4101:	switch (Mapper.Cmd)
+	case 0x4100:	Cmd = Val;	break;
+	case 0x4101:	switch (Cmd)
 			{
-			case 0:	Mapper.PRG = 0;
-				Mapper.CHR = 3;				break;
-			case 4:	Mapper.CHR &= 0x6;
-				Mapper.CHR |= (Val & 0x1) << 0;	break;
-			case 5:	Mapper.PRG = Val & 0x7;		break;
-			case 6:	Mapper.CHR &= 0x1;
-				Mapper.CHR |= (Val & 0x3) << 1;		break;
-/*			case 4:	Mapper.CHR &= 0x3;
-				Mapper.CHR |= Val << 2;	break;
-			case 5:	Mapper.PRG = Val;		break;
-			case 6:	Mapper.CHR &= 0x1C;
-				Mapper.CHR |= Val & 0x3;	break;*/
-			case 7:	Mapper.Mirror = (Val & 1);		break;
+			case 0:	PRG = 0;
+				CHR = 3;				break;
+			case 4:	CHR &= 0x6;
+				CHR |= (Val & 0x1) << 0;	break;
+			case 5:	PRG = Val & 0x7;		break;
+			case 6:	CHR &= 0x1;
+				CHR |= (Val & 0x3) << 1;		break;
+/*			case 4:	CHR &= 0x3;
+				CHR |= Val << 2;	break;
+			case 5:	PRG = Val;		break;
+			case 6:	CHR &= 0x1C;
+				CHR |= Val & 0x3;	break;*/
+			case 7:	Mirror = (Val & 1);		break;
 			}			break;
 	}
 	Sync();
 }
 
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
-	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
+	_Write4 = EMU->GetCPUWriteHandler(0x4);
 	for (x = 0x4; x < 0x8; x++)
-		EMU->SetCPUWriteHandler(x,Write);
+		EMU->SetCPUWriteHandler(x, Write);
 
-	Mapper.Cmd = 0;
-	Mapper.PRG = 0;
-	Mapper.CHR = 3;
-	Mapper.Mirror = 0;
+	Cmd = 0;
+	PRG = 0;
+	CHR = 3;
+	Mirror = 0;
 	Sync();
 }
+} // namespace
 
 CTMapperInfo	MapperInfo_UNL_Sachen_74LS374N =
 {

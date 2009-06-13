@@ -8,7 +8,9 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\..\Hardware\h_Latch.h"
 
-static	void	Sync (void)
+namespace
+{
+void	Sync (void)
 {
 	union
 	{
@@ -29,36 +31,37 @@ static	void	Sync (void)
 			unsigned addr    :16;
 			unsigned data    : 8;
 		};
-	}	M;
-	M.addr = Latch.Addr.s0;
-	M.data = Latch.Data;
+	};
+	addr = Latch::Addr.s0;
+	data = Latch::Data;
 
-	EMU->SetCHR_ROM8(0,(M.CHRhi << 2) | M.CHRlo);
+	EMU->SetCHR_ROM8(0, (CHRhi << 2) | CHRlo);
 
-	if (M.PRGsize)
+	if (PRGsize)
 	{
-		EMU->SetPRG_ROM16(0x8,(M.PRGchip << 6) | M.PRG);
-		EMU->SetPRG_ROM16(0xC,(M.PRGchip << 6) | M.PRG);
+		EMU->SetPRG_ROM16(0x8, (PRGchip << 6) | PRG);
+		EMU->SetPRG_ROM16(0xC, (PRGchip << 6) | PRG);
 	}
-	else	EMU->SetPRG_ROM32(0x8,((M.PRGchip << 6) | M.PRG) >> 1);
+	else	EMU->SetPRG_ROM32(0x8, ((PRGchip << 6) | PRG) >> 1);
 
-	if (M.Mir_HV)
+	if (Mir_HV)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	Latch_Load(Sync,FALSE);
+	Latch::Load(Sync, FALSE);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Latch_Reset(ResetType);
+	Latch::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	Latch_Unload();
+	Latch::Unload();
 }
+} // namespace
 
 CTMapperInfo	MapperInfo_BMC_Super700in1 =
 {
@@ -70,7 +73,7 @@ CTMapperInfo	MapperInfo_BMC_Super700in1 =
 	Unload,
 	NULL,
 	NULL,
-	Latch_SaveLoad_AD,
+	Latch::SaveLoad_AD,
 	NULL,
 	NULL
 };

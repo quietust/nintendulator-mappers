@@ -10,20 +10,23 @@
 
 #include	"..\interface.h"
 
-void		MMC2_Load	(FSync);
-void		MMC2_Reset	(RESET_TYPE);
-void		MMC2_Unload	(void);
-int	MAPINT	MMC2_SaveLoad	(STATE_TYPE,int,unsigned char *);
-void		MMC2_SyncPRG	(int,int);
-void		MMC2_SyncCHR	(void);
-void		MMC2_SyncMirror	(void);
-void	MAPINT	MMC2_CPUWriteA	(int,int,int);
-void	MAPINT	MMC2_CPUWriteB	(int,int,int);
-void	MAPINT	MMC2_CPUWriteC	(int,int,int);
-void	MAPINT	MMC2_CPUWriteD	(int,int,int);
-void	MAPINT	MMC2_CPUWriteE	(int,int,int);
-void	MAPINT	MMC2_CPUWriteF	(int,int,int);
-int	MAPINT	MMC2_PPURead3	(int,int);
-int	MAPINT	MMC2_PPURead7	(int,int);
+namespace MMC2
+{
+void		Load		(FSync);
+void		Reset		(RESET_TYPE);
+void		Unload		(void);
+int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
+void		SyncPRG		(int,int);
+void		SyncCHR		(void);
+void		SyncMirror	(void);
+void	MAPINT	CPUWriteA	(int,int,int);
+void	MAPINT	CPUWriteB	(int,int,int);
+void	MAPINT	CPUWriteC	(int,int,int);
+void	MAPINT	CPUWriteD	(int,int,int);
+void	MAPINT	CPUWriteE	(int,int,int);
+void	MAPINT	CPUWriteF	(int,int,int);
+int	MAPINT	PPURead3	(int,int);
+int	MAPINT	PPURead7	(int,int);
+} // namespace MMC2
 
-#endif	/* H_MMC2_H */
+#endif	// H_MMC2_H

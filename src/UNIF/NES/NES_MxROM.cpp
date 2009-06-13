@@ -8,25 +8,28 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\..\Hardware\h_Latch.h"
 
+namespace
+{
 static	void	Sync_MHROM (void)
 {
-	EMU->SetPRG_ROM32(0x8,(Latch.Data >> 4) & 0x1);
-	EMU->SetCHR_ROM8(0,(Latch.Data >> 0) & 0x1);
+	EMU->SetPRG_ROM32(0x8, (Latch::Data >> 4) & 0x1);
+	EMU->SetCHR_ROM8(0, (Latch::Data >> 0) & 0x1);
 }
 
 static	void	MAPINT	Load_MHROM (void)
 {
-	Latch_Load(Sync_MHROM,TRUE);
+	Latch::Load(Sync_MHROM, TRUE);
 }
 static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Latch_Reset(ResetType);
+	Latch::Reset(ResetType);
 	UNIF_SetMirroring(NULL);
 }
 static	void	MAPINT	Unload (void)
 {
-	Latch_Unload();
+	Latch::Unload();
 }
+} // namespace
 
 CTMapperInfo	MapperInfo_NES_MHROM =
 {
@@ -38,7 +41,7 @@ CTMapperInfo	MapperInfo_NES_MHROM =
 	Unload,
 	NULL,
 	NULL,
-	Latch_SaveLoad_D,
+	Latch::SaveLoad_D,
 	NULL,
 	NULL
 };

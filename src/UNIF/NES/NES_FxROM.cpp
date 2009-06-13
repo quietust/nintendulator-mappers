@@ -8,28 +8,30 @@
 #include "..\..\DLL\d_UNIF.h"
 #include "..\..\Hardware\h_MMC4.h"
 
-static	void	Sync_FJROM (void)
+namespace
 {
-	MMC4_SyncPRG(0xF,0);
-	MMC4_SyncCHR();
-	MMC4_SyncMirror();
-	EMU->SetPRG_RAM8(0x6,0);
+void	Sync_FJROM (void)
+{
+	MMC4::SyncPRG(0xF, 0);
+	MMC4::SyncCHR();
+	MMC4::SyncMirror();
+	EMU->SetPRG_RAM8(0x6, 0);
 }
 
-static	void	MAPINT	Load_FJROM (void)
+void	MAPINT	Load_FJROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC4_Load(Sync_FJROM);
+	MMC4::Load(Sync_FJROM);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	MMC4_Reset(ResetType);
+	MMC4::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC4_Unload();
+	MMC4::Unload();
 }
-
+} // namespace
 
 CTMapperInfo	MapperInfo_NES_FJROM =
 {
@@ -41,7 +43,7 @@ CTMapperInfo	MapperInfo_NES_FJROM =
 	Unload,
 	NULL,
 	NULL,
-	MMC4_SaveLoad,
+	MMC4::SaveLoad,
 	NULL,
 	NULL
 };

@@ -8,96 +8,98 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\..\Hardware\h_MMC1.h"
 
-static	void	Sync_SAROM (void)
+namespace
 {
-	MMC1_SyncMirror();
-	MMC1_SyncPRG(0x7,0);
-	MMC1_SyncCHR_ROM(0x0F,0);
-	MMC1_SyncWRAM();
+void	Sync_SAROM (void)
+{
+	MMC1::SyncMirror();
+	MMC1::SyncPRG(0x7, 0);
+	MMC1::SyncCHR_ROM(0x0F, 0);
+	MMC1::SyncWRAM();
 }
-static	void	Sync_SBROM (void)
+void	Sync_SBROM (void)
 {
-	MMC1_SyncMirror();
-	MMC1_SyncPRG(0x7,0);
-	MMC1_SyncCHR_ROM(0x0F,0);
+	MMC1::SyncMirror();
+	MMC1::SyncPRG(0x7, 0);
+	MMC1::SyncCHR_ROM(0x0F, 0);
 }
-static	void	Sync_SCROM (void)
+void	Sync_SCROM (void)
 {
-	MMC1_SyncMirror();
-	MMC1_SyncPRG(0x7,0);
-	MMC1_SyncCHR_ROM(0x1F,0);
+	MMC1::SyncMirror();
+	MMC1::SyncPRG(0x7, 0);
+	MMC1::SyncCHR_ROM(0x1F, 0);
 }
-static	void	Sync_SEROM (void)
+void	Sync_SEROM (void)
 {
-	MMC1_SyncMirror();
-	MMC1_SyncPRG(0x1,0);
-	MMC1_SyncCHR_ROM(0x0F,0);
+	MMC1::SyncMirror();
+	MMC1::SyncPRG(0x1, 0);
+	MMC1::SyncCHR_ROM(0x0F, 0);
 }
-static	void	Sync_SFROM (void)
+void	Sync_SFROM (void)
 {
-	MMC1_SyncMirror();
-	MMC1_SyncPRG(0xF,0);
-	MMC1_SyncCHR_ROM(0x0F,0);
+	MMC1::SyncMirror();
+	MMC1::SyncPRG(0xF, 0);
+	MMC1::SyncCHR_ROM(0x0F, 0);
 }
-static	void	Sync_SGROM (void)
+void	Sync_SGROM (void)
 {
-	MMC1_SyncMirror();
-	MMC1_SyncPRG(0xF,0);
-	MMC1_SyncCHR_RAM(0x1,0);
+	MMC1::SyncMirror();
+	MMC1::SyncPRG(0xF, 0);
+	MMC1::SyncCHR_RAM(0x1, 0);
 }
-static	void	Sync_SKROM (void)
+void	Sync_SKROM (void)
 {
-	MMC1_SyncMirror();
-	MMC1_SyncPRG(0xF,0);
-	MMC1_SyncCHR_ROM(0x1F,0);
-	MMC1_SyncWRAM();
+	MMC1::SyncMirror();
+	MMC1::SyncPRG(0xF, 0);
+	MMC1::SyncCHR_ROM(0x1F, 0);
+	MMC1::SyncWRAM();
 }
-static	void	Sync_SLROM (void)
+void	Sync_SLROM (void)
 {
-	MMC1_SyncMirror();
-	MMC1_SyncPRG(0xF,0);
-	MMC1_SyncCHR_ROM(0x1F,0);
+	MMC1::SyncMirror();
+	MMC1::SyncPRG(0xF, 0);
+	MMC1::SyncCHR_ROM(0x1F, 0);
 }
-static	void	Sync_SL1ROM (void)
+void	Sync_SL1ROM (void)
 {
-	MMC1_SyncMirror();
-	MMC1_SyncPRG(0x7,0);
-	MMC1_SyncCHR_ROM(0x1F,0);
+	MMC1::SyncMirror();
+	MMC1::SyncPRG(0x7, 0);
+	MMC1::SyncCHR_ROM(0x1F, 0);
 }
-static	void	Sync_SNROM (void)
+void	Sync_SNROM (void)
 {
-	MMC1_SyncMirror();
-	MMC1_SyncPRG(0xF,0);
-	MMC1_SyncCHR_RAM(0x01,0);
-	MMC1_SyncWRAM();
+	MMC1::SyncMirror();
+	MMC1::SyncPRG(0xF, 0);
+	MMC1::SyncCHR_RAM(0x01, 0);
+	MMC1::SyncWRAM();
 }
-static	void	Sync_SOROM (void)
+void	Sync_SOROM (void)
 {
-	MMC1_SyncMirror();
-	MMC1_SyncPRG(0xF,0);
-	MMC1_SyncCHR_RAM(0x01,0);
-	if (MMC1_GetWRAMEnabled())
-		EMU->SetPRG_RAM8(0x6,((MMC1_GetCHRBankLo() & 0x08) >> 3) ^ 1);
+	MMC1::SyncMirror();
+	MMC1::SyncPRG(0xF, 0);
+	MMC1::SyncCHR_RAM(0x01, 0);
+	if (MMC1::GetWRAMEnabled())
+		EMU->SetPRG_RAM8(0x6, ((MMC1::GetCHRBankLo() & 0x08) >> 3) ^ 1);
 	else
 	{
 		EMU->SetPRG_OB4(0x6);
 		EMU->SetPRG_OB4(0x7);
 	}
 }
-static	void	Sync_SUROM (void)
+void	Sync_SUROM (void)
 {
-	MMC1_SyncMirror();
-	MMC1_SyncPRG(0xF,MMC1_GetCHRBankLo() & 0x10);
-	MMC1_SyncCHR_RAM(0x01,0);
-	MMC1_SyncWRAM();
+	MMC1::SyncMirror();
+	MMC1::SyncPRG(0xF, MMC1::GetCHRBankLo() & 0x10);
+	MMC1::SyncCHR_RAM(0x01, 0);
+	MMC1::SyncWRAM();
 }
-static	void	Sync_SXROM (void)
+void	Sync_SXROM (void)
 {
-	MMC1_SyncMirror();
-	MMC1_SyncPRG(0xF,MMC1_GetCHRBankLo() & 0x10);
-	MMC1_SyncCHR_RAM(0x01,0);
-	if (MMC1_GetWRAMEnabled())
-		EMU->SetPRG_RAM8(0x6,(MMC1_GetCHRBankLo() & 0x0C) >> 2);
+	MMC1::SyncMirror();
+	MMC1::SyncPRG(0xF, MMC1::GetCHRBankLo() & 0x10);
+	MMC1::SyncCHR_RAM(0x01, 0);
+	if (MMC1::GetWRAMEnabled())
+		EMU->SetPRG_RAM8(0x6, (MMC1::GetCHRBankLo() & 0x0C) >> 2);
 	else
 	{
 		EMU->SetPRG_OB4(0x6);
@@ -105,73 +107,73 @@ static	void	Sync_SXROM (void)
 	}
 }
 
-static	void	MAPINT	Load_SAROM (void)
+void	MAPINT	Load_SAROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC1_Load(Sync_SAROM);
+	MMC1::Load(Sync_SAROM);
 }
-static	void	MAPINT	Load_SBROM (void)
+void	MAPINT	Load_SBROM (void)
 {
-	MMC1_Load(Sync_SBROM);
+	MMC1::Load(Sync_SBROM);
 }
-static	void	MAPINT	Load_SCROM (void)
+void	MAPINT	Load_SCROM (void)
 {
-	MMC1_Load(Sync_SCROM);
+	MMC1::Load(Sync_SCROM);
 }
-static	void	MAPINT	Load_SEROM (void)
+void	MAPINT	Load_SEROM (void)
 {
-	MMC1_Load(Sync_SEROM);
+	MMC1::Load(Sync_SEROM);
 }
-static	void	MAPINT	Load_SFROM (void)
+void	MAPINT	Load_SFROM (void)
 {
-	MMC1_Load(Sync_SFROM);
+	MMC1::Load(Sync_SFROM);
 }
-static	void	MAPINT	Load_SGROM (void)
+void	MAPINT	Load_SGROM (void)
 {
-	MMC1_Load(Sync_SGROM);
+	MMC1::Load(Sync_SGROM);
 }
-static	void	MAPINT	Load_SKROM (void)
-{
-	UNIF_SetSRAM(8192);
-	MMC1_Load(Sync_SKROM);
-}
-static	void	MAPINT	Load_SLROM (void)
-{
-	MMC1_Load(Sync_SLROM);
-}
-static	void	MAPINT	Load_SL1ROM (void)
-{
-	MMC1_Load(Sync_SL1ROM);
-}
-static	void	MAPINT	Load_SNROM (void)
+void	MAPINT	Load_SKROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC1_Load(Sync_SNROM);
+	MMC1::Load(Sync_SKROM);
 }
-static	void	MAPINT	Load_SOROM (void)
+void	MAPINT	Load_SLROM (void)
+{
+	MMC1::Load(Sync_SLROM);
+}
+void	MAPINT	Load_SL1ROM (void)
+{
+	MMC1::Load(Sync_SL1ROM);
+}
+void	MAPINT	Load_SNROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC1_Load(Sync_SOROM);
+	MMC1::Load(Sync_SNROM);
 }
-static	void	MAPINT	Load_SUROM (void)
+void	MAPINT	Load_SOROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC1_Load(Sync_SUROM);
+	MMC1::Load(Sync_SOROM);
 }
-static	void	MAPINT	Load_SXROM (void)
+void	MAPINT	Load_SUROM (void)
+{
+	UNIF_SetSRAM(8192);
+	MMC1::Load(Sync_SUROM);
+}
+void	MAPINT	Load_SXROM (void)
 {
 	UNIF_SetSRAM(32768);
-	MMC1_Load(Sync_SXROM);
+	MMC1::Load(Sync_SXROM);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	MMC1_Reset(ResetType);
+	MMC1::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC1_Unload();
+	MMC1::Unload();
 }
-
+} // namespace
 
 CTMapperInfo	MapperInfo_NES_SAROM =
 {
@@ -183,7 +185,7 @@ CTMapperInfo	MapperInfo_NES_SAROM =
 	Unload,
 	NULL,
 	NULL,
-	MMC1_SaveLoad,
+	MMC1::SaveLoad,
 	NULL,
 	NULL
 };
@@ -197,7 +199,7 @@ CTMapperInfo	MapperInfo_NES_SBROM =
 	Unload,
 	NULL,
 	NULL,
-	MMC1_SaveLoad,
+	MMC1::SaveLoad,
 	NULL,
 	NULL
 };
@@ -211,7 +213,7 @@ CTMapperInfo	MapperInfo_NES_SCROM =
 	Unload,
 	NULL,
 	NULL,
-	MMC1_SaveLoad,
+	MMC1::SaveLoad,
 	NULL,
 	NULL
 };
@@ -225,7 +227,7 @@ CTMapperInfo	MapperInfo_NES_SEROM =
 	Unload,
 	NULL,
 	NULL,
-	MMC1_SaveLoad,
+	MMC1::SaveLoad,
 	NULL,
 	NULL
 };
@@ -239,7 +241,7 @@ CTMapperInfo	MapperInfo_NES_SFROM =
 	Unload,
 	NULL,
 	NULL,
-	MMC1_SaveLoad,
+	MMC1::SaveLoad,
 	NULL,
 	NULL
 };
@@ -253,7 +255,7 @@ CTMapperInfo	MapperInfo_NES_SGROM =
 	Unload,
 	NULL,
 	NULL,
-	MMC1_SaveLoad,
+	MMC1::SaveLoad,
 	NULL,
 	NULL
 };
@@ -267,7 +269,7 @@ CTMapperInfo	MapperInfo_NES_SKROM =
 	Unload,
 	NULL,
 	NULL,
-	MMC1_SaveLoad,
+	MMC1::SaveLoad,
 	NULL,
 	NULL
 };
@@ -281,7 +283,7 @@ CTMapperInfo	MapperInfo_NES_SLROM =
 	Unload,
 	NULL,
 	NULL,
-	MMC1_SaveLoad,
+	MMC1::SaveLoad,
 	NULL,
 	NULL
 };
@@ -295,7 +297,7 @@ CTMapperInfo	MapperInfo_NES_SL1ROM =
 	Unload,
 	NULL,
 	NULL,
-	MMC1_SaveLoad,
+	MMC1::SaveLoad,
 	NULL,
 	NULL
 };
@@ -309,7 +311,7 @@ CTMapperInfo	MapperInfo_NES_SNROM =
 	Unload,
 	NULL,
 	NULL,
-	MMC1_SaveLoad,
+	MMC1::SaveLoad,
 	NULL,
 	NULL
 };
@@ -323,7 +325,7 @@ CTMapperInfo	MapperInfo_NES_SOROM =
 	Unload,
 	NULL,
 	NULL,
-	MMC1_SaveLoad,
+	MMC1::SaveLoad,
 	NULL,
 	NULL
 };
@@ -337,7 +339,7 @@ CTMapperInfo	MapperInfo_NES_SUROM =
 	Unload,
 	NULL,
 	NULL,
-	MMC1_SaveLoad,
+	MMC1::SaveLoad,
 	NULL,
 	NULL
 };
@@ -351,7 +353,7 @@ CTMapperInfo	MapperInfo_NES_SXROM =
 	Unload,
 	NULL,
 	NULL,
-	MMC1_SaveLoad,
+	MMC1::SaveLoad,
 	NULL,
 	NULL
 };

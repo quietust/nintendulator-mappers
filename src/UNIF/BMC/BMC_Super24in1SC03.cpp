@@ -8,65 +8,65 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\..\Hardware\h_MMC3.h"
 
-static	struct
+namespace
 {
-	u8 BankSize;
-	u8 PRGbank, CHRbank;
-}	Mapper;
+u8 BankSize;
+u8 PRGbank, CHRbank;
 
-static	void	Sync (void)
+void	Sync (void)
 {
 	int PRGmask[8] = {0x3F,0x1F,0x0F,0x01,0x03,0x00,0x00,0x00};
-	MMC3_SyncMirror();
-	MMC3_SyncWRAM();
-	MMC3_SyncPRG(PRGmask[Mapper.BankSize & 0x7],Mapper.PRGbank << 1);
-	if (Mapper.BankSize & 0x20)
-		MMC3_SyncCHR_RAM(0x07,0);
-	else	MMC3_SyncCHR_ROM(0xFF,Mapper.CHRbank << 3);
+	MMC3::SyncMirror();
+	MMC3::SyncWRAM();
+	MMC3::SyncPRG(PRGmask[BankSize & 0x7], PRGbank << 1);
+	if (BankSize & 0x20)
+		MMC3::SyncCHR_RAM(0x07, 0);
+	else	MMC3::SyncCHR_ROM(0xFF, CHRbank << 3);
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	x = MMC3_SaveLoad(mode,x,data);
-	SAVELOAD_BYTE(mode,x,data,Mapper.BankSize);
-	SAVELOAD_BYTE(mode,x,data,Mapper.PRGbank);
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHRbank);
+	x = MMC3::SaveLoad(mode, x, data);
+	SAVELOAD_BYTE(mode, x, data, BankSize);
+	SAVELOAD_BYTE(mode, x, data, PRGbank);
+	SAVELOAD_BYTE(mode, x, data, CHRbank);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	Write (int Bank, int Addr, int Val)
+void	MAPINT	Write (int Bank, int Addr, int Val)
 {
 	switch (Addr)
 	{
-	case 0xFF0:	Mapper.BankSize = Val;	break;
-	case 0xFF1:	Mapper.PRGbank = Val;	break;
-	case 0xFF2:	Mapper.CHRbank = Val;	break;
+	case 0xFF0:	BankSize = Val;	break;
+	case 0xFF1:	PRGbank = Val;	break;
+	case 0xFF2:	CHRbank = Val;	break;
 	}
 	Sync();
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	MMC3_Load(Sync);
+	MMC3::Load(Sync);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	EMU->SetCPUWriteHandler(0x5,Write);
+	EMU->SetCPUWriteHandler(0x5, Write);
 
 	if (ResetType == RESET_HARD)
 	{
-		Mapper.BankSize = 0x24;
-		Mapper.PRGbank = 0x9F;
-		Mapper.CHRbank = 0;
+		BankSize = 0x24;
+		PRGbank = 0x9F;
+		CHRbank = 0;
 	}
-	MMC3_Reset(ResetType);
+	MMC3::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC3_Unload();
+	MMC3::Unload();
 }
+} // namespace
 
 CTMapperInfo	MapperInfo_BMC_Super24in1SC03 =
 {
@@ -77,7 +77,7 @@ CTMapperInfo	MapperInfo_BMC_Super24in1SC03 =
 	Reset,
 	Unload,
 	NULL,
-	MMC3_PPUCycle,
+	MMC3::PPUCycle,
 	SaveLoad,
 	NULL,
 	NULL
