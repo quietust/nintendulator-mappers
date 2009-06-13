@@ -62,6 +62,8 @@
 
 #define PI 3.14159265358979323846
 
+namespace VRC7sound
+{
 enum {OPLL_VRC7_TONE=0};
 
 /* voice data */
@@ -1413,73 +1415,74 @@ OPLL_writeReg (OPLL * opll, u32 reg, u32 data)
 
 OPLL *OPL = NULL;
 
-void	VRC7sound_Load (void)
+void	Load (void)
 {
 	if (OPL != NULL)
 	{
-		MessageBox(hWnd,_T("YM2413 already created!"),_T("VRC7"),MSGBOX_FLAGS);
+		MessageBox(hWnd, _T("YM2413 already created!"), _T("VRC7"), MSGBOX_FLAGS);
 		return;
 	}
 	else
 	{
-		OPL = OPLL_new(3579545,44100);
+		OPL = OPLL_new(3579545, 44100);
 		if (OPL == NULL)
 		{
-			MessageBox(hWnd,_T("Unable to create YM2413!"),_T("VRC7"),MSGBOX_FLAGS);
+			MessageBox(hWnd, _T("Unable to create YM2413!"), _T("VRC7"), MSGBOX_FLAGS);
 			return;
 		}
 	}
 }
 
-void	VRC7sound_Reset (RESET_TYPE ResetType)
+void	Reset (RESET_TYPE ResetType)
 {
 }
 
-void	VRC7sound_Unload (void)
+void	Unload (void)
 {
 	if (OPL)
 	{
 		OPLL_delete(OPL);
 		OPL = NULL;
 	}
-	else	MessageBox(hWnd,_T("Unable to destroy YM2413!"),_T("VRC7"),MSGBOX_FLAGS);
+//	else	MessageBox(hWnd, _T("Unable to destroy YM2413!"), _T("VRC7"), MSGBOX_FLAGS);
 }
 
-void	VRC7sound_Write (int Addr, int Val)
+void	Write (int Addr, int Val)
 {
 	static unsigned char addr = 0;
 	switch (Addr & 0xF030)
 	{
 	case 0x9010:	addr = Val;			break;
-	case 0x9030:	OPLL_writeReg(OPL,addr,Val);	break;
+	case 0x9030:	OPLL_writeReg(OPL, addr, Val);	break;
 	}
 }
 
-int	MAPINT	VRC7sound_Get (int numCycles)
+int	MAPINT	Get (int numCycles)
 {
 	return OPLL_calc(OPL) << 3;	// currently don't use numCycles
 }
 
-int	MAPINT	VRC7sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	if (mode == STATE_SAVE)
 	{
-		memcpy(data+x,OPL,sizeof(OPLL));
+		memcpy(data + x, OPL, sizeof(OPLL));
 		x += sizeof(OPLL);
 	}
 	else if (mode == STATE_LOAD)
 	{
 		int i;
-		memcpy(OPL,data+x,sizeof(OPLL));
+		memcpy(OPL, data + x, sizeof(OPLL));
 		x += sizeof(OPLL);
 		for (i = 0; i < 6; i++)
 		{
-			UPDATE_ALL(MOD(OPL,i));
-			UPDATE_ALL(CAR(OPL,i));
+			UPDATE_ALL(MOD(OPL, i));
+			UPDATE_ALL(CAR(OPL, i));
 		}
 	}
 	else if (mode == STATE_SIZE)
 		x += sizeof(OPLL);
-	else MessageBox(hWnd,_T("Invalid save/load type!"),_T(__FILE__),MB_OK);
+	else	MessageBox(hWnd, _T("Invalid save/load type!"), _T(__FILE__), MB_OK);
 	return x;
 }
+} // namespace VRC7sound

@@ -8,11 +8,14 @@
 #ifndef	S_VRC6_H
 #define	S_VRC6_H
 
-void		VRC6sound_Load		(void);
-void		VRC6sound_Reset		(RESET_TYPE);
-void		VRC6sound_Unload	(void);
-void		VRC6sound_Write		(int,int);
-int	MAPINT	VRC6sound_Get		(int);
-int	MAPINT	VRC6sound_SaveLoad	(STATE_TYPE,int,unsigned char *);
+namespace VRC6sound
+{
+void		Load		(void);
+void		Reset		(RESET_TYPE);
+void		Unload		(void);
+void		Write		(int,int);
+int	MAPINT	Get		(int);
+int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
+} // namespace VRC6sound
 
-#endif	/* S_VRC6_H */
+#endif	// S_VRC6_H

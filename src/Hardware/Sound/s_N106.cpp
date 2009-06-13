@@ -9,7 +9,12 @@
 #include	"s_N106.h"
 
 // Namco 106
-
+namespace N106sound
+{
+u8 regs[0x80];
+u8 chans;
+u8 addr;
+u8 inc;
 struct	N106chan
 {
 	u8 freql, freqm, freqh;
@@ -20,140 +25,139 @@ struct	N106chan
 	u8 CurP;
 	u8 CurA;
 	s32 LCtr;
-};
 
-static	struct	TN106sound
-{
-	u8 data[0x80];
-	struct	N106chan Ch[8];
-	u8 chans;
-	u8 addr;
-	u8 inc;
-}	N106sound;
+	int	GenerateWave (int Cycles)
+	{
+		s32 _freq;
+		if (!freq)
+			return 0;
+		_freq = (0xF0000 * chans) / freq;
+		LCtr += Cycles;
+		while (LCtr > _freq)
+		{
+			u8 _addr;
+			CurA++;
+			while (CurA >= len)
+				CurA -= len;
+			_addr = addr + CurA;
+			CurP = regs[_addr >> 1];
+			if (_addr & 1)
+				CurP >>= 4;
+			else	CurP &= 0xF;
+			LCtr -= _freq;
+		}
+		return (CurP - 0x8) * volume;
+	}
+	void	Write (int addr, int Val)
+	{
+		switch (addr & 0x7)
+		{
+		case 0:	freql = Val;
+			freq = freql | (freqm << 8) | (freqh << 16);
+			break;
+		case 2:	freqm = Val;
+			freq = freql | (freqm << 8) | (freqh << 16);
+			break;
+		case 4:	freqh = Val & 3;
+			freq = freql | (freqm << 8) | (freqh << 16);
+			if (len != 0x20 - (Val & 0x1C))
+			{
+				len = 0x20 - (Val & 0x1C);
+				CurA = 0;
+			}
+			break;
+		case 6:	addr = Val;
+			break;
+		case 7:	volume = Val & 0xF;
+			break;
+		}
+	}
+} Ch[8];
 
-void	N106sound_Load (void)
+void	Load (void)
 {
-	memset(&N106sound,0,sizeof(N106sound));
+	ZeroMemory(Ch, sizeof(Ch));
+	ZeroMemory(regs, sizeof(regs));
+	chans = 0;
+	addr = 0;
+	inc = 0;
 }
 
-void	N106sound_Reset (RESET_TYPE ResetType)
+void	Reset (RESET_TYPE ResetType)
 {
 	int i;
 	for (i = 0; i < 8; i++)
-		N106sound.Ch[i].len = 0x10;
-	N106sound.chans = 8;
-	N106sound.inc = 0x80;
+		Ch[i].len = 0x10;
+	chans = 8;
+	inc = 0x80;
 }
 
-void	N106sound_Unload (void)
+void	Unload (void)
 {
 }
 
-void	N106sound_Write (int Addr, int Val)
+void	Write (int Addr, int Val)
 {
 	switch (Addr & 0xF800)
 	{
 	case 0xF800:
-		N106sound.addr = Val & 0x7F;
-		N106sound.inc = Val & 0x80;
+		addr = Val & 0x7F;
+		inc = Val & 0x80;
 		break;
 	case 0x4800:
-		N106sound.data[N106sound.addr] = Val;
-		if (N106sound.addr & 0x40)
+		regs[addr] = Val;
+		if (addr & 0x40)
 		{
-			struct N106chan *Chan = &N106sound.Ch[(N106sound.addr & 0x3F) >> 3];
-			switch (N106sound.addr & 0x7)
-			{
-			case 0:	Chan->freql = Val;
-				Chan->freq = Chan->freql | (Chan->freqm << 8) | (Chan->freqh << 16);
-				break;
-			case 2:	Chan->freqm = Val;
-				Chan->freq = Chan->freql | (Chan->freqm << 8) | (Chan->freqh << 16);
-				break;
-			case 4:	Chan->freqh = Val & 3;
-				Chan->freq = Chan->freql | (Chan->freqm << 8) | (Chan->freqh << 16);
-				if (Chan->len != 0x20 - (Val & 0x1C))
-				{
-					Chan->len = 0x20 - (Val & 0x1C);
-					Chan->CurA = 0;
-				}
-				break;
-			case 6:	Chan->addr = Val;
-				break;
-			case 7:	Chan->volume = Val & 0xF;
-				if (Chan == &N106sound.Ch[7])
-					N106sound.chans = 1 + ((Val >> 4) & 0x7);
-				break;
-			}
+			Ch[(addr & 0x38) >> 3].Write(addr & 0x7, Val);
+			if (addr == 0x3F)
+				chans = 1 + ((Val >> 4) & 0x7);
 		}
-		if (N106sound.inc)
+		if (inc)
 		{
-			N106sound.addr++;
-			N106sound.addr &= 0x7F;
+			addr++;
+			addr &= 0x7F;
 		}
 		break;
 	}
 }
 
-int	N106sound_Read (int Addr)
+int	Read (int Addr)
 {
-	int data = N106sound.data[N106sound.addr];
+	int data = regs[addr];
 
-	if (N106sound.inc)
+	if (inc)
 	{
-		N106sound.addr++;
-		N106sound.addr &= 0x7F;
+		addr++;
+		addr &= 0x7F;
 	}
 
 	return data;
 }
 
-static	int	N106_GenerateWave (struct N106chan *Chan, int Cycles)
-{
-	s32 freq;
-	if (!Chan->freq)
-		return 0;
-	freq = (0xF0000 * N106sound.chans) / Chan->freq;
-	Chan->LCtr += Cycles;
-	while (Chan->LCtr > freq)
-	{
-		u8 addr;
-		Chan->CurA++;
-		while (Chan->CurA >= Chan->len)
-			Chan->CurA -= Chan->len;
-		addr = Chan->addr + Chan->CurA;
-		Chan->CurP = N106sound.data[addr >> 1];
-		if (addr & 1)
-			Chan->CurP >>= 4;
-		else	Chan->CurP &= 0xF;
-		Chan->LCtr -= freq;
-	}
-	return (Chan->CurP - 0x8) * Chan->volume;
-}
-int	MAPINT	N106sound_Get (int Cycles)
+int	MAPINT	Get (int Cycles)
 {
 	int out = 0;
 	int i;
-	for (i = 8 - N106sound.chans; i < 8; i++)
-		out += N106_GenerateWave(&N106sound.Ch[i],Cycles);
+	for (i = 8 - chans; i < 8; i++)
+		out += Ch[i].GenerateWave(Cycles);
 	return out << 5;
 }
 
-int	MAPINT	N106sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	int i;
 	switch (mode)
 	{
 	case STATE_SAVE:
 		for (i = 0; i < 0x80; i++)
-			data[x++] = N106sound.data[i];
-		data[x++] = N106sound.addr | N106sound.inc;
+			data[x++] = regs[i];
+		data[x++] = addr | inc;
 		break;
 	case STATE_LOAD:
-		N106sound_Write(0xF800,0x80);
+		Write(0xF800, 0x80);
 		for (i = 0; i < 0x80; i++)
-			N106sound_Write(0x4800,data[x++]);
-		N106sound_Write(0xF800,data[x++]);
+			Write(0x4800, data[x++]);
+		Write(0xF800, data[x++]);
 		break;
 	case STATE_SIZE:
 		x += 0x81;
@@ -161,9 +165,10 @@ int	MAPINT	N106sound_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	}
 	for (i = 0; i < 8; i++)
 	{
-		SAVELOAD_BYTE(mode,x,data,N106sound.Ch[i].CurP);
-		SAVELOAD_BYTE(mode,x,data,N106sound.Ch[i].CurA);
-		SAVELOAD_LONG(mode,x,data,N106sound.Ch[i].LCtr);
+		SAVELOAD_BYTE(mode, x, data, Ch[i].CurP);
+		SAVELOAD_BYTE(mode, x, data, Ch[i].CurA);
+		SAVELOAD_LONG(mode, x, data, Ch[i].LCtr);
 	}
 	return x;
 }
+} // namespace N106sound

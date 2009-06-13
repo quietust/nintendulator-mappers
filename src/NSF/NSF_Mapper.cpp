@@ -175,25 +175,32 @@ song_play:	JMP ($3E02)
 #define	NSFIRQ_STOP	0x01
 #define	NSFIRQ_PLAY	0x02
 
-static	struct
+#define	NFSSOUND_VRC6	0x01
+#define	NFSSOUND_VRC7	0x02
+#define	NFSSOUND_FDS	0x04
+#define	NFSSOUND_MMC5	0x08
+#define	NFSSOUND_N106	0x10
+#define	NFSSOUND_FME7	0x20
+#define	NFSSOUND_MASK	0x3F
+
+namespace
 {
-	u8 ExRAM[1024];
-	FCPUWrite Write4;
-	FCPURead Read4, ReadF;
-	HWND ControlWindow;
+u8 ExRAM[1024];
+FCPUWrite _Write4;
+FCPURead _Read4, _ReadF;
+HWND ControlWindow;
 
-	u8 songnum;
-	u8 ntscpal;
-	u32 IRQcounter;
-	u16_n IRQlatch;
-	u8 IRQenabled;
-	u8 IRQstatus;
-	u8 WatchDog;
+u8 songnum;
+u8 ntscpal;
+u32 IRQcounter;
+u16_n IRQlatch;
+u8 IRQenabled;
+u8 IRQstatus;
+u8 WatchDog;
 
-	u16_n InitAddr, PlayAddr, NTSCspeed, PALspeed;
-}	NSF;
+u16_n InitAddr, PlayAddr, NTSCspeed, PALspeed;
 
-static	unsigned char BIOS[256] =
+unsigned char BIOS[256] =
 {
 	0xFF,0xFF,0xFF,0x20,0x33,0x3F,0x78,0xA2,0xFF,0x8E,0x17,0x40,0xE8,0x8E,0x15,0x40,
 	0x8E,0x00,0x20,0x8E,0x01,0x20,0x8E,0x12,0x3E,0x58,0x4C,0x1A,0x3F,0x48,0x8A,0x48,
@@ -213,23 +220,23 @@ static	unsigned char BIOS[256] =
 	0x8D,0x13,0x3E,0x4C,0x1A,0x3F,0x6C,0x00,0x3E,0x6C,0x02,0x3E,0x06,0x3F,0x1D,0x3F
 };
 
-static	int	MAPINT	NSF_ReadVector (int Bank, int Addr)
+int	MAPINT	ReadVector (int Bank, int Addr)
 {
-	if ((Addr >= 0xFFC) && (NSF.IRQstatus != NSFIRQ_NONE))
+	if ((Addr >= 0xFFC) && (IRQstatus != NSFIRQ_NONE))
 		return BIOS[Addr & 0xFF];
-	else	return NSF.ReadF(Bank,Addr);
+	else	return _ReadF(Bank, Addr);
 }
 
-static	void	NSF_IRQ (int type)
+void	IRQ (int type)
 {
-	NSF.IRQstatus = type;
+	IRQstatus = type;
 	EMU->SetIRQ(type == NSFIRQ_NONE);
 	if (type != NSFIRQ_NONE)
-		EMU->SetCPUReadHandler(0xF,NSF_ReadVector);
-	else	EMU->SetCPUReadHandler(0xF,NSF.ReadF);
+		EMU->SetCPUReadHandler(0xF, ReadVector);
+	else	EMU->SetCPUReadHandler(0xF, _ReadF);
 }
 
-static	int	MAPINT	NSF_Read (int Bank, int Addr)
+int	MAPINT	Read (int Bank, int Addr)
 {
 	if (Addr >= 0xF00)
 		return BIOS[Addr & 0xFF];
@@ -237,130 +244,132 @@ static	int	MAPINT	NSF_Read (int Bank, int Addr)
 		return 0xFF;
 	switch (Addr & 0xFF)
 	{
-	case 0x00:	return NSF.InitAddr.b0;			break;
-	case 0x01:	return NSF.InitAddr.b1;			break;
-	case 0x02:	return NSF.PlayAddr.b0;			break;
-	case 0x03:	return NSF.PlayAddr.b1;			break;
-	case 0x04:	return NSF.NTSCspeed.b0;		break;
-	case 0x06:	return NSF.NTSCspeed.b1;		break;
-	case 0x05:	return NSF.PALspeed.b0;			break;
-	case 0x07:	return NSF.PALspeed.b1;			break;
+	case 0x00:	return InitAddr.b0;			break;
+	case 0x01:	return InitAddr.b1;			break;
+	case 0x02:	return PlayAddr.b0;			break;
+	case 0x03:	return PlayAddr.b1;			break;
+	case 0x04:	return NTSCspeed.b0;		break;
+	case 0x06:	return NTSCspeed.b1;		break;
+	case 0x05:	return PALspeed.b0;			break;
+	case 0x07:	return PALspeed.b1;			break;
 	case 0x08:	case 0x09:	case 0x0A:	case 0x0B:
 	case 0x0C:	case 0x0D:	case 0x0E:	case 0x0F:
 			return ROM->NSF_InitBanks[Addr & 0x7];	break;
-	case 0x10:	return NSF.songnum;			break;
-	case 0x11:	return NSF.ntscpal;			break;
+	case 0x10:	return songnum;			break;
+	case 0x11:	return ntscpal;			break;
 	case 0x12:	{
-				u8 result = NSF.IRQstatus;
-				NSF_IRQ(NSFIRQ_NONE);
+				u8 result = IRQstatus;
+				IRQ(NSFIRQ_NONE);
 				return result;
 			}					break;
-	case 0x13:	return ROM->NSF_SoundChips & 0x3F;	break;	// if more sound chips get added, I'll handle them later
+	case 0x13:	return ROM->NSF_SoundChips & NFSSOUND_MASK;	break;
 	default:	return 0xFF;
 	}
 }
-static	void	MAPINT	NSF_Write (int Bank, int Addr, int Val)
+void	MAPINT	Write (int Bank, int Addr, int Val)
 {
 	switch (Addr & 0xFF)
 	{
-	case 0x10:	NSF.IRQlatch.b0 = Val;	break;
-	case 0x11:	NSF.IRQlatch.b1 = Val;	break;
-	case 0x12:	NSF.IRQcounter = NSF.IRQlatch.s0 * 5;
-			NSF.WatchDog = 1;
-			NSF.IRQenabled = Val;	break;
-	case 0x13:	NSF.IRQcounter = NSF.IRQlatch.s0;
-			NSF.WatchDog = 0;	break;
+	case 0x10:	IRQlatch.b0 = Val;	break;
+	case 0x11:	IRQlatch.b1 = Val;	break;
+	case 0x12:	IRQcounter = IRQlatch.s0 * 5;
+			WatchDog = 1;
+			IRQenabled = Val;	break;
+	case 0x13:	IRQcounter = IRQlatch.s0;
+			WatchDog = 0;	break;
 	}
 }
 
-static	void	MAPINT	CPUCycle (void)
+void	MAPINT	CPUCycle (void)
 {
-	if (NSF.IRQenabled)
+	if (IRQenabled)
 	{
-		NSF.IRQcounter--;
-		if (!NSF.IRQcounter)
+		IRQcounter--;
+		if (!IRQcounter)
 		{
-			if (NSF.WatchDog)
+			if (WatchDog)
 			{
 				EMU->DbgOut(_T("Watchdog timer triggered - this NSF either uses RAW PCM or is corrupted!"));
-				NSF.WatchDog = 0;
+				WatchDog = 0;
 			}
-			NSF.IRQcounter = NSF.IRQlatch.s0;
-			NSF_IRQ(NSFIRQ_PLAY);
+			IRQcounter = IRQlatch.s0;
+			IRQ(NSFIRQ_PLAY);
 		}
 	}
 }
 
-static	LRESULT CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	TCHAR NSFTitle[32], NSFArtist[32], NSFCopyright[32];
-	int i = NSF.songnum;
+	int i = songnum;
 	switch (message)
 	{
 	case WM_INITDIALOG:
 #ifdef UNICODE
-		mbstowcs(NSFTitle,ROM->NSF_Title,32);
-		mbstowcs(NSFArtist,ROM->NSF_Artist,32);
-		mbstowcs(NSFCopyright,ROM->NSF_Copyright,32);
+		mbstowcs(NSFTitle, ROM->NSF_Title, 32);
+		mbstowcs(NSFArtist, ROM->NSF_Artist, 32);
+		mbstowcs(NSFCopyright, ROM->NSF_Copyright, 32);
 #else
-		strcpy(NSFTitle,ROM->NSF_Title);
-		strcpy(NSFArtist,ROM->NSF_Artist);
-		strcpy(NSFCopyright,ROM->NSF_Copyright);
+		strcpy(NSFTitle, ROM->NSF_Title);
+		strcpy(NSFArtist, ROM->NSF_Artist);
+		strcpy(NSFCopyright, ROM->NSF_Copyright);
 #endif
-		SetDlgItemText(hDlg,IDC_NSF_TITLE,NSFTitle);
-		SetDlgItemText(hDlg,IDC_NSF_ARTIST,NSFArtist);
-		SetDlgItemText(hDlg,IDC_NSF_COPYRIGHT,NSFCopyright);
-		SetDlgItemInt(hDlg,IDC_NSF_SONGS,ROM->NSF_NumSongs,FALSE);
-		SetDlgItemInt(hDlg,IDC_NSF_PLAYING,NSF.songnum+1,FALSE);
+		SetDlgItemText(hDlg, IDC_NSF_TITLE, NSFTitle);
+		SetDlgItemText(hDlg, IDC_NSF_ARTIST, NSFArtist);
+		SetDlgItemText(hDlg, IDC_NSF_COPYRIGHT, NSFCopyright);
+		SetDlgItemInt(hDlg, IDC_NSF_SONGS, ROM->NSF_NumSongs, FALSE);
+		SetDlgItemInt(hDlg, IDC_NSF_PLAYING, songnum + 1, FALSE);
 		if (ROM->NSF_NTSCPAL == 2)
 		{
-			EnableWindow(GetDlgItem(hDlg,IDC_NSF_NTSC),TRUE);
-			EnableWindow(GetDlgItem(hDlg,IDC_NSF_PAL),TRUE);
+			EnableWindow(GetDlgItem(hDlg, IDC_NSF_NTSC), TRUE);
+			EnableWindow(GetDlgItem(hDlg, IDC_NSF_PAL), TRUE);
 		}
 		else
 		{
-			EnableWindow(GetDlgItem(hDlg,IDC_NSF_NTSC),FALSE);
-			EnableWindow(GetDlgItem(hDlg,IDC_NSF_PAL),FALSE);
+			EnableWindow(GetDlgItem(hDlg, IDC_NSF_NTSC), FALSE);
+			EnableWindow(GetDlgItem(hDlg, IDC_NSF_PAL), FALSE);
 		}
-		CheckRadioButton(hDlg,IDC_NSF_NTSC,IDC_NSF_PAL,(NSF.ntscpal ? IDC_NSF_PAL : IDC_NSF_NTSC));
-		SendDlgItemMessage(hDlg,IDC_NSF_SELECT,TBM_SETRANGEMIN,TRUE,0);
-		SendDlgItemMessage(hDlg,IDC_NSF_SELECT,TBM_SETRANGEMAX,TRUE,ROM->NSF_NumSongs - 1);
-		SendDlgItemMessage(hDlg,IDC_NSF_SELECT,TBM_SETPOS,TRUE,NSF.songnum);
-		SendDlgItemMessage(hDlg,IDC_NSF_SELECT,TBM_SETPAGESIZE,0,1);
-		SetDlgItemInt(hDlg,IDC_NSF_SELECTED,NSF.songnum+1,FALSE);
+		CheckRadioButton(hDlg, IDC_NSF_NTSC, IDC_NSF_PAL, (ntscpal ? IDC_NSF_PAL : IDC_NSF_NTSC));
+		SendDlgItemMessage(hDlg, IDC_NSF_SELECT, TBM_SETRANGEMIN, TRUE, 0);
+		SendDlgItemMessage(hDlg, IDC_NSF_SELECT, TBM_SETRANGEMAX, TRUE, ROM->NSF_NumSongs - 1);
+		SendDlgItemMessage(hDlg, IDC_NSF_SELECT, TBM_SETPOS, TRUE, songnum);
+		SendDlgItemMessage(hDlg, IDC_NSF_SELECT, TBM_SETPAGESIZE, 0, 1);
+		SetDlgItemInt(hDlg, IDC_NSF_SELECTED, songnum + 1, FALSE);
 
 		{
 			TCHAR chiplist[9];
 			u8 c = ROM->NSF_SoundChips;
-			_stprintf(chiplist,_T("%i%i%i%i%i%i%i%i"),
+			_stprintf(chiplist, _T("%i%i%i%i%i%i%i%i"),
 				(c & 0x80) ? 1 : 0,
 				(c & 0x40) ? 1 : 0,
-				(c & 0x20) ? 1 : 0,
-				(c & 0x10) ? 1 : 0,
-				(c & 0x08) ? 1 : 0,
-				(c & 0x04) ? 1 : 0,
-				(c & 0x02) ? 1 : 0,
-				(c & 0x01) ? 1 : 0);
-			SetDlgItemText(hDlg,IDC_NSF_CHIPLIST,chiplist);
+				(c & NFSSOUND_FME7) ? 1 : 0,
+				(c & NFSSOUND_N106) ? 1 : 0,
+				(c & NFSSOUND_MMC5) ? 1 : 0,
+				(c & NFSSOUND_FDS) ? 1 : 0,
+				(c & NFSSOUND_VRC7) ? 1 : 0,
+				(c & NFSSOUND_VRC6) ? 1 : 0);
+			SetDlgItemText(hDlg, IDC_NSF_CHIPLIST, chiplist);
 		}
 
-		if (ROM->NSF_SoundChips & 0x01)
-			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Konami VRC6"));
-		else if (ROM->NSF_SoundChips & 0x02)
-			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Konami VRC7"));
-		else if (ROM->NSF_SoundChips & 0x04)
-			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Famicom Disk System"));
-		else if (ROM->NSF_SoundChips & 0x08)
-			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Nintendo MMC5"));
-		else if (ROM->NSF_SoundChips & 0x10)
-			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Namco 106"));
-		else if (ROM->NSF_SoundChips & 0x20)
-			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Sunsoft FME-7"));
-		else if (ROM->NSF_SoundChips & 0x40)
-			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Unknown!"));
-		else if (ROM->NSF_SoundChips & 0x80)
-			SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("Unknown!"));
-		else	SetDlgItemText(hDlg,IDC_NSF_CHIP,_T("No expansion sound"));
+		if (ROM->NSF_SoundChips == NFSSOUND_VRC6)
+			SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("Konami VRC6"));
+		else if (ROM->NSF_SoundChips == NFSSOUND_VRC7)
+			SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("Konami VRC7"));
+		else if (ROM->NSF_SoundChips == NFSSOUND_FDS)
+			SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("Famicom Disk System"));
+		else if (ROM->NSF_SoundChips == NFSSOUND_MMC5)
+			SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("Nintendo MMC5"));
+		else if (ROM->NSF_SoundChips == NFSSOUND_N106)
+			SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("Namco 106"));
+		else if (ROM->NSF_SoundChips == NFSSOUND_FME7)
+			SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("Sunsoft FME-7"));
+		else if (ROM->NSF_SoundChips == 0x40)
+			SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("Unknown"));
+		else if (ROM->NSF_SoundChips == 0x80)
+			SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("Unknown"));
+		else if (ROM->NSF_SoundChips == 0)
+			SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("No expansion sound"));
+		else	SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("Multiple"));
 
 		break;
 	case WM_COMMAND:
@@ -370,48 +379,48 @@ static	LRESULT CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPAR
 			i -= 2;
 		case IDC_NSF_NEXT:
 			i++;
-			SendDlgItemMessage(hDlg,IDC_NSF_SELECT,TBM_SETPOS,TRUE,i);
-			SetDlgItemInt(hDlg,IDC_NSF_SELECTED,SendDlgItemMessage(hDlg,IDC_NSF_SELECT,TBM_GETPOS,0,0)+1,FALSE);
+			SendDlgItemMessage(hDlg, IDC_NSF_SELECT, TBM_SETPOS, TRUE, i);
+			SetDlgItemInt(hDlg, IDC_NSF_SELECTED, SendDlgItemMessage(hDlg, IDC_NSF_SELECT, TBM_GETPOS, 0, 0) + 1, FALSE);
 		case IDC_NSF_PLAY:
-			NSF.songnum = GetDlgItemInt(hDlg,IDC_NSF_SELECTED,NULL,FALSE)-1;
-			SetDlgItemInt(hDlg,IDC_NSF_PLAYING,NSF.songnum+1,FALSE);
-			if (IsDlgButtonChecked(hDlg,IDC_NSF_PAL) == BST_CHECKED)
-				NSF.ntscpal = 1;
-			else	NSF.ntscpal = 0;
-			NSF_IRQ(NSFIRQ_INIT);
+			songnum = GetDlgItemInt(hDlg, IDC_NSF_SELECTED, NULL, FALSE) - 1;
+			SetDlgItemInt(hDlg, IDC_NSF_PLAYING, songnum + 1, FALSE);
+			if (IsDlgButtonChecked(hDlg, IDC_NSF_PAL) == BST_CHECKED)
+				ntscpal = 1;
+			else	ntscpal = 0;
+			IRQ(NSFIRQ_INIT);
 			break;
 		case IDC_NSF_STOP:
-			NSF_IRQ(NSFIRQ_STOP);
+			IRQ(NSFIRQ_STOP);
 			break;
 		case IDCLOSE:
-			NSF.ControlWindow = NULL;
+			ControlWindow = NULL;
 			DestroyWindow(hDlg);
 			break;
 		}
 		break;
 	case WM_HSCROLL:
-		if ((HWND)lParam == GetDlgItem(hDlg,IDC_NSF_SELECT))
-			SetDlgItemInt(hDlg,IDC_NSF_SELECTED,SendDlgItemMessage(hDlg,IDC_NSF_SELECT,TBM_GETPOS,0,0)+1,FALSE);
+		if ((HWND)lParam == GetDlgItem(hDlg, IDC_NSF_SELECT))
+			SetDlgItemInt(hDlg, IDC_NSF_SELECTED, SendDlgItemMessage(hDlg, IDC_NSF_SELECT, TBM_GETPOS, 0, 0) + 1, FALSE);
 		break;
 	case WM_CLOSE:
-		NSF.ControlWindow = NULL;
+		ControlWindow = NULL;
 		DestroyWindow(hDlg);
 		break;
 	}
 	return FALSE;
 }
 
-static	unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
+unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 {
 	switch (mode)
 	{
 	case CFG_WINDOW:
 		if (data)
 		{
-			if (NSF.ControlWindow)
+			if (ControlWindow)
 				break;
-			NSF.ControlWindow = CreateDialog(hInstance,MAKEINTRESOURCE(IDD_NSF),hWnd,(DLGPROC)ControlProc);
-			SetWindowPos(NSF.ControlWindow,hWnd,0,0,0,0,SWP_SHOWWINDOW | SWP_NOSIZE);
+			ControlWindow = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_NSF), hWnd, (DLGPROC)ControlProc);
+			SetWindowPos(ControlWindow, hWnd, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOSIZE);
 		}
 		else	return FALSE;
 		break;
@@ -424,201 +433,201 @@ static	unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-static	int	MAPINT	MapperSnd (int Cycles)
+int	MAPINT	MapperSnd (int Cycles)
 {
 	int x = 0;
-	if (ROM->NSF_SoundChips & 0x01)
-		x += VRC6sound_Get(Cycles);
-	if (ROM->NSF_SoundChips & 0x02)
-		x += VRC7sound_Get(Cycles);
-	if (ROM->NSF_SoundChips & 0x04)
-		x += FDSsound_Get(Cycles);
-	if (ROM->NSF_SoundChips & 0x08)
-		x += MMC5sound_Get(Cycles);
-	if (ROM->NSF_SoundChips & 0x10)
-		x += N106sound_Get(Cycles);
-	if (ROM->NSF_SoundChips & 0x20)
-		x += FME7sound_Get(Cycles);
+	if (ROM->NSF_SoundChips & NFSSOUND_VRC6)
+		x += VRC6sound::Get(Cycles);
+	if (ROM->NSF_SoundChips & NFSSOUND_VRC7)
+		x += VRC7sound::Get(Cycles);
+	if (ROM->NSF_SoundChips & NFSSOUND_FDS)
+		x += FDSsound::Get(Cycles);
+	if (ROM->NSF_SoundChips & NFSSOUND_MMC5)
+		x += MMC5sound::Get(Cycles);
+	if (ROM->NSF_SoundChips & NFSSOUND_N106)
+		x += N106sound::Get(Cycles);
+	if (ROM->NSF_SoundChips & NFSSOUND_FME7)
+		x += FME7sound::Get(Cycles);
 	return x;
 }
 
-static	int	MAPINT	NSF_Read4 (int Bank, int Addr)
+int	MAPINT	Read4 (int Bank, int Addr)
 {
 	if (Addr < 0x018)
-		return NSF.Read4(Bank,Addr);
-	if ((ROM->NSF_SoundChips & 0x04) && (Addr < 0x800))
-		return FDSsound_Read((Bank << 12) | Addr);
-	if ((ROM->NSF_SoundChips & 0x10) && (Addr & 0x800))
-		return N106sound_Read((Bank << 12) | Addr);
+		return _Read4(Bank, Addr);
+	if ((ROM->NSF_SoundChips & NFSSOUND_FDS) && (Addr < 0x800))
+		return FDSsound::Read((Bank << 12) | Addr);
+	if ((ROM->NSF_SoundChips & NFSSOUND_N106) && (Addr & 0x800))
+		return N106sound::Read((Bank << 12) | Addr);
 	return -1;
 }
-static	int	MAPINT	NSF_Read5 (int Bank, int Addr)
+int	MAPINT	Read5 (int Bank, int Addr)
 {
 	switch (Addr & 0xF00)
 	{
-	case 0x000:	return MMC5sound_Read((Bank << 12) | Addr);
+	case 0x000:	return MMC5sound::Read((Bank << 12) | Addr);
 	case 0xC00:
 	case 0xD00:
 	case 0xE00:
-	case 0xF00:	return NSF.ExRAM[Addr & 0x3FF];	break;
+	case 0xF00:	return ExRAM[Addr & 0x3FF];	break;
 	}
 	return -1;
 }
-static	void	MAPINT	NSF_Write4 (int Bank, int Addr, int Val)
+void	MAPINT	Write4 (int Bank, int Addr, int Val)
 {
 	if (Addr < 0x018)
-		NSF.Write4(Bank,Addr,Val);
-	if (ROM->NSF_SoundChips & 0x04)
-		FDSsound_Write((Bank << 12) | Addr,Val);
-	if (ROM->NSF_SoundChips & 0x10)
-		N106sound_Write((Bank << 12) | Addr,Val);
+		_Write4(Bank, Addr, Val);
+	if (ROM->NSF_SoundChips & NFSSOUND_FDS)
+		FDSsound::Write((Bank << 12) | Addr, Val);
+	if (ROM->NSF_SoundChips & NFSSOUND_N106)
+		N106sound::Write((Bank << 12) | Addr, Val);
 }
-static	void	MAPINT	NSF_Write5 (int Bank, int Addr, int Val)
+void	MAPINT	Write5 (int Bank, int Addr, int Val)
 {
 	if (Addr >= 0xFF6)
 	{
 		if (Val >= 0xFE)
-			EMU->SetPRG_RAM4(Addr & 0xF,Val & 0x1);
+			EMU->SetPRG_RAM4(Addr & 0xF, Val & 0x1);
 		else
 		{
-			EMU->SetPRG_ROM4(Addr & 0xF,Val);
-			if (ROM->NSF_SoundChips & 0x4)
-				EMU->SetPRG_Ptr4(Addr & 0xF,EMU->GetPRG_Ptr4(Addr & 0xF),TRUE);
+			EMU->SetPRG_ROM4(Addr & 0xF, Val);
+			if (ROM->NSF_SoundChips & NFSSOUND_FDS)
+				EMU->SetPRG_Ptr4(Addr & 0xF, EMU->GetPRG_Ptr4(Addr & 0xF), TRUE);
 		}
 	}
-	if (ROM->NSF_SoundChips & 0x08)
+	if (ROM->NSF_SoundChips & NFSSOUND_MMC5)
 	{
 		switch (Addr & 0xF00)
 		{
-		case 0x000:	MMC5sound_Write((Bank << 12) | Addr, Val);	break;
+		case 0x000:	MMC5sound::Write((Bank << 12) | Addr, Val);	break;
 		case 0xC00:
 		case 0xD00:
 		case 0xE00:
-		case 0xF00:	NSF.ExRAM[Addr & 0x3FF] = Val;		break;
+		case 0xF00:	ExRAM[Addr & 0x3FF] = Val;		break;
 		}
 	}
 }
-static	void	MAPINT	NSF_Write9 (int Bank, int Addr, int Val)
+void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
-	if (ROM->NSF_SoundChips & 0x01)
-		VRC6sound_Write((Bank << 12) | Addr,Val);
-	if (ROM->NSF_SoundChips & 0x02)
-		VRC7sound_Write((Bank << 12) | Addr,Val);
+	if (ROM->NSF_SoundChips & NFSSOUND_VRC6)
+		VRC6sound::Write((Bank << 12) | Addr, Val);
+	if (ROM->NSF_SoundChips & NFSSOUND_VRC7)
+		VRC7sound::Write((Bank << 12) | Addr, Val);
 }
-static	void	MAPINT	NSF_WriteAB (int Bank, int Addr, int Val)
+void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
-	VRC6sound_Write((Bank << 12) | Addr,Val);
+	VRC6sound::Write((Bank << 12) | Addr, Val);
 }
-static	void	MAPINT	NSF_WriteCDE (int Bank, int Addr, int Val)
+void	MAPINT	WriteCDE (int Bank, int Addr, int Val)
 {
-	FME7sound_Write((Bank << 12) | Addr,Val);
+	FME7sound::Write((Bank << 12) | Addr, Val);
 }
-static	void	MAPINT	NSF_WriteF (int Bank, int Addr, int Val)
+void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
-	if (ROM->NSF_SoundChips & 0x10)
-		N106sound_Write((Bank << 12) | Addr,Val);
-	if (ROM->NSF_SoundChips & 0x20)
-		FME7sound_Write((Bank << 12) | Addr,Val);
-}
-
-static	void	MAPINT	Load (void)
-{
-	if (ROM->NSF_SoundChips & 0x01)
-		VRC6sound_Load();
-	if (ROM->NSF_SoundChips & 0x02)
-		VRC7sound_Load();
-	if (ROM->NSF_SoundChips & 0x04)
-		FDSsound_Load();
-	if (ROM->NSF_SoundChips & 0x08)
-		MMC5sound_Load();
-	if (ROM->NSF_SoundChips & 0x10)
-		N106sound_Load();
-	if (ROM->NSF_SoundChips & 0x20)
-		FME7sound_Load();
-	NSF.ControlWindow = NULL;
-
-	NSF.InitAddr.s0 = ROM->NSF_InitAddr;
-	NSF.PlayAddr.s0 = ROM->NSF_PlayAddr;
-	NSF.NTSCspeed.s0 = (int)(ROM->NSF_NTSCSpeed * (double)1.789772727272727);
-	NSF.PALspeed.s0 = (int)(ROM->NSF_PALSpeed * (double)1.662607);
+	if (ROM->NSF_SoundChips & NFSSOUND_N106)
+		N106sound::Write((Bank << 12) | Addr, Val);
+	if (ROM->NSF_SoundChips & NFSSOUND_FME7)
+		FME7sound::Write((Bank << 12) | Addr, Val);
 }
 
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Load (void)
 {
-	NSF.Read4 = EMU->GetCPUReadHandler(0x4);
-	NSF.Write4 = EMU->GetCPUWriteHandler(0x4);
-	NSF.ReadF = EMU->GetCPUReadHandler(0xF);
+	if (ROM->NSF_SoundChips & NFSSOUND_VRC6)
+		VRC6sound::Load();
+	if (ROM->NSF_SoundChips & NFSSOUND_VRC7)
+		VRC7sound::Load();
+	if (ROM->NSF_SoundChips & NFSSOUND_FDS)
+		FDSsound::Load();
+	if (ROM->NSF_SoundChips & NFSSOUND_MMC5)
+		MMC5sound::Load();
+	if (ROM->NSF_SoundChips & NFSSOUND_N106)
+		N106sound::Load();
+	if (ROM->NSF_SoundChips & NFSSOUND_FME7)
+		FME7sound::Load();
+	ControlWindow = NULL;
 
-	EMU->SetCPUReadHandler(0x3,NSF_Read);
-	EMU->SetCPUWriteHandler(0x3,NSF_Write);
+	InitAddr.s0 = ROM->NSF_InitAddr;
+	PlayAddr.s0 = ROM->NSF_PlayAddr;
+	NTSCspeed.s0 = (int)(ROM->NSF_NTSCSpeed * (double)1.789772727272727);
+	PALspeed.s0 = (int)(ROM->NSF_PALSpeed * (double)1.662607);
+}
 
-	if (ROM->NSF_SoundChips & 0x14)
-		EMU->SetCPUReadHandler(0x4,NSF_Read4);
-	if (ROM->NSF_SoundChips & 0x08)
-		EMU->SetCPUReadHandler(0x5,NSF_Read5);
+void	MAPINT	Reset (RESET_TYPE ResetType)
+{
+	_Read4 = EMU->GetCPUReadHandler(0x4);
+	_Write4 = EMU->GetCPUWriteHandler(0x4);
+	_ReadF = EMU->GetCPUReadHandler(0xF);
 
-	if (ROM->NSF_SoundChips & 0x14)
-		EMU->SetCPUWriteHandler(0x4,NSF_Write4);
-	EMU->SetCPUWriteHandler(0x5,NSF_Write5);
-	if (ROM->NSF_SoundChips & 0x03)
-		EMU->SetCPUWriteHandler(0x9,NSF_Write9);
-	if (ROM->NSF_SoundChips & 0x01)
+	EMU->SetCPUReadHandler(0x3, Read);
+	EMU->SetCPUWriteHandler(0x3, Write);
+
+	if (ROM->NSF_SoundChips & (NFSSOUND_N106 | NFSSOUND_FDS))
+		EMU->SetCPUReadHandler(0x4, Read4);
+	if (ROM->NSF_SoundChips & NFSSOUND_MMC5)
+		EMU->SetCPUReadHandler(0x5, Read5);
+
+	if (ROM->NSF_SoundChips & (NFSSOUND_N106 | NFSSOUND_FDS))
+		EMU->SetCPUWriteHandler(0x4, Write4);
+	EMU->SetCPUWriteHandler(0x5, Write5);
+	if (ROM->NSF_SoundChips & (NFSSOUND_VRC6 | NFSSOUND_VRC7))
+		EMU->SetCPUWriteHandler(0x9, Write9);
+	if (ROM->NSF_SoundChips & NFSSOUND_VRC6)
 	{
-		EMU->SetCPUWriteHandler(0xA,NSF_WriteAB);
-		EMU->SetCPUWriteHandler(0xB,NSF_WriteAB);
+		EMU->SetCPUWriteHandler(0xA, WriteAB);
+		EMU->SetCPUWriteHandler(0xB, WriteAB);
 	}
-	if (ROM->NSF_SoundChips & 0x20)
+	if (ROM->NSF_SoundChips & NFSSOUND_FME7)
 	{
-		EMU->SetCPUWriteHandler(0xC,NSF_WriteCDE);
-		EMU->SetCPUWriteHandler(0xD,NSF_WriteCDE);
-		EMU->SetCPUWriteHandler(0xE,NSF_WriteCDE);
+		EMU->SetCPUWriteHandler(0xC, WriteCDE);
+		EMU->SetCPUWriteHandler(0xD, WriteCDE);
+		EMU->SetCPUWriteHandler(0xE, WriteCDE);
 	}
-	if (ROM->NSF_SoundChips & 0x30)
-		EMU->SetCPUWriteHandler(0xF,NSF_WriteF);
+	if (ROM->NSF_SoundChips & (NFSSOUND_N106 | NFSSOUND_FME7))
+		EMU->SetCPUWriteHandler(0xF, WriteF);
 
-	if (ROM->NSF_SoundChips & 0x01)
-		VRC6sound_Reset(ResetType);
-	if (ROM->NSF_SoundChips & 0x02)
-		VRC7sound_Reset(ResetType);
-	if (ROM->NSF_SoundChips & 0x04)
-		FDSsound_Reset(ResetType);
-	if (ROM->NSF_SoundChips & 0x08)
-		MMC5sound_Reset(ResetType);
-	if (ROM->NSF_SoundChips & 0x10)
-		N106sound_Reset(ResetType);
-	if (ROM->NSF_SoundChips & 0x20)
-		FME7sound_Reset(ResetType);
+	if (ROM->NSF_SoundChips & NFSSOUND_VRC6)
+		VRC6sound::Reset(ResetType);
+	if (ROM->NSF_SoundChips & NFSSOUND_VRC7)
+		VRC7sound::Reset(ResetType);
+	if (ROM->NSF_SoundChips & NFSSOUND_FDS)
+		FDSsound::Reset(ResetType);
+	if (ROM->NSF_SoundChips & NFSSOUND_MMC5)
+		MMC5sound::Reset(ResetType);
+	if (ROM->NSF_SoundChips & NFSSOUND_N106)
+		N106sound::Reset(ResetType);
+	if (ROM->NSF_SoundChips & NFSSOUND_FME7)
+		FME7sound::Reset(ResetType);
 	if (ResetType == RESET_HARD)
 	{
-		NSF.songnum = ROM->NSF_InitSong - 1;
+		songnum = ROM->NSF_InitSong - 1;
 		if (ROM->NSF_NTSCPAL == 1)
-			NSF.ntscpal = 1;
-		else	NSF.ntscpal = 0;
+			ntscpal = 1;
+		else	ntscpal = 0;
 	}
-	NSF_IRQ(NSFIRQ_INIT);		// Initialize first tune and start playing it
+	IRQ(NSFIRQ_INIT);		// Initialize first tune and start playing it
 					// (this also allows it to fetch the RESET vector)
-	Config(CFG_WINDOW,TRUE);
+	Config(CFG_WINDOW, TRUE);
 }
 
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	if (NSF.ControlWindow)
-		DestroyWindow(NSF.ControlWindow);
+	if (ControlWindow)
+		DestroyWindow(ControlWindow);
 
-	if (ROM->NSF_SoundChips & 0x01)
-		VRC6sound_Unload();
-	if (ROM->NSF_SoundChips & 0x02)
-		VRC7sound_Unload();
-	if (ROM->NSF_SoundChips & 0x04)
-		FDSsound_Unload();
-	if (ROM->NSF_SoundChips & 0x08)
-		MMC5sound_Unload();
-	if (ROM->NSF_SoundChips & 0x10)
-		N106sound_Unload();
-	if (ROM->NSF_SoundChips & 0x20)
-		FME7sound_Unload();
+	if (ROM->NSF_SoundChips & NFSSOUND_VRC6)
+		VRC6sound::Unload();
+	if (ROM->NSF_SoundChips & NFSSOUND_VRC7)
+		VRC7sound::Unload();
+	if (ROM->NSF_SoundChips & NFSSOUND_FDS)
+		FDSsound::Unload();
+	if (ROM->NSF_SoundChips & NFSSOUND_MMC5)
+		MMC5sound::Unload();
+	if (ROM->NSF_SoundChips & NFSSOUND_N106)
+		N106sound::Unload();
+	if (ROM->NSF_SoundChips & NFSSOUND_FME7)
+		FME7sound::Unload();
 }
-
+} // namespace
 CTMapperInfo	MapperInfo_NSF =
 {
 	NULL,

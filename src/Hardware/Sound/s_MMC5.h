@@ -8,12 +8,15 @@
 #ifndef	S_MMC5_H
 #define	S_MMC5_H
 
-void		MMC5sound_Load		(void);
-void		MMC5sound_Reset		(RESET_TYPE);
-void		MMC5sound_Unload	(void);
-void		MMC5sound_Write		(int,int);
-int		MMC5sound_Read		(int);
-int	MAPINT	MMC5sound_Get		(int);
-int	MAPINT	MMC5sound_SaveLoad	(STATE_TYPE,int,unsigned char *);
+namespace MMC5sound
+{
+void		Load		(void);
+void		Reset		(RESET_TYPE);
+void		Unload		(void);
+void		Write		(int,int);
+int		Read		(int);
+int	MAPINT	Get		(int);
+int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
+} // namespace MMC5sound
 
-#endif	/* S_MMC5_H */
+#endif	// S_MMC5_H
