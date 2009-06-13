@@ -7,79 +7,77 @@
 
 #include	"h_MMC1.h"
 
-typedef	struct	MMC1
+namespace MMC1
 {
-	u8 Latch, LatchPos;
-	u8 Regs[4];
-	FSync Sync;
-}	TMMC1, *PMMC1;
-static	TMMC1	MMC1;
+u8 Latch, LatchPos;
+u8 Regs[4];
+FSync Sync;
 
-void	MMC1_Load (FSync Sync)
+void	Load (FSync _Sync)
 {
-	MMC1.Sync = Sync;
+	Sync = _Sync;
 }
 
-void	MMC1_Reset (RESET_TYPE ResetType)
+void	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	if (ResetType == RESET_HARD)
 	{
-		MMC1.Regs[0] = 0x0C;
-		MMC1.Regs[1] = 0x00;
-		MMC1.Regs[2] = 0x00;
-		MMC1.Regs[3] = 0x00;
-		MMC1.Latch = 0;
-		MMC1.LatchPos = 0;
+		Regs[0] = 0x0C;
+		Regs[1] = 0x00;
+		Regs[2] = 0x00;
+		Regs[3] = 0x00;
+		Latch = 0;
+		LatchPos = 0;
 	}
 	for (x = 0x8; x < 0x10; x++)
-		EMU->SetCPUWriteHandler(x,MMC1_Write);
-	MMC1.Sync();
+		EMU->SetCPUWriteHandler(x, Write);
+	Sync();
 }
 
-void	MMC1_Unload (void)
+void	Unload (void)
 {
 }
 
-int	MAPINT	MMC1_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode,x,data,MMC1.Regs[i]);
-	SAVELOAD_BYTE(mode,x,data,MMC1.Latch);
-	SAVELOAD_BYTE(mode,x,data,MMC1.LatchPos);
+		SAVELOAD_BYTE(mode, x, data, Regs[i]);
+	SAVELOAD_BYTE(mode, x, data, Latch);
+	SAVELOAD_BYTE(mode, x, data, LatchPos);
 	if (mode == STATE_LOAD)
-		MMC1.Sync();
+		Sync();
 	return x;
 }
 
 static	int	LastReg;
-void	MAPINT	MMC1_Write (int Bank, int Addr, int Val)
+void	MAPINT	Write (int Bank, int Addr, int Val)
 {
 	u8 Reg = (Bank >> 1) & 3;
 	if (Val & 0x80)
 	{
-		MMC1.Latch = MMC1.LatchPos = 0;
-		MMC1.Regs[0] |= 0x0C;
+		Latch = LatchPos = 0;
+		Regs[0] |= 0x0C;
 		return;
 	}
 	// Ugly hack to get Bill & Ted's Excellent Video Game Adventure to run
 	// since the mapper interface currently doesn't expose a CPU timestamp
 	if (Reg != LastReg)
-		MMC1.Latch = MMC1.LatchPos = 0;
+		Latch = LatchPos = 0;
 	LastReg = Reg;
-	MMC1.Latch |= (Val & 1) << MMC1.LatchPos++;
-	if (MMC1.LatchPos == 5)
+	Latch |= (Val & 1) << LatchPos++;
+	if (LatchPos == 5)
 	{
-		MMC1.Regs[Reg] = MMC1.Latch & 0x1F;
-		MMC1.Latch = MMC1.LatchPos = 0;
-		MMC1.Sync();
+		Regs[Reg] = Latch & 0x1F;
+		Latch = LatchPos = 0;
+		Sync();
 	}
 }
 
-void	MMC1_SyncMirror (void)
+void	SyncMirror (void)
 {
-	switch (MMC1.Regs[0] & 0x3)
+	switch (Regs[0] & 0x3)
 	{
 	case 0:	EMU->Mirror_S0();	break;
 	case 1:	EMU->Mirror_S1();	break;
@@ -88,68 +86,69 @@ void	MMC1_SyncMirror (void)
 	}
 }
 
-int	MMC1_GetPRGBankLo (void)
+int	GetPRGBankLo (void)
 {
-	if (MMC1.Regs[0] & 0x08)
-		if (MMC1.Regs[0] & 0x04)
-			return MMC1.Regs[3] & 0xF;
+	if (Regs[0] & 0x08)
+		if (Regs[0] & 0x04)
+			return Regs[3] & 0xF;
 		else	return 0x0;
-	else	return (MMC1.Regs[3] & 0xE) | 0;
+	else	return (Regs[3] & 0xE) | 0;
 }
 
-int	MMC1_GetPRGBankHi (void)
+int	GetPRGBankHi (void)
 {
-	if (MMC1.Regs[0] & 0x08)
-		if (MMC1.Regs[0] & 0x04)
+	if (Regs[0] & 0x08)
+		if (Regs[0] & 0x04)
 			return 0xF;
-		else	return MMC1.Regs[3] & 0xF;
-	else	return (MMC1.Regs[3] & 0xE) | 1;
+		else	return Regs[3] & 0xF;
+	else	return (Regs[3] & 0xE) | 1;
 }
 
-int	MMC1_GetCHRBankLo (void)
+int	GetCHRBankLo (void)
 {
-	if (MMC1.Regs[0] & 0x10)
-		return MMC1.Regs[1] & 0x1F;
-	else	return (MMC1.Regs[1] & 0x1E) | 0;
+	if (Regs[0] & 0x10)
+		return Regs[1] & 0x1F;
+	else	return (Regs[1] & 0x1E) | 0;
 }
 
-int	MMC1_GetCHRBankHi (void)
+int	GetCHRBankHi (void)
 {
-	if (MMC1.Regs[0] & 0x10)
-		return MMC1.Regs[2] & 0x1F;
-	else	return (MMC1.Regs[1] & 0x1E) | 1;
+	if (Regs[0] & 0x10)
+		return Regs[2] & 0x1F;
+	else	return (Regs[1] & 0x1E) | 1;
 }
 
-BOOL	MMC1_GetWRAMEnabled (void)
+BOOL	GetWRAMEnabled (void)
 {
-	return !(MMC1.Regs[3] & 0x10);
+	return !(Regs[3] & 0x10);
 }
 
-void	MMC1_SyncPRG (int AND, int OR)
+void	SyncPRG (int AND, int OR)
 {
-	EMU->SetPRG_ROM16(0x8,(MMC1_GetPRGBankLo() & AND) | OR);
-	EMU->SetPRG_ROM16(0xC,(MMC1_GetPRGBankHi() & AND) | OR);
+	EMU->SetPRG_ROM16(0x8, (GetPRGBankLo() & AND) | OR);
+	EMU->SetPRG_ROM16(0xC, (GetPRGBankHi() & AND) | OR);
 }
 
-void	MMC1_SyncCHR_ROM (int AND, int OR)
+void	SyncCHR_ROM (int AND, int OR)
 {
-	EMU->SetCHR_ROM4(0,(MMC1_GetCHRBankLo() & AND) | OR);
-	EMU->SetCHR_ROM4(4,(MMC1_GetCHRBankHi() & AND) | OR);
+	EMU->SetCHR_ROM4(0, (GetCHRBankLo() & AND) | OR);
+	EMU->SetCHR_ROM4(4, (GetCHRBankHi() & AND) | OR);
 }
 
-void	MMC1_SyncCHR_RAM (int AND, int OR)
+void	SyncCHR_RAM (int AND, int OR)
 {
-	EMU->SetCHR_RAM4(0,(MMC1_GetCHRBankLo() & AND) | OR);
-	EMU->SetCHR_RAM4(4,(MMC1_GetCHRBankHi() & AND) | OR);
+	EMU->SetCHR_RAM4(0, (GetCHRBankLo() & AND) | OR);
+	EMU->SetCHR_RAM4(4, (GetCHRBankHi() & AND) | OR);
 }
 
-void	MMC1_SyncWRAM (void)
+void	SyncWRAM (void)
 {
-	if (MMC1_GetWRAMEnabled())
-		EMU->SetPRG_RAM8(0x6,0);
+	if (GetWRAMEnabled())
+		EMU->SetPRG_RAM8(0x6, 0);
 	else
 	{
 		EMU->SetPRG_OB4(0x6);
 		EMU->SetPRG_OB4(0x7);
 	}
 }
+} // namespace MMC1

@@ -8,61 +8,61 @@
 #include	"..\DLL\d_VS.h"
 #include	"..\Hardware\h_VS.h"
 
-static	struct
+namespace
 {
-	FCPUWrite Write;
-	u8 CHR;
-}	Mapper;
+FCPUWrite _Write;
+u8 CHR;
 
-static	void	Sync (void)
+void	Sync (void)
 {
-	EMU->SetPRG_RAM8(0x6,0);
-	EMU->SetPRG_ROM32(0x8,0);
-	EMU->SetCHR_ROM8(0,Mapper.CHR);
+	EMU->SetPRG_RAM8(0x6, 0);
+	EMU->SetPRG_ROM32(0x8, 0);
+	EMU->SetCHR_ROM8(0, CHR);
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.CHR);
-	x = VS_SaveLoad(mode,x,data);
+	SAVELOAD_BYTE(mode, x, data, CHR);
+	x = VS::SaveLoad(mode, x, data);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	Write (int Bank, int Addr, int Val)
+void	MAPINT	Write (int Bank, int Addr, int Val)
 {
-	Mapper.Write(Bank,Addr,Val);
+	_Write(Bank, Addr, Val);
 	if (Addr == 0x016)
 	{
-		Mapper.CHR = (Val & 0x04) >> 2;
+		CHR = (Val & 0x04) >> 2;
 		Sync();
 	}
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	VS_Load();
+	VS::Load();
 }
 
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	EMU->Mirror_4();
-	VS_Reset(ResetType);
-	Mapper.Write = EMU->GetCPUWriteHandler(0x4);
-	EMU->SetCPUWriteHandler(0x4,Write);
+	VS::Reset(ResetType);
+	_Write = EMU->GetCPUWriteHandler(0x4);
+	EMU->SetCPUWriteHandler(0x4, Write);
 
 	if (ResetType == RESET_HARD)
-		Mapper.CHR = 0;
+		CHR = 0;
 	Sync();
 }
 
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	VS_Unload();
+	VS::Unload();
 }
 
-static	u8 MapperNum = 99;
+u8 MapperNum = 99;
+} // namespace
 CTMapperInfo	MapperInfo_099 =
 {
 	&MapperNum,
@@ -71,9 +71,9 @@ CTMapperInfo	MapperInfo_099 =
 	Load,
 	Reset,
 	Unload,
-	VS_CPUCycle,
+	VS::CPUCycle,
 	NULL,
 	SaveLoad,
 	NULL,
-	VS_Config
+	VS::Config
 };

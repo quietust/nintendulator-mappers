@@ -8,24 +8,27 @@
 #include	"..\DLL\d_VS.h"
 #include	"..\Hardware\h_VS.h"
 
-static	void	MAPINT	Load (void)
+namespace
 {
-	VS_Load();
+void	MAPINT	Load (void)
+{
+	VS::Load();
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	VS_Reset(ResetType);
+	VS::Reset(ResetType);
 	iNES_SetMirroring();
 
-	EMU->SetPRG_ROM32(0x8,0);
-	EMU->SetCHR_ROM8(0,0);
+	EMU->SetPRG_ROM32(0x8, 0);
+	EMU->SetCHR_ROM8(0, 0);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	VS_Unload();
+	VS::Unload();
 }
 
-static	u8 MapperNum = 0;
+u8 MapperNum = 0;
+} // namespace
 CTMapperInfo	MapperInfo_000 =
 {
 	&MapperNum,
@@ -34,9 +37,9 @@ CTMapperInfo	MapperInfo_000 =
 	Load,
 	Reset,
 	Unload,
-	VS_CPUCycle,
+	VS::CPUCycle,
 	NULL,
-	VS_SaveLoad,
+	VS::SaveLoad,
 	NULL,
-	VS_Config
+	VS::Config
 };

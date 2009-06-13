@@ -7,70 +7,75 @@
 
 #include	"h_latch.h"
 
-TLatch	Latch;
-
-void	Latch_Load (FSync Sync, BOOL BusConflicts)
+namespace Latch
 {
-	Latch.BusConflicts = BusConflicts;
-	Latch.Sync = Sync;
+u8 Data;
+u16_n Addr;
+FSync Sync;
+BOOL BusConflicts;
+
+void	Load (FSync _Sync, BOOL _BusConflicts)
+{
+	BusConflicts = _BusConflicts;
+	Sync = _Sync;
 }
 
-void	Latch_Reset (RESET_TYPE ResetType)
+void	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	if (ResetType == RESET_HARD)
 	{
-		Latch.Data = 0;
-		Latch.Addr.s0 = 0;
+		Data = 0;
+		Addr.s0 = 0;
 	}
 	for (x = 0x8; x < 0x10; x++)
-		EMU->SetCPUWriteHandler(x,Latch_Write);
-	Latch.Sync();
+		EMU->SetCPUWriteHandler(x, Write);
+	Sync();
 }
 
-void	Latch_Unload (void)
+void	Unload (void)
 {
 }
 
-int	MAPINT	Latch_SaveLoad_AD (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad_AD (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_WORD(mode,x,data,Latch.Addr.s0);
-	SAVELOAD_BYTE(mode,x,data,Latch.Data);
+	SAVELOAD_WORD(mode, x, data, Addr.s0);
+	SAVELOAD_BYTE(mode, x, data, Data);
 	if (mode == STATE_LOAD)
-		Latch.Sync();
+		Sync();
 	return x;
 }
 
-int	MAPINT	Latch_SaveLoad_AL (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad_AL (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Latch.Addr.b0);
+	SAVELOAD_BYTE(mode, x, data, Addr.b0);
 	if (mode == STATE_LOAD)
-		Latch.Sync();
+		Sync();
 	return x;
 }
 
-int	MAPINT	Latch_SaveLoad_A (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad_A (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_WORD(mode,x,data,Latch.Addr.s0);
+	SAVELOAD_WORD(mode, x, data, Addr.s0);
 	if (mode == STATE_LOAD)
-		Latch.Sync();
+		Sync();
 	return x;
 }
 
-int	MAPINT	Latch_SaveLoad_D (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad_D (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Latch.Data);
+	SAVELOAD_BYTE(mode, x, data, Data);
 	if (mode == STATE_LOAD)
-		Latch.Sync();
+		Sync();
 	return x;
 }
 
 #include <stdlib.h>
-void	MAPINT	Latch_Write (int Bank, int Addr, int Val)
+void	MAPINT	Write (int Bank, int _Addr, int Val)
 {
 #ifdef BUS_CONFLICTS
 	int tmp;
-	if ((Latch.BusConflicts) && ((tmp = EMU->GetCPUReadHandler(Bank)(Bank,Addr)) != Val))
+	if ((BusConflicts) && ((tmp = EMU->GetCPUReadHandler(Bank)(Bank, _Addr)) != Val))
 	{
 		if (rand() & 1)
 		{
@@ -80,8 +85,9 @@ void	MAPINT	Latch_Write (int Bank, int Addr, int Val)
 		else	EMU->StatusOut(_T("Bus conflict - using CPU data"));
 	}
 #endif
-	Latch.Data = Val;
-	Latch.Addr.s0 = Addr;
-	Latch.Addr.n3 = Bank;
-	Latch.Sync();
+	Data = Val;
+	Addr.s0 = _Addr;
+	Addr.n3 = Bank;
+	Sync();
 }
+} // namespace Latch

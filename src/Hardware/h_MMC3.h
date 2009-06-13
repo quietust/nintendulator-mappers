@@ -10,22 +10,25 @@
 
 #include	"..\interface.h"
 
-void		MMC3_Load	(FSync);
-void		MMC3_Reset	(RESET_TYPE);
-void		MMC3_Unload	(void);
-void		MMC3_SyncMirror	(void);
-int		MMC3_GetPRGBank	(int);
-int		MMC3_GetCHRBank	(int);
-void		MMC3_SyncPRG	(int,int);
-void		MMC3_SyncWRAM	(void);
-void		MMC3_SyncCHR_ROM(int,int);
-void		MMC3_SyncCHR_RAM(int,int);
-int	MAPINT	MMC3_SaveLoad	(STATE_TYPE,int,unsigned char *);
-void	MAPINT	MMC3_CPUWrite67	(int,int,int);
-void	MAPINT	MMC3_CPUWrite89	(int,int,int);
-void	MAPINT	MMC3_CPUWriteAB	(int,int,int);
-void	MAPINT	MMC3_CPUWriteCD	(int,int,int);
-void	MAPINT	MMC3_CPUWriteEF	(int,int,int);
-void	MAPINT	MMC3_PPUCycle	(int,int,int,int);
+namespace MMC3
+{
+void		Load		(FSync);
+void		Reset		(RESET_TYPE);
+void		Unload		(void);
+void		SyncMirror	(void);
+int		GetPRGBank	(int);
+int		GetCHRBank	(int);
+void		SyncPRG		(int,int);
+void		SyncWRAM	(void);
+void		SyncCHR_ROM	(int,int);
+void		SyncCHR_RAM	(int,int);
+int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
+void	MAPINT	CPUWrite67	(int,int,int);
+void	MAPINT	CPUWrite89	(int,int,int);
+void	MAPINT	CPUWriteAB	(int,int,int);
+void	MAPINT	CPUWriteCD	(int,int,int);
+void	MAPINT	CPUWriteEF	(int,int,int);
+void	MAPINT	PPUCycle	(int,int,int,int);
+} // namespace MMC3
 
-#endif	/* H_MMC3_H */
+#endif	// H_MMC3_H

@@ -7,91 +7,89 @@
 
 #include	"h_MMC3.h"
 
-typedef	struct	MMC3
+namespace MMC3
 {
-	u8 IRQenabled, IRQcounter, IRQlatch, IRQreload;
-	u8 IRQaddr;
-	u8 Cmd;
-	u8 PRG[4];
-	u8 CHR[8];
-	u8 WRAMEnab;
-	u8 Mirror;
-	FCPUWrite CPUWrite67;
-	FSync Sync;
-}	TMMC3, *PMMC3;
-static	TMMC3	MMC3;
+u8 IRQenabled, IRQcounter, IRQlatch, IRQreload;
+u8 IRQaddr;
+u8 Cmd;
+u8 PRG[4];
+u8 CHR[8];
+u8 WRAMEnab;
+u8 Mirror;
+FCPUWrite _CPUWrite67;
+FSync Sync;
 
-void	MMC3_Load (FSync Sync)
+void	Load (FSync _Sync)
 {
-	MMC3.Sync = Sync;
+	Sync = _Sync;
 }
 
-void	MMC3_Reset (RESET_TYPE ResetType)
+void	Reset (RESET_TYPE ResetType)
 {
 	if (ResetType == RESET_HARD)
 	{
-		MMC3.PRG[0] = 0x3C;	MMC3.PRG[1] = 0x3D;	MMC3.PRG[2] = 0x3E;	MMC3.PRG[3] = 0x3F;	// 2 and 3 never change, simplifies GetPRGBank()
+		PRG[0] = 0x3C;	PRG[1] = 0x3D;	PRG[2] = 0x3E;	PRG[3] = 0x3F;	// 2 and 3 never change, simplifies GetPRGBank()
 
-		MMC3.CHR[0] = 0x00;	MMC3.CHR[1] = 0x01;	MMC3.CHR[2] = 0x02;	MMC3.CHR[3] = 0x03;
-		MMC3.CHR[4] = 0x04;	MMC3.CHR[5] = 0x05;	MMC3.CHR[6] = 0x06;	MMC3.CHR[7] = 0x07;
+		CHR[0] = 0x00;	CHR[1] = 0x01;	CHR[2] = 0x02;	CHR[3] = 0x03;
+		CHR[4] = 0x04;	CHR[5] = 0x05;	CHR[6] = 0x06;	CHR[7] = 0x07;
 
-		MMC3.IRQenabled = MMC3.IRQcounter = MMC3.IRQlatch = 0;
-		MMC3.Cmd = 0;
+		IRQenabled = IRQcounter = IRQlatch = 0;
+		Cmd = 0;
 		if (ROM->ROMType == ROM_INES)
-			MMC3.WRAMEnab = 0x80;
-		else	MMC3.WRAMEnab = 0;
+			WRAMEnab = 0x80;
+		else	WRAMEnab = 0;
 		if (ROM->ROMType == ROM_INES)
-			MMC3.Mirror = (ROM->INES_Flags & 0x01) ? 0 : 1;
-		else	MMC3.Mirror = 0;
+			Mirror = (ROM->INES_Flags & 0x01) ? 0 : 1;
+		else	Mirror = 0;
 	}
-	MMC3.CPUWrite67 = EMU->GetCPUWriteHandler(0x6);
-	EMU->SetCPUWriteHandler(0x6,MMC3_CPUWrite67);
-	EMU->SetCPUWriteHandler(0x7,MMC3_CPUWrite67);
-	EMU->SetCPUWriteHandler(0x8,MMC3_CPUWrite89);
-	EMU->SetCPUWriteHandler(0x9,MMC3_CPUWrite89);
-	EMU->SetCPUWriteHandler(0xA,MMC3_CPUWriteAB);
-	EMU->SetCPUWriteHandler(0xB,MMC3_CPUWriteAB);
-	EMU->SetCPUWriteHandler(0xC,MMC3_CPUWriteCD);
-	EMU->SetCPUWriteHandler(0xD,MMC3_CPUWriteCD);
-	EMU->SetCPUWriteHandler(0xE,MMC3_CPUWriteEF);
-	EMU->SetCPUWriteHandler(0xF,MMC3_CPUWriteEF);
-	MMC3.Sync();
+	_CPUWrite67 = EMU->GetCPUWriteHandler(0x6);
+	EMU->SetCPUWriteHandler(0x6, CPUWrite67);
+	EMU->SetCPUWriteHandler(0x7, CPUWrite67);
+	EMU->SetCPUWriteHandler(0x8, CPUWrite89);
+	EMU->SetCPUWriteHandler(0x9, CPUWrite89);
+	EMU->SetCPUWriteHandler(0xA, CPUWriteAB);
+	EMU->SetCPUWriteHandler(0xB, CPUWriteAB);
+	EMU->SetCPUWriteHandler(0xC, CPUWriteCD);
+	EMU->SetCPUWriteHandler(0xD, CPUWriteCD);
+	EMU->SetCPUWriteHandler(0xE, CPUWriteEF);
+	EMU->SetCPUWriteHandler(0xF, CPUWriteEF);
+	Sync();
 }
 
-void	MMC3_Unload (void)
+void	Unload (void)
 {
 }
 
-void	MMC3_SyncMirror (void)
+void	SyncMirror (void)
 {
-	if (MMC3.Mirror & 1)
+	if (Mirror & 1)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 }
 
-int	MMC3_GetPRGBank (int Bank)
+int	GetPRGBank (int Bank)
 {
 	if (Bank & 0x1)
-		return MMC3.PRG[Bank];
-	else	return MMC3.PRG[Bank ^ ((MMC3.Cmd & 0x40) >> 5)];
+		return PRG[Bank];
+	else	return PRG[Bank ^ ((Cmd & 0x40) >> 5)];
 }
 
-int	MMC3_GetCHRBank (int Bank)
+int	GetCHRBank (int Bank)
 {
-	return MMC3.CHR[Bank ^ ((MMC3.Cmd & 0x80) >> 5)];
+	return CHR[Bank ^ ((Cmd & 0x80) >> 5)];
 }
 
-void	MMC3_SyncPRG (int AND, int OR)
+void	SyncPRG (int AND, int OR)
 {
 	u8 x;
 	for (x = 0; x < 4; x++)
-		EMU->SetPRG_ROM8(8 | (x << 1),(MMC3_GetPRGBank(x) & AND) | OR);
+		EMU->SetPRG_ROM8(8 | (x << 1), (GetPRGBank(x) & AND) | OR);
 }
 
-void	MMC3_SyncWRAM (void)
+void	SyncWRAM (void)
 {
-	if (MMC3.WRAMEnab & 0x80)
-		EMU->SetPRG_RAM8(0x6,0);
+	if (WRAMEnab & 0x80)
+		EMU->SetPRG_RAM8(0x6, 0);
 	else
 	{
 		EMU->SetPRG_OB4(0x6);
@@ -99,119 +97,120 @@ void	MMC3_SyncWRAM (void)
 	}
 }
 
-void	MMC3_SyncCHR_ROM (int AND, int OR)
+void	SyncCHR_ROM (int AND, int OR)
 {
 	u8 x;
 	for (x = 0; x < 8; x++)
-		EMU->SetCHR_ROM1(x,(MMC3_GetCHRBank(x) & AND) | OR);
+		EMU->SetCHR_ROM1(x, (GetCHRBank(x) & AND) | OR);
 }
 
-void	MMC3_SyncCHR_RAM (int AND, int OR)
+void	SyncCHR_RAM (int AND, int OR)
 {
 	u8 x;
 	for (x = 0; x < 8; x++)
-		EMU->SetCHR_RAM1(x,(MMC3_GetCHRBank(x) & AND) | OR);
+		EMU->SetCHR_RAM1(x, (GetCHRBank(x) & AND) | OR);
 }
 
-int	MAPINT	MMC3_SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
-	SAVELOAD_BYTE(mode,x,data,MMC3.IRQcounter);
-	SAVELOAD_BYTE(mode,x,data,MMC3.IRQlatch);
-	SAVELOAD_BYTE(mode,x,data,MMC3.IRQenabled);
-	SAVELOAD_BYTE(mode,x,data,MMC3.Cmd);
+	SAVELOAD_BYTE(mode, x, data, IRQcounter);
+	SAVELOAD_BYTE(mode, x, data, IRQlatch);
+	SAVELOAD_BYTE(mode, x, data, IRQenabled);
+	SAVELOAD_BYTE(mode, x, data, Cmd);
 	for (i = 0; i < 2; i++)
-		SAVELOAD_BYTE(mode,x,data,MMC3.PRG[i]);
+		SAVELOAD_BYTE(mode, x, data, PRG[i]);
 	switch (mode)
 	{
 	case STATE_SAVE:
-		data[x++] = MMC3.CHR[0];
-		data[x++] = MMC3.CHR[2];
+		data[x++] = CHR[0];
+		data[x++] = CHR[2];
 		break;
 	case STATE_LOAD:
-		MMC3.CHR[0] = data[x++];
-		MMC3.CHR[1] = MMC3.CHR[0] | 1;
-		MMC3.CHR[2] = data[x++];
-		MMC3.CHR[3] = MMC3.CHR[2] | 1;
+		CHR[0] = data[x++];
+		CHR[1] = CHR[0] | 1;
+		CHR[2] = data[x++];
+		CHR[3] = CHR[2] | 1;
 		break;
 	case STATE_SIZE:
 		x += 2;
 		break;
 	}
 	for (i = 4; i < 8; i++)
-		SAVELOAD_BYTE(mode,x,data,MMC3.CHR[i]);
-	SAVELOAD_BYTE(mode,x,data,MMC3.WRAMEnab);
-	SAVELOAD_BYTE(mode,x,data,MMC3.Mirror);
-	SAVELOAD_BYTE(mode,x,data,MMC3.IRQreload);
-	SAVELOAD_BYTE(mode,x,data,MMC3.IRQaddr);
+		SAVELOAD_BYTE(mode, x, data, CHR[i]);
+	SAVELOAD_BYTE(mode, x, data, WRAMEnab);
+	SAVELOAD_BYTE(mode, x, data, Mirror);
+	SAVELOAD_BYTE(mode, x, data, IRQreload);
+	SAVELOAD_BYTE(mode, x, data, IRQaddr);
 	if (mode == STATE_LOAD)
-		MMC3.Sync();
+		Sync();
 	return x;
 }
 
-void	MAPINT	MMC3_CPUWrite67 (int Bank, int Addr, int Val)
+void	MAPINT	CPUWrite67 (int Bank, int Addr, int Val)
 {
-	if (!(MMC3.WRAMEnab & 0x40))
-		MMC3.CPUWrite67(Bank,Addr,Val);
+	if (!(WRAMEnab & 0x40))
+		_CPUWrite67(Bank, Addr, Val);
 }
 
-void	MAPINT	MMC3_CPUWrite89 (int Bank, int Addr, int Val)
+void	MAPINT	CPUWrite89 (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
-		switch (MMC3.Cmd & 0x7)
+		switch (Cmd & 0x7)
 		{
-		case 0:	MMC3.CHR[0] = (Val & 0xFE) | 0;
-			MMC3.CHR[1] = (Val & 0xFE) | 1;	break;
-		case 1:	MMC3.CHR[2] = (Val & 0xFE) | 0;
-			MMC3.CHR[3] = (Val & 0xFE) | 1;	break;
-		case 2:	MMC3.CHR[4] = Val;		break;
-		case 3:	MMC3.CHR[5] = Val;		break;
-		case 4:	MMC3.CHR[6] = Val;		break;
-		case 5:	MMC3.CHR[7] = Val;		break;
-		case 6:	MMC3.PRG[0] = Val & 0x3F;	break;
-		case 7:	MMC3.PRG[1] = Val & 0x3F;	break;
+		case 0:	CHR[0] = (Val & 0xFE) | 0;
+			CHR[1] = (Val & 0xFE) | 1;	break;
+		case 1:	CHR[2] = (Val & 0xFE) | 0;
+			CHR[3] = (Val & 0xFE) | 1;	break;
+		case 2:	CHR[4] = Val;		break;
+		case 3:	CHR[5] = Val;		break;
+		case 4:	CHR[6] = Val;		break;
+		case 5:	CHR[7] = Val;		break;
+		case 6:	PRG[0] = Val & 0x3F;	break;
+		case 7:	PRG[1] = Val & 0x3F;	break;
 		}
-	else	MMC3.Cmd = Val;
-	MMC3.Sync();
+	else	Cmd = Val;
+	Sync();
 }
 
-void	MAPINT	MMC3_CPUWriteAB (int Bank, int Addr, int Val)
+void	MAPINT	CPUWriteAB (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
-		MMC3.WRAMEnab = (ROM->ROMType == ROM_INES) ? 0x80 : Val;
-	else	MMC3.Mirror = Val;
-	MMC3.Sync();
+		WRAMEnab = (ROM->ROMType == ROM_INES) ? 0x80 : Val;
+	else	Mirror = Val;
+	Sync();
 }
 
-void	MAPINT	MMC3_CPUWriteCD (int Bank, int Addr, int Val)
+void	MAPINT	CPUWriteCD (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
-		MMC3.IRQreload = 1;
-	else	MMC3.IRQlatch = Val;
+		IRQreload = 1;
+	else	IRQlatch = Val;
 }
 
-void	MAPINT	MMC3_CPUWriteEF (int Bank, int Addr, int Val)
+void	MAPINT	CPUWriteEF (int Bank, int Addr, int Val)
 {
-	MMC3.IRQenabled = (Addr & 1);
-	if (!MMC3.IRQenabled)
+	IRQenabled = (Addr & 1);
+	if (!IRQenabled)
 		EMU->SetIRQ(1);
 }
-void	MAPINT	MMC3_PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
+void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
-	if (MMC3.IRQaddr)
-		MMC3.IRQaddr--;
-	if ((!MMC3.IRQaddr) && (Addr & 0x1000))
+	if (IRQaddr)
+		IRQaddr--;
+	if ((!IRQaddr) && (Addr & 0x1000))
 	{
-		unsigned char count = MMC3.IRQcounter;
-		if (!count || MMC3.IRQreload)
+		unsigned char count = IRQcounter;
+		if (!count || IRQreload)
 		{
-			MMC3.IRQcounter = MMC3.IRQlatch;
-			MMC3.IRQreload = 0;
+			IRQcounter = IRQlatch;
+			IRQreload = 0;
 		}
-		else	MMC3.IRQcounter--;
-		if (count && !MMC3.IRQcounter && MMC3.IRQenabled)
+		else	IRQcounter--;
+		if (count && !IRQcounter && IRQenabled)
 			EMU->SetIRQ(0);
 	}
 	if (Addr & 0x1000)
-		MMC3.IRQaddr = 8;
+		IRQaddr = 8;
 }
+} // namespace MMC3

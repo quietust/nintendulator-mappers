@@ -9,43 +9,46 @@
 #include	"..\Hardware\h_MMC3.h"
 #include	"..\Hardware\h_VS.h"
 
-static	void	Sync (void)
+namespace
+{
+void	Sync (void)
 {
 	if (ROM->INES_Flags & 0x08)
 		EMU->Mirror_4();
-	else	MMC3_SyncMirror();
-	MMC3_SyncWRAM();	// assume WRAM is here
-	MMC3_SyncPRG(0x3F,0);
+	else	MMC3::SyncMirror();
+	MMC3::SyncWRAM();	// assume WRAM is here
+	MMC3::SyncPRG(0x3F, 0);
 	if (ROM->INES_CHRSize)
-		MMC3_SyncCHR_ROM(0xFF,0);
-	else	MMC3_SyncCHR_RAM(0x07,0);
+		MMC3::SyncCHR_ROM(0xFF, 0);
+	else	MMC3::SyncCHR_RAM(0x07, 0);
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	x = MMC3_SaveLoad(mode,x,data);
-	x = VS_SaveLoad(mode,x,data);
+	x = MMC3::SaveLoad(mode, x, data);
+	x = VS::SaveLoad(mode, x, data);
 	return x;
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	VS_Load();
-	MMC3_Load(Sync);
+	VS::Load();
+	MMC3::Load(Sync);
 	iNES_SetSRAM();
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	VS_Reset(ResetType);
-	MMC3_Reset(ResetType);
+	VS::Reset(ResetType);
+	MMC3::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC3_Unload();
-	VS_Unload();
+	MMC3::Unload();
+	VS::Unload();
 }
 
-static	u8 MapperNum = 4;
+u8 MapperNum = 4;
+} // namespace
 CTMapperInfo	MapperInfo_004 =
 {
 	&MapperNum,
@@ -54,9 +57,9 @@ CTMapperInfo	MapperInfo_004 =
 	Load,
 	Reset,
 	Unload,
-	VS_CPUCycle,
-	MMC3_PPUCycle,
+	VS::CPUCycle,
+	MMC3::PPUCycle,
 	SaveLoad,
 	NULL,
-	VS_Config
+	VS::Config
 };

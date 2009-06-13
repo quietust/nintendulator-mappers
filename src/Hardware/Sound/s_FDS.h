@@ -18,4 +18,5 @@ void		Write		(int,int);
 int	MAPINT	Get		(int);
 int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
 } // namespace FDSsound
+
 #endif	// S_FDS_H

@@ -12,24 +12,19 @@
 
 #define	BUS_CONFLICTS	/* Enable bus conflicts */
 
-typedef	struct	Latch
+namespace Latch
 {
-	u8 Data;
-	u16_n Addr;
-	FSync Sync;
-	int BusConflicts;
-}	TLatch, *PLatch;
+extern u8 Data;
+extern u16_n Addr;
 
-// declared external so that mappers can read it directly
-extern	TLatch	Latch;
+void		Load		(FSync,BOOL);
+void		Reset		(RESET_TYPE);
+void		Unload		(void);
+int	MAPINT	SaveLoad_AD	(STATE_TYPE,int,unsigned char *);
+int	MAPINT	SaveLoad_AL	(STATE_TYPE,int,unsigned char *);
+int	MAPINT	SaveLoad_A	(STATE_TYPE,int,unsigned char *);
+int	MAPINT	SaveLoad_D	(STATE_TYPE,int,unsigned char *);
+void	MAPINT	Write		(int,int,int);
+} // namespace Latch
 
-void		Latch_Load		(FSync,BOOL);
-void		Latch_Reset		(RESET_TYPE);
-void		Latch_Unload		(void);
-int	MAPINT	Latch_SaveLoad_AD	(STATE_TYPE,int,unsigned char *);
-int	MAPINT	Latch_SaveLoad_AL	(STATE_TYPE,int,unsigned char *);
-int	MAPINT	Latch_SaveLoad_A	(STATE_TYPE,int,unsigned char *);
-int	MAPINT	Latch_SaveLoad_D	(STATE_TYPE,int,unsigned char *);
-void	MAPINT	Latch_Write		(int,int,int);
-
-#endif	/* H_LATCH_H */
+#endif	// H_LATCH_H

@@ -9,40 +9,43 @@
 #include	"..\Hardware\h_MMC1.h"
 #include	"..\Hardware\h_VS.h"
 
-static	void	Sync (void)
+namespace
 {
-	MMC1_SyncMirror();
-	MMC1_SyncPRG(0xF,0);
+void	Sync (void)
+{
+	MMC1::SyncMirror();
+	MMC1::SyncPRG(0xF, 0);
 	if (ROM->INES_CHRSize)
-		MMC1_SyncCHR_ROM(0x1F,0);
-	else	MMC1_SyncCHR_RAM(0x01,0);
-	MMC1_SyncWRAM();
+		MMC1::SyncCHR_ROM(0x1F, 0);
+	else	MMC1::SyncCHR_RAM(0x01, 0);
+	MMC1::SyncWRAM();
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	x = MMC1_SaveLoad(mode,x,data);
-	x = VS_SaveLoad(mode,x,data);
+	x = MMC1::SaveLoad(mode, x, data);
+	x = VS::SaveLoad(mode, x, data);
 	return x;
 }
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	VS_Load();
-	MMC1_Load(Sync);
+	VS::Load();
+	MMC1::Load(Sync);
 	iNES_SetSRAM();
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	VS_Reset(ResetType);
-	MMC1_Reset(ResetType);
+	VS::Reset(ResetType);
+	MMC1::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC1_Unload();
-	VS_Unload();
+	MMC1::Unload();
+	VS::Unload();
 }
 
-static	u8 MapperNum = 1;
+u8 MapperNum = 1;
+} // namespace
 CTMapperInfo	MapperInfo_001 =
 {
 	&MapperNum,
@@ -51,9 +54,9 @@ CTMapperInfo	MapperInfo_001 =
 	Load,
 	Reset,
 	Unload,
-	VS_CPUCycle,
+	VS::CPUCycle,
 	NULL,
 	SaveLoad,
 	NULL,
-	VS_Config
+	VS::Config
 };

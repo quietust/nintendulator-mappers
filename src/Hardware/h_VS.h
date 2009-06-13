@@ -10,12 +10,15 @@
 
 #include	"..\interface.h"
 
-void			VS_Load		(void);
-void			VS_Reset	(RESET_TYPE);
-void			VS_Unload	(void);
-int		MAPINT	VS_SaveLoad	(STATE_TYPE,int,unsigned char *);
-int		MAPINT	VS_Read		(int,int);
-void		MAPINT	VS_CPUCycle	(void);
-unsigned char	MAPINT VS_Config	(CFG_TYPE,unsigned char);
+namespace VS
+{
+void			Load		(void);
+void			Reset		(RESET_TYPE);
+void			Unload		(void);
+int		MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
+int		MAPINT	Read		(int,int);
+void		MAPINT	CPUCycle	(void);
+unsigned char	MAPINT	Config		(CFG_TYPE,unsigned char);
+} // namespace VS
 
-#endif	/* H_VS_H */
+#endif	// H_VS_H
