@@ -8,33 +8,37 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_MMC1.h"
 
-static	void	Sync (void)
+namespace
 {
-	MMC1_SyncMirror();
+void	Sync (void)
+{
+	MMC1::SyncMirror();
 	if (ROM->INES_PRGSize == 32)
-		MMC1_SyncPRG(0xF,MMC1_GetCHRBankLo() & 0x10);
-	else	MMC1_SyncPRG(0xF,0);
+		MMC1::SyncPRG(0xF, MMC1::GetCHRBankLo() & 0x10);
+	else	MMC1::SyncPRG(0xF, 0);
 	if (ROM->INES_CHRSize)
-		MMC1_SyncCHR_ROM(0x1F,0);
-	else	MMC1_SyncCHR_RAM(0x01,0);
-	MMC1_SyncWRAM();
+		MMC1::SyncCHR_ROM(0x1F, 0);
+	else	MMC1::SyncCHR_RAM(0x01, 0);
+	MMC1::SyncWRAM();
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	MMC1_Load(Sync);
+	MMC1::Load(Sync);
 	iNES_SetSRAM();
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	MMC1_Reset(ResetType);
+	MMC1::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC1_Unload();
+	MMC1::Unload();
 }
 
-static	u8 MapperNum = 1;
+u8 MapperNum = 1;
+} // namespace
+
 CTMapperInfo	MapperInfo_001 =
 {
 	&MapperNum,
@@ -45,7 +49,7 @@ CTMapperInfo	MapperInfo_001 =
 	Unload,
 	NULL,
 	NULL,
-	MMC1_SaveLoad,
+	MMC1::SaveLoad,
 	NULL,
 	NULL
 };

@@ -8,36 +8,40 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_MMC3.h"
 
-static	void	Sync (void)
+namespace
+{
+void	Sync (void)
 {
 	u8 x, y;
-	MMC3_SyncMirror();
-	MMC3_SyncPRG(0x3F,0);
-	MMC3_SyncWRAM();
+	MMC3::SyncMirror();
+	MMC3::SyncPRG(0x3F, 0);
+	MMC3::SyncWRAM();
 	for (x = 0; x < 8; x++)
 	{
-		y = MMC3_GetCHRBank(x);
+		y = MMC3::GetCHRBank(x);
 		if (y & 0x40)
-			EMU->SetCHR_RAM1(x,y & 0x07);
-		else	EMU->SetCHR_ROM1(x,y & 0x3F);
+			EMU->SetCHR_RAM1(x, y & 0x07);
+		else	EMU->SetCHR_ROM1(x, y & 0x3F);
 	}
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	MMC3_Load(Sync);
+	MMC3::Load(Sync);
 	iNES_SetSRAM();
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	MMC3_Reset(ResetType);
+	MMC3::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC3_Unload();
+	MMC3::Unload();
 }
 
-static	u8 MapperNum = 119;
+u8 MapperNum = 119;
+} // namespace
+
 CTMapperInfo	MapperInfo_119 =
 {
 	&MapperNum,
@@ -47,8 +51,8 @@ CTMapperInfo	MapperInfo_119 =
 	Reset,
 	Unload,
 	NULL,
-	MMC3_PPUCycle,
-	MMC3_SaveLoad,
+	MMC3::PPUCycle,
+	MMC3::SaveLoad,
 	NULL,
 	NULL
 };

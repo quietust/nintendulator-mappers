@@ -7,47 +7,48 @@
 
 #include	"..\DLL\d_iNES.h"
 
-static	struct
+namespace
 {
-	u8 Latch;
-}	Mapper;
+u8 Reg;
 
-static	void	Sync (void)
+void	Sync (void)
 {
-	EMU->SetPRG_ROM16(0x8,0);
-	EMU->SetPRG_ROM16(0xC,-1);
-	EMU->SetCHR_ROM4(0,((Mapper.Latch & 0x02) << 0) | ((Mapper.Latch & 0x04) >> 2) | ((Mapper.Latch & 0x01) << 2));
-	EMU->SetCHR_ROM4(4,((Mapper.Latch & 0x20) >> 4) | ((Mapper.Latch & 0x10) >> 1));
+	EMU->SetPRG_ROM16(0x8, 0);
+	EMU->SetPRG_ROM16(0xC, -1);
+	EMU->SetCHR_ROM4(0, ((Reg & 0x02) << 0) | ((Reg & 0x04) >> 2) | ((Reg & 0x01) << 2));
+	EMU->SetCHR_ROM4(4, ((Reg & 0x20) >> 4) | ((Reg & 0x10) >> 1));
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.Latch);
+	SAVELOAD_BYTE(mode, x, data, Reg);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	Write (int Bank, int Addr, int Val)
+void	MAPINT	Write (int Bank, int Addr, int Val)
 {
-	Mapper.Latch = Val;
+	Reg = Val;
 	Sync();
 }
 
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 
-	EMU->SetCPUWriteHandler(0x6,Write);
-	EMU->SetCPUWriteHandler(0x7,Write);
+	EMU->SetCPUWriteHandler(0x6, Write);
+	EMU->SetCPUWriteHandler(0x7, Write);
 
 	if (ResetType == RESET_HARD)
-		Mapper.Latch = 0;
+		Reg = 0;
 
 	Sync();
 }
 
-static	u8 MapperNum = 184;
+u8 MapperNum = 184;
+} // namespace
+
 CTMapperInfo	MapperInfo_184 =
 {
 	&MapperNum,

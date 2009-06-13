@@ -9,25 +9,24 @@
 #include	"..\Hardware\Sound\s_VRC6.h"
 
 #define IRQ_CYCLES 341
-static	struct
+namespace
 {
-	u8 IRQenabled, IRQcounter, IRQlatch;
-	int IRQcycles;
-	u8 PRG[2], CHR[8];
-	u8 Mirror;
-	u8 SwapAddr[4];
-}	Mapper;
+u8 IRQenabled, IRQcounter, IRQlatch;
+s16 IRQcycles;
+u8 PRG[2], CHR[8];
+u8 Mirror;
+u8 SwapAddr[4];
 
-static	void	Sync (void)
+void	Sync (void)
 {
 	u8 x;
-	EMU->SetPRG_RAM8(0x6,0);
-	EMU->SetPRG_ROM16(0x8,Mapper.PRG[0]);
-	EMU->SetPRG_ROM8(0xC,Mapper.PRG[1]);
-	EMU->SetPRG_ROM8(0xE,-1);
+	EMU->SetPRG_RAM8(0x6, 0);
+	EMU->SetPRG_ROM16(0x8, PRG[0]);
+	EMU->SetPRG_ROM8(0xC, PRG[1]);
+	EMU->SetPRG_ROM8(0xE, -1);
 	for (x = 0; x < 8; x++)
-		EMU->SetCHR_ROM1(x,Mapper.CHR[x]);
-	switch ((Mapper.Mirror >> 2) & 3)
+		EMU->SetCHR_ROM1(x, CHR[x]);
+	switch ((Mirror >> 2) & 3)
 	{
 	case 0:	EMU->Mirror_V();	break;
 	case 1:	EMU->Mirror_H();	break;
@@ -36,44 +35,44 @@ static	void	Sync (void)
 	}
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled);
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounter);
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQlatch);
-	SAVELOAD_WORD(mode,x,data,Mapper.IRQcycles);
+	SAVELOAD_BYTE(mode, x, data, IRQenabled);
+	SAVELOAD_BYTE(mode, x, data, IRQcounter);
+	SAVELOAD_BYTE(mode, x, data, IRQlatch);
+	SAVELOAD_WORD(mode, x, data, IRQcycles);
 	for (i = 0; i < 2; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.PRG[i]);
+		SAVELOAD_BYTE(mode, x, data, PRG[i]);
 	for (i = 0; i < 8; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[i]);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror);
-	x = VRC6sound_SaveLoad(mode,x,data);
+		SAVELOAD_BYTE(mode, x, data, CHR[i]);
+	SAVELOAD_BYTE(mode, x, data, Mirror);
+	x = VRC6sound::SaveLoad(mode, x, data);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	CPUCycle (void)
+void	MAPINT	CPUCycle (void)
 {
-	if ((Mapper.IRQenabled & 2) && ((Mapper.IRQenabled & 4) || ((Mapper.IRQcycles -= 3) < 0)))
+	if ((IRQenabled & 2) && ((IRQenabled & 4) || ((IRQcycles -= 3) < 0)))
 	{
-		if (!(Mapper.IRQenabled & 4))
-			Mapper.IRQcycles += IRQ_CYCLES;
-		if (Mapper.IRQcounter == 0xFF)
+		if (!(IRQenabled & 4))
+			IRQcycles += IRQ_CYCLES;
+		if (IRQcounter == 0xFF)
 		{
-			Mapper.IRQcounter = Mapper.IRQlatch;
+			IRQcounter = IRQlatch;
 			EMU->SetIRQ(0);
 		}
-		else	Mapper.IRQcounter++;
+		else	IRQcounter++;
 	}
 }
 
-static	void	MAPINT	Write8 (int Bank, int Addr, int Val)
+void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
-	switch (Mapper.SwapAddr[Addr & 3])
+	switch (SwapAddr[Addr & 3])
 	{
-	case 0:	Mapper.PRG[0] = Val;
+	case 0:	PRG[0] = Val;
 		Sync();			break;
 	case 1:				break;
 	case 2:				break;
@@ -81,34 +80,34 @@ static	void	MAPINT	Write8 (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	MAPINT	Write9 (int Bank, int Addr, int Val)
+void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
-	VRC6sound_Write(0x9000 | Mapper.SwapAddr[Addr & 3],Val);
+	VRC6sound::Write(0x9000 | SwapAddr[Addr & 3], Val);
 }
 
-static	void	MAPINT	WriteA (int Bank, int Addr, int Val)
+void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
-	VRC6sound_Write(0xA000 | Mapper.SwapAddr[Addr & 3],Val);
+	VRC6sound::Write(0xA000 | SwapAddr[Addr & 3], Val);
 }
 
-static	void	MAPINT	WriteB (int Bank, int Addr, int Val)
+void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
-	switch (Mapper.SwapAddr[Addr & 3])
+	switch (SwapAddr[Addr & 3])
 	{
 	case 0:	case 1:	case 2:
-		VRC6sound_Write(0xB000 | Mapper.SwapAddr[Addr & 3],Val);
+		VRC6sound::Write(0xB000 | SwapAddr[Addr & 3], Val);
 					break;
-	case 3:	Mapper.Mirror = Val;
+	case 3:	Mirror = Val;
 		Sync();			break;
 	}
 	
 }
 
-static	void	MAPINT	WriteC (int Bank, int Addr, int Val)
+void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
-	switch (Mapper.SwapAddr[Addr & 3])
+	switch (SwapAddr[Addr & 3])
 	{
-	case 0:	Mapper.PRG[1] = Val;
+	case 0:	PRG[1] = Val;
 		Sync();			break;
 	case 1:				break;
 	case 2:				break;
@@ -116,94 +115,97 @@ static	void	MAPINT	WriteC (int Bank, int Addr, int Val)
 	}
 }
 
-static	void	MAPINT	WriteD (int Bank, int Addr, int Val)
+void	MAPINT	WriteD (int Bank, int Addr, int Val)
 {
-	Mapper.CHR[Mapper.SwapAddr[Addr & 3]] = Val;
+	CHR[SwapAddr[Addr & 3]] = Val;
 	Sync();
 }
 
-static	void	MAPINT	WriteE (int Bank, int Addr, int Val)
+void	MAPINT	WriteE (int Bank, int Addr, int Val)
 {
-	Mapper.CHR[4 | Mapper.SwapAddr[Addr & 3]] = Val;
+	CHR[4 | SwapAddr[Addr & 3]] = Val;
 	Sync();
 }
 
-static	void	MAPINT	WriteF (int Bank, int Addr, int Val)
+void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
-	switch (Mapper.SwapAddr[Addr & 3])
+	switch (SwapAddr[Addr & 3])
 	{
-	case 0:	Mapper.IRQlatch = Val;	break;
-	case 1:	Mapper.IRQenabled = Val & 0x7;
-		if (Mapper.IRQenabled & 0x2)
+	case 0:	IRQlatch = Val;	break;
+	case 1:	IRQenabled = Val & 0x7;
+		if (IRQenabled & 0x2)
 		{
-			Mapper.IRQcounter = Mapper.IRQlatch;
-			Mapper.IRQcycles = IRQ_CYCLES;
+			IRQcounter = IRQlatch;
+			IRQcycles = IRQ_CYCLES;
 		}
 		EMU->SetIRQ(1);
 		break;
-	case 2:	if (Mapper.IRQenabled & 0x1)
-			Mapper.IRQenabled |= 0x2;
-		else	Mapper.IRQenabled &= ~0x2;
+	case 2:	if (IRQenabled & 0x1)
+			IRQenabled |= 0x2;
+		else	IRQenabled &= ~0x2;
 		EMU->SetIRQ(1);		break;
 	case 3:				break;
 	}
 }
 
-static	int	MAPINT	MapperSnd (int Cycles)
+int	MAPINT	MapperSnd (int Cycles)
 {
-	return VRC6sound_Get(Cycles);
+	return VRC6sound::Get(Cycles);
 }
 
-static	void	MAPINT	Load_024 (void)
+void	MAPINT	Load_024 (void)
 {
-	VRC6sound_Load();
-	Mapper.SwapAddr[0] = 0;
-	Mapper.SwapAddr[1] = 1;
-	Mapper.SwapAddr[2] = 2;
-	Mapper.SwapAddr[3] = 3;
+	VRC6sound::Load();
+	SwapAddr[0] = 0;
+	SwapAddr[1] = 1;
+	SwapAddr[2] = 2;
+	SwapAddr[3] = 3;
 	iNES_SetSRAM();
 }
-static	void	MAPINT	Load_026 (void)
+void	MAPINT	Load_026 (void)
 {
-	VRC6sound_Load();
-	Mapper.SwapAddr[0] = 0;
-	Mapper.SwapAddr[1] = 2;
-	Mapper.SwapAddr[2] = 1;
-	Mapper.SwapAddr[3] = 3;
+	VRC6sound::Load();
+	SwapAddr[0] = 0;
+	SwapAddr[1] = 2;
+	SwapAddr[2] = 1;
+	SwapAddr[3] = 3;
 	iNES_SetSRAM();
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
-	EMU->SetCPUWriteHandler(0x8,Write8);
-	EMU->SetCPUWriteHandler(0x9,Write9);
-	EMU->SetCPUWriteHandler(0xA,WriteA);
-	EMU->SetCPUWriteHandler(0xB,WriteB);
-	EMU->SetCPUWriteHandler(0xC,WriteC);
-	EMU->SetCPUWriteHandler(0xD,WriteD);
-	EMU->SetCPUWriteHandler(0xE,WriteE);
-	EMU->SetCPUWriteHandler(0xF,WriteF);
+	EMU->SetCPUWriteHandler(0x8, Write8);
+	EMU->SetCPUWriteHandler(0x9, Write9);
+	EMU->SetCPUWriteHandler(0xA, WriteA);
+	EMU->SetCPUWriteHandler(0xB, WriteB);
+	EMU->SetCPUWriteHandler(0xC, WriteC);
+	EMU->SetCPUWriteHandler(0xD, WriteD);
+	EMU->SetCPUWriteHandler(0xE, WriteE);
+	EMU->SetCPUWriteHandler(0xF, WriteF);
 
 	if (ResetType == RESET_HARD)
 	{
-		Mapper.PRG[0] = 0;
-		Mapper.PRG[1] = 0xFE;
+		PRG[0] = 0;
+		PRG[1] = 0xFE;
 		for (x = 0; x < 8; x++)
-			Mapper.CHR[x] = x;
-		Mapper.IRQenabled = Mapper.IRQcounter = Mapper.IRQlatch = 0;
-		Mapper.IRQcycles = 0;
+			CHR[x] = x;
+		IRQenabled = IRQcounter = IRQlatch = 0;
+		IRQcycles = 0;
 	}
 
-	VRC6sound_Reset(ResetType);
+	VRC6sound::Reset(ResetType);
 	Sync();
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	VRC6sound_Unload();
+	VRC6sound::Unload();
 }
 
-static	u8 MapperNum = 24;
+u8 MapperNum = 24;
+u8 MapperNum2 = 26;
+} // namespace
+
 CTMapperInfo	MapperInfo_024 =
 {
 	&MapperNum,
@@ -219,7 +221,6 @@ CTMapperInfo	MapperInfo_024 =
 	NULL
 };
 
-static	u8 MapperNum2 = 26;
 CTMapperInfo	MapperInfo_026 =
 {
 	&MapperNum2,

@@ -7,46 +7,47 @@
 
 #include	"..\DLL\d_iNES.h"
 
-static	struct
+namespace
 {
-	u8 Latch;
-}	Mapper;
+u8 Reg;
 
-static	void	Sync (void)
+void	Sync (void)
 {
 	const unsigned char lut[4] = {0x00,0x02,0x01,0x03};
-	EMU->SetPRG_ROM32(0x8,0);
-	EMU->SetCHR_ROM8(0,lut[Mapper.Latch & 0x3]);
+	EMU->SetPRG_ROM32(0x8, 0);
+	EMU->SetCHR_ROM8(0, lut[Reg & 0x3]);
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.Latch);
+	SAVELOAD_BYTE(mode, x, data, Reg);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	Write (int Bank, int Addr, int Val)
+void	MAPINT	Write (int Bank, int Addr, int Val)
 {
-	Mapper.Latch = Val;
+	Reg = Val;
 	Sync();
 }
 
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 
-	EMU->SetCPUWriteHandler(0x6,Write);
-	EMU->SetCPUWriteHandler(0x7,Write);
+	EMU->SetCPUWriteHandler(0x6, Write);
+	EMU->SetCPUWriteHandler(0x7, Write);
 
 	if (ResetType == RESET_HARD)
-		Mapper.Latch = 0;
+		Reg = 0;
 
 	Sync();
 }
 
-static	u8 MapperNum = 87;
+u8 MapperNum = 87;
+} // namespace
+
 CTMapperInfo	MapperInfo_087 =
 {
 	&MapperNum,

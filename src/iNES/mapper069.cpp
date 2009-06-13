@@ -8,28 +8,32 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_FME7.h"
 
-static	void	Sync (void)
+namespace
 {
-	FME7_SyncPRG(0xFF,0);
-	FME7_SyncCHR(0xFF,0);
-	FME7_SyncMirror();
+void	Sync (void)
+{
+	FME7::SyncPRG(0xFF, 0);
+	FME7::SyncCHR(0xFF, 0);
+	FME7::SyncMirror();
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	FME7_Load(Sync);
+	FME7::Load(Sync);
 	iNES_SetSRAM();
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	FME7_Reset(ResetType);
+	FME7::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	FME7_Unload();
+	FME7::Unload();
 }
 
-static	u8 MapperNum = 69;
+u8 MapperNum = 69;
+} // namespace
+
 CTMapperInfo	MapperInfo_069 =
 {
 	&MapperNum,
@@ -38,9 +42,9 @@ CTMapperInfo	MapperInfo_069 =
 	Load,
 	Reset,
 	Unload,
-	FME7_CPUCycle,
+	FME7::CPUCycle,
 	NULL,
-	FME7_SaveLoad,
-	FME7_GenSound,
+	FME7::SaveLoad,
+	FME7::GenSound,
 	NULL
 };

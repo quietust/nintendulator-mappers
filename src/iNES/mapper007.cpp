@@ -8,29 +8,33 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_Latch.h"
 
-static	void	Sync (void)
+namespace
 {
-	EMU->SetPRG_ROM32(0x8,Latch.Data & 0x07);
-	EMU->SetCHR_RAM8(0,0);
-	if (Latch.Data & 0x10)
+void	Sync (void)
+{
+	EMU->SetPRG_ROM32(0x8, Latch::Data & 0x07);
+	EMU->SetCHR_RAM8(0, 0);
+	if (Latch::Data & 0x10)
 		EMU->Mirror_S1();
 	else	EMU->Mirror_S0();
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	Latch_Load(Sync,FALSE);
+	Latch::Load(Sync, FALSE);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Latch_Reset(ResetType);
+	Latch::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	Latch_Unload();
+	Latch::Unload();
 }
 
-static	u8 MapperNum = 7;
+u8 MapperNum = 7;
+} // namespace
+
 CTMapperInfo	MapperInfo_007 =
 {
 	&MapperNum,
@@ -41,7 +45,7 @@ CTMapperInfo	MapperInfo_007 =
 	Unload,
 	NULL,
 	NULL,
-	Latch_SaveLoad_D,
+	Latch::SaveLoad_D,
 	NULL,
 	NULL
 };

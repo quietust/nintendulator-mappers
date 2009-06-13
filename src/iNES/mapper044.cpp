@@ -8,58 +8,59 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_MMC3.h"
 
-static	struct
+namespace
 {
-	u8 Game;
-}	Mapper;
+u8 Game;
 
-static	void	Sync (void)
+void	Sync (void)
 {
-	MMC3_SyncMirror();
-	MMC3_SyncPRG((Mapper.Game == 6) ? 0x1F : 0x0F,Mapper.Game << 4);
-	MMC3_SyncCHR_ROM((Mapper.Game == 6) ? 0xFF : 0x7F,Mapper.Game << 7);
+	MMC3::SyncMirror();
+	MMC3::SyncPRG((Game == 6) ? 0x1F : 0x0F, Game << 4);
+	MMC3::SyncCHR_ROM((Game == 6) ? 0xFF : 0x7F, Game << 7);
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	x = MMC3_SaveLoad(mode,x,data);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Game);
+	x = MMC3::SaveLoad(mode, x, data);
+	SAVELOAD_BYTE(mode, x, data, Game);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	Write (int Bank, int Addr, int Val)
+void	MAPINT	Write (int Bank, int Addr, int Val)
 {
 	switch (Addr & 1)
 	{
-	case 0:	MMC3_CPUWriteAB(Bank,Addr,Val);	break;
-	case 1:	Mapper.Game = Val & 0x07;
-		if (Mapper.Game == 7)
-			Mapper.Game = 6;
+	case 0:	MMC3::CPUWriteAB(Bank, Addr, Val);	break;
+	case 1:	Game = Val & 0x07;
+		if (Game == 7)
+			Game = 6;
 		Sync();				break;
 	}
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	MMC3_Load(Sync);
+	MMC3::Load(Sync);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	if (ResetType == RESET_HARD)
-		Mapper.Game = 0;
-	MMC3_Reset(ResetType);
+		Game = 0;
+	MMC3::Reset(ResetType);
 	for (x = 0xA; x < 0xC; x++)
-		EMU->SetCPUWriteHandler(x,Write);	/* need to override writes to $A001 */
+		EMU->SetCPUWriteHandler(x, Write);	/* need to override writes to $A001 */
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC3_Unload();
+	MMC3::Unload();
 }
 
-static	u8 MapperNum = 44;
+u8 MapperNum = 44;
+} // namespace
+
 CTMapperInfo	MapperInfo_044 =
 {
 	&MapperNum,
@@ -69,7 +70,7 @@ CTMapperInfo	MapperInfo_044 =
 	Reset,
 	Unload,
 	NULL,
-	MMC3_PPUCycle,
+	MMC3::PPUCycle,
 	SaveLoad,
 	NULL,
 	NULL

@@ -8,30 +8,34 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_Latch.h"
 
-static	void	Sync (void)
+namespace
 {
-	EMU->SetPRG_ROM16(0x8,(Latch.Data & 0x70) >> 4);
-	EMU->SetPRG_ROM16(0xC,0x7);
-	EMU->SetCHR_ROM8(0,Latch.Data & 0xF);
-	if (Latch.Data & 0x80)
+void	Sync (void)
+{
+	EMU->SetPRG_ROM16(0x8, (Latch::Data & 0x70) >> 4);
+	EMU->SetPRG_ROM16(0xC, 0x7);
+	EMU->SetCHR_ROM8(0, Latch::Data & 0xF);
+	if (Latch::Data & 0x80)
 		EMU->Mirror_S1();
 	else	EMU->Mirror_S0();
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	Latch_Load(Sync,FALSE);
+	Latch::Load(Sync, FALSE);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Latch_Reset(ResetType);
+	Latch::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	Latch_Unload();
+	Latch::Unload();
 }
 
-static	u8 MapperNum = 70;
+u8 MapperNum = 70;
+} // namespace
+
 CTMapperInfo	MapperInfo_070 =
 {
 	&MapperNum,
@@ -42,7 +46,7 @@ CTMapperInfo	MapperInfo_070 =
 	Unload,
 	NULL,
 	NULL,
-	Latch_SaveLoad_D,
+	Latch::SaveLoad_D,
 	NULL,
 	NULL
 };

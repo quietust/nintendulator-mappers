@@ -7,52 +7,53 @@
 
 #include	"..\DLL\d_iNES.h"
 
-static	struct
+namespace
 {
-	FCPUWrite Write4;
-	u8 Latch;
-}	Mapper;
+FCPUWrite _Write4;
+u8 Reg;
 
-static	void	Sync (void)
+void	Sync (void)
 {
-	EMU->SetCHR_ROM8(0,Mapper.Latch & 0x7);
-	EMU->SetPRG_ROM32(0x8,(Mapper.Latch & 0x8) >> 3);
+	EMU->SetCHR_ROM8(0, Reg & 0x7);
+	EMU->SetPRG_ROM32(0x8, (Reg & 0x8) >> 3);
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.Latch);
+	SAVELOAD_BYTE(mode, x, data, Reg);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	Write (int Bank, int Addr, int Val)
+void	MAPINT	Write (int Bank, int Addr, int Val)
 {
 	if (Bank == 4)
-		Mapper.Write4(Bank,Addr,Val);
+		_Write4(Bank, Addr, Val);
 	if (Addr & 0x100)
 	{
-		Mapper.Latch = Val;
+		Reg = Val;
 		Sync();
 	}
 }
 
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 
-	Mapper.Write4 = EMU->GetCPUWriteHandler(0x4);
-	EMU->SetCPUWriteHandler(0x4,Write);
-	EMU->SetCPUWriteHandler(0x5,Write);
+	_Write4 = EMU->GetCPUWriteHandler(0x4);
+	EMU->SetCPUWriteHandler(0x4, Write);
+	EMU->SetCPUWriteHandler(0x5, Write);
 
 	if (ResetType == RESET_HARD)
-		Mapper.Latch = 0;
+		Reg = 0;
 
 	Sync();
 }
 
-static	u8 MapperNum = 79;
+u8 MapperNum = 79;
+} // namespace
+
 CTMapperInfo	MapperInfo_079 =
 {
 	&MapperNum,

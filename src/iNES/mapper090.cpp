@@ -8,24 +8,23 @@
 #include	"..\DLL\d_iNES.h"
 #include	"resource.h"
 
-static	struct
+namespace
 {
-	u8 IRQenabled, IRQmode, IRQcounterL, IRQcounterH, IRQxor;
-	u16 IRQaddr;
-	u8 Mul1, Mul2;
-	u8 BankMode, Mirror, MirBank, ExtBank;
-	u8 PRGbanks[4];
-	u16_n CHRbanks[8];
-	u16_n Nametables[4];
-	u8 treg;
-	u8 Jumper;
-	HWND ConfigWindow;
-	u8 ConfigCmd;
-	FCPUWrite CPUWrite[0x10];
-	FPPURead PPURead[0x10];
-}	Mapper;
+u8 IRQenabled, IRQmode, IRQcounterL, IRQcounterH, IRQxor;
+u16 IRQaddr;
+u8 Mul1, Mul2;
+u8 BankMode, Mirror, MirBank, ExtBank;
+u8 PRGbanks[4];
+u16_n CHRbanks[8];
+u16_n Nametables[4];
+u8 treg;
+u8 Jumper;
+HWND ConfigWindow;
+u8 ConfigCmd;
+FCPUWrite _CPUWrite[0x10];
+FPPURead _PPURead[0x10];
 
-static	u8 ReverseBits (u8 bits)
+u8 ReverseBits (u8 bits)
 {
 	u8 out = 0;
 	if (bits & 0x01) out |= 0x40;
@@ -38,85 +37,85 @@ static	u8 ReverseBits (u8 bits)
 	return out;
 }
 
-static	void	SyncPRG (void)
+void	SyncPRG (void)
 {
-	if (!(Mapper.BankMode & 0x80))
+	if (!(BankMode & 0x80))
 	{
 		EMU->SetPRG_OB4(0x6);
 		EMU->SetPRG_OB4(0x7);
 	}
-	switch (Mapper.BankMode & 0x3)
+	switch (BankMode & 0x3)
 	{
-	case 0:	if (Mapper.BankMode & 0x80)
-			EMU->SetPRG_ROM8(0x6,(Mapper.PRGbanks[3] << 2) | 3);
-		EMU->SetPRG_ROM32(0x8,(Mapper.BankMode & 0x4) ? Mapper.PRGbanks[3] : 0x7F);
+	case 0:	if (BankMode & 0x80)
+			EMU->SetPRG_ROM8(0x6, (PRGbanks[3] << 2) | 3);
+		EMU->SetPRG_ROM32(0x8, (BankMode & 0x4) ? PRGbanks[3] : 0x7F);
 		break;
-	case 1:	if (Mapper.BankMode & 0x80)
-			EMU->SetPRG_ROM8(0x6,(Mapper.PRGbanks[3] << 1) | 1);
-		EMU->SetPRG_ROM16(0x8,Mapper.PRGbanks[1]);
-		EMU->SetPRG_ROM16(0xC,(Mapper.BankMode & 0x4) ? Mapper.PRGbanks[3] : 0x7F);
+	case 1:	if (BankMode & 0x80)
+			EMU->SetPRG_ROM8(0x6, (PRGbanks[3] << 1) | 1);
+		EMU->SetPRG_ROM16(0x8, PRGbanks[1]);
+		EMU->SetPRG_ROM16(0xC, (BankMode & 0x4) ? PRGbanks[3] : 0x7F);
 		break;
-	case 2:	if (Mapper.BankMode & 0x80)
-			EMU->SetPRG_ROM8(0x6,Mapper.PRGbanks[3]);
-		EMU->SetPRG_ROM8(0x8,Mapper.PRGbanks[0]);
-		EMU->SetPRG_ROM8(0xA,Mapper.PRGbanks[1]);
-		EMU->SetPRG_ROM8(0xC,Mapper.PRGbanks[2]);
-		EMU->SetPRG_ROM8(0xE,(Mapper.BankMode & 0x4) ? Mapper.PRGbanks[3] : 0x7F);
+	case 2:	if (BankMode & 0x80)
+			EMU->SetPRG_ROM8(0x6, PRGbanks[3]);
+		EMU->SetPRG_ROM8(0x8, PRGbanks[0]);
+		EMU->SetPRG_ROM8(0xA, PRGbanks[1]);
+		EMU->SetPRG_ROM8(0xC, PRGbanks[2]);
+		EMU->SetPRG_ROM8(0xE, (BankMode & 0x4) ? PRGbanks[3] : 0x7F);
 		break;
-	case 3:	if (Mapper.BankMode & 0x80)
-			EMU->SetPRG_ROM8(0x6,ReverseBits(Mapper.PRGbanks[3]));
-		EMU->SetPRG_ROM8(0x8,ReverseBits(Mapper.PRGbanks[0]));
-		EMU->SetPRG_ROM8(0xA,ReverseBits(Mapper.PRGbanks[1]));
-		EMU->SetPRG_ROM8(0xC,ReverseBits(Mapper.PRGbanks[2]));
-		EMU->SetPRG_ROM8(0xE,(Mapper.BankMode & 0x4) ? ReverseBits(Mapper.PRGbanks[3]) : 0x7F);
+	case 3:	if (BankMode & 0x80)
+			EMU->SetPRG_ROM8(0x6, ReverseBits(PRGbanks[3]));
+		EMU->SetPRG_ROM8(0x8, ReverseBits(PRGbanks[0]));
+		EMU->SetPRG_ROM8(0xA, ReverseBits(PRGbanks[1]));
+		EMU->SetPRG_ROM8(0xC, ReverseBits(PRGbanks[2]));
+		EMU->SetPRG_ROM8(0xE, (BankMode & 0x4) ? ReverseBits(PRGbanks[3]) : 0x7F);
 		break;
 	}
 }
 
-static	void	SyncCHR (void)
+void	SyncCHR (void)
 {
-	switch ((Mapper.BankMode & 0x18) >> 3)
+	switch ((BankMode & 0x18) >> 3)
 	{
-	case 0:	EMU->SetCHR_ROM8(0,(Mapper.ExtBank & 0x20) ? Mapper.CHRbanks[0].s0 : (Mapper.CHRbanks[0].b0 | ((Mapper.ExtBank & 0x1F) << 8)));	break;
-	case 1:	EMU->SetCHR_ROM4(0,(Mapper.ExtBank & 0x20) ? Mapper.CHRbanks[0].s0 : (Mapper.CHRbanks[0].b0 | ((Mapper.ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM4(4,(Mapper.ExtBank & 0x20) ? Mapper.CHRbanks[4].s0 : (Mapper.CHRbanks[4].b0 | ((Mapper.ExtBank & 0x1F) << 8)));	break;
-	case 2:	EMU->SetCHR_ROM2(0,(Mapper.ExtBank & 0x20) ? Mapper.CHRbanks[0].s0 : (Mapper.CHRbanks[0].b0 | ((Mapper.ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM2(2,(Mapper.ExtBank & 0x20) ? Mapper.CHRbanks[2].s0 : (Mapper.CHRbanks[2].b0 | ((Mapper.ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM2(4,(Mapper.ExtBank & 0x20) ? Mapper.CHRbanks[4].s0 : (Mapper.CHRbanks[4].b0 | ((Mapper.ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM2(6,(Mapper.ExtBank & 0x20) ? Mapper.CHRbanks[6].s0 : (Mapper.CHRbanks[6].b0 | ((Mapper.ExtBank & 0x1F) << 8)));	break;
-	case 3:	EMU->SetCHR_ROM1(0,(Mapper.ExtBank & 0x20) ? Mapper.CHRbanks[0].s0 : (Mapper.CHRbanks[0].b0 | ((Mapper.ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM1(1,(Mapper.ExtBank & 0x20) ? Mapper.CHRbanks[1].s0 : (Mapper.CHRbanks[1].b0 | ((Mapper.ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM1(2,(Mapper.ExtBank & 0x20) ? Mapper.CHRbanks[2].s0 : (Mapper.CHRbanks[2].b0 | ((Mapper.ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM1(3,(Mapper.ExtBank & 0x20) ? Mapper.CHRbanks[3].s0 : (Mapper.CHRbanks[3].b0 | ((Mapper.ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM1(4,(Mapper.ExtBank & 0x20) ? Mapper.CHRbanks[4].s0 : (Mapper.CHRbanks[4].b0 | ((Mapper.ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM1(5,(Mapper.ExtBank & 0x20) ? Mapper.CHRbanks[5].s0 : (Mapper.CHRbanks[5].b0 | ((Mapper.ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM1(6,(Mapper.ExtBank & 0x20) ? Mapper.CHRbanks[6].s0 : (Mapper.CHRbanks[6].b0 | ((Mapper.ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM1(7,(Mapper.ExtBank & 0x20) ? Mapper.CHRbanks[7].s0 : (Mapper.CHRbanks[7].b0 | ((Mapper.ExtBank & 0x1F) << 8)));	break;
+	case 0:	EMU->SetCHR_ROM8(0, (ExtBank & 0x20) ? CHRbanks[0].s0 : (CHRbanks[0].b0 | ((ExtBank & 0x1F) << 8)));	break;
+	case 1:	EMU->SetCHR_ROM4(0, (ExtBank & 0x20) ? CHRbanks[0].s0 : (CHRbanks[0].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM4(4, (ExtBank & 0x20) ? CHRbanks[4].s0 : (CHRbanks[4].b0 | ((ExtBank & 0x1F) << 8)));	break;
+	case 2:	EMU->SetCHR_ROM2(0, (ExtBank & 0x20) ? CHRbanks[0].s0 : (CHRbanks[0].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM2(2, (ExtBank & 0x20) ? CHRbanks[2].s0 : (CHRbanks[2].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM2(4, (ExtBank & 0x20) ? CHRbanks[4].s0 : (CHRbanks[4].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM2(6, (ExtBank & 0x20) ? CHRbanks[6].s0 : (CHRbanks[6].b0 | ((ExtBank & 0x1F) << 8)));	break;
+	case 3:	EMU->SetCHR_ROM1(0, (ExtBank & 0x20) ? CHRbanks[0].s0 : (CHRbanks[0].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM1(1, (ExtBank & 0x20) ? CHRbanks[1].s0 : (CHRbanks[1].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM1(2, (ExtBank & 0x20) ? CHRbanks[2].s0 : (CHRbanks[2].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM1(3, (ExtBank & 0x20) ? CHRbanks[3].s0 : (CHRbanks[3].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM1(4, (ExtBank & 0x20) ? CHRbanks[4].s0 : (CHRbanks[4].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM1(5, (ExtBank & 0x20) ? CHRbanks[5].s0 : (CHRbanks[5].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM1(6, (ExtBank & 0x20) ? CHRbanks[6].s0 : (CHRbanks[6].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM1(7, (ExtBank & 0x20) ? CHRbanks[7].s0 : (CHRbanks[7].b0 | ((ExtBank & 0x1F) << 8)));	break;
 	}
 }
 
-static	void	SyncNametables (void)
+void	SyncNametables (void)
 {
-	if ((Mapper.BankMode & 0x20) && (Mapper.Jumper & 0x01))
+	if ((BankMode & 0x20) && (Jumper & 0x01))
 	{
 		int i;
 		for (i = 0; i < 4; i++)
 		{
-			if ((Mapper.BankMode & 0x40) || ((Mapper.Nametables[i].b0 ^ Mapper.MirBank) & 0x80))
+			if ((BankMode & 0x40) || ((Nametables[i].b0 ^ MirBank) & 0x80))
 			{
-				EMU->SetCHR_ROM1(0x8|i,(Mapper.ExtBank & 0x20) ? Mapper.Nametables[i].s0 : (Mapper.Nametables[i].b0 | ((Mapper.ExtBank & 0x1F) << 8)));
-				EMU->SetCHR_ROM1(0xC|i,(Mapper.ExtBank & 0x20) ? Mapper.Nametables[i].s0 : (Mapper.Nametables[i].b0 | ((Mapper.ExtBank & 0x1F) << 8)));
+				EMU->SetCHR_ROM1(0x8 | i, (ExtBank & 0x20) ? Nametables[i].s0 : (Nametables[i].b0 | ((ExtBank & 0x1F) << 8)));
+				EMU->SetCHR_ROM1(0xC | i, (ExtBank & 0x20) ? Nametables[i].s0 : (Nametables[i].b0 | ((ExtBank & 0x1F) << 8)));
 			}
 			else
 			{
-				EMU->SetCHR_NT1(0x8|i,Mapper.Nametables[i].b0 & 1);
-				EMU->SetCHR_NT1(0xC|i,Mapper.Nametables[i].b0 & 1);
+				EMU->SetCHR_NT1(0x8 | i, Nametables[i].b0 & 1);
+				EMU->SetCHR_NT1(0xC | i, Nametables[i].b0 & 1);
 			}
 		}
 	}
 	else
 	{
-		switch (Mapper.Mirror & 3)
+		switch (Mirror & 3)
 		{
 		case 0:	EMU->Mirror_V();	break;
 		case 1:	EMU->Mirror_H();	break;
@@ -126,29 +125,29 @@ static	void	SyncNametables (void)
 	}
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.PRGbanks[i]);
+		SAVELOAD_BYTE(mode, x, data, PRGbanks[i]);
 	for (i = 0; i < 8; i++)
-		SAVELOAD_WORD(mode,x,data,Mapper.CHRbanks[i].s0);
+		SAVELOAD_WORD(mode, x, data, CHRbanks[i].s0);
 	for (i = 0; i < 4; i++)
-		SAVELOAD_WORD(mode,x,data,Mapper.Nametables[i].s0);
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled);
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQmode);
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounterL);
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQcounterH);
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQxor);
-	SAVELOAD_WORD(mode,x,data,Mapper.IRQaddr);
-	SAVELOAD_BYTE(mode,x,data,Mapper.BankMode);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror);
-	SAVELOAD_BYTE(mode,x,data,Mapper.MirBank);
-	SAVELOAD_BYTE(mode,x,data,Mapper.ExtBank);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Mul1);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Mul2);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Jumper);
-	SAVELOAD_BYTE(mode,x,data,Mapper.treg);
+		SAVELOAD_WORD(mode, x, data, Nametables[i].s0);
+	SAVELOAD_BYTE(mode, x, data, IRQenabled);
+	SAVELOAD_BYTE(mode, x, data, IRQmode);
+	SAVELOAD_BYTE(mode, x, data, IRQcounterL);
+	SAVELOAD_BYTE(mode, x, data, IRQcounterH);
+	SAVELOAD_BYTE(mode, x, data, IRQxor);
+	SAVELOAD_WORD(mode, x, data, IRQaddr);
+	SAVELOAD_BYTE(mode, x, data, BankMode);
+	SAVELOAD_BYTE(mode, x, data, Mirror);
+	SAVELOAD_BYTE(mode, x, data, MirBank);
+	SAVELOAD_BYTE(mode, x, data, ExtBank);
+	SAVELOAD_BYTE(mode, x, data, Mul1);
+	SAVELOAD_BYTE(mode, x, data, Mul2);
+	SAVELOAD_BYTE(mode, x, data, Jumper);
+	SAVELOAD_BYTE(mode, x, data, treg);
 	if (mode == STATE_LOAD)
 	{
 		SyncPRG();
@@ -158,115 +157,115 @@ static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	return x;
 }
 
-static	void	IRQcount (void)
+void	IRQcount (void)
 {
 	static unsigned char mask;
-	if (Mapper.IRQmode & 0x4)
+	if (IRQmode & 0x4)
 		mask = 0x7;
 	else	mask = 0xFF;
-	if ((Mapper.IRQmode & 0xC0) == 0x80)
+	if ((IRQmode & 0xC0) == 0x80)
 	{
-		Mapper.IRQcounterL--;
-		if ((Mapper.IRQcounterL & mask) == mask)
+		IRQcounterL--;
+		if ((IRQcounterL & mask) == mask)
 		{
-			Mapper.IRQcounterH--;
-			if (Mapper.IRQcounterH == 0xFF)
+			IRQcounterH--;
+			if (IRQcounterH == 0xFF)
 				EMU->SetIRQ(0);
 		}
 	}
-	if ((Mapper.IRQmode & 0xC0) == 0x40)
+	if ((IRQmode & 0xC0) == 0x40)
 	{
-		Mapper.IRQcounterL++;
-		if (!(Mapper.IRQcounterL & mask))
+		IRQcounterL++;
+		if (!(IRQcounterL & mask))
 		{
-			Mapper.IRQcounterH++;
-			if (!Mapper.IRQcounterH)
+			IRQcounterH++;
+			if (!IRQcounterH)
 				EMU->SetIRQ(0);
 		}
 	}
 }
-static	void	MAPINT	CPUCycle (void)
+void	MAPINT	CPUCycle (void)
 {
-	if (Mapper.IRQenabled && ((Mapper.IRQmode & 0x3) == 0))
+	if (IRQenabled && ((IRQmode & 0x3) == 0))
 		IRQcount();
 }
-static	void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
+void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
-	if (Mapper.IRQenabled && ((Mapper.IRQmode & 0x3) == 1))
+	if (IRQenabled && ((IRQmode & 0x3) == 1))
 	{
-		if (!(Mapper.IRQaddr & 0x1000) && (Addr & 0x1000))
+		if (!(IRQaddr & 0x1000) && (Addr & 0x1000))
 			IRQcount();
-		Mapper.IRQaddr = Addr;
+		IRQaddr = Addr;
 	}
 }
-static	void	MAPINT	CPUWrite (int Bank, int Addr, int Val)
+void	MAPINT	CPUWrite (int Bank, int Addr, int Val)
 {
-	if (Mapper.IRQenabled && ((Mapper.IRQmode & 0x3) == 2))
+	if (IRQenabled && ((IRQmode & 0x3) == 2))
 		IRQcount();
-	Mapper.CPUWrite[Bank](Bank,Addr,Val);
+	_CPUWrite[Bank](Bank, Addr, Val);
 }
-static	int	MAPINT	PPURead (int Bank, int Addr)
+int	MAPINT	PPURead (int Bank, int Addr)
 {
-	if (Mapper.IRQenabled && ((Mapper.IRQmode & 0x3) == 3))
+	if (IRQenabled && ((IRQmode & 0x3) == 3))
 		IRQcount();
-	return Mapper.PPURead[Bank](Bank,Addr);
+	return _PPURead[Bank](Bank, Addr);
 }
 
-static	int	MAPINT	Read5 (int Bank, int Addr)
+int	MAPINT	Read5 (int Bank, int Addr)
 {
 	switch (Addr & 0x803)
 	{
-	case 0x000:return (Mapper.Jumper & 0xC0) |
+	case 0x000:return (Jumper & 0xC0) |
 			(*EMU->OpenBus & 0x3F);			break;
-	case 0x800:return (Mapper.Mul1 * Mapper.Mul2) & 0xFF;	break;
-	case 0x801:return (Mapper.Mul1 * Mapper.Mul2) >> 8;	break;
-	case 0x803:return Mapper.treg;				break;
+	case 0x800:return (Mul1 * Mul2) & 0xFF;	break;
+	case 0x801:return (Mul1 * Mul2) >> 8;	break;
+	case 0x803:return treg;				break;
 	}
 	return -1;
 }
 
-static	void	MAPINT	Write5 (int Bank, int Addr, int Val)
+void	MAPINT	Write5 (int Bank, int Addr, int Val)
 {
 	switch (Addr & 0x803)
 	{
-	case 0x800:Mapper.Mul1 = Val;	break;
-	case 0x801:Mapper.Mul2 = Val;	break;
-	case 0x803:Mapper.treg = Val;	break;
+	case 0x800:Mul1 = Val;	break;
+	case 0x801:Mul2 = Val;	break;
+	case 0x803:treg = Val;	break;
 	}
 }
 
-static	void	MAPINT	Write8 (int Bank, int Addr, int Val)
+void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
-	Mapper.PRGbanks[Addr & 3] = Val;
+	PRGbanks[Addr & 3] = Val;
 	SyncPRG();
 }
 
-static	void	MAPINT	Write9 (int Bank, int Addr, int Val)
+void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
-	Mapper.CHRbanks[Addr & 7].b0 = Val;
+	CHRbanks[Addr & 7].b0 = Val;
 	SyncCHR();
 }
 
-static	void	MAPINT	WriteA (int Bank, int Addr, int Val)
+void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
-	Mapper.CHRbanks[Addr & 7].b1 = Val;
+	CHRbanks[Addr & 7].b1 = Val;
 	SyncCHR();
 }
 
-static	void	MAPINT	WriteB (int Bank, int Addr, int Val)
+void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	if (Addr & 4)
-		Mapper.Nametables[Addr & 3].b1 = Val;
-	else	Mapper.Nametables[Addr & 3].b0 = Val;
+		Nametables[Addr & 3].b1 = Val;
+	else	Nametables[Addr & 3].b0 = Val;
 	SyncNametables();
 }
 
-static	void	MAPINT	WriteC (int Bank, int Addr, int Val)
+void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
 	switch (Addr & 7)
 	{
 	case 0:	/* usually unused */	break;
-	case 1:	Mapper.IRQmode = Val;
+	case 1:	IRQmode = Val;
 		switch (Val & 3)
 		{
 		case 0:	EMU->DbgOut(_T("Mapper 90 IRQ counter set to CPU M2"));		break;
@@ -274,153 +273,155 @@ static	void	MAPINT	WriteC (int Bank, int Addr, int Val)
 		case 2:	EMU->DbgOut(_T("Mapper 90 IRQ counter set to CPU R/W"));	break;
 		case 3:	EMU->DbgOut(_T("Mapper 90 IRQ counter set to PPU /RD"));	break;
 		}	break;
-	case 2:	Mapper.IRQenabled = 0;
+	case 2:	IRQenabled = 0;
 		EMU->SetIRQ(1);		break;
-	case 3:	Mapper.IRQenabled = 1;	break;
-	case 4:	Mapper.IRQcounterL = Val ^ Mapper.IRQxor;
+	case 3:	IRQenabled = 1;	break;
+	case 4:	IRQcounterL = Val ^ IRQxor;
 					break;
-	case 5:	Mapper.IRQcounterH = Val ^ Mapper.IRQxor;
+	case 5:	IRQcounterH = Val ^ IRQxor;
 					break;
-	case 6:	Mapper.IRQxor = Val;	break;
+	case 6:	IRQxor = Val;	break;
 	case 7:	/* usually unused */	break;
 	}
 }
 
-static	void	MAPINT	WriteD (int Bank, int Addr, int Val)
+void	MAPINT	WriteD (int Bank, int Addr, int Val)
 {
 	switch (Addr & 3)
 	{
-	case 0:	Mapper.BankMode = Val;
+	case 0:	BankMode = Val;
 		SyncPRG();
 		SyncCHR();
 		SyncNametables();	break;
-	case 1:	Mapper.Mirror = Val;
+	case 1:	Mirror = Val;
 		SyncNametables();	break;
-	case 2: Mapper.MirBank = Val;
+	case 2: MirBank = Val;
 		SyncNametables();	break;
-	case 3:	Mapper.ExtBank = Val;
+	case 3:	ExtBank = Val;
 		SyncCHR();		break;
 	}
 }
 
-static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
 		case WM_INITDIALOG:
-			CheckDlgButton(hDlg,IDC_MAPPER90_J0,(Mapper.Jumper & 0x40) ? BST_CHECKED : BST_UNCHECKED);
-			CheckDlgButton(hDlg,IDC_MAPPER90_J1,(Mapper.Jumper & 0x80) ? BST_CHECKED : BST_UNCHECKED);
-			CheckDlgButton(hDlg,IDC_MAPPER90_MIR,(Mapper.Jumper & 0x01) ? BST_CHECKED : BST_UNCHECKED);
+			CheckDlgButton(hDlg, IDC_MAPPER90_J0, (Jumper & 0x40) ? BST_CHECKED : BST_UNCHECKED);
+			CheckDlgButton(hDlg, IDC_MAPPER90_J1, (Jumper & 0x80) ? BST_CHECKED : BST_UNCHECKED);
+			CheckDlgButton(hDlg, IDC_MAPPER90_MIR, (Jumper & 0x01) ? BST_CHECKED : BST_UNCHECKED);
 			return FALSE;
 		case WM_COMMAND:
 			switch (LOWORD(wParam))
 			{
 			case IDOK:
-				Mapper.ConfigCmd = 0x80;
-				if (IsDlgButtonChecked(hDlg,IDC_MAPPER90_J0) == BST_CHECKED)
-					Mapper.ConfigCmd |= 0x01;
-				if (IsDlgButtonChecked(hDlg,IDC_MAPPER90_J1) == BST_CHECKED)
-					Mapper.ConfigCmd |= 0x02;
-				if (IsDlgButtonChecked(hDlg,IDC_MAPPER90_MIR) == BST_CHECKED)
-					Mapper.ConfigCmd |= 0x04;
-				MessageBox(hDlg,_T("Please perform a SOFT RESET for this to take effect!"),_T("INES.DLL"),MB_OK);
+				ConfigCmd = 0x80;
+				if (IsDlgButtonChecked(hDlg, IDC_MAPPER90_J0) == BST_CHECKED)
+					ConfigCmd |= 0x01;
+				if (IsDlgButtonChecked(hDlg, IDC_MAPPER90_J1) == BST_CHECKED)
+					ConfigCmd |= 0x02;
+				if (IsDlgButtonChecked(hDlg, IDC_MAPPER90_MIR) == BST_CHECKED)
+					ConfigCmd |= 0x04;
+				MessageBox(hDlg, _T("Please perform a SOFT RESET for this to take effect!"), _T("INES.DLL"), MB_OK);
 			case IDCANCEL:
 				DestroyWindow(hDlg);
-				Mapper.ConfigWindow = NULL;
+				ConfigWindow = NULL;
 				return TRUE;		break;
 			}
 			break;
 		case WM_CLOSE:
 			DestroyWindow(hDlg);
-			Mapper.ConfigWindow = NULL;
+			ConfigWindow = NULL;
 			return TRUE;		break;
 	}
 	return FALSE;
 }
 
-static	unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
+unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 {
 	switch (mode)
 	{
 	case CFG_WINDOW:
 		if (data)
 		{
-			if (Mapper.ConfigWindow)
+			if (ConfigWindow)
 				break;
-			Mapper.ConfigWindow = CreateDialog(hInstance,MAKEINTRESOURCE(IDD_MAPPER90),hWnd,(DLGPROC)ConfigProc);
-			SetWindowPos(Mapper.ConfigWindow,hWnd,0,0,0,0,SWP_SHOWWINDOW | SWP_NOSIZE);
+			ConfigWindow = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_MAPPER90), hWnd, (DLGPROC)ConfigProc);
+			SetWindowPos(ConfigWindow, hWnd, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOSIZE);
 		}
 		else	return FALSE;
 		break;
 	case CFG_QUERY:
-		return Mapper.ConfigCmd;
+		return ConfigCmd;
 		break;
 	case CFG_CMD:
 		if (data & 0x80)
 		{
-			Mapper.Jumper = 0;
+			Jumper = 0;
 			if (data & 0x01)
-				Mapper.Jumper |= 0x40;
+				Jumper |= 0x40;
 			if (data & 0x02)
-				Mapper.Jumper |= 0x80;
+				Jumper |= 0x80;
 			if (data & 0x04)
-				Mapper.Jumper |= 0x01;
+				Jumper |= 0x01;
 			SyncNametables();
 		}
-		Mapper.ConfigCmd = 0;
+		ConfigCmd = 0;
 		break;
 	}
 	return 0;
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	Mapper.ConfigWindow = NULL;
+	ConfigWindow = NULL;
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
-	EMU->SetCPUReadHandler(0x5,Read5);
-	EMU->SetCPUWriteHandler(0x5,Write5);
-	EMU->SetCPUWriteHandler(0x8,Write8);
-	EMU->SetCPUWriteHandler(0x9,Write9);
-	EMU->SetCPUWriteHandler(0xA,WriteA);
-	EMU->SetCPUWriteHandler(0xB,WriteB);
-	EMU->SetCPUWriteHandler(0xC,WriteC);
-	EMU->SetCPUWriteHandler(0xD,WriteD);
+	EMU->SetCPUReadHandler(0x5, Read5);
+	EMU->SetCPUWriteHandler(0x5, Write5);
+	EMU->SetCPUWriteHandler(0x8, Write8);
+	EMU->SetCPUWriteHandler(0x9, Write9);
+	EMU->SetCPUWriteHandler(0xA, WriteA);
+	EMU->SetCPUWriteHandler(0xB, WriteB);
+	EMU->SetCPUWriteHandler(0xC, WriteC);
+	EMU->SetCPUWriteHandler(0xD, WriteD);
 	
-	Mapper.ConfigCmd = 0;
+	ConfigCmd = 0;
 	if (ResetType == RESET_HARD)
 	{
-		Mapper.IRQenabled = Mapper.IRQmode = Mapper.IRQcounterL = Mapper.IRQcounterH = Mapper.IRQxor = 0;
-		Mapper.IRQaddr = 0;
-		Mapper.BankMode = Mapper.Mirror = Mapper.MirBank = Mapper.ExtBank = 0;
-		for (x = 0; x < 8; x++)	Mapper.CHRbanks[x].s0 = 0;
-		for (x = 0; x < 4; x++)	Mapper.Nametables[x].s0 = 0;
-		for (x = 0; x < 4; x++)	Mapper.PRGbanks[x] = 0;
-		Mapper.Mul1 = Mapper.Mul2 = 0;
-		Mapper.Jumper = 0;
+		IRQenabled = IRQmode = IRQcounterL = IRQcounterH = IRQxor = 0;
+		IRQaddr = 0;
+		BankMode = Mirror = MirBank = ExtBank = 0;
+		for (x = 0; x < 8; x++)	CHRbanks[x].s0 = 0;
+		for (x = 0; x < 4; x++)	Nametables[x].s0 = 0;
+		for (x = 0; x < 4; x++)	PRGbanks[x] = 0;
+		Mul1 = Mul2 = 0;
+		Jumper = 0;
 	}
 	for (x = 0; x < 16; x++)
 	{
-		Mapper.CPUWrite[x] = EMU->GetCPUWriteHandler(x);
-		EMU->SetCPUWriteHandler(x,CPUWrite);
-		Mapper.PPURead[x] = EMU->GetPPUReadHandler(x);
-		EMU->SetPPUReadHandler(x,PPURead);
+		_CPUWrite[x] = EMU->GetCPUWriteHandler(x);
+		EMU->SetCPUWriteHandler(x, CPUWrite);
+		_PPURead[x] = EMU->GetPPUReadHandler(x);
+		EMU->SetPPUReadHandler(x, PPURead);
 	}
 
 	SyncPRG();
 	SyncCHR();
 	SyncNametables();
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	if (Mapper.ConfigWindow)
-		DestroyWindow(Mapper.ConfigWindow);
+	if (ConfigWindow)
+		DestroyWindow(ConfigWindow);
 }
 
-static	u8 MapperNum = 90;
+u8 MapperNum = 90;
+} // namespace
+
 CTMapperInfo	MapperInfo_090 =
 {
 	&MapperNum,

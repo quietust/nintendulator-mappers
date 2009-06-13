@@ -8,7 +8,9 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_Latch.h"
 
-static	void	Sync (void)
+namespace
+{
+void	Sync (void)
 {
 	union
 	{
@@ -22,35 +24,37 @@ static	void	Sync (void)
 			unsigned         : 2;
 		};
 		u16 addr;
-	}	M;
-	M.addr = Latch.Addr.s0;
+	};
+	addr = Latch::Addr.s0;
 
-	EMU->SetCHR_ROM8(0,M.CHRbank);
-	if (M.PRGsize)
+	EMU->SetCHR_ROM8(0, CHRbank);
+	if (PRGsize)
 	{
-		EMU->SetPRG_ROM16(0x8,(M.PRGbank << 1) | (M.PRG16));
-		EMU->SetPRG_ROM16(0xC,(M.PRGbank << 1) | (M.PRG16));
+		EMU->SetPRG_ROM16(0x8, (PRGbank << 1) | (PRG16));
+		EMU->SetPRG_ROM16(0xC, (PRGbank << 1) | (PRG16));
 	}
-	else	EMU->SetPRG_ROM32(0x8,M.PRGbank);
-	if (M.Mir_HV)
+	else	EMU->SetPRG_ROM32(0x8, PRGbank);
+	if (Mir_HV)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	Latch_Load(Sync,FALSE);
+	Latch::Load(Sync, FALSE);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Latch_Reset(ResetType);
+	Latch::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	Latch_Unload();
+	Latch::Unload();
 }
 
-static	u8 MapperNum = 225;
+u8 MapperNum = 225;
+} // namespace
+
 CTMapperInfo	MapperInfo_225 =
 {
 	&MapperNum,
@@ -61,7 +65,7 @@ CTMapperInfo	MapperInfo_225 =
 	Unload,
 	NULL,
 	NULL,
-	Latch_SaveLoad_A,
+	Latch::SaveLoad_A,
 	NULL,
 	NULL
 };

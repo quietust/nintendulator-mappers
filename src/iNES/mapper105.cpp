@@ -9,165 +9,166 @@
 #include	"..\Hardware\h_MMC1.h"
 #include	"resource.h"
 
-static	struct
+namespace
 {
-	u32 Counter, MaxCount;
-	u8 CounterEnabled;
-	u8 InitState;
-	HWND ConfigWindow;
-	u8 ConfigCmd;
-}	Mapper;
+u32 Counter, MaxCount;
+u8 CounterEnabled;
+u8 InitState;
+HWND ConfigWindow;
+u8 ConfigCmd;
 
-static	void	Sync (void)
+void	Sync (void)
 {
-	u8 CHRlines = MMC1_GetCHRBankLo();
-	MMC1_SyncMirror();
-	MMC1_SyncWRAM();
-	EMU->SetCHR_RAM8(0,0);
-	switch (Mapper.InitState)
+	u8 CHRlines = MMC1::GetCHRBankLo();
+	MMC1::SyncMirror();
+	MMC1::SyncWRAM();
+	EMU->SetCHR_RAM8(0, 0);
+	switch (InitState)
 	{
 	case 2:	if (CHRlines & 0x08)
-			MMC1_SyncPRG(0x7,0x8);
-		else	EMU->SetPRG_ROM32(0x8,(CHRlines >> 1) & 0x3);
+			MMC1::SyncPRG(0x7, 0x8);
+		else	EMU->SetPRG_ROM32(0x8, (CHRlines >> 1) & 0x3);
 		if (CHRlines & 0x10)
 		{
-			Mapper.Counter = 0;
-			Mapper.CounterEnabled = 0;
+			Counter = 0;
+			CounterEnabled = 0;
 			EMU->SetIRQ(1);
 		}
-		else	Mapper.CounterEnabled = 1;
+		else	CounterEnabled = 1;
 		return;				break;
 	case 0:	if (CHRlines & 0x10)
-			Mapper.InitState++;	break;
+			InitState++;	break;
 	case 1:	if (~CHRlines & 0x10)
-			Mapper.InitState++;	break;
+			InitState++;	break;
 	}
-	EMU->SetPRG_ROM32(0x8,0);
+	EMU->SetPRG_ROM32(0x8, 0);
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 Byte = 0;
-	x = MMC1_SaveLoad(mode,x,data);
-	SAVELOAD_LONG(mode,x,data,Mapper.Counter);
+	x = MMC1::SaveLoad(mode, x, data);
+	SAVELOAD_LONG(mode, x, data, Counter);
 	if (mode == STATE_SAVE)
-		Byte = (u8)(Mapper.MaxCount >> 24);
-	SAVELOAD_BYTE(mode,x,data,Byte);
+		Byte = (u8)(MaxCount >> 24);
+	SAVELOAD_BYTE(mode, x, data, Byte);
 	if (mode == STATE_LOAD)
-		Mapper.MaxCount = Byte << 24;
-	SAVELOAD_BYTE(mode,x,data,Mapper.CounterEnabled);
-	SAVELOAD_BYTE(mode,x,data,Mapper.InitState);
+		MaxCount = Byte << 24;
+	SAVELOAD_BYTE(mode, x, data, CounterEnabled);
+	SAVELOAD_BYTE(mode, x, data, InitState);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	CPUCycle (void)
+void	MAPINT	CPUCycle (void)
 {
-	if (!Mapper.CounterEnabled)
+	if (!CounterEnabled)
 		return;
-	Mapper.Counter++;
-	if (!(Mapper.Counter % 1789773))
+	Counter++;
+	if (!(Counter % 1789773))
 	{
-		u32 SecondsLeft = ((Mapper.MaxCount | 0x20000000) - Mapper.Counter) / 1789773;
-		EMU->StatusOut(_T("Time left: %02i:%02i"),SecondsLeft / 60,SecondsLeft % 60);
+		u32 SecondsLeft = ((MaxCount | 0x20000000) - Counter) / 1789773;
+		EMU->StatusOut(_T("Time left: %02i:%02i"), SecondsLeft / 60, SecondsLeft % 60);
 	}
-	if (((Mapper.Counter | (Mapper.MaxCount ^ 0x1E000000)) & 0x3E000000) == 0x3E000000)
+	if (((Counter | (MaxCount ^ 0x1E000000)) & 0x3E000000) == 0x3E000000)
 	{
 		EMU->StatusOut(_T("Time up!"));
 		EMU->SetIRQ(0);
-		Mapper.CounterEnabled = 0;
+		CounterEnabled = 0;
 	}
 }
 
-static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
 		case WM_INITDIALOG:
-			CheckDlgButton(hDlg,IDC_MAPPER105_J0,(Mapper.MaxCount & 0x02000000) ? BST_CHECKED : BST_UNCHECKED);
-			CheckDlgButton(hDlg,IDC_MAPPER105_J1,(Mapper.MaxCount & 0x04000000) ? BST_CHECKED : BST_UNCHECKED);
-			CheckDlgButton(hDlg,IDC_MAPPER105_J2,(Mapper.MaxCount & 0x08000000) ? BST_CHECKED : BST_UNCHECKED);
-			CheckDlgButton(hDlg,IDC_MAPPER105_J3,(Mapper.MaxCount & 0x10000000) ? BST_CHECKED : BST_UNCHECKED);
+			CheckDlgButton(hDlg, IDC_MAPPER105_J0, (MaxCount & 0x02000000) ? BST_CHECKED : BST_UNCHECKED);
+			CheckDlgButton(hDlg, IDC_MAPPER105_J1, (MaxCount & 0x04000000) ? BST_CHECKED : BST_UNCHECKED);
+			CheckDlgButton(hDlg, IDC_MAPPER105_J2, (MaxCount & 0x08000000) ? BST_CHECKED : BST_UNCHECKED);
+			CheckDlgButton(hDlg, IDC_MAPPER105_J3, (MaxCount & 0x10000000) ? BST_CHECKED : BST_UNCHECKED);
 			return FALSE;
 		case WM_COMMAND:
 			switch (LOWORD(wParam))
 			{
 			case IDOK:
-				Mapper.ConfigCmd = 0x80;
-				if (IsDlgButtonChecked(hDlg,IDC_MAPPER105_J0) == BST_CHECKED)
-					Mapper.ConfigCmd |= 0x01;
-				if (IsDlgButtonChecked(hDlg,IDC_MAPPER105_J1) == BST_CHECKED)
-					Mapper.ConfigCmd |= 0x02;
-				if (IsDlgButtonChecked(hDlg,IDC_MAPPER105_J2) == BST_CHECKED)
-					Mapper.ConfigCmd |= 0x04;
-				if (IsDlgButtonChecked(hDlg,IDC_MAPPER105_J3) == BST_CHECKED)
-					Mapper.ConfigCmd |= 0x08;
+				ConfigCmd = 0x80;
+				if (IsDlgButtonChecked(hDlg, IDC_MAPPER105_J0) == BST_CHECKED)
+					ConfigCmd |= 0x01;
+				if (IsDlgButtonChecked(hDlg, IDC_MAPPER105_J1) == BST_CHECKED)
+					ConfigCmd |= 0x02;
+				if (IsDlgButtonChecked(hDlg, IDC_MAPPER105_J2) == BST_CHECKED)
+					ConfigCmd |= 0x04;
+				if (IsDlgButtonChecked(hDlg, IDC_MAPPER105_J3) == BST_CHECKED)
+					ConfigCmd |= 0x08;
 			case IDCANCEL:
-				Mapper.ConfigWindow = NULL;
+				ConfigWindow = NULL;
 				DestroyWindow(hDlg);
 				return TRUE;		break;
 			}
 			break;
 		case WM_CLOSE:
-			Mapper.ConfigWindow = NULL;
+			ConfigWindow = NULL;
 			DestroyWindow(hDlg);
 			return TRUE;		break;
 	}
 	return FALSE;
 }
 
-static	unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
+unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 {
 	switch (mode)
 	{
 	case CFG_WINDOW:
 		if (data)
 		{
-			if (Mapper.ConfigWindow)
+			if (ConfigWindow)
 				break;
-			Mapper.ConfigWindow = CreateDialog(hInstance,MAKEINTRESOURCE(IDD_MAPPER105),hWnd,(DLGPROC)ConfigProc);
-			SetWindowPos(Mapper.ConfigWindow,hWnd,0,0,0,0,SWP_SHOWWINDOW | SWP_NOSIZE);
+			ConfigWindow = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_MAPPER105), hWnd, (DLGPROC)ConfigProc);
+			SetWindowPos(ConfigWindow, hWnd, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOSIZE);
 		}
 		else	return TRUE;
 		break;
 	case CFG_QUERY:
-		return Mapper.ConfigCmd;
+		return ConfigCmd;
 		break;
 	case CFG_CMD:
 		if (data & 0x80)
-			Mapper.MaxCount = (data & 0xF) << 25;
-		Mapper.ConfigCmd = 0;
+			MaxCount = (data & 0xF) << 25;
+		ConfigCmd = 0;
 		break;
 	}
 	return 0;
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	MMC1_Load(Sync);
-	Mapper.ConfigWindow = NULL;
+	MMC1::Load(Sync);
+	ConfigWindow = NULL;
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	if (ResetType == RESET_HARD)
-		Mapper.MaxCount = 0x04000000;
+		MaxCount = 0x04000000;
 
-	Mapper.Counter = 0;
-	Mapper.CounterEnabled = 0;
-	Mapper.InitState = 0;
-	Mapper.ConfigCmd = 0;
+	Counter = 0;
+	CounterEnabled = 0;
+	InitState = 0;
+	ConfigCmd = 0;
 
-	MMC1_Reset(ResetType);
+	MMC1::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC1_Unload();
-	if (Mapper.ConfigWindow)
-		DestroyWindow(Mapper.ConfigWindow);
+	MMC1::Unload();
+	if (ConfigWindow)
+		DestroyWindow(ConfigWindow);
 }
 
-static	u8 MapperNum = 105;
+u8 MapperNum = 105;
+} // namespace
+
 CTMapperInfo	MapperInfo_105 =
 {
 	&MapperNum,

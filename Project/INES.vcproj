@@ -282,6 +282,9 @@
 				<File
 					RelativePath="..\src\Hardware\h_MMC5.cpp">
 				</File>
+				<File
+					RelativePath="..\src\Hardware\h_N118.cpp">
+				</File>
 			</Filter>
 			<Filter
 				Name="Sound Source Files"
@@ -712,6 +715,9 @@
 				</File>
 				<File
 					RelativePath="..\src\Hardware\h_MMC5.h">
+				</File>
+				<File
+					RelativePath="..\src\Hardware\h_N118.h">
 				</File>
 			</Filter>
 			<Filter

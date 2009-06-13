@@ -7,139 +7,140 @@
 
 #include	"..\DLL\d_iNES.h"
 
-static	struct
+namespace
 {
-	u8 IRQenabled;
-	u16 IRQcounter;
-	u16_n IRQlatch;
-	u8 PRG[4];
-	u8 CHR[8];
-	u8 Mirror;
-}	Mapper;
+u8 IRQenabled;
+u16 IRQcounter;
+u16_n IRQlatch;
+u8 PRG[4];
+u8 CHR[8];
+u8 Mirror;
 
-static	void	Sync (void)
+void	Sync (void)
 {
 	u8 x;
-	EMU->SetPRG_RAM8(0x6,0);
+	EMU->SetPRG_RAM8(0x6, 0);
 	for (x = 0; x < 4; x++)
-		EMU->SetPRG_ROM8(8 | (x << 1),Mapper.PRG[x]);
+		EMU->SetPRG_ROM8(8 | (x << 1), PRG[x]);
 	for (x = 0; x < 8; x++)
-		EMU->SetCHR_ROM1(x,Mapper.CHR[x]);
-	if (Mapper.Mirror & 0x40)
+		EMU->SetCHR_ROM1(x, CHR[x]);
+	if (Mirror & 0x40)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
-	SAVELOAD_BYTE(mode,x,data,Mapper.IRQenabled);
-	SAVELOAD_WORD(mode,x,data,Mapper.IRQcounter);
-	SAVELOAD_WORD(mode,x,data,Mapper.IRQlatch.s0);
+	SAVELOAD_BYTE(mode, x, data, IRQenabled);
+	SAVELOAD_WORD(mode, x, data, IRQcounter);
+	SAVELOAD_WORD(mode, x, data, IRQlatch.s0);
 	for (i = 0; i < 3; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.PRG[i]);
+		SAVELOAD_BYTE(mode, x, data, PRG[i]);
 	for (i = 0; i < 8; i++)
-		SAVELOAD_BYTE(mode,x,data,Mapper.CHR[i]);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Mirror);
+		SAVELOAD_BYTE(mode, x, data, CHR[i]);
+	SAVELOAD_BYTE(mode, x, data, Mirror);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	CPUCycle (void)
+void	MAPINT	CPUCycle (void)
 {
-	if ((Mapper.IRQenabled) && (!--Mapper.IRQcounter))
+	if ((IRQenabled) && (!--IRQcounter))
 	{
 		EMU->SetIRQ(0);
-		Mapper.IRQenabled = 0;
+		IRQenabled = 0;
 	}
 }
 
-static	void	MAPINT	Write8 (int Bank, int Addr, int Val)
+void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
 	switch (Addr)
 	{
-	case 0:	Mapper.PRG[0] = Val;
+	case 0:	PRG[0] = Val;
 		Sync();			break;
 	}
 }
 
-static	void	MAPINT	Write9 (int Bank, int Addr, int Val)
+void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	switch (Addr)
 	{
-	case 0:	Mapper.Mirror = Val;
+	case 0:	Mirror = Val;
 		Sync();			break;
-	case 3:	Mapper.IRQenabled = Val & 0x80;
+	case 3:	IRQenabled = Val & 0x80;
 		EMU->SetIRQ(1);				break;
-	case 4:	Mapper.IRQcounter = Mapper.IRQlatch.s0;
+	case 4:	IRQcounter = IRQlatch.s0;
 		EMU->SetIRQ(1);				break;
-	case 5:	Mapper.IRQlatch.b1 = Val;		break;
-	case 6:	Mapper.IRQlatch.b0 = Val;		break;
+	case 5:	IRQlatch.b1 = Val;		break;
+	case 6:	IRQlatch.b0 = Val;		break;
 	}
 }
 
-static	void	MAPINT	WriteA (int Bank, int Addr, int Val)
+void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
 	switch (Addr)
 	{
-	case 0:	Mapper.PRG[1] = Val;
+	case 0:	PRG[1] = Val;
 		Sync();			break;
 	}
 }
 
-static	void	MAPINT	WriteB (int Bank, int Addr, int Val)
+void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	switch (Addr)
 	{
-	case 0:	Mapper.CHR[0] = Val;	break;
-	case 1:	Mapper.CHR[1] = Val;	break;
-	case 2:	Mapper.CHR[2] = Val;	break;
-	case 3:	Mapper.CHR[3] = Val;	break;
-	case 4:	Mapper.CHR[4] = Val;	break;
-	case 5:	Mapper.CHR[5] = Val;	break;
-	case 6:	Mapper.CHR[6] = Val;	break;
-	case 7:	Mapper.CHR[7] = Val;	break;
+	case 0:	CHR[0] = Val;	break;
+	case 1:	CHR[1] = Val;	break;
+	case 2:	CHR[2] = Val;	break;
+	case 3:	CHR[3] = Val;	break;
+	case 4:	CHR[4] = Val;	break;
+	case 5:	CHR[5] = Val;	break;
+	case 6:	CHR[6] = Val;	break;
+	case 7:	CHR[7] = Val;	break;
 	}
 	Sync();
 }
 
-static	void	MAPINT	WriteC (int Bank, int Addr, int Val)
+void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
 	switch (Addr)
 	{
-	case 0:	Mapper.PRG[2] = Val;
+	case 0:	PRG[2] = Val;
 		Sync();			break;
 	}
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
 	iNES_SetSRAM();
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
-	EMU->SetCPUWriteHandler(0x8,Write8);
-	EMU->SetCPUWriteHandler(0x9,Write9);
-	EMU->SetCPUWriteHandler(0xA,WriteA);
-	EMU->SetCPUWriteHandler(0xB,WriteB);
-	EMU->SetCPUWriteHandler(0xC,WriteC);
+	EMU->SetCPUWriteHandler(0x8, Write8);
+	EMU->SetCPUWriteHandler(0x9, Write9);
+	EMU->SetCPUWriteHandler(0xA, WriteA);
+	EMU->SetCPUWriteHandler(0xB, WriteB);
+	EMU->SetCPUWriteHandler(0xC, WriteC);
 
 	if (ResetType == RESET_HARD)
 	{
-		Mapper.PRG[0] = 0;	Mapper.PRG[1] = 1;	Mapper.PRG[2] = 0xFE;	Mapper.PRG[3] = 0xFF;
+		PRG[0] = 0;	PRG[1] = 1;	PRG[2] = 0xFE;	PRG[3] = 0xFF;
 		for (x = 0; x < 8; x++)
-			Mapper.CHR[x] = x;
-		Mapper.IRQenabled = 0;
-		Mapper.IRQcounter = Mapper.IRQlatch.s0 = 0;
+			CHR[x] = x;
+		IRQenabled = 0;
+		IRQcounter = IRQlatch.s0 = 0;
 	}
 
 	Sync();
 }
 
-static	u8 MapperNum = 65;
+u8 MapperNum = 65;
+} // namespace
+
 CTMapperInfo	MapperInfo_065 =
 {
 	&MapperNum,

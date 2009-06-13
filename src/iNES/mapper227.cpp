@@ -8,7 +8,9 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_Latch.h"
 
-static	void	Sync (void)
+namespace
+{
+void	Sync (void)
 {
 	union
 	{
@@ -24,51 +26,53 @@ static	void	Sync (void)
 			unsigned         : 9;
 		};
 		u16 addr;
-	}	M;
-	M.addr = Latch.Addr.s0;
+	};
+	addr = Latch::Addr.s0;
 
-	if (M.Mir_HV)
+	if (Mir_HV)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
-	if (M.PRGsize) 
-		EMU->SetPRG_ROM32(0x8,(M.PRGchip << 4) | (M.PRGbank));
+	if (PRGsize) 
+		EMU->SetPRG_ROM32(0x8, (PRGchip << 4) | (PRGbank));
 	else
 	{
-		EMU->SetPRG_ROM16(0x8,(M.PRGchip << 5) | (M.PRGbank << 1) | (M.PRG16));
-		EMU->SetPRG_ROM16(0xC,(M.PRGchip << 5) | (M.PRGbank << 1) | (M.PRG16));
+		EMU->SetPRG_ROM16(0x8, (PRGchip << 5) | (PRGbank << 1) | (PRG16));
+		EMU->SetPRG_ROM16(0xC, (PRGchip << 5) | (PRGbank << 1) | (PRG16));
 	}
 
-	if (M.CHRprot)
+	if (CHRprot)
 	{
 		int i;
 		for (i = 0; i < 8; i++)
 		{
-			EMU->SetCHR_RAM1(i,i);
-			EMU->SetCHR_Ptr1(i,EMU->GetCHR_Ptr1(i),FALSE);
+			EMU->SetCHR_RAM1(i, i);
+			EMU->SetCHR_Ptr1(i, EMU->GetCHR_Ptr1(i), FALSE);
 		}
 	}
 	else
-	{	EMU->SetCHR_RAM8(0,0);
-		if (M.LastBank)
-			EMU->SetPRG_ROM16(0xC,(M.PRGchip << 5) | (M.PRGbank << 1) |  7);
-		else	EMU->SetPRG_ROM16(0xC,(M.PRGchip << 5) | (M.PRGbank << 1) & ~7);
+	{	EMU->SetCHR_RAM8(0, 0);
+		if (LastBank)
+			EMU->SetPRG_ROM16(0xC, (PRGchip << 5) | (PRGbank << 1) |  7);
+		else	EMU->SetPRG_ROM16(0xC, (PRGchip << 5) | (PRGbank << 1) & ~7);
 	}
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	Latch_Load(Sync,FALSE);
+	Latch::Load(Sync, FALSE);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Latch_Reset(ResetType);
+	Latch::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	Latch_Unload();
+	Latch::Unload();
 }
 
-static	u8 MapperNum = 227;
+u8 MapperNum = 227;
+} // namespace
+
 CTMapperInfo	MapperInfo_227 =
 {
 	&MapperNum,
@@ -79,7 +83,7 @@ CTMapperInfo	MapperInfo_227 =
 	Unload,
 	NULL,
 	NULL,
-	Latch_SaveLoad_A,
+	Latch::SaveLoad_A,
 	NULL,
 	NULL
 };

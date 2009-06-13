@@ -8,55 +8,56 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_MMC3.h"
 
-static	struct
+namespace
 {
-	u8 Reg;
-}	Mapper;
+u8 Reg;
 
-static	void	Sync (void)
+void	Sync (void)
 {
-	MMC3_SyncMirror();
-	MMC3_SyncPRG(0xF,Mapper.Reg << 4);
-	MMC3_SyncCHR_ROM(0x7F,Mapper.Reg << 7);
+	MMC3::SyncMirror();
+	MMC3::SyncPRG(0xF, Reg << 4);
+	MMC3::SyncCHR_ROM(0x7F, Reg << 7);
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	x = MMC3_SaveLoad(mode,x,data);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Reg);
+	x = MMC3::SaveLoad(mode, x, data);
+	SAVELOAD_BYTE(mode, x, data, Reg);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	Write (int Bank, int Addr, int Val)
+void	MAPINT	Write (int Bank, int Addr, int Val)
 {
-	Mapper.Reg = Val & 1;
+	Reg = Val & 1;
 	Sync();
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	MMC3_Load(Sync);
+	MMC3::Load(Sync);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	MMC3_Reset(ResetType);
-	EMU->SetCPUWriteHandler(0x6,Write);
-	EMU->SetCPUWriteHandler(0x7,Write);
+	MMC3::Reset(ResetType);
+	EMU->SetCPUWriteHandler(0x6, Write);
+	EMU->SetCPUWriteHandler(0x7, Write);
 
 	if (ResetType == RESET_HARD)
 	{
-		Mapper.Reg = 0;
+		Reg = 0;
 		Sync();
 	}
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC3_Unload();
+	MMC3::Unload();
 }
 
-static	u8 MapperNum = 47;
+u8 MapperNum = 47;
+} // namespace
+
 CTMapperInfo	MapperInfo_047 =
 {
 	&MapperNum,
@@ -66,7 +67,7 @@ CTMapperInfo	MapperInfo_047 =
 	Reset,
 	Unload,
 	NULL,
-	MMC3_PPUCycle,
+	MMC3::PPUCycle,
 	SaveLoad,
 	NULL,
 	NULL

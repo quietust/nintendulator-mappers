@@ -8,58 +8,59 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_MMC3.h"
 
-static	struct
+namespace
 {
-	u8 Reg1, Reg2;
-}	Mapper;
+u8 Reg1, Reg2;
 
-static	void	Sync (void)
+void	Sync (void)
 {
-	MMC3_SyncMirror();
-	MMC3_SyncPRG(0x3F,0);
-	if (Mapper.Reg1 & 0x80)
-		EMU->SetPRG_ROM16(0x8,Mapper.Reg1 & 0xF);
-	MMC3_SyncCHR_ROM(0xFF,(Mapper.Reg2 & 0x01) << 8);
+	MMC3::SyncMirror();
+	MMC3::SyncPRG(0x3F, 0);
+	if (Reg1 & 0x80)
+		EMU->SetPRG_ROM16(0x8, Reg1 & 0xF);
+	MMC3::SyncCHR_ROM(0xFF, (Reg2 & 0x01) << 8);
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	x = MMC3_SaveLoad(mode,x,data);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Reg1);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Reg2);
+	x = MMC3::SaveLoad(mode, x, data);
+	SAVELOAD_BYTE(mode, x, data, Reg1);
+	SAVELOAD_BYTE(mode, x, data, Reg2);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	Write (int Bank, int Addr, int Val)
+void	MAPINT	Write (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
-		Mapper.Reg2 = Val;
-	else	Mapper.Reg1 = Val;
+		Reg2 = Val;
+	else	Reg1 = Val;
 	Sync();
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	MMC3_Load(Sync);
+	MMC3::Load(Sync);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 
 	for (x = 0x6; x < 0x8; x++)
-		EMU->SetCPUWriteHandler(x,Write);
+		EMU->SetCPUWriteHandler(x, Write);
 	if (ResetType == RESET_HARD)
-		Mapper.Reg1 = Mapper.Reg2 = 0;
-	MMC3_Reset(ResetType);
+		Reg1 = Reg2 = 0;
+	MMC3::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC3_Unload();
+	MMC3::Unload();
 }
 
-static	u8 MapperNum = 115;
+u8 MapperNum = 115;
+} // namespace
+
 CTMapperInfo	MapperInfo_115 =
 {
 	&MapperNum,
@@ -69,7 +70,7 @@ CTMapperInfo	MapperInfo_115 =
 	Reset,
 	Unload,
 	NULL,
-	MMC3_PPUCycle,
+	MMC3::PPUCycle,
 	SaveLoad,
 	NULL,
 	NULL

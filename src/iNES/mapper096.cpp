@@ -8,60 +8,61 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_Latch.h"
 
-static	struct
+namespace
 {
-	u8 Pos;
-}	Mapper;
+u8 Pos;
 
-static	void	Sync (void)
+void	Sync (void)
 {
-	EMU->SetPRG_ROM32(0x8,Latch.Data & 0x3);
-	EMU->SetCHR_RAM4(0,(Latch.Data & 0x4) | Mapper.Pos);
-	EMU->SetCHR_RAM4(4,(Latch.Data & 0x4) | 3);
+	EMU->SetPRG_ROM32(0x8, Latch::Data & 0x3);
+	EMU->SetCHR_RAM4(0, (Latch::Data & 0x4) | Pos);
+	EMU->SetCHR_RAM4(4, (Latch::Data & 0x4) | 3);
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	x = Latch_SaveLoad_D(mode,x,data);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Pos);
+	x = Latch::SaveLoad_D(mode, x, data);
+	SAVELOAD_BYTE(mode, x, data, Pos);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
+void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
 	u8 newpos;
 	if ((Addr & 0x3000) != 0x2000)	return;
 	if ((Addr & 0x3FF) >= 0x3C0)	return;
 	newpos = (Addr >> 8) & 3;
-	if (Mapper.Pos != newpos)
+	if (Pos != newpos)
 	{
-		Mapper.Pos = newpos;
+		Pos = newpos;
 		Sync();
 	}
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	Latch_Load(Sync,FALSE);
+	Latch::Load(Sync, FALSE);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
-	Latch_Reset(ResetType);
+	Latch::Reset(ResetType);
 	if (ResetType == RESET_HARD)
 	{
-		Mapper.Pos = 0;
+		Pos = 0;
 		Sync();
 	}
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	Latch_Unload();
+	Latch::Unload();
 }
 
-static	u8 MapperNum = 96;
+u8 MapperNum = 96;
+} // namespace
+
 CTMapperInfo	MapperInfo_096 =
 {
 	&MapperNum,

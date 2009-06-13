@@ -8,7 +8,9 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_Latch.h"
 
-static	void	Sync (void)
+namespace
+{
+void	Sync (void)
 {
 	union
 	{
@@ -23,29 +25,29 @@ static	void	Sync (void)
 			unsigned         : 4;
 		};
 		u16 addr;
-	}	M;
+	};
 	u8 x;
-	M.addr = Latch.Addr.s0;
+	addr = Latch::Addr.s0;
 
-	EMU->SetCHR_RAM8(0,0);
+	EMU->SetCHR_RAM8(0, 0);
 	
-	if ((M.PRGbank & 0x60) == 0x60)
+	if ((PRGbank & 0x60) == 0x60)
 		for (x = 0x8; x < 0x10; x++)
 			EMU->SetPRG_OB4(x);
-	if (M.PRGsizeL)
-		EMU->SetPRG_ROM32(0x8,M.PRGbank);
+	if (PRGsizeL)
+		EMU->SetPRG_ROM32(0x8, PRGbank);
 	else
 	{
-		EMU->SetPRG_ROM16(0x8,(M.PRGbank << 1) | M.PRG16);
-		EMU->SetPRG_ROM16(0xC,(M.PRGbank << 1) | M.PRG16);
+		EMU->SetPRG_ROM16(0x8, (PRGbank << 1) | PRG16);
+		EMU->SetPRG_ROM16(0xC, (PRGbank << 1) | PRG16);
 	}
-	if (M.PRGhigh)
-		EMU->SetPRG_ROM8(0xE,((M.PRGbank & 0x1F) << 2) | ((M.PRGsizeL ? 1 : M.PRG16) << 1) | 1);
-	if (M.Mir_HV)
+	if (PRGhigh)
+		EMU->SetPRG_ROM8(0xE, ((PRGbank & 0x1F) << 2) | ((PRGsizeL ? 1 : PRG16) << 1) | 1);
+	if (Mir_HV)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 
-	if (M.PRGbank == 0) 
+	if (PRGbank == 0) 
 	{	// hack
 		EMU->GetPRG_Ptr4(0xF)[0x02A7] = 0x6F;
 		EMU->GetPRG_Ptr4(0xF)[0x02A8] = 0xF2;
@@ -54,20 +56,22 @@ static	void	Sync (void)
 	}
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	Latch_Load(Sync,FALSE);
+	Latch::Load(Sync, FALSE);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Latch_Reset(ResetType);
+	Latch::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	Latch_Unload();
+	Latch::Unload();
 }
 
-static	u8 MapperNum = 63;
+u8 MapperNum = 63;
+} // namespace
+
 CTMapperInfo	MapperInfo_063 =
 {
 	&MapperNum,
@@ -78,7 +82,7 @@ CTMapperInfo	MapperInfo_063 =
 	Unload,
 	NULL,
 	NULL,
-	Latch_SaveLoad_A,
+	Latch::SaveLoad_A,
 	NULL,
 	NULL
 };

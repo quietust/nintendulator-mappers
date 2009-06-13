@@ -8,30 +8,34 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_MMC4.h"
 
-static	void	Sync (void)
+namespace
 {
-	MMC4_SyncPRG(0xF,0);
-	MMC4_SyncCHR();
-	MMC4_SyncMirror();
-	EMU->SetPRG_RAM8(0x6,0);
+void	Sync (void)
+{
+	MMC4::SyncPRG(0xF, 0);
+	MMC4::SyncCHR();
+	MMC4::SyncMirror();
+	EMU->SetPRG_RAM8(0x6, 0);
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	MMC4_Load(Sync);
+	MMC4::Load(Sync);
 	iNES_SetSRAM();
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
-	MMC4_Reset(ResetType);
+	MMC4::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC4_Unload();
+	MMC4::Unload();
 }
 
-static	u8 MapperNum = 10;
+u8 MapperNum = 10;
+} // namespace
+
 CTMapperInfo	MapperInfo_010 =
 {
 	&MapperNum,
@@ -42,7 +46,7 @@ CTMapperInfo	MapperInfo_010 =
 	Unload,
 	NULL,
 	NULL,
-	MMC4_SaveLoad,
+	MMC4::SaveLoad,
 	NULL,
 	NULL
 };

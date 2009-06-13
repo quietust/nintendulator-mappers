@@ -8,63 +8,64 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_Latch.h"
 
-static	struct
+namespace
 {
-	u8 Mode;
-}	Mapper;
+u8 Mode;
 
-static	void	Sync (void)
+void	Sync (void)
 {
-	EMU->SetCHR_RAM8(0,0);
-	if (Mapper.Mode)
+	EMU->SetCHR_RAM8(0, 0);
+	if (Mode)
 	{
-		if (Latch.Data & 0x20)
+		if (Latch::Data & 0x20)
 		{
-			EMU->SetPRG_ROM16(0x8,(Latch.Data & 0x1F) + 0x8);
-			EMU->SetPRG_ROM16(0xC,(Latch.Data & 0x1F) + 0x8);
+			EMU->SetPRG_ROM16(0x8, (Latch::Data & 0x1F) + 0x8);
+			EMU->SetPRG_ROM16(0xC, (Latch::Data & 0x1F) + 0x8);
 		}
-		else	EMU->SetPRG_ROM32(0x8,((Latch.Data & 0x1E) >> 1) + 0x4);
-		if (Latch.Data & 0x40)
+		else	EMU->SetPRG_ROM32(0x8, ((Latch::Data & 0x1E) >> 1) + 0x4);
+		if (Latch::Data & 0x40)
 			EMU->Mirror_V();
 		else	EMU->Mirror_H();
 	}
 	else
 	{
-		EMU->SetPRG_ROM16(0x8,Latch.Data & 0x7);
-		EMU->SetPRG_ROM16(0xC,0x7);
+		EMU->SetPRG_ROM16(0x8, Latch::Data & 0x7);
+		EMU->SetPRG_ROM16(0xC, 0x7);
 		EMU->Mirror_V();
 	}
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	x = Latch_SaveLoad_D(mode,x,data);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Mode);
+	x = Latch::SaveLoad_D(mode, x, data);
+	SAVELOAD_BYTE(mode, x, data, Mode);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	Latch_Load(Sync,FALSE);
+	Latch::Load(Sync, FALSE);
 }
 
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	if (ResetType == RESET_HARD)
-		Mapper.Mode = 0;
-	else	Mapper.Mode ^= 1;
+		Mode = 0;
+	else	Mode ^= 1;
 
-	Latch_Reset(ResetType);
+	Latch::Reset(ResetType);
 }
 
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	Latch_Unload();
+	Latch::Unload();
 }
 
-static	u8 MapperNum = 230;
+u8 MapperNum = 230;
+} // namespace
+
 CTMapperInfo	MapperInfo_230 =
 {
 	&MapperNum,

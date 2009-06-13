@@ -8,7 +8,9 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_Latch.h"
 
-static	void	Sync (void)
+namespace
+{
+void	Sync (void)
 {
 	union
 	{
@@ -24,18 +26,18 @@ static	void	Sync (void)
 			unsigned         : 2;
 		};
 		u16 addr;
-	}	M;
+	};
 	u8 openbus = 0;
-	M.addr = Latch.Addr.s0;
+	addr = Latch::Addr.s0;
 
-	if (M.Mir_HV)
+	if (Mir_HV)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 	
-	switch (M.PRGchip)
+	switch (PRGchip)
 	{
 	case 2:	openbus = 1;	break;
-	case 3:	M.PRGchip = 2;	break;
+	case 3:	PRGchip = 2;	break;
 	}
 	if (openbus)
 	{
@@ -44,30 +46,32 @@ static	void	Sync (void)
 	}
 	else
 	{
-		if (M.PRGsize)
+		if (PRGsize)
 		{
-			EMU->SetPRG_ROM16(0x8,(M.PRGchip << 5) | (M.PRGbank << 1) | (M.PRG16));
-			EMU->SetPRG_ROM16(0xC,(M.PRGchip << 5) | (M.PRGbank << 1) | (M.PRG16));
+			EMU->SetPRG_ROM16(0x8, (PRGchip << 5) | (PRGbank << 1) | (PRG16));
+			EMU->SetPRG_ROM16(0xC, (PRGchip << 5) | (PRGbank << 1) | (PRG16));
 		}
-		else EMU->SetPRG_ROM32(0x8,(M.PRGchip << 4) | (M.PRGbank));
+		else EMU->SetPRG_ROM32(0x8, (PRGchip << 4) | (PRGbank));
 	}
-	EMU->SetCHR_ROM8(0,(M.CHRbank << 2) | (Latch.Data & 0x3));
+	EMU->SetCHR_ROM8(0, (CHRbank << 2) | (Latch::Data & 0x3));
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	Latch_Load(Sync,FALSE);
+	Latch::Load(Sync, FALSE);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Latch_Reset(ResetType);
+	Latch::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	Latch_Unload();
+	Latch::Unload();
 }
 
-static	u8 MapperNum = 228;
+u8 MapperNum = 228;
+} // namespace
+
 CTMapperInfo	MapperInfo_228 =
 {
 	&MapperNum,
@@ -78,7 +82,7 @@ CTMapperInfo	MapperInfo_228 =
 	Unload,
 	NULL,
 	NULL,
-	Latch_SaveLoad_AD,
+	Latch::SaveLoad_AD,
 	NULL,
 	NULL
 };

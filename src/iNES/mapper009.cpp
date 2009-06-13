@@ -8,28 +8,32 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_MMC2.h"
 
-static	void	Sync (void)
+namespace
 {
-	MMC2_SyncPRG(0xF,0);
-	MMC2_SyncCHR();
-	MMC2_SyncMirror();
+void	Sync (void)
+{
+	MMC2::SyncPRG(0xF, 0);
+	MMC2::SyncCHR();
+	MMC2::SyncMirror();
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	MMC2_Load(Sync);
+	MMC2::Load(Sync);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
-	MMC2_Reset(ResetType);
+	MMC2::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	MMC2_Unload();
+	MMC2::Unload();
 }
 
-static	u8 MapperNum = 9;
+u8 MapperNum = 9;
+} // namespace
+
 CTMapperInfo	MapperInfo_009 =
 {
 	&MapperNum,
@@ -40,7 +44,7 @@ CTMapperInfo	MapperInfo_009 =
 	Unload,
 	NULL,
 	NULL,
-	MMC2_SaveLoad,
+	MMC2::SaveLoad,
 	NULL,
 	NULL
 };

@@ -8,52 +8,53 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_Latch.h"
 
-static	struct
+namespace
 {
-	u8 Game;
-}	Mapper;
+u8 Game;
 
-static	void	Sync (void)
+void	Sync (void)
 {
-	EMU->SetPRG_ROM32(0x8,((Mapper.Game & 0x0F) << 1) | (Latch.Data & 0x01));
-	EMU->SetCHR_ROM8(0,((Mapper.Game & 0xF0) >> 1) | ((Latch.Data & 0x70) >> 4));
+	EMU->SetPRG_ROM32(0x8, ((Game & 0x0F) << 1) | (Latch::Data & 0x01));
+	EMU->SetCHR_ROM8(0, ((Game & 0xF0) >> 1) | ((Latch::Data & 0x70) >> 4));
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	x = Latch_SaveLoad_D(mode,x,data);
-	SAVELOAD_BYTE(mode,x,data,Mapper.Game);
+	x = Latch::SaveLoad_D(mode, x, data);
+	SAVELOAD_BYTE(mode, x, data, Game);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	Write (int Bank, int Addr, int Val)
+void	MAPINT	Write (int Bank, int Addr, int Val)
 {
-	Mapper.Game = Val;
+	Game = Val;
 	Sync();
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
-	Latch_Load(Sync,FALSE);
+	Latch::Load(Sync, FALSE);
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	u8 x;
 	iNES_SetMirroring();
 	for (x = 0x6; x < 0x8; x++)
-		EMU->SetCPUWriteHandler(x,Write);
+		EMU->SetCPUWriteHandler(x, Write);
 	if (ResetType == RESET_HARD)
-		Mapper.Game = 0;
-	Latch_Reset(ResetType);
+		Game = 0;
+	Latch::Reset(ResetType);
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	Latch_Unload();
+	Latch::Unload();
 }
 
-static	u8 MapperNum = 46;
+u8 MapperNum = 46;
+} // namespace
+
 CTMapperInfo	MapperInfo_046 =
 {
 	&MapperNum,

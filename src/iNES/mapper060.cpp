@@ -7,38 +7,39 @@
 
 #include	"..\DLL\d_iNES.h"
 
-static	struct
+namespace
 {
-	u8 Game;
-}	Mapper;
+u8 Game;
 
-static	void	Sync (void)
+void	Sync (void)
 {
-	EMU->SetCHR_ROM8(0,Mapper.Game);
-	EMU->SetPRG_ROM16(0x8,Mapper.Game);
-	EMU->SetPRG_ROM16(0xC,Mapper.Game);
+	EMU->SetCHR_ROM8(0, Game);
+	EMU->SetPRG_ROM16(0x8, Game);
+	EMU->SetPRG_ROM16(0xC, Game);
 }
 
-static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode,x,data,Mapper.Game);
+	SAVELOAD_BYTE(mode, x, data, Game);
 	if (mode == STATE_LOAD)
 		Sync();
 	return x;
 }
 
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 
 	if (ResetType == RESET_HARD)
-		Mapper.Game = 0;
-	else	Mapper.Game++;
+		Game = 0;
+	else	Game++;
 
 	Sync();
 }
 
-static	u8 MapperNum = 60;
+u8 MapperNum = 60;
+} // namespace
+
 CTMapperInfo	MapperInfo_060 =
 {
 	&MapperNum,

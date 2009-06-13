@@ -8,24 +8,23 @@
 #include	"..\DLL\d_iNES.h"
 #include	"resource.h"
 
+namespace
+{
 typedef	enum	{ BANK_OPEN, BANK_ROM, BANK_RAM, BANK_NT } BANKTYPE;
 
-static struct
-{
-	HWND ConfigWindow;
-	u32 PRG[5], CHR[16];
-	BANKTYPE PRGtype[5], CHRtype[16];
-}	Mapper;
+HWND ConfigWindow;
+u32 PRG[5], CHR[16];
+BANKTYPE PRGtype[5], CHRtype[16];
 
-static	void	Sync (void)
+void	Sync (void)
 {
 	int x;
 	for (x = 0; x < 5; x++)
 	{
-		if (Mapper.PRGtype[x] == BANK_ROM)
-			EMU->SetPRG_ROM8(6 + (x << 1), Mapper.PRG[x]);
-		else if (Mapper.PRGtype[x] == BANK_RAM)
-			EMU->SetPRG_RAM8(6 + (x << 1), Mapper.PRG[x] & 0xF);
+		if (PRGtype[x] == BANK_ROM)
+			EMU->SetPRG_ROM8(6 + (x << 1), PRG[x]);
+		else if (PRGtype[x] == BANK_RAM)
+			EMU->SetPRG_RAM8(6 + (x << 1), PRG[x] & 0xF);
 		else
 		{
 			EMU->SetPRG_OB4(6 + (x << 1));
@@ -35,88 +34,88 @@ static	void	Sync (void)
 
 	for (x = 0; x < 16; x++)
 	{
-		if (Mapper.CHRtype[x] == BANK_ROM)
-			EMU->SetCHR_ROM1(x, Mapper.CHR[x]);
-		else if (Mapper.CHRtype[x] == BANK_RAM)
-			EMU->SetCHR_RAM1(x, Mapper.CHR[x]);
-		else if (Mapper.CHRtype[x] == BANK_NT)
-			EMU->SetCHR_NT1(x, Mapper.CHR[x]);
+		if (CHRtype[x] == BANK_ROM)
+			EMU->SetCHR_ROM1(x, CHR[x]);
+		else if (CHRtype[x] == BANK_RAM)
+			EMU->SetCHR_RAM1(x, CHR[x]);
+		else if (CHRtype[x] == BANK_NT)
+			EMU->SetCHR_NT1(x, CHR[x]);
 		else	EMU->SetCHR_OB1(x);
 	}
 }
 
-static	void	GetPRGBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int CheckOpen, int Slot)
+void	GetPRGBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int CheckOpen, int Slot)
 {
-	SetDlgItemInt(hDlg, Editbox, Mapper.PRG[Slot], TRUE);
-	if (Mapper.PRGtype[Slot] == BANK_ROM)
+	SetDlgItemInt(hDlg, Editbox, PRG[Slot], TRUE);
+	if (PRGtype[Slot] == BANK_ROM)
 		CheckDlgButton(hDlg, CheckROM, BST_CHECKED);
-	else if (Mapper.PRGtype[Slot] == BANK_RAM)
+	else if (PRGtype[Slot] == BANK_RAM)
 		CheckDlgButton(hDlg, CheckRAM, BST_CHECKED);
-	else if (Mapper.PRGtype[Slot] == BANK_OPEN)
+	else if (PRGtype[Slot] == BANK_OPEN)
 		CheckDlgButton(hDlg, CheckOpen, BST_CHECKED);
 	else	EMU->DbgOut(_T("Impossible: no type selected for PRG bank %i!"), Slot);
 }
 
-static	void	SetPRGBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int CheckOpen, int Slot)
+void	SetPRGBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int CheckOpen, int Slot)
 {
 	int Bank = GetDlgItemInt(hDlg, Editbox, NULL, TRUE);
 	if (IsDlgButtonChecked(hDlg, CheckROM) == BST_CHECKED)
 	{
-		Mapper.PRGtype[Slot] = BANK_ROM;
-		Mapper.PRG[Slot] = Bank;
+		PRGtype[Slot] = BANK_ROM;
+		PRG[Slot] = Bank;
 	}
 	else if (IsDlgButtonChecked(hDlg, CheckRAM) == BST_CHECKED)
 	{
-		Mapper.PRGtype[Slot] = BANK_RAM;
-		Mapper.PRG[Slot] = Bank;
+		PRGtype[Slot] = BANK_RAM;
+		PRG[Slot] = Bank;
 	}
 	else if (IsDlgButtonChecked(hDlg, CheckOpen) == BST_CHECKED)
 	{
-		Mapper.PRGtype[Slot] = BANK_OPEN;
-		Mapper.PRG[Slot] = 0;
+		PRGtype[Slot] = BANK_OPEN;
+		PRG[Slot] = 0;
 	}
 	else	EMU->DbgOut(_T("Impossible: no type selected for PRG bank %i!"), Slot);
 	Sync();
 }
 
-static	void	GetCHRBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int CheckNT, int CheckOpen, int Slot)
+void	GetCHRBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int CheckNT, int CheckOpen, int Slot)
 {
-	SetDlgItemInt(hDlg, Editbox, Mapper.CHR[Slot], TRUE);
-	if (Mapper.CHRtype[Slot] == BANK_ROM)
+	SetDlgItemInt(hDlg, Editbox, CHR[Slot], TRUE);
+	if (CHRtype[Slot] == BANK_ROM)
 		CheckDlgButton(hDlg, CheckROM, BST_CHECKED);
-	else if (Mapper.CHRtype[Slot] == BANK_RAM)
+	else if (CHRtype[Slot] == BANK_RAM)
 		CheckDlgButton(hDlg, CheckRAM, BST_CHECKED);
-	else if (Mapper.CHRtype[Slot] == BANK_NT)
+	else if (CHRtype[Slot] == BANK_NT)
 		CheckDlgButton(hDlg, CheckNT, BST_CHECKED);
-	else if (Mapper.CHRtype[Slot] == BANK_OPEN)
+	else if (CHRtype[Slot] == BANK_OPEN)
 		CheckDlgButton(hDlg, CheckOpen, BST_CHECKED);
 	else	EMU->DbgOut(_T("Impossible: no type selected for CHR bank %i!"), Slot);
 	if ((Slot >= 8) && (Slot < 12))
 		GetCHRBank(hDlg, Editbox, CheckROM, CheckRAM, CheckNT, CheckOpen, Slot + 4);
 }
 
-static	void	SetCHRBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int CheckNT, int CheckOpen, int Slot)
+void	SetCHRBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int CheckNT, int CheckOpen, int Slot)
 {
 	int Bank = GetDlgItemInt(hDlg, Editbox, NULL, TRUE);
 	if (IsDlgButtonChecked(hDlg, CheckROM) == BST_CHECKED)
 	{
-		Mapper.CHRtype[Slot] = BANK_ROM;
-		Mapper.CHR[Slot] = Bank;
+		CHRtype[Slot] = BANK_ROM;
+		CHR[Slot] = Bank;
 	}
 	else if (IsDlgButtonChecked(hDlg, CheckRAM) == BST_CHECKED)
 	{
-		Mapper.CHRtype[Slot] = BANK_RAM;
-		Mapper.CHR[Slot] = Bank;
+		CHRtype[Slot] = BANK_RAM;
+		CHR[Slot] = Bank;
 	}
 	else if (IsDlgButtonChecked(hDlg, CheckNT) == BST_CHECKED)
 	{
-		Mapper.CHRtype[Slot] = BANK_NT;
-		Mapper.CHR[Slot] = Bank;
+		CHRtype[Slot] = BANK_NT;
+		CHR[Slot] = Bank;
 	}
 	else if (IsDlgButtonChecked(hDlg, CheckOpen) == BST_CHECKED)
 	{
-		Mapper.CHRtype[Slot] = BANK_OPEN;
-		Mapper.CHR[Slot] = 0;
+		CHRtype[Slot] = BANK_OPEN;
+		CHR[Slot] = 0;
 	}
 	else	EMU->DbgOut(_T("Impossible: no type selected for CHR bank %i!"), Slot);
 	Sync();
@@ -124,7 +123,7 @@ static	void	SetCHRBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int C
 		SetCHRBank(hDlg, Editbox, CheckROM, CheckRAM, CheckNT, CheckOpen, Slot + 4);
 }
 
-static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -173,29 +172,29 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 				return TRUE;		break;
 			case IDCLOSE:
 				DestroyWindow(hDlg);
-				Mapper.ConfigWindow = NULL;
+				ConfigWindow = NULL;
 				return TRUE;		break;
 			}
 			break;
 		case WM_CLOSE:
 			DestroyWindow(hDlg);
-			Mapper.ConfigWindow = NULL;
+			ConfigWindow = NULL;
 			return TRUE;		break;
 	}
 	return FALSE;
 }
 
-static	unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
+unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 {
 	switch (mode)
 	{
 	case CFG_WINDOW:
 		if (data)
 		{
-			if (Mapper.ConfigWindow)
+			if (ConfigWindow)
 				break;
-			Mapper.ConfigWindow = CreateDialog(hInstance,MAKEINTRESOURCE(IDD_MAPPER100),hWnd,(DLGPROC)ConfigProc);
-			SetWindowPos(Mapper.ConfigWindow,hWnd,0,0,0,0,SWP_SHOWWINDOW | SWP_NOSIZE);
+			ConfigWindow = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_MAPPER100), hWnd, (DLGPROC)ConfigProc);
+			SetWindowPos(ConfigWindow, hWnd, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOSIZE);
 		}
 		else	return FALSE;
 		break;
@@ -207,32 +206,34 @@ static	unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-static	void	MAPINT	Load (void)
+void	MAPINT	Load (void)
 {
 	int x;
 	for (x = 0; x < 5; x++)
 	{
-		Mapper.PRG[x] = 0;
-		Mapper.PRGtype[x] = BANK_OPEN;
+		PRG[x] = 0;
+		PRGtype[x] = BANK_OPEN;
 	}
 	for (x = 0; x < 16; x++)
 	{
-		Mapper.CHR[x] = 0;
-		Mapper.CHRtype[x] = BANK_OPEN;
+		CHR[x] = 0;
+		CHRtype[x] = BANK_OPEN;
 	}
-	Mapper.ConfigWindow = NULL;
+	ConfigWindow = NULL;
 }
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	Sync();
 }
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
-	if (Mapper.ConfigWindow)
-		DestroyWindow(Mapper.ConfigWindow);
+	if (ConfigWindow)
+		DestroyWindow(ConfigWindow);
 }
 
-static	u8 MapperNum = 100;
+u8 MapperNum = 100;
+} // namespace
+
 CTMapperInfo	MapperInfo_100 =
 {
 	&MapperNum,
