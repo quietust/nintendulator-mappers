@@ -267,16 +267,16 @@
 				Name="Hardware Source Files"
 				Filter="c;cpp;cxx;tli">
 				<File
-					RelativePath="..\src\Hardware\h_Latch.c">
+					RelativePath="..\src\Hardware\h_Latch.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\h_MMC1.c">
+					RelativePath="..\src\Hardware\h_MMC1.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\h_MMC3.c">
+					RelativePath="..\src\Hardware\h_MMC3.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\h_VS.c">
+					RelativePath="..\src\Hardware\h_VS.cpp">
 				</File>
 			</Filter>
 			<Filter
@@ -287,35 +287,35 @@
 				Name="Mapper Source Files"
 				Filter="c;cpp;cxx;tli">
 				<File
-					RelativePath="..\src\VS\mapper000.c">
+					RelativePath="..\src\VS\mapper000.cpp">
 				</File>
 				<File
-					RelativePath="..\src\VS\mapper001.c">
+					RelativePath="..\src\VS\mapper001.cpp">
 				</File>
 				<File
-					RelativePath="..\src\VS\mapper002.c">
+					RelativePath="..\src\VS\mapper002.cpp">
 				</File>
 				<File
-					RelativePath="..\src\VS\mapper004.c">
+					RelativePath="..\src\VS\mapper004.cpp">
 				</File>
 				<File
-					RelativePath="..\src\VS\mapper068.c">
+					RelativePath="..\src\VS\mapper068.cpp">
 				</File>
 				<File
-					RelativePath="..\src\VS\mapper099.c">
+					RelativePath="..\src\VS\mapper099.cpp">
 				</File>
 				<File
-					RelativePath="..\src\VS\mapper151.c">
+					RelativePath="..\src\VS\mapper151.cpp">
 				</File>
 				<File
-					RelativePath="..\src\VS\unimplemented.c">
+					RelativePath="..\src\VS\unimplemented.cpp">
 				</File>
 			</Filter>
 			<Filter
 				Name="DLL Source Files"
 				Filter="c;cpp;cxx;tli">
 				<File
-					RelativePath="..\src\DLL\d_VS.c">
+					RelativePath="..\src\DLL\d_VS.cpp">
 				</File>
 			</Filter>
 		</Filter>

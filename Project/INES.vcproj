@@ -266,424 +266,424 @@
 				Name="Hardware Source Files"
 				Filter="c;cpp;cxx;tli">
 				<File
-					RelativePath="..\src\Hardware\h_FME7.c">
+					RelativePath="..\src\Hardware\h_FME7.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\h_Latch.c">
+					RelativePath="..\src\Hardware\h_Latch.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\h_MMC1.c">
+					RelativePath="..\src\Hardware\h_MMC1.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\h_MMC2.c">
+					RelativePath="..\src\Hardware\h_MMC2.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\h_MMC3.c">
+					RelativePath="..\src\Hardware\h_MMC3.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\h_MMC4.c">
+					RelativePath="..\src\Hardware\h_MMC4.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\h_MMC5.c">
+					RelativePath="..\src\Hardware\h_MMC5.cpp">
 				</File>
 			</Filter>
 			<Filter
 				Name="Sound Source Files"
 				Filter="c;cpp;cxx;tli">
 				<File
-					RelativePath="..\src\Hardware\Sound\s_FME7.c">
+					RelativePath="..\src\Hardware\Sound\s_FME7.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\Sound\s_MMC5.c">
+					RelativePath="..\src\Hardware\Sound\s_MMC5.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\Sound\s_N106.c">
+					RelativePath="..\src\Hardware\Sound\s_N106.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\Sound\s_VRC6.c">
+					RelativePath="..\src\Hardware\Sound\s_VRC6.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\Sound\s_VRC7.c">
+					RelativePath="..\src\Hardware\Sound\s_VRC7.cpp">
 				</File>
 			</Filter>
 			<Filter
 				Name="Mapper Source Files"
 				Filter="c;cpp;cxx;tli">
 				<File
-					RelativePath="..\src\iNES\mapper000.c">
+					RelativePath="..\src\iNES\mapper000.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper001.c">
+					RelativePath="..\src\iNES\mapper001.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper002.c">
+					RelativePath="..\src\iNES\mapper002.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper003.c">
+					RelativePath="..\src\iNES\mapper003.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper004.c">
+					RelativePath="..\src\iNES\mapper004.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper005.c">
+					RelativePath="..\src\iNES\mapper005.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper007.c">
+					RelativePath="..\src\iNES\mapper007.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper009.c">
+					RelativePath="..\src\iNES\mapper009.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper010.c">
+					RelativePath="..\src\iNES\mapper010.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper011.c">
+					RelativePath="..\src\iNES\mapper011.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper013.c">
+					RelativePath="..\src\iNES\mapper013.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper015.c">
+					RelativePath="..\src\iNES\mapper015.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper016.c">
+					RelativePath="..\src\iNES\mapper016.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper018.c">
+					RelativePath="..\src\iNES\mapper018.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper019.c">
+					RelativePath="..\src\iNES\mapper019.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper021.c">
+					RelativePath="..\src\iNES\mapper021.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper022.c">
+					RelativePath="..\src\iNES\mapper022.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper023.c">
+					RelativePath="..\src\iNES\mapper023.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper024.c">
+					RelativePath="..\src\iNES\mapper024.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper025.c">
+					RelativePath="..\src\iNES\mapper025.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper026.c">
+					RelativePath="..\src\iNES\mapper026.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper032.c">
+					RelativePath="..\src\iNES\mapper032.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper033.c">
+					RelativePath="..\src\iNES\mapper033.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper034.c">
+					RelativePath="..\src\iNES\mapper034.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper037.c">
+					RelativePath="..\src\iNES\mapper037.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper038.c">
+					RelativePath="..\src\iNES\mapper038.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper040.c">
+					RelativePath="..\src\iNES\mapper040.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper041.c">
+					RelativePath="..\src\iNES\mapper041.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper042.c">
+					RelativePath="..\src\iNES\mapper042.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper043.c">
+					RelativePath="..\src\iNES\mapper043.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper044.c">
+					RelativePath="..\src\iNES\mapper044.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper045.c">
+					RelativePath="..\src\iNES\mapper045.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper046.c">
+					RelativePath="..\src\iNES\mapper046.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper047.c">
+					RelativePath="..\src\iNES\mapper047.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper049.c">
+					RelativePath="..\src\iNES\mapper049.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper050.c">
+					RelativePath="..\src\iNES\mapper050.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper051.c">
+					RelativePath="..\src\iNES\mapper051.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper052.c">
+					RelativePath="..\src\iNES\mapper052.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper053.c">
+					RelativePath="..\src\iNES\mapper053.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper056.c">
+					RelativePath="..\src\iNES\mapper056.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper058.c">
+					RelativePath="..\src\iNES\mapper058.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper059.c">
+					RelativePath="..\src\iNES\mapper059.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper060.c">
+					RelativePath="..\src\iNES\mapper060.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper061.c">
+					RelativePath="..\src\iNES\mapper061.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper062.c">
+					RelativePath="..\src\iNES\mapper062.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper063.c">
+					RelativePath="..\src\iNES\mapper063.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper064.c">
+					RelativePath="..\src\iNES\mapper064.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper065.c">
+					RelativePath="..\src\iNES\mapper065.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper066.c">
+					RelativePath="..\src\iNES\mapper066.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper067.c">
+					RelativePath="..\src\iNES\mapper067.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper068.c">
+					RelativePath="..\src\iNES\mapper068.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper069.c">
+					RelativePath="..\src\iNES\mapper069.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper070.c">
+					RelativePath="..\src\iNES\mapper070.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper071.c">
+					RelativePath="..\src\iNES\mapper071.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper073.c">
+					RelativePath="..\src\iNES\mapper073.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper074.c">
+					RelativePath="..\src\iNES\mapper074.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper075.c">
+					RelativePath="..\src\iNES\mapper075.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper076.c">
+					RelativePath="..\src\iNES\mapper076.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper078.c">
+					RelativePath="..\src\iNES\mapper078.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper079.c">
+					RelativePath="..\src\iNES\mapper079.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper080.c">
+					RelativePath="..\src\iNES\mapper080.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper083.c">
+					RelativePath="..\src\iNES\mapper083.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper085.c">
+					RelativePath="..\src\iNES\mapper085.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper086.c">
+					RelativePath="..\src\iNES\mapper086.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper087.c">
+					RelativePath="..\src\iNES\mapper087.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper088.c">
+					RelativePath="..\src\iNES\mapper088.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper089.c">
+					RelativePath="..\src\iNES\mapper089.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper090.c">
+					RelativePath="..\src\iNES\mapper090.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper091.c">
+					RelativePath="..\src\iNES\mapper091.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper093.c">
+					RelativePath="..\src\iNES\mapper093.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper094.c">
+					RelativePath="..\src\iNES\mapper094.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper095.c">
+					RelativePath="..\src\iNES\mapper095.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper096.c">
+					RelativePath="..\src\iNES\mapper096.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper097.c">
+					RelativePath="..\src\iNES\mapper097.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper100.c">
+					RelativePath="..\src\iNES\mapper100.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper105.c">
+					RelativePath="..\src\iNES\mapper105.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper112.c">
+					RelativePath="..\src\iNES\mapper112.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper113.c">
+					RelativePath="..\src\iNES\mapper113.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper114.c">
+					RelativePath="..\src\iNES\mapper114.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper115.c">
+					RelativePath="..\src\iNES\mapper115.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper116.c">
+					RelativePath="..\src\iNES\mapper116.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper118.c">
+					RelativePath="..\src\iNES\mapper118.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper119.c">
+					RelativePath="..\src\iNES\mapper119.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper125.c">
+					RelativePath="..\src\iNES\mapper125.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper126.c">
+					RelativePath="..\src\iNES\mapper126.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper127.c">
+					RelativePath="..\src\iNES\mapper127.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper132.c">
+					RelativePath="..\src\iNES\mapper132.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper137.c">
+					RelativePath="..\src\iNES\mapper137.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper138.c">
+					RelativePath="..\src\iNES\mapper138.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper139.c">
+					RelativePath="..\src\iNES\mapper139.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper140.c">
+					RelativePath="..\src\iNES\mapper140.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper141.c">
+					RelativePath="..\src\iNES\mapper141.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper142.c">
+					RelativePath="..\src\iNES\mapper142.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper143.c">
+					RelativePath="..\src\iNES\mapper143.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper145.c">
+					RelativePath="..\src\iNES\mapper145.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper146.c">
+					RelativePath="..\src\iNES\mapper146.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper147.c">
+					RelativePath="..\src\iNES\mapper147.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper148.c">
+					RelativePath="..\src\iNES\mapper148.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper149.c">
+					RelativePath="..\src\iNES\mapper149.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper150.c">
+					RelativePath="..\src\iNES\mapper150.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper164.c">
+					RelativePath="..\src\iNES\mapper164.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper180.c">
+					RelativePath="..\src\iNES\mapper180.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper182.c">
+					RelativePath="..\src\iNES\mapper182.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper184.c">
+					RelativePath="..\src\iNES\mapper184.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper185.c">
+					RelativePath="..\src\iNES\mapper185.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper188.c">
+					RelativePath="..\src\iNES\mapper188.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper189.c">
+					RelativePath="..\src\iNES\mapper189.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper225.c">
+					RelativePath="..\src\iNES\mapper225.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper226.c">
+					RelativePath="..\src\iNES\mapper226.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper227.c">
+					RelativePath="..\src\iNES\mapper227.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper228.c">
+					RelativePath="..\src\iNES\mapper228.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper229.c">
+					RelativePath="..\src\iNES\mapper229.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper230.c">
+					RelativePath="..\src\iNES\mapper230.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper231.c">
+					RelativePath="..\src\iNES\mapper231.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper232.c">
+					RelativePath="..\src\iNES\mapper232.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper233.c">
+					RelativePath="..\src\iNES\mapper233.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper234.c">
+					RelativePath="..\src\iNES\mapper234.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper235.c">
+					RelativePath="..\src\iNES\mapper235.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper243.c">
+					RelativePath="..\src\iNES\mapper243.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper246.c">
+					RelativePath="..\src\iNES\mapper246.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper250.c">
+					RelativePath="..\src\iNES\mapper250.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\mapper254.c">
+					RelativePath="..\src\iNES\mapper254.cpp">
 				</File>
 				<File
-					RelativePath="..\src\iNES\unimplemented.c">
+					RelativePath="..\src\iNES\unimplemented.cpp">
 				</File>
 			</Filter>
 			<Filter
 				Name="DLL Source Files"
 				Filter="c;cpp;cxx;tli">
 				<File
-					RelativePath="..\src\DLL\d_iNES.c">
+					RelativePath="..\src\DLL\d_iNES.cpp">
 				</File>
 			</Filter>
 		</Filter>

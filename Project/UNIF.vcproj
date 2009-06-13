@@ -267,28 +267,28 @@
 				Name="Hardware Source Files"
 				Filter="c;cpp;cxx;tli">
 				<File
-					RelativePath="..\src\Hardware\h_FME7.c">
+					RelativePath="..\src\Hardware\h_FME7.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\h_Latch.c">
+					RelativePath="..\src\Hardware\h_Latch.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\h_MMC1.c">
+					RelativePath="..\src\Hardware\h_MMC1.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\h_MMC2.c">
+					RelativePath="..\src\Hardware\h_MMC2.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\h_MMC3.c">
+					RelativePath="..\src\Hardware\h_MMC3.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\h_MMC4.c">
+					RelativePath="..\src\Hardware\h_MMC4.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\h_MMC5.c">
+					RelativePath="..\src\Hardware\h_MMC5.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\h_MMC6.c">
+					RelativePath="..\src\Hardware\h_MMC6.cpp">
 				</File>
 			</Filter>
 			<Filter
@@ -298,148 +298,148 @@
 					Name="NES"
 					Filter="c;cpp;cxx;tli">
 					<File
-						RelativePath="..\src\Unif\Nes\NES_AxROM.c">
+						RelativePath="..\src\Unif\Nes\NES_AxROM.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Nes\NES_BxROM.c">
+						RelativePath="..\src\Unif\Nes\NES_BxROM.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Nes\NES_CxROM.c">
+						RelativePath="..\src\Unif\Nes\NES_CxROM.cpp">
 					</File>
 					<File
-						RelativePath="..\src\UNIF\NES\NES_DxROM.c">
+						RelativePath="..\src\UNIF\NES\NES_DxROM.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Nes\NES_ExROM.c">
+						RelativePath="..\src\Unif\Nes\NES_ExROM.cpp">
 					</File>
 					<File
-						RelativePath="..\src\UNIF\NES\NES_FxROM.c">
+						RelativePath="..\src\UNIF\NES\NES_FxROM.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Nes\NES_GxROM.c">
+						RelativePath="..\src\Unif\Nes\NES_GxROM.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Nes\NES_HxROM.c">
+						RelativePath="..\src\Unif\Nes\NES_HxROM.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Nes\NES_JxROM.c">
+						RelativePath="..\src\Unif\Nes\NES_JxROM.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Nes\NES_MxROM.c">
+						RelativePath="..\src\Unif\Nes\NES_MxROM.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Nes\NES_NROM.c">
+						RelativePath="..\src\Unif\Nes\NES_NROM.cpp">
 					</File>
 					<File
-						RelativePath="..\src\UNIF\NES\NES_PxROM.c">
+						RelativePath="..\src\UNIF\NES\NES_PxROM.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Nes\NES_SxROM.c">
+						RelativePath="..\src\Unif\Nes\NES_SxROM.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Nes\NES_TxROM.c">
+						RelativePath="..\src\Unif\Nes\NES_TxROM.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Nes\NES_UxROM.c">
+						RelativePath="..\src\Unif\Nes\NES_UxROM.cpp">
 					</File>
 				</Filter>
 				<Filter
 					Name="BTL"
 					Filter="c;cpp;cxx;tli">
 					<File
-						RelativePath="..\src\Unif\Btl\BTL_MARIO1_MALEE2.c">
+						RelativePath="..\src\Unif\Btl\BTL_MARIO1_MALEE2.cpp">
 					</File>
 				</Filter>
 				<Filter
 					Name="BMC"
 					Filter="c;cpp;cxx;tli">
 					<File
-						RelativePath="..\src\Unif\Bmc\BMC_1991SuperHiK7in1.c">
+						RelativePath="..\src\Unif\Bmc\BMC_1991SuperHiK7in1.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Bmc\BMC_1992Ballgames11in1.c">
+						RelativePath="..\src\Unif\Bmc\BMC_1992Ballgames11in1.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Bmc\BMC_Generic115in1.c">
+						RelativePath="..\src\Unif\Bmc\BMC_Generic115in1.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Bmc\BMC_Generic15in1.c">
+						RelativePath="..\src\Unif\Bmc\BMC_Generic15in1.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Bmc\BMC_Generic20in1.c">
+						RelativePath="..\src\Unif\Bmc\BMC_Generic20in1.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Bmc\BMC_Generic20in1A.c">
+						RelativePath="..\src\Unif\Bmc\BMC_Generic20in1A.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Bmc\BMC_Generic42in1.c">
+						RelativePath="..\src\Unif\Bmc\BMC_Generic42in1.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Bmc\BMC_Generic52in1.c">
+						RelativePath="..\src\Unif\Bmc\BMC_Generic52in1.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Bmc\BMC_Generic76in1.c">
+						RelativePath="..\src\Unif\Bmc\BMC_Generic76in1.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Bmc\BMC_GoldenGame150in1.c">
+						RelativePath="..\src\Unif\Bmc\BMC_GoldenGame150in1.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Bmc\BMC_Mario7in1.c">
+						RelativePath="..\src\Unif\Bmc\BMC_Mario7in1.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Bmc\BMC_NovelDiamond9999999in1.c">
+						RelativePath="..\src\Unif\Bmc\BMC_NovelDiamond9999999in1.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Bmc\BMC_Reset4in1.c">
+						RelativePath="..\src\Unif\Bmc\BMC_Reset4in1.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Bmc\BMC_StudyGame32in1.c">
+						RelativePath="..\src\Unif\Bmc\BMC_StudyGame32in1.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Bmc\BMC_Super1Min1.c">
+						RelativePath="..\src\Unif\Bmc\BMC_Super1Min1.cpp">
 					</File>
 					<File
-						RelativePath="..\src\UNIF\BMC\BMC_Super24in1SC03.c">
+						RelativePath="..\src\UNIF\BMC\BMC_Super24in1SC03.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Bmc\BMC_Super700in1.c">
+						RelativePath="..\src\Unif\Bmc\BMC_Super700in1.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Bmc\BMC_Supervision16in1.c">
+						RelativePath="..\src\Unif\Bmc\BMC_Supervision16in1.cpp">
 					</File>
 					<File
-						RelativePath="..\src\UNIF\BMC\BMC_SV01.c">
+						RelativePath="..\src\UNIF\BMC\BMC_SV01.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Bmc\BMC_T3H53.c">
+						RelativePath="..\src\Unif\Bmc\BMC_T3H53.cpp">
 					</File>
 					<File
-						RelativePath="..\src\UNIF\BMC\BMC_WS.c">
+						RelativePath="..\src\UNIF\BMC\BMC_WS.cpp">
 					</File>
 				</Filter>
 				<Filter
 					Name="UNL"
 					Filter="c;cpp;cxx;tli">
 					<File
-						RelativePath="..\src\UNIF\UNL\UNL_8237.c">
+						RelativePath="..\src\UNIF\UNL\UNL_8237.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Unif\Unl\UNL_A9712.c">
+						RelativePath="..\src\Unif\Unl\UNL_A9712.cpp">
 					</File>
 					<File
-						RelativePath="..\src\UNIF\UNL\UNL_Dripgame.c">
+						RelativePath="..\src\UNIF\UNL\UNL_Dripgame.cpp">
 					</File>
 					<File
-						RelativePath="..\src\UNIF\UNL\UNL_H2288.c">
+						RelativePath="..\src\UNIF\UNL\UNL_H2288.cpp">
 					</File>
 					<File
-						RelativePath="..\src\UNIF\UNL\UNL_Sachen.c">
+						RelativePath="..\src\UNIF\UNL\UNL_Sachen.cpp">
 					</File>
 					<File
-						RelativePath="..\src\UNIF\UNL\UNL_Sachen_74LS374N.c">
+						RelativePath="..\src\UNIF\UNL\UNL_Sachen_74LS374N.cpp">
 					</File>
 					<File
-						RelativePath="..\src\UNIF\UNL\UNL_Sachen_8259.c">
+						RelativePath="..\src\UNIF\UNL\UNL_Sachen_8259.cpp">
 					</File>
 				</Filter>
 			</Filter>
@@ -447,17 +447,17 @@
 				Name="DLL Source Files"
 				Filter="c;cpp;cxx;tli">
 				<File
-					RelativePath="..\src\Dll\d_UNIF.c">
+					RelativePath="..\src\Dll\d_UNIF.cpp">
 				</File>
 			</Filter>
 			<Filter
 				Name="Sound Source Files"
 				Filter="c;cpp;cxx;tli">
 				<File
-					RelativePath="..\src\Hardware\Sound\s_FME7.c">
+					RelativePath="..\src\Hardware\Sound\s_FME7.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\Sound\s_MMC5.c">
+					RelativePath="..\src\Hardware\Sound\s_MMC5.cpp">
 				</File>
 			</Filter>
 		</Filter>

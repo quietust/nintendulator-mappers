@@ -265,28 +265,28 @@
 				Name="Hardware Source Files"
 				Filter="c;cpp;cxx;tli">
 				<File
-					RelativePath="..\src\Hardware\h_FDS.c">
+					RelativePath="..\src\Hardware\h_FDS.cpp">
 				</File>
 			</Filter>
 			<Filter
 				Name="Sound Source Files"
 				Filter="c;cpp;cxx;tli">
 				<File
-					RelativePath="..\src\Hardware\Sound\s_FDS.c">
+					RelativePath="..\src\Hardware\Sound\s_FDS.cpp">
 				</File>
 			</Filter>
 			<Filter
 				Name="Mapper Source Files"
 				Filter="c;cpp;cxx;tli">
 				<File
-					RelativePath="..\src\Fds\FDS_Mapper.c">
+					RelativePath="..\src\Fds\FDS_Mapper.cpp">
 				</File>
 			</Filter>
 			<Filter
 				Name="DLL Source Files"
 				Filter="c;cpp;cxx;tli">
 				<File
-					RelativePath="..\src\Dll\d_FDS.c">
+					RelativePath="..\src\Dll\d_FDS.cpp">
 				</File>
 			</Filter>
 		</Filter>
