@@ -8,16 +8,17 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\resource.h"
 
+struct	MSChan
+{
+	u8 FIFO[256], ReadPos, WritePos;
+	BOOL IsFull, IsEmpty;
+	int freq, vol;
+	int timer;
+	int Pos;
+};
 static	struct
 {
-	struct	MSChan
-	{
-		u8 FIFO[256], ReadPos, WritePos;
-		BOOL IsFull, IsEmpty;
-		int freq, vol;
-		int timer;
-		int Pos;
-	} Chan[2];
+	struct	MSChan Chan[2];
 }	MapSound;
 static	int	MapperSnd_GenerateWave (struct MSChan *Chan, int Cycles)
 {

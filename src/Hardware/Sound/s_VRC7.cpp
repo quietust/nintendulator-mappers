@@ -336,7 +336,7 @@ makeAdjustTable (void)
 
 	AR_ADJUST_TABLE[0] = (1 << EG_BITS);
 	for (i = 1; i < 128; i++)
-		AR_ADJUST_TABLE[i] = (u16) ((double) (1 << EG_BITS) - 1 - (1 << EG_BITS) * log (i) / log (128));
+		AR_ADJUST_TABLE[i] = (u16) ((double) (1 << EG_BITS) - 1 - (1 << EG_BITS) * log ((double)i) / log (128.0));
 }
 
 
@@ -348,7 +348,7 @@ makeDB2LinTable (void)
 
 	for (i = 0; i < DB_MUTE + DB_MUTE; i++)
 	{
-		DB2LIN_TABLE[i] = (s16) ((double) ((1 << DB2LIN_AMP_BITS) - 1) * pow (10, -(double) i * DB_STEP / 20));
+		DB2LIN_TABLE[i] = (s16) ((double) ((1 << DB2LIN_AMP_BITS) - 1) * pow (10.0, -(double) i * DB_STEP / 20));
 		if (i >= DB_MUTE) DB2LIN_TABLE[i] = 0;
 		DB2LIN_TABLE[i + DB_MUTE + DB_MUTE] = (s16) (-DB2LIN_TABLE[i]);
 	}
@@ -399,7 +399,7 @@ makePmTable (void)
 	s32 i;
 
 	for (i = 0; i < PM_PG_WIDTH; i++)
-		pmtable[i] = (s32) ((double) PM_AMP * pow (2, (double) PM_DEPTH * sin (2.0 * PI * i / PM_PG_WIDTH) / 1200));
+		pmtable[i] = (s32) ((double) PM_AMP * pow (2.0, (double) PM_DEPTH * sin (2.0 * PI * i / PM_PG_WIDTH) / 1200));
 }
 
 /* Table for Amp Modulator */

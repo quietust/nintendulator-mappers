@@ -25,7 +25,7 @@ static	void	Sync (void)
 	EMU->SetPRG_RAM4(0x6,0);
 }
 
-static	int	MAPINT	SaveLoad (RESET_TYPE mode, int x, unsigned char *data)
+static	int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
 	u8 i;
 	for (i = 0; i < 4; i++)

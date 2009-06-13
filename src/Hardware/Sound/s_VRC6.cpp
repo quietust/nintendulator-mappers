@@ -10,54 +10,57 @@
 
 // Konami VRC6
 
+struct	VRC6sqr
+{
+	union
+	{
+		struct
+		{
+			unsigned volume	: 4;
+			unsigned duty	: 3;
+			unsigned digital: 1;
+			unsigned freq	:12;
+			unsigned	: 3;
+			unsigned enabled: 1;
+		};
+		struct
+		{
+			unsigned byte0	: 8;
+			unsigned byte1	: 8;
+			unsigned byte2	: 8;
+		};
+	};
+	u8 CurP;
+	s32 LCtr;
+};
+struct	VRC6saw
+{
+	union
+	{
+		struct
+		{
+			unsigned volume	: 6;
+			unsigned 	: 2;
+			unsigned freq	:12;
+			unsigned	: 3;
+			unsigned enabled: 1;
+		};
+		struct
+		{
+			unsigned byte0	: 8;
+			unsigned byte1	: 8;
+			unsigned byte2	: 8;
+		};
+	};
+	u8 CurP;
+	u8 Acc;
+	s32 LCtr;
+};
+
 static	struct	TVRC6sound
 {
-	struct	VRC6sqr
-	{
-		union
-		{
-			struct
-			{
-				unsigned volume	: 4;
-				unsigned duty	: 3;
-				unsigned digital: 1;
-				unsigned freq	:12;
-				unsigned	: 3;
-				unsigned enabled: 1;
-			};
-			struct
-			{
-				unsigned byte0	: 8;
-				unsigned byte1	: 8;
-				unsigned byte2	: 8;
-			};
-		};
-		u8 CurP;
-		s32 LCtr;
-	} Sq0, Sq1;
-	struct	VRC6saw
-	{
-		union
-		{
-			struct
-			{
-				unsigned volume	: 6;
-				unsigned 	: 2;
-				unsigned freq	:12;
-				unsigned	: 3;
-				unsigned enabled: 1;
-			};
-			struct
-			{
-				unsigned byte0	: 8;
-				unsigned byte1	: 8;
-				unsigned byte2	: 8;
-			};
-		};
-		u8 CurP;
-		u8 Acc;
-		s32 LCtr;
-	} Saw;
+	struct	VRC6sqr Sq0, Sq1;
+	struct	VRC6saw Saw;
 }	VRC6sound;
 
 static	int	VRC6_GenerateSaw (struct VRC6saw *ChanData, int Cycles)

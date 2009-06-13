@@ -6,3 +6,5 @@
  */
 
 #include	"..\interface.h"
+
+extern	CTMapperInfo	MapperInfo_NSF;

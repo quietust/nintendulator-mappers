@@ -10,20 +10,22 @@
 
 // Namco 106
 
+struct	N106chan
+{
+	u8 freql, freqm, freqh;
+	u32 freq;
+	u8 len;
+	u8 addr;
+	u8 volume;
+	u8 CurP;
+	u8 CurA;
+	s32 LCtr;
+};
+
 static	struct	TN106sound
 {
 	u8 data[0x80];
-	struct	N106chan
-	{
-		u8 freql, freqm, freqh;
-		u32 freq;
-		u8 len;
-		u8 addr;
-		u8 volume;
-		u8 CurP;
-		u8 CurA;
-		s32 LCtr;
-	} Ch[8];
+	struct	N106chan Ch[8];
 	u8 chans;
 	u8 addr;
 	u8 inc;

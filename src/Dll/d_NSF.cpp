@@ -12,8 +12,6 @@ HINSTANCE		hInstance;
 CPEmulatorInterface	EMU;
 CPROMInfo		ROM;
 
-extern	CTMapperInfo	MapperInfo_NSF;
-
 static	void	MAPINT	UnloadMapper (void)
 {
 	ROM = NULL;

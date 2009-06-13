@@ -32,8 +32,7 @@
 				ProgramDataBaseFileName="$(IntDir)/"
 				WarningLevel="4"
 				DebugInformationFormat="4"
-				CallingConvention="1"
-				CompileAs="1"/>
+				CallingConvention="1"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
@@ -95,8 +94,7 @@
 				ObjectFile="$(IntDir)/"
 				ProgramDataBaseFileName="$(IntDir)/"
 				WarningLevel="4"
-				CallingConvention="1"
-				CompileAs="1"/>
+				CallingConvention="1"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
@@ -154,8 +152,7 @@
 				ProgramDataBaseFileName="$(IntDir)/"
 				WarningLevel="4"
 				DebugInformationFormat="4"
-				CallingConvention="1"
-				CompileAs="1"/>
+				CallingConvention="1"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
@@ -217,8 +214,7 @@
 				ObjectFile="$(IntDir)/"
 				ProgramDataBaseFileName="$(IntDir)/"
 				WarningLevel="4"
-				CallingConvention="1"
-				CompileAs="1"/>
+				CallingConvention="1"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool

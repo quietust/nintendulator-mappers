@@ -7,6 +7,7 @@
 
 #include	"..\..\interface.h"
 #include	"s_FDS.h"
+#include	<math.h>
 
 // Sound code borrowed from NEZplug 0.9.4.8
 
@@ -20,31 +21,36 @@
 #define LIN_BITS 7
 #define LOG_LIN_BITS 30
 
+struct FDS_EG {
+	u8 spd;
+	u8 cnt;
+	u8 mode;
+	u8 volume;
+};
+struct FDS_PG {
+	u32 spdbase;
+	u32 spd;
+	u32 freq;
+};
+struct FDS_WG {
+	u32 phase;
+	s8 wave[0x40];
+	u8 wavptr;
+	s8 output;
+	u8 disable;
+	u8 disable2;
+};
+struct FDS_OP {
+	struct FDS_EG eg;
+	struct FDS_PG pg;
+	struct FDS_WG wg;
+	u8 bias;
+	u8 wavebase;
+	u8 d[2];
+};
+
 typedef struct FDSsound {
-	struct FDS_OP {
-		struct FDS_EG {
-			u8 spd;
-			u8 cnt;
-			u8 mode;
-			u8 volume;
-		} eg;
-		struct FDS_PG {
-			u32 spdbase;
-			u32 spd;
-			u32 freq;
-		} pg;
-		struct FDS_WG {
-			u32 phase;
-			s8 wave[0x40];
-			u8 wavptr;
-			s8 output;
-			u8 disable;
-			u8 disable2;
-		} wg;
-		u8 bias;
-		u8 wavebase;
-		u8 d[2];
-	}	op[2];
+	struct FDS_OP op[2];
 	u32 phasecps;
 	u32 envcnt;
 	u32 envspd;
@@ -62,11 +68,12 @@ static	TFDSsound	FDSsound;
 
 static u32 lineartbl[(1 << LIN_BITS) + 1];
 static u32 logtbl[1 << LOG_BITS];
+/*
 static u32 LinearToLog(s32 l)
 {
 	return (l < 0) ? (lineartbl[-l] + 1) : lineartbl[l];
 }
-
+*/
 static s32 LogToLinear(u32 l, u32 sft)
 {
 	s32 ret;
@@ -88,7 +95,7 @@ static void LogTableInitialize(void)
 	initialized = 1;
 	for (i = 0; i < (1 << LOG_BITS); i++)
 	{
-		a = (1 << LOG_LIN_BITS) / pow(2, i / (double)(1 << LOG_BITS));
+		a = (1 << LOG_LIN_BITS) / pow(2.0, i / (double)(1 << LOG_BITS));
 		logtbl[i] = (u32)a;
 	}
 	lineartbl[0] = LOG_LIN_BITS << LOG_BITS;
@@ -96,7 +103,7 @@ static void LogTableInitialize(void)
 	{
 		u32 ua;
 		a = i << (LOG_LIN_BITS - LIN_BITS);
-		ua = (u32)((LOG_LIN_BITS - (log(a) / log(2))) * (1 << LOG_BITS));
+		ua = (u32)((LOG_LIN_BITS - (log(a) / log(2.0))) * (1 << LOG_BITS));
 		lineartbl[i] = ua << 1;
 	}
 }
