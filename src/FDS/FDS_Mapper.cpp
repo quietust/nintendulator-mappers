@@ -10,17 +10,17 @@
 
 static	void	MAPINT	Load (void)
 {
-	FDS_Load();
+	FDS::Load();
 }
 
 static	void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	FDS_Reset(ResetType);
+	FDS::Reset(ResetType);
 }
 
 static	void	MAPINT	Unload (void)
 {
-	FDS_Unload();
+	FDS::Unload();
 }
 
 CTMapperInfo	MapperInfo_FDS =
@@ -31,9 +31,9 @@ CTMapperInfo	MapperInfo_FDS =
 	Load,
 	Reset,
 	Unload,
-	FDS_CPUCycle,
+	FDS::CPUCycle,
 	NULL,
-	FDS_SaveLoad,
-	FDS_MapperSnd,
-	FDS_Config
+	FDS::SaveLoad,
+	FDS::MapperSnd,
+	FDS::Config
 };

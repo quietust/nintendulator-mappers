@@ -10,14 +10,17 @@
 
 #include	"..\interface.h"
 
-void			FDS_Load	(void);
-void			FDS_Reset	(RESET_TYPE);
-void			FDS_Unload	(void);
-int		MAPINT	FDS_SaveLoad	(STATE_TYPE,int,unsigned char *);
-void		MAPINT	FDS_CPUCycle	(void);
-unsigned char	MAPINT	FDS_Config	(CFG_TYPE,unsigned char);
-int		MAPINT	FDS_MapperSnd	(int);
-int		MAPINT	FDS_Read	(int,int);
-void		MAPINT	FDS_Write	(int,int,int);
+namespace FDS
+{
+void			Load		(void);
+void			Reset		(RESET_TYPE);
+void			Unload		(void);
+int		MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
+void		MAPINT	CPUCycle	(void);
+unsigned char	MAPINT	Config		(CFG_TYPE,unsigned char);
+int		MAPINT	MapperSnd	(int);
+int		MAPINT	Read		(int,int);
+void		MAPINT	Write		(int,int,int);
+} // namespace FDS
 
-#endif	/* H_FDS_H */
+#endif	// H_FDS_H

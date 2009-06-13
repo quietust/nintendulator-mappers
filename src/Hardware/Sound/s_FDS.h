@@ -8,12 +8,14 @@
 #ifndef	S_FDS_H
 #define	S_FDS_H
 
-void		FDSsound_Load		(void);
-void		FDSsound_Reset		(RESET_TYPE);
-void		FDSsound_Unload		(void);
-int		FDSsound_Read		(int);
-void		FDSsound_Write		(int,int);
-int	MAPINT	FDSsound_Get		(int);
-int	MAPINT	FDSsound_SaveLoad	(STATE_TYPE,int,unsigned char *);
-
-#endif	/* S_FDS_H */
+namespace FDSsound
+{
+void		Load		(void);
+void		Reset		(RESET_TYPE);
+void		Unload		(void);
+int		Read		(int);
+void		Write		(int,int);
+int	MAPINT	Get		(int);
+int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
+} // namespace FDSsound
+#endif	// S_FDS_H
