@@ -28,7 +28,9 @@ HINSTANCE		hInstance;
 CPEmulatorInterface	EMU;
 CPROMInfo		ROM;
 
-static	CPMapperInfo	MapperTable[256] =
+namespace
+{
+CPMapperInfo	MapperTable[256] =
 {
 	&MapperInfo_000,&MapperInfo_001,&MapperInfo_002,&MapperInfo_003,&MapperInfo_004,&MapperInfo_005,&MapperInfo_006,&MapperInfo_007,
 	&MapperInfo_008,&MapperInfo_009,&MapperInfo_010,&MapperInfo_011,&MapperInfo_012,&MapperInfo_013,&MapperInfo_014,&MapperInfo_015,
@@ -64,12 +66,12 @@ static	CPMapperInfo	MapperTable[256] =
 	&MapperInfo_248,&MapperInfo_249,&MapperInfo_250,&MapperInfo_251,&MapperInfo_252,&MapperInfo_253,&MapperInfo_254,&MapperInfo_255
 };
 
-static	void	MAPINT	UnloadMapper (void)
+void	MAPINT	UnloadMapper (void)
 {
 	ROM = NULL;
 }
 
-static	CPMapperInfo	MAPINT	LoadMapper (CPROMInfo _ROM)
+CPMapperInfo	MAPINT	LoadMapper (CPROMInfo _ROM)
 {
 	ROM = _ROM;
 	if (ROM->ROMType == ROM_UNDEFINED)
@@ -101,22 +103,23 @@ static	CPMapperInfo	MAPINT	LoadMapper (CPROMInfo _ROM)
 	return MapperTable[ROM->INES_MapperNum];
 }
 
-static	TDLLInfo	DLL_Info =
+TDLLInfo	DLL_Info =
 {
 	_T("VS.DLL by Quietust"),
-	0x20060111,
-	0x00040001,
+	0x20090613,
+	0x00040002,
 	LoadMapper,
 	UnloadMapper
 };
+} // namespace
 
-__declspec(dllexport)	void	MAPINT	UnloadMapperDLL (void)
+extern "C" __declspec(dllexport)	void	MAPINT	UnloadMapperDLL (void)
 {
 	EMU = NULL;
 	hWnd = NULL;
 }
 
-__declspec(dllexport)	PDLLInfo	MAPINT	LoadMapperDLL (HWND hWndEmu, CPEmulatorInterface _EMU, int VersionRequired)
+extern "C" __declspec(dllexport)	PDLLInfo	MAPINT	LoadMapperDLL (HWND hWndEmu, CPEmulatorInterface _EMU, int VersionRequired)
 {
 	hWnd = hWndEmu;
 	EMU = _EMU;

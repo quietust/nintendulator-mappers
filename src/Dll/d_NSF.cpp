@@ -12,12 +12,14 @@ HINSTANCE		hInstance;
 CPEmulatorInterface	EMU;
 CPROMInfo		ROM;
 
-static	void	MAPINT	UnloadMapper (void)
+namespace
+{
+void	MAPINT	UnloadMapper (void)
 {
 	ROM = NULL;
 }
 
-static	CPMapperInfo	MAPINT	LoadMapper (CPROMInfo _ROM)
+CPMapperInfo	MAPINT	LoadMapper (CPROMInfo _ROM)
 {
 	ROM = _ROM;
 	if (ROM->ROMType == ROM_UNDEFINED)	/* Allow enumerating mappers */
@@ -39,22 +41,23 @@ static	CPMapperInfo	MAPINT	LoadMapper (CPROMInfo _ROM)
 	return &MapperInfo_NSF;
 }
 
-static	TDLLInfo	DLL_Info =
+TDLLInfo	DLL_Info =
 {
 	_T("NSF.DLL by Quietust"),
-	0x20060111,
-	0x00040001,
+	0x20090613,
+	0x00040002,
 	LoadMapper,
 	UnloadMapper
 };
+} // namespace
 
-__declspec(dllexport)	void	MAPINT	UnloadMapperDLL (void)
+extern "C" __declspec(dllexport)	void	MAPINT	UnloadMapperDLL (void)
 {
 	EMU = NULL;
 	hWnd = NULL;
 }
 
-__declspec(dllexport)	PDLLInfo	MAPINT	LoadMapperDLL (HWND hWndEmu, CPEmulatorInterface _EMU, int VersionRequired)
+extern "C" __declspec(dllexport)	PDLLInfo	MAPINT	LoadMapperDLL (HWND hWndEmu, CPEmulatorInterface _EMU, int VersionRequired)
 {
 	hWnd = hWndEmu;
 	EMU = _EMU;

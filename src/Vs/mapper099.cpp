@@ -63,6 +63,7 @@ void	MAPINT	Unload (void)
 
 u8 MapperNum = 99;
 } // namespace
+
 CTMapperInfo	MapperInfo_099 =
 {
 	&MapperNum,

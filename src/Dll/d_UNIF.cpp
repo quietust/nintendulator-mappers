@@ -35,9 +35,11 @@ HINSTANCE		hInstance;
 CPEmulatorInterface	EMU;
 CPROMInfo		ROM;
 
+namespace
+{
 CTMapperInfo	MapperInfo_0 = {NULL,NULL,COMPAT_NONE,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
 
-static	CPMapperInfo	BoardTable[] =
+CPMapperInfo	BoardTable[] =
 {
 	/* NES/HVC */
 	&MapperInfo_NES_AMROM	,&MapperInfo_NES_ANROM	,&MapperInfo_NES_AOROM	,
@@ -97,12 +99,12 @@ static	CPMapperInfo	BoardTable[] =
 	&MapperInfo_0
 };
 
-static	void	MAPINT	UnloadMapper (void)
+void	MAPINT	UnloadMapper (void)
 {
 	ROM = NULL;
 }
 
-static	CPMapperInfo	MAPINT	LoadMapper (CPROMInfo _ROM)
+CPMapperInfo	MAPINT	LoadMapper (CPROMInfo _ROM)
 {
 	int x = 0;
 	char *BoardName;
@@ -141,22 +143,23 @@ static	CPMapperInfo	MAPINT	LoadMapper (CPROMInfo _ROM)
 	return NULL;
 }
 
-static	TDLLInfo	DLL_Info =
+TDLLInfo	DLL_Info =
 {
 	_T("UNIF.DLL by Quietust"),
-	0x20060111,
-	0x00040001,
+	0x20090613,
+	0x00040002,
 	LoadMapper,
 	UnloadMapper
 };
+} // namespace
 
-__declspec(dllexport)	void	MAPINT	UnloadMapperDLL (void)
+extern "C" __declspec(dllexport)	void	MAPINT	UnloadMapperDLL (void)
 {
 	EMU = NULL;
 	hWnd = NULL;
 }
 
-__declspec(dllexport)	PDLLInfo	MAPINT	LoadMapperDLL (HWND hWndEmu, CPEmulatorInterface _EMU, int VersionRequired)
+extern "C" __declspec(dllexport)	PDLLInfo	MAPINT	LoadMapperDLL (HWND hWndEmu, CPEmulatorInterface _EMU, int VersionRequired)
 {
 	hWnd = hWndEmu;
 	EMU = _EMU;

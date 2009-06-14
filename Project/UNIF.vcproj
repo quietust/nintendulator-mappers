@@ -288,6 +288,16 @@
 				</File>
 			</Filter>
 			<Filter
+				Name="Sound Source Files"
+				Filter="c;cpp;cxx;tli">
+				<File
+					RelativePath="..\src\Hardware\Sound\s_FME7.cpp">
+				</File>
+				<File
+					RelativePath="..\src\Hardware\Sound\s_MMC5.cpp">
+				</File>
+			</Filter>
+			<Filter
 				Name="Mapper Source Files"
 				Filter="c;cpp;cxx;tli">
 				<Filter
@@ -444,16 +454,6 @@
 				Filter="c;cpp;cxx;tli">
 				<File
 					RelativePath="..\src\Dll\d_UNIF.cpp">
-				</File>
-			</Filter>
-			<Filter
-				Name="Sound Source Files"
-				Filter="c;cpp;cxx;tli">
-				<File
-					RelativePath="..\src\Hardware\Sound\s_FME7.cpp">
-				</File>
-				<File
-					RelativePath="..\src\Hardware\Sound\s_MMC5.cpp">
 				</File>
 			</Filter>
 		</Filter>

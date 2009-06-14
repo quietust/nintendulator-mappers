@@ -44,6 +44,7 @@ void	MAPINT	Reset_NROM_256 (RESET_TYPE ResetType)
 	UNIF_SetMirroring(NULL);
 }
 } // namespace
+
 CTMapperInfo	MapperInfo_NES_NROM_128 =
 {
 	"NES-NROM-128",
