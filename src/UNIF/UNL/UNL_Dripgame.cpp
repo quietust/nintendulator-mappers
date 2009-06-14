@@ -87,7 +87,7 @@ int	MAPINT	MapperSnd (int Cycles)
 {
 	int out = 0;
 	out += Chan[0].GenerateWave(Cycles);
-	out += Chan[0].GenerateWave(Cycles);
+	out += Chan[1].GenerateWave(Cycles);
 	return out << 3;
 }
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
