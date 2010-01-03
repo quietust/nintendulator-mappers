@@ -1,5 +1,5 @@
 /* Nintendulator Mapper DLLs
- * Copyright (C) 2002-2009 QMT Productions
+ * Copyright (C) 2002-2010 QMT Productions
  *
  * $URL$
  * $Id$
@@ -106,7 +106,7 @@ CPMapperInfo	MAPINT	LoadMapper (CPROMInfo _ROM)
 TDLLInfo	DLL_Info =
 {
 	_T("VS.DLL by Quietust"),
-	0x20090613,
+	0x20100102,
 	0x00040002,
 	LoadMapper,
 	UnloadMapper
