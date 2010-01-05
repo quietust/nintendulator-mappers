@@ -95,6 +95,11 @@ CPMapperInfo	MAPINT	LoadMapper (CPROMInfo _ROM)
 		UnloadMapper();
 		return NULL;
 	}
+	if (ROM->INES_MapperNum > 255)
+	{	/* INES 2.0 mappers are not yet supported */
+		UnloadMapper();
+		return NULL;
+	}
 	if (MapperTable[ROM->INES_MapperNum]->Compatibility == COMPAT_NONE)
 	{	/* Don't accept mappers listed with zero compatibility */
 		UnloadMapper();
