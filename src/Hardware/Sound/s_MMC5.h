@@ -17,6 +17,7 @@ void		Write		(int,int);
 int		Read		(int);
 int	MAPINT	Get		(int);
 int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
+BOOL		HaveIRQ		(void);
 } // namespace MMC5sound
 
 #endif	// S_MMC5_H

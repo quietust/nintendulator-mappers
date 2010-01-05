@@ -133,15 +133,25 @@ struct	MMC5Sqr
 		return Pos;
 	}
 } Sqr0, Sqr1;
-unsigned char byte0, byte2, byte3, byte4, byte6, byte7, byte10, byte11, byte15;
+unsigned char byte0, byte2, byte3, byte4, byte6, byte7, byte10, byte15;
+unsigned char IRQreads;
 int PCM;
+FCPURead _CPURead[4];
+
+BOOL	HaveIRQ (void)
+{
+	if (byte10 & IRQreads & 0x80)
+		return TRUE;
+	else	return FALSE;
+}
+int	MAPINT	CPUReadPCM (int Bank, int Addr);
 
 void	Load (void)
 {
 	ZeroMemory(&Sqr0, sizeof(Sqr0));
 	ZeroMemory(&Sqr1, sizeof(Sqr1));
 
-	byte0 = byte2 = byte3 = byte4 = byte6 = byte7 = byte10 = byte11 = byte15 = 0;
+	byte0 = byte2 = byte3 = byte4 = byte6 = byte7 = byte15 = 0;
 	PCM = 0;
 }
 
@@ -149,6 +159,8 @@ void	Reset (RESET_TYPE ResetType)
 {
 	Sqr0.Cycles = 1;
 	Sqr1.Cycles = 1;
+	IRQreads = 0;
+	byte10 = 0;
 }
 
 void	Unload (void)
@@ -165,10 +177,25 @@ void	Write (int Addr, int Val)
 	case 0x5004:	Sqr1.Write(0, byte4 = Val);	break;
 	case 0x5006:	Sqr1.Write(2, byte6 = Val);	break;
 	case 0x5007:	Sqr1.Write(3, byte7 = Val);	break;
-	case 0x5010:	byte10 = Val;
-//			EMU->DbgOut("MMC5 - $5010 set to %02X", Val);
+	case 0x5010:	if ((byte10 ^ Val) & 0x01)
+			{
+				u8 x;
+				for (x = 0; x < 4; x++)
+				{
+					if (Val & 0x01)
+					{
+						_CPURead[x] = EMU->GetCPUReadHandler(0x8 | x);
+						EMU->SetCPUReadHandler(0x8 | x, CPUReadPCM);
+					}
+					else	EMU->SetCPUReadHandler(0x8 | x, _CPURead[x]);
+				}
+			}
+			byte10 = Val;
 			break;
-	case 0x5011:	PCM = byte11 = Val;
+	case 0x5011:	if (!(byte10 & 0x01))
+				PCM = Val;
+			if (PCM == 0)
+				IRQreads = 0x80;
 			break;
 	case 0x5015:	byte15 = Val;
 			Sqr0.Write(4, Val & 0x01);
@@ -182,10 +209,25 @@ int	Read (int Addr)
 	int read = -1;
 	switch (Addr)
 	{
-	case 0x5010:	read = PCM;	break;
-	case 0x5015:	read = ((Sqr0.Timer) ? 1 : 0) | ((Sqr1.Timer) ? 2 : 0);	break;
+	case 0x5010:	read = IRQreads;
+			IRQreads = 0;
+			break;
+	case 0x5015:	read = ((Sqr0.Timer) ? 1 : 0) | ((Sqr1.Timer) ? 2 : 0);
+			break;
 	}
 	return read;
+}
+
+int	MAPINT	CPUReadPCM (int Bank, int Addr)
+{
+	int Val = _CPURead[Bank - 8](Bank,Addr);
+	if (byte10 & 0x01)
+	{
+		PCM = Val;
+		if (PCM == 0)
+			IRQreads = 0x80;
+	}
+	return Val;
 }
 
 int	MAPINT	Get (int Cycles)
@@ -227,9 +269,9 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 	SAVELOAD_BYTE(mode, x, data, byte6);
 	SAVELOAD_BYTE(mode, x, data, byte7);
 	SAVELOAD_BYTE(mode, x, data, byte10);
-	SAVELOAD_BYTE(mode, x, data, byte11);
-	SAVELOAD_BYTE(mode, x, data, byte15);
 	SAVELOAD_BYTE(mode, x, data, PCM);
+	SAVELOAD_BYTE(mode, x, data, byte15);
+	SAVELOAD_BYTE(mode, x, data, IRQreads);
 	return x;
 }
 } // namespace MMC5sound

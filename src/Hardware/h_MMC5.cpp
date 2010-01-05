@@ -141,6 +141,15 @@ const	int	WRAMtable[MMC5WRAM_MAXOPTS][8] = {
 
 void	SetPPUHandlers (void);
 
+void	IRQ_Assert (void)
+{
+	if (IRQenabled & IRQreads & 0x80)
+		EMU->SetIRQ(0);
+	else if (MMC5sound::HaveIRQ())
+		EMU->SetIRQ(0);
+	else	EMU->SetIRQ(1);
+}
+
 void	Load (int _WRAMsize)
 {
 	EMU->Mirror_4();
@@ -411,7 +420,7 @@ int	MAPINT	CPURead5 (int Bank, int Addr)
 		{
 		case 0x204:	read = IRQreads & 0xC0;
 				IRQreads &= ~0x80;
-				EMU->SetIRQ(1);					break;
+				IRQ_Assert();				break;
 		case 0x205:	read = ((Mul1 * Mul2) & 0x00FF) >> 0;	break;
 		case 0x206:	read = ((Mul1 * Mul2) & 0xFF00) >> 8;	break;
 		}							break;
@@ -488,9 +497,8 @@ void	MAPINT	CPUWrite5 (int Bank, int Addr, int Val)
 				}			break;
 		case 0x203:	IRQline = Val;	break;
 		case 0x204:	IRQenabled = Val & 0x80;
-				if (IRQenabled & IRQreads & 0x80)
-					EMU->SetIRQ(0);
-				else	EMU->SetIRQ(1);	break;
+				IRQ_Assert();
+				break;
 		case 0x205:	Mul1 = Val;	break;
 		case 0x206:	Mul2 = Val;	break;
 		}		break;
@@ -643,17 +651,13 @@ void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 		if (Scanline == -1)
 			IRQreads |= 0x01;
 		if (Scanline == 0)
-		{
 			IRQreads &= ~0x80;
-			EMU->SetIRQ(1);
-		}
 		if (Scanline == 1)
 			IRQreads |= 0x40;
 		LineCounter++;
 		if ((IRQline) && (LineCounter == IRQline))
 			IRQreads |= 0x80;
-		if (IRQenabled & IRQreads & 0x80)
-			EMU->SetIRQ(0);
+		IRQ_Assert();
 	}
 	if (Cycle == 256)
 	{
@@ -719,6 +723,8 @@ void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 
 int	MAPINT	MapperSnd (int Cycles)
 {
-	return MMC5sound::Get(Cycles);
+	int result = MMC5sound::Get(Cycles);
+	IRQ_Assert();
+	return result;
 }
 } // namespace MMC5
