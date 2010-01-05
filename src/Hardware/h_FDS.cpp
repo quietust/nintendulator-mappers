@@ -54,13 +54,13 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 #define	IRQ_TIMER	0x01
 #define	IRQ_DISK	0x02
 
-static	__inline void	StartIRQ (u8 flag)
+inline	void	StartIRQ (u8 flag)
 {
 	IOstatus |= flag;
 	EMU->SetIRQ(0);
 }
 
-static	__inline void	EndIRQ (u8 flag)
+inline	void	EndIRQ (u8 flag)
 {
 	IOstatus &= ~flag;
 	if (!IOstatus)
@@ -183,7 +183,7 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 	}
 }
 
-static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	int i;
 	TCHAR buf[256];
