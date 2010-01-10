@@ -20,7 +20,7 @@ struct	N106chan
 	u8 freql, freqm, freqh;
 	u32 freq;
 	u8 len;
-	u8 addr;
+	u8 baseaddr;
 	u8 volume;
 	u8 CurP;
 	u8 CurA;
@@ -39,7 +39,7 @@ struct	N106chan
 			CurA++;
 			while (CurA >= len)
 				CurA -= len;
-			_addr = addr + CurA;
+			_addr = baseaddr + CurA;
 			CurP = regs[_addr >> 1];
 			if (_addr & 1)
 				CurP >>= 4;
@@ -66,7 +66,7 @@ struct	N106chan
 				CurA = 0;
 			}
 			break;
-		case 6:	addr = Val;
+		case 6:	baseaddr = Val;
 			break;
 		case 7:	volume = Val & 0xF;
 			break;
