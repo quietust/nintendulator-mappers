@@ -48,9 +48,9 @@ struct	N106chan
 		}
 		return (CurP - 0x8) * volume;
 	}
-	void	Write (int addr, int Val)
+	void	Write (int Addr, int Val)
 	{
-		switch (addr & 0x7)
+		switch (Addr & 0x7)
 		{
 		case 0:	freql = Val;
 			freq = freql | (freqm << 8) | (freqh << 16);
