@@ -109,7 +109,7 @@ void	Write (int Addr, int Val)
 		if (addr & 0x40)
 		{
 			Ch[(addr & 0x38) >> 3].Write(addr & 0x7, Val);
-			if (addr == 0x3F)
+			if (addr == 0x7F)
 				chans = 1 + ((Val >> 4) & 0x7);
 		}
 		if (inc)
