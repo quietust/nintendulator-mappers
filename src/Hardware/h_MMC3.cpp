@@ -184,7 +184,10 @@ void	MAPINT	CPUWriteAB (int Bank, int Addr, int Val)
 void	MAPINT	CPUWriteCD (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
+	{
+		IRQcounter = 0;
 		IRQreload = 1;
+	}
 	else	IRQlatch = Val;
 }
 
@@ -201,14 +204,12 @@ void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 	if ((!IRQaddr) && (Addr & 0x1000))
 	{
 		unsigned char count = IRQcounter;
-		if (!count || IRQreload)
-		{
+		if (!IRQcounter || IRQreload)
 			IRQcounter = IRQlatch;
-			IRQreload = 0;
-		}
 		else	IRQcounter--;
-		if (count && !IRQcounter && IRQenabled)
+		if ((count || IRQreload) && !IRQcounter && IRQenabled) 
 			EMU->SetIRQ(0);
+		IRQreload = 0;
 	}
 	if (Addr & 0x1000)
 		IRQaddr = 8;
