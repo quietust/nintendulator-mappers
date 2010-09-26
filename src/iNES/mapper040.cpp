@@ -20,7 +20,9 @@ void	Sync (void)
 	EMU->SetPRG_ROM8(0xA, 5);
 	EMU->SetPRG_ROM8(0xC, PRG);
 	EMU->SetPRG_ROM8(0xE, 7);
-	EMU->SetCHR_ROM8(0, 0);
+	if (ROM->INES_CHRSize)
+		EMU->SetCHR_ROM8(0, 0);
+	else	EMU->SetCHR_RAM8(0, 0);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
