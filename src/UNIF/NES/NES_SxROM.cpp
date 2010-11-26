@@ -47,6 +47,26 @@ void	Sync_SGROM (void)
 	MMC1::SyncPRG(0xF, 0);
 	MMC1::SyncCHR_RAM(0x1, 0);
 }
+void	Sync_SHROM (void)
+{
+	MMC1::SyncMirror();
+	MMC1::SyncPRG(0x1, 0);
+	MMC1::SyncCHR_ROM(0x1F, 0);
+}
+void	Sync_SIROM (void)
+{
+	MMC1::SyncMirror();
+	MMC1::SyncPRG(0x1, 0);
+	MMC1::SyncCHR_ROM(0x0F, 0);
+	MMC1::SyncWRAM();
+}
+void	Sync_SJROM (void)
+{
+	MMC1::SyncMirror();
+	MMC1::SyncPRG(0xF, 0);
+	MMC1::SyncCHR_ROM(0x0F, 0);
+	MMC1::SyncWRAM();
+}
 void	Sync_SKROM (void)
 {
 	MMC1::SyncMirror();
@@ -60,11 +80,11 @@ void	Sync_SLROM (void)
 	MMC1::SyncPRG(0xF, 0);
 	MMC1::SyncCHR_ROM(0x1F, 0);
 }
-void	Sync_SL1ROM (void)
+void	Sync_SMROM (void)
 {
 	MMC1::SyncMirror();
-	MMC1::SyncPRG(0x7, 0);
-	MMC1::SyncCHR_ROM(0x1F, 0);
+	MMC1::SyncPRG(0xF, 0);
+	MMC1::SyncCHR_RAM(0x1, 0);
 }
 void	Sync_SNROM (void)
 {
@@ -132,6 +152,20 @@ void	MAPINT	Load_SGROM (void)
 {
 	MMC1::Load(Sync_SGROM);
 }
+void	MAPINT	Load_SHROM (void)
+{
+	MMC1::Load(Sync_SHROM);
+}
+void	MAPINT	Load_SIROM (void)
+{
+	UNIF_SetSRAM(8192);
+	MMC1::Load(Sync_SIROM);
+}
+void	MAPINT	Load_SJROM (void)
+{
+	UNIF_SetSRAM(8192);
+	MMC1::Load(Sync_SJROM);
+}
 void	MAPINT	Load_SKROM (void)
 {
 	UNIF_SetSRAM(8192);
@@ -141,9 +175,9 @@ void	MAPINT	Load_SLROM (void)
 {
 	MMC1::Load(Sync_SLROM);
 }
-void	MAPINT	Load_SL1ROM (void)
+void	MAPINT	Load_SMROM (void)
 {
-	MMC1::Load(Sync_SL1ROM);
+	MMC1::Load(Sync_SGROM);
 }
 void	MAPINT	Load_SNROM (void)
 {
@@ -217,6 +251,20 @@ CTMapperInfo	MapperInfo_NES_SCROM =
 	NULL,
 	NULL
 };
+CTMapperInfo	MapperInfo_NES_SC1ROM =
+{
+	"NES-SC1ROM",
+	_T("MMC1"),
+	COMPAT_FULL,
+	Load_SCROM,
+	Reset,
+	Unload,
+	NULL,
+	NULL,
+	MMC1::SaveLoad,
+	NULL,
+	NULL
+};
 CTMapperInfo	MapperInfo_NES_SEROM =
 {
 	"NES-SEROM",
@@ -259,6 +307,62 @@ CTMapperInfo	MapperInfo_NES_SGROM =
 	NULL,
 	NULL
 };
+CTMapperInfo	MapperInfo_NES_SHROM =
+{
+	"NES-SHROM",
+	_T("MMC1"),
+	COMPAT_FULL,
+	Load_SHROM,
+	Reset,
+	Unload,
+	NULL,
+	NULL,
+	MMC1::SaveLoad,
+	NULL,
+	NULL
+};
+CTMapperInfo	MapperInfo_NES_SH1ROM =
+{
+	"NES-SH1ROM",
+	_T("MMC1"),
+	COMPAT_FULL,
+	Load_SHROM,
+	Reset,
+	Unload,
+	NULL,
+	NULL,
+	MMC1::SaveLoad,
+	NULL,
+	NULL
+};
+CTMapperInfo	MapperInfo_NES_SIROM =
+{
+	"NES-SIROM",
+	_T("MMC1 with CHR-ROM and SRAM"),
+	COMPAT_FULL,
+	Load_SKROM,
+	Reset,
+	Unload,
+	NULL,
+	NULL,
+	MMC1::SaveLoad,
+	NULL,
+	NULL
+};
+CTMapperInfo	MapperInfo_NES_SJROM =
+{
+	"NES-SJROM",
+	_T("MMC1 with CHR-ROM and SRAM"),
+	COMPAT_FULL,
+	Load_SKROM,
+	Reset,
+	Unload,
+	NULL,
+	NULL,
+	MMC1::SaveLoad,
+	NULL,
+	NULL
+};
 CTMapperInfo	MapperInfo_NES_SKROM =
 {
 	"NES-SKROM",
@@ -292,7 +396,63 @@ CTMapperInfo	MapperInfo_NES_SL1ROM =
 	"NES-SL1ROM",
 	_T("MMC1"),
 	COMPAT_FULL,
-	Load_SL1ROM,
+	Load_SLROM,
+	Reset,
+	Unload,
+	NULL,
+	NULL,
+	MMC1::SaveLoad,
+	NULL,
+	NULL
+};
+CTMapperInfo	MapperInfo_NES_SL2ROM =
+{
+	"NES-SL2ROM",
+	_T("MMC1"),
+	COMPAT_FULL,
+	Load_SLROM,
+	Reset,
+	Unload,
+	NULL,
+	NULL,
+	MMC1::SaveLoad,
+	NULL,
+	NULL
+};
+CTMapperInfo	MapperInfo_NES_SL3ROM =
+{
+	"NES-SL3ROM",
+	_T("MMC1"),
+	COMPAT_FULL,
+	Load_SLROM,
+	Reset,
+	Unload,
+	NULL,
+	NULL,
+	MMC1::SaveLoad,
+	NULL,
+	NULL
+};
+CTMapperInfo	MapperInfo_NES_SLRROM =
+{
+	"NES-SLRROM",
+	_T("MMC1"),
+	COMPAT_FULL,
+	Load_SLROM,
+	Reset,
+	Unload,
+	NULL,
+	NULL,
+	MMC1::SaveLoad,
+	NULL,
+	NULL
+};
+CTMapperInfo	MapperInfo_NES_SMROM =
+{
+	"NES-SMROM",
+	_T("MMC1 with CHR-RAM"),
+	COMPAT_FULL,
+	Load_SMROM,
 	Reset,
 	Unload,
 	NULL,
