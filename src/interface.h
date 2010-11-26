@@ -24,12 +24,12 @@
 
 #define	MSGBOX_FLAGS	(MB_OK | MB_ICONERROR | MB_DEFBUTTON1 | MB_APPLMODAL)
 
-/* Mapper Interface version (3.7) */
+/* Mapper Interface version (3.8) */
 
 #ifdef UNICODE
-#define	CurrentMapperInterface	0x80030007
+#define	CurrentMapperInterface	0x80030008
 #else
-#define	CurrentMapperInterface	0x00030007
+#define	CurrentMapperInterface	0x00030008
 #endif
 
 /* Integer types */
@@ -183,13 +183,13 @@ typedef	struct	EmulatorInterface
 }	TEmulatorInterface, *PEmulatorInterface;
 typedef	const	TEmulatorInterface	CTEmulatorInterface, *CPEmulatorInterface;
 
-typedef enum	{ COMPAT_FULL, COMPAT_NEARLY, COMPAT_PARTIAL, COMPAT_NONE } COMPAT_TYPE;
+typedef enum	{ COMPAT_NONE, COMPAT_PARTIAL, COMPAT_NEARLY, COMPAT_FULL, COMPAT_NUMTYPES } COMPAT_TYPE;
 
 /* Mapper Information structure - Contains pointers to mapper functions, sent to emulator on load mapper  */
 
 typedef	enum	{ RESET_NONE, RESET_SOFT, RESET_HARD } RESET_TYPE;
 
-typedef	enum	{ STATE_SAVE, STATE_LOAD, STATE_SIZE } STATE_TYPE;
+typedef	enum	{ STATE_SIZE, STATE_SAVE, STATE_LOAD } STATE_TYPE;
 
 typedef	enum	{ CFG_WINDOW, CFG_QUERY, CFG_CMD } CFG_TYPE;
 
@@ -236,9 +236,9 @@ do { \
 	else MessageBox(hWnd,_T("Invalid save/load type!"),_T(__FILE__),MB_OK); \
 } while (0)
 
-/* ROM Information Structure:- Contains information about the ROM currently loaded */
+/* ROM Information Structure - Contains information about the ROM currently loaded */
 
-typedef	enum	{ ROM_INES, ROM_UNIF, ROM_FDS, ROM_NSF, ROM_UNDEFINED } ROM_TYPE;
+typedef	enum	{ ROM_UNDEFINED, ROM_INES, ROM_UNIF, ROM_FDS, ROM_NSF, ROM_NUMTYPES } ROM_TYPE;
 
 typedef	struct	ROMInfo
 {
