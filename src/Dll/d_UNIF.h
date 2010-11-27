@@ -14,6 +14,7 @@ extern	CTMapperInfo
 /* NES/HVC: Official Nintendo boards */
 	MapperInfo_NES_AMROM,
 	MapperInfo_NES_ANROM,
+	MapperInfo_NES_AN1ROM,
 	MapperInfo_NES_AOROM,
 
 	MapperInfo_NES_BNROM,
@@ -31,6 +32,7 @@ extern	CTMapperInfo
 	MapperInfo_NES_EWROM,
 
 	MapperInfo_NES_FJROM,
+	MapperInfo_NES_FKROM,
 
 	MapperInfo_NES_GNROM,
 
@@ -46,6 +48,7 @@ extern	CTMapperInfo
 	MapperInfo_NES_RROM_128,
 	MapperInfo_NES_NROM_256,
 
+	MapperInfo_NES_PEEOROM,
 	MapperInfo_NES_PNROM,
 
 	MapperInfo_NES_SAROM,
@@ -71,13 +74,22 @@ extern	CTMapperInfo
 	MapperInfo_NES_SUROM,
 	MapperInfo_NES_SXROM,
 
+	MapperInfo_NES_TBROM,
+	MapperInfo_NES_TEROM,
 	MapperInfo_NES_TFROM,
 	MapperInfo_NES_TGROM,
 	MapperInfo_NES_TKROM,
+	MapperInfo_NES_TKSROM,
 	MapperInfo_NES_TLROM,
 	MapperInfo_NES_TL1ROM,
+	MapperInfo_NES_TL2ROM,
+	MapperInfo_NES_TLSROM,
+	MapperInfo_NES_TNROM,
+	MapperInfo_NES_TQROM,
 	MapperInfo_NES_TR1ROM,
 	MapperInfo_NES_TSROM,
+	MapperInfo_NES_TVROM,
+
 	MapperInfo_NES_UNROM,
 	MapperInfo_NES_UOROM,
 

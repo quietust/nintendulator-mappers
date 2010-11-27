@@ -10,6 +10,12 @@
 
 namespace
 {
+void	Sync_PEEOROM (void)
+{
+	MMC2::SyncPRG(0xF, 0);
+	MMC2::SyncCHR();
+	MMC2::SyncMirror();
+}
 void	Sync_PNROM (void)
 {
 	MMC2::SyncPRG(0xF, 0);
@@ -17,6 +23,10 @@ void	Sync_PNROM (void)
 	MMC2::SyncMirror();
 }
 
+void	MAPINT	Load_PEEOROM (void)
+{
+	MMC2::Load(Sync_PEEOROM);
+}
 void	MAPINT	Load_PNROM (void)
 {
 	MMC2::Load(Sync_PNROM);
@@ -31,6 +41,20 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
+CTMapperInfo	MapperInfo_NES_PEEOROM =
+{
+	"NES-PEEOROM",
+	_T("MMC2 with EPROM support"),
+	COMPAT_FULL,
+	Load_PNROM,
+	Reset,
+	Unload,
+	NULL,
+	NULL,
+	MMC2::SaveLoad,
+	NULL,
+	NULL
+};
 CTMapperInfo	MapperInfo_NES_PNROM =
 {
 	"NES-PNROM",

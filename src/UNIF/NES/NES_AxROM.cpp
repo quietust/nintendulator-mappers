@@ -26,6 +26,14 @@ void	Sync_ANROM (void)
 		EMU->Mirror_S1();
 	else	EMU->Mirror_S0();
 }
+void	Sync_AN1ROM (void)
+{
+	EMU->SetPRG_ROM32(0x8, Latch::Data & 0x1);
+	EMU->SetCHR_RAM8(0, 0);
+	if (Latch::Data & 0x10)
+		EMU->Mirror_S1();
+	else	EMU->Mirror_S0();
+}
 void	Sync_AOROM (void)
 {
 	EMU->SetPRG_ROM32(0x8, Latch::Data & 0x7);
@@ -42,6 +50,10 @@ void	MAPINT	Load_AMROM (void)
 void	MAPINT	Load_ANROM (void)
 {
 	Latch::Load(Sync_ANROM, FALSE);
+}
+void	MAPINT	Load_AN1ROM (void)
+{
+	Latch::Load(Sync_AN1ROM, FALSE);
 }
 void	MAPINT	Load_AOROM (void)
 {
@@ -77,6 +89,20 @@ CTMapperInfo	MapperInfo_NES_ANROM =
 	_T("Standard 32KB PRG switch with nametable select"),
 	COMPAT_FULL,
 	Load_ANROM,
+	Reset,
+	Unload,
+	NULL,
+	NULL,
+	Latch::SaveLoad_D,
+	NULL,
+	NULL
+};
+CTMapperInfo	MapperInfo_NES_AN1ROM =
+{
+	"NES-AN1ROM",
+	_T("Standard 32KB PRG switch with nametable select"),
+	COMPAT_FULL,
+	Load_AN1ROM,
 	Reset,
 	Unload,
 	NULL,
