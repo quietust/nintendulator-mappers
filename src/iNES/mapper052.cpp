@@ -90,7 +90,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 52;
 } // namespace
 
-CTMapperInfo	MapperInfo_052 =
+const MapperInfo MapperInfo_052 =
 {
 	&MapperNum,
 	_T("Mario 7 in 1 (MMC3)"),

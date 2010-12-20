@@ -144,7 +144,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 83;
 } // namespace
 
-CTMapperInfo	MapperInfo_083 =
+const MapperInfo MapperInfo_083 =
 {
 	&MapperNum,
 	_T("Cony"),

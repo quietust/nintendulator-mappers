@@ -40,7 +40,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 60;
 } // namespace
 
-CTMapperInfo	MapperInfo_060 =
+const MapperInfo MapperInfo_060 =
 {
 	&MapperNum,
 	_T("Reset-triggered 4-in-1"),

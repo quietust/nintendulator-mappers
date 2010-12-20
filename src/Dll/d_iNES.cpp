@@ -25,12 +25,12 @@ void	iNES_SetSRAM (void)
 
 HWND			hWnd;
 HINSTANCE		hInstance;
-CPEmulatorInterface	EMU;
-CPROMInfo		ROM;
+const EmulatorInterface	*EMU;
+const ROMInfo		*ROM;
 
 namespace
 {
-CPMapperInfo	MapperTable[256] =
+const MapperInfo *MapperTable[256] =
 {
 	&MapperInfo_000,&MapperInfo_001,&MapperInfo_002,&MapperInfo_003,&MapperInfo_004,&MapperInfo_005,&MapperInfo_006,&MapperInfo_007,
 	&MapperInfo_008,&MapperInfo_009,&MapperInfo_010,&MapperInfo_011,&MapperInfo_012,&MapperInfo_013,&MapperInfo_014,&MapperInfo_015,
@@ -71,7 +71,7 @@ void	MAPINT	UnloadMapper (void)
 	ROM = NULL;
 }
 
-CPMapperInfo	MAPINT	LoadMapper (CPROMInfo _ROM)
+const MapperInfo *MAPINT	LoadMapper (const ROMInfo *_ROM)
 {
 	ROM = _ROM;
 	if (ROM->ROMType == ROM_UNDEFINED)
@@ -82,7 +82,7 @@ CPMapperInfo	MAPINT	LoadMapper (CPROMInfo _ROM)
 			UnloadMapper();
 			return NULL;
 		}
-		((PROMInfo)ROM)->ROMType = ROM_INES;
+		((ROMInfo *)ROM)->ROMType = ROM_INES;
 		return MapperTable[i];
 	}
 	if (ROM->ROMType != ROM_INES)
@@ -108,7 +108,7 @@ CPMapperInfo	MAPINT	LoadMapper (CPROMInfo _ROM)
 	return MapperTable[ROM->INES_MapperNum];
 }
 
-TDLLInfo	DLL_Info =
+DLLInfo	DLL_Info =
 {
 	_T("INES.DLL by Quietust"),
 	0x20100102,
@@ -124,7 +124,7 @@ extern "C" __declspec(dllexport)	void	MAPINT	UnloadMapperDLL (void)
 	hWnd = NULL;
 }
 
-extern "C" __declspec(dllexport)	PDLLInfo	MAPINT	LoadMapperDLL (HWND hWndEmu, CPEmulatorInterface _EMU, int VersionRequired)
+extern "C" __declspec(dllexport)	DLLInfo	*MAPINT	LoadMapperDLL (HWND hWndEmu, const EmulatorInterface *_EMU, int VersionRequired)
 {
 	hWnd = hWndEmu;
 	EMU = _EMU;

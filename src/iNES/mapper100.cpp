@@ -10,7 +10,7 @@
 
 namespace
 {
-typedef	enum	{ BANK_OPEN, BANK_ROM, BANK_RAM, BANK_NT } BANKTYPE;
+enum BANKTYPE	{ BANK_OPEN, BANK_ROM, BANK_RAM, BANK_NT };
 
 HWND ConfigWindow;
 u32 PRG[5], CHR[16];
@@ -234,7 +234,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 100;
 } // namespace
 
-CTMapperInfo	MapperInfo_100 =
+const MapperInfo MapperInfo_100 =
 {
 	&MapperNum,
 	_T("Debugging Mapper"),

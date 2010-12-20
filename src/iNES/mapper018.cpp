@@ -203,7 +203,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 18;
 } // namespace
 
-CTMapperInfo	MapperInfo_018 =
+const MapperInfo MapperInfo_018 =
 {
 	&MapperNum,
 	_T("Jaleco SS8806"),

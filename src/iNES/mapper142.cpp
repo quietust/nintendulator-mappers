@@ -120,7 +120,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 142;
 } // namespace
 
-CTMapperInfo	MapperInfo_142 =
+const MapperInfo MapperInfo_142 =
 {
 	&MapperNum,
 	_T("SMB2j Pirate (KS 202)"),

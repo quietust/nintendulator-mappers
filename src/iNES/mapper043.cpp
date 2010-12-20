@@ -172,7 +172,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 43;
 } // namespace
 
-CTMapperInfo	MapperInfo_043 =
+const MapperInfo MapperInfo_043 =
 {
 	&MapperNum,
 	_T("SMB2j (LF36)"),

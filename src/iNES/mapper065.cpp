@@ -141,7 +141,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 65;
 } // namespace
 
-CTMapperInfo	MapperInfo_065 =
+const MapperInfo MapperInfo_065 =
 {
 	&MapperNum,
 	_T("Irem H-3001"),

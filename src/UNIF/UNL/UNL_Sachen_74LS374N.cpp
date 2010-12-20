@@ -81,7 +81,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_UNL_Sachen_74LS374N =
+const MapperInfo MapperInfo_UNL_Sachen_74LS374N =
 {
 	"UNL-Sachen-74LS374N",
 	_T("Sachen mapper"),

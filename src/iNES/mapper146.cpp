@@ -52,7 +52,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 146;
 } // namespace
 
-CTMapperInfo	MapperInfo_146 =
+const MapperInfo MapperInfo_146 =
 {
 	&MapperNum,
 	_T("Sachen (TC-3015-72P-VX/SA-016-1M/SA-010-1)"),

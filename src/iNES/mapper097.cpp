@@ -42,7 +42,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 97;
 } // namespace
 
-CTMapperInfo	MapperInfo_097 =
+const MapperInfo MapperInfo_097 =
 {
 	&MapperNum,
 	_T("Kid Niki (J)"),

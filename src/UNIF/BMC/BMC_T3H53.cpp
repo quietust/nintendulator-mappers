@@ -118,7 +118,7 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_BMC_T3H53 =
+const MapperInfo MapperInfo_BMC_T3H53 =
 {
 	"BMC-T3H53",
 	_T("Pirate multicart mapper with dipswitches"),

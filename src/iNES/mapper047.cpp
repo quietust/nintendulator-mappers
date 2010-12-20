@@ -58,7 +58,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 47;
 } // namespace
 
-CTMapperInfo	MapperInfo_047 =
+const MapperInfo MapperInfo_047 =
 {
 	&MapperNum,
 	_T("Super Spike & Nintendo World Cup Soccer (MMC3)"),

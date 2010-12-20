@@ -10,7 +10,7 @@
 void	UNIF_SetMirroring (FSync);
 void	UNIF_SetSRAM (int);
 
-extern	CTMapperInfo
+extern	const MapperInfo
 /* NES/HVC: Official Nintendo boards */
 	MapperInfo_NES_AMROM,
 	MapperInfo_NES_ANROM,

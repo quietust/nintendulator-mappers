@@ -34,7 +34,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 13;
 } // namespace
 
-CTMapperInfo	MapperInfo_013 =
+const MapperInfo MapperInfo_013 =
 {
 	&MapperNum,
 	_T("CPROM"),

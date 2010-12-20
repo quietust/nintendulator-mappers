@@ -32,7 +32,7 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_NES_HKROM =
+const MapperInfo MapperInfo_NES_HKROM =
 {
 	"NES-HKROM",
 	_T("MMC6"),

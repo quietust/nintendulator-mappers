@@ -206,7 +206,7 @@ u8 MapperNum = 24;
 u8 MapperNum2 = 26;
 } // namespace
 
-CTMapperInfo	MapperInfo_024 =
+const MapperInfo MapperInfo_024 =
 {
 	&MapperNum,
 	_T("Konami VRC6 (A0/A1)"),
@@ -221,7 +221,7 @@ CTMapperInfo	MapperInfo_024 =
 	NULL
 };
 
-CTMapperInfo	MapperInfo_026 =
+const MapperInfo MapperInfo_026 =
 {
 	&MapperNum2,
 	_T("Konami VRC6 (A1/A0)"),

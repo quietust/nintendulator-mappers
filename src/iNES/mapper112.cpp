@@ -114,7 +114,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 112;
 } // namespace
 
-CTMapperInfo	MapperInfo_112 =
+const MapperInfo MapperInfo_112 =
 {
 	&MapperNum,
 	_T("Mapper 112 (Asder)"),

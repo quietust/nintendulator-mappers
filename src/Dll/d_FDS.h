@@ -7,4 +7,4 @@
 
 #include	"..\interface.h"
 
-extern	CTMapperInfo	MapperInfo_FDS;
+extern	const MapperInfo MapperInfo_FDS;

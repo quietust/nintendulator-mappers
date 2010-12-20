@@ -37,7 +37,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 66;
 } // namespace
 
-CTMapperInfo	MapperInfo_066 =
+const MapperInfo MapperInfo_066 =
 {
 	&MapperNum,
 	_T("GNROM/compatible"),

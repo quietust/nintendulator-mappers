@@ -31,7 +31,7 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_NES_GNROM =
+const MapperInfo MapperInfo_NES_GNROM =
 {
 	"NES-GNROM",
 	_T("Standard 32KB PRG/8KB CHR switch"),

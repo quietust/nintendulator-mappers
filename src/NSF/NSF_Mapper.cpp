@@ -629,7 +629,7 @@ void	MAPINT	Unload (void)
 		FME7sound::Unload();
 }
 } // namespace
-CTMapperInfo	MapperInfo_NSF =
+const MapperInfo MapperInfo_NSF =
 {
 	NULL,
 	_T("NES Sound File"),

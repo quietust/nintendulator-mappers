@@ -48,7 +48,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 87;
 } // namespace
 
-CTMapperInfo	MapperInfo_087 =
+const MapperInfo MapperInfo_087 =
 {
 	&MapperNum,
 	_T("Jaleco 74138/7474"),

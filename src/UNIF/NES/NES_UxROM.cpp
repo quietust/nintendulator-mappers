@@ -42,7 +42,7 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_NES_UNROM =
+const MapperInfo MapperInfo_NES_UNROM =
 {
 	"NES-UNROM",
 	_T("Standard 16KB PRG switch"),
@@ -56,7 +56,7 @@ CTMapperInfo	MapperInfo_NES_UNROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_UOROM =
+const MapperInfo MapperInfo_NES_UOROM =
 {
 	"NES-UOROM",
 	_T("Oversize 16KB PRG switch"),

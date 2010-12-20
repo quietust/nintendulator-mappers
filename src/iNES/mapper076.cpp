@@ -97,7 +97,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 76;
 } // namespace
 
-CTMapperInfo	MapperInfo_076 =
+const MapperInfo MapperInfo_076 =
 {
 	&MapperNum,
 	_T("Mapper 76"),

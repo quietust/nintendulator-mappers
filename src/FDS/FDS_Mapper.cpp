@@ -23,7 +23,7 @@ static	void	MAPINT	Unload (void)
 	FDS::Unload();
 }
 
-CTMapperInfo	MapperInfo_FDS =
+const MapperInfo MapperInfo_FDS =
 {
 	NULL,
 	_T("Famicom Disk System"),

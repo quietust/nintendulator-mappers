@@ -180,7 +180,7 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_NES_TBROM =
+const MapperInfo MapperInfo_NES_TBROM =
 {
 	"NES-TBROM",
 	_T("MMC3 with small PRG-ROM"),
@@ -194,7 +194,7 @@ CTMapperInfo	MapperInfo_NES_TBROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_TEROM =
+const MapperInfo MapperInfo_NES_TEROM =
 {
 	"NES-TEROM",
 	_T("MMC3 with small PRG-ROM and optional hardwired mirroring"),
@@ -208,7 +208,7 @@ CTMapperInfo	MapperInfo_NES_TEROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_TFROM =
+const MapperInfo MapperInfo_NES_TFROM =
 {
 	"NES-TFROM",
 	_T("MMC3 with optional hardwired mirroring"),
@@ -222,7 +222,7 @@ CTMapperInfo	MapperInfo_NES_TFROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_TGROM =
+const MapperInfo MapperInfo_NES_TGROM =
 {
 	"NES-TGROM",
 	_T("MMC3 with CHR-RAM"),
@@ -236,7 +236,7 @@ CTMapperInfo	MapperInfo_NES_TGROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_TKROM =
+const MapperInfo MapperInfo_NES_TKROM =
 {
 	"NES-TKROM",
 	_T("MMC3 with CHR-ROM and SRAM"),
@@ -250,7 +250,7 @@ CTMapperInfo	MapperInfo_NES_TKROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_TKSROM =
+const MapperInfo MapperInfo_NES_TKSROM =
 {
 	"NES-TKSROM",
 	_T("MMC3 with CHR-ROM and SRAM and custom mirroring"),
@@ -264,7 +264,7 @@ CTMapperInfo	MapperInfo_NES_TKSROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_TLROM =
+const MapperInfo MapperInfo_NES_TLROM =
 {
 	"NES-TLROM",
 	_T("MMC3 with CHR-ROM"),
@@ -278,7 +278,7 @@ CTMapperInfo	MapperInfo_NES_TLROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_TL1ROM =
+const MapperInfo MapperInfo_NES_TL1ROM =
 {
 	"NES-TL1ROM",
 	_T("MMC3 with CHR-ROM"),
@@ -292,7 +292,7 @@ CTMapperInfo	MapperInfo_NES_TL1ROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_TL2ROM =
+const MapperInfo MapperInfo_NES_TL2ROM =
 {
 	"NES-TL2ROM",
 	_T("MMC3 with CHR-ROM"),
@@ -306,7 +306,7 @@ CTMapperInfo	MapperInfo_NES_TL2ROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_TLSROM =
+const MapperInfo MapperInfo_NES_TLSROM =
 {
 	"NES-TLSROM",
 	_T("MMC3 with CHR-ROM and custom mirroring"),
@@ -320,7 +320,7 @@ CTMapperInfo	MapperInfo_NES_TLSROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_TNROM =
+const MapperInfo MapperInfo_NES_TNROM =
 {
 	"NES-TNROM",
 	_T("MMC3 with CHR-RAM and SRAM"),
@@ -334,7 +334,7 @@ CTMapperInfo	MapperInfo_NES_TNROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_TQROM =
+const MapperInfo MapperInfo_NES_TQROM =
 {
 	"NES-TQROM",
 	_T("MMC3 with CHR-ROM and CHR-RAM"),
@@ -348,7 +348,7 @@ CTMapperInfo	MapperInfo_NES_TQROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_TR1ROM =
+const MapperInfo MapperInfo_NES_TR1ROM =
 {
 	"NES-TR1ROM",
 	_T("MMC3 with 4-screen VRAM"),
@@ -362,7 +362,7 @@ CTMapperInfo	MapperInfo_NES_TR1ROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_TSROM =
+const MapperInfo MapperInfo_NES_TSROM =
 {
 	"NES-TSROM",
 	_T("MMC3 with WRAM"),
@@ -376,7 +376,7 @@ CTMapperInfo	MapperInfo_NES_TSROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_TVROM =
+const MapperInfo MapperInfo_NES_TVROM =
 {
 	"NES-TVROM",
 	_T("MMC3 with small PRG ROM and 4-screen VRAM"),

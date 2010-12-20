@@ -196,7 +196,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 21;
 } // namespace
 
-CTMapperInfo	MapperInfo_021 =
+const MapperInfo MapperInfo_021 =
 {
 	&MapperNum,
 	_T("Konami VRC2/VRC4"),

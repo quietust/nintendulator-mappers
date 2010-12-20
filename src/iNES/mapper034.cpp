@@ -104,7 +104,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 34;
 } // namespace
 
-CTMapperInfo	MapperInfo_034 =
+const MapperInfo MapperInfo_034 =
 {
 	&MapperNum,
 	_T("BNROM/Nina-01"),

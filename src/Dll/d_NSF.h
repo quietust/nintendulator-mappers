@@ -7,4 +7,4 @@
 
 #include	"..\interface.h"
 
-extern	CTMapperInfo	MapperInfo_NSF;
+extern	const MapperInfo MapperInfo_NSF;

@@ -72,7 +72,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 63;
 } // namespace
 
-CTMapperInfo	MapperInfo_063 =
+const MapperInfo MapperInfo_063 =
 {
 	&MapperNum,
 	_T("Hello Kitty 255 in 1"),

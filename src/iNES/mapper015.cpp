@@ -94,7 +94,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 15;
 } // namespace
 
-CTMapperInfo	MapperInfo_015 =
+const MapperInfo MapperInfo_015 =
 {
 	&MapperNum,
 	_T("100-in-1 Contra Function 16"),

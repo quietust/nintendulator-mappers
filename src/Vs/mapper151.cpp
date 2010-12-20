@@ -98,7 +98,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 151;
 } // namespace
 
-CTMapperInfo	MapperInfo_151 =
+const MapperInfo MapperInfo_151 =
 {
 	&MapperNum,
 	_T("Extended VS Unisystem"),

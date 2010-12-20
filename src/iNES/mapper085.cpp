@@ -201,7 +201,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 85;
 } // namespace
 
-CTMapperInfo	MapperInfo_085 =
+const MapperInfo MapperInfo_085 =
 {
 	&MapperNum,
 	_T("Konami VRC7"),

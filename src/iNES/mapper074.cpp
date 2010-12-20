@@ -42,7 +42,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 74;
 } // namespace
 
-CTMapperInfo	MapperInfo_074 =
+const MapperInfo MapperInfo_074 =
 {
 	&MapperNum,
 	_T("Mapper 74 (Taiwan MMC3)"),

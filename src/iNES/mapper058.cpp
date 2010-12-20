@@ -34,7 +34,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 58;
 } // namespace
 
-CTMapperInfo	MapperInfo_058 =
+const MapperInfo MapperInfo_058 =
 {
 	&MapperNum,
 	_T("Study & Game 32 in 1"),

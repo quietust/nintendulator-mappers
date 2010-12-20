@@ -32,14 +32,14 @@ void	UNIF_SetSRAM (int Amt)
 
 HWND			hWnd;
 HINSTANCE		hInstance;
-CPEmulatorInterface	EMU;
-CPROMInfo		ROM;
+const EmulatorInterface	*EMU;
+const ROMInfo		*ROM;
 
 namespace
 {
-CTMapperInfo	MapperInfo_0 = {NULL,NULL,COMPAT_NONE,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
+const MapperInfo MapperInfo_0 = {NULL,NULL,COMPAT_NONE,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
 
-CPMapperInfo	BoardTable[] =
+const MapperInfo *BoardTable[] =
 {
 	/* NES/HVC */
 	&MapperInfo_NES_AMROM,
@@ -173,7 +173,7 @@ void	MAPINT	UnloadMapper (void)
 	ROM = NULL;
 }
 
-CPMapperInfo	MAPINT	LoadMapper (CPROMInfo _ROM)
+const MapperInfo	*MAPINT	LoadMapper (const ROMInfo *_ROM)
 {
 	int x = 0;
 	char *BoardName;
@@ -182,12 +182,12 @@ CPMapperInfo	MAPINT	LoadMapper (CPROMInfo _ROM)
 	if (ROM->ROMType == ROM_UNDEFINED)	/* Allow enumerating mappers */
 	{
 		unsigned int i = (unsigned int)ROM->Filename;
-		if (i >= sizeof(BoardTable)/sizeof(CPMapperInfo)-1)
+		if (i >= sizeof(BoardTable)/sizeof(MapperInfo *)-1)
 		{
 			UnloadMapper();
 			return NULL;
 		}
-		((PROMInfo)ROM)->ROMType = ROM_UNIF;
+		((ROMInfo *)ROM)->ROMType = ROM_UNIF;
 		return BoardTable[i];
 	}
 
@@ -212,7 +212,7 @@ CPMapperInfo	MAPINT	LoadMapper (CPROMInfo _ROM)
 	return NULL;
 }
 
-TDLLInfo	DLL_Info =
+DLLInfo	DLL_Info =
 {
 	_T("UNIF.DLL by Quietust"),
 	0x20100102,
@@ -228,7 +228,7 @@ extern "C" __declspec(dllexport)	void	MAPINT	UnloadMapperDLL (void)
 	hWnd = NULL;
 }
 
-extern "C" __declspec(dllexport)	PDLLInfo	MAPINT	LoadMapperDLL (HWND hWndEmu, CPEmulatorInterface _EMU, int VersionRequired)
+extern "C" __declspec(dllexport)	DLLInfo	*MAPINT	LoadMapperDLL (HWND hWndEmu, const EmulatorInterface *_EMU, int VersionRequired)
 {
 	hWnd = hWndEmu;
 	EMU = _EMU;

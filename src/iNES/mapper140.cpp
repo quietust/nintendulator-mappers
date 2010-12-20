@@ -47,7 +47,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 140;
 } // namespace
 
-CTMapperInfo	MapperInfo_140 =
+const MapperInfo MapperInfo_140 =
 {
 	&MapperNum,
 	_T("Mapper 140 (Bio Senshi Dan)"),

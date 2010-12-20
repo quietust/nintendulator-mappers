@@ -69,7 +69,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_BMC_1992Ballgames11in1 =
+const MapperInfo MapperInfo_BMC_1992Ballgames11in1 =
 {
 	"BMC-1992Ballgames11in1",
 	_T("Pirate multicart mapper"),

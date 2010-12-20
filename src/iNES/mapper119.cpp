@@ -42,7 +42,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 119;
 } // namespace
 
-CTMapperInfo	MapperInfo_119 =
+const MapperInfo MapperInfo_119 =
 {
 	&MapperNum,
 	_T("TQROM (MMC3)"),

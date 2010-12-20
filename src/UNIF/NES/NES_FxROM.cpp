@@ -45,7 +45,7 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_NES_FJROM =
+const MapperInfo MapperInfo_NES_FJROM =
 {
 	"NES-FJROM",
 	_T("MMC4"),
@@ -59,7 +59,7 @@ CTMapperInfo	MapperInfo_NES_FJROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_FKROM =
+const MapperInfo MapperInfo_NES_FKROM =
 {
 	"NES-FKROM",
 	_T("MMC4"),

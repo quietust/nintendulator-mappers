@@ -47,7 +47,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 38;
 } // namespace
 
-CTMapperInfo	MapperInfo_038 =
+const MapperInfo MapperInfo_038 =
 {
 	&MapperNum,
 	_T("Crime Busters (74138/74161)"),

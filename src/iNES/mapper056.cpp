@@ -146,7 +146,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 56;
 } // namespace
 
-CTMapperInfo	MapperInfo_056 =
+const MapperInfo MapperInfo_056 =
 {
 	&MapperNum,
 	_T("SMB3 Pirate"),

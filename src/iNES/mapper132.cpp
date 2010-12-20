@@ -66,7 +66,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 132;
 } // namespace
 
-CTMapperInfo	MapperInfo_132 =
+const MapperInfo MapperInfo_132 =
 {
 	&MapperNum,
 	_T("Creatom"),

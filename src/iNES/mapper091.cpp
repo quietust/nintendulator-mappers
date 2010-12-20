@@ -90,7 +90,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 91;
 } // namespace
 
-CTMapperInfo	MapperInfo_091 =
+const MapperInfo MapperInfo_091 =
 {
 	&MapperNum,
 	_T("PC-HK-SF3"),

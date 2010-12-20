@@ -122,7 +122,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 59;
 } // namespace
 
-CTMapperInfo	MapperInfo_059 =
+const MapperInfo MapperInfo_059 =
 {
 	&MapperNum,
 	_T("T3H53"),

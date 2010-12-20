@@ -45,7 +45,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 2;
 } // namespace
 
-CTMapperInfo	MapperInfo_002 =
+const MapperInfo MapperInfo_002 =
 {
 	&MapperNum,
 	_T("UNROM"),

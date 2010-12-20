@@ -132,7 +132,7 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_NES_DEROM =
+const MapperInfo MapperInfo_NES_DEROM =
 {
 	"NES-DEROM",
 	_T("Namco 108"),
@@ -146,7 +146,7 @@ CTMapperInfo	MapperInfo_NES_DEROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_DEIROM =
+const MapperInfo MapperInfo_NES_DEIROM =
 {
 	"NES-DEIROM",
 	_T("Namco 108"),
@@ -160,7 +160,7 @@ CTMapperInfo	MapperInfo_NES_DEIROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_DRROM =
+const MapperInfo MapperInfo_NES_DRROM =
 {
 	"NES-DRROM",
 	_T("Namco 108 with 4-screen VRAM"),

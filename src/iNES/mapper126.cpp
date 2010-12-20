@@ -114,7 +114,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 126;
 } // namespace
 
-CTMapperInfo	MapperInfo_126 =
+const MapperInfo MapperInfo_126 =
 {
 	&MapperNum,
 	_T("Super Joy (MMC3)"),

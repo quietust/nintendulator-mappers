@@ -109,7 +109,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 185;
 } // namespace
 
-CTMapperInfo	MapperInfo_185 =
+const MapperInfo MapperInfo_185 =
 {
 	&MapperNum,
 	_T("CNROM with CHR disable"),

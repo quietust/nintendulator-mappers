@@ -38,7 +38,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 88;
 } // namespace
 
-CTMapperInfo	MapperInfo_088 =
+const MapperInfo MapperInfo_088 =
 {
 	&MapperNum,
 	_T("Namco 118 with special CHR banking"),

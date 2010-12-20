@@ -89,7 +89,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 42;
 } // namespace
 
-CTMapperInfo	MapperInfo_042 =
+const MapperInfo MapperInfo_042 =
 {
 	&MapperNum,
 	_T("Mario Baby"),

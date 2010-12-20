@@ -12,7 +12,7 @@ void	iNES_SetSRAM		(void);
 
 extern	HINSTANCE	hInstance;
 extern	HWND		hWnd;
-extern	CTMapperInfo
+extern	const MapperInfo
 	MapperInfo_000,	MapperInfo_001,	MapperInfo_002,	MapperInfo_003,	MapperInfo_004,	MapperInfo_005,	MapperInfo_006,	MapperInfo_007,
 	MapperInfo_008,	MapperInfo_009,	MapperInfo_010,	MapperInfo_011,	MapperInfo_012,	MapperInfo_013,	MapperInfo_014,	MapperInfo_015,
 	MapperInfo_016,	MapperInfo_017,	MapperInfo_018,	MapperInfo_019,	MapperInfo_020,	MapperInfo_021,	MapperInfo_022,	MapperInfo_023,
@@ -44,5 +44,4 @@ extern	CTMapperInfo
 	MapperInfo_224,	MapperInfo_225,	MapperInfo_226,	MapperInfo_227,	MapperInfo_228,	MapperInfo_229,	MapperInfo_230,	MapperInfo_231,
 	MapperInfo_232,	MapperInfo_233,	MapperInfo_234,	MapperInfo_235,	MapperInfo_236,	MapperInfo_237,	MapperInfo_238,	MapperInfo_239,
 	MapperInfo_240,	MapperInfo_241,	MapperInfo_242,	MapperInfo_243,	MapperInfo_244,	MapperInfo_245,	MapperInfo_246,	MapperInfo_247,
-	MapperInfo_248,	MapperInfo_249,	MapperInfo_250,	MapperInfo_251,	MapperInfo_252,	MapperInfo_253,	MapperInfo_254,	MapperInfo_255
-	;
+	MapperInfo_248,	MapperInfo_249,	MapperInfo_250,	MapperInfo_251,	MapperInfo_252,	MapperInfo_253,	MapperInfo_254,	MapperInfo_255;

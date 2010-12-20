@@ -69,7 +69,7 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_NES_AMROM =
+const MapperInfo MapperInfo_NES_AMROM =
 {
 	"NES-AMROM",
 	_T("32KB PRG switch with nametable select"),
@@ -83,7 +83,7 @@ CTMapperInfo	MapperInfo_NES_AMROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_ANROM =
+const MapperInfo MapperInfo_NES_ANROM =
 {
 	"NES-ANROM",
 	_T("Standard 32KB PRG switch with nametable select"),
@@ -97,7 +97,7 @@ CTMapperInfo	MapperInfo_NES_ANROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_AN1ROM =
+const MapperInfo MapperInfo_NES_AN1ROM =
 {
 	"NES-AN1ROM",
 	_T("Standard 32KB PRG switch with nametable select"),
@@ -111,7 +111,7 @@ CTMapperInfo	MapperInfo_NES_AN1ROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_AOROM =
+const MapperInfo MapperInfo_NES_AOROM =
 {
 	"NES-AOROM",
 	_T("Oversize 32KB PRG switch with nametable select"),

@@ -55,7 +55,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 46;
 } // namespace
 
-CTMapperInfo	MapperInfo_046 =
+const MapperInfo MapperInfo_046 =
 {
 	&MapperNum,
 	_T("GameStation/RumbleStation"),

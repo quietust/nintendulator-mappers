@@ -61,7 +61,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 250;
 } // namespace
 
-CTMapperInfo	MapperInfo_250 =
+const MapperInfo MapperInfo_250 =
 {
 	&MapperNum,
 	_T("Time Diver Avenger (MMC3 Variant)"),

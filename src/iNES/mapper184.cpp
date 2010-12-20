@@ -49,7 +49,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 184;
 } // namespace
 
-CTMapperInfo	MapperInfo_184 =
+const MapperInfo MapperInfo_184 =
 {
 	&MapperNum,
 	_T("Mapper 184 (Atlantis no Nazo)"),

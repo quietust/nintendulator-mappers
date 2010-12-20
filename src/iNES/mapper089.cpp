@@ -36,7 +36,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 89;
 } // namespace
 
-CTMapperInfo	MapperInfo_089 =
+const MapperInfo MapperInfo_089 =
 {
 	&MapperNum,
 	_T("Sunsoft 74161/7432"),

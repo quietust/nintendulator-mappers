@@ -88,7 +88,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 235;
 } // namespace
 
-CTMapperInfo	MapperInfo_235 =
+const MapperInfo MapperInfo_235 =
 {
 	&MapperNum,
 	_T("Golden Game 150-in-1"),

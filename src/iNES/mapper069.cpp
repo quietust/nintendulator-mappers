@@ -34,7 +34,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 69;
 } // namespace
 
-CTMapperInfo	MapperInfo_069 =
+const MapperInfo MapperInfo_069 =
 {
 	&MapperNum,
 	_T("Sunsoft FME-7"),

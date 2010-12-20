@@ -145,7 +145,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 68;
 } // namespace
 
-CTMapperInfo	MapperInfo_068 =
+const MapperInfo MapperInfo_068 =
 {
 	&MapperNum,
 	_T("SUNSOFT-4"),

@@ -35,7 +35,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 7;
 } // namespace
 
-CTMapperInfo	MapperInfo_007 =
+const MapperInfo MapperInfo_007 =
 {
 	&MapperNum,
 	_T("AOROM"),

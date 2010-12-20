@@ -31,7 +31,7 @@ static	void	MAPINT	Unload (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_NES_MHROM =
+const MapperInfo MapperInfo_NES_MHROM =
 {
 	"NES-MHROM",
 	_T("Super Mario Bros/Duck Hunt"),

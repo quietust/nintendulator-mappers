@@ -39,7 +39,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 4;
 } // namespace
 
-CTMapperInfo	MapperInfo_004 =
+const MapperInfo MapperInfo_004 =
 {
 	&MapperNum,
 	_T("MMC3/MMC6"),

@@ -67,7 +67,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 53;
 } // namespace
 
-CTMapperInfo	MapperInfo_053 =
+const MapperInfo MapperInfo_053 =
 {
 	&MapperNum,
 	_T("Supervision 16-in-1"),

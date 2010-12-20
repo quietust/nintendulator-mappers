@@ -53,7 +53,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 125;
 } // namespace
 
-CTMapperInfo	MapperInfo_125 =
+const MapperInfo MapperInfo_125 =
 {
 	&MapperNum,
 	_T("Monty on the Run (FDS hack)"),

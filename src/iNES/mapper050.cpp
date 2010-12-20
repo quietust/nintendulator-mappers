@@ -89,7 +89,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 50;
 } // namespace
 
-CTMapperInfo	MapperInfo_050 =
+const MapperInfo MapperInfo_050 =
 {
 	&MapperNum,
 	_T("SMB2j rev. A"),

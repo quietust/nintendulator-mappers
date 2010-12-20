@@ -71,7 +71,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 51;
 } // namespace
 
-CTMapperInfo	MapperInfo_051 =
+const MapperInfo MapperInfo_051 =
 {
 	&MapperNum,
 	_T("11 in 1 Ball Games"),

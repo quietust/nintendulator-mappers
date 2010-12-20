@@ -33,7 +33,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 3;
 } // namespace
 
-CTMapperInfo	MapperInfo_003 =
+const MapperInfo MapperInfo_003 =
 {
 	&MapperNum,
 	_T("CNROM"),

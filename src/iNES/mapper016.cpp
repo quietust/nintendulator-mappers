@@ -145,7 +145,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 16;
 } // namespace
 
-CTMapperInfo	MapperInfo_016 =
+const MapperInfo MapperInfo_016 =
 {
 	&MapperNum,
 	_T("Bandai"),

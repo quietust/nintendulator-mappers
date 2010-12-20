@@ -69,7 +69,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 45;
 } // namespace
 
-CTMapperInfo	MapperInfo_045 =
+const MapperInfo MapperInfo_045 =
 {
 	&MapperNum,
 	_T("Super 1,000,000 in 1 (MMC3)"),

@@ -54,7 +54,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_BMC_WS =
+const MapperInfo MapperInfo_BMC_WS =
 {
 	"BMC-WS",
 	_T("Pirate multicart mapper"),

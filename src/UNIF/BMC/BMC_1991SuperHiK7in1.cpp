@@ -57,7 +57,7 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_BMC_1991SuperHiK7in1 =
+const MapperInfo MapperInfo_BMC_1991SuperHiK7in1 =
 {
 	"BMC-1991SuperHiK7in1",
 	_T("Pirate multicart mapper"),

@@ -132,7 +132,7 @@ void	MAPINT	Unload_003x (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_UNL_SA_0161M =
+const MapperInfo MapperInfo_UNL_SA_0161M =
 {
 	"UNL-SA-016-1M",
 	_T("Sachen mapper"),
@@ -146,7 +146,7 @@ CTMapperInfo	MapperInfo_UNL_SA_0161M =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_UNL_SA_72007 =
+const MapperInfo MapperInfo_UNL_SA_72007 =
 {
 	"UNL-SA-72007",
 	_T("Sachen mapper"),
@@ -160,7 +160,7 @@ CTMapperInfo	MapperInfo_UNL_SA_72007 =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_UNL_SA_72008 =
+const MapperInfo MapperInfo_UNL_SA_72008 =
 {
 	"UNL-SA-72008",
 	_T("Sachen mapper"),
@@ -174,7 +174,7 @@ CTMapperInfo	MapperInfo_UNL_SA_72008 =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_UNL_TC_U0115M =
+const MapperInfo MapperInfo_UNL_TC_U0115M =
 {
 	"UNL-TC-U01-1.5M",
 	_T("Sachen mapper"),
@@ -188,7 +188,7 @@ CTMapperInfo	MapperInfo_UNL_TC_U0115M =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_UNL_SA_0036 =
+const MapperInfo MapperInfo_UNL_SA_0036 =
 {
 	"UNL-SA-0036",
 	_T("Sachen mapper"),
@@ -202,7 +202,7 @@ CTMapperInfo	MapperInfo_UNL_SA_0036 =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_UNL_SA_0037 =
+const MapperInfo MapperInfo_UNL_SA_0037 =
 {
 	"UNL-SA-0037",
 	_T("Sachen mapper"),

@@ -74,7 +74,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 182;
 } // namespace
 
-CTMapperInfo	MapperInfo_182 =
+const MapperInfo MapperInfo_182 =
 {
 	&MapperNum,
 	_T("Super Donkey Kong"),

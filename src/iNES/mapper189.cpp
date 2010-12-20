@@ -63,7 +63,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 189;
 } // namespace
 
-CTMapperInfo	MapperInfo_189 =
+const MapperInfo MapperInfo_189 =
 {
 	&MapperNum,
 	_T("Mapper 189 (Thunder Warrior)"),

@@ -209,7 +209,7 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_NES_SAROM =
+const MapperInfo MapperInfo_NES_SAROM =
 {
 	"NES-SAROM",
 	_T("MMC1 with SRAM"),
@@ -223,7 +223,7 @@ CTMapperInfo	MapperInfo_NES_SAROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SBROM =
+const MapperInfo MapperInfo_NES_SBROM =
 {
 	"NES-SBROM",
 	_T("MMC1"),
@@ -237,7 +237,7 @@ CTMapperInfo	MapperInfo_NES_SBROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SCROM =
+const MapperInfo MapperInfo_NES_SCROM =
 {
 	"NES-SCROM",
 	_T("MMC1"),
@@ -251,7 +251,7 @@ CTMapperInfo	MapperInfo_NES_SCROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SC1ROM =
+const MapperInfo MapperInfo_NES_SC1ROM =
 {
 	"NES-SC1ROM",
 	_T("MMC1"),
@@ -265,7 +265,7 @@ CTMapperInfo	MapperInfo_NES_SC1ROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SEROM =
+const MapperInfo MapperInfo_NES_SEROM =
 {
 	"NES-SEROM",
 	_T("MMC1"),
@@ -279,7 +279,7 @@ CTMapperInfo	MapperInfo_NES_SEROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SFROM =
+const MapperInfo MapperInfo_NES_SFROM =
 {
 	"NES-SFROM",
 	_T("MMC1"),
@@ -293,7 +293,7 @@ CTMapperInfo	MapperInfo_NES_SFROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SGROM =
+const MapperInfo MapperInfo_NES_SGROM =
 {
 	"NES-SGROM",
 	_T("MMC1 with CHR-RAM"),
@@ -307,7 +307,7 @@ CTMapperInfo	MapperInfo_NES_SGROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SHROM =
+const MapperInfo MapperInfo_NES_SHROM =
 {
 	"NES-SHROM",
 	_T("MMC1"),
@@ -321,7 +321,7 @@ CTMapperInfo	MapperInfo_NES_SHROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SH1ROM =
+const MapperInfo MapperInfo_NES_SH1ROM =
 {
 	"NES-SH1ROM",
 	_T("MMC1"),
@@ -335,7 +335,7 @@ CTMapperInfo	MapperInfo_NES_SH1ROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SIROM =
+const MapperInfo MapperInfo_NES_SIROM =
 {
 	"NES-SIROM",
 	_T("MMC1 with CHR-ROM and SRAM"),
@@ -349,7 +349,7 @@ CTMapperInfo	MapperInfo_NES_SIROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SJROM =
+const MapperInfo MapperInfo_NES_SJROM =
 {
 	"NES-SJROM",
 	_T("MMC1 with CHR-ROM and SRAM"),
@@ -363,7 +363,7 @@ CTMapperInfo	MapperInfo_NES_SJROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SKROM =
+const MapperInfo MapperInfo_NES_SKROM =
 {
 	"NES-SKROM",
 	_T("MMC1 with CHR-ROM and SRAM"),
@@ -377,7 +377,7 @@ CTMapperInfo	MapperInfo_NES_SKROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SLROM =
+const MapperInfo MapperInfo_NES_SLROM =
 {
 	"NES-SLROM",
 	_T("MMC1 with CHR-ROM"),
@@ -391,7 +391,7 @@ CTMapperInfo	MapperInfo_NES_SLROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SL1ROM =
+const MapperInfo MapperInfo_NES_SL1ROM =
 {
 	"NES-SL1ROM",
 	_T("MMC1"),
@@ -405,7 +405,7 @@ CTMapperInfo	MapperInfo_NES_SL1ROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SL2ROM =
+const MapperInfo MapperInfo_NES_SL2ROM =
 {
 	"NES-SL2ROM",
 	_T("MMC1"),
@@ -419,7 +419,7 @@ CTMapperInfo	MapperInfo_NES_SL2ROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SL3ROM =
+const MapperInfo MapperInfo_NES_SL3ROM =
 {
 	"NES-SL3ROM",
 	_T("MMC1"),
@@ -433,7 +433,7 @@ CTMapperInfo	MapperInfo_NES_SL3ROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SLRROM =
+const MapperInfo MapperInfo_NES_SLRROM =
 {
 	"NES-SLRROM",
 	_T("MMC1"),
@@ -447,7 +447,7 @@ CTMapperInfo	MapperInfo_NES_SLRROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SMROM =
+const MapperInfo MapperInfo_NES_SMROM =
 {
 	"NES-SMROM",
 	_T("MMC1 with CHR-RAM"),
@@ -461,7 +461,7 @@ CTMapperInfo	MapperInfo_NES_SMROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SNROM =
+const MapperInfo MapperInfo_NES_SNROM =
 {
 	"NES-SNROM",
 	_T("MMC1 with CHR-RAM and SRAM"),
@@ -475,7 +475,7 @@ CTMapperInfo	MapperInfo_NES_SNROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SOROM =
+const MapperInfo MapperInfo_NES_SOROM =
 {
 	"NES-SOROM",
 	_T("MMC1 with 16KB SRAM"),
@@ -489,7 +489,7 @@ CTMapperInfo	MapperInfo_NES_SOROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SUROM =
+const MapperInfo MapperInfo_NES_SUROM =
 {
 	"NES-SUROM",
 	_T("MMC1 with 512KB PRG"),
@@ -503,7 +503,7 @@ CTMapperInfo	MapperInfo_NES_SUROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_SXROM =
+const MapperInfo MapperInfo_NES_SXROM =
 {
 	"NES-SXROM",
 	_T("MMC1 with 512KB PRG and 32KB SRAM"),

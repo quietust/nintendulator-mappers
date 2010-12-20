@@ -369,7 +369,7 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_UNL_DRIPGAME =
+const MapperInfo MapperInfo_UNL_DRIPGAME =
 {
 	"UNL-DRIPGAME",
 	_T("Drip"),

@@ -31,7 +31,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 0;
 } // namespace
 
-CTMapperInfo	MapperInfo_000 =
+const MapperInfo MapperInfo_000 =
 {
 	&MapperNum,
 	_T("NROM"),

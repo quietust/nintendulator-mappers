@@ -169,7 +169,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 105;
 } // namespace
 
-CTMapperInfo	MapperInfo_105 =
+const MapperInfo MapperInfo_105 =
 {
 	&MapperNum,
 	_T("Nintendo World Championship"),

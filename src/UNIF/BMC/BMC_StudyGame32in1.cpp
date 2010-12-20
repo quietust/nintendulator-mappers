@@ -32,7 +32,7 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_BMC_StudyGame32in1 =
+const MapperInfo MapperInfo_BMC_StudyGame32in1 =
 {
 	"BMC-StudyGame32in1",
 	_T("Pirate multicart mapper"),

@@ -45,7 +45,7 @@ void	MAPINT	Reset_NROM_256 (RESET_TYPE ResetType)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_NES_NROM_128 =
+const MapperInfo MapperInfo_NES_NROM_128 =
 {
 	"NES-NROM-128",
 	_T("No mapper"),
@@ -59,7 +59,7 @@ CTMapperInfo	MapperInfo_NES_NROM_128 =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_RROM_128 =
+const MapperInfo MapperInfo_NES_RROM_128 =
 {
 	"NES-RROM-128",
 	_T("No mapper"),
@@ -73,7 +73,7 @@ CTMapperInfo	MapperInfo_NES_RROM_128 =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_NROM_256 =
+const MapperInfo MapperInfo_NES_NROM_256 =
 {
 	"NES-NROM-256",
 	_T("No mapper"),

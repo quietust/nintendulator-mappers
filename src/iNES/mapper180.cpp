@@ -35,7 +35,7 @@ void	MAPINT	Unload (void)
 
 u8 MapperNum = 180;
 } // namespace
-CTMapperInfo	MapperInfo_180 =
+const MapperInfo MapperInfo_180 =
 {
 	&MapperNum,
 	_T("Mapper 180"),

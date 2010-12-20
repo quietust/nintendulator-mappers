@@ -214,7 +214,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 19;
 } // namespace
 
-CTMapperInfo	MapperInfo_019 =
+const MapperInfo MapperInfo_019 =
 {
 	&MapperNum,
 	_T("Namcot 106"),

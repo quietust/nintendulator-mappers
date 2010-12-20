@@ -92,7 +92,7 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_UNL_H2288 =
+const MapperInfo MapperInfo_UNL_H2288 =
 {
 	"UNL-H2288",
 	_T("Earthworm Jim 2 Pirate (with insane copy protection)"),

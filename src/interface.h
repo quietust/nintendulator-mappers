@@ -26,11 +26,11 @@
 
 /* Mapper Interface version (3.8) */
 
-#ifdef UNICODE
+#ifdef	UNICODE
 #define	CurrentMapperInterface	0x80030008
-#else
+#else	/* !UNICODE */
 #define	CurrentMapperInterface	0x00030008
-#endif
+#endif	/* UNICODE */
 
 /* Integer types */
 
@@ -109,7 +109,7 @@ typedef	void	(*FSync)	(void);	/* for Sync() callbacks */
 
 /* Mapper Interface Structure - Pointers to data and functions within emulator */
 
-typedef	struct	EmulatorInterface
+struct	EmulatorInterface
 {
 /* Functions for managing read/write handlers */
 	void		(MAPINT *SetCPUReadHandler)	(int,FCPURead);
@@ -180,20 +180,19 @@ typedef	struct	EmulatorInterface
 	void		(MAPINT *StatusOut)		(TCHAR *,...);	/* Echo text on status bar */
 /* Data fields */
 	unsigned char *	OpenBus;			/* pointer to last value on the CPU data bus */
-}	TEmulatorInterface, *PEmulatorInterface;
-typedef	const	TEmulatorInterface	CTEmulatorInterface, *CPEmulatorInterface;
+};
 
-typedef enum	{ COMPAT_NONE, COMPAT_PARTIAL, COMPAT_NEARLY, COMPAT_FULL, COMPAT_NUMTYPES } COMPAT_TYPE;
+enum COMPAT_TYPE	{ COMPAT_NONE, COMPAT_PARTIAL, COMPAT_NEARLY, COMPAT_FULL, COMPAT_NUMTYPES };
 
 /* Mapper Information structure - Contains pointers to mapper functions, sent to emulator on load mapper  */
 
-typedef	enum	{ RESET_NONE, RESET_SOFT, RESET_HARD } RESET_TYPE;
+enum RESET_TYPE	{ RESET_NONE, RESET_SOFT, RESET_HARD };
 
-typedef	enum	{ STATE_SIZE, STATE_SAVE, STATE_LOAD } STATE_TYPE;
+enum STATE_TYPE	{ STATE_SIZE, STATE_SAVE, STATE_LOAD };
 
-typedef	enum	{ CFG_WINDOW, CFG_QUERY, CFG_CMD } CFG_TYPE;
+enum CFG_TYPE	{ CFG_WINDOW, CFG_QUERY, CFG_CMD };
 
-typedef	struct	MapperInfo
+struct	MapperInfo
 {
 /* Mapper Information */
 	void *		MapperId;
@@ -209,8 +208,7 @@ typedef	struct	MapperInfo
 	int		(MAPINT *SaveLoad)	(STATE_TYPE,int,unsigned char *);	/* Mode, Offset, Data */
 	int		(MAPINT *GenSound)	(int);			/* Cycles */
 	unsigned char	(MAPINT *Config)	(CFG_TYPE,unsigned char);	/* Mode, Data */
-}	TMapperInfo, *PMapperInfo;
-typedef	const	TMapperInfo	CTMapperInfo, *CPMapperInfo;
+};
 
 #define	SAVELOAD_BYTE(mode,x,data,value) \
 do { \
@@ -238,9 +236,9 @@ do { \
 
 /* ROM Information Structure - Contains information about the ROM currently loaded */
 
-typedef	enum	{ ROM_UNDEFINED, ROM_INES, ROM_UNIF, ROM_FDS, ROM_NSF, ROM_NUMTYPES } ROM_TYPE;
+enum ROM_TYPE	{ ROM_UNDEFINED, ROM_INES, ROM_UNIF, ROM_FDS, ROM_NSF, ROM_NUMTYPES };
 
-typedef	struct	ROMInfo
+struct	ROMInfo
 {
 	TCHAR *		Filename;
 	ROM_TYPE	ROMType;
@@ -295,23 +293,22 @@ typedef	struct	ROMInfo
 			BYTE	reserved[256];
 		};	/* reserved for additional file types */
 	};
-}	TROMInfo, *PROMInfo;
-typedef	const	TROMInfo	CTROMInfo, *CPROMInfo;
+};
 
 /* DLL Information Structure - Contains general information about the mapper DLL */
 
-typedef	struct	DLLInfo
+struct	DLLInfo
 {
 	TCHAR *		Description;
 	int		Date;
 	int		Version;
-	CPMapperInfo	(MAPINT *LoadMapper)	(CPROMInfo);
+	const MapperInfo *	(MAPINT *LoadMapper)	(const ROMInfo *);
 	void		(MAPINT *UnloadMapper)	(void);
-}	TDLLInfo, *PDLLInfo;
+};
 
 extern	HWND			hWnd;
 extern	HINSTANCE		hInstance;
-extern	CPEmulatorInterface	EMU;
-extern	CPROMInfo		ROM;
+extern	const EmulatorInterface	*EMU;
+extern	const ROMInfo		*ROM;
 
 #endif	/* INTERFACE_H */

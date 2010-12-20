@@ -107,7 +107,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 127;
 } // namespace
 
-CTMapperInfo	MapperInfo_127 =
+const MapperInfo MapperInfo_127 =
 {
 	&MapperNum,
 	_T("Double Dragon pirate"),

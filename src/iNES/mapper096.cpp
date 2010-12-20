@@ -63,7 +63,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 96;
 } // namespace
 
-CTMapperInfo	MapperInfo_096 =
+const MapperInfo MapperInfo_096 =
 {
 	&MapperNum,
 	_T("Bandai 74161/7432"),

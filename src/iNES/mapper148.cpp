@@ -33,7 +33,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 148;
 } // namespace
 
-CTMapperInfo	MapperInfo_148 =
+const MapperInfo MapperInfo_148 =
 {
 	&MapperNum,
 	_T("Sachen (SA-004/SA-0037)"),

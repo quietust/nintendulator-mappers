@@ -42,7 +42,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 118;
 } // namespace
 
-CTMapperInfo	MapperInfo_118 =
+const MapperInfo MapperInfo_118 =
 {
 	&MapperNum,
 	_T("TKSROM/TLSROM (MMC3)"),

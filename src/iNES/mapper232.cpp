@@ -65,7 +65,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 232;
 } // namespace
 
-CTMapperInfo	MapperInfo_232 =
+const MapperInfo MapperInfo_232 =
 {
 	&MapperNum,
 	_T("Camerica 9096"),

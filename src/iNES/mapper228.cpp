@@ -72,7 +72,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 228;
 } // namespace
 
-CTMapperInfo	MapperInfo_228 =
+const MapperInfo MapperInfo_228 =
 {
 	&MapperNum,
 	_T("Action 52"),

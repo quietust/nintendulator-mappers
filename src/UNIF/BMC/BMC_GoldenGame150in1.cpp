@@ -86,7 +86,7 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_BMC_GoldenGame150in1 =
+const MapperInfo MapperInfo_BMC_GoldenGame150in1 =
 {
 	"BMC-GoldenGame150in1",
 	_T("Pirate multicart mapper"),

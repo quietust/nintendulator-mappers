@@ -35,7 +35,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 11;
 } // namespace
 
-CTMapperInfo	MapperInfo_011 =
+const MapperInfo MapperInfo_011 =
 {
 	&MapperNum,
 	_T("Color Dreams"),

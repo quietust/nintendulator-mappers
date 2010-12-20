@@ -230,7 +230,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 116;
 } // namespace
 
-CTMapperInfo	MapperInfo_116 =
+const MapperInfo MapperInfo_116 =
 {
 	&MapperNum,
 	_T("AV Girl Fighting (combination MMC1+MMC3+VRC2)"),

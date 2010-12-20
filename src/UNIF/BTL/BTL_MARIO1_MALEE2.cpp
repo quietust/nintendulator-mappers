@@ -46,7 +46,7 @@ static	void	MAPINT	Reset (RESET_TYPE ResetType)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_BTL_MARIO1_MALEE2 =
+const MapperInfo MapperInfo_BTL_MARIO1_MALEE2 =
 {
 	"BTL-MARIO1-MALEE2",
 	_T("Custom mapper for pirate SMB1"),

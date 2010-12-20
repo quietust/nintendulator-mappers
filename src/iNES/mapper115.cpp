@@ -61,7 +61,7 @@ void	MAPINT	Unload (void)
 u8 MapperNum = 115;
 } // namespace
 
-CTMapperInfo	MapperInfo_115 =
+const MapperInfo MapperInfo_115 =
 {
 	&MapperNum,
 	_T("Mapper 115 (Expanded Pirate MMC3)"),

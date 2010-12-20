@@ -31,7 +31,7 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_BMC_NovelDiamond9999999in1 =
+const MapperInfo MapperInfo_BMC_NovelDiamond9999999in1 =
 {
 	"BMC-NovelDiamond9999999in1",
 	_T("Pirate multicart mapper"),

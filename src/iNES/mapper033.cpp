@@ -88,7 +88,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 33;
 } // namespace
 
-CTMapperInfo	MapperInfo_033 =
+const MapperInfo MapperInfo_033 =
 {
 	&MapperNum,
 	_T("Taito TC0190"),

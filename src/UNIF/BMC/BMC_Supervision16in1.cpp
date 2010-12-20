@@ -63,7 +63,7 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_BMC_Supervision16in1 =
+const MapperInfo MapperInfo_BMC_Supervision16in1 =
 {
 	"BMC-Supervision16in1",
 	_T("Pirate multicart mapper"),

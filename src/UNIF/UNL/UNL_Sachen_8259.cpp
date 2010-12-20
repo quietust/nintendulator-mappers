@@ -110,7 +110,7 @@ void	MAPINT	Reset_8259B (RESET_TYPE ResetType)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_UNL_Sachen_8259A =
+const MapperInfo MapperInfo_UNL_Sachen_8259A =
 {
 	"UNL-Sachen-8259A",
 	_T("Sachen mapper"),
@@ -124,7 +124,7 @@ CTMapperInfo	MapperInfo_UNL_Sachen_8259A =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_UNL_Sachen_8259B =
+const MapperInfo MapperInfo_UNL_Sachen_8259B =
 {
 	"UNL-Sachen-8259B",
 	_T("Sachen mapper"),

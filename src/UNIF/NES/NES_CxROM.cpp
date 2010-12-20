@@ -43,7 +43,7 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-CTMapperInfo	MapperInfo_NES_CNROM =
+const MapperInfo MapperInfo_NES_CNROM =
 {
 	"NES-CNROM",
 	_T("Standard 8KB CHR switch"),
@@ -57,7 +57,7 @@ CTMapperInfo	MapperInfo_NES_CNROM =
 	NULL,
 	NULL
 };
-CTMapperInfo	MapperInfo_NES_CPROM =
+const MapperInfo MapperInfo_NES_CPROM =
 {
 	"NES-CPROM",
 	_T("4KB CHR RAM switch"),

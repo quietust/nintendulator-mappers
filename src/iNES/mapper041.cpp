@@ -62,7 +62,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 u8 MapperNum = 41;
 } // namespace
 
-CTMapperInfo	MapperInfo_041 =
+const MapperInfo MapperInfo_041 =
 {
 	&MapperNum,
 	_T("Caltron 6-in-1"),
