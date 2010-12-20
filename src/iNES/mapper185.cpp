@@ -78,7 +78,7 @@ unsigned char DisabledCHR[0x400] = {
 };
 void	Sync (void)
 {
-	u8 x;
+	uint8 x;
 	EMU->SetPRG_ROM32(0x8, 0);
 	switch (Latch::Data & 0x33)
 	{
@@ -106,7 +106,7 @@ void	MAPINT	Unload (void)
 	Latch::Unload();
 }
 
-u8 MapperNum = 185;
+uint8 MapperNum = 185;
 } // namespace
 
 const MapperInfo MapperInfo_185 =

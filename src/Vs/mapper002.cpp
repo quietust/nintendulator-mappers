@@ -42,7 +42,7 @@ void	MAPINT	Unload (void)
 	VS::Unload();
 }
 
-u8 MapperNum = 2;
+uint8 MapperNum = 2;
 } // namespace
 
 const MapperInfo MapperInfo_002 =

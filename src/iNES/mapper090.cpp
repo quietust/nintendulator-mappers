@@ -10,23 +10,23 @@
 
 namespace
 {
-u8 IRQenabled, IRQmode, IRQcounterL, IRQcounterH, IRQxor;
-u16 IRQaddr;
-u8 Mul1, Mul2;
-u8 BankMode, Mirror, MirBank, ExtBank;
-u8 PRGbanks[4];
-u16_n CHRbanks[8];
-u16_n Nametables[4];
-u8 treg;
-u8 Jumper;
+uint8 IRQenabled, IRQmode, IRQcounterL, IRQcounterH, IRQxor;
+uint16 IRQaddr;
+uint8 Mul1, Mul2;
+uint8 BankMode, Mirror, MirBank, ExtBank;
+uint8 PRGbanks[4];
+uint16_n CHRbanks[8];
+uint16_n Nametables[4];
+uint8 treg;
+uint8 Jumper;
 HWND ConfigWindow;
-u8 ConfigCmd;
+uint8 ConfigCmd;
 FCPUWrite _CPUWrite[0x10];
 FPPURead _PPURead[0x10];
 
-u8 ReverseBits (u8 bits)
+uint8 ReverseBits (uint8 bits)
 {
-	u8 out = 0;
+	uint8 out = 0;
 	if (bits & 0x01) out |= 0x40;
 	if (bits & 0x02) out |= 0x20;
 	if (bits & 0x04) out |= 0x10;
@@ -127,7 +127,7 @@ void	SyncNametables (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	for (i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, x, data, PRGbanks[i]);
 	for (i = 0; i < 8; i++)
@@ -378,7 +378,7 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 
 	EMU->SetCPUReadHandler(0x5, Read5);
 	EMU->SetCPUWriteHandler(0x5, Write5);
@@ -419,7 +419,7 @@ void	MAPINT	Unload (void)
 		DestroyWindow(ConfigWindow);
 }
 
-u8 MapperNum = 90;
+uint8 MapperNum = 90;
 } // namespace
 
 const MapperInfo MapperInfo_090 =

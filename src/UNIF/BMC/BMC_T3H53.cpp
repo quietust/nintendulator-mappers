@@ -11,13 +11,13 @@
 
 namespace
 {
-u8 Jumper;
+uint8 Jumper;
 HWND ConfigWindow;
-u8 ConfigCmd;
+uint8 ConfigCmd;
 
 void	Sync (void)
 {
-	u8 x;
+	uint8 x;
 	EMU->SetCHR_ROM8(0, Latch::Addr.s0 & 0x07);
 	if (Latch::Addr.b0 & 0x80)
 	{

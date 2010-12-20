@@ -10,20 +10,20 @@
 
 namespace MMC5
 {
-u8 WRAMsize;
-u8 PRGsize, CHRsize;
-u8 WRAMprot[2];
-u8 GfxMode;
-u8 Mirror;
-u8 PRG[5];
-u16_n CHR_A[8], CHR_B[4];
-u8 CHRhi, CHRmode;
-u8 SplitMode, SplitScroll, SplitBank;
-u8 IRQline, IRQenabled, IRQreads;
-u8 Mul1, Mul2;
-s16 LineCounter;
-u8 SpriteMode;
-u8 *NameTable0, *NameTable1, *ExRAM, *ExNameTable;
+uint8 WRAMsize;
+uint8 PRGsize, CHRsize;
+uint8 WRAMprot[2];
+uint8 GfxMode;
+uint8 Mirror;
+uint8 PRG[5];
+uint16_n CHR_A[8], CHR_B[4];
+uint8 CHRhi, CHRmode;
+uint8 SplitMode, SplitScroll, SplitBank;
+uint8 IRQline, IRQenabled, IRQreads;
+uint8 Mul1, Mul2;
+int16 LineCounter;
+uint8 SpriteMode;
+uint8 *NameTable0, *NameTable1, *ExRAM, *ExNameTable;
 FCPUWrite _WritePPU;
 FCPUWrite _CPUWrite6F;
 FPPURead _PPURead[16];
@@ -164,7 +164,7 @@ void	Load (int _WRAMsize)
 
 void	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 
 	_WritePPU = EMU->GetCPUWriteHandler(0x2);
 
@@ -219,7 +219,7 @@ int	GetRAMSize (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	SAVELOAD_BYTE(mode, x, data, WRAMsize);
 	SAVELOAD_BYTE(mode, x, data, PRGsize);
 	SAVELOAD_BYTE(mode, x, data, CHRsize);
@@ -258,7 +258,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 void	SetPRG (int Size, int Loc, int Bank)
 {
-	u8 x;
+	uint8 x;
 	if (Bank & 0x80)
 	{
 		if (Size == 8)		EMU->SetPRG_ROM8(Loc, Bank);
@@ -372,7 +372,7 @@ void	SyncCHR (int mode)
 
 void	SyncMirror (void)
 {
-	u8 mirror = Mirror, i;
+	uint8 mirror = Mirror, i;
 	for (i = 0; i < 4; i++)
 	{
 		if ((mirror & 3) == 3)

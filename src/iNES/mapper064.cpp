@@ -9,16 +9,16 @@
 
 namespace
 {
-u8 IRQenabled, IRQcounter, IRQlatch, IRQmode, IRQreload;
-u16 IRQaddr;
-u8 Cmd;
-u8 PRG[3];
-u8 CHR[8];
-u8 Mirror;
+uint8 IRQenabled, IRQcounter, IRQlatch, IRQmode, IRQreload;
+uint16 IRQaddr;
+uint8 Cmd;
+uint8 PRG[3];
+uint8 CHR[8];
+uint8 Mirror;
 
 void	Sync (void)
 {
-	u8 x, SwCHR = (Cmd & 0x80) >> 5;
+	uint8 x, SwCHR = (Cmd & 0x80) >> 5;
 	if (Mirror & 0x1)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
@@ -53,7 +53,7 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	SAVELOAD_BYTE(mode, x, data, IRQcounter);
 	SAVELOAD_BYTE(mode, x, data, IRQlatch);
 	SAVELOAD_BYTE(mode, x, data, IRQenabled);
@@ -147,7 +147,7 @@ void	MAPINT	WriteEF (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 
 	EMU->SetCPUWriteHandler(0x8, Write89);
 	EMU->SetCPUWriteHandler(0x9, Write89);
@@ -171,7 +171,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-u8 MapperNum = 64;
+uint8 MapperNum = 64;
 } // namespace
 
 const MapperInfo MapperInfo_064 =

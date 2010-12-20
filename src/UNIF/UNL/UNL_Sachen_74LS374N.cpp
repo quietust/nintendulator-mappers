@@ -9,7 +9,7 @@
 
 namespace
 {
-u8 Cmd, PRG, CHR, Mirror;
+uint8 Cmd, PRG, CHR, Mirror;
 FCPUWrite _Write4;
 
 void	Sync (void)
@@ -35,7 +35,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 void	MAPINT	Write (int Bank, int Addr, int Val)
 {
-	u16 Loc = (Bank << 12) | Addr;
+	uint16 Loc = (Bank << 12) | Addr;
 	if (Loc < 0x4018)
 	{
 		_Write4(Bank, Addr, Val);
@@ -67,7 +67,7 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 
 	_Write4 = EMU->GetCPUWriteHandler(0x4);
 	for (x = 0x4; x < 0x8; x++)

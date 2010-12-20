@@ -25,9 +25,9 @@ void	Sync (void)
 			unsigned Mir_HV  : 1;	/* H if 1, V if 0 */
 			unsigned         : 2;
 		};
-		u16 addr;
+		uint16 addr;
 	};
-	u8 openbus = 0;
+	uint8 openbus = 0;
 	addr = Latch::Addr.s0;
 	if (ROM->INES_PRGSize == 64)	/* 1MB, 100-in-1 */
 	{
@@ -85,7 +85,7 @@ void	MAPINT	Unload (void)
 	Latch::Unload();
 }
 
-u8 MapperNum = 235;
+uint8 MapperNum = 235;
 } // namespace
 
 const MapperInfo MapperInfo_235 =

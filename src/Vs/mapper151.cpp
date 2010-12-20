@@ -10,7 +10,7 @@
 
 namespace
 {
-u8 PRG[3], CHR[2];
+uint8 PRG[3], CHR[2];
 
 void	Sync (void)
 {
@@ -24,7 +24,7 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	for (i = 0; i < 3; i++)
 		SAVELOAD_BYTE(mode, x, data, PRG[i]);
 	for (i = 0; i < 2; i++)
@@ -95,7 +95,7 @@ void	MAPINT	Unload (void)
 	VS::Unload();
 }
 
-u8 MapperNum = 151;
+uint8 MapperNum = 151;
 } // namespace
 
 const MapperInfo MapperInfo_151 =

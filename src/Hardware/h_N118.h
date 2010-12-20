@@ -12,7 +12,7 @@
 
 namespace N118
 {
-extern u8 CHR[6];
+extern uint8 CHR[6];
 	
 void		Load		(FSync);
 void		Reset		(RESET_TYPE);

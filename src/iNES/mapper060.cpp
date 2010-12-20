@@ -9,7 +9,7 @@
 
 namespace
 {
-u8 Game;
+uint8 Game;
 
 void	Sync (void)
 {
@@ -37,7 +37,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-u8 MapperNum = 60;
+uint8 MapperNum = 60;
 } // namespace
 
 const MapperInfo MapperInfo_060 =

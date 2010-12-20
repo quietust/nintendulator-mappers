@@ -11,11 +11,11 @@ namespace
 {
 FCPURead _Read6;
 FCPUWrite _Write6;
-u8 PRG[4], CHR[4];
+uint8 PRG[4], CHR[4];
 
 void	Sync (void)
 {
-	u8 x;
+	uint8 x;
 	for (x = 0; x < 4; x++)
 	{
 		EMU->SetPRG_ROM8(0x8 | (x << 1), PRG[x]);
@@ -26,7 +26,7 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	for (i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, x, data, PRG[i]);
 	for (i = 0; i < 4; i++)
@@ -70,7 +70,7 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 	iNES_SetMirroring();
 
 	_Read6 = EMU->GetCPUReadHandler(0x6);
@@ -88,7 +88,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-u8 MapperNum = 246;
+uint8 MapperNum = 246;
 } // namespace
 
 const MapperInfo MapperInfo_246 =

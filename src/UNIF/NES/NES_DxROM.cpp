@@ -9,9 +9,9 @@
 
 namespace N108
 {
-u8 Cmd;
-u8 PRG[2];
-u8 CHR[6];
+uint8 Cmd;
+uint8 PRG[2];
+uint8 CHR[6];
 FSync Sync;
 
 void	MAPINT	CPUWrite89 (int Bank, int Addr, int Val);
@@ -58,7 +58,7 @@ void	SyncCHR (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	SAVELOAD_BYTE(mode, x, data, Cmd);
 	for (i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode, x, data, PRG[i]);

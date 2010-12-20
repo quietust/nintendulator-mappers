@@ -10,11 +10,11 @@
 
 namespace FME7
 {
-u8 IRQenabled;
-u16_n IRQcounter;
-u8 Cmd;
-u8 PRG[4], CHR[8];
-u8 Mirror;
+uint8 IRQenabled;
+uint16_n IRQcounter;
+uint8 Cmd;
+uint8 PRG[4], CHR[8];
+uint8 Mirror;
 FSync Sync;
 
 void	Load (FSync _Sync)
@@ -88,14 +88,14 @@ void	SyncPRG (int AND, int OR)
 
 void	SyncCHR (int AND, int OR)
 {
-	u8 x;
+	uint8 x;
 	for (x = 0; x < 8; x++)
 		EMU->SetCHR_ROM1(x, (CHR[x] & AND) | OR);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	SAVELOAD_WORD(mode, x, data, IRQcounter.s0);
 	SAVELOAD_BYTE(mode, x, data, IRQenabled);
 	SAVELOAD_BYTE(mode, x, data, Cmd);

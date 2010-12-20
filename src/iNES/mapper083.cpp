@@ -9,14 +9,14 @@
 
 namespace
 {
-u8 Mode;
-u8 PRG[5];
-u8 CHR[8];
-u16_n IRQcounter;
+uint8 Mode;
+uint8 PRG[5];
+uint8 CHR[8];
+uint16_n IRQcounter;
 
 void	Sync (void)
 {
-	u8 x;
+	uint8 x;
 	if (Mode & 0x10)
 	{
 		if (Mode & 0x20)
@@ -72,7 +72,7 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	SAVELOAD_BYTE(mode, x, data, Mode);
 	for (i = 0; i < 5; i++)
 		SAVELOAD_BYTE(mode, x, data, PRG[i]);
@@ -124,7 +124,7 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 
 	EMU->SetCPUWriteHandler(0x8, Write);
 
@@ -141,7 +141,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-u8 MapperNum = 83;
+uint8 MapperNum = 83;
 } // namespace
 
 const MapperInfo MapperInfo_083 =

@@ -9,7 +9,7 @@
 
 namespace
 {
-u8 Reg;
+uint8 Reg;
 FCPUWrite _Write4;
 
 void	Sync (void)
@@ -39,7 +39,7 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 
 	iNES_SetMirroring();
 
@@ -53,7 +53,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-u8 MapperNum = 113;
+uint8 MapperNum = 113;
 } // namespace
 
 const MapperInfo MapperInfo_113 =

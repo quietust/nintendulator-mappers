@@ -10,7 +10,7 @@
 
 namespace
 {
-u8 Reg;
+uint8 Reg;
 
 void	Sync (void)
 {
@@ -42,7 +42,7 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 	MMC3::Reset(ResetType);
 	for (x = 0x6; x < 0x8; x++)
 		EMU->SetCPUWriteHandler(x, Write);
@@ -57,7 +57,7 @@ void	MAPINT	Unload (void)
 	MMC3::Unload();
 }
 
-u8 MapperNum = 49;
+uint8 MapperNum = 49;
 } // namespace
 
 const MapperInfo MapperInfo_049 =

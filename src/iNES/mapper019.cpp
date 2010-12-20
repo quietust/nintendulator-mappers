@@ -10,14 +10,14 @@
 
 namespace
 {
-u8 PRG[4], CHR[8], NTab[4];
-u16_n IRQcounter;
+uint8 PRG[4], CHR[8], NTab[4];
+uint16_n IRQcounter;
 FCPURead _Read4;
 FCPUWrite _Write4;
 
 void	Sync (void)
 {
-	u8 x;
+	uint8 x;
 	EMU->SetPRG_RAM8(0x6, 0);
 	for (x = 0; x < 4; x++)
 		EMU->SetPRG_ROM8(8 | (x << 1), PRG[x] & 0x3F);
@@ -47,7 +47,7 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	SAVELOAD_WORD(mode, x, data, IRQcounter.s0);
 	for (i = 0; i < 3; i++)
 		SAVELOAD_BYTE(mode, x, data, PRG[i]);
@@ -173,7 +173,7 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 
 	_Read4 = EMU->GetCPUReadHandler(0x4);
 	EMU->SetCPUReadHandler(0x4, Read4);
@@ -211,7 +211,7 @@ void	MAPINT	Unload (void)
 	N106sound::Unload();
 }
 
-u8 MapperNum = 19;
+uint8 MapperNum = 19;
 } // namespace
 
 const MapperInfo MapperInfo_019 =

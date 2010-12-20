@@ -24,9 +24,9 @@ void	Sync (void)
 			unsigned PRGhigh : 1;
 			unsigned         : 4;
 		};
-		u16 addr;
+		uint16 addr;
 	};
-	u8 x;
+	uint8 x;
 	addr = Latch::Addr.s0;
 
 	EMU->SetCHR_RAM8(0, 0);
@@ -69,7 +69,7 @@ void	MAPINT	Unload (void)
 	Latch::Unload();
 }
 
-u8 MapperNum = 63;
+uint8 MapperNum = 63;
 } // namespace
 
 const MapperInfo MapperInfo_063 =

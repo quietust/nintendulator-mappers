@@ -11,31 +11,31 @@
 // Namco 106
 namespace N106sound
 {
-u8 regs[0x80];
-u8 chans;
-u8 addr;
-u8 inc;
+uint8 regs[0x80];
+uint8 chans;
+uint8 addr;
+uint8 inc;
 struct	N106chan
 {
-	u8 freql, freqm, freqh;
-	u32 freq;
-	u8 len;
-	u8 baseaddr;
-	u8 volume;
-	u8 CurP;
-	u8 CurA;
-	s32 LCtr;
+	uint8 freql, freqm, freqh;
+	uint32 freq;
+	uint8 len;
+	uint8 baseaddr;
+	uint8 volume;
+	uint8 CurP;
+	uint8 CurA;
+	int32 LCtr;
 
 	int	GenerateWave (int Cycles)
 	{
-		s32 _freq;
+		int32 _freq;
 		if (!freq)
 			return 0;
 		_freq = (0xF0000 * chans) / freq;
 		LCtr += Cycles;
 		while (LCtr > _freq)
 		{
-			u8 _addr;
+			uint8 _addr;
 			CurA++;
 			while (CurA >= len)
 				CurA -= len;

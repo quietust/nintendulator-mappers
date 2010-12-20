@@ -10,7 +10,7 @@
 
 namespace
 {
-u8 Latch;
+uint8 Latch;
 FCPUWrite _Write4;
 FSync Sync;
 

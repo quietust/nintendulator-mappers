@@ -9,7 +9,7 @@
 
 namespace
 {
-u8 Reg;
+uint8 Reg;
 FCPURead _Read4;
 FCPUWrite _Write4;
 
@@ -47,7 +47,7 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 	iNES_SetMirroring();
 
 	_Read4 = EMU->GetCPUReadHandler(0x4);
@@ -63,7 +63,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-u8 MapperNum = 132;
+uint8 MapperNum = 132;
 } // namespace
 
 const MapperInfo MapperInfo_132 =

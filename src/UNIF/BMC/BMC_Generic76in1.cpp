@@ -9,7 +9,7 @@
 
 namespace
 {
-u8 Regs[2];
+uint8 Regs[2];
 
 void	Sync (void)
 {
@@ -46,7 +46,7 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	for (i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode, x, data, Regs[i]);
 	if (mode == STATE_LOAD)
@@ -62,7 +62,7 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 	for (x = 0x8; x <= 0xF; x++)
 		EMU->SetCPUWriteHandler(x, Write);
 	for (x = 0; x < 2; x++)

@@ -10,7 +10,7 @@
 namespace
 {
 FCPURead _Read;
-u8 Reg1, Reg2, Reg3;
+uint8 Reg1, Reg2, Reg3;
 
 void	Sync (void)
 {
@@ -86,7 +86,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-u8 MapperNum = 234;
+uint8 MapperNum = 234;
 } // namespace
 
 const MapperInfo MapperInfo_234 =

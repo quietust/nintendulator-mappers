@@ -10,7 +10,7 @@
 
 namespace
 {
-u8 Pos;
+uint8 Pos;
 
 void	Sync (void)
 {
@@ -30,7 +30,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
-	u8 newpos;
+	uint8 newpos;
 	if ((Addr & 0x3000) != 0x2000)	return;
 	if ((Addr & 0x3FF) >= 0x3C0)	return;
 	newpos = (Addr >> 8) & 3;
@@ -60,7 +60,7 @@ void	MAPINT	Unload (void)
 	Latch::Unload();
 }
 
-u8 MapperNum = 96;
+uint8 MapperNum = 96;
 } // namespace
 
 const MapperInfo MapperInfo_096 =

@@ -31,7 +31,7 @@ void	MAPINT	Unload (void)
 	FME7::Unload();
 }
 
-u8 MapperNum = 69;
+uint8 MapperNum = 69;
 } // namespace
 
 const MapperInfo MapperInfo_069 =

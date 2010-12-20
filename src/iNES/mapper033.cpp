@@ -9,9 +9,9 @@
 
 namespace
 {
-u8 PRG[2];
-u8 CHR[6];
-u8 Mirror;
+uint8 PRG[2];
+uint8 CHR[6];
+uint8 Mirror;
 
 void	Sync (void)
 {
@@ -31,7 +31,7 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	for (i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode, x, data, PRG[i]);
 	for (i = 0; i < 6; i++)
@@ -69,7 +69,7 @@ void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 	EMU->SetCPUWriteHandler(0x8, Write89);
 	EMU->SetCPUWriteHandler(0x9, Write89);
 	EMU->SetCPUWriteHandler(0xA, WriteAB);
@@ -85,7 +85,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-u8 MapperNum = 33;
+uint8 MapperNum = 33;
 } // namespace
 
 const MapperInfo MapperInfo_033 =

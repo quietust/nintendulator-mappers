@@ -10,9 +10,9 @@
 
 namespace
 {
-u8 PRG;
-u8 CHR;
-u8 Valid;
+uint8 PRG;
+uint8 CHR;
+uint8 Valid;
 
 void	Sync (void)
 {

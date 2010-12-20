@@ -11,15 +11,15 @@
 
 namespace
 {
-u32 Counter, MaxCount;
-u8 CounterEnabled;
-u8 InitState;
+uint32 Counter, MaxCount;
+uint8 CounterEnabled;
+uint8 InitState;
 HWND ConfigWindow;
-u8 ConfigCmd;
+uint8 ConfigCmd;
 
 void	Sync (void)
 {
-	u8 CHRlines = MMC1::GetCHRBankLo();
+	uint8 CHRlines = MMC1::GetCHRBankLo();
 	MMC1::SyncMirror();
 	MMC1::SyncWRAM();
 	EMU->SetCHR_RAM8(0, 0);
@@ -46,11 +46,11 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 Byte = 0;
+	uint8 Byte = 0;
 	x = MMC1::SaveLoad(mode, x, data);
 	SAVELOAD_LONG(mode, x, data, Counter);
 	if (mode == STATE_SAVE)
-		Byte = (u8)(MaxCount >> 24);
+		Byte = (uint8)(MaxCount >> 24);
 	SAVELOAD_BYTE(mode, x, data, Byte);
 	if (mode == STATE_LOAD)
 		MaxCount = Byte << 24;
@@ -68,7 +68,7 @@ void	MAPINT	CPUCycle (void)
 	Counter++;
 	if (!(Counter % 1789773))
 	{
-		u32 SecondsLeft = ((MaxCount | 0x20000000) - Counter) / 1789773;
+		uint32 SecondsLeft = ((MaxCount | 0x20000000) - Counter) / 1789773;
 		EMU->StatusOut(_T("Time left: %02i:%02i"), SecondsLeft / 60, SecondsLeft % 60);
 	}
 	if (((Counter | (MaxCount ^ 0x1E000000)) & 0x3E000000) == 0x3E000000)
@@ -166,7 +166,7 @@ void	MAPINT	Unload (void)
 		DestroyWindow(ConfigWindow);
 }
 
-u8 MapperNum = 105;
+uint8 MapperNum = 105;
 } // namespace
 
 const MapperInfo MapperInfo_105 =

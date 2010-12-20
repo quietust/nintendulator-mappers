@@ -31,8 +31,8 @@ struct	VRC6sqr
 			unsigned byte2	: 8;
 		};
 	};
-	u8 CurP;
-	s32 LCtr;
+	uint8 CurP;
+	int32 LCtr;
 
 	int	Generate (int Cycles)
 	{
@@ -66,9 +66,9 @@ struct	VRC6saw
 			unsigned byte2	: 8;
 		};
 	};
-	u8 CurP;
-	u8 Acc;
-	s32 LCtr;
+	uint8 CurP;
+	uint8 Acc;
+	int32 LCtr;
 
 	int	Generate (int Cycles)
 	{

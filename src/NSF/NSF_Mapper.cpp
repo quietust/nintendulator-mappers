@@ -186,20 +186,20 @@ song_play:	JMP ($3E02)
 
 namespace
 {
-u8 ExRAM[1024];
+uint8 ExRAM[1024];
 FCPUWrite _Write4;
 FCPURead _Read4, _ReadF;
 HWND ControlWindow;
 
-u8 songnum;
-u8 ntscpal;
-u32 IRQcounter;
-u16_n IRQlatch;
-u8 IRQenabled;
-u8 IRQstatus;
-u8 WatchDog;
+uint8 songnum;
+uint8 ntscpal;
+uint32 IRQcounter;
+uint16_n IRQlatch;
+uint8 IRQenabled;
+uint8 IRQstatus;
+uint8 WatchDog;
 
-u16_n InitAddr, PlayAddr, NTSCspeed, PALspeed;
+uint16_n InitAddr, PlayAddr, NTSCspeed, PALspeed;
 
 unsigned char BIOS[256] =
 {
@@ -259,7 +259,7 @@ int	MAPINT	Read (int Bank, int Addr)
 	case 0x10:	return songnum;			break;
 	case 0x11:	return ntscpal;			break;
 	case 0x12:	{
-				u8 result = IRQstatus;
+				uint8 result = IRQstatus;
 				IRQ(NSFIRQ_NONE);
 				return result;
 			}					break;
@@ -339,7 +339,7 @@ LRESULT CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPar
 
 		{
 			TCHAR chiplist[9];
-			u8 c = ROM->NSF_SoundChips;
+			uint8 c = ROM->NSF_SoundChips;
 			_stprintf(chiplist, _T("%i%i%i%i%i%i%i%i"),
 				(c & 0x80) ? 1 : 0,
 				(c & 0x40) ? 1 : 0,

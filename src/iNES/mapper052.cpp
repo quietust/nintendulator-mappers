@@ -10,8 +10,8 @@
 
 namespace
 {
-u8 WhichGame;
-u8 DidWrite;
+uint8 WhichGame;
+uint8 DidWrite;
 FCPUWrite _Write67;
 
 void	Sync (void)
@@ -87,7 +87,7 @@ void	MAPINT	Unload (void)
 	MMC3::Unload();
 }
 
-u8 MapperNum = 52;
+uint8 MapperNum = 52;
 } // namespace
 
 const MapperInfo MapperInfo_052 =

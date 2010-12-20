@@ -10,7 +10,7 @@
 
 namespace
 {
-u8 Reg0, Reg1;
+uint8 Reg0, Reg1;
 
 void	Sync (void)
 {
@@ -20,7 +20,7 @@ void	Sync (void)
 	MMC3::SyncMirror();
 	if (Reg0 & 0x40)
 	{
-		u8 BankNum = (Reg0 & 0x05) | ((Reg0 & 8) >> 2) | ((Reg0 & 0x20) >> 2);
+		uint8 BankNum = (Reg0 & 0x05) | ((Reg0 & 8) >> 2) | ((Reg0 & 0x20) >> 2);
 		if (Reg0 & 0x2)
 			EMU->SetPRG_ROM32(0x8, BankNum >> 1);
 		else
@@ -74,7 +74,7 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 	MMC3::Reset(ResetType);
 	EMU->SetCPUReadHandler(0x5, Read);
 	EMU->SetCPUWriteHandler(0x5, Write5);

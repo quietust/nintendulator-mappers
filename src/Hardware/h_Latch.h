@@ -14,8 +14,8 @@
 
 namespace Latch
 {
-extern u8 Data;
-extern u16_n Addr;
+extern uint8 Data;
+extern uint16_n Addr;
 
 void		Load		(FSync,BOOL);
 void		Reset		(RESET_TYPE);

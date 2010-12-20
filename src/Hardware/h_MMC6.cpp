@@ -9,13 +9,13 @@
 
 namespace MMC6
 {
-u8 IRQenabled, IRQcounter, IRQlatch, IRQreload;
-u8 IRQaddr;
-u8 Cmd;
-u8 PRG[4];
-u8 CHR[8];
-u8 WRAMEnab;
-u8 Mirror;
+uint8 IRQenabled, IRQcounter, IRQlatch, IRQreload;
+uint8 IRQaddr;
+uint8 Cmd;
+uint8 PRG[4];
+uint8 CHR[8];
+uint8 WRAMEnab;
+uint8 Mirror;
 FCPURead _CPURead7;
 FCPUWrite _CPUWrite7;
 FSync Sync;
@@ -80,28 +80,28 @@ int	GetCHRBank (int Bank)
 
 void	SyncPRG (int AND, int OR)
 {
-	u8 x;
+	uint8 x;
 	for (x = 0; x < 4; x++)
 		EMU->SetPRG_ROM8(8 | (x << 1), (GetPRGBank(x) & AND) | OR);
 }
 
 void	SyncCHR_ROM (int AND, int OR)
 {
-	u8 x;
+	uint8 x;
 	for (x = 0; x < 8; x++)
 		EMU->SetCHR_ROM1(x, (GetCHRBank(x) & AND) | OR);
 }
 
 void	SyncCHR_RAM (int AND, int OR)
 {
-	u8 x;
+	uint8 x;
 	for (x = 0; x < 8; x++)
 		EMU->SetCHR_RAM1(x, (GetCHRBank(x) & AND) | OR);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	SAVELOAD_BYTE(mode, x, data, IRQcounter);
 	SAVELOAD_BYTE(mode, x, data, IRQlatch);
 	SAVELOAD_BYTE(mode, x, data, IRQenabled);

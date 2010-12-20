@@ -11,12 +11,12 @@
 namespace
 {
 FCPUWrite _Write4;
-u8 IRQenabled;
-u16_n IRQcounter;
-u8 PRG;
-u8 Title;
+uint8 IRQenabled;
+uint16_n IRQcounter;
+uint8 PRG;
+uint8 Title;
 HWND ConfigWindow;
-u8 ConfigCmd;
+uint8 ConfigCmd;
 
 void	Sync (void)
 {
@@ -52,8 +52,8 @@ void	MAPINT	CPUCycle (void)
 
 void	MAPINT	Write (int Bank, int Addr, int Val)
 {
-	const u8 PRGbanks[8] = {4,3,4,4,4,7,5,6};
-	u16 Loc = (Bank << 12) | Addr;
+	const uint8 PRGbanks[8] = {4,3,4,4,4,7,5,6};
+	uint16 Loc = (Bank << 12) | Addr;
 	if (Bank == 4)
 		_Write4(Bank, Addr, Val);
 	if ((Loc & 0x71FF) == 0x4022)
@@ -143,7 +143,7 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 	iNES_SetMirroring();
 
 	_Write4 = EMU->GetCPUWriteHandler(0x4);
@@ -169,7 +169,7 @@ void	MAPINT	Unload (void)
 		DestroyWindow(ConfigWindow);
 }
 
-u8 MapperNum = 43;
+uint8 MapperNum = 43;
 } // namespace
 
 const MapperInfo MapperInfo_043 =

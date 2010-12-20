@@ -11,11 +11,11 @@
 namespace VS
 {
 FCPURead _Read;
-u8 DipSwitch, Coin;
-u32 CoinDelay;
+uint8 DipSwitch, Coin;
+uint32 CoinDelay;
 
 HWND ConfigWindow;
-u8 ConfigCmd;
+uint8 ConfigCmd;
 
 static	void	BlockDialog (HWND hDlg, int dlgItem)
 {

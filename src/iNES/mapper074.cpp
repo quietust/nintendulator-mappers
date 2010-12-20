@@ -12,7 +12,7 @@ namespace
 {
 void	Sync (void)
 {
-	u8 x, y;
+	uint8 x, y;
 	MMC3::SyncMirror();
 	MMC3::SyncPRG(0x3F, 0);
 	MMC3::SyncWRAM();
@@ -39,7 +39,7 @@ void	MAPINT	Unload (void)
 	MMC3::Unload();
 }
 
-u8 MapperNum = 74;
+uint8 MapperNum = 74;
 } // namespace
 
 const MapperInfo MapperInfo_074 =

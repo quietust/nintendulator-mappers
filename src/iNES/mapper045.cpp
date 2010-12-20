@@ -10,8 +10,8 @@
 
 namespace
 {
-u8 Regs[4];
-u8 Pos;
+uint8 Regs[4];
+uint8 Pos;
 
 void	Sync (void)
 {
@@ -23,7 +23,7 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	x = MMC3::SaveLoad(mode, x, data);
 	for (i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, x, data, Regs[i]);
@@ -49,7 +49,7 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 	if (ResetType == RESET_HARD)
 	{
 		for (x = 0; x < 4; x++)
@@ -66,7 +66,7 @@ void	MAPINT	Unload (void)
 	MMC3::Unload();
 }
 
-u8 MapperNum = 45;
+uint8 MapperNum = 45;
 } // namespace
 
 const MapperInfo MapperInfo_045 =

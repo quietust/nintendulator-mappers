@@ -9,7 +9,7 @@
 
 namespace
 {
-u8 Reg0, Reg1;
+uint8 Reg0, Reg1;
 
 void	Sync (void)
 {
@@ -48,7 +48,7 @@ void	MAPINT	WriteHi (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 
 	EMU->SetCPUWriteHandler(0x6, WriteLo);
 	for (x = 0x8; x < 0x10; x++)
@@ -59,7 +59,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-u8 MapperNum = 41;
+uint8 MapperNum = 41;
 } // namespace
 
 const MapperInfo MapperInfo_041 =

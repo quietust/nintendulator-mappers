@@ -10,7 +10,7 @@
 
 namespace
 {
-u8 Regs[4];
+uint8 Regs[4];
 
 void	Sync (void)
 {
@@ -26,7 +26,7 @@ void	Sync (void)
 			unsigned PRGchip : 1;
 			unsigned         : 1;
 		};
-		u16 addr;
+		uint16 addr;
 	};
 	addr = Latch::Addr.s0;
 	EMU->SetCHR_ROM8(0, CHRbank);
@@ -43,7 +43,7 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	x = Latch::SaveLoad_A(mode, x, data);
 	for (i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, x, data, Regs[i]);

@@ -9,9 +9,9 @@
 
 namespace
 {
-u8 Mode;
-u8 PRG;
-u8 CHR[2];
+uint8 Mode;
+uint8 PRG;
+uint8 CHR[2];
 FCPUWrite _Write7;
 
 void	Sync_NINA (void)
@@ -76,7 +76,7 @@ void	MAPINT	Load (void)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 	iNES_SetMirroring();
 
 	if (ResetType == RESET_HARD)
@@ -101,7 +101,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 }
 
-u8 MapperNum = 34;
+uint8 MapperNum = 34;
 } // namespace
 
 const MapperInfo MapperInfo_034 =

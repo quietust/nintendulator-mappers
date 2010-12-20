@@ -11,15 +11,15 @@
 #define IRQ_CYCLES 341
 namespace
 {
-u8 IRQenabled, IRQcounter, IRQlatch;
-s16 IRQcycles;
-u8 PRG[2], CHR[8];
-u8 Mirror;
-u8 SwapAddr[4];
+uint8 IRQenabled, IRQcounter, IRQlatch;
+int16 IRQcycles;
+uint8 PRG[2], CHR[8];
+uint8 Mirror;
+uint8 SwapAddr[4];
 
 void	Sync (void)
 {
-	u8 x;
+	uint8 x;
 	EMU->SetPRG_RAM8(0x6, 0);
 	EMU->SetPRG_ROM16(0x8, PRG[0]);
 	EMU->SetPRG_ROM8(0xC, PRG[1]);
@@ -37,7 +37,7 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	SAVELOAD_BYTE(mode, x, data, IRQenabled);
 	SAVELOAD_BYTE(mode, x, data, IRQcounter);
 	SAVELOAD_BYTE(mode, x, data, IRQlatch);
@@ -173,7 +173,7 @@ void	MAPINT	Load_026 (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 
 	EMU->SetCPUWriteHandler(0x8, Write8);
 	EMU->SetCPUWriteHandler(0x9, Write9);
@@ -202,8 +202,8 @@ void	MAPINT	Unload (void)
 	VRC6sound::Unload();
 }
 
-u8 MapperNum = 24;
-u8 MapperNum2 = 26;
+uint8 MapperNum = 24;
+uint8 MapperNum2 = 26;
 } // namespace
 
 const MapperInfo MapperInfo_024 =

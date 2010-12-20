@@ -9,8 +9,8 @@
 
 namespace MMC1
 {
-u8 Latch, LatchPos;
-u8 Regs[4];
+uint8 Latch, LatchPos;
+uint8 Regs[4];
 FSync Sync;
 
 void	Load (FSync _Sync)
@@ -20,7 +20,7 @@ void	Load (FSync _Sync)
 
 void	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 	if (ResetType == RESET_HARD)
 	{
 		Regs[0] = 0x0C;
@@ -41,7 +41,7 @@ void	Unload (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	for (i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, x, data, Regs[i]);
 	SAVELOAD_BYTE(mode, x, data, Latch);
@@ -54,7 +54,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 static	int	LastReg;
 void	MAPINT	Write (int Bank, int Addr, int Val)
 {
-	u8 Reg = (Bank >> 1) & 3;
+	uint8 Reg = (Bank >> 1) & 3;
 	if (Val & 0x80)
 	{
 		Latch = LatchPos = 0;

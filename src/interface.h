@@ -34,15 +34,15 @@
 
 /* Integer types */
 
-typedef	signed __int8		s8;
-typedef	signed __int16		s16;
-typedef	signed __int32		s32;
-typedef	signed __int64		s64;
+typedef	signed __int8		int8;
+typedef	signed __int16		int16;
+typedef	signed __int32		int32;
+typedef	signed __int64		int64;
 
-typedef	unsigned __int8		u8;
-typedef	unsigned __int16	u16;
-typedef	unsigned __int32	u32;
-typedef	unsigned __int64	u64;
+typedef	unsigned __int8		uint8;
+typedef	unsigned __int16	uint16;
+typedef	unsigned __int32	uint32;
+typedef	unsigned __int64	uint64;
 
 typedef	union
 {
@@ -51,8 +51,8 @@ typedef	union
 		unsigned n0 : 4;
 		unsigned n1 : 4;
 	};
-	u8 b[1];
-}	u8_n;
+	uint8 b[1];
+}	uint8_n;
 
 typedef	union
 {
@@ -63,9 +63,9 @@ typedef	union
 		unsigned n2 : 4;
 		unsigned n3 : 4;
 	};
-	u8 b[2];
-	u16 s[1];
-}	u16_n;
+	uint8 b[2];
+	uint16 s[1];
+}	uint16_n;
 
 typedef	union
 {
@@ -80,10 +80,10 @@ typedef	union
 		unsigned n6 : 4;
 		unsigned n7 : 4;
 	};
-	u8 b[4];
-	u16 s[2];
-	u32 l[1];
-}	u32_n;
+	uint8 b[4];
+	uint16 s[2];
+	uint32 l[1];
+}	uint32_n;
 
 #define b0 b[0]
 #define b1 b[1]
@@ -219,7 +219,7 @@ do { \
 } while (0)
 #define	SAVELOAD_WORD(mode,x,data,value) \
 do { \
-	u16_n sl_tmp; \
+	uint16_n sl_tmp; \
 	if (mode == STATE_SAVE) { sl_tmp.s0 = value; data[x++] = sl_tmp.b0; data[x++] = sl_tmp.b1; } \
 	else if (mode == STATE_LOAD) { sl_tmp.b0 = data[x++]; sl_tmp.b1 = data[x++]; value = sl_tmp.s0; } \
 	else if (mode == STATE_SIZE) x += 2; \
@@ -227,7 +227,7 @@ do { \
 } while (0)
 #define	SAVELOAD_LONG(mode,x,data,value) \
 do { \
-	u32_n sl_tmp; \
+	uint32_n sl_tmp; \
 	if (mode == STATE_SAVE) { sl_tmp.l0 = value; data[x++] = sl_tmp.b0; data[x++] = sl_tmp.b1; data[x++] = sl_tmp.b2; data[x++] = sl_tmp.b3; } \
 	else if (mode == STATE_LOAD) { sl_tmp.b0 = data[x++]; sl_tmp.b1 = data[x++]; sl_tmp.b2 = data[x++]; sl_tmp.b3 = data[x++]; value = sl_tmp.l0; } \
 	else if (mode == STATE_SIZE) x += 4; \

@@ -9,7 +9,7 @@
 
 namespace
 {
-u8 Cmd, CHRH, CHRL0, CHRL1, CHRL2, CHRL3, PRG, CHRO, Mirror;
+uint8 Cmd, CHRH, CHRL0, CHRL1, CHRL2, CHRL3, PRG, CHRO, Mirror;
 FCPUWrite _Write4;
 
 void	Sync (void)
@@ -83,7 +83,7 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 
 	_Write4 = EMU->GetCPUWriteHandler(0x4);
 	for (x = 0x4; x < 0x6; x++)
@@ -95,7 +95,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-u8 MapperNum = 137;
+uint8 MapperNum = 137;
 } // namespace
 
 const MapperInfo MapperInfo_137 =

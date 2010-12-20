@@ -62,7 +62,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-u8 MapperNum = 232;
+uint8 MapperNum = 232;
 } // namespace
 
 const MapperInfo MapperInfo_232 =

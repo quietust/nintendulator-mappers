@@ -9,10 +9,10 @@
 
 namespace
 {
-u8 IRQenabled;
-u16_n IRQcounter;
-u8 PRG;
-u8 Mirror;
+uint8 IRQenabled;
+uint16_n IRQcounter;
+uint8 PRG;
+uint8 Mirror;
 
 void	Sync (void)
 {
@@ -71,7 +71,7 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 
 	for (x = 0xE; x < 0x10; x++)
 		EMU->SetCPUWriteHandler(x, Write);
@@ -86,7 +86,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-u8 MapperNum = 42;
+uint8 MapperNum = 42;
 } // namespace
 
 const MapperInfo MapperInfo_042 =

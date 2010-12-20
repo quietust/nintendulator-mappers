@@ -16,9 +16,9 @@ void	Sync (void);
 
 namespace VRC2
 {
-u8 PRG[2];
-u8_n CHR[8];
-u8 Mirror;
+uint8 PRG[2];
+uint8_n CHR[8];
+uint8 Mirror;
 
 void	MAPINT	CPUWrite8 (int Bank, int Addr, int Val)
 {
@@ -90,7 +90,7 @@ void	MAPINT	CPUWriteE (int Bank, int Addr, int Val)
 namespace
 {
 FCPUWrite _Write4, _WriteF;
-u8 Mode;
+uint8 Mode;
 
 void	Sync (void)
 {
@@ -108,7 +108,7 @@ void	Sync (void)
 	}
 	else
 	{
-		u8 x;
+		uint8 x;
 		EMU->SetPRG_ROM8(0x8, VRC2::PRG[0]);
 		EMU->SetPRG_ROM8(0xA, VRC2::PRG[1]);
 		EMU->SetPRG_ROM16(0xC, 0xF);
@@ -130,7 +130,7 @@ void	SetMode (void)
 {
 	if (Mode & 0x02)
 	{
-		u8 x;
+		uint8 x;
 		for (x = 0x8; x < 0x10; x++)
 			EMU->SetCPUWriteHandler(x, MMC1::Write);
 		EMU->SetIRQ(1);
@@ -174,7 +174,7 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	SAVELOAD_BYTE(mode, x, data, Mode);
 	for (i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode, x, data, VRC2::PRG[i]);
@@ -199,7 +199,7 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 	_Write4 = EMU->GetCPUWriteHandler(0x4);
 	_WriteF = EMU->GetCPUWriteHandler(0xF);
 
@@ -227,7 +227,7 @@ void	MAPINT	Unload (void)
 	MMC3::Unload();
 }
 
-u8 MapperNum = 116;
+uint8 MapperNum = 116;
 } // namespace
 
 const MapperInfo MapperInfo_116 =

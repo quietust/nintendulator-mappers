@@ -9,10 +9,10 @@
 
 namespace
 {
-u8 PRG[2];
-u8 CHR[4];
-u8 IRQenabled;
-u8 IRQcounter;
+uint8 PRG[2];
+uint8 CHR[4];
+uint8 IRQenabled;
+uint8 IRQcounter;
 
 void	Sync (void)
 {
@@ -27,7 +27,7 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	for (i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode, x, data, PRG[i]);
 	for (i = 0; i < 4; i++)
@@ -87,7 +87,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-u8 MapperNum = 91;
+uint8 MapperNum = 91;
 } // namespace
 
 const MapperInfo MapperInfo_091 =

@@ -10,9 +10,9 @@
 namespace
 {
 FCPUWrite _Write4;
-u8 IRQenabled;
-u16_n IRQcounter;
-u8 PRG;
+uint8 IRQenabled;
+uint16_n IRQcounter;
+uint8 PRG;
 
 void	Sync (void)
 {
@@ -70,7 +70,7 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 	iNES_SetMirroring();
 
 	_Write4 = EMU->GetCPUWriteHandler(0x4);
@@ -86,7 +86,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-u8 MapperNum = 50;
+uint8 MapperNum = 50;
 } // namespace
 
 const MapperInfo MapperInfo_050 =

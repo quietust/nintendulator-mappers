@@ -10,7 +10,7 @@
 
 namespace
 {
-u8 Game;
+uint8 Game;
 
 void	Sync (void)
 {
@@ -46,7 +46,7 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 	if (ResetType == RESET_HARD)
 		Game = 0;
 	MMC3::Reset(ResetType);
@@ -58,7 +58,7 @@ void	MAPINT	Unload (void)
 	MMC3::Unload();
 }
 
-u8 MapperNum = 44;
+uint8 MapperNum = 44;
 } // namespace
 
 const MapperInfo MapperInfo_044 =

@@ -9,11 +9,11 @@
 
 namespace MMC4
 {
-u8 PRG;
-u8 LatchState[2];
-u8 Latch0[2];
-u8 Latch1[2];
-u8 Mirror;
+uint8 PRG;
+uint8 LatchState[2];
+uint8 Latch0[2];
+uint8 Latch1[2];
+uint8 Mirror;
 FSync Sync;
 FPPURead _PPURead3, _PPURead7;
 
@@ -24,7 +24,7 @@ void	Load (FSync _Sync)
 
 void	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 	if (ResetType == RESET_HARD)
 	{
 		for (x = 0; x < 2; x++)

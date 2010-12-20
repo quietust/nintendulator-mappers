@@ -14,19 +14,19 @@ namespace FDS
 {
 FCPURead _Read;
 FCPUWrite _Write;
-u8 DiskNum;
-u16 IRQcounter;
-u16_n IRQlatch;
-u8 IRQenabled;
-u8 IOenable;
-u8 IOcontrol;
-u8 IOstatus;
+uint8 DiskNum;
+uint16 IRQcounter;
+uint16_n IRQlatch;
+uint8 IRQenabled;
+uint8 IOenable;
+uint8 IOcontrol;
+uint8 IOstatus;
 int BytePtr;
-u8 WriteSkip;
-u8 DiskIRQ;
-u8 Mirror;
+uint8 WriteSkip;
+uint8 DiskIRQ;
+uint8 Mirror;
 HWND ConfigWindow;
-u8 ConfigCmd;
+uint8 ConfigCmd;
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
@@ -54,13 +54,13 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 #define	IRQ_TIMER	0x01
 #define	IRQ_DISK	0x02
 
-inline	void	StartIRQ (u8 flag)
+inline	void	StartIRQ (uint8 flag)
 {
 	IOstatus |= flag;
 	EMU->SetIRQ(0);
 }
 
-inline	void	EndIRQ (u8 flag)
+inline	void	EndIRQ (uint8 flag)
 {
 	IOstatus &= ~flag;
 	if (!IOstatus)
@@ -85,8 +85,8 @@ void	MAPINT	CPUCycle (void)
 
 int	MAPINT	Read (int Bank, int Addr)
 {
-	u8 result;
-	static u8 DiskVal = 0;
+	uint8 result;
+	static uint8 DiskVal = 0;
 	if ((Addr & 0xFFF) < 0x18)
 		return _Read(Bank, Addr);
 	switch (Addr & 0xFFF)
@@ -217,7 +217,7 @@ LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 				ConfigCmd = 0xFF;
 				return TRUE;		break;
 			case IDC_FDS_INSERT:
-				ConfigCmd = (u8)SendDlgItemMessage(hDlg, IDC_FDS_DISKSEL, CB_GETCURSEL, 0, 0) + 1;
+				ConfigCmd = (uint8)SendDlgItemMessage(hDlg, IDC_FDS_DISKSEL, CB_GETCURSEL, 0, 0) + 1;
 				return TRUE;		break;
 			case IDCLOSE:
 				ConfigWindow = NULL;

@@ -10,7 +10,7 @@
 
 namespace
 {
-u8 Reg;
+uint8 Reg;
 FCPUWrite _Write4;
 
 void	Sync (void)
@@ -60,7 +60,7 @@ void	MAPINT	Unload (void)
 	MMC3::Unload();
 }
 
-u8 MapperNum = 189;
+uint8 MapperNum = 189;
 } // namespace
 
 const MapperInfo MapperInfo_189 =

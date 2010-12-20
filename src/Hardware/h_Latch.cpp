@@ -9,8 +9,8 @@
 
 namespace Latch
 {
-u8 Data;
-u16_n Addr;
+uint8 Data;
+uint16_n Addr;
 FSync Sync;
 BOOL BusConflicts;
 
@@ -22,7 +22,7 @@ void	Load (FSync _Sync, BOOL _BusConflicts)
 
 void	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 	if (ResetType == RESET_HARD)
 	{
 		Data = 0;

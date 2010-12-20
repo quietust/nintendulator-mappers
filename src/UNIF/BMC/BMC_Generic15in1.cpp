@@ -9,7 +9,7 @@
 
 namespace
 {
-u8 Data;
+uint8 Data;
 
 void	Sync (void)
 {
@@ -38,7 +38,7 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 	for (x = 0x8; x <= 0xF; x++)
 		EMU->SetCPUWriteHandler(x, Write);
 	Data = 0;

@@ -11,10 +11,10 @@
 
 namespace
 {
-u8 Jumper;
+uint8 Jumper;
 HWND ConfigWindow;
-u8 ConfigCmd;
-u8 JumperData[0x1000];
+uint8 ConfigCmd;
+uint8 JumperData[0x1000];
 
 void	Sync (void)
 {
@@ -25,7 +25,7 @@ void	Sync (void)
 	else	EMU->Mirror_V();
 	if (Latch::Addr.s0 & 0x100)
 	{
-		u8 x;
+		uint8 x;
 		memset(JumperData, Jumper, 0x1000);
 		for (x = 0x8; x < 0x10; x++)
 			EMU->SetPRG_Ptr4(x, JumperData, FALSE);
@@ -119,7 +119,7 @@ void	MAPINT	Unload (void)
 		DestroyWindow(ConfigWindow);
 }
 
-u8 MapperNum = 59;
+uint8 MapperNum = 59;
 } // namespace
 
 const MapperInfo MapperInfo_059 =

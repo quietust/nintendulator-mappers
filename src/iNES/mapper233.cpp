@@ -41,7 +41,7 @@ void	MAPINT	Unload (void)
 	Latch::Unload();
 }
 
-u8 MapperNum = 233;
+uint8 MapperNum = 233;
 } // namespace
 
 const MapperInfo MapperInfo_233 =

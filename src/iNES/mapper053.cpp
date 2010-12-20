@@ -10,7 +10,7 @@
 
 namespace
 {
-u8 Game;
+uint8 Game;
 
 void	Sync (void)
 {
@@ -50,7 +50,7 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 
 	for (x = 0x6; x < 0x8; x++)
 		EMU->SetCPUWriteHandler(x, Write);
@@ -64,7 +64,7 @@ void	MAPINT	Unload (void)
 	Latch::Unload();
 }
 
-u8 MapperNum = 53;
+uint8 MapperNum = 53;
 } // namespace
 
 const MapperInfo MapperInfo_053 =

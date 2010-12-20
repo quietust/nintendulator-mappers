@@ -10,13 +10,13 @@
 
 namespace
 {
-u8 Mirror, VROM_use;
-u8 CHR_L, CHR_H;
-u8 PRG, CHR[4];
+uint8 Mirror, VROM_use;
+uint8 CHR_L, CHR_H;
+uint8 PRG, CHR[4];
 
 void	Sync (void)
 {
-	u8 x;
+	uint8 x;
 	EMU->SetPRG_RAM8(0x6, 0);
 	EMU->SetPRG_ROM16(0x8, PRG);
 	EMU->SetPRG_ROM16(0xC, -1);
@@ -35,10 +35,10 @@ void	SyncNametables (void)
 	}
 	if (VROM_use)
 	{
-		u8 A = EMU->GetCHR_NT1(0x8) ? CHR_H : CHR_L;
-		u8 B = EMU->GetCHR_NT1(0x9) ? CHR_H : CHR_L;
-		u8 C = EMU->GetCHR_NT1(0xA) ? CHR_H : CHR_L;
-		u8 D = EMU->GetCHR_NT1(0xB) ? CHR_H : CHR_L;
+		uint8 A = EMU->GetCHR_NT1(0x8) ? CHR_H : CHR_L;
+		uint8 B = EMU->GetCHR_NT1(0x9) ? CHR_H : CHR_L;
+		uint8 C = EMU->GetCHR_NT1(0xA) ? CHR_H : CHR_L;
+		uint8 D = EMU->GetCHR_NT1(0xB) ? CHR_H : CHR_L;
 		EMU->SetCHR_ROM1(0x8, A | 0x80);
 		EMU->SetCHR_ROM1(0x9, B | 0x80);
 		EMU->SetCHR_ROM1(0xA, C | 0x80);
@@ -52,7 +52,7 @@ void	SyncNametables (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	SAVELOAD_BYTE(mode, x, data, Mirror);
 	SAVELOAD_BYTE(mode, x, data, VROM_use);
 	SAVELOAD_BYTE(mode, x, data, CHR_L);
@@ -122,7 +122,7 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 
 	VS::Reset(ResetType);
 
@@ -152,7 +152,7 @@ void	MAPINT	Unload (void)
 	VS::Unload();
 }
 
-u8 MapperNum = 68;
+uint8 MapperNum = 68;
 } // namespace
 
 const MapperInfo MapperInfo_068 =

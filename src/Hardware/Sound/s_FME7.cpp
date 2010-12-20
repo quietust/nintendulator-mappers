@@ -31,8 +31,8 @@ struct	FME7sqr
 			unsigned byte2 : 8;
 		};
 	};
-	u8 CurP;
-	s32 LCtr;
+	uint8 CurP;
+	int32 LCtr;
 
 	int	Generate (int Cycles)
 	{
@@ -69,7 +69,7 @@ static union
 		unsigned byteD : 8;
 	};
 };
-u8 select;
+uint8 select;
 
 void	Load (void)
 {

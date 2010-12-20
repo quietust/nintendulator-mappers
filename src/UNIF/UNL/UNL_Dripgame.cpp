@@ -12,7 +12,7 @@ namespace Sound
 {
 struct
 {
-	u8 FIFO[256], ReadPos, WritePos;
+	uint8 FIFO[256], ReadPos, WritePos;
 	BOOL IsFull, IsEmpty;
 	int freq, vol;
 	int timer;
@@ -117,16 +117,16 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 namespace
 {
-u8 PRG, CHR[4], Flags;
-u8 IRQenabled, IRQlatch;
-u16 IRQcounter;
-u8 *ExtRam0, *ExtRam1;
-u16 LastAddr, LastAddrTmp;
-u8 Jumper;
+uint8 PRG, CHR[4], Flags;
+uint8 IRQenabled, IRQlatch;
+uint16 IRQcounter;
+uint8 *ExtRam0, *ExtRam1;
+uint16 LastAddr, LastAddrTmp;
+uint8 Jumper;
 FPPURead _PPUReadNT[4];
 FCPURead _CPURead4;
 HWND ConfigWindow;
-u8 ConfigCmd;
+uint8 ConfigCmd;
 
 int	MAPINT	PPUReadNT (int Bank, int Addr)
 {
@@ -180,7 +180,7 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	x = Sound::SaveLoad(mode, x, data);
 	SAVELOAD_WORD(mode, x, data, IRQcounter);
 	SAVELOAD_BYTE(mode, x, data, IRQenabled);
@@ -328,7 +328,7 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	u8 x;
+	uint8 x;
 
 	_CPURead4 = EMU->GetCPUReadHandler(0x4);
 	EMU->SetCPUReadHandler(0x4, CPURead4);

@@ -37,7 +37,7 @@ void	MAPINT	Unload (void)
 	N118::Unload();
 }
 
-u8 MapperNum = 95;
+uint8 MapperNum = 95;
 } // namespace
 
 const MapperInfo MapperInfo_095 =

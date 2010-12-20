@@ -9,9 +9,9 @@
 
 namespace
 {
-u8 Cmd;
-u8 PRG[2], CHR[6];
-u8 Mirror;
+uint8 Cmd;
+uint8 PRG[2], CHR[6];
+uint8 Mirror;
 
 void	Sync (void)
 {
@@ -34,7 +34,7 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	u8 i;
+	uint8 i;
 	SAVELOAD_BYTE(mode, x, data, Cmd);
 	for (i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode, x, data, PRG[i]);
@@ -111,7 +111,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-u8 MapperNum = 112;
+uint8 MapperNum = 112;
 } // namespace
 
 const MapperInfo MapperInfo_112 =

@@ -28,7 +28,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		EMU->SetPRG_RAM8(0x6, 0);
 }
 
-u8 MapperNum = 0;
+uint8 MapperNum = 0;
 } // namespace
 
 const MapperInfo MapperInfo_000 =
