@@ -23,11 +23,11 @@ void	Sync (void)
 	else	MMC3::SyncCHR_RAM(0x07, 0);
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	x = MMC3::SaveLoad(mode, x, data);
-	x = VS::SaveLoad(mode, x, data);
-	return x;
+	offset = MMC3::SaveLoad(mode, offset, data);
+	offset = VS::SaveLoad(mode, offset, data);
+	return offset;
 }
 
 void	MAPINT	Load (void)

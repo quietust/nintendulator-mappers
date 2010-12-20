@@ -17,12 +17,12 @@ void	Sync (void)
 	EMU->SetCHR_ROM8(0, (Reg & 0x03) | ((Reg & 0x40) >> 4));
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, Reg);
+	SAVELOAD_BYTE(mode, offset, data, Reg);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	WriteBank (int Bank, int Addr, int Val)

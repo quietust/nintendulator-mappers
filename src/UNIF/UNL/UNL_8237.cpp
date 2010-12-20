@@ -35,13 +35,13 @@ void	Sync (void)
 	else	MMC3::SyncPRG((PRG & 0x40) ? 0x1F : 0x3F, 0);
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	x = MMC3::SaveLoad(mode, x, data);
-	SAVELOAD_BYTE(mode, x, data, PRG);
-	SAVELOAD_BYTE(mode, x, data, CHR);
-	SAVELOAD_BYTE(mode, x, data, Valid);
-	return x;
+	offset = MMC3::SaveLoad(mode, offset, data);
+	SAVELOAD_BYTE(mode, offset, data, PRG);
+	SAVELOAD_BYTE(mode, offset, data, CHR);
+	SAVELOAD_BYTE(mode, offset, data, Valid);
+	return offset;
 }
 
 void	MAPINT	Write5 (int Bank, int Addr, int Val)

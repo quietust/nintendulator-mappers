@@ -96,39 +96,39 @@ void	SyncCHR_RAM (int AND, int OR)
 		EMU->SetCHR_RAM1(x, (GetCHRBank(x) & AND) | OR);
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, IRQcounter);
-	SAVELOAD_BYTE(mode, x, data, IRQlatch);
-	SAVELOAD_BYTE(mode, x, data, IRQenabled);
-	SAVELOAD_BYTE(mode, x, data, Cmd);
+	SAVELOAD_BYTE(mode, offset, data, IRQcounter);
+	SAVELOAD_BYTE(mode, offset, data, IRQlatch);
+	SAVELOAD_BYTE(mode, offset, data, IRQenabled);
+	SAVELOAD_BYTE(mode, offset, data, Cmd);
 	for (int i = 0; i < 2; i++)
-		SAVELOAD_BYTE(mode, x, data, PRG[i]);
+		SAVELOAD_BYTE(mode, offset, data, PRG[i]);
 	switch (mode)
 	{
 	case STATE_SAVE:
-		data[x++] = CHR[0];
-		data[x++] = CHR[2];
+		data[offset++] = CHR[0];
+		data[offset++] = CHR[2];
 		break;
 	case STATE_LOAD:
-		CHR[0] = data[x++];
+		CHR[0] = data[offset++];
 		CHR[1] = CHR[0] | 1;
-		CHR[2] = data[x++];
+		CHR[2] = data[offset++];
 		CHR[3] = CHR[2] | 1;
 		break;
 	case STATE_SIZE:
-		x += 2;
+		offset += 2;
 		break;
 	}
 	for (int i = 4; i < 8; i++)
-		SAVELOAD_BYTE(mode, x, data, CHR[i]);
-	SAVELOAD_BYTE(mode, x, data, WRAMEnab);
-	SAVELOAD_BYTE(mode, x, data, Mirror);
-	SAVELOAD_BYTE(mode, x, data, IRQreload);
-	SAVELOAD_BYTE(mode, x, data, IRQaddr);
+		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
+	SAVELOAD_BYTE(mode, offset, data, WRAMEnab);
+	SAVELOAD_BYTE(mode, offset, data, Mirror);
+	SAVELOAD_BYTE(mode, offset, data, IRQreload);
+	SAVELOAD_BYTE(mode, offset, data, IRQaddr);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 int	MAPINT	CPURead7 (int Bank, int Addr)

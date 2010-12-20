@@ -18,12 +18,12 @@ void	Sync (void)
 	EMU->SetPRG_ROM16(0xC, Game);
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, Game);
+	SAVELOAD_BYTE(mode, offset, data, Game);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	Reset (RESET_TYPE ResetType)

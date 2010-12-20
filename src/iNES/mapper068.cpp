@@ -48,18 +48,18 @@ void	SyncNametables (void)
 	}
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, Mirror);
-	SAVELOAD_BYTE(mode, x, data, VROM_use);
-	SAVELOAD_BYTE(mode, x, data, CHR_L);
-	SAVELOAD_BYTE(mode, x, data, CHR_H);
-	SAVELOAD_BYTE(mode, x, data, PRG);
+	SAVELOAD_BYTE(mode, offset, data, Mirror);
+	SAVELOAD_BYTE(mode, offset, data, VROM_use);
+	SAVELOAD_BYTE(mode, offset, data, CHR_L);
+	SAVELOAD_BYTE(mode, offset, data, CHR_H);
+	SAVELOAD_BYTE(mode, offset, data, PRG);
 	for (int i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode, x, data, CHR[i]);
+		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	Write8 (int Bank, int Addr, int Val)

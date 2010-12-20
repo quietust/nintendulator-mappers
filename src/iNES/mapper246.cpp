@@ -23,15 +23,15 @@ void	Sync (void)
 	EMU->SetPRG_RAM4(0x6, 0);
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
 	for (int i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode, x, data, PRG[i]);
+		SAVELOAD_BYTE(mode, offset, data, PRG[i]);
 	for (int i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode, x, data, CHR[i]);
+		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 int	MAPINT	Read6 (int Bank, int Addr)

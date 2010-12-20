@@ -238,39 +238,39 @@ int	MAPINT	Get (int Cycles)
 	return z << 6;
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
 	if (mode == STATE_SAVE)
 	{
-		memcpy(data + x, &Sqr0, sizeof(Sqr0));
-		x += sizeof(Sqr0);
-		memcpy(data + x, &Sqr1, sizeof(Sqr1));
-		x += sizeof(Sqr1);
+		memcpy(data + offset, &Sqr0, sizeof(Sqr0));
+		offset += sizeof(Sqr0);
+		memcpy(data + offset, &Sqr1, sizeof(Sqr1));
+		offset += sizeof(Sqr1);
 	}
 	else if (mode == STATE_LOAD)
 	{
-		memcpy(&Sqr0, data + x, sizeof(Sqr0));
-		x += sizeof(Sqr0);
-		memcpy(&Sqr1, data + x, sizeof(Sqr1));
-		x += sizeof(Sqr1);
+		memcpy(&Sqr0, data + offset, sizeof(Sqr0));
+		offset += sizeof(Sqr0);
+		memcpy(&Sqr1, data + offset, sizeof(Sqr1));
+		offset += sizeof(Sqr1);
 	}
 	else if (mode == STATE_SIZE)
 	{
-		x += sizeof(Sqr0);
-		x += sizeof(Sqr1);
+		offset += sizeof(Sqr0);
+		offset += sizeof(Sqr1);
 	}
 	else	MessageBox(hWnd, _T("Invalid save/load type!"), _T(__FILE__), MB_OK);
 
-	SAVELOAD_BYTE(mode, x, data, byte0);
-	SAVELOAD_BYTE(mode, x, data, byte2);
-	SAVELOAD_BYTE(mode, x, data, byte3);
-	SAVELOAD_BYTE(mode, x, data, byte4);
-	SAVELOAD_BYTE(mode, x, data, byte6);
-	SAVELOAD_BYTE(mode, x, data, byte7);
-	SAVELOAD_BYTE(mode, x, data, byte10);
-	SAVELOAD_BYTE(mode, x, data, PCM);
-	SAVELOAD_BYTE(mode, x, data, byte15);
-	SAVELOAD_BYTE(mode, x, data, IRQreads);
-	return x;
+	SAVELOAD_BYTE(mode, offset, data, byte0);
+	SAVELOAD_BYTE(mode, offset, data, byte2);
+	SAVELOAD_BYTE(mode, offset, data, byte3);
+	SAVELOAD_BYTE(mode, offset, data, byte4);
+	SAVELOAD_BYTE(mode, offset, data, byte6);
+	SAVELOAD_BYTE(mode, offset, data, byte7);
+	SAVELOAD_BYTE(mode, offset, data, byte10);
+	SAVELOAD_BYTE(mode, offset, data, PCM);
+	SAVELOAD_BYTE(mode, offset, data, byte15);
+	SAVELOAD_BYTE(mode, offset, data, IRQreads);
+	return offset;
 }
 } // namespace MMC5sound

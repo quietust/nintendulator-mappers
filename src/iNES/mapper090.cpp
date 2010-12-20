@@ -125,35 +125,35 @@ void	SyncNametables (void)
 	}
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
 	for (int i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode, x, data, PRGbanks[i]);
+		SAVELOAD_BYTE(mode, offset, data, PRGbanks[i]);
 	for (int i = 0; i < 8; i++)
-		SAVELOAD_WORD(mode, x, data, CHRbanks[i].s0);
+		SAVELOAD_WORD(mode, offset, data, CHRbanks[i].s0);
 	for (int i = 0; i < 4; i++)
-		SAVELOAD_WORD(mode, x, data, Nametables[i].s0);
-	SAVELOAD_BYTE(mode, x, data, IRQenabled);
-	SAVELOAD_BYTE(mode, x, data, IRQmode);
-	SAVELOAD_BYTE(mode, x, data, IRQcounterL);
-	SAVELOAD_BYTE(mode, x, data, IRQcounterH);
-	SAVELOAD_BYTE(mode, x, data, IRQxor);
-	SAVELOAD_WORD(mode, x, data, IRQaddr);
-	SAVELOAD_BYTE(mode, x, data, BankMode);
-	SAVELOAD_BYTE(mode, x, data, Mirror);
-	SAVELOAD_BYTE(mode, x, data, MirBank);
-	SAVELOAD_BYTE(mode, x, data, ExtBank);
-	SAVELOAD_BYTE(mode, x, data, Mul1);
-	SAVELOAD_BYTE(mode, x, data, Mul2);
-	SAVELOAD_BYTE(mode, x, data, Jumper);
-	SAVELOAD_BYTE(mode, x, data, treg);
+		SAVELOAD_WORD(mode, offset, data, Nametables[i].s0);
+	SAVELOAD_BYTE(mode, offset, data, IRQenabled);
+	SAVELOAD_BYTE(mode, offset, data, IRQmode);
+	SAVELOAD_BYTE(mode, offset, data, IRQcounterL);
+	SAVELOAD_BYTE(mode, offset, data, IRQcounterH);
+	SAVELOAD_BYTE(mode, offset, data, IRQxor);
+	SAVELOAD_WORD(mode, offset, data, IRQaddr);
+	SAVELOAD_BYTE(mode, offset, data, BankMode);
+	SAVELOAD_BYTE(mode, offset, data, Mirror);
+	SAVELOAD_BYTE(mode, offset, data, MirBank);
+	SAVELOAD_BYTE(mode, offset, data, ExtBank);
+	SAVELOAD_BYTE(mode, offset, data, Mul1);
+	SAVELOAD_BYTE(mode, offset, data, Mul2);
+	SAVELOAD_BYTE(mode, offset, data, Jumper);
+	SAVELOAD_BYTE(mode, offset, data, treg);
 	if (mode == STATE_LOAD)
 	{
 		SyncPRG();
 		SyncCHR();
 		SyncNametables();
 	}
-	return x;
+	return offset;
 }
 
 void	IRQcount (void)

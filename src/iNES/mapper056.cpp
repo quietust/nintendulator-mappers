@@ -30,20 +30,20 @@ void	Sync (void)
 		EMU->SetCHR_ROM1(x, CHR[x]);
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, PRGcontrol);
+	SAVELOAD_BYTE(mode, offset, data, PRGcontrol);
 	for (int i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode, x, data, PRG[i].b0);
+		SAVELOAD_BYTE(mode, offset, data, PRG[i].b0);
 	for (int i = 0; i < 8; i++)
-		SAVELOAD_BYTE(mode, x, data, CHR[i]);
-	SAVELOAD_BYTE(mode, x, data, Mirror);
-	SAVELOAD_WORD(mode, x, data, IRQcounter);
-	SAVELOAD_WORD(mode, x, data, IRQlatch.s0);
-	SAVELOAD_BYTE(mode, x, data, IRQenabled);
+		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
+	SAVELOAD_BYTE(mode, offset, data, Mirror);
+	SAVELOAD_WORD(mode, offset, data, IRQcounter);
+	SAVELOAD_WORD(mode, offset, data, IRQlatch.s0);
+	SAVELOAD_BYTE(mode, offset, data, IRQenabled);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	CPUCycle (void)

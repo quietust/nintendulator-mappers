@@ -21,11 +21,11 @@ void	Sync (void)
 	MMC1::SyncWRAM();
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	x = MMC1::SaveLoad(mode, x, data);
-	x = VS::SaveLoad(mode, x, data);
-	return x;
+	offset = MMC1::SaveLoad(mode, offset, data);
+	offset = VS::SaveLoad(mode, offset, data);
+	return offset;
 }
 void	MAPINT	Load (void)
 {

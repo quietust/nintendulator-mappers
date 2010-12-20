@@ -29,14 +29,14 @@ void	Sync (void)
 	}
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, Reg1);
-	SAVELOAD_BYTE(mode, x, data, Reg2);
-	SAVELOAD_BYTE(mode, x, data, Reg3);
+	SAVELOAD_BYTE(mode, offset, data, Reg1);
+	SAVELOAD_BYTE(mode, offset, data, Reg2);
+	SAVELOAD_BYTE(mode, offset, data, Reg3);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	Write (int Bank, int Addr, int Val)

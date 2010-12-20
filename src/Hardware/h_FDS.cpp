@@ -28,27 +28,27 @@ uint8 Mirror;
 HWND ConfigWindow;
 uint8 ConfigCmd;
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, DiskNum);
-	SAVELOAD_WORD(mode, x, data, IRQcounter);
-	SAVELOAD_WORD(mode, x, data, IRQlatch.s0);
-	SAVELOAD_BYTE(mode, x, data, IRQenabled);
-	SAVELOAD_BYTE(mode, x, data, IOenable);
-	SAVELOAD_BYTE(mode, x, data, IOcontrol);
-	SAVELOAD_BYTE(mode, x, data, IOstatus);
-	SAVELOAD_WORD(mode, x, data, BytePtr);
-	SAVELOAD_BYTE(mode, x, data, WriteSkip);
-	SAVELOAD_BYTE(mode, x, data, DiskIRQ);
-	SAVELOAD_BYTE(mode, x, data, Mirror);
-	x = FDSsound::SaveLoad(mode, x, data);
+	SAVELOAD_BYTE(mode, offset, data, DiskNum);
+	SAVELOAD_WORD(mode, offset, data, IRQcounter);
+	SAVELOAD_WORD(mode, offset, data, IRQlatch.s0);
+	SAVELOAD_BYTE(mode, offset, data, IRQenabled);
+	SAVELOAD_BYTE(mode, offset, data, IOenable);
+	SAVELOAD_BYTE(mode, offset, data, IOcontrol);
+	SAVELOAD_BYTE(mode, offset, data, IOstatus);
+	SAVELOAD_WORD(mode, offset, data, BytePtr);
+	SAVELOAD_BYTE(mode, offset, data, WriteSkip);
+	SAVELOAD_BYTE(mode, offset, data, DiskIRQ);
+	SAVELOAD_BYTE(mode, offset, data, Mirror);
+	offset = FDSsound::SaveLoad(mode, offset, data);
 	if (mode == STATE_LOAD)
 	{
 		if (Mirror)
 			EMU->Mirror_H();
 		else	EMU->Mirror_V();
 	}
-	return x;
+	return offset;
 }
 
 #define	IRQ_TIMER	0x01

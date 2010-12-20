@@ -41,14 +41,14 @@ void	Sync (void)
 	else	EMU->Mirror_V();
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	x = Latch::SaveLoad_A(mode, x, data);
+	offset = Latch::SaveLoad_A(mode, offset, data);
 	for (int i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode, x, data, Regs[i]);
+		SAVELOAD_BYTE(mode, offset, data, Regs[i]);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 int	MAPINT	Read (int Bank, int Addr)

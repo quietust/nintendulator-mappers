@@ -143,32 +143,31 @@ int	MAPINT	Get (int Cycles)
 	return out << 5;
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	int i;
 	switch (mode)
 	{
 	case STATE_SAVE:
-		for (i = 0; i < 0x80; i++)
-			data[x++] = regs[i];
-		data[x++] = addr | inc;
+		for (int i = 0; i < 0x80; i++)
+			data[offset++] = regs[i];
+		data[offset++] = addr | inc;
 		break;
 	case STATE_LOAD:
 		Write(0xF800, 0x80);
-		for (i = 0; i < 0x80; i++)
-			Write(0x4800, data[x++]);
-		Write(0xF800, data[x++]);
+		for (int i = 0; i < 0x80; i++)
+			Write(0x4800, data[offset++]);
+		Write(0xF800, data[offset++]);
 		break;
 	case STATE_SIZE:
-		x += 0x81;
+		offset += 0x81;
 		break;
 	}
-	for (i = 0; i < 8; i++)
+	for (int i = 0; i < 8; i++)
 	{
-		SAVELOAD_BYTE(mode, x, data, Ch[i].CurP);
-		SAVELOAD_BYTE(mode, x, data, Ch[i].CurA);
-		SAVELOAD_LONG(mode, x, data, Ch[i].LCtr);
+		SAVELOAD_BYTE(mode, offset, data, Ch[i].CurP);
+		SAVELOAD_BYTE(mode, offset, data, Ch[i].CurA);
+		SAVELOAD_LONG(mode, offset, data, Ch[i].LCtr);
 	}
-	return x;
+	return offset;
 }
 } // namespace N106sound

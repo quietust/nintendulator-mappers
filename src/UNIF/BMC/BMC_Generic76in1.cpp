@@ -44,13 +44,13 @@ void	Sync (void)
 	else	EMU->SetPRG_ROM32(0x8, ((PRGhi) << 4) | (PRGbank >> 1));
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
 	for (int i = 0; i < 2; i++)
-		SAVELOAD_BYTE(mode, x, data, Regs[i]);
+		SAVELOAD_BYTE(mode, offset, data, Regs[i]);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	Write (int Bank, int Addr, int Val)

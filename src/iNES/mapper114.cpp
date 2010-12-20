@@ -22,14 +22,14 @@ void	Sync (void)
 		EMU->SetPRG_ROM16(0x8, PRG & 0xF);
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, PRG);
-	SAVELOAD_BYTE(mode, x, data, Valid);
-	x = MMC3::SaveLoad(mode, x, data);
+	SAVELOAD_BYTE(mode, offset, data, PRG);
+	SAVELOAD_BYTE(mode, offset, data, Valid);
+	offset = MMC3::SaveLoad(mode, offset, data);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	Write6 (int Bank, int Addr, int Val)

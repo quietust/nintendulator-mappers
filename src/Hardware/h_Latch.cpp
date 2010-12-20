@@ -36,37 +36,37 @@ void	Unload (void)
 {
 }
 
-int	MAPINT	SaveLoad_AD (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad_AD (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_WORD(mode, x, data, Addr.s0);
-	SAVELOAD_BYTE(mode, x, data, Data);
+	SAVELOAD_WORD(mode, offset, data, Addr.s0);
+	SAVELOAD_BYTE(mode, offset, data, Data);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
-int	MAPINT	SaveLoad_AL (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad_AL (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, Addr.b0);
+	SAVELOAD_BYTE(mode, offset, data, Addr.b0);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
-int	MAPINT	SaveLoad_A (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad_A (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_WORD(mode, x, data, Addr.s0);
+	SAVELOAD_WORD(mode, offset, data, Addr.s0);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
-int	MAPINT	SaveLoad_D (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad_D (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, Data);
+	SAVELOAD_BYTE(mode, offset, data, Data);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 #include <stdlib.h>

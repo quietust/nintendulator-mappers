@@ -28,13 +28,13 @@ void	Sync (void)
 	else	EMU->Mirror_V();
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, Bank);
-	SAVELOAD_BYTE(mode, x, data, Mode);
+	SAVELOAD_BYTE(mode, offset, data, Bank);
+	SAVELOAD_BYTE(mode, offset, data, Mode);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	Write67 (int Bank, int Addr, int Val)

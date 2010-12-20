@@ -31,13 +31,13 @@ void	Sync (void)
 	}
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	x = Latch::SaveLoad_A(mode, x, data);
-	SAVELOAD_BYTE(mode, x, data, Jumper);
+	offset = Latch::SaveLoad_A(mode, offset, data);
+	SAVELOAD_BYTE(mode, offset, data, Jumper);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)

@@ -19,13 +19,13 @@ void	Sync (void)
 	MMC3::SyncCHR_ROM(0x7F, Reg << 7);
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	x = MMC3::SaveLoad(mode, x, data);
-	SAVELOAD_BYTE(mode, x, data, Reg);
+	offset = MMC3::SaveLoad(mode, offset, data);
+	SAVELOAD_BYTE(mode, offset, data, Reg);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	Write (int Bank, int Addr, int Val)

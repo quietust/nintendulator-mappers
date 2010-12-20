@@ -44,21 +44,21 @@ void	Sync (void)
 	EMU->SetPRG_ROM32(0x8, 0);
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
 	uint8 Byte = 0;
-	x = MMC1::SaveLoad(mode, x, data);
-	SAVELOAD_LONG(mode, x, data, Counter);
+	offset = MMC1::SaveLoad(mode, offset, data);
+	SAVELOAD_LONG(mode, offset, data, Counter);
 	if (mode == STATE_SAVE)
 		Byte = (uint8)(MaxCount >> 24);
-	SAVELOAD_BYTE(mode, x, data, Byte);
+	SAVELOAD_BYTE(mode, offset, data, Byte);
 	if (mode == STATE_LOAD)
 		MaxCount = Byte << 24;
-	SAVELOAD_BYTE(mode, x, data, CounterEnabled);
-	SAVELOAD_BYTE(mode, x, data, InitState);
+	SAVELOAD_BYTE(mode, offset, data, CounterEnabled);
+	SAVELOAD_BYTE(mode, offset, data, InitState);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	CPUCycle (void)

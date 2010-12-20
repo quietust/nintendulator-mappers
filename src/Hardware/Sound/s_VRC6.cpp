@@ -130,26 +130,26 @@ int	MAPINT	Get (int Cycles)
 	return z << 8;
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, Sq0.byte0);
-	SAVELOAD_BYTE(mode, x, data, Sq0.byte1);
-	SAVELOAD_BYTE(mode, x, data, Sq0.byte2);
-	SAVELOAD_BYTE(mode, x, data, Sq0.CurP);
-	SAVELOAD_LONG(mode, x, data, Sq0.LCtr);
+	SAVELOAD_BYTE(mode, offset, data, Sq0.byte0);
+	SAVELOAD_BYTE(mode, offset, data, Sq0.byte1);
+	SAVELOAD_BYTE(mode, offset, data, Sq0.byte2);
+	SAVELOAD_BYTE(mode, offset, data, Sq0.CurP);
+	SAVELOAD_LONG(mode, offset, data, Sq0.LCtr);
 
-	SAVELOAD_BYTE(mode, x, data, Sq1.byte0);
-	SAVELOAD_BYTE(mode, x, data, Sq1.byte1);
-	SAVELOAD_BYTE(mode, x, data, Sq1.byte2);
-	SAVELOAD_BYTE(mode, x, data, Sq1.CurP);
-	SAVELOAD_LONG(mode, x, data, Sq1.LCtr);
+	SAVELOAD_BYTE(mode, offset, data, Sq1.byte0);
+	SAVELOAD_BYTE(mode, offset, data, Sq1.byte1);
+	SAVELOAD_BYTE(mode, offset, data, Sq1.byte2);
+	SAVELOAD_BYTE(mode, offset, data, Sq1.CurP);
+	SAVELOAD_LONG(mode, offset, data, Sq1.LCtr);
 
-	SAVELOAD_BYTE(mode, x, data, Saw.byte0);
-	SAVELOAD_BYTE(mode, x, data, Saw.byte1);
-	SAVELOAD_BYTE(mode, x, data, Saw.byte2);
-	SAVELOAD_BYTE(mode, x, data, Saw.CurP);
-	SAVELOAD_BYTE(mode, x, data, Saw.Acc);
-	SAVELOAD_LONG(mode, x, data, Saw.LCtr);
-	return x;
+	SAVELOAD_BYTE(mode, offset, data, Saw.byte0);
+	SAVELOAD_BYTE(mode, offset, data, Saw.byte1);
+	SAVELOAD_BYTE(mode, offset, data, Saw.byte2);
+	SAVELOAD_BYTE(mode, offset, data, Saw.CurP);
+	SAVELOAD_BYTE(mode, offset, data, Saw.Acc);
+	SAVELOAD_LONG(mode, offset, data, Saw.LCtr);
+	return offset;
 }
 } // namespace VRC6sound

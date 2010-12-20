@@ -34,21 +34,21 @@ void	Sync (void)
 	}
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, IRQenabled);
-	SAVELOAD_BYTE(mode, x, data, IRQcounter);
-	SAVELOAD_BYTE(mode, x, data, IRQlatch);
-	SAVELOAD_WORD(mode, x, data, IRQcycles);
+	SAVELOAD_BYTE(mode, offset, data, IRQenabled);
+	SAVELOAD_BYTE(mode, offset, data, IRQcounter);
+	SAVELOAD_BYTE(mode, offset, data, IRQlatch);
+	SAVELOAD_WORD(mode, offset, data, IRQcycles);
 	for (int i = 0; i < 2; i++)
-		SAVELOAD_BYTE(mode, x, data, PRG[i]);
+		SAVELOAD_BYTE(mode, offset, data, PRG[i]);
 	for (int i = 0; i < 8; i++)
-		SAVELOAD_BYTE(mode, x, data, CHR[i]);
-	SAVELOAD_BYTE(mode, x, data, Mirror);
-	x = VRC6sound::SaveLoad(mode, x, data);
+		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
+	SAVELOAD_BYTE(mode, offset, data, Mirror);
+	offset = VRC6sound::SaveLoad(mode, offset, data);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	CPUCycle (void)

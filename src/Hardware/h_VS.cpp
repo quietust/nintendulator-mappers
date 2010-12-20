@@ -294,12 +294,12 @@ void	Unload (void)
 		DestroyWindow(ConfigWindow);
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, DipSwitch);
-	SAVELOAD_BYTE(mode, x, data, Coin);
-	SAVELOAD_LONG(mode, x, data, CoinDelay);
-	return x;
+	SAVELOAD_BYTE(mode, offset, data, DipSwitch);
+	SAVELOAD_BYTE(mode, offset, data, Coin);
+	SAVELOAD_LONG(mode, offset, data, CoinDelay);
+	return offset;
 }
 
 void	MAPINT	CPUCycle (void)

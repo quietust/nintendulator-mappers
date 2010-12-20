@@ -35,13 +35,13 @@ void	Sync (void)
 	}
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	x = Latch::SaveLoad_D(mode, x, data);
-	SAVELOAD_BYTE(mode, x, data, Mode);
+	offset = Latch::SaveLoad_D(mode, offset, data);
+	SAVELOAD_BYTE(mode, offset, data, Mode);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	Load (void)

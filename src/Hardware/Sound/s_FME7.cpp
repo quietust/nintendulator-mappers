@@ -122,28 +122,28 @@ int	MAPINT	Get (int Cycles)
 	return z << 6;
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, select);
-	SAVELOAD_BYTE(mode, x, data, Sqr[0].byte0);
-	SAVELOAD_BYTE(mode, x, data, Sqr[0].byte1);
-	SAVELOAD_BYTE(mode, x, data, Sqr[0].byte2);
-	SAVELOAD_BYTE(mode, x, data, Sqr[0].CurP);
-	SAVELOAD_LONG(mode, x, data, Sqr[0].LCtr);
-	SAVELOAD_BYTE(mode, x, data, Sqr[1].byte0);
-	SAVELOAD_BYTE(mode, x, data, Sqr[1].byte1);
-	SAVELOAD_BYTE(mode, x, data, Sqr[1].byte2);
-	SAVELOAD_BYTE(mode, x, data, Sqr[1].CurP);
-	SAVELOAD_LONG(mode, x, data, Sqr[1].LCtr);
-	SAVELOAD_BYTE(mode, x, data, Sqr[2].byte0);
-	SAVELOAD_BYTE(mode, x, data, Sqr[2].byte1);
-	SAVELOAD_BYTE(mode, x, data, Sqr[2].byte2);
-	SAVELOAD_BYTE(mode, x, data, Sqr[2].CurP);
-	SAVELOAD_LONG(mode, x, data, Sqr[2].LCtr);
-	SAVELOAD_BYTE(mode, x, data, byte7);
-	SAVELOAD_BYTE(mode, x, data, byteB);
-	SAVELOAD_BYTE(mode, x, data, byteC);
-	SAVELOAD_BYTE(mode, x, data, byteD);
-	return x;
+	SAVELOAD_BYTE(mode, offset, data, select);
+	SAVELOAD_BYTE(mode, offset, data, Sqr[0].byte0);
+	SAVELOAD_BYTE(mode, offset, data, Sqr[0].byte1);
+	SAVELOAD_BYTE(mode, offset, data, Sqr[0].byte2);
+	SAVELOAD_BYTE(mode, offset, data, Sqr[0].CurP);
+	SAVELOAD_LONG(mode, offset, data, Sqr[0].LCtr);
+	SAVELOAD_BYTE(mode, offset, data, Sqr[1].byte0);
+	SAVELOAD_BYTE(mode, offset, data, Sqr[1].byte1);
+	SAVELOAD_BYTE(mode, offset, data, Sqr[1].byte2);
+	SAVELOAD_BYTE(mode, offset, data, Sqr[1].CurP);
+	SAVELOAD_LONG(mode, offset, data, Sqr[1].LCtr);
+	SAVELOAD_BYTE(mode, offset, data, Sqr[2].byte0);
+	SAVELOAD_BYTE(mode, offset, data, Sqr[2].byte1);
+	SAVELOAD_BYTE(mode, offset, data, Sqr[2].byte2);
+	SAVELOAD_BYTE(mode, offset, data, Sqr[2].CurP);
+	SAVELOAD_LONG(mode, offset, data, Sqr[2].LCtr);
+	SAVELOAD_BYTE(mode, offset, data, byte7);
+	SAVELOAD_BYTE(mode, offset, data, byteB);
+	SAVELOAD_BYTE(mode, offset, data, byteC);
+	SAVELOAD_BYTE(mode, offset, data, byteD);
+	return offset;
 }
 } // namespace FME7sound

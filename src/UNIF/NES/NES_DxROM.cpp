@@ -56,16 +56,16 @@ void	SyncCHR (void)
 	EMU->SetCHR_ROM1(7, CHR[5]);
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, Cmd);
+	SAVELOAD_BYTE(mode, offset, data, Cmd);
 	for (int i = 0; i < 2; i++)
-		SAVELOAD_BYTE(mode, x, data, PRG[i]);
+		SAVELOAD_BYTE(mode, offset, data, PRG[i]);
 	for (int i = 0; i < 6; i++)
-		SAVELOAD_BYTE(mode, x, data, CHR[i]);
+		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	CPUWrite89 (int Bank, int Addr, int Val)

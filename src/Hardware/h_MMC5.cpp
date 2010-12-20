@@ -215,34 +215,34 @@ int	GetRAMSize (void)
 	return WRAMsize;
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, WRAMsize);
-	SAVELOAD_BYTE(mode, x, data, PRGsize);
-	SAVELOAD_BYTE(mode, x, data, CHRsize);
+	SAVELOAD_BYTE(mode, offset, data, WRAMsize);
+	SAVELOAD_BYTE(mode, offset, data, PRGsize);
+	SAVELOAD_BYTE(mode, offset, data, CHRsize);
 	for (int i = 0; i < 2; i++)
-		SAVELOAD_BYTE(mode, x, data, WRAMprot[i]);
-	SAVELOAD_BYTE(mode, x, data, GfxMode);
-	SAVELOAD_BYTE(mode, x, data, Mirror);
+		SAVELOAD_BYTE(mode, offset, data, WRAMprot[i]);
+	SAVELOAD_BYTE(mode, offset, data, GfxMode);
+	SAVELOAD_BYTE(mode, offset, data, Mirror);
 	for (int i = 0; i < 5; i++)
-		SAVELOAD_BYTE(mode, x, data, PRG[i]);
+		SAVELOAD_BYTE(mode, offset, data, PRG[i]);
 	for (int i = 0; i < 8; i++)
-		SAVELOAD_WORD(mode, x, data, CHR_A[i].s0);
+		SAVELOAD_WORD(mode, offset, data, CHR_A[i].s0);
 	for (int i = 0; i < 4; i++)
-		SAVELOAD_WORD(mode, x, data, CHR_B[i].s0);
-	SAVELOAD_BYTE(mode, x, data, CHRhi);
-	SAVELOAD_BYTE(mode, x, data, CHRmode);
-	SAVELOAD_BYTE(mode, x, data, SplitMode);
-	SAVELOAD_BYTE(mode, x, data, SplitScroll);
-	SAVELOAD_BYTE(mode, x, data, SplitBank);
-	SAVELOAD_BYTE(mode, x, data, IRQline);
-	SAVELOAD_BYTE(mode, x, data, IRQenabled);
-	SAVELOAD_BYTE(mode, x, data, IRQreads);
-	SAVELOAD_BYTE(mode, x, data, Mul1);
-	SAVELOAD_BYTE(mode, x, data, Mul2);
-	SAVELOAD_WORD(mode, x, data, LineCounter);
-	SAVELOAD_BYTE(mode, x, data, SpriteMode);
-	x = MMC5sound::SaveLoad(mode, x, data);
+		SAVELOAD_WORD(mode, offset, data, CHR_B[i].s0);
+	SAVELOAD_BYTE(mode, offset, data, CHRhi);
+	SAVELOAD_BYTE(mode, offset, data, CHRmode);
+	SAVELOAD_BYTE(mode, offset, data, SplitMode);
+	SAVELOAD_BYTE(mode, offset, data, SplitScroll);
+	SAVELOAD_BYTE(mode, offset, data, SplitBank);
+	SAVELOAD_BYTE(mode, offset, data, IRQline);
+	SAVELOAD_BYTE(mode, offset, data, IRQenabled);
+	SAVELOAD_BYTE(mode, offset, data, IRQreads);
+	SAVELOAD_BYTE(mode, offset, data, Mul1);
+	SAVELOAD_BYTE(mode, offset, data, Mul2);
+	SAVELOAD_WORD(mode, offset, data, LineCounter);
+	SAVELOAD_BYTE(mode, offset, data, SpriteMode);
+	offset = MMC5sound::SaveLoad(mode, offset, data);
 	if (mode == STATE_LOAD)
 	{
 		SyncPRG();
@@ -250,7 +250,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 		SyncMirror();
 		SetPPUHandlers();
 	}
-	return x;
+	return offset;
 }
 
 void	SetPRG (int Size, int Loc, int Bank)

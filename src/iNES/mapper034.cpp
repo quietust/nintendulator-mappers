@@ -28,14 +28,14 @@ void	Sync_BNROM (void)
 	EMU->SetCHR_RAM8(0, 0);
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, Mode);
-	SAVELOAD_BYTE(mode, x, data, PRG);
+	SAVELOAD_BYTE(mode, offset, data, Mode);
+	SAVELOAD_BYTE(mode, offset, data, PRG);
 	if (Mode == 1)
 	{
-		SAVELOAD_BYTE(mode, x, data, CHR[0]);
-		SAVELOAD_BYTE(mode, x, data, CHR[1]);
+		SAVELOAD_BYTE(mode, offset, data, CHR[0]);
+		SAVELOAD_BYTE(mode, offset, data, CHR[1]);
 	}
 	if (mode == STATE_LOAD)
 	{
@@ -44,7 +44,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 		if (Mode == 2)
 			Sync_BNROM();
 	}
-	return x;
+	return offset;
 }
 
 void	MAPINT	WriteNINA (int Bank, int Addr, int Val)

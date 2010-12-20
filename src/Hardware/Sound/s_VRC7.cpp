@@ -1462,27 +1462,26 @@ int	MAPINT	Get (int numCycles)
 	return OPLL_calc(OPL) << 3;	// currently don't use numCycles
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
 	if (mode == STATE_SAVE)
 	{
-		memcpy(data + x, OPL, sizeof(OPLL));
-		x += sizeof(OPLL);
+		memcpy(data + offset, OPL, sizeof(OPLL));
+		offset += sizeof(OPLL);
 	}
 	else if (mode == STATE_LOAD)
 	{
-		int i;
-		memcpy(OPL, data + x, sizeof(OPLL));
-		x += sizeof(OPLL);
-		for (i = 0; i < 6; i++)
+		memcpy(OPL, data + offset, sizeof(OPLL));
+		offset += sizeof(OPLL);
+		for (int i = 0; i < 6; i++)
 		{
 			UPDATE_ALL(MOD(OPL, i));
 			UPDATE_ALL(CAR(OPL, i));
 		}
 	}
 	else if (mode == STATE_SIZE)
-		x += sizeof(OPLL);
+		offset += sizeof(OPLL);
 	else	MessageBox(hWnd, _T("Invalid save/load type!"), _T(__FILE__), MB_OK);
-	return x;
+	return offset;
 }
 } // namespace VRC7sound

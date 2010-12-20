@@ -24,12 +24,12 @@ void	Sync (void)
 		EMU->SetPRG_ROM8(0xE, 0x09);
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	x = MMC3::SaveLoad(mode, x, data);
-	SAVELOAD_BYTE(mode, x, data, Reg0);
-	SAVELOAD_BYTE(mode, x, data, Reg1);
-	return x;
+	offset = MMC3::SaveLoad(mode, offset, data);
+	SAVELOAD_BYTE(mode, offset, data, Reg0);
+	SAVELOAD_BYTE(mode, offset, data, Reg1);
+	return offset;
 }
 
 int	MAPINT	Read5 (int Bank, int Addr)

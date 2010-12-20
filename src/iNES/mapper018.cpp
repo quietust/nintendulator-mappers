@@ -42,20 +42,20 @@ void	Sync (void)
 	else	IRQmask = 0xFFFF;
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
 	for (int i = 0; i < 3; i++)
-		SAVELOAD_BYTE(mode, x, data, PRG[i].b0);
+		SAVELOAD_BYTE(mode, offset, data, PRG[i].b0);
 	for (int i = 0; i < 8; i++)
-		SAVELOAD_BYTE(mode, x, data, CHR[i].b0);
-	SAVELOAD_WORD(mode, x, data, IRQcounter);
-	SAVELOAD_WORD(mode, x, data, IRQlatch.s0);
-	SAVELOAD_BYTE(mode, x, data, IRQcontrol);
-	SAVELOAD_BYTE(mode, x, data, Mirror);
-	SAVELOAD_BYTE(mode, x, data, DisableSRAM);
+		SAVELOAD_BYTE(mode, offset, data, CHR[i].b0);
+	SAVELOAD_WORD(mode, offset, data, IRQcounter);
+	SAVELOAD_WORD(mode, offset, data, IRQlatch.s0);
+	SAVELOAD_BYTE(mode, offset, data, IRQcontrol);
+	SAVELOAD_BYTE(mode, offset, data, Mirror);
+	SAVELOAD_BYTE(mode, offset, data, DisableSRAM);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	CPUCycle (void)

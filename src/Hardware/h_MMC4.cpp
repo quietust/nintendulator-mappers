@@ -52,19 +52,19 @@ void	Unload (void)
 {
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, Latch0[0]);
-	SAVELOAD_BYTE(mode, x, data, Latch0[1]);
-	SAVELOAD_BYTE(mode, x, data, Latch1[0]);
-	SAVELOAD_BYTE(mode, x, data, Latch1[1]);
-	SAVELOAD_BYTE(mode, x, data, LatchState[0]);
-	SAVELOAD_BYTE(mode, x, data, LatchState[1]);
-	SAVELOAD_BYTE(mode, x, data, PRG);
-	SAVELOAD_BYTE(mode, x, data, Mirror);
+	SAVELOAD_BYTE(mode, offset, data, Latch0[0]);
+	SAVELOAD_BYTE(mode, offset, data, Latch0[1]);
+	SAVELOAD_BYTE(mode, offset, data, Latch1[0]);
+	SAVELOAD_BYTE(mode, offset, data, Latch1[1]);
+	SAVELOAD_BYTE(mode, offset, data, LatchState[0]);
+	SAVELOAD_BYTE(mode, offset, data, LatchState[1]);
+	SAVELOAD_BYTE(mode, offset, data, PRG);
+	SAVELOAD_BYTE(mode, offset, data, Mirror);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	SyncPRG (int AND, int OR)

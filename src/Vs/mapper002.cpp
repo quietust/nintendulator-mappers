@@ -18,11 +18,11 @@ void	Sync (void)
 	EMU->SetCHR_RAM8(0, 0);
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	x = Latch::SaveLoad_D(mode, x, data);
-	x = VS::SaveLoad(mode, x, data);
-	return x;
+	offset = Latch::SaveLoad_D(mode, offset, data);
+	offset = VS::SaveLoad(mode, offset, data);
+	return offset;
 }
 
 void	MAPINT	Load (void)

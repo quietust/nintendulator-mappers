@@ -22,16 +22,16 @@ void	Sync (void)
 	EMU->SetCHR_ROM4(4, CHR[1]);
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
 	for (int i = 0; i < 3; i++)
-		SAVELOAD_BYTE(mode, x, data, PRG[i]);
+		SAVELOAD_BYTE(mode, offset, data, PRG[i]);
 	for (int i = 0; i < 2; i++)
-		SAVELOAD_BYTE(mode, x, data, CHR[i]);
-	x = VS::SaveLoad(mode, x, data);
+		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
+	offset = VS::SaveLoad(mode, offset, data);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	Write8 (int Bank, int Addr, int Val)

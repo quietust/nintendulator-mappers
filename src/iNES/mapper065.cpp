@@ -28,19 +28,19 @@ void	Sync (void)
 	else	EMU->Mirror_V();
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, x, data, IRQenabled);
-	SAVELOAD_WORD(mode, x, data, IRQcounter);
-	SAVELOAD_WORD(mode, x, data, IRQlatch.s0);
+	SAVELOAD_BYTE(mode, offset, data, IRQenabled);
+	SAVELOAD_WORD(mode, offset, data, IRQcounter);
+	SAVELOAD_WORD(mode, offset, data, IRQlatch.s0);
 	for (int i = 0; i < 3; i++)
-		SAVELOAD_BYTE(mode, x, data, PRG[i]);
+		SAVELOAD_BYTE(mode, offset, data, PRG[i]);
 	for (int i = 0; i < 8; i++)
-		SAVELOAD_BYTE(mode, x, data, CHR[i]);
-	SAVELOAD_BYTE(mode, x, data, Mirror);
+		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
+	SAVELOAD_BYTE(mode, offset, data, Mirror);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	CPUCycle (void)

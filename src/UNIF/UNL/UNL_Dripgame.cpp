@@ -90,28 +90,28 @@ int	MAPINT	MapperSnd (int Cycles)
 	out += Chan[1].GenerateWave(Cycles);
 	return out << 3;
 }
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
 	int i;
 	for (i = 0; i < 256; i++)
-		SAVELOAD_BYTE(mode, x, data, Chan[0].FIFO[i]);
+		SAVELOAD_BYTE(mode, offset, data, Chan[0].FIFO[i]);
 	for (i = 0; i < 256; i++)
-		SAVELOAD_BYTE(mode, x, data, Chan[1].FIFO[i]);
-	SAVELOAD_BYTE(mode, x, data, Chan[0].ReadPos);
-	SAVELOAD_BYTE(mode, x, data, Chan[1].ReadPos);
-	SAVELOAD_BYTE(mode, x, data, Chan[0].WritePos);
-	SAVELOAD_BYTE(mode, x, data, Chan[1].WritePos);
-	SAVELOAD_BYTE(mode, x, data, Chan[0].IsFull);
-	SAVELOAD_BYTE(mode, x, data, Chan[1].IsFull);
-	SAVELOAD_BYTE(mode, x, data, Chan[0].IsEmpty);
-	SAVELOAD_BYTE(mode, x, data, Chan[1].IsEmpty);
-	SAVELOAD_WORD(mode, x, data, Chan[0].freq);
-	SAVELOAD_WORD(mode, x, data, Chan[1].freq);
-	SAVELOAD_BYTE(mode, x, data, Chan[0].vol);
-	SAVELOAD_BYTE(mode, x, data, Chan[1].vol);
-	SAVELOAD_WORD(mode, x, data, Chan[0].timer);
-	SAVELOAD_WORD(mode, x, data, Chan[1].timer);
-	return x;
+		SAVELOAD_BYTE(mode, offset, data, Chan[1].FIFO[i]);
+	SAVELOAD_BYTE(mode, offset, data, Chan[0].ReadPos);
+	SAVELOAD_BYTE(mode, offset, data, Chan[1].ReadPos);
+	SAVELOAD_BYTE(mode, offset, data, Chan[0].WritePos);
+	SAVELOAD_BYTE(mode, offset, data, Chan[1].WritePos);
+	SAVELOAD_BYTE(mode, offset, data, Chan[0].IsFull);
+	SAVELOAD_BYTE(mode, offset, data, Chan[1].IsFull);
+	SAVELOAD_BYTE(mode, offset, data, Chan[0].IsEmpty);
+	SAVELOAD_BYTE(mode, offset, data, Chan[1].IsEmpty);
+	SAVELOAD_WORD(mode, offset, data, Chan[0].freq);
+	SAVELOAD_WORD(mode, offset, data, Chan[1].freq);
+	SAVELOAD_BYTE(mode, offset, data, Chan[0].vol);
+	SAVELOAD_BYTE(mode, offset, data, Chan[1].vol);
+	SAVELOAD_WORD(mode, offset, data, Chan[0].timer);
+	SAVELOAD_WORD(mode, offset, data, Chan[1].timer);
+	return offset;
 }
 } // namespace Sound
 
@@ -178,22 +178,22 @@ void	Sync (void)
 	}
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	x = Sound::SaveLoad(mode, x, data);
-	SAVELOAD_WORD(mode, x, data, IRQcounter);
-	SAVELOAD_BYTE(mode, x, data, IRQenabled);
-	SAVELOAD_BYTE(mode, x, data, IRQlatch);
-	SAVELOAD_BYTE(mode, x, data, PRG);
+	offset = Sound::SaveLoad(mode, offset, data);
+	SAVELOAD_WORD(mode, offset, data, IRQcounter);
+	SAVELOAD_BYTE(mode, offset, data, IRQenabled);
+	SAVELOAD_BYTE(mode, offset, data, IRQlatch);
+	SAVELOAD_BYTE(mode, offset, data, PRG);
 	for (int i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode, x, data, CHR[i]);
-	SAVELOAD_BYTE(mode, x, data, Flags);
-	SAVELOAD_WORD(mode, x, data, LastAddr);
-	SAVELOAD_WORD(mode, x, data, LastAddrTmp);
-	SAVELOAD_BYTE(mode, x, data, Jumper);
+		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
+	SAVELOAD_BYTE(mode, offset, data, Flags);
+	SAVELOAD_WORD(mode, offset, data, LastAddr);
+	SAVELOAD_WORD(mode, offset, data, LastAddrTmp);
+	SAVELOAD_BYTE(mode, offset, data, Jumper);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	CPUCycle (void)

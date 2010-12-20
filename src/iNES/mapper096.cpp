@@ -19,13 +19,13 @@ void	Sync (void)
 	EMU->SetCHR_RAM4(4, (Latch::Data & 0x4) | 3);
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	x = Latch::SaveLoad_D(mode, x, data);
-	SAVELOAD_BYTE(mode, x, data, Pos);
+	offset = Latch::SaveLoad_D(mode, offset, data);
+	SAVELOAD_BYTE(mode, offset, data, Pos);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)

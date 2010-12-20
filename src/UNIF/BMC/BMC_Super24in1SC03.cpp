@@ -24,15 +24,15 @@ void	Sync (void)
 	else	MMC3::SyncCHR_ROM(0xFF, CHRbank << 3);
 }
 
-int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	x = MMC3::SaveLoad(mode, x, data);
-	SAVELOAD_BYTE(mode, x, data, BankSize);
-	SAVELOAD_BYTE(mode, x, data, PRGbank);
-	SAVELOAD_BYTE(mode, x, data, CHRbank);
+	offset = MMC3::SaveLoad(mode, offset, data);
+	SAVELOAD_BYTE(mode, offset, data, BankSize);
+	SAVELOAD_BYTE(mode, offset, data, PRGbank);
+	SAVELOAD_BYTE(mode, offset, data, CHRbank);
 	if (mode == STATE_LOAD)
 		Sync();
-	return x;
+	return offset;
 }
 
 void	MAPINT	Write (int Bank, int Addr, int Val)
