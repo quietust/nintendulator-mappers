@@ -178,8 +178,8 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	for (int i = 0; i < 8; i++)
 		SAVELOAD_BYTE(mode, offset, data, VRC2::CHR[i].b0);
 	SAVELOAD_BYTE(mode, offset, data, VRC2::Mirror);
-	offset += MMC3::SaveLoad(mode, offset, data);
-	offset += MMC1::SaveLoad(mode, offset, data);
+	offset = MMC3::SaveLoad(mode, offset, data);
+	offset = MMC1::SaveLoad(mode, offset, data);
 	if (mode == STATE_LOAD)
 	{
 		SetMode();
