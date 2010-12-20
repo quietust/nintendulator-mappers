@@ -20,8 +20,8 @@ struct
 
 	int	GenerateWave (int Cycles)
 	{
-		int x = 0, y;
-		for (y = 0; y < Cycles; y++)
+		int z = 0;
+		for (i = 0; i < Cycles; i++)
 		{
 			if (IsEmpty)
 				break;
@@ -34,9 +34,9 @@ struct
 				if (ReadPos == WritePos)
 					IsEmpty = TRUE;
 			}
-			x += Pos;
+			z += Pos;
 		}
-		return x / Cycles;
+		return z / Cycles;
 	}
 	int Read (void)
 	{
@@ -92,10 +92,9 @@ int	MAPINT	MapperSnd (int Cycles)
 }
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	int i;
-	for (i = 0; i < 256; i++)
+	for (int i = 0; i < 256; i++)
 		SAVELOAD_BYTE(mode, offset, data, Chan[0].FIFO[i]);
-	for (i = 0; i < 256; i++)
+	for (int i = 0; i < 256; i++)
 		SAVELOAD_BYTE(mode, offset, data, Chan[1].FIFO[i]);
 	SAVELOAD_BYTE(mode, offset, data, Chan[0].ReadPos);
 	SAVELOAD_BYTE(mode, offset, data, Chan[1].ReadPos);
@@ -330,10 +329,10 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	_CPURead4 = EMU->GetCPUReadHandler(0x4);
 	EMU->SetCPUReadHandler(0x4, CPURead4);
 	EMU->SetCPUReadHandler(0x5, CPURead5);
-	for (int x = 0x8; x < 0xC; x++)
-		EMU->SetCPUWriteHandler(x, CPUWriteL);
-	for (int x = 0xC; x < 0x10; x++)
-		EMU->SetCPUWriteHandler(x, CPUWriteH);
+	for (int i = 0x8; i < 0xC; i++)
+		EMU->SetCPUWriteHandler(i, CPUWriteL);
+	for (int i = 0xC; i < 0x10; i++)
+		EMU->SetCPUWriteHandler(i, CPUWriteH);
 
 	_PPUReadNT[0] = EMU->GetPPUReadHandler(0x8);
 	_PPUReadNT[1] = EMU->GetPPUReadHandler(0x9);
@@ -347,8 +346,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	if (ResetType == RESET_HARD)
 	{
 		PRG = 0;
-		for (x = 0; x < 4; x++)
-			CHR[x] = x;
+		for (int i = 0; i < 4; i++)
+			CHR[i] = i;
 		Flags = 0;
 		IRQenabled = IRQlatch = 0;
 		IRQcounter = 0;

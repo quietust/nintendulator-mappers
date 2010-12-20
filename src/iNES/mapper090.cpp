@@ -392,21 +392,21 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		IRQenabled = IRQmode = IRQcounterL = IRQcounterH = IRQxor = 0;
 		IRQaddr = 0;
 		BankMode = Mirror = MirBank = ExtBank = 0;
-		for (int x = 0; x < 8; x++)
-			CHRbanks[x].s0 = 0;
-		for (int x = 0; x < 4; x++)
-			Nametables[x].s0 = 0;
-		for (int x = 0; x < 4; x++)
-			PRGbanks[x] = 0;
+		for (int i = 0; i < 8; i++)
+			CHRbanks[i].s0 = 0;
+		for (int i = 0; i < 4; i++)
+			Nametables[i].s0 = 0;
+		for (int i = 0; i < 4; i++)
+			PRGbanks[i] = 0;
 		Mul1 = Mul2 = 0;
 		Jumper = 0;
 	}
-	for (int x = 0; x < 16; x++)
+	for (int i = 0; i < 16; i++)
 	{
-		_CPUWrite[x] = EMU->GetCPUWriteHandler(x);
-		EMU->SetCPUWriteHandler(x, CPUWrite);
-		_PPURead[x] = EMU->GetPPUReadHandler(x);
-		EMU->SetPPUReadHandler(x, PPURead);
+		_CPUWrite[i] = EMU->GetCPUWriteHandler(i);
+		EMU->SetCPUWriteHandler(i, CPUWrite);
+		_PPURead[i] = EMU->GetPPUReadHandler(i);
+		EMU->SetPPUReadHandler(i, PPURead);
 	}
 
 	SyncPRG();

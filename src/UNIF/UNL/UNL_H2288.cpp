@@ -77,8 +77,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	MMC3::Reset(ResetType);
 	EMU->SetCPUReadHandler(0x5, Read);
 	EMU->SetCPUWriteHandler(0x5, Write5);
-	for (int x = 0x8; x < 0xA; x++)
-		EMU->SetCPUWriteHandler(x, Write89);	/* need to override writes to $8000 */
+	for (int i = 0x8; i < 0xA; i++)
+		EMU->SetCPUWriteHandler(i, Write89);	/* need to override writes to $8000 */
 	if (ResetType == RESET_HARD)
 	{
 		Reg0 = 0;

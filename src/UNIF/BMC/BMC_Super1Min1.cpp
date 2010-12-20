@@ -50,8 +50,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	if (ResetType == RESET_HARD)
 	{
-		for (int x = 0; x < 4; x++)
-			Regs[x] = 0;
+		for (int i = 0; i < 4; i++)
+			Regs[i] = 0;
 		Pos = 0;
 	}
 	MMC3::Reset(ResetType);

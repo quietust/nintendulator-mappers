@@ -18,11 +18,11 @@ void	Sync (void)
 	EMU->SetPRG_RAM8(0x6, 0);
 	EMU->SetPRG_ROM16(0x8, PRG);
 	EMU->SetPRG_ROM16(0xC, -1);
-	for (int x = 0; x < 8; x++)
+	for (int i = 0; i < 8; i++)
 	{
 		if (ROM->INES_CHRSize)
-			EMU->SetCHR_ROM1(x, CHR[x]);
-		else	EMU->SetCHR_RAM1(x, CHR[x] & 7);
+			EMU->SetCHR_ROM1(i, CHR[i]);
+		else	EMU->SetCHR_RAM1(i, CHR[i] & 7);
 	}
 	switch (Mirror)
 	{
@@ -117,22 +117,22 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	if (ROM->INES_Flags & 0x02)
 	{
-		for (int x = 0x8; x < 0x10; x++)
-			EMU->SetCPUWriteHandler(x, Write);
+		for (int i = 0x8; i < 0x10; i++)
+			EMU->SetCPUWriteHandler(i, Write);
 	}
 	else
 	{
-		for (int x = 0x6; x < 0x8; x++)
-			EMU->SetCPUReadHandler(x, Read);
-		for (int x = 0x6; x < 0x10; x++)
-			EMU->SetCPUWriteHandler(x, Write);
+		for (int i = 0x6; i < 0x8; i++)
+			EMU->SetCPUReadHandler(i, Read);
+		for (int i = 0x6; i < 0x10; i++)
+			EMU->SetCPUWriteHandler(i, Write);
 	}
 
 	if (ResetType == RESET_HARD)
 	{
 		PRG = 0;
-		for (int x = 0; x < 8; x++)
-			CHR[x] = x;
+		for (int i = 0; i < 8; i++)
+			CHR[i] = i;
 		IRQenabled = 0;
 		IRQcounter.s0 = 0;
 	}

@@ -31,8 +31,8 @@ void	Sync (void)
 	EMU->SetCHR_RAM8(0, 0);
 	
 	if ((PRGbank & 0x60) == 0x60)
-		for (int x = 0x8; x < 0x10; x++)
-			EMU->SetPRG_OB4(x);
+		for (int i = 0x8; i < 0x10; i++)
+			EMU->SetPRG_OB4(i);
 	if (PRGsizeL)
 		EMU->SetPRG_ROM32(0x8, PRGbank);
 	else

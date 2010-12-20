@@ -148,8 +148,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	_Write4 = EMU->GetCPUWriteHandler(0x4);
 	EMU->SetCPUReadHandler(0x5, EMU->GetCPUReadHandler(0x8));
 
-	for (int x = 0x4; x < 0x10; x++)
-		EMU->SetCPUWriteHandler(x, Write);
+	for (int i = 0x4; i < 0x10; i++)
+		EMU->SetCPUWriteHandler(i, Write);
 
 	if (ResetType == RESET_HARD)
 	{

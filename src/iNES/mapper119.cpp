@@ -15,12 +15,12 @@ void	Sync (void)
 	MMC3::SyncMirror();
 	MMC3::SyncPRG(0x3F, 0);
 	MMC3::SyncWRAM();
-	for (int x = 0; x < 8; x++)
+	for (int i = 0; i < 8; i++)
 	{
-		uint8 bank = MMC3::GetCHRBank(x);
+		uint8 bank = MMC3::GetCHRBank(i);
 		if (bank & 0x40)
-			EMU->SetCHR_RAM1(x, bank & 0x07);
-		else	EMU->SetCHR_ROM1(x, bank & 0x3F);
+			EMU->SetCHR_RAM1(i, bank & 0x07);
+		else	EMU->SetCHR_ROM1(i, bank & 0x3F);
 	}
 }
 

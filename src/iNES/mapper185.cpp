@@ -82,8 +82,8 @@ void	Sync (void)
 	switch (Latch::Data & 0x33)
 	{
 	case 0x00:	case 0x12:	case 0x13:	case 0x20:	case 0x30:
-		for (int x = 0; x < 8; x++)
-			EMU->SetCHR_Ptr1(x, DisabledCHR, FALSE);
+		for (int i = 0; i < 8; i++)
+			EMU->SetCHR_Ptr1(i, DisabledCHR, FALSE);
 		break;
 	default:
 		EMU->SetCHR_ROM8(0, 0);

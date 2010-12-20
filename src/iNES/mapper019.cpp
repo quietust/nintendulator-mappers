@@ -18,26 +18,26 @@ FCPUWrite _Write4;
 void	Sync (void)
 {
 	EMU->SetPRG_RAM8(0x6, 0);
-	for (int x = 0; x < 4; x++)
-		EMU->SetPRG_ROM8(8 | (x << 1), PRG[x] & 0x3F);
-	for (int x = 0; x < 8; x++)
+	for (int i = 0; i < 4; i++)
+		EMU->SetPRG_ROM8(8 | (i << 1), PRG[i] & 0x3F);
+	for (int i = 0; i < 8; i++)
 	{
-		if ((CHR[x] < 0xE0) || (PRG[1] & (0x40 << (x >> 2))))
-			EMU->SetCHR_ROM1(x, CHR[x]);
-		else	EMU->SetCHR_RAM1(x, CHR[x] & 0x1F);
+		if ((CHR[i] < 0xE0) || (PRG[1] & (0x40 << (i >> 2))))
+			EMU->SetCHR_ROM1(i, CHR[i]);
+		else	EMU->SetCHR_RAM1(i, CHR[i] & 0x1F);
 	}
 
-	for (int x = 0; x < 4; x++)
+	for (int i = 0; i < 4; i++)
 	{
-		if (NTab[x] < 0xE0)
+		if (NTab[i] < 0xE0)
 		{
-			EMU->SetCHR_ROM1(x+0x8, NTab[x]);
-			EMU->SetCHR_ROM1(x+0xC, NTab[x]);
+			EMU->SetCHR_ROM1(i+0x8, NTab[i]);
+			EMU->SetCHR_ROM1(i+0xC, NTab[i]);
 		}
 		else
 		{
-			EMU->SetCHR_NT1(x+0x8, NTab[x] & 1);
-			EMU->SetCHR_NT1(x+0xC, NTab[x] & 1);
+			EMU->SetCHR_NT1(i+0x8, NTab[i] & 1);
+			EMU->SetCHR_NT1(i+0xC, NTab[i] & 1);
 		}
 	}
 	if (PRG[0] & 0x40)
@@ -189,12 +189,12 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	if (ResetType == RESET_HARD)
 	{
-		for (int x = 0; x < 4; x++)
+		for (int i = 0; i < 4; i++)
 		{
-			PRG[x] = 0xFF;
-			CHR[x | 0] = 0xFF;
-			CHR[x | 4] = 0xFF;
-			NTab[x] = 0xFF;
+			PRG[i] = 0xFF;
+			CHR[i | 0] = 0xFF;
+			CHR[i | 4] = 0xFF;
+			NTab[i] = 0xFF;
 		}
 		IRQcounter.s0 = 0;
 	}

@@ -26,8 +26,8 @@ void	Sync (void)
 	if (Latch::Addr.s0 & 0x100)
 	{
 		memset(JumperData, Jumper, 0x1000);
-		for (int x = 0x8; x < 0x10; x++)
-			EMU->SetPRG_Ptr4(x, JumperData, FALSE);
+		for (int i = 0x8; i < 0x10; i++)
+			EMU->SetPRG_Ptr4(i, JumperData, FALSE);
 	}
 }
 

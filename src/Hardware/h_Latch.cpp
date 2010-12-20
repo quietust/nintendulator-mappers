@@ -27,8 +27,8 @@ void	Reset (RESET_TYPE ResetType)
 		Data = 0;
 		Addr.s0 = 0;
 	}
-	for (int x = 0x8; x < 0x10; x++)
-		EMU->SetCPUWriteHandler(x, Write);
+	for (int i = 0x8; i < 0x10; i++)
+		EMU->SetCPUWriteHandler(i, Write);
 	Sync();
 }
 

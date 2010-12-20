@@ -40,10 +40,10 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	iNES_SetMirroring();
 
 	_Write4 = EMU->GetCPUWriteHandler(0x4);
-	for (int x = 0x4; x < 0x8; x++)
-		EMU->SetCPUWriteHandler(x, Write);
-	for (int x = 0xC; x < 0x10; x++)
-		EMU->SetCPUWriteHandler(x, Write);
+	for (int i = 0x4; i < 0x8; i++)
+		EMU->SetCPUWriteHandler(i, Write);
+	for (int i = 0xC; i < 0x10; i++)
+		EMU->SetCPUWriteHandler(i, Write);
 
 	if (ResetType == RESET_HARD)
 		Reg = 0;

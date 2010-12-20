@@ -20,12 +20,12 @@ uint16 IRQmask;
 void	Sync (void)
 {
 	EMU->SetPRG_RAM8(0x6, 0);
-	for (int x = 0; x < 3; x++)
-		EMU->SetPRG_ROM8(8 | (x << 1), PRG[x].b0);
+	for (int i = 0; i < 3; i++)
+		EMU->SetPRG_ROM8(8 | (i << 1), PRG[i].b0);
 
 	EMU->SetPRG_ROM8(0xE, 0xFF);
-	for (int x = 0; x < 8; x++)
-		EMU->SetCHR_ROM1(x, CHR[x].b0);
+	for (int i = 0; i < 8; i++)
+		EMU->SetCHR_ROM1(i, CHR[i].b0);
 	switch (Mirror)
 	{
 	case 0:	EMU->Mirror_H();	break;
@@ -186,8 +186,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		PRG[0].b0 = 0x00;
 		PRG[1].b0 = 0x01;
 		PRG[2].b0 = 0xFE;
-		for (int x = 0; x < 8; x++)
-			CHR[x].b0 = x;
+		for (int i = 0; i < 8; i++)
+			CHR[i].b0 = i;
 		IRQcontrol = 0;
 		IRQcounter = IRQlatch.s0 = 0;
 		Mirror = 0;

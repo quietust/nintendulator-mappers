@@ -93,8 +93,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	}
 	if (Mode == 2)
 	{
-		for (int x = 0x8; x < 0x10; x++)
-			EMU->SetCPUWriteHandler(x, WriteBNROM);
+		for (int i = 0x8; i < 0x10; i++)
+			EMU->SetCPUWriteHandler(i, WriteBNROM);
 		Sync_BNROM();
 	}
 

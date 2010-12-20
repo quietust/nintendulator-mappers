@@ -15,8 +15,8 @@ uint8 Mirror;
 void	Sync (void)
 {
 	EMU->SetPRG_RAM8(0x6, 0);
-	for (int x = 0; x < 4; x++)
-		EMU->SetPRG_ROM8(0x8 | (x << 1), PRG[x]);
+	for (int i = 0; i < 4; i++)
+		EMU->SetPRG_ROM8(0x8 | (i << 1), PRG[i]);
 	EMU->SetCHR_RAM8(0, 0);
 	if (Mirror)
 		EMU->Mirror_H();
@@ -80,8 +80,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	if (ResetType == RESET_HARD)
 	{
-		for (int x = 0; x < 4; x++)
-			PRG[x] = x;
+		for (int i = 0; i < 4; i++)
+			PRG[i] = i;
 		Mirror = 0;
 	}
 	Sync();

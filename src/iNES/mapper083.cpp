@@ -57,8 +57,8 @@ void	Sync (void)
 	}
 	else
 	{
-		for (int x = 0; x < 8; x++)
-			EMU->SetCHR_ROM1(x, CHR[x]);
+		for (int i = 0; i < 8; i++)
+			EMU->SetCHR_ROM1(i, CHR[i]);
 	}
 	switch (Mode & 0x3)
 	{
@@ -127,10 +127,10 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	if (ResetType == RESET_HARD)
 	{
 		Mode = 0;
-		for (int x = 0; x < 8; x++)
-			CHR[x] = 0;
-		for (int x = 0; x < 5; x++)
-			PRG[x] = 0;
+		for (int i = 0; i < 8; i++)
+			CHR[i] = 0;
+		for (int i = 0; i < 5; i++)
+			PRG[i] = 0;
 		IRQcounter.s0 = 0;
 	}
 

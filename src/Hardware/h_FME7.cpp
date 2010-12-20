@@ -88,8 +88,8 @@ void	SyncPRG (int AND, int OR)
 
 void	SyncCHR (int AND, int OR)
 {
-	for (int x = 0; x < 8; x++)
-		EMU->SetCHR_ROM1(x, (CHR[x] & AND) | OR);
+	for (int i = 0; i < 8; i++)
+		EMU->SetCHR_ROM1(i, (CHR[i] & AND) | OR);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)

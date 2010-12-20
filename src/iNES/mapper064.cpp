@@ -39,15 +39,15 @@ void	Sync (void)
 
 	if (Cmd & 0x20)
 	{
-		for (int x = 0; x < 8; x++)
-			EMU->SetCHR_ROM1(SwCHR ^ x, CHR[x]);
+		for (int i = 0; i < 8; i++)
+			EMU->SetCHR_ROM1(SwCHR ^ i, CHR[i]);
 	}
 	else
 	{
-		for (int x = 0; x < 4; x += 2)
-			EMU->SetCHR_ROM2(SwCHR ^ x, CHR[x] >> 1);
-		for (int x = 4; x < 8; x++)
-			EMU->SetCHR_ROM1(SwCHR ^ x, CHR[x]);
+		for (int i = 0; i < 4; i += 2)
+			EMU->SetCHR_ROM2(SwCHR ^ i, CHR[i] >> 1);
+		for (int i = 4; i < 8; i++)
+			EMU->SetCHR_ROM1(SwCHR ^ i, CHR[i]);
 	}
 }
 
@@ -157,10 +157,10 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	if (ResetType == RESET_HARD)
 	{
-		for (int x = 0; x < 3; x++)
-			PRG[x] = 0xFF;
-		for (int x = 0; x < 8; x++)
-			CHR[x] = x;
+		for (int i = 0; i < 3; i++)
+			PRG[i] = 0xFF;
+		for (int i = 0; i < 8; i++)
+			CHR[i] = i;
 		IRQenabled = IRQcounter = IRQlatch = IRQmode = IRQreload = 0;
 		IRQaddr = 0;
 		Cmd = 0;

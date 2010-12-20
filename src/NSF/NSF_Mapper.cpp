@@ -436,20 +436,20 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 
 int	MAPINT	MapperSnd (int Cycles)
 {
-	int x = 0;
+	int i = 0;
 	if (ROM->NSF_SoundChips & NFSSOUND_VRC6)
-		x += VRC6sound::Get(Cycles);
+		i += VRC6sound::Get(Cycles);
 	if (ROM->NSF_SoundChips & NFSSOUND_VRC7)
-		x += VRC7sound::Get(Cycles);
+		i += VRC7sound::Get(Cycles);
 	if (ROM->NSF_SoundChips & NFSSOUND_FDS)
-		x += FDSsound::Get(Cycles);
+		i += FDSsound::Get(Cycles);
 	if (ROM->NSF_SoundChips & NFSSOUND_MMC5)
-		x += MMC5sound::Get(Cycles);
+		i += MMC5sound::Get(Cycles);
 	if (ROM->NSF_SoundChips & NFSSOUND_N106)
-		x += N106sound::Get(Cycles);
+		i += N106sound::Get(Cycles);
 	if (ROM->NSF_SoundChips & NFSSOUND_FME7)
-		x += FME7sound::Get(Cycles);
-	return x;
+		i += FME7sound::Get(Cycles);
+	return i;
 }
 
 int	MAPINT	Read4 (int Bank, int Addr)

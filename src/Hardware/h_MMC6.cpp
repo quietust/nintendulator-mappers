@@ -80,20 +80,20 @@ int	GetCHRBank (int Bank)
 
 void	SyncPRG (int AND, int OR)
 {
-	for (int x = 0; x < 4; x++)
-		EMU->SetPRG_ROM8(8 | (x << 1), (GetPRGBank(x) & AND) | OR);
+	for (int i = 0; i < 4; i++)
+		EMU->SetPRG_ROM8(8 | (i << 1), (GetPRGBank(i) & AND) | OR);
 }
 
 void	SyncCHR_ROM (int AND, int OR)
 {
-	for (int x = 0; x < 8; x++)
-		EMU->SetCHR_ROM1(x, (GetCHRBank(x) & AND) | OR);
+	for (int i = 0; i < 8; i++)
+		EMU->SetCHR_ROM1(i, (GetCHRBank(i) & AND) | OR);
 }
 
 void	SyncCHR_RAM (int AND, int OR)
 {
-	for (int x = 0; x < 8; x++)
-		EMU->SetCHR_RAM1(x, (GetCHRBank(x) & AND) | OR);
+	for (int i = 0; i < 8; i++)
+		EMU->SetCHR_RAM1(i, (GetCHRBank(i) & AND) | OR);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)

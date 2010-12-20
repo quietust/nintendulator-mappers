@@ -172,10 +172,10 @@ void	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUReadHandler(0x5, CPURead5);
 	EMU->SetCPUWriteHandler(0x5, CPUWrite5);
 	_CPUWrite6F = EMU->GetCPUWriteHandler(0x8);
-	for (int x = 0x6; x < 0x10; x++)
-		EMU->SetCPUWriteHandler(x, CPUWrite6F);
-	for (int x = 0x0; x < 0x10; x++)
-		_PPURead[x] = EMU->GetPPUReadHandler(x);
+	for (int i = 0x6; i < 0x10; i++)
+		EMU->SetCPUWriteHandler(i, CPUWrite6F);
+	for (int i = 0x0; i < 0x10; i++)
+		_PPURead[i] = EMU->GetPPUReadHandler(i);
 	
 	PRGsize = 3;
 	CHRsize = 0;
@@ -186,12 +186,12 @@ void	Reset (RESET_TYPE ResetType)
 	SplitMode = SplitBank = SplitScroll = 0;
 	SetPPUHandlers();
 
-	for (x = 0; x < 8; x++)	CHR_A[x].s0 = x;
-	for (x = 0; x < 4; x++)	CHR_B[x].s0 = x;
-	for (x = 0; x < 2; x++)	WRAMprot[x] = 0;
+	for (i = 0; i < 8; i++)	CHR_A[i].s0 = i;
+	for (i = 0; i < 4; i++)	CHR_B[i].s0 = i;
+	for (i = 0; i < 2; i++)	WRAMprot[i] = 0;
 	CHRhi = 0;
 
-	for (x = 0; x < 5; x++)	PRG[x] = 0xFF;
+	for (i = 0; i < 5; i++)	PRG[i] = 0xFF;
 
 	TileCache = -1;
 	MMC5sound::Reset(ResetType);
@@ -266,15 +266,15 @@ void	SetPRG (int Size, int Loc, int Bank)
 		if (Size == 8)
 		{
 			if (WRAMtable[WRAMsize][Bank & 0x7] == -1)
-				for (int x = Loc; x < Loc + 2; x++)
-					EMU->SetPRG_OB4(x);
+				for (int i = Loc; i < Loc + 2; i++)
+					EMU->SetPRG_OB4(i);
 			else	EMU->SetPRG_RAM8(Loc, WRAMtable[WRAMsize][Bank & 0x7]);
 		}
 		else if (Size == 16)
 		{
 			if (WRAMtable[WRAMsize][Bank & 0x6] == -1)
-				for (int x = Loc; x < Loc + 4; x++)
-					EMU->SetPRG_OB4(x);
+				for (int i = Loc; i < Loc + 4; i++)
+					EMU->SetPRG_OB4(i);
 			else
 			{
 				EMU->SetPRG_RAM8(Loc + 0, WRAMtable[WRAMsize][(Bank & 0x6) | 0]);
@@ -596,37 +596,37 @@ int	MAPINT	PPUReadNTExt (int Bank, int Addr)
 
 void	SetPPUHandlers (void)
 {
-	int x;
+	int i;
 	if ((SplitMode & 0x80) && (GfxMode < 2))	// split mode
 	{
 #ifdef	MMC5_EXTENDED_VSPLIT
-		for (x = 0; x < 8; x++)
-			EMU->SetPPUReadHandler(x, PPUReadPT);
+		for (i = 0; i < 8; i++)
+			EMU->SetPPUReadHandler(i, PPUReadPT);
 #endif
 		if (GfxMode == 1)	
-			for (x = 8; x < 0x10; x++)		// + exgfx
-				EMU->SetPPUReadHandler(x, PPUReadNTSplitExt);
+			for (i = 8; i < 0x10; i++)		// + exgfx
+				EMU->SetPPUReadHandler(i, PPUReadNTSplitExt);
 		else
-			for (x = 8; x < 0x10; x++)		// split only
-				EMU->SetPPUReadHandler(x, PPUReadNTSplit);
+			for (i = 8; i < 0x10; i++)		// split only
+				EMU->SetPPUReadHandler(i, PPUReadNTSplit);
 	}
 	else if (GfxMode == 1)				// exgfx only
 	{
 #ifdef	MMC5_EXTENDED_VSPLIT
-		for (x = 0; x < 8; x++)
-			EMU->SetPPUReadHandler(x, _PPURead[x]);
+		for (i = 0; i < 8; i++)
+			EMU->SetPPUReadHandler(i, _PPURead[i]);
 #endif
-		for (x = 8; x < 0x10; x++)
-			EMU->SetPPUReadHandler(x, PPUReadNTExt);
+		for (i = 8; i < 0x10; i++)
+			EMU->SetPPUReadHandler(i, PPUReadNTExt);
 	}
 	else							// normal
 	{
 #ifdef	MMC5_EXTENDED_VSPLIT
-		for (x = 0; x < 8; x++)
-			EMU->SetPPUReadHandler(x, _PPURead[x]);
+		for (i = 0; i < 8; i++)
+			EMU->SetPPUReadHandler(i, _PPURead[i]);
 #endif
-		for (x = 8; x < 0x10; x++)
-			EMU->SetPPUReadHandler(x, _PPURead[x]);
+		for (i = 8; i < 0x10; i++)
+			EMU->SetPPUReadHandler(i, _PPURead[i]);
 	}
 }
 

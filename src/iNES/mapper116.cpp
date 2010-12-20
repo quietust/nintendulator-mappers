@@ -111,8 +111,8 @@ void	Sync (void)
 		EMU->SetPRG_ROM8(0x8, VRC2::PRG[0]);
 		EMU->SetPRG_ROM8(0xA, VRC2::PRG[1]);
 		EMU->SetPRG_ROM16(0xC, 0xF);
-		for (int x = 0; x < 8; x++)
-			EMU->SetCHR_ROM1(x, VRC2::CHR[x].b0 | ((Mode & 0x04) << 6));
+		for (int i = 0; i < 8; i++)
+			EMU->SetCHR_ROM1(i, VRC2::CHR[i].b0 | ((Mode & 0x04) << 6));
 		if (VRC2::Mirror & 0x1)
 			EMU->Mirror_H();
 		else	EMU->Mirror_V();
@@ -129,8 +129,8 @@ void	SetMode (void)
 {
 	if (Mode & 0x02)
 	{
-		for (int x = 0x8; x < 0x10; x++)
-			EMU->SetCPUWriteHandler(x, MMC1::Write);
+		for (int i = 0x8; i < 0x10; i++)
+			EMU->SetCPUWriteHandler(i, MMC1::Write);
 		EMU->SetIRQ(1);
 	}
 	else if (Mode & 0x01)
@@ -202,14 +202,14 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	MMC1::Reset(ResetType);
 	MMC3::Reset(ResetType);
 
-	for (int x = 0x4; x < 0x8; x++)
-		EMU->SetCPUWriteHandler(x, Write);
+	for (int i = 0x4; i < 0x8; i++)
+		EMU->SetCPUWriteHandler(i, Write);
 
 	if (ResetType == RESET_HARD)
 	{
 		VRC2::PRG[0] = 0;	VRC2::PRG[1] = 1;
-		for (int x = 0; x < 8; x++)
-			VRC2::CHR[x].b0 = x;
+		for (int i = 0; i < 8; i++)
+			VRC2::CHR[i].b0 = i;
 		VRC2::Mirror = 0;
 		Mode = 0;
 	}

@@ -21,12 +21,12 @@ void	Sync (void)
 	EMU->SetPRG_ROM8(0xA, PRG[1]);
 	EMU->SetPRG_ROM8(0xC, PRG[2]);
 	EMU->SetPRG_ROM8(0xE, PRG[3]);
-	for (int x = 0; x < 8; x++)
-		EMU->SetCHR_ROM1(x, CHR[x]);
-	for (int x = 0; x < 4; x++)
+	for (int i = 0; i < 8; i++)
+		EMU->SetCHR_ROM1(i, CHR[i]);
+	for (int i = 0; i < 4; i++)
 	{
-		EMU->SetCHR_NT1(0x8 | x, Mirror[x]);
-		EMU->SetCHR_NT1(0xC | x, Mirror[x]);
+		EMU->SetCHR_NT1(0x8 | i, Mirror[i]);
+		EMU->SetCHR_NT1(0xC | i, Mirror[i]);
 	}
 }
 
@@ -83,19 +83,19 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	for (int x = 0x8; x < 0x10; x++)
-		EMU->SetCPUWriteHandler(x, Write);
+	for (int i = 0x8; i < 0x10; i++)
+		EMU->SetCPUWriteHandler(i, Write);
 
 	if (ResetType == RESET_HARD)
 	{
-		for (int x = 0; x < 4; x++)
-			PRG[x] = 0xF;
-		for (int x = 0; x < 8; x++)
-			CHR[x] = 0;
+		for (int i = 0; i < 4; i++)
+			PRG[i] = 0xF;
+		for (int i = 0; i < 8; i++)
+			CHR[i] = 0;
 		IRQenabled = 0;
 		IRQcounter = 0;
-		for (int x = 0; x < 4; x++)
-			Mirror[x] = 0;
+		for (int i = 0; i < 4; i++)
+			Mirror[i] = 0;
 	}
 	Sync();
 }

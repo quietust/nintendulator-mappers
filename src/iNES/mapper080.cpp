@@ -77,8 +77,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	if (ResetType == RESET_HARD)
 	{
 		Mirror = 0;
-		for (int x = 0; x < 8; x++)
-			CHR[x] = x;
+		for (int i = 0; i < 8; i++)
+			CHR[i] = i;
 		PRG[0] = 0;
 		PRG[1] = 1;
 		PRG[2] = 0xFF;

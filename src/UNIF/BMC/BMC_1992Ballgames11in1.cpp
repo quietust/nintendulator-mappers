@@ -53,10 +53,10 @@ void	MAPINT	Write89ABCDEF (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	for (int x = 0x6; x < 0x8; x++)
-		EMU->SetCPUWriteHandler(x, Write67);
-	for (int x = 0x8; x <= 0xF; x++)
-		EMU->SetCPUWriteHandler(x, Write89ABCDEF);
+	for (int i = 0x6; i < 0x8; i++)
+		EMU->SetCPUWriteHandler(i, Write67);
+	for (int i = 0x8; i < 0x10; i++)
+		EMU->SetCPUWriteHandler(i, Write89ABCDEF);
 
 	if (ResetType == RESET_HARD)
 	{

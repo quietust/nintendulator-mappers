@@ -175,7 +175,6 @@ void	MAPINT	UnloadMapper (void)
 
 const MapperInfo	*MAPINT	LoadMapper (const ROMInfo *_ROM)
 {
-	int x = 0;
 	char *BoardName;
 	ROM = _ROM;
 	
@@ -199,12 +198,12 @@ const MapperInfo	*MAPINT	LoadMapper (const ROMInfo *_ROM)
 	BoardName = _strdup(ROM->UNIF_BoardName);
 	if ((!strncmp(BoardName,"BTL-",4)) || (!strncmp(BoardName,"HVC-",4)) || (!strncmp(BoardName,"UNL-",4)))
 		strncpy(BoardName,"NES-",4);
-	for (x = 0; BoardTable[x] != &MapperInfo_0; x++)
+	for (int i = 0; BoardTable[i] != &MapperInfo_0; i++)
 	{
-		if ((!strcmp((char *)BoardTable[x]->MapperId,BoardName)) || (!strcmp((char *)BoardTable[x]->MapperId,ROM->UNIF_BoardName)))
+		if ((!strcmp((char *)BoardTable[i]->MapperId,BoardName)) || (!strcmp((char *)BoardTable[i]->MapperId,ROM->UNIF_BoardName)))
 		{
 			free(BoardName);
-			return BoardTable[x];
+			return BoardTable[i];
 		}
 	}
 	free(BoardName);

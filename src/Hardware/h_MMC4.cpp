@@ -26,11 +26,11 @@ void	Reset (RESET_TYPE ResetType)
 {
 	if (ResetType == RESET_HARD)
 	{
-		for (int x = 0; x < 2; x++)
+		for (int i = 0; i < 2; i++)
 		{
-			LatchState[x] = 0;
-			Latch0[x] = 0;
-			Latch1[x] = 0;
+			LatchState[i] = 0;
+			Latch0[i] = 0;
+			Latch1[i] = 0;
 		}
 		PRG = 0;
 		Mirror = 0;

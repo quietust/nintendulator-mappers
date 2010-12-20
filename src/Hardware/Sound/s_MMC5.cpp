@@ -179,14 +179,14 @@ void	Write (int Addr, int Val)
 	case 0x5007:	Sqr1.Write(3, byte7 = Val);	break;
 	case 0x5010:	if ((byte10 ^ Val) & 0x01)
 			{
-				for (int x = 0; x < 4; x++)
+				for (int i = 0; i < 4; i++)
 				{
 					if (Val & 0x01)
 					{
-						_CPURead[x] = EMU->GetCPUReadHandler(0x8 | x);
-						EMU->SetCPUReadHandler(0x8 | x, CPUReadPCM);
+						_CPURead[i] = EMU->GetCPUReadHandler(0x8 | i);
+						EMU->SetCPUReadHandler(0x8 | i, CPUReadPCM);
 					}
-					else	EMU->SetCPUReadHandler(0x8 | x, _CPURead[x]);
+					else	EMU->SetCPUReadHandler(0x8 | i, _CPURead[i]);
 				}
 			}
 			byte10 = Val;

@@ -28,10 +28,10 @@ void	Sync (void)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 	if (Latch::Addr.s0 & 0x100)
-		for (int x = 0x8; x < 0x10; x++)
+		for (int i = 0x8; i < 0x10; i++)
 		{
-			EMU->SetPRG_RAM4(x, x-8);
-			memset(EMU->GetPRG_Ptr4(x), Jumper, 0x1000);
+			EMU->SetPRG_RAM4(i, i-8);
+			memset(EMU->GetPRG_Ptr4(i), Jumper, 0x1000);
 		}
 }
 

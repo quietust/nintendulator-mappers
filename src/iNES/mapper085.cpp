@@ -29,10 +29,10 @@ void	Sync (void)
 		EMU->SetPRG_OB4(0x7);
 	}
 	if (ROM->INES_CHRSize)
-		for (int x = 0; x < 8; x++)
-			EMU->SetCHR_ROM1(x, CHR[x]);
-	else	for (int x = 0; x < 8; x++)
-			EMU->SetCHR_RAM1(x, CHR[x] & 7);
+		for (int i = 0; i < 8; i++)
+			EMU->SetCHR_ROM1(i, CHR[i]);
+	else	for (int i = 0; i < 8; i++)
+			EMU->SetCHR_RAM1(i, CHR[i] & 7);
 	switch (Misc & 0x3)
 	{
 	case 0:	EMU->Mirror_V();	break;
@@ -184,8 +184,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		PRG[0] = 0x00;
 		PRG[0] = 0x01;
 		PRG[2] = 0xFE;
-		for (int x = 0; x < 8; x++)
-			CHR[x] = x;
+		for (int i = 0; i < 8; i++)
+			CHR[i] = i;
 		Misc = 0;
 	}
 

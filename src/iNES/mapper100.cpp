@@ -18,29 +18,29 @@ BANKTYPE PRGtype[5], CHRtype[16];
 
 void	Sync (void)
 {
-	int x;
-	for (x = 0; x < 5; x++)
+	int i;
+	for (i = 0; i < 5; i++)
 	{
-		if (PRGtype[x] == BANK_ROM)
-			EMU->SetPRG_ROM8(6 + (x << 1), PRG[x]);
-		else if (PRGtype[x] == BANK_RAM)
-			EMU->SetPRG_RAM8(6 + (x << 1), PRG[x] & 0xF);
+		if (PRGtype[i] == BANK_ROM)
+			EMU->SetPRG_ROM8(6 + (i << 1), PRG[i]);
+		else if (PRGtype[i] == BANK_RAM)
+			EMU->SetPRG_RAM8(6 + (i << 1), PRG[i] & 0xF);
 		else
 		{
-			EMU->SetPRG_OB4(6 + (x << 1));
-			EMU->SetPRG_OB4(7 + (x << 1));
+			EMU->SetPRG_OB4(6 + (i << 1));
+			EMU->SetPRG_OB4(7 + (i << 1));
 		}
 	}
 
-	for (x = 0; x < 16; x++)
+	for (i = 0; i < 16; i++)
 	{
-		if (CHRtype[x] == BANK_ROM)
-			EMU->SetCHR_ROM1(x, CHR[x]);
-		else if (CHRtype[x] == BANK_RAM)
-			EMU->SetCHR_RAM1(x, CHR[x]);
-		else if (CHRtype[x] == BANK_NT)
-			EMU->SetCHR_NT1(x, CHR[x]);
-		else	EMU->SetCHR_OB1(x);
+		if (CHRtype[i] == BANK_ROM)
+			EMU->SetCHR_ROM1(i, CHR[i]);
+		else if (CHRtype[i] == BANK_RAM)
+			EMU->SetCHR_RAM1(i, CHR[i]);
+		else if (CHRtype[i] == BANK_NT)
+			EMU->SetCHR_NT1(i, CHR[i]);
+		else	EMU->SetCHR_OB1(i);
 	}
 }
 
@@ -208,16 +208,16 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 
 void	MAPINT	Load (void)
 {
-	int x;
-	for (x = 0; x < 5; x++)
+	int i;
+	for (i = 0; i < 5; i++)
 	{
-		PRG[x] = 0;
-		PRGtype[x] = BANK_OPEN;
+		PRG[i] = 0;
+		PRGtype[i] = BANK_OPEN;
 	}
-	for (x = 0; x < 16; x++)
+	for (i = 0; i < 16; i++)
 	{
-		CHR[x] = 0;
-		CHRtype[x] = BANK_OPEN;
+		CHR[i] = 0;
+		CHRtype[i] = BANK_OPEN;
 	}
 	ConfigWindow = NULL;
 }

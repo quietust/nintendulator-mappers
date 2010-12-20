@@ -20,14 +20,14 @@ uint8 IRQenabled;
 void	Sync (void)
 {
 	EMU->SetPRG_RAM8(0x6, 0);
-	for (int x = 0; x < 3; x++)
-		EMU->SetPRG_ROM8(8 | (x << 1), PRG[x].b0);
+	for (int i = 0; i < 3; i++)
+		EMU->SetPRG_ROM8(8 | (i << 1), PRG[i].b0);
 	EMU->SetPRG_ROM8(0xE, -1);
 	if (Mirror)
 		EMU->Mirror_V();
 	else	EMU->Mirror_H();
-	for (int x = 0; x < 8; x++)
-		EMU->SetCHR_ROM1(x, CHR[x]);
+	for (int i = 0; i < 8; i++)
+		EMU->SetCHR_ROM1(i, CHR[i]);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
@@ -131,8 +131,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	if (ResetType == RESET_HARD)
 	{
-		for (int x = 0; x < 4; x++)
-			PRG[x].b0 = CHR[x | 0] = CHR[x | 4] = 0;
+		for (int i = 0; i < 4; i++)
+			PRG[i].b0 = CHR[i | 0] = CHR[i | 4] = 0;
 		PRGcontrol = Mirror = 0;
 	}
 

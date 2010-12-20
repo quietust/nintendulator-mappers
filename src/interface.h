@@ -210,27 +210,27 @@ struct	MapperInfo
 	unsigned char	(MAPINT *Config)	(CFG_TYPE,unsigned char);	/* Mode, Data */
 };
 
-#define	SAVELOAD_BYTE(mode,x,data,value) \
+#define	SAVELOAD_BYTE(mode,offset,data,value) \
 do { \
-	if (mode == STATE_SAVE) data[x++] = value; \
-	else if (mode == STATE_LOAD) value = data[x++]; \
-	else if (mode == STATE_SIZE) x++; \
+	if (mode == STATE_SAVE) data[offset++] = value; \
+	else if (mode == STATE_LOAD) value = data[offset++]; \
+	else if (mode == STATE_SIZE) offset++; \
 	else MessageBox(hWnd,_T("Invalid save/load type!"),_T(__FILE__),MB_OK); \
 } while (0)
-#define	SAVELOAD_WORD(mode,x,data,value) \
+#define	SAVELOAD_WORD(mode,offset,data,value) \
 do { \
 	uint16_n sl_tmp; \
-	if (mode == STATE_SAVE) { sl_tmp.s0 = value; data[x++] = sl_tmp.b0; data[x++] = sl_tmp.b1; } \
-	else if (mode == STATE_LOAD) { sl_tmp.b0 = data[x++]; sl_tmp.b1 = data[x++]; value = sl_tmp.s0; } \
-	else if (mode == STATE_SIZE) x += 2; \
+	if (mode == STATE_SAVE) { sl_tmp.s0 = value; data[offset++] = sl_tmp.b0; data[offset++] = sl_tmp.b1; } \
+	else if (mode == STATE_LOAD) { sl_tmp.b0 = data[offset++]; sl_tmp.b1 = data[offset++]; value = sl_tmp.s0; } \
+	else if (mode == STATE_SIZE) offset += 2; \
 	else MessageBox(hWnd,_T("Invalid save/load type!"),_T(__FILE__),MB_OK); \
 } while (0)
-#define	SAVELOAD_LONG(mode,x,data,value) \
+#define	SAVELOAD_LONG(mode,offset,data,value) \
 do { \
 	uint32_n sl_tmp; \
-	if (mode == STATE_SAVE) { sl_tmp.l0 = value; data[x++] = sl_tmp.b0; data[x++] = sl_tmp.b1; data[x++] = sl_tmp.b2; data[x++] = sl_tmp.b3; } \
-	else if (mode == STATE_LOAD) { sl_tmp.b0 = data[x++]; sl_tmp.b1 = data[x++]; sl_tmp.b2 = data[x++]; sl_tmp.b3 = data[x++]; value = sl_tmp.l0; } \
-	else if (mode == STATE_SIZE) x += 4; \
+	if (mode == STATE_SAVE) { sl_tmp.l0 = value; data[offset++] = sl_tmp.b0; data[offset++] = sl_tmp.b1; data[offset++] = sl_tmp.b2; data[offset++] = sl_tmp.b3; } \
+	else if (mode == STATE_LOAD) { sl_tmp.b0 = data[offset++]; sl_tmp.b1 = data[offset++]; sl_tmp.b2 = data[offset++]; sl_tmp.b3 = data[offset++]; value = sl_tmp.l0; } \
+	else if (mode == STATE_SIZE) offset += 4; \
 	else MessageBox(hWnd,_T("Invalid save/load type!"),_T(__FILE__),MB_OK); \
 } while (0)
 

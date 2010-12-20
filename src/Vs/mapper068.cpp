@@ -19,8 +19,8 @@ void	Sync (void)
 	EMU->SetPRG_RAM8(0x6, 0);
 	EMU->SetPRG_ROM16(0x8, PRG);
 	EMU->SetPRG_ROM16(0xC, -1);
-	for (int x = 0; x < 4; x++)
-		EMU->SetCHR_ROM2(x << 1, CHR[x]);
+	for (int i = 0; i < 4; i++)
+		EMU->SetCHR_ROM2(i << 1, CHR[i]);
 }
 
 void	SyncNametables (void)
@@ -134,8 +134,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	if (ResetType == RESET_HARD)
 	{
 		PRG = 0;
-		for (int x = 0; x < 4; x++)
-			CHR[x] = x;
+		for (int i = 0; i < 4; i++)
+			CHR[i] = i;
 		Mirror = VROM_use = 0;
 		CHR_L = CHR_H = 0;
 	}

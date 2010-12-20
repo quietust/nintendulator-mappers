@@ -49,8 +49,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	if (ResetType == RESET_HARD)
 		Game = 0;
 	MMC3::Reset(ResetType);
-	for (int x = 0xA; x < 0xC; x++)
-		EMU->SetCPUWriteHandler(x, Write);	/* need to override writes to $A001 */
+	for (int i = 0xA; i < 0xC; i++)
+		EMU->SetCPUWriteHandler(i, Write);	/* need to override writes to $A001 */
 }
 void	MAPINT	Unload (void)
 {

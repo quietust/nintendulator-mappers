@@ -24,8 +24,8 @@ void	Sync (void)
 		EMU->SetPRG_ROM8(0xC, PRG[0]);
 	else	EMU->SetPRG_ROM8(0xC, -2);
 	EMU->SetPRG_ROM8(0xE, -1);
-	for (int x = 0; x < 8; x++)
-		EMU->SetCHR_ROM1(x, CHR[x]);
+	for (int i = 0; i < 8; i++)
+		EMU->SetCHR_ROM1(i, CHR[i]);
 	if (Byte9xxx & 0x01)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
@@ -77,8 +77,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	if (ResetType == RESET_HARD)
 	{
 		PRG[0] = 0;	PRG[1] = 1;	PRG[2] = 0xFE;
-		for (int x = 0; x < 8; x++)
-			CHR[x] = 0;
+		for (int i = 0; i < 8; i++)
+			CHR[i] = 0;
 		Byte9xxx = 0;
 	}
 	Sync();

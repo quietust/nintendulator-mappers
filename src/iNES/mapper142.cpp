@@ -16,8 +16,8 @@ uint8 IRQenabled;
 
 void	Sync (void)
 {
-	for (int x = 0; x < 3; x++)
-		EMU->SetPRG_ROM8(8 | (x << 1), PRG[x]);
+	for (int i = 0; i < 3; i++)
+		EMU->SetPRG_ROM8(8 | (i << 1), PRG[i]);
 	EMU->SetPRG_ROM8(0x6, PRG[3]);
 	EMU->SetPRG_ROM8(0xE, -1);
 	EMU->SetCHR_RAM8(0, 0);
@@ -105,8 +105,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	if (ResetType == RESET_HARD)
 	{
-		for (int x = 0; x < 4; x++)
-			PRG[x] = 0;
+		for (int i = 0; i < 4; i++)
+			PRG[i] = 0;
 		PRGcontrol = 0;
 	}
 

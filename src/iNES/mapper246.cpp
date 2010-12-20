@@ -15,10 +15,10 @@ uint8 PRG[4], CHR[4];
 
 void	Sync (void)
 {
-	for (int x = 0; x < 4; x++)
+	for (int i = 0; i < 4; i++)
 	{
-		EMU->SetPRG_ROM8(0x8 | (x << 1), PRG[x]);
-		EMU->SetCHR_ROM2(x << 1, CHR[x]);
+		EMU->SetPRG_ROM8(0x8 | (i << 1), PRG[i]);
+		EMU->SetCHR_ROM2(i << 1, CHR[i]);
 	}
 	EMU->SetPRG_RAM4(0x6, 0);
 }
@@ -79,8 +79,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	{
 		PRG[0] = 0;	PRG[1] = 1;
 		PRG[2] = 0xFE;	PRG[3] = 0xFF;
-		for (int x = 0; x < 4; x++)
-			CHR[x] = 0;
+		for (int i = 0; i < 4; i++)
+			CHR[i] = 0;
 	}
 	Sync();
 }
