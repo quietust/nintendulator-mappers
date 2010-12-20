@@ -98,8 +98,7 @@ void	SyncNametables (void)
 {
 	if ((BankMode & 0x20) && (Jumper & 0x01))
 	{
-		int i;
-		for (i = 0; i < 4; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			if ((BankMode & 0x40) || ((Nametables[i].b0 ^ MirBank) & 0x80))
 			{

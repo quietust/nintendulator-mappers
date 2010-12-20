@@ -85,8 +85,7 @@ void	Load (void)
 
 void	Reset (RESET_TYPE ResetType)
 {
-	int i;
-	for (i = 0; i < 8; i++)
+	for (int i = 0; i < 8; i++)
 		Ch[i].len = 0x10;
 	chans = 8;
 	inc = 0x80;
@@ -137,8 +136,7 @@ int	Read (int Addr)
 int	MAPINT	Get (int Cycles)
 {
 	int out = 0;
-	int i;
-	for (i = 8 - chans; i < 8; i++)
+	for (int i = 8 - chans; i < 8; i++)
 		out += Ch[i].GenerateWave(Cycles);
 	return out << 5;
 }

@@ -186,12 +186,12 @@ void	Reset (RESET_TYPE ResetType)
 	SplitMode = SplitBank = SplitScroll = 0;
 	SetPPUHandlers();
 
-	for (i = 0; i < 8; i++)	CHR_A[i].s0 = i;
-	for (i = 0; i < 4; i++)	CHR_B[i].s0 = i;
-	for (i = 0; i < 2; i++)	WRAMprot[i] = 0;
+	for (int i = 0; i < 8; i++)	CHR_A[i].s0 = i;
+	for (int i = 0; i < 4; i++)	CHR_B[i].s0 = i;
+	for (int i = 0; i < 2; i++)	WRAMprot[i] = 0;
 	CHRhi = 0;
 
-	for (i = 0; i < 5; i++)	PRG[i] = 0xFF;
+	for (int i = 0; i < 5; i++)	PRG[i] = 0xFF;
 
 	TileCache = -1;
 	MMC5sound::Reset(ResetType);
@@ -368,8 +368,8 @@ void	SyncCHR (int mode)
 
 void	SyncMirror (void)
 {
-	uint8 mirror = Mirror, i;
-	for (i = 0; i < 4; i++)
+	uint8 mirror = Mirror;
+	for (int i = 0; i < 4; i++)
 	{
 		if ((mirror & 3) == 3)
 		{
@@ -596,36 +596,35 @@ int	MAPINT	PPUReadNTExt (int Bank, int Addr)
 
 void	SetPPUHandlers (void)
 {
-	int i;
 	if ((SplitMode & 0x80) && (GfxMode < 2))	// split mode
 	{
 #ifdef	MMC5_EXTENDED_VSPLIT
-		for (i = 0; i < 8; i++)
+		for (int i = 0; i < 8; i++)
 			EMU->SetPPUReadHandler(i, PPUReadPT);
 #endif
 		if (GfxMode == 1)	
-			for (i = 8; i < 0x10; i++)		// + exgfx
+			for (int i = 8; i < 0x10; i++)		// + exgfx
 				EMU->SetPPUReadHandler(i, PPUReadNTSplitExt);
 		else
-			for (i = 8; i < 0x10; i++)		// split only
+			for (int i = 8; i < 0x10; i++)		// split only
 				EMU->SetPPUReadHandler(i, PPUReadNTSplit);
 	}
 	else if (GfxMode == 1)				// exgfx only
 	{
 #ifdef	MMC5_EXTENDED_VSPLIT
-		for (i = 0; i < 8; i++)
+		for (int i = 0; i < 8; i++)
 			EMU->SetPPUReadHandler(i, _PPURead[i]);
 #endif
-		for (i = 8; i < 0x10; i++)
+		for (int i = 8; i < 0x10; i++)
 			EMU->SetPPUReadHandler(i, PPUReadNTExt);
 	}
 	else							// normal
 	{
 #ifdef	MMC5_EXTENDED_VSPLIT
-		for (i = 0; i < 8; i++)
+		for (int i = 0; i < 8; i++)
 			EMU->SetPPUReadHandler(i, _PPURead[i]);
 #endif
-		for (i = 8; i < 0x10; i++)
+		for (int i = 8; i < 0x10; i++)
 			EMU->SetPPUReadHandler(i, _PPURead[i]);
 	}
 }

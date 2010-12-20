@@ -18,8 +18,7 @@ BANKTYPE PRGtype[5], CHRtype[16];
 
 void	Sync (void)
 {
-	int i;
-	for (i = 0; i < 5; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		if (PRGtype[i] == BANK_ROM)
 			EMU->SetPRG_ROM8(6 + (i << 1), PRG[i]);
@@ -32,7 +31,7 @@ void	Sync (void)
 		}
 	}
 
-	for (i = 0; i < 16; i++)
+	for (int i = 0; i < 16; i++)
 	{
 		if (CHRtype[i] == BANK_ROM)
 			EMU->SetCHR_ROM1(i, CHR[i]);
@@ -208,13 +207,12 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 
 void	MAPINT	Load (void)
 {
-	int i;
-	for (i = 0; i < 5; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		PRG[i] = 0;
 		PRGtype[i] = BANK_OPEN;
 	}
-	for (i = 0; i < 16; i++)
+	for (int i = 0; i < 16; i++)
 	{
 		CHR[i] = 0;
 		CHRtype[i] = BANK_OPEN;

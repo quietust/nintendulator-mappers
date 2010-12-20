@@ -185,12 +185,11 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	int i;
 	TCHAR buf[256];
 	switch (message)
 	{
 		case WM_INITDIALOG:
-			for (i = 0; i < ROM->FDS_NumSides; i++)
+			for (int i = 0; i < ROM->FDS_NumSides; i++)
 			{
 				_stprintf(buf, _T("Disk %i Side %s"), (i >> 1)+1, (i & 1) ? _T("B") : _T("A"));
 				SendDlgItemMessage(hDlg, IDC_FDS_DISKSEL, CB_ADDSTRING, 0, (LPARAM)buf);

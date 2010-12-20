@@ -63,7 +63,6 @@ static	void	UnblockDialog (HWND hDlg)
 static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	const int buttons[8] = {IDC_VS_DIP0,IDC_VS_DIP1,IDC_VS_DIP2,IDC_VS_DIP3,IDC_VS_DIP4,IDC_VS_DIP5,IDC_VS_DIP6,IDC_VS_DIP7};
-	int i;
 	switch (message)
 	{
 	case WM_INITDIALOG:
@@ -76,7 +75,7 @@ static	LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 			else	BlockDialog(hDlg, 0);
 		}
 		else	UnblockDialog(hDlg);
-		for (i = 0; i < 8; i++)
+		for (int i = 0; i < 8; i++)
 			CheckDlgButton(hDlg, buttons[i], (DipSwitch & (1 << i)) ? BST_CHECKED : BST_UNCHECKED);
 		return FALSE;
 	case WM_COMMAND:

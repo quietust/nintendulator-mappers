@@ -38,15 +38,14 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	int i;
 	SAVELOAD_BYTE(mode, offset, data, IRQenabled);
 	SAVELOAD_BYTE(mode, offset, data, IRQcounter);
 	SAVELOAD_BYTE(mode, offset, data, IRQlatch.b0);
 	SAVELOAD_WORD(mode, offset, data, IRQcycles);
 	SAVELOAD_BYTE(mode, offset, data, PRGswap);
-	for (i = 0; i < 2; i++)
+	for (int i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode, offset, data, PRG[i]);
-	for (i = 0; i < 8; i++)
+	for (int i = 0; i < 8; i++)
 		SAVELOAD_BYTE(mode, offset, data, CHR[i].b0);
 	SAVELOAD_BYTE(mode, offset, data, Mirror);
 	if (mode == STATE_LOAD)

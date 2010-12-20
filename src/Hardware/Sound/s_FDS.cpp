@@ -219,8 +219,7 @@ void	Load (void)
 
 void	Reset (RESET_TYPE ResetType)
 {
-	int i;
-	for (i = 0; i < 0x40; i++)
+	for (int i = 0; i < 0x40; i++)
 	{
 		op[0].wg.wave[i] = (i < 0x20) ? 0x1F : -0x20;
 		op[1].wg.wave[i] = 64;

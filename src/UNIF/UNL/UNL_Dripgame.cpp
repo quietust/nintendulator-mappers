@@ -21,7 +21,7 @@ struct
 	int	GenerateWave (int Cycles)
 	{
 		int z = 0;
-		for (i = 0; i < Cycles; i++)
+		for (int i = 0; i < Cycles; i++)
 		{
 			if (IsEmpty)
 				break;
