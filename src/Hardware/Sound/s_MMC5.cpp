@@ -179,8 +179,7 @@ void	Write (int Addr, int Val)
 	case 0x5007:	Sqr1.Write(3, byte7 = Val);	break;
 	case 0x5010:	if ((byte10 ^ Val) & 0x01)
 			{
-				uint8 x;
-				for (x = 0; x < 4; x++)
+				for (int x = 0; x < 4; x++)
 				{
 					if (Val & 0x01)
 					{

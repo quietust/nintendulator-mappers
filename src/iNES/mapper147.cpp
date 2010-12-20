@@ -37,13 +37,12 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
 	iNES_SetMirroring();
 
 	_Write4 = EMU->GetCPUWriteHandler(0x4);
-	for (x = 0x4; x < 0x8; x++)
+	for (int x = 0x4; x < 0x8; x++)
 		EMU->SetCPUWriteHandler(x, Write);
-	for (x = 0xC; x < 0x10; x++)
+	for (int x = 0xC; x < 0x10; x++)
 		EMU->SetCPUWriteHandler(x, Write);
 
 	if (ResetType == RESET_HARD)

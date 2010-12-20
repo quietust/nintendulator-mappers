@@ -180,13 +180,12 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	uint8 i;
 	x = Sound::SaveLoad(mode, x, data);
 	SAVELOAD_WORD(mode, x, data, IRQcounter);
 	SAVELOAD_BYTE(mode, x, data, IRQenabled);
 	SAVELOAD_BYTE(mode, x, data, IRQlatch);
 	SAVELOAD_BYTE(mode, x, data, PRG);
-	for (i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, x, data, CHR[i]);
 	SAVELOAD_BYTE(mode, x, data, Flags);
 	SAVELOAD_WORD(mode, x, data, LastAddr);
@@ -328,14 +327,12 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
-
 	_CPURead4 = EMU->GetCPUReadHandler(0x4);
 	EMU->SetCPUReadHandler(0x4, CPURead4);
 	EMU->SetCPUReadHandler(0x5, CPURead5);
-	for (x = 0x8; x < 0xC; x++)
+	for (int x = 0x8; x < 0xC; x++)
 		EMU->SetCPUWriteHandler(x, CPUWriteL);
-	for (x = 0xC; x < 0x10; x++)
+	for (int x = 0xC; x < 0x10; x++)
 		EMU->SetCPUWriteHandler(x, CPUWriteH);
 
 	_PPUReadNT[0] = EMU->GetPPUReadHandler(0x8);

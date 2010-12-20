@@ -86,12 +86,12 @@ void	Sync_TQROM (void)
 	MMC3::SyncWRAM();
 	MMC3::SyncPRG(0x0F, 0);
 
-	for (uint8 x = 0; x < 8; x++)
+	for (int x = 0; x < 8; x++)
 	{
-		uint8 y = MMC3::GetCHRBank(x);
-		if (y & 0x40)
-			EMU->SetCHR_RAM1(x, y & 0x07);
-		else	EMU->SetCHR_ROM1(x, y & 0x3F);
+		uint8 bank = MMC3::GetCHRBank(x);
+		if (bank & 0x40)
+			EMU->SetCHR_RAM1(x, bank & 0x07);
+		else	EMU->SetCHR_ROM1(x, bank & 0x3F);
 	}
 	MMC3::SyncMirror();
 }

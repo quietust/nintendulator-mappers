@@ -38,8 +38,7 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
-	for (x = 0x8; x <= 0xF; x++)
+	for (int x = 0x8; x <= 0xF; x++)
 		EMU->SetCPUWriteHandler(x, Write);
 	Data = 0;
 	UNIF_SetMirroring(NULL);

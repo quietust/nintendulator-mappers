@@ -15,11 +15,10 @@ uint8 PRG, CHR[4];
 
 void	Sync (void)
 {
-	uint8 x;
 	EMU->SetPRG_RAM8(0x6, 0);
 	EMU->SetPRG_ROM16(0x8, PRG);
 	EMU->SetPRG_ROM16(0xC, -1);
-	for (x = 0; x < 4; x++)
+	for (int x = 0; x < 4; x++)
 		EMU->SetCHR_ROM2(x << 1, CHR[x]);
 }
 
@@ -51,13 +50,12 @@ void	SyncNametables (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	uint8 i;
 	SAVELOAD_BYTE(mode, x, data, Mirror);
 	SAVELOAD_BYTE(mode, x, data, VROM_use);
 	SAVELOAD_BYTE(mode, x, data, CHR_L);
 	SAVELOAD_BYTE(mode, x, data, CHR_H);
 	SAVELOAD_BYTE(mode, x, data, PRG);
-	for (i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, x, data, CHR[i]);
 	if (mode == STATE_LOAD)
 		Sync();
@@ -119,8 +117,6 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
-
 	EMU->SetCPUWriteHandler(0x8, Write8);
 	EMU->SetCPUWriteHandler(0x9, Write9);
 	EMU->SetCPUWriteHandler(0xA, WriteA);
@@ -133,7 +129,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	if (ResetType == RESET_HARD)
 	{
 		PRG = 0;
-		for (x = 0; x < 4; x++)	CHR[x] = x;
+		for (int x = 0; x < 4; x++)
+			CHR[x] = x;
 		Mirror = VROM_use = 0;
 		CHR_L = CHR_H = 0;
 	}

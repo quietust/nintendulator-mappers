@@ -48,10 +48,8 @@ void	MAPINT	WriteHi (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
-
 	EMU->SetCPUWriteHandler(0x6, WriteLo);
-	for (x = 0x8; x < 0x10; x++)
+	for (int x = 0x8; x < 0x10; x++)
 		EMU->SetCPUWriteHandler(x, WriteHi);
 
 	if (ResetType == RESET_HARD)

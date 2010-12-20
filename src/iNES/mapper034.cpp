@@ -76,7 +76,6 @@ void	MAPINT	Load (void)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
 	iNES_SetMirroring();
 
 	if (ResetType == RESET_HARD)
@@ -94,7 +93,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	}
 	if (Mode == 2)
 	{
-		for (x = 0x8; x < 0x10; x++)
+		for (int x = 0x8; x < 0x10; x++)
 			EMU->SetCPUWriteHandler(x, WriteBNROM);
 		Sync_BNROM();
 	}

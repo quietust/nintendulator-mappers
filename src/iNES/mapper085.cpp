@@ -17,7 +17,6 @@ uint8 PRG[3], CHR[8], Misc;
 
 void	Sync (void)
 {
-	uint8 x;
 	EMU->SetPRG_ROM8(0x8, PRG[0]);
 	EMU->SetPRG_ROM8(0xA, PRG[1]);
 	EMU->SetPRG_ROM8(0xC, PRG[2]);
@@ -30,9 +29,9 @@ void	Sync (void)
 		EMU->SetPRG_OB4(0x7);
 	}
 	if (ROM->INES_CHRSize)
-		for (x = 0; x < 8; x++)
+		for (int x = 0; x < 8; x++)
 			EMU->SetCHR_ROM1(x, CHR[x]);
-	else	for (x = 0; x < 8; x++)
+	else	for (int x = 0; x < 8; x++)
 			EMU->SetCHR_RAM1(x, CHR[x] & 7);
 	switch (Misc & 0x3)
 	{
@@ -45,14 +44,13 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	uint8 i;
 	SAVELOAD_BYTE(mode, x, data, IRQenabled);
 	SAVELOAD_BYTE(mode, x, data, IRQcounter);
 	SAVELOAD_BYTE(mode, x, data, IRQlatch);
 	SAVELOAD_WORD(mode, x, data, IRQcycles);
-	for (i = 0; i < 3; i++)
+	for (int i = 0; i < 3; i++)
 		SAVELOAD_BYTE(mode, x, data, PRG[i]);
-	for (i = 0; i < 8; i++)
+	for (int i = 0; i < 8; i++)
 		SAVELOAD_BYTE(mode, x, data, CHR[i]);
 	SAVELOAD_BYTE(mode, x, data, Misc);
 	x = VRC7sound::SaveLoad(mode, x, data);
@@ -170,8 +168,6 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
-
 	EMU->SetCPUWriteHandler(0x8, Write8);
 	EMU->SetCPUWriteHandler(0x9, Write9);
 	EMU->SetCPUWriteHandler(0xA, WriteA);
@@ -185,8 +181,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	{
 		IRQenabled = IRQcounter = IRQlatch = 0;
 		IRQcycles = 0;
-		PRG[0] = 0x00;	PRG[0] = 0x01;	PRG[2] = 0xFE;
-		for (x = 0; x < 8; x++)	CHR[x] = x;
+		PRG[0] = 0x00;
+		PRG[0] = 0x01;
+		PRG[2] = 0xFE;
+		for (int x = 0; x < 8; x++)
+			CHR[x] = x;
 		Misc = 0;
 	}
 

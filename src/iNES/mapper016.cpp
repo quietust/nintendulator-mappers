@@ -15,11 +15,10 @@ uint16_n IRQcounter;
 
 void	Sync (void)
 {
-	uint8 x;
 	EMU->SetPRG_RAM8(0x6, 0);
 	EMU->SetPRG_ROM16(0x8, PRG);
 	EMU->SetPRG_ROM16(0xC, -1);
-	for (x = 0; x < 8; x++)
+	for (int x = 0; x < 8; x++)
 	{
 		if (ROM->INES_CHRSize)
 			EMU->SetCHR_ROM1(x, CHR[x]);
@@ -36,11 +35,10 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	uint8 i;
 	SAVELOAD_WORD(mode, x, data, IRQcounter.s0);
 	SAVELOAD_BYTE(mode, x, data, IRQenabled);
 	SAVELOAD_BYTE(mode, x, data, PRG);
-	for (i = 0; i < 8; i++)
+	for (int i = 0; i < 8; i++)
 		SAVELOAD_BYTE(mode, x, data, CHR[i]);
 	SAVELOAD_BYTE(mode, x, data, Mirror);
 	if (mode == STATE_LOAD)
@@ -117,24 +115,23 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
 	if (ROM->INES_Flags & 0x02)
 	{
-		for (x = 0x8; x < 0x10; x++)
+		for (int x = 0x8; x < 0x10; x++)
 			EMU->SetCPUWriteHandler(x, Write);
 	}
 	else
 	{
-		for (x = 0x6; x < 0x8; x++)
+		for (int x = 0x6; x < 0x8; x++)
 			EMU->SetCPUReadHandler(x, Read);
-		for (x = 0x6; x < 0x10; x++)
+		for (int x = 0x6; x < 0x10; x++)
 			EMU->SetCPUWriteHandler(x, Write);
 	}
 
 	if (ResetType == RESET_HARD)
 	{
 		PRG = 0;
-		for (x = 0; x < 8; x++)
+		for (int x = 0; x < 8; x++)
 			CHR[x] = x;
 		IRQenabled = 0;
 		IRQcounter.s0 = 0;

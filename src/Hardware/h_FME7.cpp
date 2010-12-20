@@ -88,20 +88,18 @@ void	SyncPRG (int AND, int OR)
 
 void	SyncCHR (int AND, int OR)
 {
-	uint8 x;
-	for (x = 0; x < 8; x++)
+	for (int x = 0; x < 8; x++)
 		EMU->SetCHR_ROM1(x, (CHR[x] & AND) | OR);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	uint8 i;
 	SAVELOAD_WORD(mode, x, data, IRQcounter.s0);
 	SAVELOAD_BYTE(mode, x, data, IRQenabled);
 	SAVELOAD_BYTE(mode, x, data, Cmd);
-	for (i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, x, data, PRG[i]);
-	for (i = 0; i < 8; i++)
+	for (int i = 0; i < 8; i++)
 		SAVELOAD_BYTE(mode, x, data, CHR[i]);
 	SAVELOAD_BYTE(mode, x, data, Mirror);
 	x = FME7sound::SaveLoad(mode, x, data);

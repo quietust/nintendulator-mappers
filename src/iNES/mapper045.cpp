@@ -23,9 +23,8 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	uint8 i;
 	x = MMC3::SaveLoad(mode, x, data);
-	for (i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, x, data, Regs[i]);
 	SAVELOAD_BYTE(mode, x, data, Pos);
 	if (mode == STATE_LOAD)
@@ -49,10 +48,9 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
 	if (ResetType == RESET_HARD)
 	{
-		for (x = 0; x < 4; x++)
+		for (int x = 0; x < 4; x++)
 			Regs[x] = 0;
 		Pos = 0;
 	}

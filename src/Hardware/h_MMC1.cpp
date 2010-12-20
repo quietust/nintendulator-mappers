@@ -20,7 +20,6 @@ void	Load (FSync _Sync)
 
 void	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
 	if (ResetType == RESET_HARD)
 	{
 		Regs[0] = 0x0C;
@@ -30,7 +29,7 @@ void	Reset (RESET_TYPE ResetType)
 		Latch = 0;
 		LatchPos = 0;
 	}
-	for (x = 0x8; x < 0x10; x++)
+	for (int x = 0x8; x < 0x10; x++)
 		EMU->SetCPUWriteHandler(x, Write);
 	Sync();
 }
@@ -41,8 +40,7 @@ void	Unload (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	uint8 i;
-	for (i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, x, data, Regs[i]);
 	SAVELOAD_BYTE(mode, x, data, Latch);
 	SAVELOAD_BYTE(mode, x, data, LatchPos);

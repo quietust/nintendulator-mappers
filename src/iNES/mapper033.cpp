@@ -31,10 +31,9 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	uint8 i;
-	for (i = 0; i < 2; i++)
+	for (int i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode, x, data, PRG[i]);
-	for (i = 0; i < 6; i++)
+	for (int i = 0; i < 6; i++)
 		SAVELOAD_BYTE(mode, x, data, CHR[i]);
 	SAVELOAD_BYTE(mode, x, data, Mirror);
 	if (mode == STATE_LOAD)
@@ -69,7 +68,6 @@ void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
 	EMU->SetCPUWriteHandler(0x8, Write89);
 	EMU->SetCPUWriteHandler(0x9, Write89);
 	EMU->SetCPUWriteHandler(0xA, WriteAB);
@@ -78,7 +76,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	if (ResetType == RESET_HARD)
 	{
 		PRG[0] = 0;	PRG[1] = 1;
-		for (x = 0; x < 6; x++)
+		for (int x = 0; x < 6; x++)
 			CHR[x] = x;
 		Mirror = 0;
 	}

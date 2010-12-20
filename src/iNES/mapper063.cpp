@@ -26,13 +26,12 @@ void	Sync (void)
 		};
 		uint16 addr;
 	};
-	uint8 x;
 	addr = Latch::Addr.s0;
 
 	EMU->SetCHR_RAM8(0, 0);
 	
 	if ((PRGbank & 0x60) == 0x60)
-		for (x = 0x8; x < 0x10; x++)
+		for (int x = 0x8; x < 0x10; x++)
 			EMU->SetPRG_OB4(x);
 	if (PRGsizeL)
 		EMU->SetPRG_ROM32(0x8, PRGbank);

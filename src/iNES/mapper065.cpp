@@ -18,11 +18,10 @@ uint8 Mirror;
 
 void	Sync (void)
 {
-	uint8 x;
 	EMU->SetPRG_RAM8(0x6, 0);
-	for (x = 0; x < 4; x++)
+	for (int x = 0; x < 4; x++)
 		EMU->SetPRG_ROM8(8 | (x << 1), PRG[x]);
-	for (x = 0; x < 8; x++)
+	for (int x = 0; x < 8; x++)
 		EMU->SetCHR_ROM1(x, CHR[x]);
 	if (Mirror & 0x40)
 		EMU->Mirror_H();
@@ -31,13 +30,12 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	uint8 i;
 	SAVELOAD_BYTE(mode, x, data, IRQenabled);
 	SAVELOAD_WORD(mode, x, data, IRQcounter);
 	SAVELOAD_WORD(mode, x, data, IRQlatch.s0);
-	for (i = 0; i < 3; i++)
+	for (int i = 0; i < 3; i++)
 		SAVELOAD_BYTE(mode, x, data, PRG[i]);
-	for (i = 0; i < 8; i++)
+	for (int i = 0; i < 8; i++)
 		SAVELOAD_BYTE(mode, x, data, CHR[i]);
 	SAVELOAD_BYTE(mode, x, data, Mirror);
 	if (mode == STATE_LOAD)
@@ -118,8 +116,6 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
-
 	EMU->SetCPUWriteHandler(0x8, Write8);
 	EMU->SetCPUWriteHandler(0x9, Write9);
 	EMU->SetCPUWriteHandler(0xA, WriteA);
@@ -129,7 +125,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	if (ResetType == RESET_HARD)
 	{
 		PRG[0] = 0;	PRG[1] = 1;	PRG[2] = 0xFE;	PRG[3] = 0xFF;
-		for (x = 0; x < 8; x++)
+		for (int x = 0; x < 8; x++)
 			CHR[x] = x;
 		IRQenabled = 0;
 		IRQcounter = IRQlatch.s0 = 0;

@@ -17,18 +17,17 @@ FCPUWrite _Write4;
 
 void	Sync (void)
 {
-	uint8 x;
 	EMU->SetPRG_RAM8(0x6, 0);
-	for (x = 0; x < 4; x++)
+	for (int x = 0; x < 4; x++)
 		EMU->SetPRG_ROM8(8 | (x << 1), PRG[x] & 0x3F);
-	for (x = 0; x < 8; x++)
+	for (int x = 0; x < 8; x++)
 	{
 		if ((CHR[x] < 0xE0) || (PRG[1] & (0x40 << (x >> 2))))
 			EMU->SetCHR_ROM1(x, CHR[x]);
 		else	EMU->SetCHR_RAM1(x, CHR[x] & 0x1F);
 	}
 
-	for (x = 0; x < 4; x++)
+	for (int x = 0; x < 4; x++)
 	{
 		if (NTab[x] < 0xE0)
 		{
@@ -47,13 +46,12 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	uint8 i;
 	SAVELOAD_WORD(mode, x, data, IRQcounter.s0);
-	for (i = 0; i < 3; i++)
+	for (int i = 0; i < 3; i++)
 		SAVELOAD_BYTE(mode, x, data, PRG[i]);
-	for (i = 0; i < 8; i++)
+	for (int i = 0; i < 8; i++)
 		SAVELOAD_BYTE(mode, x, data, CHR[i]);
-	for (i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, x, data, NTab[i]);
 	x = N106sound::SaveLoad(mode, x, data);
 	if (mode == STATE_LOAD)
@@ -173,8 +171,6 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
-
 	_Read4 = EMU->GetCPUReadHandler(0x4);
 	EMU->SetCPUReadHandler(0x4, Read4);
 	EMU->SetCPUReadHandler(0x5, Read5);
@@ -193,7 +189,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	if (ResetType == RESET_HARD)
 	{
-		for (x = 0; x < 4; x++)
+		for (int x = 0; x < 4; x++)
 		{
 			PRG[x] = 0xFF;
 			CHR[x | 0] = 0xFF;

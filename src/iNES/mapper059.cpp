@@ -25,9 +25,8 @@ void	Sync (void)
 	else	EMU->Mirror_V();
 	if (Latch::Addr.s0 & 0x100)
 	{
-		uint8 x;
 		memset(JumperData, Jumper, 0x1000);
-		for (x = 0x8; x < 0x10; x++)
+		for (int x = 0x8; x < 0x10; x++)
 			EMU->SetPRG_Ptr4(x, JumperData, FALSE);
 	}
 }

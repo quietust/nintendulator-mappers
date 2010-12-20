@@ -127,12 +127,11 @@ void	SyncNametables (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	uint8 i;
-	for (i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, x, data, PRGbanks[i]);
-	for (i = 0; i < 8; i++)
+	for (int i = 0; i < 8; i++)
 		SAVELOAD_WORD(mode, x, data, CHRbanks[i].s0);
-	for (i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 		SAVELOAD_WORD(mode, x, data, Nametables[i].s0);
 	SAVELOAD_BYTE(mode, x, data, IRQenabled);
 	SAVELOAD_BYTE(mode, x, data, IRQmode);
@@ -378,8 +377,6 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
-
 	EMU->SetCPUReadHandler(0x5, Read5);
 	EMU->SetCPUWriteHandler(0x5, Write5);
 	EMU->SetCPUWriteHandler(0x8, Write8);
@@ -395,13 +392,16 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		IRQenabled = IRQmode = IRQcounterL = IRQcounterH = IRQxor = 0;
 		IRQaddr = 0;
 		BankMode = Mirror = MirBank = ExtBank = 0;
-		for (x = 0; x < 8; x++)	CHRbanks[x].s0 = 0;
-		for (x = 0; x < 4; x++)	Nametables[x].s0 = 0;
-		for (x = 0; x < 4; x++)	PRGbanks[x] = 0;
+		for (int x = 0; x < 8; x++)
+			CHRbanks[x].s0 = 0;
+		for (int x = 0; x < 4; x++)
+			Nametables[x].s0 = 0;
+		for (int x = 0; x < 4; x++)
+			PRGbanks[x] = 0;
 		Mul1 = Mul2 = 0;
 		Jumper = 0;
 	}
-	for (x = 0; x < 16; x++)
+	for (int x = 0; x < 16; x++)
 	{
 		_CPUWrite[x] = EMU->GetCPUWriteHandler(x);
 		EMU->SetCPUWriteHandler(x, CPUWrite);

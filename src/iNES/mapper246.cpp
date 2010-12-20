@@ -15,8 +15,7 @@ uint8 PRG[4], CHR[4];
 
 void	Sync (void)
 {
-	uint8 x;
-	for (x = 0; x < 4; x++)
+	for (int x = 0; x < 4; x++)
 	{
 		EMU->SetPRG_ROM8(0x8 | (x << 1), PRG[x]);
 		EMU->SetCHR_ROM2(x << 1, CHR[x]);
@@ -26,10 +25,9 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	uint8 i;
-	for (i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, x, data, PRG[i]);
-	for (i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, x, data, CHR[i]);
 	if (mode == STATE_LOAD)
 		Sync();
@@ -70,7 +68,6 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
 	iNES_SetMirroring();
 
 	_Read6 = EMU->GetCPUReadHandler(0x6);
@@ -82,7 +79,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	{
 		PRG[0] = 0;	PRG[1] = 1;
 		PRG[2] = 0xFE;	PRG[3] = 0xFF;
-		for (x = 0; x < 4; x++)
+		for (int x = 0; x < 4; x++)
 			CHR[x] = 0;
 	}
 	Sync();

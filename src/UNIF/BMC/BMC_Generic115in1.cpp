@@ -43,9 +43,8 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	uint8 i;
 	x = Latch::SaveLoad_A(mode, x, data);
-	for (i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, x, data, Regs[i]);
 	if (mode == STATE_LOAD)
 		Sync();

@@ -164,8 +164,6 @@ void	Load (int _WRAMsize)
 
 void	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
-
 	_WritePPU = EMU->GetCPUWriteHandler(0x2);
 
 	EMU->SetCPUWriteHandler(0x2, WritePPU);
@@ -174,9 +172,9 @@ void	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUReadHandler(0x5, CPURead5);
 	EMU->SetCPUWriteHandler(0x5, CPUWrite5);
 	_CPUWrite6F = EMU->GetCPUWriteHandler(0x8);
-	for (x = 6; x <= 0xF; x++)
+	for (int x = 0x6; x < 0x10; x++)
 		EMU->SetCPUWriteHandler(x, CPUWrite6F);
-	for (x = 0; x < 16; x++)
+	for (int x = 0x0; x < 0x10; x++)
 		_PPURead[x] = EMU->GetPPUReadHandler(x);
 	
 	PRGsize = 3;
@@ -219,19 +217,18 @@ int	GetRAMSize (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	uint8 i;
 	SAVELOAD_BYTE(mode, x, data, WRAMsize);
 	SAVELOAD_BYTE(mode, x, data, PRGsize);
 	SAVELOAD_BYTE(mode, x, data, CHRsize);
-	for (i = 0; i < 2; i++)
+	for (int i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode, x, data, WRAMprot[i]);
 	SAVELOAD_BYTE(mode, x, data, GfxMode);
 	SAVELOAD_BYTE(mode, x, data, Mirror);
-	for (i = 0; i < 5; i++)
+	for (int i = 0; i < 5; i++)
 		SAVELOAD_BYTE(mode, x, data, PRG[i]);
-	for (i = 0; i < 8; i++)
+	for (int i = 0; i < 8; i++)
 		SAVELOAD_WORD(mode, x, data, CHR_A[i].s0);
-	for (i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 		SAVELOAD_WORD(mode, x, data, CHR_B[i].s0);
 	SAVELOAD_BYTE(mode, x, data, CHRhi);
 	SAVELOAD_BYTE(mode, x, data, CHRmode);
@@ -258,7 +255,6 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 
 void	SetPRG (int Size, int Loc, int Bank)
 {
-	uint8 x;
 	if (Bank & 0x80)
 	{
 		if (Size == 8)		EMU->SetPRG_ROM8(Loc, Bank);
@@ -270,14 +266,14 @@ void	SetPRG (int Size, int Loc, int Bank)
 		if (Size == 8)
 		{
 			if (WRAMtable[WRAMsize][Bank & 0x7] == -1)
-				for (x = Loc; x < Loc + 2; x++)
+				for (int x = Loc; x < Loc + 2; x++)
 					EMU->SetPRG_OB4(x);
 			else	EMU->SetPRG_RAM8(Loc, WRAMtable[WRAMsize][Bank & 0x7]);
 		}
 		else if (Size == 16)
 		{
 			if (WRAMtable[WRAMsize][Bank & 0x6] == -1)
-				for (x = Loc; x < Loc + 4; x++)
+				for (int x = Loc; x < Loc + 4; x++)
 					EMU->SetPRG_OB4(x);
 			else
 			{

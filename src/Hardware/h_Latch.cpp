@@ -22,13 +22,12 @@ void	Load (FSync _Sync, BOOL _BusConflicts)
 
 void	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
 	if (ResetType == RESET_HARD)
 	{
 		Data = 0;
 		Addr.s0 = 0;
 	}
-	for (x = 0x8; x < 0x10; x++)
+	for (int x = 0x8; x < 0x10; x++)
 		EMU->SetCPUWriteHandler(x, Write);
 	Sync();
 }

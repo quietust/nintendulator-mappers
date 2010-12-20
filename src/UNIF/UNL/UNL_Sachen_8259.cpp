@@ -91,9 +91,8 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 void	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
 	_Write4 = EMU->GetCPUWriteHandler(0x4);
-	for (x = 0x4; x < 0x8; x++)
+	for (int x = 0x4; x < 0x8; x++)
 		EMU->SetCPUWriteHandler(x, Write);
 	Cmd = CHR0l = CHR1l = CHR0h = CHR1h = CHRch = PRG = Mirror = CHRmode = 0;
 	Sync();

@@ -17,7 +17,6 @@ uint8 ConfigCmd;
 
 void	Sync (void)
 {
-	uint8 x;
 	EMU->SetCHR_ROM8(0, Latch::Addr.s0 & 0x07);
 	if (Latch::Addr.b0 & 0x80)
 	{
@@ -29,7 +28,7 @@ void	Sync (void)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 	if (Latch::Addr.s0 & 0x100)
-		for (x = 0x8; x < 0x10; x++)
+		for (int x = 0x8; x < 0x10; x++)
 		{
 			EMU->SetPRG_RAM4(x, x-8);
 			memset(EMU->GetPRG_Ptr4(x), Jumper, 0x1000);

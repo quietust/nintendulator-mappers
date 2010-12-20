@@ -143,13 +143,12 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
 	iNES_SetMirroring();
 
 	_Write4 = EMU->GetCPUWriteHandler(0x4);
 	EMU->SetCPUReadHandler(0x5, EMU->GetCPUReadHandler(0x8));
 
-	for (x = 0x4; x < 0x10; x++)
+	for (int x = 0x4; x < 0x10; x++)
 		EMU->SetCPUWriteHandler(x, Write);
 
 	if (ResetType == RESET_HARD)

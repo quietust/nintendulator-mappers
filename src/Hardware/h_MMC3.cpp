@@ -81,8 +81,7 @@ int	GetCHRBank (int Bank)
 
 void	SyncPRG (int AND, int OR)
 {
-	uint8 x;
-	for (x = 0; x < 4; x++)
+	for (int x = 0; x < 4; x++)
 		EMU->SetPRG_ROM8(8 | (x << 1), (GetPRGBank(x) & AND) | OR);
 }
 
@@ -99,26 +98,23 @@ void	SyncWRAM (void)
 
 void	SyncCHR_ROM (int AND, int OR)
 {
-	uint8 x;
-	for (x = 0; x < 8; x++)
+	for (int x = 0; x < 8; x++)
 		EMU->SetCHR_ROM1(x, (GetCHRBank(x) & AND) | OR);
 }
 
 void	SyncCHR_RAM (int AND, int OR)
 {
-	uint8 x;
-	for (x = 0; x < 8; x++)
+	for (int x = 0; x < 8; x++)
 		EMU->SetCHR_RAM1(x, (GetCHRBank(x) & AND) | OR);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	uint8 i;
 	SAVELOAD_BYTE(mode, x, data, IRQcounter);
 	SAVELOAD_BYTE(mode, x, data, IRQlatch);
 	SAVELOAD_BYTE(mode, x, data, IRQenabled);
 	SAVELOAD_BYTE(mode, x, data, Cmd);
-	for (i = 0; i < 2; i++)
+	for (int i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode, x, data, PRG[i]);
 	switch (mode)
 	{

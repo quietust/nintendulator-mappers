@@ -12,16 +12,15 @@ namespace
 {
 void	Sync (void)
 {
-	uint8 x, y;
 	MMC3::SyncMirror();
 	MMC3::SyncPRG(0x3F, 0);
 	MMC3::SyncWRAM();
-	for (x = 0; x < 8; x++)
+	for (int x = 0; x < 8; x++)
 	{
-		y = MMC3::GetCHRBank(x);
-		if (y & 0x40)
-			EMU->SetCHR_RAM1(x, y & 0x07);
-		else	EMU->SetCHR_ROM1(x, y & 0x3F);
+		uint8 bank = MMC3::GetCHRBank(x);
+		if (bank & 0x40)
+			EMU->SetCHR_RAM1(x, bank & 0x07);
+		else	EMU->SetCHR_ROM1(x, bank & 0x3F);
 	}
 }
 

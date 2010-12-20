@@ -78,12 +78,11 @@ unsigned char DisabledCHR[0x400] = {
 };
 void	Sync (void)
 {
-	uint8 x;
 	EMU->SetPRG_ROM32(0x8, 0);
 	switch (Latch::Data & 0x33)
 	{
 	case 0x00:	case 0x12:	case 0x13:	case 0x20:	case 0x30:
-		for (x = 0; x < 8; x++)
+		for (int x = 0; x < 8; x++)
 			EMU->SetCHR_Ptr1(x, DisabledCHR, FALSE);
 		break;
 	default:

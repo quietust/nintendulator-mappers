@@ -16,7 +16,6 @@ uint16_n IRQcounter;
 
 void	Sync (void)
 {
-	uint8 x;
 	if (Mode & 0x10)
 	{
 		if (Mode & 0x20)
@@ -58,7 +57,7 @@ void	Sync (void)
 	}
 	else
 	{
-		for (x = 0; x < 8; x++)
+		for (int x = 0; x < 8; x++)
 			EMU->SetCHR_ROM1(x, CHR[x]);
 	}
 	switch (Mode & 0x3)
@@ -72,11 +71,10 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int x, unsigned char *data)
 {
-	uint8 i;
 	SAVELOAD_BYTE(mode, x, data, Mode);
-	for (i = 0; i < 5; i++)
+	for (int i = 0; i < 5; i++)
 		SAVELOAD_BYTE(mode, x, data, PRG[i]);
-	for (i = 0; i < 8; i++)
+	for (int i = 0; i < 8; i++)
 		SAVELOAD_BYTE(mode, x, data, CHR[i]);
 	SAVELOAD_WORD(mode, x, data, IRQcounter.s0);
 	if (mode == STATE_LOAD)
@@ -124,16 +122,14 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
-
 	EMU->SetCPUWriteHandler(0x8, Write);
 
 	if (ResetType == RESET_HARD)
 	{
 		Mode = 0;
-		for (x = 0; x < 8; x++)
+		for (int x = 0; x < 8; x++)
 			CHR[x] = 0;
-		for (x = 0; x < 5; x++)
+		for (int x = 0; x < 5; x++)
 			PRG[x] = 0;
 		IRQcounter.s0 = 0;
 	}

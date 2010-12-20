@@ -23,10 +23,9 @@ void	Load (FSync _Sync)
 }
 void	Reset (RESET_TYPE ResetType)
 {
-	uint8 x;
 	if (ResetType == RESET_HARD)
 	{
-		for (x = 0; x < 2; x++)
+		for (int x = 0; x < 2; x++)
 		{
 			LatchState[x] = 0;
 			Latch0[x] = 0;
