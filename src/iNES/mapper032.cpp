@@ -9,31 +9,27 @@
 
 namespace
 {
-uint8 Byte9xxx;
+uint8 Mode;
 uint8 PRG[2];
 uint8 CHR[8];
 
 void	Sync (void)
 {
 	EMU->SetPRG_RAM8(0x6, 0);
-	if (Byte9xxx & 2)
-		EMU->SetPRG_ROM8(0x8, -2);
-	else	EMU->SetPRG_ROM8(0x8, PRG[0]);
+	EMU->SetPRG_ROM8(0x8, (Mode & 2) ? 0 : PRG[0]);
 	EMU->SetPRG_ROM8(0xA, PRG[1]);
-	if (Byte9xxx & 2)
-		EMU->SetPRG_ROM8(0xC, PRG[0]);
-	else	EMU->SetPRG_ROM8(0xC, -2);
+	EMU->SetPRG_ROM8(0xC, (Mode & 2) ? PRG[0] : -2);
 	EMU->SetPRG_ROM8(0xE, -1);
 	for (int i = 0; i < 8; i++)
 		EMU->SetCHR_ROM1(i, CHR[i]);
-	if (Byte9xxx & 0x01)
+	if (Mode & 0x1)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	SAVELOAD_BYTE(mode, offset, data, Byte9xxx);
+	SAVELOAD_BYTE(mode, offset, data, Mode);
 	for (int i = 0; i < 3; i++)
 		SAVELOAD_BYTE(mode, offset, data, PRG[i]);
 	for (int i = 0; i < 8; i++)
@@ -51,7 +47,7 @@ void	MAPINT	Write8 (int Bank, int Addr, int Val)
 
 void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
-	Byte9xxx = Val;
+	Mode = Val;
 	Sync();
 }
 
@@ -76,10 +72,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	if (ResetType == RESET_HARD)
 	{
-		PRG[0] = 0;	PRG[1] = 1;	PRG[2] = 0xFE;
+		PRG[0] = 0;
+		PRG[1] = 1;
 		for (int i = 0; i < 8; i++)
 			CHR[i] = 0;
-		Byte9xxx = 0;
+		Mode = 0;
 	}
 	Sync();
 }

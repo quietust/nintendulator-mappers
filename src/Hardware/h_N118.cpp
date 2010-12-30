@@ -69,7 +69,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 void	MAPINT	CPUWrite89 (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
-		switch (Cmd)
+		switch (Cmd & 0x7)
 		{
 		case 0:	CHR[0] = Val & 0x3E;	break;
 		case 1:	CHR[1] = Val & 0x3E;	break;
@@ -80,7 +80,7 @@ void	MAPINT	CPUWrite89 (int Bank, int Addr, int Val)
 		case 6:	PRG[0] = Val & 0xF;	break;
 		case 7:	PRG[1] = Val & 0xF;	break;
 		}
-	else	Cmd = Val & 0x7;
+	else	Cmd = Val;	// not masking it here, since one mapper uses some upper bits
 	Sync();
 }
 } // namespace N118

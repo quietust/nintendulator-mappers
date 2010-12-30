@@ -1,8 +1,8 @@
 /* Nintendulator Mapper DLLs
  * Copyright (C) 2002-2010 QMT Productions
  *
- * $URL$
- * $Id$
+ * $URL: https://nintendulator.svn.sourceforge.net/svnroot/nintendulator/mappers/trunk/src/iNES/mapper225.cpp $
+ * $Id: mapper225.cpp 1074 2010-12-20 03:30:32Z quietust $
  */
 
 #include	"..\DLL\d_iNES.h"
@@ -12,12 +12,10 @@ namespace
 {
 void	Sync (void)
 {
-	EMU->SetPRG_ROM16(0x8, (Latch::Data & 0xF0) >> 4);
-	EMU->SetPRG_ROM16(0xC, -1);
-	if (ROM->INES_CHRSize)
-		EMU->SetCHR_ROM8(0, 0);
-	else	EMU->SetCHR_RAM8(0, 0);
-	if (Latch::Data & 0x01)
+	EMU->SetPRG_ROM16(0, Latch::Addr.b0 & 0x07);
+	EMU->SetPRG_ROM16(0, Latch::Addr.b0 & 0x07);
+	EMU->SetCHR_ROM8(0, Latch::Addr.b0 & 0x07);
+	if (Latch::Addr.b0 & 0x08)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 }
@@ -35,20 +33,20 @@ void	MAPINT	Unload (void)
 	Latch::Unload();
 }
 
-uint8 MapperNum = 93;
+uint8 MapperNum = 200;
 } // namespace
 
-const MapperInfo MapperInfo_093 =
+const MapperInfo MapperInfo_200 =
 {
 	&MapperNum,
-	_T("Fantasy Zone"),
-	COMPAT_FULL,
+	_T("36-in-1"),
+	COMPAT_NEARLY,
 	Load,
 	Reset,
 	Unload,
 	NULL,
 	NULL,
-	Latch::SaveLoad_D,
+	Latch::SaveLoad_AL,
 	NULL,
 	NULL
 };

@@ -12,18 +12,19 @@ namespace
 uint8 IRQenabled;
 uint16 IRQcounter;
 uint16_n IRQlatch;
-uint8 PRG[4];
+uint8 PRG[3];
 uint8 CHR[8];
 uint8 Mirror;
 
 void	Sync (void)
 {
 	EMU->SetPRG_RAM8(0x6, 0);
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 3; i++)
 		EMU->SetPRG_ROM8(8 | (i << 1), PRG[i]);
+	EMU->SetPRG_ROM8(0xE, -1);
 	for (int i = 0; i < 8; i++)
 		EMU->SetCHR_ROM1(i, CHR[i]);
-	if (Mirror & 0x40)
+	if (Mirror & 0x80)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
 }
@@ -65,14 +66,14 @@ void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	switch (Addr)
 	{
-	case 0:	Mirror = Val;
+	case 1:	Mirror = Val;
 		Sync();			break;
 	case 3:	IRQenabled = Val & 0x80;
-		EMU->SetIRQ(1);				break;
+		EMU->SetIRQ(1);		break;
 	case 4:	IRQcounter = IRQlatch.s0;
-		EMU->SetIRQ(1);				break;
-	case 5:	IRQlatch.b1 = Val;		break;
-	case 6:	IRQlatch.b0 = Val;		break;
+		EMU->SetIRQ(1);		break;
+	case 5:	IRQlatch.b1 = Val;	break;
+	case 6:	IRQlatch.b0 = Val;	break;
 	}
 }
 
@@ -124,7 +125,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	if (ResetType == RESET_HARD)
 	{
-		PRG[0] = 0;	PRG[1] = 1;	PRG[2] = 0xFE;	PRG[3] = 0xFF;
+		PRG[0] = 0;	PRG[1] = 1;	PRG[2] = 0xFE;
 		for (int i = 0; i < 8; i++)
 			CHR[i] = i;
 		IRQenabled = 0;

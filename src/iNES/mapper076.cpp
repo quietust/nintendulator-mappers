@@ -97,7 +97,7 @@ const MapperInfo MapperInfo_076 =
 {
 	&MapperNum,
 	_T("Mapper 76"),
-	COMPAT_PARTIAL,
+	COMPAT_NEARLY,
 	NULL,
 	Reset,
 	NULL,

@@ -66,7 +66,7 @@ uint8 MapperNum = 96;
 const MapperInfo MapperInfo_096 =
 {
 	&MapperNum,
-	_T("Bandai 74161/7432"),
+	_T("Oeka Kids"),
 	COMPAT_FULL,
 	Load,
 	Reset,

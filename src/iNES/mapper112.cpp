@@ -50,7 +50,6 @@ void	MAPINT	Write89 (int Bank, int Addr, int Val)
 	switch (Addr & 1)
 	{
 	case 0:	Cmd = Val & 0x07;	break;
-	case 1:	Mirror = ~Val & 1;	break;
 	}
 	Sync();
 }
@@ -99,6 +98,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 		PRG[0] = 0x00;
 		PRG[1] = 0x01;
+
 		CHR[0] = 0x00;
 		CHR[1] = 0x02;
 		CHR[2] = 0x04;
@@ -117,7 +117,7 @@ const MapperInfo MapperInfo_112 =
 {
 	&MapperNum,
 	_T("Mapper 112 (Asder)"),
-	COMPAT_PARTIAL,
+	COMPAT_NEARLY,
 	NULL,
 	Reset,
 	NULL,

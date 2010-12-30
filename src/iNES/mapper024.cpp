@@ -68,14 +68,8 @@ void	MAPINT	CPUCycle (void)
 
 void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
-	switch (SwapAddr[Addr & 3])
-	{
-	case 0:	PRG[0] = Val;
-		Sync();			break;
-	case 1:				break;
-	case 2:				break;
-	case 3:				break;
-	}
+	PRG[0] = Val;
+	Sync();
 }
 
 void	MAPINT	Write9 (int Bank, int Addr, int Val)
@@ -95,7 +89,7 @@ void	MAPINT	WriteB (int Bank, int Addr, int Val)
 	case 0:	case 1:	case 2:
 		VRC6sound::Write(0xB000 | SwapAddr[Addr & 3], Val);
 					break;
-	case 3:	Mirror = Val;
+	case 3:	Mirror = Val & 0xC;
 		Sync();			break;
 	}
 	
@@ -103,14 +97,8 @@ void	MAPINT	WriteB (int Bank, int Addr, int Val)
 
 void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
-	switch (SwapAddr[Addr & 3])
-	{
-	case 0:	PRG[1] = Val;
-		Sync();			break;
-	case 1:				break;
-	case 2:				break;
-	case 3:				break;
-	}
+	PRG[1] = Val;
+	Sync();
 }
 
 void	MAPINT	WriteD (int Bank, int Addr, int Val)
@@ -129,7 +117,7 @@ void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
 	switch (SwapAddr[Addr & 3])
 	{
-	case 0:	IRQlatch = Val;	break;
+	case 0:	IRQlatch = Val;		break;
 	case 1:	IRQenabled = Val & 0x7;
 		if (IRQenabled & 0x2)
 		{
@@ -182,12 +170,13 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	if (ResetType == RESET_HARD)
 	{
+		IRQenabled = IRQcounter = IRQlatch = 0;
+		IRQcycles = 0;
 		PRG[0] = 0;
 		PRG[1] = 0xFE;
 		for (int i = 0; i < 8; i++)
 			CHR[i] = i;
-		IRQenabled = IRQcounter = IRQlatch = 0;
-		IRQcycles = 0;
+		Mirror = 0;
 	}
 
 	VRC6sound::Reset(ResetType);

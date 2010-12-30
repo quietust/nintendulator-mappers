@@ -1,8 +1,8 @@
 /* Nintendulator Mapper DLLs
  * Copyright (C) 2002-2010 QMT Productions
  *
- * $URL$
- * $Id$
+ * $URL: https://nintendulator.svn.sourceforge.net/svnroot/nintendulator/mappers/trunk/src/iNES/mapper225.cpp $
+ * $Id: mapper225.cpp 1074 2010-12-20 03:30:32Z quietust $
  */
 
 #include	"..\DLL\d_iNES.h"
@@ -12,16 +12,8 @@ namespace
 {
 void	Sync (void)
 {
-	EMU->SetPRG_ROM16(0x8, -1);
-	EMU->SetPRG_ROM16(0xC, Latch::Data & 0xF);
-	EMU->SetCHR_RAM8(0, 0);
-	switch ((Latch::Data & 0xC0) >> 6)
-	{
-	case 0:	EMU->Mirror_S0();	break;
-	case 1:	EMU->Mirror_H();	break;
-	case 2:	EMU->Mirror_V();	break;
-	case 3:	EMU->Mirror_S1();	break;
-	}
+	EMU->SetPRG_ROM16(0, (Latch::Data & 0xFC) >> 2);
+	EMU->SetCHR_ROM8(0, Latch::Data & 0x03);
 }
 
 void	MAPINT	Load (void)
@@ -30,6 +22,7 @@ void	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
+	iNES_SetMirroring();
 	Latch::Reset(ResetType);
 }
 void	MAPINT	Unload (void)
@@ -37,14 +30,14 @@ void	MAPINT	Unload (void)
 	Latch::Unload();
 }
 
-uint8 MapperNum = 97;
+uint8 MapperNum = 203;
 } // namespace
 
-const MapperInfo MapperInfo_097 =
+const MapperInfo MapperInfo_203 =
 {
 	&MapperNum,
-	_T("Kaiketsu Yanchamaru"),
-	COMPAT_FULL,
+	_T("35-in-1"),
+	COMPAT_NEARLY,
 	Load,
 	Reset,
 	Unload,

@@ -1,8 +1,8 @@
 /* Nintendulator Mapper DLLs
  * Copyright (C) 2002-2010 QMT Productions
  *
- * $URL$
- * $Id$
+ * $URL: https://nintendulator.svn.sourceforge.net/svnroot/nintendulator/mappers/trunk/src/iNES/mapper150.cpp $
+ * $Id: mapper150.cpp 1077 2010-12-20 04:16:53Z quietust $
  */
 
 #include	"..\DLL\d_iNES.h"
@@ -10,10 +10,11 @@
 namespace
 {
 uint8 Reg;
+FCPUWrite _Write4;
 
 void	Sync (void)
 {
-	EMU->SetPRG_ROM32(0x8, (Reg & 0x30) >> 4);
+	EMU->SetPRG_ROM32(0x8, (Reg & 0xF0) >> 4);
 	EMU->SetCHR_ROM8(0, Reg & 0xF);
 }
 
@@ -27,6 +28,11 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 
 void	MAPINT	Write (int Bank, int Addr, int Val)
 {
+	if ((Bank == 4) && (Addr < 0x020))
+	{
+		_Write4(Bank, Addr, Val);
+		return;
+	}
 	Reg = Val;
 	Sync();
 }
@@ -35,23 +41,23 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 
-	EMU->SetCPUWriteHandler(0x6, Write);
-	EMU->SetCPUWriteHandler(0x7, Write);
+	_Write4 = EMU->GetCPUWriteHandler(0x4);
+	for (int i = 0x4; i < 0x6; i++)
+		EMU->SetCPUWriteHandler(i, Write);
 
 	if (ResetType == RESET_HARD)
 		Reg = 0;
-
 	Sync();
 }
 
-uint8 MapperNum = 140;
+uint8 MapperNum = 240;
 } // namespace
 
-const MapperInfo MapperInfo_140 =
+const MapperInfo MapperInfo_240 =
 {
 	&MapperNum,
-	_T("Mapper 140 (Bio Senshi Dan)"),
-	COMPAT_FULL,
+	_T("Mapper 240"),
+	COMPAT_NEARLY,
 	NULL,
 	Reset,
 	NULL,

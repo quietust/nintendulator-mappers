@@ -1,8 +1,8 @@
 /* Nintendulator Mapper DLLs
  * Copyright (C) 2002-2010 QMT Productions
  *
- * $URL$
- * $Id$
+ * $URL: https://nintendulator.svn.sourceforge.net/svnroot/nintendulator/mappers/trunk/src/iNES/mapper011.cpp $
+ * $Id: mapper011.cpp 1074 2010-12-20 03:30:32Z quietust $
  */
 
 #include	"..\DLL\d_iNES.h"
@@ -12,16 +12,12 @@ namespace
 {
 void	Sync (void)
 {
-	EMU->SetPRG_ROM16(0x8, -1);
-	EMU->SetPRG_ROM16(0xC, Latch::Data & 0xF);
-	EMU->SetCHR_RAM8(0, 0);
-	switch ((Latch::Data & 0xC0) >> 6)
-	{
-	case 0:	EMU->Mirror_S0();	break;
-	case 1:	EMU->Mirror_H();	break;
-	case 2:	EMU->Mirror_V();	break;
-	case 3:	EMU->Mirror_S1();	break;
-	}
+	EMU->SetPRG_ROM16(0x8, (Latch::Data & 0x70) >> 4);
+	EMU->SetPRG_ROM16(0xC, -1);
+	EMU->SetCHR_ROM8(0, Latch::Data & 0xF);
+	if (Latch::Data & 0x80)
+		EMU->Mirror_S1();
+	else	EMU->Mirror_S0();
 }
 
 void	MAPINT	Load (void)
@@ -37,13 +33,13 @@ void	MAPINT	Unload (void)
 	Latch::Unload();
 }
 
-uint8 MapperNum = 97;
+uint8 MapperNum = 152;
 } // namespace
 
-const MapperInfo MapperInfo_097 =
+const MapperInfo MapperInfo_152 =
 {
 	&MapperNum,
-	_T("Kaiketsu Yanchamaru"),
+	_T("Arkanoid 2"),
 	COMPAT_FULL,
 	Load,
 	Reset,

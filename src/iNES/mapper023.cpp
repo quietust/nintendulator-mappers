@@ -21,9 +21,9 @@ uint8 Mirror;
 void	Sync (void)
 {
 	EMU->SetPRG_RAM8(0x6, 0);
-	EMU->SetPRG_ROM8(PRGswap ? 0xC : 0x8, PRG[0]);
+	EMU->SetPRG_ROM8(0x8, PRGswap ? 0x1E : PRG[0]);
 	EMU->SetPRG_ROM8(0xA, PRG[1]);
-	EMU->SetPRG_ROM8(PRGswap ? 0x8 : 0xC, 0x1E);
+	EMU->SetPRG_ROM8(0xC, PRGswap ? PRG[0] : 0x1E);
 	EMU->SetPRG_ROM8(0xE, 0x1F);
 	for (int i = 0; i < 8; i++)
 		EMU->SetCHR_ROM1(i, CHR[i].b0);
@@ -70,29 +70,31 @@ void	MAPINT	CPUCycle (void)
 
 void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
+	Addr = (Addr & 0x003) | ((Addr & 0x00C) >> 2);
 	PRG[0] = Val & 0x1F;
 	Sync();
 }
 
 void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
-	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
-	if (Addr & 2)
+	Addr = (Addr & 0x003) | ((Addr & 0x00C) >> 2);
+	if (Addr & 0x2)
 		PRGswap = Val & 0x2;
-	else	Mirror = Val & 0xF;
+	else	Mirror = Val & 0x3;
 	Sync();
 }
 
 void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
+	Addr = (Addr & 0x003) | ((Addr & 0x00C) >> 2);
 	PRG[1] = Val & 0x1F;
 	Sync();
 }
 
 void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
-	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
-	switch (Addr & 3)
+	Addr = (Addr & 0x003) | ((Addr & 0x00C) >> 2);
+	switch (Addr & 0x3)
 	{
 	case 0:	CHR[0].n0 = Val & 0xF;	break;
 	case 1:	CHR[0].n1 = Val & 0xF;	break;
@@ -104,8 +106,8 @@ void	MAPINT	WriteB (int Bank, int Addr, int Val)
 
 void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
-	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
-	switch (Addr & 3)
+	Addr = (Addr & 0x003) | ((Addr & 0x00C) >> 2);
+	switch (Addr & 0x3)
 	{
 	case 0:	CHR[2].n0 = Val & 0xF;	break;
 	case 1:	CHR[2].n1 = Val & 0xF;	break;
@@ -117,8 +119,8 @@ void	MAPINT	WriteC (int Bank, int Addr, int Val)
 
 void	MAPINT	WriteD (int Bank, int Addr, int Val)
 {
-	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
-	switch (Addr & 3)
+	Addr = (Addr & 0x003) | ((Addr & 0x00C) >> 2);
+	switch (Addr & 0x3)
 	{
 	case 0:	CHR[4].n0 = Val & 0xF;	break;
 	case 1:	CHR[4].n1 = Val & 0xF;	break;
@@ -130,8 +132,8 @@ void	MAPINT	WriteD (int Bank, int Addr, int Val)
 
 void	MAPINT	WriteE (int Bank, int Addr, int Val)
 {
-	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
-	switch (Addr & 3)
+	Addr = (Addr & 0x003) | ((Addr & 0x00C) >> 2);
+	switch (Addr & 0x3)
 	{
 	case 0:	CHR[6].n0 = Val & 0xF;	break;
 	case 1:	CHR[6].n1 = Val & 0xF;	break;
@@ -143,7 +145,7 @@ void	MAPINT	WriteE (int Bank, int Addr, int Val)
 
 void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
-	Addr |= Addr >> 2 | Addr >> 4 | Addr >> 6;
+	Addr = (Addr & 0x003) | ((Addr & 0x00C) >> 2);
 	switch (Addr & 0x3)
 	{
 	case 0:	IRQlatch.n0 = Val & 0xF;	break;
@@ -179,12 +181,13 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	if (ResetType == RESET_HARD)
 	{
-		for (int i = 0; i < 8; i++)
-			CHR[i].b0 = i;
-		PRG[0] = 0;	PRG[1] = 1;
-		Mirror = 0;
 		IRQenabled = IRQcounter = IRQlatch.b0 = 0;
 		IRQcycles = 0;
+		PRGswap = 0;
+		PRG[0] = 0;
+		PRG[1] = 1;
+		for (int i = 0; i < 8; i++)
+			CHR[i].b0 = i;
 	}
 
 	Sync();
@@ -196,8 +199,8 @@ uint8 MapperNum = 23;
 const MapperInfo MapperInfo_023 =
 {
 	&MapperNum,
-	_T("Konami VRC2/VRC4"),
-	COMPAT_PARTIAL,
+	_T("Konami VRC4 (e/f)"),
+	COMPAT_NEARLY,
 	Load,
 	Reset,
 	NULL,

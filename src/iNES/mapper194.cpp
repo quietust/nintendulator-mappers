@@ -1,8 +1,8 @@
 /* Nintendulator Mapper DLLs
  * Copyright (C) 2002-2010 QMT Productions
  *
- * $URL$
- * $Id$
+ * $URL: https://nintendulator.svn.sourceforge.net/svnroot/nintendulator/mappers/trunk/src/iNES/mapper074.cpp $
+ * $Id: mapper074.cpp 1077 2010-12-20 04:16:53Z quietust $
  */
 
 #include	"..\DLL\d_iNES.h"
@@ -18,7 +18,7 @@ void	Sync (void)
 	for (int i = 0; i < 8; i++)
 	{
 		uint8 bank = MMC3::GetCHRBank(i);
-		if ((bank & 0xFE) == 0x08)
+		if ((bank & 0xFE) == 0x00)
 			EMU->SetCHR_RAM1(i, bank & 0x01);
 		else	EMU->SetCHR_ROM1(i, bank & 0xFF);
 	}
@@ -38,13 +38,13 @@ void	MAPINT	Unload (void)
 	MMC3::Unload();
 }
 
-uint8 MapperNum = 74;
+uint8 MapperNum = 194;
 } // namespace
 
-const MapperInfo MapperInfo_074 =
+const MapperInfo MapperInfo_194 =
 {
 	&MapperNum,
-	_T("Mapper 74 (Taiwan MMC3)"),
+	_T("Mapper 194 (Pirate MMC3)"),
 	COMPAT_NEARLY,
 	Load,
 	Reset,
