@@ -49,7 +49,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 	for (int i = 0x8; i < 0x10; i++)
-		EMU->SetCPUWriteHandler(0x8, Write);
+		EMU->SetCPUWriteHandler(i, Write);
 
 	if (ResetType == RESET_HARD)
 		PRG = CHR = Cmd = 0;
