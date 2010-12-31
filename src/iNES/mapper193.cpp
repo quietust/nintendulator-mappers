@@ -34,7 +34,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 
 void	MAPINT	Write (int Bank, int Addr, int Val)
 {
-	switch (Addr & 3)
+	switch (Addr & 0x3)
 	{
 	case 0:	CHR[0] = Val;	break;
 	case 1:	CHR[1] = Val;	break;
@@ -55,7 +55,6 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	{
 		PRG = 0;
 		CHR[0] = CHR[1] = CHR[2] = 0;
-
 	}
 	Sync();
 }
