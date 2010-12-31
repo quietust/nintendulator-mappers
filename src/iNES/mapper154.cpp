@@ -25,7 +25,7 @@ void	Sync (void)
 	EMU->SetCHR_ROM1(7, N118::CHR[5] | 0x40);
 	if (N118::Cmd & 0x40)
 		EMU->Mirror_S1();
-	else	EMU->Mirror_S0();
+	else	EMU->Mirror_V();
 }
 
 void	MAPINT	Load (void)
@@ -48,7 +48,7 @@ const MapperInfo MapperInfo_154 =
 {
 	&MapperNum,
 	_T("Devil Man"),
-	COMPAT_FULL,
+	COMPAT_NEARLY,
 	Load,
 	Reset,
 	Unload,
