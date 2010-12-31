@@ -13,6 +13,8 @@ namespace
 void	Sync (void)
 {
 	EMU->SetPRG_ROM32(0x8, (Latch::Addr.b0 & 0x78) >> 3);
+	if (ROM->INES_Flags & 0x02)
+		EMU->SetPRG_RAM8(0x6, 0);
 	EMU->SetCHR_RAM8(0, 0);
 	if (Latch::Addr.b0 & 0x02)
 		EMU->Mirror_H();
