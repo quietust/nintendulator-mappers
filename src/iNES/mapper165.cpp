@@ -13,28 +13,29 @@ namespace
 FPPURead _PPURead3, _PPURead7;
 uint8 LatchState[2];
 
+void	SyncCHR (void)
+{
+	int bank;
+	if (LatchState[0])
+		bank = MMC3::GetCHRBank(2) >> 2;
+	else	bank = MMC3::GetCHRBank(0) >> 2;
+	if (bank == 0)
+		EMU->SetCHR_RAM4(0, 0);
+	else	EMU->SetCHR_ROM4(0, bank);
+	if (LatchState[1])
+		bank = MMC3::GetCHRBank(6) >> 2;
+	else	bank = MMC3::GetCHRBank(4) >> 2;
+	if (bank == 0)
+		EMU->SetCHR_RAM4(4, 0);
+	else	EMU->SetCHR_ROM4(4, bank);
+}
+
 void	Sync (void)
 {
 	MMC3::SyncMirror();
 	MMC3::SyncPRG(0x3F, 0);
 	MMC3::SyncWRAM();
-}
-
-void	SyncCHR (void)
-{
-	int bank;
-	if (LatchState[0])
-		bank = MMC3::GetCHRBank(2);
-	else	bank = MMC3::GetCHRBank(0);
-	if (bank == 0)
-		EMU->SetCHR_RAM4(0, 0);
-	else	EMU->SetCHR_ROM4(0, bank);
-	if (LatchState[1])
-		bank = MMC3::GetCHRBank(6);
-	else	bank = MMC3::GetCHRBank(4);
-	if (bank == 0)
-		EMU->SetCHR_RAM4(4, 0);
-	else	EMU->SetCHR_ROM4(4, bank);
+	SyncCHR();
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
@@ -43,10 +44,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	for (int i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode, offset, data, LatchState[i]);
 	if (mode == STATE_LOAD)
-	{
 		Sync();
-		SyncCHR();
-	}
 	return offset;
 }
 
@@ -97,7 +95,6 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	EMU->SetPPUReadHandler(0x3, PPURead3);
 	EMU->SetPPUReadHandler(0x7, PPURead7);
-	SyncCHR();
 }
 void	MAPINT	Unload (void)
 {
