@@ -26,7 +26,7 @@ void	Sync (void)
 	EMU->SetCHR_ROM1(5, CHR[3]);
 	EMU->SetCHR_ROM1(6, CHR[4]);
 	EMU->SetCHR_ROM1(7, CHR[5]);
-	EMU->Mirror_Custom(NT[0], NT[0], NT[1], NT[1]);
+	EMU->Mirror_Custom(NT[0] >> 7, NT[0] >> 7, NT[1] >> 7, NT[1] >> 7);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
@@ -94,7 +94,7 @@ const MapperInfo MapperInfo_207 =
 {
 	&MapperNum,
 	_T("Mapper 207"),
-	COMPAT_PARTIAL,
+	COMPAT_FULL,
 	Load,
 	Reset,
 	NULL,
