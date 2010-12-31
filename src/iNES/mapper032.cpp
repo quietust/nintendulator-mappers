@@ -16,7 +16,7 @@ uint8 CHR[8];
 void	Sync (void)
 {
 	EMU->SetPRG_RAM8(0x6, 0);
-	EMU->SetPRG_ROM8(0x8, (Mode & 2) ? 0 : PRG[0]);
+	EMU->SetPRG_ROM8(0x8, (Mode & 2) ? -2 : PRG[0]);
 	EMU->SetPRG_ROM8(0xA, PRG[1]);
 	EMU->SetPRG_ROM8(0xC, (Mode & 2) ? PRG[0] : -2);
 	EMU->SetPRG_ROM8(0xE, -1);
