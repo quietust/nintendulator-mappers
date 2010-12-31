@@ -21,7 +21,7 @@ void	Sync (void)
 	MMC3::SyncMirror();
 	MMC3::SyncWRAM();
 	MMC3::SyncPRG(0x3F, (MMC3::CHR[0] & 0x2) << 5);
-	if (ROM->INES_CHRSize)
+	if (!ROM->INES_CHRSize)
 	{
 		EMU->SetCHR_RAM4(0, ((MMC3::Cmd & 0x80) >> 7) ^ 0);
 		EMU->SetCHR_RAM4(4, ((MMC3::Cmd & 0x80) >> 7) ^ 1);
