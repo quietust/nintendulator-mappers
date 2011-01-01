@@ -7,11 +7,11 @@
 
 #include	"..\DLL\d_NSF.h"
 #include	"..\Hardware\Sound\s_FDS.h"
-#include	"..\Hardware\Sound\s_FME7.h"
+#include	"..\Hardware\Sound\s_SUN5.h"
 #include	"..\Hardware\Sound\s_MMC5.h"
 #include	"..\Hardware\Sound\s_VRC6.h"
 #include	"..\Hardware\Sound\s_VRC7.h"
-#include	"..\Hardware\Sound\s_N106.h"
+#include	"..\Hardware\Sound\s_N163.h"
 #include	"resource.h"
 #include	<commctrl.h>
 #include	<stdio.h>
@@ -93,12 +93,12 @@ _4:		LSR A
 		DEX
 		STX $F800
 		INX
-		STX $4800	;stop Namco-106
+		STX $4800	;stop Namco-163
 _5:		LSR A
 		BCC _6
 		LDY #$07
 		STY $C000
-		STY $E000	;stop FME-7
+		STY $E000	;stop SUN5
 _6:		RTS
 
 .module	init			;"Proper" way to init a tune
@@ -176,13 +176,13 @@ song_play:	JMP ($3E02)
 #define	NSFIRQ_STOP	0x01
 #define	NSFIRQ_PLAY	0x02
 
-#define	NFSSOUND_VRC6	0x01
-#define	NFSSOUND_VRC7	0x02
-#define	NFSSOUND_FDS	0x04
-#define	NFSSOUND_MMC5	0x08
-#define	NFSSOUND_N106	0x10
-#define	NFSSOUND_FME7	0x20
-#define	NFSSOUND_MASK	0x3F
+#define	NSFSOUND_VRC6	0x01
+#define	NSFSOUND_VRC7	0x02
+#define	NSFSOUND_FDS	0x04
+#define	NSFSOUND_MMC5	0x08
+#define	NSFSOUND_N163	0x10
+#define	NSFSOUND_SUN5	0x20
+#define	NSFSOUND_MASK	0x3F
 
 namespace
 {
@@ -263,7 +263,7 @@ int	MAPINT	Read (int Bank, int Addr)
 				IRQ(NSFIRQ_NONE);
 				return result;
 			}					break;
-	case 0x13:	return ROM->NSF_SoundChips & NFSSOUND_MASK;	break;
+	case 0x13:	return ROM->NSF_SoundChips & NSFSOUND_MASK;	break;
 	default:	return 0xFF;
 	}
 }
@@ -343,27 +343,27 @@ LRESULT CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPar
 			_stprintf(chiplist, _T("%i%i%i%i%i%i%i%i"),
 				(c & 0x80) ? 1 : 0,
 				(c & 0x40) ? 1 : 0,
-				(c & NFSSOUND_FME7) ? 1 : 0,
-				(c & NFSSOUND_N106) ? 1 : 0,
-				(c & NFSSOUND_MMC5) ? 1 : 0,
-				(c & NFSSOUND_FDS) ? 1 : 0,
-				(c & NFSSOUND_VRC7) ? 1 : 0,
-				(c & NFSSOUND_VRC6) ? 1 : 0);
+				(c & NSFSOUND_SUN5) ? 1 : 0,
+				(c & NSFSOUND_N163) ? 1 : 0,
+				(c & NSFSOUND_MMC5) ? 1 : 0,
+				(c & NSFSOUND_FDS) ? 1 : 0,
+				(c & NSFSOUND_VRC7) ? 1 : 0,
+				(c & NSFSOUND_VRC6) ? 1 : 0);
 			SetDlgItemText(hDlg, IDC_NSF_CHIPLIST, chiplist);
 		}
 
-		if (ROM->NSF_SoundChips == NFSSOUND_VRC6)
+		if (ROM->NSF_SoundChips == NSFSOUND_VRC6)
 			SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("Konami VRC6"));
-		else if (ROM->NSF_SoundChips == NFSSOUND_VRC7)
+		else if (ROM->NSF_SoundChips == NSFSOUND_VRC7)
 			SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("Konami VRC7"));
-		else if (ROM->NSF_SoundChips == NFSSOUND_FDS)
+		else if (ROM->NSF_SoundChips == NSFSOUND_FDS)
 			SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("Famicom Disk System"));
-		else if (ROM->NSF_SoundChips == NFSSOUND_MMC5)
+		else if (ROM->NSF_SoundChips == NSFSOUND_MMC5)
 			SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("Nintendo MMC5"));
-		else if (ROM->NSF_SoundChips == NFSSOUND_N106)
-			SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("Namco 106"));
-		else if (ROM->NSF_SoundChips == NFSSOUND_FME7)
-			SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("Sunsoft FME-7"));
+		else if (ROM->NSF_SoundChips == NSFSOUND_N163)
+			SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("Namco 163"));
+		else if (ROM->NSF_SoundChips == NSFSOUND_SUN5)
+			SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("Sunsoft 5"));
 		else if (ROM->NSF_SoundChips == 0x40)
 			SetDlgItemText(hDlg, IDC_NSF_CHIP, _T("Unknown"));
 		else if (ROM->NSF_SoundChips == 0x80)
@@ -437,18 +437,18 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 int	MAPINT	MapperSnd (int Cycles)
 {
 	int i = 0;
-	if (ROM->NSF_SoundChips & NFSSOUND_VRC6)
+	if (ROM->NSF_SoundChips & NSFSOUND_VRC6)
 		i += VRC6sound::Get(Cycles);
-	if (ROM->NSF_SoundChips & NFSSOUND_VRC7)
+	if (ROM->NSF_SoundChips & NSFSOUND_VRC7)
 		i += VRC7sound::Get(Cycles);
-	if (ROM->NSF_SoundChips & NFSSOUND_FDS)
+	if (ROM->NSF_SoundChips & NSFSOUND_FDS)
 		i += FDSsound::Get(Cycles);
-	if (ROM->NSF_SoundChips & NFSSOUND_MMC5)
+	if (ROM->NSF_SoundChips & NSFSOUND_MMC5)
 		i += MMC5sound::Get(Cycles);
-	if (ROM->NSF_SoundChips & NFSSOUND_N106)
-		i += N106sound::Get(Cycles);
-	if (ROM->NSF_SoundChips & NFSSOUND_FME7)
-		i += FME7sound::Get(Cycles);
+	if (ROM->NSF_SoundChips & NSFSOUND_N163)
+		i += N163sound::Get(Cycles);
+	if (ROM->NSF_SoundChips & NSFSOUND_SUN5)
+		i += SUN5sound::Get(Cycles);
 	return i;
 }
 
@@ -456,10 +456,10 @@ int	MAPINT	Read4 (int Bank, int Addr)
 {
 	if (Addr < 0x018)
 		return _Read4(Bank, Addr);
-	if ((ROM->NSF_SoundChips & NFSSOUND_FDS) && (Addr < 0x800))
+	if ((ROM->NSF_SoundChips & NSFSOUND_FDS) && (Addr < 0x800))
 		return FDSsound::Read((Bank << 12) | Addr);
-	if ((ROM->NSF_SoundChips & NFSSOUND_N106) && (Addr & 0x800))
-		return N106sound::Read((Bank << 12) | Addr);
+	if ((ROM->NSF_SoundChips & NSFSOUND_N163) && (Addr & 0x800))
+		return N163sound::Read((Bank << 12) | Addr);
 	return -1;
 }
 int	MAPINT	Read5 (int Bank, int Addr)
@@ -478,10 +478,10 @@ void	MAPINT	Write4 (int Bank, int Addr, int Val)
 {
 	if (Addr < 0x018)
 		_Write4(Bank, Addr, Val);
-	if (ROM->NSF_SoundChips & NFSSOUND_FDS)
+	if (ROM->NSF_SoundChips & NSFSOUND_FDS)
 		FDSsound::Write((Bank << 12) | Addr, Val);
-	if (ROM->NSF_SoundChips & NFSSOUND_N106)
-		N106sound::Write((Bank << 12) | Addr, Val);
+	if (ROM->NSF_SoundChips & NSFSOUND_N163)
+		N163sound::Write((Bank << 12) | Addr, Val);
 }
 void	MAPINT	Write5 (int Bank, int Addr, int Val)
 {
@@ -492,11 +492,11 @@ void	MAPINT	Write5 (int Bank, int Addr, int Val)
 		else
 		{
 			EMU->SetPRG_ROM4(Addr & 0xF, Val);
-			if (ROM->NSF_SoundChips & NFSSOUND_FDS)
+			if (ROM->NSF_SoundChips & NSFSOUND_FDS)
 				EMU->SetPRG_Ptr4(Addr & 0xF, EMU->GetPRG_Ptr4(Addr & 0xF), TRUE);
 		}
 	}
-	if (ROM->NSF_SoundChips & NFSSOUND_MMC5)
+	if (ROM->NSF_SoundChips & NSFSOUND_MMC5)
 	{
 		switch (Addr & 0xF00)
 		{
@@ -510,9 +510,9 @@ void	MAPINT	Write5 (int Bank, int Addr, int Val)
 }
 void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
-	if (ROM->NSF_SoundChips & NFSSOUND_VRC6)
+	if (ROM->NSF_SoundChips & NSFSOUND_VRC6)
 		VRC6sound::Write((Bank << 12) | Addr, Val);
-	if (ROM->NSF_SoundChips & NFSSOUND_VRC7)
+	if (ROM->NSF_SoundChips & NSFSOUND_VRC7)
 		VRC7sound::Write((Bank << 12) | Addr, Val);
 }
 void	MAPINT	WriteAB (int Bank, int Addr, int Val)
@@ -521,30 +521,30 @@ void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 }
 void	MAPINT	WriteCDE (int Bank, int Addr, int Val)
 {
-	FME7sound::Write((Bank << 12) | Addr, Val);
+	SUN5sound::Write((Bank << 12) | Addr, Val);
 }
 void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
-	if (ROM->NSF_SoundChips & NFSSOUND_N106)
-		N106sound::Write((Bank << 12) | Addr, Val);
-	if (ROM->NSF_SoundChips & NFSSOUND_FME7)
-		FME7sound::Write((Bank << 12) | Addr, Val);
+	if (ROM->NSF_SoundChips & NSFSOUND_N163)
+		N163sound::Write((Bank << 12) | Addr, Val);
+	if (ROM->NSF_SoundChips & NSFSOUND_SUN5)
+		SUN5sound::Write((Bank << 12) | Addr, Val);
 }
 
 void	MAPINT	Load (void)
 {
-	if (ROM->NSF_SoundChips & NFSSOUND_VRC6)
+	if (ROM->NSF_SoundChips & NSFSOUND_VRC6)
 		VRC6sound::Load();
-	if (ROM->NSF_SoundChips & NFSSOUND_VRC7)
+	if (ROM->NSF_SoundChips & NSFSOUND_VRC7)
 		VRC7sound::Load();
-	if (ROM->NSF_SoundChips & NFSSOUND_FDS)
+	if (ROM->NSF_SoundChips & NSFSOUND_FDS)
 		FDSsound::Load();
-	if (ROM->NSF_SoundChips & NFSSOUND_MMC5)
+	if (ROM->NSF_SoundChips & NSFSOUND_MMC5)
 		MMC5sound::Load();
-	if (ROM->NSF_SoundChips & NFSSOUND_N106)
-		N106sound::Load();
-	if (ROM->NSF_SoundChips & NFSSOUND_FME7)
-		FME7sound::Load();
+	if (ROM->NSF_SoundChips & NSFSOUND_N163)
+		N163sound::Load();
+	if (ROM->NSF_SoundChips & NSFSOUND_SUN5)
+		SUN5sound::Load();
 	ControlWindow = NULL;
 
 	InitAddr.s0 = ROM->NSF_InitAddr;
@@ -562,42 +562,42 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUReadHandler(0x3, Read);
 	EMU->SetCPUWriteHandler(0x3, Write);
 
-	if (ROM->NSF_SoundChips & (NFSSOUND_N106 | NFSSOUND_FDS))
+	if (ROM->NSF_SoundChips & (NSFSOUND_N163 | NSFSOUND_FDS))
 		EMU->SetCPUReadHandler(0x4, Read4);
-	if (ROM->NSF_SoundChips & NFSSOUND_MMC5)
+	if (ROM->NSF_SoundChips & NSFSOUND_MMC5)
 		EMU->SetCPUReadHandler(0x5, Read5);
 
-	if (ROM->NSF_SoundChips & (NFSSOUND_N106 | NFSSOUND_FDS))
+	if (ROM->NSF_SoundChips & (NSFSOUND_N163 | NSFSOUND_FDS))
 		EMU->SetCPUWriteHandler(0x4, Write4);
 	EMU->SetCPUWriteHandler(0x5, Write5);
-	if (ROM->NSF_SoundChips & (NFSSOUND_VRC6 | NFSSOUND_VRC7))
+	if (ROM->NSF_SoundChips & (NSFSOUND_VRC6 | NSFSOUND_VRC7))
 		EMU->SetCPUWriteHandler(0x9, Write9);
-	if (ROM->NSF_SoundChips & NFSSOUND_VRC6)
+	if (ROM->NSF_SoundChips & NSFSOUND_VRC6)
 	{
 		EMU->SetCPUWriteHandler(0xA, WriteAB);
 		EMU->SetCPUWriteHandler(0xB, WriteAB);
 	}
-	if (ROM->NSF_SoundChips & NFSSOUND_FME7)
+	if (ROM->NSF_SoundChips & NSFSOUND_SUN5)
 	{
 		EMU->SetCPUWriteHandler(0xC, WriteCDE);
 		EMU->SetCPUWriteHandler(0xD, WriteCDE);
 		EMU->SetCPUWriteHandler(0xE, WriteCDE);
 	}
-	if (ROM->NSF_SoundChips & (NFSSOUND_N106 | NFSSOUND_FME7))
+	if (ROM->NSF_SoundChips & (NSFSOUND_N163 | NSFSOUND_SUN5))
 		EMU->SetCPUWriteHandler(0xF, WriteF);
 
-	if (ROM->NSF_SoundChips & NFSSOUND_VRC6)
+	if (ROM->NSF_SoundChips & NSFSOUND_VRC6)
 		VRC6sound::Reset(ResetType);
-	if (ROM->NSF_SoundChips & NFSSOUND_VRC7)
+	if (ROM->NSF_SoundChips & NSFSOUND_VRC7)
 		VRC7sound::Reset(ResetType);
-	if (ROM->NSF_SoundChips & NFSSOUND_FDS)
+	if (ROM->NSF_SoundChips & NSFSOUND_FDS)
 		FDSsound::Reset(ResetType);
-	if (ROM->NSF_SoundChips & NFSSOUND_MMC5)
+	if (ROM->NSF_SoundChips & NSFSOUND_MMC5)
 		MMC5sound::Reset(ResetType);
-	if (ROM->NSF_SoundChips & NFSSOUND_N106)
-		N106sound::Reset(ResetType);
-	if (ROM->NSF_SoundChips & NFSSOUND_FME7)
-		FME7sound::Reset(ResetType);
+	if (ROM->NSF_SoundChips & NSFSOUND_N163)
+		N163sound::Reset(ResetType);
+	if (ROM->NSF_SoundChips & NSFSOUND_SUN5)
+		SUN5sound::Reset(ResetType);
 	if (ResetType == RESET_HARD)
 	{
 		songnum = ROM->NSF_InitSong - 1;
@@ -615,18 +615,18 @@ void	MAPINT	Unload (void)
 	if (ControlWindow)
 		DestroyWindow(ControlWindow);
 
-	if (ROM->NSF_SoundChips & NFSSOUND_VRC6)
+	if (ROM->NSF_SoundChips & NSFSOUND_VRC6)
 		VRC6sound::Unload();
-	if (ROM->NSF_SoundChips & NFSSOUND_VRC7)
+	if (ROM->NSF_SoundChips & NSFSOUND_VRC7)
 		VRC7sound::Unload();
-	if (ROM->NSF_SoundChips & NFSSOUND_FDS)
+	if (ROM->NSF_SoundChips & NSFSOUND_FDS)
 		FDSsound::Unload();
-	if (ROM->NSF_SoundChips & NFSSOUND_MMC5)
+	if (ROM->NSF_SoundChips & NSFSOUND_MMC5)
 		MMC5sound::Unload();
-	if (ROM->NSF_SoundChips & NFSSOUND_N106)
-		N106sound::Unload();
-	if (ROM->NSF_SoundChips & NFSSOUND_FME7)
-		FME7sound::Unload();
+	if (ROM->NSF_SoundChips & NSFSOUND_N163)
+		N163sound::Unload();
+	if (ROM->NSF_SoundChips & NSFSOUND_SUN5)
+		SUN5sound::Unload();
 }
 } // namespace
 const MapperInfo MapperInfo_NSF =

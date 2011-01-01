@@ -5,17 +5,18 @@
  * $Id$
  */
 
-#ifndef	S_FME7_H
-#define	S_FME7_H
+#ifndef	S_N163_H
+#define	S_N163_H
 
-namespace FME7sound
+namespace N163sound
 {
 void		Load		(void);
 void		Reset		(RESET_TYPE);
 void		Unload		(void);
+int		Read		(int);
 void		Write		(int,int);
 int	MAPINT	Get		(int);
 int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
-} // namespace FME7sound
+} // namespace N163sound
 
-#endif	// S_FME7_H
+#endif	// S_N163_H

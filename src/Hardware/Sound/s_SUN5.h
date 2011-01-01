@@ -5,18 +5,17 @@
  * $Id$
  */
 
-#ifndef	S_N106_H
-#define	S_N106_H
+#ifndef	S_SUN5_H
+#define	S_SUN5_H
 
-namespace N106sound
+namespace SUN5sound
 {
 void		Load		(void);
 void		Reset		(RESET_TYPE);
 void		Unload		(void);
-int		Read		(int);
 void		Write		(int,int);
 int	MAPINT	Get		(int);
 int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
-} // namespace N106sound
+} // namespace SUN5sound
 
-#endif	// S_N106_H
+#endif	// S_SUN5_H

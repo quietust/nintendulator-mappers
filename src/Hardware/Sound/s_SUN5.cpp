@@ -6,13 +6,12 @@
  */
 
 #include	"..\..\interface.h"
-#include	"s_FME7.h"
+#include	"s_SUN5.h"
 
 // Sunsoft 5, based on the AY-8910
-// Named FME7 for legacy reasons
-namespace FME7sound
+namespace SUN5sound
 {
-struct	FME7sqr
+struct	SUN5sqr
 {
 	union
 	{
@@ -146,4 +145,4 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	SAVELOAD_BYTE(mode, offset, data, byteD);
 	return offset;
 }
-} // namespace FME7sound
+} // namespace SUN5sound

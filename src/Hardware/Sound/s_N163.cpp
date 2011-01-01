@@ -6,16 +6,16 @@
  */
 
 #include	"..\..\interface.h"
-#include	"s_N106.h"
+#include	"s_N163.h"
 
-// Namco 106
-namespace N106sound
+// Namco 163
+namespace N163sound
 {
 uint8 regs[0x80];
 uint8 chans;
 uint8 addr;
 uint8 inc;
-struct	N106chan
+struct	N163chan
 {
 	uint8 freql, freqm, freqh;
 	uint32 freq;
@@ -168,4 +168,4 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	}
 	return offset;
 }
-} // namespace N106sound
+} // namespace N163sound

@@ -6,7 +6,7 @@
  */
 
 #include	"h_FME7.h"
-#include	"Sound\s_FME7.h"
+#include	"Sound\s_SUN5.h"
 
 namespace FME7
 {
@@ -19,7 +19,7 @@ FSync Sync;
 
 void	Load (FSync _Sync)
 {
-	FME7sound::Load();
+	SUN5sound::Load();
 	Sync = _Sync;
 }
 
@@ -49,13 +49,13 @@ void	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xE, WriteCDEF);
 	EMU->SetCPUWriteHandler(0xF, WriteCDEF);
 
-	FME7sound::Reset(ResetType);
+	SUN5sound::Reset(ResetType);
 	Sync();
 }
 
 void	Unload (void)
 {
-	FME7sound::Unload();
+	SUN5sound::Unload();
 }
 
 void	SyncMirror (void)
@@ -102,7 +102,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	for (int i = 0; i < 8; i++)
 		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
 	SAVELOAD_BYTE(mode, offset, data, Mirror);
-	offset = FME7sound::SaveLoad(mode, offset, data);
+	offset = SUN5sound::SaveLoad(mode, offset, data);
 	if (mode == STATE_LOAD)
 		Sync();
 	return offset;
@@ -141,7 +141,7 @@ void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 
 void	MAPINT	WriteCDEF (int Bank, int Addr, int Val)
 {
-	FME7sound::Write((Bank << 12) | Addr,Val);
+	SUN5sound::Write((Bank << 12) | Addr,Val);
 	Sync();
 }
 
@@ -153,6 +153,6 @@ void	MAPINT	CPUCycle (void)
 
 int	MAPINT	GenSound (int Cycles)
 {
-	return FME7sound::Get(Cycles);
+	return SUN5sound::Get(Cycles);
 }
 } // namespace FME7

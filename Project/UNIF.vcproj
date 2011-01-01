@@ -247,7 +247,7 @@
 				Name="Sound Source Files"
 				Filter="c;cpp;cxx;tli">
 				<File
-					RelativePath="..\src\Hardware\Sound\s_FME7.cpp">
+					RelativePath="..\src\Hardware\Sound\s_SUN5.cpp">
 				</File>
 				<File
 					RelativePath="..\src\Hardware\Sound\s_MMC5.cpp">
@@ -451,7 +451,7 @@
 				Name="Sound Header Files"
 				Filter="h;hpp;hxx;hm;inl">
 				<File
-					RelativePath="..\src\Hardware\Sound\s_FME7.h">
+					RelativePath="..\src\Hardware\Sound\s_SUN5.h">
 				</File>
 				<File
 					RelativePath="..\src\Hardware\Sound\s_MMC5.h">

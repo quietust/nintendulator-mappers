@@ -6,7 +6,7 @@
  */
 
 #include	"..\DLL\d_iNES.h"
-#include	"..\Hardware\Sound\s_N106.h"
+#include	"..\Hardware\Sound\s_N163.h"
 
 namespace
 {
@@ -53,7 +53,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
 	for (int i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, offset, data, NTab[i]);
-	offset = N106sound::SaveLoad(mode, offset, data);
+	offset = N163sound::SaveLoad(mode, offset, data);
 	if (mode == STATE_LOAD)
 		Sync();
 	return offset;
@@ -68,7 +68,7 @@ void	MAPINT	CPUCycle (void)
 int	MAPINT	Read4 (int Bank, int Addr)
 {
 	if (Addr & 0x800)
-		return N106sound::Read((Bank << 12) | Addr);
+		return N163sound::Read((Bank << 12) | Addr);
 	else	return _Read4(Bank, Addr);
 }
 
@@ -83,7 +83,7 @@ int	MAPINT	Read5 (int Bank, int Addr)
 void	MAPINT	Write4 (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
-		N106sound::Write((Bank << 12) | Addr, Val);
+		N163sound::Write((Bank << 12) | Addr, Val);
 	else	_Write4(Bank, Addr, Val);
 }
 
@@ -154,19 +154,19 @@ void	MAPINT	WriteE (int Bank, int Addr, int Val)
 void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
-		N106sound::Write((Bank << 12) | Addr, Val);
+		N163sound::Write((Bank << 12) | Addr, Val);
 	else	PRG[2] = Val;
 	Sync();
 }
 
 int	MAPINT	MapperSnd (int Cycles)
 {
-	return N106sound::Get(Cycles);
+	return N163sound::Get(Cycles);
 }
 
 void	MAPINT	Load (void)
 {
-	N106sound::Load();
+	N163sound::Load();
 	iNES_SetSRAM();
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
@@ -198,13 +198,13 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		}
 		IRQcounter.s0 = 0;
 	}
-	N106sound::Reset(ResetType);
+	N163sound::Reset(ResetType);
 	EMU->SetIRQ(1);
 	Sync();
 }
 void	MAPINT	Unload (void)
 {
-	N106sound::Unload();
+	N163sound::Unload();
 }
 
 uint8 MapperNum = 19;
