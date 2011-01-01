@@ -399,7 +399,7 @@ const MapperInfo MapperInfo_016 =
 
 const MapperInfo MapperInfo_159 =
 {
-	&MapperNum,
+	&MapperNum2,
 	_T("Bandai + 24C01"),
 	COMPAT_FULL,
 	Load_159,
