@@ -8,6 +8,10 @@
 #include	"..\DLL\d_iNES.h"
 #include	"..\Hardware\h_MMC3.h"
 
+namespace MMC3
+{
+extern uint8 Mirror;
+}
 namespace
 {
 FPPURead _PPURead3, _PPURead7;
@@ -16,15 +20,13 @@ uint8 LatchState[2];
 void	SyncCHR (void)
 {
 	int bank;
-	if (LatchState[0])
-		bank = MMC3::GetCHRBank(2) >> 2;
-	else	bank = MMC3::GetCHRBank(0) >> 2;
+
+	bank = MMC3::GetCHRBank(LatchState[0] ? 2 : 0) >> 2;
 	if (bank == 0)
 		EMU->SetCHR_RAM4(0, 0);
 	else	EMU->SetCHR_ROM4(0, bank);
-	if (LatchState[1])
-		bank = MMC3::GetCHRBank(6) >> 2;
-	else	bank = MMC3::GetCHRBank(4) >> 2;
+
+	bank = MMC3::GetCHRBank(LatchState[1] ? 6 : 4) >> 2;
 	if (bank == 0)
 		EMU->SetCHR_RAM4(4, 0);
 	else	EMU->SetCHR_ROM4(4, bank);
@@ -52,7 +54,7 @@ int	MAPINT	PPURead3 (int Bank, int Addr)
 {
 	int result = _PPURead3(Bank, Addr);
 	register int addy = Addr & 0x3F8;
-	if (addy == 0x3D8)
+	if (addy == 0x3D0)
 	{
 		LatchState[0] = 0;
 		SyncCHR();
@@ -69,7 +71,7 @@ int	MAPINT	PPURead7 (int Bank, int Addr)
 {
 	int result = _PPURead7(Bank, Addr);
 	register int addy = Addr & 0x3F8;
-	if (addy == 0x3D8)
+	if (addy == 0x3D0)
 	{
 		LatchState[1] = 0;
 		SyncCHR();
@@ -95,6 +97,10 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	EMU->SetPPUReadHandler(0x3, PPURead3);
 	EMU->SetPPUReadHandler(0x7, PPURead7);
+	
+	// Fire Emblem seems to require mirroring to default to vertical
+	if (ResetType == RESET_HARD)
+		MMC3::Mirror = 0;
 }
 void	MAPINT	Unload (void)
 {
@@ -108,7 +114,7 @@ const MapperInfo MapperInfo_165 =
 {
 	&MapperNum,
 	_T("Fire Emblem"),
-	COMPAT_PARTIAL,
+	COMPAT_NEARLY,
 	Load,
 	Reset,
 	Unload,
