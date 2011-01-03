@@ -203,7 +203,7 @@ const MapperInfo MapperInfo_018 =
 {
 	&MapperNum,
 	_T("Jaleco SS8806"),
-	COMPAT_PARTIAL,
+	COMPAT_NEARLY,
 	Load,
 	Reset,
 	NULL,

@@ -177,7 +177,7 @@ const MapperInfo MapperInfo_064 =
 {
 	&MapperNum,
 	_T("Tengen RAMBO-1"),
-	COMPAT_PARTIAL,
+	COMPAT_NEARLY,
 	NULL,
 	Reset,
 	NULL,

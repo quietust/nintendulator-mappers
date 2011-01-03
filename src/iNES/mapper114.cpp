@@ -106,7 +106,7 @@ const MapperInfo MapperInfo_114 =
 {
 	&MapperNum,
 	_T("Mapper 114"),
-	COMPAT_PARTIAL,
+	COMPAT_FULL,
 	Load,
 	Reset,
 	Unload,
