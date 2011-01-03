@@ -64,7 +64,8 @@ void	MAPINT	Write6 (int Bank, int Addr, int Val)
 
 void	MAPINT	Load (void)
 {
-	iNES_SetSRAM();
+	if (ROM->INES_Flags & 0x02)
+		EMU->Set_SRAMSize(2048);
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
@@ -92,7 +93,7 @@ const MapperInfo MapperInfo_246 =
 {
 	&MapperNum,
 	_T("Mapper 246"),
-	COMPAT_PARTIAL,
+	COMPAT_NEARLY,
 	Load,
 	Reset,
 	NULL,
