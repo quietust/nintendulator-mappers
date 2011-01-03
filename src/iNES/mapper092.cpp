@@ -1,8 +1,8 @@
 /* Nintendulator Mapper DLLs
- * Copyright (C) 2002-2010 QMT Productions
+ * Copyright (C) 2002-2011 QMT Productions
  *
- * $URL: https://nintendulator.svn.sourceforge.net/svnroot/nintendulator/mappers/trunk/src/iNES/mapper068.cpp $
- * $Id: mapper068.cpp 1077 2010-12-20 04:16:53Z quietust $
+ * $URL$
+ * $Id$
  */
 
 #include	"..\DLL\d_iNES.h"
