@@ -90,14 +90,14 @@ int	CheckSRAM (void)
 		{
 		// officially supported boards
 		case 0x00:	return MMC5WRAM_0KB_0KB;	break;	// ELROM
-		case 0x07:	return MMC5WRAM_8KB_0KB;	break;	// EKROM
+		case 0x70:	return MMC5WRAM_8KB_0KB;	break;	// EKROM
 		case 0x77:	return MMC5WRAM_8KB_8KB;	break;	// ETROM
-		case 0x09:	return MMC5WRAM_32KB_0KB;	break;	// EWROM
+		case 0x90:	return MMC5WRAM_32KB_0KB;	break;	// EWROM
 		// unofficial combinations, but actually supported by MMC5
-		case 0x70:	return MMC5WRAM_0KB_8KB;	break;
-		case 0x79:	return MMC5WRAM_32KB_8KB;	break;
-		case 0x90:	return MMC5WRAM_0KB_32KB;	break;
-		case 0x97:	return MMC5WRAM_8KB_32KB;	break;
+		case 0x07:	return MMC5WRAM_0KB_8KB;	break;
+		case 0x09:	return MMC5WRAM_0KB_32KB;	break;
+		case 0x79:	return MMC5WRAM_8KB_32KB;	break;
+		case 0x97:	return MMC5WRAM_32KB_8KB;	break;
 		case 0x99:	return MMC5WRAM_32KB_32KB;	break;
 		// none of the above
 		default:
