@@ -20,7 +20,20 @@ void	iNES_SetMirroring (void)
 void	iNES_SetSRAM (void)
 {
 	if (ROM->INES_Flags & 0x02)
-		EMU->Set_SRAMSize(8192);
+	{
+		if (ROM->INES_Version == 2)
+		{
+			int size = (ROM->INES2_PRGRAM & 0xF0) >> 4;
+			if (size == 0)
+				EMU->DbgOut(_T("ERROR - NES 2.0 ROM claims to have battery-backed SRAM but specified size of 0!"));
+			else if (size < 0xB)
+				EMU->Set_SRAMSize(64 << size);
+			else if (size < 0xF)
+				EMU->DbgOut(_T("WARNING - NES 2.0 ROM requests more battery-backed SRAM than is supported by emulator!"));
+			else	EMU->DbgOut(_T("ERROR - NES 2.0 ROM specified reserved value for battery-backed SRAM size!"));
+		}
+		else	EMU->Set_SRAMSize(8192);
+	}
 }
 
 HWND			hWnd;
