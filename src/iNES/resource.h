@@ -36,7 +36,6 @@
 #define IDC_MAPPER100_PRGCDR            1008
 #define IDC_MAPPER5_32_32               1009
 #define IDC_MAPPER100_PRGEF             1009
-#define IDC_MAPPER5_DESCRIBE            1010
 #define IDC_MAPPER100_PRGEFR            1010
 #define IDC_MAPPER100_CHR0              1011
 #define IDC_MAPPER100_CHR0R             1012
