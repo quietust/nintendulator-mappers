@@ -259,7 +259,7 @@ void	MAPINT	CPUWriteH (int Bank, int Addr, int Val)
 	else	ExtRam0[Addr & 0x3FF] = Val & 3;
 }
 
-LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -296,7 +296,7 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 		{
 			if (ConfigWindow)
 				break;
-			ConfigWindow = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_UNL_DRIPGAME), hWnd, (DLGPROC)ConfigProc);
+			ConfigWindow = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_UNL_DRIPGAME), hWnd, ConfigProc);
 			SetWindowPos(ConfigWindow, hWnd, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOSIZE);
 		}
 		else	return TRUE;

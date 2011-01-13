@@ -299,7 +299,7 @@ void	MAPINT	CPUCycle (void)
 	}
 }
 
-LRESULT CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	TCHAR NSFTitle[32], NSFArtist[32], NSFCopyright[32];
 	int i = songnum;
@@ -420,7 +420,7 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 		{
 			if (ControlWindow)
 				break;
-			ControlWindow = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_NSF), hWnd, (DLGPROC)ControlProc);
+			ControlWindow = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_NSF), hWnd, ControlProc);
 			SetWindowPos(ControlWindow, hWnd, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOSIZE);
 		}
 		else	return FALSE;

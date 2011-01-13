@@ -183,7 +183,7 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 	}
 }
 
-LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	TCHAR buf[256];
 	switch (message)
@@ -241,7 +241,7 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 		{
 			if (ConfigWindow)
 				break;
-			ConfigWindow = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_FDS), hWnd, (DLGPROC)ConfigProc);
+			ConfigWindow = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_FDS), hWnd, ConfigProc);
 			SetWindowPos(ConfigWindow, hWnd, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOSIZE);
 		}
 		else	return TRUE;
