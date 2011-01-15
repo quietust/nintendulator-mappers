@@ -35,12 +35,7 @@
 				Name="VCLinkerTool"
 				GenerateDebugInformation="TRUE"/>
 			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				SuppressStartupBanner="TRUE"
-				TargetEnvironment="1"
-				TypeLibraryName=".\..\bin/FDS.tlb"
-				HeaderFileName=""/>
+				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -85,12 +80,7 @@
 				Name="VCLinkerTool"
 				LinkIncremental="1"/>
 			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				SuppressStartupBanner="TRUE"
-				TargetEnvironment="1"
-				TypeLibraryName=".\..\bin/FDS.tlb"
-				HeaderFileName=""/>
+				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -112,8 +102,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug (Unicode)|Win32"
-			OutputDirectory=".\..\bin"
-			IntermediateDirectory=".\..\obj_fds"
+			OutputDirectory=".\..\unicode\bin"
+			IntermediateDirectory=".\..\unicode\obj_fds"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -133,12 +123,7 @@
 				Name="VCLinkerTool"
 				GenerateDebugInformation="TRUE"/>
 			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				SuppressStartupBanner="TRUE"
-				TargetEnvironment="1"
-				TypeLibraryName=".\..\bin/FDS.tlb"
-				HeaderFileName=""/>
+				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -160,8 +145,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release (Unicode)|Win32"
-			OutputDirectory=".\..\bin"
-			IntermediateDirectory=".\..\obj_fds"
+			OutputDirectory=".\..\unicode\bin"
+			IntermediateDirectory=".\..\unicode\obj_fds"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -183,12 +168,7 @@
 				Name="VCLinkerTool"
 				LinkIncremental="1"/>
 			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				SuppressStartupBanner="TRUE"
-				TargetEnvironment="1"
-				TypeLibraryName=".\..\bin/FDS.tlb"
-				HeaderFileName=""/>
+				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool

@@ -35,12 +35,7 @@
 				Name="VCLinkerTool"
 				GenerateDebugInformation="TRUE"/>
 			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				SuppressStartupBanner="TRUE"
-				TargetEnvironment="1"
-				TypeLibraryName=".\..\bin/NSF.tlb"
-				HeaderFileName=""/>
+				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -85,12 +80,7 @@
 				Name="VCLinkerTool"
 				LinkIncremental="1"/>
 			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				SuppressStartupBanner="TRUE"
-				TargetEnvironment="1"
-				TypeLibraryName=".\..\bin/NSF.tlb"
-				HeaderFileName=""/>
+				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -112,8 +102,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug (Unicode)|Win32"
-			OutputDirectory=".\..\bin"
-			IntermediateDirectory=".\..\obj_nsf"
+			OutputDirectory=".\..\unicode\bin"
+			IntermediateDirectory=".\..\unicode\obj_nsf"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -133,12 +123,7 @@
 				Name="VCLinkerTool"
 				GenerateDebugInformation="TRUE"/>
 			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				SuppressStartupBanner="TRUE"
-				TargetEnvironment="1"
-				TypeLibraryName=".\..\bin/NSF.tlb"
-				HeaderFileName=""/>
+				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -160,8 +145,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release (Unicode)|Win32"
-			OutputDirectory=".\..\bin"
-			IntermediateDirectory=".\..\obj_nsf"
+			OutputDirectory=".\..\unicode\bin"
+			IntermediateDirectory=".\..\unicode\obj_nsf"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -183,12 +168,7 @@
 				Name="VCLinkerTool"
 				LinkIncremental="1"/>
 			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				SuppressStartupBanner="TRUE"
-				TargetEnvironment="1"
-				TypeLibraryName=".\..\bin/NSF.tlb"
-				HeaderFileName=""/>
+				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -222,13 +202,13 @@
 					RelativePath="..\src\Hardware\Sound\s_FDS.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\Sound\s_SUN5.cpp">
-				</File>
-				<File
 					RelativePath="..\src\Hardware\Sound\s_MMC5.cpp">
 				</File>
 				<File
 					RelativePath="..\src\Hardware\Sound\s_N163.cpp">
+				</File>
+				<File
+					RelativePath="..\src\Hardware\Sound\s_SUN5.cpp">
 				</File>
 				<File
 					RelativePath="..\src\Hardware\Sound\s_VRC6.cpp">
@@ -265,13 +245,13 @@
 					RelativePath="..\src\Hardware\Sound\s_FDS.h">
 				</File>
 				<File
-					RelativePath="..\src\Hardware\Sound\s_SUN5.h">
-				</File>
-				<File
 					RelativePath="..\src\Hardware\Sound\s_MMC5.h">
 				</File>
 				<File
 					RelativePath="..\src\Hardware\Sound\s_N163.h">
+				</File>
+				<File
+					RelativePath="..\src\Hardware\Sound\s_SUN5.h">
 				</File>
 				<File
 					RelativePath="..\src\Hardware\Sound\s_VRC6.h">
