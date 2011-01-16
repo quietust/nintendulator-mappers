@@ -14,8 +14,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug (ANSI)|Win32"
-			OutputDirectory=".\..\ansi\bin"
-			IntermediateDirectory=".\..\ansi\obj_fds"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -57,8 +57,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release (ANSI)|Win32"
-			OutputDirectory=".\..\ansi\bin"
-			IntermediateDirectory=".\..\ansi\obj_fds"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -102,8 +102,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug (Unicode)|Win32"
-			OutputDirectory=".\..\unicode\bin"
-			IntermediateDirectory=".\..\unicode\obj_fds"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -145,8 +145,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release (Unicode)|Win32"
-			OutputDirectory=".\..\unicode\bin"
-			IntermediateDirectory=".\..\unicode\obj_fds"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
