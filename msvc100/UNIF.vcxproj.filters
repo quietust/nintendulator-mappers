@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{10c6a7d9-469c-40f5-b5ae-8ad16979c2ae}</UniqueIdentifier>
+      <Extensions>c;cpp;cxx;tli</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Hardware Source Files">
+      <UniqueIdentifier>{25e0c877-1b07-4d0b-8d28-524053d53773}</UniqueIdentifier>
+      <Extensions>c;cpp;cxx;tli</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Sound Source Files">
+      <UniqueIdentifier>{401addef-efea-468d-aa15-629cfe66fe57}</UniqueIdentifier>
+      <Extensions>c;cpp;cxx;tli</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Mapper Source Files">
+      <UniqueIdentifier>{30fc3015-0769-4f62-96c0-92d676696b5b}</UniqueIdentifier>
+      <Extensions>c;cpp;cxx;tli</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Mapper Source Files\NES">
+      <UniqueIdentifier>{ec11cf4a-a70f-4d15-a044-df06b5ea0610}</UniqueIdentifier>
+      <Extensions>c;cpp;cxx;tli</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Mapper Source Files\BTL">
+      <UniqueIdentifier>{3b77eea3-a760-42b4-aca5-f3c852cfd4c5}</UniqueIdentifier>
+      <Extensions>c;cpp;cxx;tli</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Mapper Source Files\BMC">
+      <UniqueIdentifier>{65c52bec-da81-4ea3-803b-511f7da7553c}</UniqueIdentifier>
+      <Extensions>c;cpp;cxx;tli</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Mapper Source Files\UNL">
+      <UniqueIdentifier>{82ff4ff4-a1c6-4119-8011-7561382906a5}</UniqueIdentifier>
+      <Extensions>c;cpp;cxx;tli</Extensions>
+    </Filter>
+    <Filter Include="Source Files\DLL Source Files">
+      <UniqueIdentifier>{c4e58e26-7123-4107-8565-f4bc0dcd9b42}</UniqueIdentifier>
+      <Extensions>c;cpp;cxx;tli</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{d8fdabff-e326-439e-a429-9afda2a6e282}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Hardware Header Files">
+      <UniqueIdentifier>{6f850f0e-13b2-46f5-b567-17c74f57fec6}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Sound Header Files">
+      <UniqueIdentifier>{0890a8ae-9aab-451c-82b0-28f8799a319e}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Header Files\DLL Header Files">
+      <UniqueIdentifier>{0d57cb1b-220c-4b78-9de6-3ca5ddce7783}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{820ef07d-35fa-485a-a37b-39d9dd33c279}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Hardware\h_FME7.cpp">
+      <Filter>Source Files\Hardware Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hardware\h_Latch.cpp">
+      <Filter>Source Files\Hardware Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hardware\h_MMC1.cpp">
+      <Filter>Source Files\Hardware Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hardware\h_MMC2.cpp">
+      <Filter>Source Files\Hardware Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hardware\h_MMC3.cpp">
+      <Filter>Source Files\Hardware Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hardware\h_MMC4.cpp">
+      <Filter>Source Files\Hardware Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hardware\h_MMC5.cpp">
+      <Filter>Source Files\Hardware Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hardware\h_MMC6.cpp">
+      <Filter>Source Files\Hardware Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hardware\Sound\s_MMC5.cpp">
+      <Filter>Source Files\Sound Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hardware\Sound\s_SUN5.cpp">
+      <Filter>Source Files\Sound Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Nes\NES_AxROM.cpp">
+      <Filter>Source Files\Mapper Source Files\NES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Nes\NES_BxROM.cpp">
+      <Filter>Source Files\Mapper Source Files\NES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Nes\NES_CxROM.cpp">
+      <Filter>Source Files\Mapper Source Files\NES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UNIF\NES\NES_DxROM.cpp">
+      <Filter>Source Files\Mapper Source Files\NES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Nes\NES_ExROM.cpp">
+      <Filter>Source Files\Mapper Source Files\NES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UNIF\NES\NES_FxROM.cpp">
+      <Filter>Source Files\Mapper Source Files\NES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Nes\NES_GxROM.cpp">
+      <Filter>Source Files\Mapper Source Files\NES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Nes\NES_HxROM.cpp">
+      <Filter>Source Files\Mapper Source Files\NES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Nes\NES_JxROM.cpp">
+      <Filter>Source Files\Mapper Source Files\NES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Nes\NES_MxROM.cpp">
+      <Filter>Source Files\Mapper Source Files\NES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Nes\NES_NROM.cpp">
+      <Filter>Source Files\Mapper Source Files\NES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UNIF\NES\NES_PxROM.cpp">
+      <Filter>Source Files\Mapper Source Files\NES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Nes\NES_SxROM.cpp">
+      <Filter>Source Files\Mapper Source Files\NES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Nes\NES_TxROM.cpp">
+      <Filter>Source Files\Mapper Source Files\NES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Nes\NES_UxROM.cpp">
+      <Filter>Source Files\Mapper Source Files\NES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Btl\BTL_MARIO1_MALEE2.cpp">
+      <Filter>Source Files\Mapper Source Files\BTL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Bmc\BMC_1991SuperHiK7in1.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Bmc\BMC_1992Ballgames11in1.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic115in1.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic15in1.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic20in1.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic20in1A.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic42in1.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic52in1.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic76in1.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Bmc\BMC_GoldenGame150in1.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Mario7in1.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Bmc\BMC_NovelDiamond9999999in1.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Reset4in1.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Bmc\BMC_StudyGame32in1.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Super1Min1.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UNIF\BMC\BMC_Super24in1SC03.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Super700in1.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Supervision16in1.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UNIF\BMC\BMC_SV01.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Bmc\BMC_T3H53.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UNIF\BMC\BMC_WS.cpp">
+      <Filter>Source Files\Mapper Source Files\BMC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UNIF\UNL\UNL_8237.cpp">
+      <Filter>Source Files\Mapper Source Files\UNL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Unif\Unl\UNL_A9712.cpp">
+      <Filter>Source Files\Mapper Source Files\UNL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UNIF\UNL\UNL_Dripgame.cpp">
+      <Filter>Source Files\Mapper Source Files\UNL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UNIF\UNL\UNL_H2288.cpp">
+      <Filter>Source Files\Mapper Source Files\UNL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UNIF\UNL\UNL_Sachen.cpp">
+      <Filter>Source Files\Mapper Source Files\UNL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UNIF\UNL\UNL_Sachen_74LS374N.cpp">
+      <Filter>Source Files\Mapper Source Files\UNL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UNIF\UNL\UNL_Sachen_8259.cpp">
+      <Filter>Source Files\Mapper Source Files\UNL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Dll\d_UNIF.cpp">
+      <Filter>Source Files\DLL Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\interface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\h_FME7.h">
+      <Filter>Header Files\Hardware Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\h_Latch.h">
+      <Filter>Header Files\Hardware Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\h_MMC1.h">
+      <Filter>Header Files\Hardware Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\h_MMC2.h">
+      <Filter>Header Files\Hardware Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\h_MMC3.h">
+      <Filter>Header Files\Hardware Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\h_MMC4.h">
+      <Filter>Header Files\Hardware Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\h_MMC5.h">
+      <Filter>Header Files\Hardware Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\h_MMC6.h">
+      <Filter>Header Files\Hardware Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\Sound\s_MMC5.h">
+      <Filter>Header Files\Sound Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\Sound\s_SUN5.h">
+      <Filter>Header Files\Sound Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Dll\d_UNIF.h">
+      <Filter>Header Files\DLL Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UNIF\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\src\UNIF\UNIF.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

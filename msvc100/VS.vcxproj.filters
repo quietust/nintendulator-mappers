@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{74580ad1-d087-408f-a363-953aa8638c21}</UniqueIdentifier>
+      <Extensions>c;cpp;cxx;tli</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Hardware Source Files">
+      <UniqueIdentifier>{95712530-85f4-49f3-9e56-3198b50de25e}</UniqueIdentifier>
+      <Extensions>c;cpp;cxx;tli</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Sound Source Files">
+      <UniqueIdentifier>{3128f4bf-c86a-4887-b9c1-cb9b944f6cf2}</UniqueIdentifier>
+      <Extensions>c;cpp;cxx;tli</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Mapper Source Files">
+      <UniqueIdentifier>{db469e0c-138c-46df-a245-e494cb568312}</UniqueIdentifier>
+      <Extensions>c;cpp;cxx;tli</Extensions>
+    </Filter>
+    <Filter Include="Source Files\DLL Source Files">
+      <UniqueIdentifier>{206882fe-006a-4834-8b4b-4a470bc936ff}</UniqueIdentifier>
+      <Extensions>c;cpp;cxx;tli</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{9cfeb1f7-6b58-400b-a854-5fc2cbca9898}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Hardware Header Files">
+      <UniqueIdentifier>{013aa55a-f281-49ad-b261-1759abc5e4a3}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Header Files\DLL Header Files">
+      <UniqueIdentifier>{9b122e5e-88da-48d6-b8b9-0bf92814616e}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{dece0a71-7d22-4cb8-ab41-b1d969cc0833}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Hardware\h_Latch.cpp">
+      <Filter>Source Files\Hardware Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hardware\h_MMC1.cpp">
+      <Filter>Source Files\Hardware Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hardware\h_MMC3.cpp">
+      <Filter>Source Files\Hardware Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hardware\h_VS.cpp">
+      <Filter>Source Files\Hardware Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\VS\mapper000.cpp">
+      <Filter>Source Files\Mapper Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\VS\mapper001.cpp">
+      <Filter>Source Files\Mapper Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\VS\mapper002.cpp">
+      <Filter>Source Files\Mapper Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\VS\mapper004.cpp">
+      <Filter>Source Files\Mapper Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\VS\mapper068.cpp">
+      <Filter>Source Files\Mapper Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\VS\mapper099.cpp">
+      <Filter>Source Files\Mapper Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\VS\mapper151.cpp">
+      <Filter>Source Files\Mapper Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\VS\unimplemented.cpp">
+      <Filter>Source Files\Mapper Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DLL\d_VS.cpp">
+      <Filter>Source Files\DLL Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\interface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\h_Latch.h">
+      <Filter>Header Files\Hardware Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\h_MMC1.h">
+      <Filter>Header Files\Hardware Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\h_MMC3.h">
+      <Filter>Header Files\Hardware Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\h_VS.h">
+      <Filter>Header Files\Hardware Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Dll\d_VS.h">
+      <Filter>Header Files\DLL Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\VS\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\src\VS\VS.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{f084de37-b239-46fa-8a31-bfb24766d17d}</UniqueIdentifier>
+      <Extensions>c;cpp;cxx;tli</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Sound Source Files">
+      <UniqueIdentifier>{168c131e-954b-426a-b6e6-0bd78dd2ed98}</UniqueIdentifier>
+      <Extensions>c;cpp;cxx;tli</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Mapper Source Files">
+      <UniqueIdentifier>{a3467c67-8d42-4394-9b50-1a204ca4769d}</UniqueIdentifier>
+      <Extensions>c;cpp;cxx;tli</Extensions>
+    </Filter>
+    <Filter Include="Source Files\DLL Source Files">
+      <UniqueIdentifier>{3f7930f7-faee-4a65-ad2e-564ed566e3f4}</UniqueIdentifier>
+      <Extensions>c;cpp;cxx;tli</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{fa8e4163-0704-4552-96ea-078db3e2dbc3}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Sound Header Files">
+      <UniqueIdentifier>{4cc33127-65d0-4344-913f-bda7a7892063}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Header Files\DLL Header Files">
+      <UniqueIdentifier>{c429e23a-98b2-4251-ac8e-729dec944006}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{93fb7e8d-9f34-4951-a534-bc2f23d66cda}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Hardware\Sound\s_FDS.cpp">
+      <Filter>Source Files\Sound Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hardware\Sound\s_MMC5.cpp">
+      <Filter>Source Files\Sound Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hardware\Sound\s_N163.cpp">
+      <Filter>Source Files\Sound Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hardware\Sound\s_SUN5.cpp">
+      <Filter>Source Files\Sound Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hardware\Sound\s_VRC6.cpp">
+      <Filter>Source Files\Sound Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hardware\Sound\s_VRC7.cpp">
+      <Filter>Source Files\Sound Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\NSF\NSF_Mapper.cpp">
+      <Filter>Source Files\Mapper Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DLL\d_NSF.cpp">
+      <Filter>Source Files\DLL Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\interface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\Sound\s_FDS.h">
+      <Filter>Header Files\Sound Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\Sound\s_MMC5.h">
+      <Filter>Header Files\Sound Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\Sound\s_N163.h">
+      <Filter>Header Files\Sound Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\Sound\s_SUN5.h">
+      <Filter>Header Files\Sound Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\Sound\s_VRC6.h">
+      <Filter>Header Files\Sound Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\Sound\s_VRC7.h">
+      <Filter>Header Files\Sound Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Dll\d_NSF.h">
+      <Filter>Header Files\DLL Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\NSF\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\src\NSF\NSF.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

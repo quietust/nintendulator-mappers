@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <SccProjectName />
+    <SccAuxPath />
+    <SccLocalPath />
+    <SccProvider />
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\unicode\bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\unicode\obj_unif\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\unicode\bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\unicode\obj_unif\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;UNIF_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <CallingConvention>FastCall</CallingConvention>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;UNIF_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
+      <CallingConvention>FastCall</CallingConvention>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Hardware\h_FME7.cpp" />
+    <ClCompile Include="..\src\Hardware\h_Latch.cpp" />
+    <ClCompile Include="..\src\Hardware\h_MMC1.cpp" />
+    <ClCompile Include="..\src\Hardware\h_MMC2.cpp" />
+    <ClCompile Include="..\src\Hardware\h_MMC3.cpp" />
+    <ClCompile Include="..\src\Hardware\h_MMC4.cpp" />
+    <ClCompile Include="..\src\Hardware\h_MMC5.cpp" />
+    <ClCompile Include="..\src\Hardware\h_MMC6.cpp" />
+    <ClCompile Include="..\src\Hardware\Sound\s_MMC5.cpp" />
+    <ClCompile Include="..\src\Hardware\Sound\s_SUN5.cpp" />
+    <ClCompile Include="..\src\Unif\Nes\NES_AxROM.cpp" />
+    <ClCompile Include="..\src\Unif\Nes\NES_BxROM.cpp" />
+    <ClCompile Include="..\src\Unif\Nes\NES_CxROM.cpp" />
+    <ClCompile Include="..\src\UNIF\NES\NES_DxROM.cpp" />
+    <ClCompile Include="..\src\Unif\Nes\NES_ExROM.cpp" />
+    <ClCompile Include="..\src\UNIF\NES\NES_FxROM.cpp" />
+    <ClCompile Include="..\src\Unif\Nes\NES_GxROM.cpp" />
+    <ClCompile Include="..\src\Unif\Nes\NES_HxROM.cpp" />
+    <ClCompile Include="..\src\Unif\Nes\NES_JxROM.cpp" />
+    <ClCompile Include="..\src\Unif\Nes\NES_MxROM.cpp" />
+    <ClCompile Include="..\src\Unif\Nes\NES_NROM.cpp" />
+    <ClCompile Include="..\src\UNIF\NES\NES_PxROM.cpp" />
+    <ClCompile Include="..\src\Unif\Nes\NES_SxROM.cpp" />
+    <ClCompile Include="..\src\Unif\Nes\NES_TxROM.cpp" />
+    <ClCompile Include="..\src\Unif\Nes\NES_UxROM.cpp" />
+    <ClCompile Include="..\src\Unif\Btl\BTL_MARIO1_MALEE2.cpp" />
+    <ClCompile Include="..\src\Unif\Bmc\BMC_1991SuperHiK7in1.cpp" />
+    <ClCompile Include="..\src\Unif\Bmc\BMC_1992Ballgames11in1.cpp" />
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic115in1.cpp" />
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic15in1.cpp" />
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic20in1.cpp" />
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic20in1A.cpp" />
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic42in1.cpp" />
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic52in1.cpp" />
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic76in1.cpp" />
+    <ClCompile Include="..\src\Unif\Bmc\BMC_GoldenGame150in1.cpp" />
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Mario7in1.cpp" />
+    <ClCompile Include="..\src\Unif\Bmc\BMC_NovelDiamond9999999in1.cpp" />
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Reset4in1.cpp" />
+    <ClCompile Include="..\src\Unif\Bmc\BMC_StudyGame32in1.cpp" />
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Super1Min1.cpp" />
+    <ClCompile Include="..\src\UNIF\BMC\BMC_Super24in1SC03.cpp" />
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Super700in1.cpp" />
+    <ClCompile Include="..\src\Unif\Bmc\BMC_Supervision16in1.cpp" />
+    <ClCompile Include="..\src\UNIF\BMC\BMC_SV01.cpp" />
+    <ClCompile Include="..\src\Unif\Bmc\BMC_T3H53.cpp" />
+    <ClCompile Include="..\src\UNIF\BMC\BMC_WS.cpp" />
+    <ClCompile Include="..\src\UNIF\UNL\UNL_8237.cpp" />
+    <ClCompile Include="..\src\Unif\Unl\UNL_A9712.cpp" />
+    <ClCompile Include="..\src\UNIF\UNL\UNL_Dripgame.cpp" />
+    <ClCompile Include="..\src\UNIF\UNL\UNL_H2288.cpp" />
+    <ClCompile Include="..\src\UNIF\UNL\UNL_Sachen.cpp" />
+    <ClCompile Include="..\src\UNIF\UNL\UNL_Sachen_74LS374N.cpp" />
+    <ClCompile Include="..\src\UNIF\UNL\UNL_Sachen_8259.cpp" />
+    <ClCompile Include="..\src\Dll\d_UNIF.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\interface.h" />
+    <ClInclude Include="..\src\Hardware\h_FME7.h" />
+    <ClInclude Include="..\src\Hardware\h_Latch.h" />
+    <ClInclude Include="..\src\Hardware\h_MMC1.h" />
+    <ClInclude Include="..\src\Hardware\h_MMC2.h" />
+    <ClInclude Include="..\src\Hardware\h_MMC3.h" />
+    <ClInclude Include="..\src\Hardware\h_MMC4.h" />
+    <ClInclude Include="..\src\Hardware\h_MMC5.h" />
+    <ClInclude Include="..\src\Hardware\h_MMC6.h" />
+    <ClInclude Include="..\src\Hardware\Sound\s_MMC5.h" />
+    <ClInclude Include="..\src\Hardware\Sound\s_SUN5.h" />
+    <ClInclude Include="..\src\Dll\d_UNIF.h" />
+    <ClInclude Include="..\src\UNIF\resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\src\UNIF\UNIF.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
