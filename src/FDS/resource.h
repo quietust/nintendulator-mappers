@@ -3,10 +3,10 @@
 // Used by FDS.rc
 //
 #define IDD_FDS                         101
-
 #define IDC_FDS_INSERT                  1000
 #define IDC_FDS_EJECT                   1001
 #define IDC_FDS_DISKSEL                 1002
+#define IDC_STATIC                      -1
 
 // Next default values for new objects
 // 
