@@ -233,7 +233,6 @@ extern "C" __declspec(dllexport)	DLLInfo	*MAPINT	LoadMapperDLL (HWND hWndEmu, co
 	EMU = _EMU;
 	if (VersionRequired != CurrentMapperInterface)
 	{
-		MessageBox(hWnd,_T("Mapper interface incompatible!"),_T("UNIF.DLL"),MSGBOX_FLAGS);
 		UnloadMapperDLL();
 		return NULL;
 	}
