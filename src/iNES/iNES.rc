@@ -227,8 +227,8 @@ BEGIN
                     112,12,12
     CONTROL         "",IDC_MAPPER100_CHRB_OPEN,"Button",BS_AUTORADIOBUTTON,
                     412,112,12,12
-    DEFPUSHBUTTON   "&Apply",IDC_APPLY,8,112,48,16
-    PUSHBUTTON      "&Close",IDCANCEL,80,112,48,16
+    DEFPUSHBUTTON   "&Apply",IDOK,8,112,48,16
+    PUSHBUTTON      "Close",IDCANCEL,80,112,48,16
 END
 
 IDD_MAPPER5 DIALOGEX 0, 0, 220, 71
@@ -256,8 +256,8 @@ BEGIN
                     BS_AUTORADIOBUTTON | WS_TABSTOP,152,28,64,8
     CTEXT           "* - denotes modes used by commercial games",IDC_STATIC,
                     4,40,212,8
-    DEFPUSHBUTTON   "&OK",IDOK,4,52,68,16
-    PUSHBUTTON      "&Cancel",IDCANCEL,152,52,64,16
+    DEFPUSHBUTTON   "OK",IDOK,4,52,68,16
+    PUSHBUTTON      "Cancel",IDCANCEL,152,52,64,16
 END
 
 IDD_MAPPER43 DIALOGEX 0, 0, 204, 44
@@ -265,12 +265,12 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Mapper 43 (SMB2J-LF36) - Titlescreen Selection"
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    CONTROL         "Blank titlescreen",IDC_MAPPER43_BLANK,"Button",
+    CONTROL         "&Blank titlescreen",IDC_MAPPER43_BLANK,"Button",
                     BS_AUTORADIOBUTTON | WS_TABSTOP,8,8,72,8
-    CONTROL         "Super Mario Bros 2 Logo",IDC_MAPPER43_LOGO,"Button",
+    CONTROL         "&Super Mario Bros 2 Logo",IDC_MAPPER43_LOGO,"Button",
                     BS_AUTORADIOBUTTON | WS_TABSTOP,100,8,96,8
-    DEFPUSHBUTTON   "&OK",IDOK,28,20,52,16
-    PUSHBUTTON      "&Cancel",IDCANCEL,124,20,52,16
+    DEFPUSHBUTTON   "OK",IDOK,28,20,52,16
+    PUSHBUTTON      "Cancel",IDCANCEL,124,20,52,16
 END
 
 IDD_MAPPER59 DIALOGEX 0, 0, 160, 44
@@ -278,12 +278,12 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Mapper 59 (T3H53) - Jumper Settings"
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    CONTROL         "Jumper 0",IDC_MAPPER59_J0,"Button",BS_AUTOCHECKBOX | 
+    CONTROL         "Jumper &0",IDC_MAPPER59_J0,"Button",BS_AUTOCHECKBOX | 
                     BS_VCENTER | WS_TABSTOP,8,8,52,12
-    CONTROL         "Jumper 1",IDC_MAPPER59_J1,"Button",BS_AUTOCHECKBOX | 
+    CONTROL         "Jumper &1",IDC_MAPPER59_J1,"Button",BS_AUTOCHECKBOX | 
                     BS_VCENTER | WS_TABSTOP,8,24,52,12
-    DEFPUSHBUTTON   "&OK",IDOK,100,8,52,12
-    PUSHBUTTON      "&Cancel",IDCANCEL,100,24,52,12
+    DEFPUSHBUTTON   "OK",IDOK,100,8,52,12
+    PUSHBUTTON      "Cancel",IDCANCEL,100,24,52,12
 END
 
 IDD_MAPPER105 DIALOGEX 0, 0, 160, 76
@@ -291,17 +291,17 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Mapper 105 (NWC) - Jumper Settings"
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    CONTROL         "Jumper 0 (+0:18)",IDC_MAPPER105_J0,"Button",
+    CONTROL         "Jumper &0 (+0:18)",IDC_MAPPER105_J0,"Button",
                     BS_AUTOCHECKBOX | BS_VCENTER | WS_TABSTOP,8,8,72,12
-    CONTROL         "Jumper 1 (+0:37)",IDC_MAPPER105_J1,"Button",
+    CONTROL         "Jumper &1 (+0:37)",IDC_MAPPER105_J1,"Button",
                     BS_AUTOCHECKBOX | BS_VCENTER | WS_TABSTOP,8,24,72,12
-    CONTROL         "Jumper 2 (+1:15)",IDC_MAPPER105_J2,"Button",
+    CONTROL         "Jumper &2 (+1:15)",IDC_MAPPER105_J2,"Button",
                     BS_AUTOCHECKBOX | BS_VCENTER | WS_TABSTOP,8,40,72,12
-    CONTROL         "Jumper 3 (+2:30)",IDC_MAPPER105_J3,"Button",
+    CONTROL         "Jumper &3 (+2:30)",IDC_MAPPER105_J3,"Button",
                     BS_AUTOCHECKBOX | BS_VCENTER | WS_TABSTOP,8,56,72,12
     CTEXT           "Base Time 5:00",IDC_STATIC,100,8,52,12,SS_CENTERIMAGE
-    DEFPUSHBUTTON   "&OK",IDOK,100,32,52,16
-    PUSHBUTTON      "&Cancel",IDCANCEL,100,52,52,16
+    DEFPUSHBUTTON   "OK",IDOK,100,32,52,16
+    PUSHBUTTON      "Cancel",IDCANCEL,100,52,52,16
 END
 
 IDD_MAPPER90 DIALOGEX 0, 0, 148, 47
@@ -309,15 +309,15 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Mapper 90 Settings"
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    CONTROL         "Jumper 0",IDC_MAPPER90_J0,"Button",BS_AUTOCHECKBOX | 
+    CONTROL         "Jumper &0",IDC_MAPPER90_J0,"Button",BS_AUTOCHECKBOX | 
                     BS_VCENTER | WS_TABSTOP,4,4,44,8
-    CONTROL         "Jumper 1",IDC_MAPPER90_J1,"Button",BS_AUTOCHECKBOX | 
+    CONTROL         "Jumper &1",IDC_MAPPER90_J1,"Button",BS_AUTOCHECKBOX | 
                     BS_VCENTER | WS_TABSTOP,4,16,44,8
-    CONTROL         "Extended Mirroring\n(Shin Samurai Spirits 2)",
+    CONTROL         "&Extended Mirroring\n(Shin Samurai Spirits 2)",
                     IDC_MAPPER90_MIR,"Button",BS_AUTOCHECKBOX | BS_VCENTER | 
                     BS_MULTILINE | WS_TABSTOP,56,4,88,20
-    DEFPUSHBUTTON   "&OK",IDOK,4,28,68,16
-    PUSHBUTTON      "&Cancel",IDCANCEL,76,28,68,16
+    DEFPUSHBUTTON   "OK",IDOK,4,28,68,16
+    PUSHBUTTON      "Cancel",IDCANCEL,76,28,68,16
 END
 
 

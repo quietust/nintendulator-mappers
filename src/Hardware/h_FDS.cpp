@@ -188,46 +188,42 @@ INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 	TCHAR buf[256];
 	switch (message)
 	{
-		case WM_INITDIALOG:
-			for (int i = 0; i < ROM->FDS_NumSides; i++)
-			{
-				_stprintf(buf, _T("Disk %i Side %s"), (i >> 1)+1, (i & 1) ? _T("B") : _T("A"));
-				SendDlgItemMessage(hDlg, IDC_FDS_DISKSEL, CB_ADDSTRING, 0, (LPARAM)buf);
-			}
-			if (DiskNum == 0xFF)
-			{
-				SendDlgItemMessage(hDlg, IDC_FDS_DISKSEL, CB_SETCURSEL, 0, 0);
-				EnableWindow(GetDlgItem(hDlg, IDC_FDS_DISKSEL), TRUE);
-				EnableWindow(GetDlgItem(hDlg, IDC_FDS_INSERT), TRUE);
-				EnableWindow(GetDlgItem(hDlg, IDC_FDS_EJECT), FALSE);
-			}
-			else
-			{
-				SendDlgItemMessage(hDlg, IDC_FDS_DISKSEL, CB_SETCURSEL, DiskNum, 0);
-				EnableWindow(GetDlgItem(hDlg, IDC_FDS_DISKSEL), FALSE);
-				EnableWindow(GetDlgItem(hDlg, IDC_FDS_INSERT), FALSE);
-				EnableWindow(GetDlgItem(hDlg, IDC_FDS_EJECT), TRUE);
-			}
-			return FALSE;
-		case WM_COMMAND:
-			switch (LOWORD(wParam))
-			{
-			case IDC_FDS_EJECT:
-				ConfigCmd = 0xFF;
-				return TRUE;		break;
-			case IDC_FDS_INSERT:
-				ConfigCmd = (uint8)SendDlgItemMessage(hDlg, IDC_FDS_DISKSEL, CB_GETCURSEL, 0, 0) + 1;
-				return TRUE;		break;
-			case IDCLOSE:
-				ConfigWindow = NULL;
-				DestroyWindow(hDlg);
-				return TRUE;		break;
-			}
-			break;
-		case WM_CLOSE:
+	case WM_INITDIALOG:
+		for (int i = 0; i < ROM->FDS_NumSides; i++)
+		{
+			_stprintf(buf, _T("Disk %i Side %s"), (i >> 1)+1, (i & 1) ? _T("B") : _T("A"));
+			SendDlgItemMessage(hDlg, IDC_FDS_DISKSEL, CB_ADDSTRING, 0, (LPARAM)buf);
+		}
+		if (DiskNum == 0xFF)
+		{
+			SendDlgItemMessage(hDlg, IDC_FDS_DISKSEL, CB_SETCURSEL, 0, 0);
+			EnableWindow(GetDlgItem(hDlg, IDC_FDS_DISKSEL), TRUE);
+			EnableWindow(GetDlgItem(hDlg, IDC_FDS_INSERT), TRUE);
+			EnableWindow(GetDlgItem(hDlg, IDC_FDS_EJECT), FALSE);
+		}
+		else
+		{
+			SendDlgItemMessage(hDlg, IDC_FDS_DISKSEL, CB_SETCURSEL, DiskNum, 0);
+			EnableWindow(GetDlgItem(hDlg, IDC_FDS_DISKSEL), FALSE);
+			EnableWindow(GetDlgItem(hDlg, IDC_FDS_INSERT), FALSE);
+			EnableWindow(GetDlgItem(hDlg, IDC_FDS_EJECT), TRUE);
+		}
+		return FALSE;
+	case WM_COMMAND:
+		switch (LOWORD(wParam))
+		{
+		case IDC_FDS_EJECT:
+			ConfigCmd = 0xFF;
+			return TRUE;
+		case IDC_FDS_INSERT:
+			ConfigCmd = (uint8)SendDlgItemMessage(hDlg, IDC_FDS_DISKSEL, CB_GETCURSEL, 0, 0) + 1;
+			return TRUE;
+		case IDCANCEL:
 			ConfigWindow = NULL;
 			DestroyWindow(hDlg);
-			return TRUE;		break;
+			return TRUE;
+		}
+		break;
 	}
 	return FALSE;
 }
@@ -346,6 +342,9 @@ void	Unload (void)
 {
 	FDSsound::Unload();
 	if (ConfigWindow)
+	{
 		DestroyWindow(ConfigWindow);
+		ConfigWindow = NULL;
+	}
 }
 } // namespace FDS

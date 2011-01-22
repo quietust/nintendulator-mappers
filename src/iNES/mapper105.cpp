@@ -83,35 +83,31 @@ INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 {
 	switch (message)
 	{
-		case WM_INITDIALOG:
-			CheckDlgButton(hDlg, IDC_MAPPER105_J0, (MaxCount & 0x02000000) ? BST_CHECKED : BST_UNCHECKED);
-			CheckDlgButton(hDlg, IDC_MAPPER105_J1, (MaxCount & 0x04000000) ? BST_CHECKED : BST_UNCHECKED);
-			CheckDlgButton(hDlg, IDC_MAPPER105_J2, (MaxCount & 0x08000000) ? BST_CHECKED : BST_UNCHECKED);
-			CheckDlgButton(hDlg, IDC_MAPPER105_J3, (MaxCount & 0x10000000) ? BST_CHECKED : BST_UNCHECKED);
-			return FALSE;
-		case WM_COMMAND:
-			switch (LOWORD(wParam))
-			{
-			case IDOK:
-				ConfigCmd = 0x80;
-				if (IsDlgButtonChecked(hDlg, IDC_MAPPER105_J0) == BST_CHECKED)
-					ConfigCmd |= 0x01;
-				if (IsDlgButtonChecked(hDlg, IDC_MAPPER105_J1) == BST_CHECKED)
-					ConfigCmd |= 0x02;
-				if (IsDlgButtonChecked(hDlg, IDC_MAPPER105_J2) == BST_CHECKED)
-					ConfigCmd |= 0x04;
-				if (IsDlgButtonChecked(hDlg, IDC_MAPPER105_J3) == BST_CHECKED)
-					ConfigCmd |= 0x08;
-			case IDCANCEL:
-				ConfigWindow = NULL;
-				DestroyWindow(hDlg);
-				return TRUE;		break;
-			}
-			break;
-		case WM_CLOSE:
+	case WM_INITDIALOG:
+		CheckDlgButton(hDlg, IDC_MAPPER105_J0, (MaxCount & 0x02000000) ? BST_CHECKED : BST_UNCHECKED);
+		CheckDlgButton(hDlg, IDC_MAPPER105_J1, (MaxCount & 0x04000000) ? BST_CHECKED : BST_UNCHECKED);
+		CheckDlgButton(hDlg, IDC_MAPPER105_J2, (MaxCount & 0x08000000) ? BST_CHECKED : BST_UNCHECKED);
+		CheckDlgButton(hDlg, IDC_MAPPER105_J3, (MaxCount & 0x10000000) ? BST_CHECKED : BST_UNCHECKED);
+		return FALSE;
+	case WM_COMMAND:
+		switch (LOWORD(wParam))
+		{
+		case IDOK:
+			ConfigCmd = 0x80;
+			if (IsDlgButtonChecked(hDlg, IDC_MAPPER105_J0) == BST_CHECKED)
+				ConfigCmd |= 0x01;
+			if (IsDlgButtonChecked(hDlg, IDC_MAPPER105_J1) == BST_CHECKED)
+				ConfigCmd |= 0x02;
+			if (IsDlgButtonChecked(hDlg, IDC_MAPPER105_J2) == BST_CHECKED)
+				ConfigCmd |= 0x04;
+			if (IsDlgButtonChecked(hDlg, IDC_MAPPER105_J3) == BST_CHECKED)
+				ConfigCmd |= 0x08;
+		case IDCANCEL:
 			ConfigWindow = NULL;
 			DestroyWindow(hDlg);
-			return TRUE;		break;
+			return TRUE;
+		}
+		break;
 	}
 	return FALSE;
 }
@@ -163,7 +159,10 @@ void	MAPINT	Unload (void)
 {
 	MMC1::Unload();
 	if (ConfigWindow)
+	{
 		DestroyWindow(ConfigWindow);
+		ConfigWindow = NULL;
+	}
 }
 
 uint8 MapperNum = 105;

@@ -389,24 +389,22 @@ INT_PTR CALLBACK ControlProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPar
 				ntscpal = 1;
 			else	ntscpal = 0;
 			IRQ(NSFIRQ_INIT);
-			break;
+			return TRUE;
 		case IDC_NSF_STOP:
 			IRQ(NSFIRQ_STOP);
-			break;
-		case IDCLOSE:
+			return TRUE;
+		case IDCANCEL:
 			ControlWindow = NULL;
 			DestroyWindow(hDlg);
-			break;
+			return TRUE;
 		}
 		break;
 	case WM_HSCROLL:
 		if ((HWND)lParam == GetDlgItem(hDlg, IDC_NSF_SELECT))
+		{
 			SetDlgItemInt(hDlg, IDC_NSF_SELECTED, SendDlgItemMessage(hDlg, IDC_NSF_SELECT, TBM_GETPOS, 0, 0) + 1, FALSE);
-		break;
-	case WM_CLOSE:
-		ControlWindow = NULL;
-		DestroyWindow(hDlg);
-		break;
+			return TRUE;
+		}
 	}
 	return FALSE;
 }
@@ -613,7 +611,10 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 void	MAPINT	Unload (void)
 {
 	if (ControlWindow)
+	{
 		DestroyWindow(ControlWindow);
+		ControlWindow = NULL;
+	}
 
 	if (ROM->NSF_SoundChips & NSFSOUND_VRC6)
 		VRC6sound::Unload();

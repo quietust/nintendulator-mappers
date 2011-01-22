@@ -78,32 +78,28 @@ INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 {
 	switch (message)
 	{
-		case WM_INITDIALOG:
-			if (Title == 1)
-				CheckRadioButton(hDlg, IDC_MAPPER43_BLANK, IDC_MAPPER43_LOGO, IDC_MAPPER43_BLANK);
-			else	CheckRadioButton(hDlg, IDC_MAPPER43_BLANK, IDC_MAPPER43_LOGO, IDC_MAPPER43_LOGO);
-			return FALSE;
-		case WM_COMMAND:
-			switch (LOWORD(wParam))
-			{
-			case IDOK:
-				ConfigCmd = 0x80;
-				if (IsDlgButtonChecked(hDlg, IDC_MAPPER43_BLANK) == BST_CHECKED)
-					ConfigCmd |= 0x01;
-				else if (IsDlgButtonChecked(hDlg, IDC_MAPPER43_LOGO) == BST_CHECKED)
-					ConfigCmd |= 0x00;
-				else	MessageBox(hWnd, _T("Impossible - neither radio button checked!"), _T("INES.DLL"), MB_OK);
-				MessageBox(hWnd, _T("Please perform a SOFT reset for this to take effect!"), _T("INES.DLL"), MB_OK);
-			case IDCANCEL:
-				DestroyWindow(hDlg);
-				ConfigWindow = NULL;
-				return TRUE;		break;
-			}
-			break;
-		case WM_CLOSE:
-			DestroyWindow(hDlg);
+	case WM_INITDIALOG:
+		if (Title == 1)
+			CheckRadioButton(hDlg, IDC_MAPPER43_BLANK, IDC_MAPPER43_LOGO, IDC_MAPPER43_BLANK);
+		else	CheckRadioButton(hDlg, IDC_MAPPER43_BLANK, IDC_MAPPER43_LOGO, IDC_MAPPER43_LOGO);
+		return FALSE;
+	case WM_COMMAND:
+		switch (LOWORD(wParam))
+		{
+		case IDOK:
+			ConfigCmd = 0x80;
+			if (IsDlgButtonChecked(hDlg, IDC_MAPPER43_BLANK) == BST_CHECKED)
+				ConfigCmd |= 0x01;
+			else if (IsDlgButtonChecked(hDlg, IDC_MAPPER43_LOGO) == BST_CHECKED)
+				ConfigCmd |= 0x00;
+			else	MessageBox(hWnd, _T("Impossible - neither radio button checked!"), _T("INES.DLL"), MB_OK);
+			MessageBox(hWnd, _T("Please perform a SOFT reset for this to take effect!"), _T("INES.DLL"), MB_OK);
+		case IDCANCEL:
 			ConfigWindow = NULL;
-			return TRUE;		break;
+			DestroyWindow(hDlg);
+			return TRUE;
+		}
+		break;
 	}
 	return FALSE;
 }
@@ -165,7 +161,10 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 void	MAPINT	Unload (void)
 {
 	if (ConfigWindow)
+	{
 		DestroyWindow(ConfigWindow);
+		ConfigWindow = NULL;
+	}
 }
 
 uint8 MapperNum = 43;

@@ -90,12 +90,12 @@ INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 					ConfigCmd += 8;
 				BlockDialog(hDlg, IDC_VS_DIP0);
 			}
-			else	// if there WAS a pending command, it was to change the state of this DIP
+			else	// if there WAS a pending command, it had to have been to change the state of this DIP
 			{	// so we can abort it and re-enable the others
 				UnblockDialog(hDlg);
 				ConfigCmd = 0;
 			}
-			return TRUE;		break;
+			return TRUE;
 		case IDC_VS_DIP1:
 			if (ConfigCmd == 0)
 			{
@@ -109,7 +109,7 @@ INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 				UnblockDialog(hDlg);
 				ConfigCmd = 0;
 			}
-			return TRUE;		break;
+			return TRUE;
 		case IDC_VS_DIP2:
 			if (ConfigCmd == 0)
 			{
@@ -123,7 +123,7 @@ INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 				UnblockDialog(hDlg);
 				ConfigCmd = 0;
 			}
-			return TRUE;		break;
+			return TRUE;
 		case IDC_VS_DIP3:
 			if (ConfigCmd == 0)
 			{
@@ -137,7 +137,7 @@ INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 				UnblockDialog(hDlg);
 				ConfigCmd = 0;
 			}
-			return TRUE;		break;
+			return TRUE;
 		case IDC_VS_DIP4:
 			if (ConfigCmd == 0)
 			{
@@ -151,7 +151,7 @@ INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 				UnblockDialog(hDlg);
 				ConfigCmd = 0;
 			}
-			return TRUE;		break;
+			return TRUE;
 		case IDC_VS_DIP5:
 			if (ConfigCmd == 0)
 			{
@@ -165,7 +165,7 @@ INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 				UnblockDialog(hDlg);
 				ConfigCmd = 0;
 			}
-			return TRUE;		break;
+			return TRUE;
 		case IDC_VS_DIP6:
 			if (ConfigCmd == 0)
 			{
@@ -179,7 +179,7 @@ INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 				UnblockDialog(hDlg);
 				ConfigCmd = 0;
 			}
-			return TRUE;		break;
+			return TRUE;
 		case IDC_VS_DIP7:
 			if (ConfigCmd == 0)
 			{
@@ -193,29 +193,25 @@ INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 				UnblockDialog(hDlg);
 				ConfigCmd = 0;
 			}
-			return TRUE;		break;
+			return TRUE;
 		case IDC_VS_COIN1:
 			ConfigCmd = 17;
 			BlockDialog(hDlg, 0);
-			return TRUE;		break;
+			return TRUE;
 		case IDC_VS_COIN2:
 			ConfigCmd = 18;
 			BlockDialog(hDlg, 0);
-			return TRUE;		break;
+			return TRUE;
 		case IDC_VS_COIN3:
 			ConfigCmd = 19;
 			BlockDialog(hDlg, 0);
-			return TRUE;		break;
-		case IDCLOSE:
+			return TRUE;
+		case IDCANCEL:
 			ConfigWindow = NULL;
 			DestroyWindow(hDlg);
-			return TRUE;		break;
+			return TRUE;
 		}
 		break;
-	case WM_CLOSE:
-		ConfigWindow = NULL;
-		DestroyWindow(hDlg);
-		return TRUE;		break;
 	}
 	return FALSE;
 }
@@ -290,7 +286,10 @@ void	Reset (RESET_TYPE ResetType)
 void	Unload (void)
 {
 	if (ConfigWindow)
+	{
 		DestroyWindow(ConfigWindow);
+		ConfigWindow = NULL;
+	}
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)

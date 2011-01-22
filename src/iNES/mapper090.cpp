@@ -304,33 +304,29 @@ INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 {
 	switch (message)
 	{
-		case WM_INITDIALOG:
-			CheckDlgButton(hDlg, IDC_MAPPER90_J0, (Jumper & 0x40) ? BST_CHECKED : BST_UNCHECKED);
-			CheckDlgButton(hDlg, IDC_MAPPER90_J1, (Jumper & 0x80) ? BST_CHECKED : BST_UNCHECKED);
-			CheckDlgButton(hDlg, IDC_MAPPER90_MIR, (Jumper & 0x01) ? BST_CHECKED : BST_UNCHECKED);
-			return FALSE;
-		case WM_COMMAND:
-			switch (LOWORD(wParam))
-			{
-			case IDOK:
-				ConfigCmd = 0x80;
-				if (IsDlgButtonChecked(hDlg, IDC_MAPPER90_J0) == BST_CHECKED)
-					ConfigCmd |= 0x01;
-				if (IsDlgButtonChecked(hDlg, IDC_MAPPER90_J1) == BST_CHECKED)
-					ConfigCmd |= 0x02;
-				if (IsDlgButtonChecked(hDlg, IDC_MAPPER90_MIR) == BST_CHECKED)
-					ConfigCmd |= 0x04;
-				MessageBox(hDlg, _T("Please perform a SOFT RESET for this to take effect!"), _T("INES.DLL"), MB_OK);
-			case IDCANCEL:
-				DestroyWindow(hDlg);
-				ConfigWindow = NULL;
-				return TRUE;		break;
-			}
-			break;
-		case WM_CLOSE:
-			DestroyWindow(hDlg);
+	case WM_INITDIALOG:
+		CheckDlgButton(hDlg, IDC_MAPPER90_J0, (Jumper & 0x40) ? BST_CHECKED : BST_UNCHECKED);
+		CheckDlgButton(hDlg, IDC_MAPPER90_J1, (Jumper & 0x80) ? BST_CHECKED : BST_UNCHECKED);
+		CheckDlgButton(hDlg, IDC_MAPPER90_MIR, (Jumper & 0x01) ? BST_CHECKED : BST_UNCHECKED);
+		return FALSE;
+	case WM_COMMAND:
+		switch (LOWORD(wParam))
+		{
+		case IDOK:
+			ConfigCmd = 0x80;
+			if (IsDlgButtonChecked(hDlg, IDC_MAPPER90_J0) == BST_CHECKED)
+				ConfigCmd |= 0x01;
+			if (IsDlgButtonChecked(hDlg, IDC_MAPPER90_J1) == BST_CHECKED)
+				ConfigCmd |= 0x02;
+			if (IsDlgButtonChecked(hDlg, IDC_MAPPER90_MIR) == BST_CHECKED)
+				ConfigCmd |= 0x04;
+			MessageBox(hDlg, _T("Please perform a SOFT RESET for this to take effect!"), _T("INES.DLL"), MB_OK);
+		case IDCANCEL:
 			ConfigWindow = NULL;
-			return TRUE;		break;
+			DestroyWindow(hDlg);
+			return TRUE;
+		}
+		break;
 	}
 	return FALSE;
 }
@@ -415,7 +411,10 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 void	MAPINT	Unload (void)
 {
 	if (ConfigWindow)
+	{
 		DestroyWindow(ConfigWindow);
+		ConfigWindow = NULL;
+	}
 }
 
 uint8 MapperNum = 90;

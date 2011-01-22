@@ -125,56 +125,52 @@ INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 {
 	switch (message)
 	{
-		case WM_INITDIALOG:
-			switch (MMC5::GetRAMSize())
-			{
-			default:
-			case MMC5WRAM_0KB_0KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_0_0);	break;
-			case MMC5WRAM_0KB_8KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_0_8);	break;
-			case MMC5WRAM_0KB_32KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_0_32);	break;
-			case MMC5WRAM_8KB_0KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_8_0);	break;
-			case MMC5WRAM_8KB_8KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_8_8);	break;
-			case MMC5WRAM_8KB_32KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_8_32);	break;
-			case MMC5WRAM_32KB_0KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_32_0);	break;
-			case MMC5WRAM_32KB_8KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_32_8);	break;
-			case MMC5WRAM_32KB_32KB:CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_32_32);	break;
-			}
-			break;
-		case WM_COMMAND:
-			switch (LOWORD(wParam))
-			{
-			case IDOK:
-				if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_0_0) == BST_CHECKED)
-					MMC5::SetRAMSize(MMC5WRAM_0KB_0KB);
-				else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_0_8) == BST_CHECKED)
-					MMC5::SetRAMSize(MMC5WRAM_0KB_8KB);
-				else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_0_32) == BST_CHECKED)
-					MMC5::SetRAMSize(MMC5WRAM_0KB_32KB);
-				else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_8_0) == BST_CHECKED)
-					MMC5::SetRAMSize(MMC5WRAM_8KB_0KB);
-				else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_8_8) == BST_CHECKED)
-					MMC5::SetRAMSize(MMC5WRAM_8KB_8KB);
-				else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_8_32) == BST_CHECKED)
-					MMC5::SetRAMSize(MMC5WRAM_8KB_32KB);
-				else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_32_0) == BST_CHECKED)
-					MMC5::SetRAMSize(MMC5WRAM_32KB_0KB);
-				else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_32_8) == BST_CHECKED)
-					MMC5::SetRAMSize(MMC5WRAM_32KB_8KB);
-				else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_32_32) == BST_CHECKED)
-					MMC5::SetRAMSize(MMC5WRAM_32KB_32KB);
-				SetSRAM();
-				MMC5::SyncPRG();	
-				MessageBox(hWnd, _T("Please perform a SOFT reset to ensure proper functionality!"), _T("INES.DLL"), MB_OK);
-			case IDCANCEL:
-				ConfigWindow = NULL;
-				DestroyWindow(hDlg);
-				return TRUE;		break;
-			}
-			break;
-		case WM_CLOSE:
+	case WM_INITDIALOG:
+		switch (MMC5::GetRAMSize())
+		{
+		default:
+		case MMC5WRAM_0KB_0KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_0_0);	break;
+		case MMC5WRAM_0KB_8KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_0_8);	break;
+		case MMC5WRAM_0KB_32KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_0_32);	break;
+		case MMC5WRAM_8KB_0KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_8_0);	break;
+		case MMC5WRAM_8KB_8KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_8_8);	break;
+		case MMC5WRAM_8KB_32KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_8_32);	break;
+		case MMC5WRAM_32KB_0KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_32_0);	break;
+		case MMC5WRAM_32KB_8KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_32_8);	break;
+		case MMC5WRAM_32KB_32KB:CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_32_32);	break;
+		}
+		break;
+	case WM_COMMAND:
+		switch (LOWORD(wParam))
+		{
+		case IDOK:
+			if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_0_0) == BST_CHECKED)
+				MMC5::SetRAMSize(MMC5WRAM_0KB_0KB);
+			else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_0_8) == BST_CHECKED)
+				MMC5::SetRAMSize(MMC5WRAM_0KB_8KB);
+			else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_0_32) == BST_CHECKED)
+				MMC5::SetRAMSize(MMC5WRAM_0KB_32KB);
+			else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_8_0) == BST_CHECKED)
+				MMC5::SetRAMSize(MMC5WRAM_8KB_0KB);
+			else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_8_8) == BST_CHECKED)
+				MMC5::SetRAMSize(MMC5WRAM_8KB_8KB);
+			else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_8_32) == BST_CHECKED)
+				MMC5::SetRAMSize(MMC5WRAM_8KB_32KB);
+			else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_32_0) == BST_CHECKED)
+				MMC5::SetRAMSize(MMC5WRAM_32KB_0KB);
+			else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_32_8) == BST_CHECKED)
+				MMC5::SetRAMSize(MMC5WRAM_32KB_8KB);
+			else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_32_32) == BST_CHECKED)
+				MMC5::SetRAMSize(MMC5WRAM_32KB_32KB);
+			SetSRAM();
+			MMC5::SyncPRG();	
+			MessageBox(hWnd, _T("Please perform a SOFT reset to ensure proper functionality!"), _T("INES.DLL"), MB_OK);
+		case IDCANCEL:
 			ConfigWindow = NULL;
 			DestroyWindow(hDlg);
-			return TRUE;		break;
+			return TRUE;
+		}
+		break;
 	}
 	return FALSE;
 }
@@ -247,7 +243,10 @@ void	MAPINT	Unload (void)
 {
 	MMC5::Unload();
 	if (ConfigWindow)
+	{
 		DestroyWindow(ConfigWindow);
+		ConfigWindow = NULL;
+	}
 }
 
 uint8 MapperNum = 5;
