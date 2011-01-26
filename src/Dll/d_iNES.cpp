@@ -109,7 +109,7 @@ const MapperInfo *MAPINT	LoadMapper (const ROMInfo *_ROM)
 		return NULL;
 	}
 	if (ROM->INES_MapperNum > 255)
-	{	/* INES 2.0 mappers are not yet supported */
+	{	/* NES 2.0 mappers are not yet supported */
 		UnloadMapper();
 		return NULL;
 	}
