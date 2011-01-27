@@ -529,7 +529,7 @@ void	MAPINT	WriteF (int Bank, int Addr, int Val)
 		SUN5sound::Write((Bank << 12) | Addr, Val);
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	if (ROM->NSF_SoundChips & NSFSOUND_VRC6)
 		VRC6sound::Load();
@@ -549,6 +549,7 @@ void	MAPINT	Load (void)
 	PlayAddr.s0 = ROM->NSF_PlayAddr;
 	NTSCspeed.s0 = (int)(ROM->NSF_NTSCSpeed * (double)1.789772727272727);
 	PALspeed.s0 = (int)(ROM->NSF_PALSpeed * (double)1.662607);
+	return TRUE;
 }
 
 void	MAPINT	Reset (RESET_TYPE ResetType)

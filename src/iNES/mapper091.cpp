@@ -53,7 +53,6 @@ void	MAPINT	Write6 (int Bank, int Addr, int Val)
 	CHR[Addr & 3] = Val;
 	Sync();
 }
-
 void	MAPINT	Write7 (int Bank, int Addr, int Val)
 {
 	switch (Addr & 3)

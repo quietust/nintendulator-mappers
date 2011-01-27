@@ -56,9 +56,10 @@ void	Sync (void)
 	EMU->SetCHR_ROM8(0, (CHRbank << 2) | (Latch::Data & 0x3));
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	Latch::Load(Sync, FALSE);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

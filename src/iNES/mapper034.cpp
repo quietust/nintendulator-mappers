@@ -60,20 +60,19 @@ void	MAPINT	WriteNINA (int Bank, int Addr, int Val)
 			Sync_NINA();		break;
 	}
 }
-
 void	MAPINT	WriteBNROM (int Bank, int Addr, int Val)
 {
 	PRG = Val;
 	Sync_BNROM();
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	if (ROM->INES_CHRSize == 0)
 		Mode = 2;
 	else	Mode = 1;
+	return TRUE;
 }
-
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();

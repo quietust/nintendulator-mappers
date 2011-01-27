@@ -62,10 +62,11 @@ void	MAPINT	Write6 (int Bank, int Addr, int Val)
 	Sync();
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	if (ROM->INES_Flags & 0x02)
 		EMU->Set_SRAMSize(2048);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

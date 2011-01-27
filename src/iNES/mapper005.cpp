@@ -229,11 +229,12 @@ void	SetSRAM (void)
 	}
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	MMC5::Load(CheckSRAM());
 	SetSRAM();
 	ConfigWindow = NULL;
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

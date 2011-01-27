@@ -24,9 +24,10 @@ void	Sync (void)
 	EMU->SetCHR_NT1(0xF, N118::CHR[5] >> 5);
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	N118::Load(Sync);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

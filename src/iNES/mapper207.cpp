@@ -65,11 +65,11 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 	Sync();
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	iNES_SetSRAM();
+	return TRUE;
 }
-
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	_Write7 = EMU->GetCPUWriteHandler(0x7);

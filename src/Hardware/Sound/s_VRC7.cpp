@@ -1414,6 +1414,7 @@ OPLL_writeReg (OPLL * opll, uint32 reg, uint32 data)
 // Konami VRC7, based on the YM2413
 
 OPLL *OPL = NULL;
+uint8 regAddr;
 
 void	Load (void)
 {
@@ -1444,16 +1445,14 @@ void	Unload (void)
 		OPLL_delete(OPL);
 		OPL = NULL;
 	}
-//	else	MessageBox(hWnd, _T("Unable to destroy YM2413!"), _T("VRC7"), MSGBOX_FLAGS);
 }
 
 void	Write (int Addr, int Val)
 {
-	static unsigned char addr = 0;
 	switch (Addr & 0xF030)
 	{
-	case 0x9010:	addr = Val;			break;
-	case 0x9030:	OPLL_writeReg(OPL, addr, Val);	break;
+	case 0x9010:	regAddr = Val;				break;
+	case 0x9030:	OPLL_writeReg(OPL, regAddr, Val);	break;
 	}
 }
 
@@ -1482,6 +1481,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	else if (mode == STATE_SIZE)
 		offset += sizeof(OPLL);
 	else	MessageBox(hWnd, _T("Invalid save/load type!"), _T(__FILE__), MB_OK);
+	SAVELOAD_BYTE(mode, offset, data, regAddr);
 	return offset;
 }
 } // namespace VRC7sound

@@ -44,19 +44,16 @@ void	MAPINT	Write8 (int Bank, int Addr, int Val)
 	PRG[0] = Val;
 	Sync();
 }
-
 void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	Mode = Val;
 	Sync();
 }
-
 void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
 	PRG[1] = Val;
 	Sync();
 }
-
 void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	CHR[Addr & 7] = Val;

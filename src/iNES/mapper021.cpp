@@ -74,7 +74,6 @@ void	MAPINT	Write8 (int Bank, int Addr, int Val)
 	PRG[0] = Val & 0x1F;
 	Sync();
 }
-
 void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	Addr = ((Addr & 0x006) >> 1) | ((Addr & 0x0C0) >> 6);
@@ -83,14 +82,12 @@ void	MAPINT	Write9 (int Bank, int Addr, int Val)
 	else	Mirror = Val & 0x3;
 	Sync();
 }
-
 void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
 	Addr = ((Addr & 0x006) >> 1) | ((Addr & 0x0C0) >> 6);
 	PRG[1] = Val & 0x1F;
 	Sync();
 }
-
 void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	Addr = ((Addr & 0x006) >> 1) | ((Addr & 0x0C0) >> 6);
@@ -103,7 +100,6 @@ void	MAPINT	WriteB (int Bank, int Addr, int Val)
 	}
 	Sync();
 }
-
 void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
 	Addr = ((Addr & 0x006) >> 1) | ((Addr & 0x0C0) >> 6);
@@ -116,7 +112,6 @@ void	MAPINT	WriteC (int Bank, int Addr, int Val)
 	}
 	Sync();
 }
-
 void	MAPINT	WriteD (int Bank, int Addr, int Val)
 {
 	Addr = ((Addr & 0x006) >> 1) | ((Addr & 0x0C0) >> 6);
@@ -129,7 +124,6 @@ void	MAPINT	WriteD (int Bank, int Addr, int Val)
 	}
 	Sync();
 }
-
 void	MAPINT	WriteE (int Bank, int Addr, int Val)
 {
 	Addr = ((Addr & 0x006) >> 1) | ((Addr & 0x0C0) >> 6);
@@ -142,7 +136,6 @@ void	MAPINT	WriteE (int Bank, int Addr, int Val)
 	}
 	Sync();
 }
-
 void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
 	Addr = ((Addr & 0x006) >> 1) | ((Addr & 0x0C0) >> 6);
@@ -164,9 +157,10 @@ void	MAPINT	WriteF (int Bank, int Addr, int Val)
 	}
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	iNES_SetSRAM();
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

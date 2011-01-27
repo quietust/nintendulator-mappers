@@ -61,7 +61,6 @@ void	MAPINT	Write8 (int Bank, int Addr, int Val)
 		Sync();			break;
 	}
 }
-
 void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	switch (Addr)
@@ -76,7 +75,6 @@ void	MAPINT	Write9 (int Bank, int Addr, int Val)
 	case 6:	IRQlatch.b0 = Val;	break;
 	}
 }
-
 void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
 	switch (Addr)
@@ -85,7 +83,6 @@ void	MAPINT	WriteA (int Bank, int Addr, int Val)
 		Sync();			break;
 	}
 }
-
 void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	switch (Addr)
@@ -101,7 +98,6 @@ void	MAPINT	WriteB (int Bank, int Addr, int Val)
 	}
 	Sync();
 }
-
 void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
 	switch (Addr)
@@ -111,9 +107,10 @@ void	MAPINT	WriteC (int Bank, int Addr, int Val)
 	}
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	iNES_SetSRAM();
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

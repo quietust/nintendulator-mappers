@@ -23,13 +23,15 @@ void	Sync_UOROM (void)
 	EMU->SetCHR_RAM8(0, 0);
 }
 
-void	MAPINT	Load_UNROM (void)
+BOOL	MAPINT	Load_UNROM (void)
 {
 	Latch::Load(Sync_UNROM, TRUE);
+	return TRUE;
 }
-void	MAPINT	Load_UOROM (void)
+BOOL	MAPINT	Load_UOROM (void)
 {
 	Latch::Load(Sync_UOROM, TRUE);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

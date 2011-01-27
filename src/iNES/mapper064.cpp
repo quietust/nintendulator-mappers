@@ -118,7 +118,6 @@ void	MAPINT	Write89 (int Bank, int Addr, int Val)
 	else	Cmd = Val;
 	Sync();
 }
-
 void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
@@ -126,7 +125,6 @@ void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 	else	Mirror = Val;
 	Sync();
 }
-
 void	MAPINT	WriteCD (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
@@ -136,7 +134,6 @@ void	MAPINT	WriteCD (int Bank, int Addr, int Val)
 	}
 	else	IRQlatch = Val;
 }
-
 void	MAPINT	WriteEF (int Bank, int Addr, int Val)
 {
 	IRQenabled = (Addr & 1);

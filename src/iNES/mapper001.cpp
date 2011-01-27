@@ -44,10 +44,11 @@ void	Sync (void)
 	else	MMC1::SyncWRAM();
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	MMC1::Load(Sync);
 	iNES_SetSRAM();
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

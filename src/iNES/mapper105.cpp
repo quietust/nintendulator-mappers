@@ -138,10 +138,11 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	MMC1::Load(Sync);
 	ConfigWindow = NULL;
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

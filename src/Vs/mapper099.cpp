@@ -42,11 +42,11 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 	}
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	VS::Load();
+	return TRUE;
 }
-
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	EMU->Mirror_4();
@@ -58,7 +58,6 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		CHR = 0;
 	Sync();
 }
-
 void	MAPINT	Unload (void)
 {
 	VS::Unload();

@@ -17,10 +17,11 @@ void	Sync (void)
 	FME7::SyncMirror();
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	FME7::Load(Sync);
 	iNES_SetSRAM();
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

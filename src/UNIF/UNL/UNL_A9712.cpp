@@ -44,7 +44,6 @@ void	MAPINT	Write5 (int Bank, int Addr, int Val)
 	if (Addr & 0x80)
 		Reg0 = Val;
 }
-
 void	MAPINT	Write89 (int Bank, int Addr, int Val)
 {
 	if ((Addr & 0x3) == 3)
@@ -55,9 +54,10 @@ void	MAPINT	Write89 (int Bank, int Addr, int Val)
 	else	MMC3::CPUWrite89(Bank, Addr, Val);
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	MMC3::Load(Sync);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

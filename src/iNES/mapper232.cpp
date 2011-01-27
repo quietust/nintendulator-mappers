@@ -33,7 +33,6 @@ void	MAPINT	Write89 (int Bank, int Addr, int Val)
 	Game = (Val & 0x18) >> 1;
 	Sync();
 }
-
 void	MAPINT	WriteABCDEF (int Bank, int Addr, int Val)
 {
 	Bank = Val & 3;

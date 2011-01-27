@@ -25,10 +25,11 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	return offset;
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	VS::Load();
 	Latch::Load(Sync, FALSE);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

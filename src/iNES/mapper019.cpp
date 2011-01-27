@@ -71,7 +71,6 @@ int	MAPINT	Read4 (int Bank, int Addr)
 		return N163sound::Read((Bank << 12) | Addr);
 	else	return _Read4(Bank, Addr);
 }
-
 int	MAPINT	Read5 (int Bank, int Addr)
 {
 	EMU->SetIRQ(1);
@@ -86,7 +85,6 @@ void	MAPINT	Write4 (int Bank, int Addr, int Val)
 		N163sound::Write((Bank << 12) | Addr, Val);
 	else	_Write4(Bank, Addr, Val);
 }
-
 void	MAPINT	Write5 (int Bank, int Addr, int Val)
 {
 	EMU->SetIRQ(1);
@@ -94,7 +92,6 @@ void	MAPINT	Write5 (int Bank, int Addr, int Val)
 		IRQcounter.b1 = Val;
 	else	IRQcounter.b0 = Val;
 }
-
 void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
@@ -102,7 +99,6 @@ void	MAPINT	Write8 (int Bank, int Addr, int Val)
 	else	CHR[0] = Val;
 	Sync();
 }
-
 void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
@@ -110,7 +106,6 @@ void	MAPINT	Write9 (int Bank, int Addr, int Val)
 	else	CHR[2] = Val;
 	Sync();
 }
-
 void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
@@ -118,7 +113,6 @@ void	MAPINT	WriteA (int Bank, int Addr, int Val)
 	else	CHR[4] = Val;
 	Sync();
 }
-
 void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
@@ -126,7 +120,6 @@ void	MAPINT	WriteB (int Bank, int Addr, int Val)
 	else	CHR[6] = Val;
 	Sync();
 }
-
 void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
@@ -134,7 +127,6 @@ void	MAPINT	WriteC (int Bank, int Addr, int Val)
 	else	NTab[0] = Val;
 	Sync();
 }
-
 void	MAPINT	WriteD (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
@@ -142,7 +134,6 @@ void	MAPINT	WriteD (int Bank, int Addr, int Val)
 	else	NTab[2] = Val;
 	Sync();
 }
-
 void	MAPINT	WriteE (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
@@ -150,7 +141,6 @@ void	MAPINT	WriteE (int Bank, int Addr, int Val)
 	else	PRG[0] = Val;
 	Sync();
 }
-
 void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
@@ -164,10 +154,11 @@ int	MAPINT	MapperSnd (int Cycles)
 	return N163sound::Get(Cycles);
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	N163sound::Load();
 	iNES_SetSRAM();
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

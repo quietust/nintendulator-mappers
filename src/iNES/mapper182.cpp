@@ -23,7 +23,6 @@ void	MAPINT	Write89 (int Bank, int Addr, int Val)
 	if (Addr & 1)
 		MMC3::CPUWriteAB(Bank, 0, Val);
 }
-
 void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
 	unsigned char LUT[8] = {0,3,1,5,6,7,2,4};
@@ -31,7 +30,6 @@ void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 		;
 	else	MMC3::CPUWrite89(Bank, 0, LUT[Val & 0x7] | (Val & 0xC0));
 }
-
 void	MAPINT	WriteCD (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
@@ -41,7 +39,6 @@ void	MAPINT	WriteCD (int Bank, int Addr, int Val)
 	}
 	else	MMC3::CPUWrite89(Bank, 1, Val);
 }
-
 void	MAPINT	WriteEF (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
@@ -49,9 +46,10 @@ void	MAPINT	WriteEF (int Bank, int Addr, int Val)
 	else	MMC3::CPUWriteEF(Bank, 0, Val);
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	MMC3::Load(Sync);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

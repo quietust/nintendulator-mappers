@@ -40,10 +40,11 @@ void	MAPINT	Write4 (int Bank, int Addr, int Val)
 	}
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	iNES_SetSRAM();
 	MMC3::Load(Sync);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

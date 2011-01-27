@@ -17,9 +17,10 @@ void	Sync (void)
 	EMU->SetPRG_ROM32(0x8, Latch::Data & 0x1F);
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	Latch::Load(Sync, FALSE);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

@@ -81,7 +81,6 @@ void	MAPINT	Write8 (int Bank, int Addr, int Val)
 	else	PRG[0] = Val;
 	Sync();
 }
-
 void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x18)
@@ -92,7 +91,6 @@ void	MAPINT	Write9 (int Bank, int Addr, int Val)
 		Sync();
 	}
 }
-
 void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x18)
@@ -100,7 +98,6 @@ void	MAPINT	WriteA (int Bank, int Addr, int Val)
 	else	CHR[0] = Val;
 	Sync();
 }
-
 void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x18)
@@ -108,7 +105,6 @@ void	MAPINT	WriteB (int Bank, int Addr, int Val)
 	else	CHR[2] = Val;
 	Sync();
 }
-
 void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x18)
@@ -116,7 +112,6 @@ void	MAPINT	WriteC (int Bank, int Addr, int Val)
 	else	CHR[4] = Val;
 	Sync();
 }
-
 void	MAPINT	WriteD (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x18)
@@ -124,7 +119,6 @@ void	MAPINT	WriteD (int Bank, int Addr, int Val)
 	else	CHR[6] = Val;
 	Sync();
 }
-
 void	MAPINT	WriteE (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x18)
@@ -135,7 +129,6 @@ void	MAPINT	WriteE (int Bank, int Addr, int Val)
 		Sync();
 	}
 }
-
 void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x18)
@@ -161,10 +154,11 @@ int	MAPINT	MapperSnd (int Cycles)
 	return VRC7sound::Get(Cycles);
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	VRC7sound::Load();
 	iNES_SetSRAM();
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

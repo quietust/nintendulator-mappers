@@ -127,77 +127,93 @@ void	Sync_SXROM (void)
 	}
 }
 
-void	MAPINT	Load_SAROM (void)
+BOOL	MAPINT	Load_SAROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC1::Load(Sync_SAROM);
+	return TRUE;
 }
-void	MAPINT	Load_SBROM (void)
+BOOL	MAPINT	Load_SBROM (void)
 {
 	MMC1::Load(Sync_SBROM);
+	return TRUE;
 }
-void	MAPINT	Load_SCROM (void)
+BOOL	MAPINT	Load_SCROM (void)
 {
 	MMC1::Load(Sync_SCROM);
+	return TRUE;
 }
-void	MAPINT	Load_SEROM (void)
+BOOL	MAPINT	Load_SEROM (void)
 {
 	MMC1::Load(Sync_SEROM);
+	return TRUE;
 }
-void	MAPINT	Load_SFROM (void)
+BOOL	MAPINT	Load_SFROM (void)
 {
 	MMC1::Load(Sync_SFROM);
+	return TRUE;
 }
-void	MAPINT	Load_SGROM (void)
+BOOL	MAPINT	Load_SGROM (void)
 {
 	MMC1::Load(Sync_SGROM);
+	return TRUE;
 }
-void	MAPINT	Load_SHROM (void)
+BOOL	MAPINT	Load_SHROM (void)
 {
 	MMC1::Load(Sync_SHROM);
+	return TRUE;
 }
-void	MAPINT	Load_SIROM (void)
+BOOL	MAPINT	Load_SIROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC1::Load(Sync_SIROM);
+	return TRUE;
 }
-void	MAPINT	Load_SJROM (void)
+BOOL	MAPINT	Load_SJROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC1::Load(Sync_SJROM);
+	return TRUE;
 }
-void	MAPINT	Load_SKROM (void)
+BOOL	MAPINT	Load_SKROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC1::Load(Sync_SKROM);
+	return TRUE;
 }
-void	MAPINT	Load_SLROM (void)
+BOOL	MAPINT	Load_SLROM (void)
 {
 	MMC1::Load(Sync_SLROM);
+	return TRUE;
 }
-void	MAPINT	Load_SMROM (void)
+BOOL	MAPINT	Load_SMROM (void)
 {
 	MMC1::Load(Sync_SGROM);
+	return TRUE;
 }
-void	MAPINT	Load_SNROM (void)
+BOOL	MAPINT	Load_SNROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC1::Load(Sync_SNROM);
+	return TRUE;
 }
-void	MAPINT	Load_SOROM (void)
+BOOL	MAPINT	Load_SOROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC1::Load(Sync_SOROM);
+	return TRUE;
 }
-void	MAPINT	Load_SUROM (void)
+BOOL	MAPINT	Load_SUROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC1::Load(Sync_SUROM);
+	return TRUE;
 }
-void	MAPINT	Load_SXROM (void)
+BOOL	MAPINT	Load_SXROM (void)
 {
 	UNIF_SetSRAM(32768);
 	MMC1::Load(Sync_SXROM);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

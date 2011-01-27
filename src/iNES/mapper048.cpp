@@ -71,7 +71,6 @@ void	MAPINT	Write89 (int Bank, int Addr, int Val)
 	}
 	Sync();
 }
-
 void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
 	switch (Addr & 0x3)
@@ -83,7 +82,6 @@ void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 	}
 	Sync();
 }
-
 void	MAPINT	WriteCD (int Bank, int Addr, int Val)
 {
 	switch (Addr & 0x3)
@@ -96,7 +94,6 @@ void	MAPINT	WriteCD (int Bank, int Addr, int Val)
 		EMU->SetIRQ(1);		break;
 	}
 }
-
 void	MAPINT	WriteEF (int Bank, int Addr, int Val)
 {
 	switch (Addr & 0x3)

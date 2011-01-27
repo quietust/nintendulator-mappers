@@ -157,7 +157,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 
 void	IRQcount (void)
 {
-	static unsigned char mask;
+	unsigned char mask;
 	if (IRQmode & 0x4)
 		mask = 0x7;
 	else	mask = 0xFF;
@@ -231,25 +231,21 @@ void	MAPINT	Write5 (int Bank, int Addr, int Val)
 	case 0x803:treg = Val;	break;
 	}
 }
-
 void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
 	PRGbanks[Addr & 3] = Val;
 	SyncPRG();
 }
-
 void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	CHRbanks[Addr & 7].b0 = Val;
 	SyncCHR();
 }
-
 void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
 	CHRbanks[Addr & 7].b1 = Val;
 	SyncCHR();
 }
-
 void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	if (Addr & 4)
@@ -257,7 +253,6 @@ void	MAPINT	WriteB (int Bank, int Addr, int Val)
 	else	Nametables[Addr & 3].b0 = Val;
 	SyncNametables();
 }
-
 void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
 	switch (Addr & 7)
@@ -282,7 +277,6 @@ void	MAPINT	WriteC (int Bank, int Addr, int Val)
 	case 7:	/* usually unused */	break;
 	}
 }
-
 void	MAPINT	WriteD (int Bank, int Addr, int Val)
 {
 	switch (Addr & 3)
@@ -366,9 +360,10 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	ConfigWindow = NULL;
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

@@ -9,11 +9,11 @@
 
 namespace
 {
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	iNES_SetSRAM();
+	return TRUE;
 }
-
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();

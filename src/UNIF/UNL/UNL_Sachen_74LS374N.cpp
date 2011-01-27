@@ -48,19 +48,14 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 	case 0x4101:	switch (Cmd)
 			{
 			case 0:	PRG = 0;
-				CHR = 3;				break;
+				CHR = 3;			break;
 			case 4:	CHR &= 0x6;
 				CHR |= (Val & 0x1) << 0;	break;
 			case 5:	PRG = Val & 0x7;		break;
 			case 6:	CHR &= 0x1;
-				CHR |= (Val & 0x3) << 1;		break;
-/*			case 4:	CHR &= 0x3;
-				CHR |= Val << 2;	break;
-			case 5:	PRG = Val;		break;
-			case 6:	CHR &= 0x1C;
-				CHR |= Val & 0x3;	break;*/
+				CHR |= (Val & 0x3) << 1;	break;
 			case 7:	Mirror = (Val & 1);		break;
-			}			break;
+			}		break;
 	}
 	Sync();
 }

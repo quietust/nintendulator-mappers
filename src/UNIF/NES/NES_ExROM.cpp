@@ -10,27 +10,28 @@
 
 namespace
 {
-void	MAPINT	Load_EKROM (void)
+BOOL	MAPINT	Load_EKROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC5::Load(MMC5WRAM_8KB_0KB);
+	return TRUE;
 }
-
-void	MAPINT	Load_ELROM (void)
+BOOL	MAPINT	Load_ELROM (void)
 {
 	MMC5::Load(MMC5WRAM_0KB_0KB);
+	return TRUE;
 }
-
-void	MAPINT	Load_ETROM (void)
+BOOL	MAPINT	Load_ETROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC5::Load(MMC5WRAM_8KB_8KB);
+	return TRUE;
 }
-
-void	MAPINT	Load_EWROM (void)
+BOOL	MAPINT	Load_EWROM (void)
 {
 	UNIF_SetSRAM(32768);
 	MMC5::Load(MMC5WRAM_32KB_0KB);
+	return TRUE;
 }
 
 void	MAPINT	Reset (RESET_TYPE ResetType)

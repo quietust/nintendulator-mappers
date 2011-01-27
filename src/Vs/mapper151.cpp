@@ -64,11 +64,11 @@ void	MAPINT	WriteF (int Bank, int Addr, int Val)
 	Sync();
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	VS::Load();
+	return TRUE;
 }
-
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
@@ -88,7 +88,6 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
 void	MAPINT	Unload (void)
 {
 	VS::Unload();

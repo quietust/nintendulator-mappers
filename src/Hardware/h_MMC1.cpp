@@ -49,7 +49,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	return offset;
 }
 
-static	int	LastReg;
+int	LastReg;
 void	MAPINT	Write (int Bank, int Addr, int Val)
 {
 	uint8 Reg = (Bank >> 1) & 3;

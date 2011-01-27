@@ -23,13 +23,15 @@ void	Sync_PNROM (void)
 	MMC2::SyncMirror();
 }
 
-void	MAPINT	Load_PEEOROM (void)
+BOOL	MAPINT	Load_PEEOROM (void)
 {
 	MMC2::Load(Sync_PEEOROM);
+	return TRUE;
 }
-void	MAPINT	Load_PNROM (void)
+BOOL	MAPINT	Load_PNROM (void)
 {
 	MMC2::Load(Sync_PNROM);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

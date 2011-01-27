@@ -47,19 +47,16 @@ void	MAPINT	Write8 (int Bank, int Addr, int Val)
 	PRG[0] = Val & 0xF;
 	Sync();
 }
-
 void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	Mirror = Val & 0x3;
 	Sync();
 }
-
 void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
 	PRG[1] = Val & 0x1F;
 	Sync();
 }
-
 void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	switch (Addr & 0x3)
@@ -71,7 +68,6 @@ void	MAPINT	WriteB (int Bank, int Addr, int Val)
 	}
 	Sync();
 }
-
 void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
 	switch (Addr & 0x3)
@@ -83,7 +79,6 @@ void	MAPINT	WriteC (int Bank, int Addr, int Val)
 	}
 	Sync();
 }
-
 void	MAPINT	WriteD (int Bank, int Addr, int Val)
 {
 	switch (Addr & 0x3)
@@ -95,7 +90,6 @@ void	MAPINT	WriteD (int Bank, int Addr, int Val)
 	}
 	Sync();
 }
-
 void	MAPINT	WriteE (int Bank, int Addr, int Val)
 {
 	switch (Addr & 0x3)
@@ -108,9 +102,10 @@ void	MAPINT	WriteE (int Bank, int Addr, int Val)
 	Sync();
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	iNES_SetSRAM();
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

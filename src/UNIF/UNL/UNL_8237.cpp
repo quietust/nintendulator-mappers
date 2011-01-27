@@ -16,7 +16,6 @@ uint8 Valid;
 
 void	Sync (void)
 {
-//	MMC3::SyncCHR_ROM((PRG & 0x40) ? 0x7F : 0xFF, (CHR & 0x04) << 6);
 	MMC3::SyncWRAM();
 	if (PRG & 0x40)
 		MMC3::SyncCHR_ROM(0x7F, (CHR & 0x04) << 5);
@@ -59,21 +58,18 @@ void	MAPINT	Write89 (int Bank, int Addr, int Val)
 {
 	MMC3::CPUWriteAB(Bank, 0, Val | Val >> 7);
 }
-
 void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
 	unsigned char LUT[8] = {0,2,6,1,7,3,4,5};
 	MMC3::CPUWrite89(Bank, 0, (Val & 0xC0) | LUT[Val & 0x7]);
 	Valid = 1;
 }
-
 void	MAPINT	WriteCD (int Bank, int Addr, int Val)
 {
 	if (Valid)
 		MMC3::CPUWrite89(Bank, 1, Val);
 	Valid = 0;
 }
-
 void	MAPINT	WriteEF (int Bank, int Addr, int Val)
 {
 	if (Val)
@@ -84,9 +80,10 @@ void	MAPINT	WriteEF (int Bank, int Addr, int Val)
 	else	MMC3::CPUWriteEF(Bank, 0, Val);
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	MMC3::Load(Sync);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

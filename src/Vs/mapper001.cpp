@@ -27,11 +27,13 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	offset = VS::SaveLoad(mode, offset, data);
 	return offset;
 }
-void	MAPINT	Load (void)
+
+BOOL	MAPINT	Load (void)
 {
 	VS::Load();
 	MMC1::Load(Sync);
 	iNES_SetSRAM();
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

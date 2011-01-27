@@ -345,16 +345,16 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 	Sync();
 }
 
-void	MAPINT	Load_016 (void)
+BOOL	MAPINT	Load_016 (void)
 {
 	SaveEEPROM = new EEPROM_24C02();
+	return (SaveEEPROM != NULL);
 }
-
-void	MAPINT	Load_159 (void)
+BOOL	MAPINT	Load_159 (void)
 {
 	SaveEEPROM = new EEPROM_24C01();
+	return (SaveEEPROM != NULL);
 }
-
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	for (int i = 0x6; i < 0x8; i++)

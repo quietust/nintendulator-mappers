@@ -25,10 +25,11 @@ void	Sync (void)
 	EMU->SetCHR_NT1(0xF, (MMC3::GetCHRBank(7) & 0x80) >> 7);
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	MMC3::Load(Sync);
 	iNES_SetSRAM();
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

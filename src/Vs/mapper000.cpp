@@ -10,9 +10,10 @@
 
 namespace
 {
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	VS::Load();
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

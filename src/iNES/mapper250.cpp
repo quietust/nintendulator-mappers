@@ -35,10 +35,11 @@ void	MAPINT	WriteEF (int Bank, int Addr, int Val)
 	MMC3::CPUWriteEF(Bank, Addr >> 10, Addr & 0xFF);
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	MMC3::Load(Sync);
 	iNES_SetSRAM();
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

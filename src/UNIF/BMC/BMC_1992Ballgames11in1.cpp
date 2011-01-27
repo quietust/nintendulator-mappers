@@ -42,7 +42,6 @@ void	MAPINT	Write67 (int Bank, int Addr, int Val)
 	Mode = ((Val & 0x10) >> 3) | ((Val & 0x02) >> 1);
 	Sync();
 }
-
 void	MAPINT	Write89ABCDEF (int Bank, int Addr, int Val)
 {
 	Bank = (Val & 0xF) << 2;

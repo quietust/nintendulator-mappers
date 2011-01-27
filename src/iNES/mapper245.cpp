@@ -29,10 +29,11 @@ void	Sync (void)
 	else	MMC3::SyncCHR_ROM(0xFF, 0);
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	MMC3::Load(Sync);
 	iNES_SetSRAM();
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

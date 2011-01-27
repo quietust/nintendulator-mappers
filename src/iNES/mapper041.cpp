@@ -36,7 +36,6 @@ void	MAPINT	WriteLo (int Bank, int Addr, int Val)
 	Reg0 = Addr & 0x3F;
 	Sync();
 }
-
 void	MAPINT	WriteHi (int Bank, int Addr, int Val)
 {
 	if (Reg0 & 0x4)

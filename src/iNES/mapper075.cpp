@@ -43,7 +43,6 @@ void	MAPINT	Write8 (int Bank, int Addr, int Val)
 	PRG[0] = Val & 0xF;
 	Sync();
 }
-
 void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	Mirror = Val & 0x1;
@@ -51,25 +50,21 @@ void	MAPINT	Write9 (int Bank, int Addr, int Val)
 	CHR[1].n1 = (Val & 0x4) >> 2;
 	Sync();
 }
-
 void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
 	PRG[1] = Val & 0xF;
 	Sync();
 }
-
 void	MAPINT	WriteCD (int Bank, int Addr, int Val)
 {
 	PRG[2] = Val & 0xF;
 	Sync();
 }
-
 void	MAPINT	WriteE (int Bank, int Addr, int Val)
 {
 	CHR[0].n0 = Val & 0xF;
 	Sync();
 }
-
 void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
 	CHR[1].n0 = Val & 0xF;

@@ -14,24 +14,24 @@ FCPURead _Read;
 FCPUWrite _Write;
 unsigned char ROM[0x1000];
 
-static	int	MAPINT	Read (int Bank, int Addr)
+int	MAPINT	Read (int Bank, int Addr)
 {
 	return _Read(Bank, Addr & 0x7FF);
 }
 
-static	void	MAPINT	Write (int Bank, int Addr, int Val)
+void	MAPINT	Write (int Bank, int Addr, int Val)
 {
 	_Write(Bank, Addr & 0x7FF, Val);
 }
 
-static	void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	EMU->SetPRG_ROM4(0x6, 8);
 	memcpy(&ROM[0x000], EMU->GetPRG_Ptr4(0x6), 0x800);
 	memcpy(&ROM[0x800], EMU->GetPRG_Ptr4(0x6), 0x800);
+	return TRUE;
 }
-
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	_Read = EMU->GetCPUReadHandler(0x7);
 	EMU->SetCPUReadHandler(0x7, Read);

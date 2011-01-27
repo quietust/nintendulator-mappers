@@ -30,7 +30,6 @@ void	MAPINT	WriteBank (int Bank, int Addr, int Val)
 	Reg = Val;
 	Sync();
 }
-
 void	MAPINT	WriteSpeech (int Bank, int Addr, int Val)
 {
 	if ((Val & 0x30) != 0x20)

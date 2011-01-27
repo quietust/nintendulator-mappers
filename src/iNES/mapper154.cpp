@@ -28,9 +28,10 @@ void	Sync (void)
 	else	EMU->Mirror_V();
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	N118::Load(Sync);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

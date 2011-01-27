@@ -16,9 +16,10 @@ void	Sync_GNROM (void)
 	EMU->SetCHR_ROM8(0, (Latch::Data >> 0) & 0x3);
 }
 
-void	MAPINT	Load_GNROM (void)
+BOOL	MAPINT	Load_GNROM (void)
 {
 	Latch::Load(Sync_GNROM, TRUE);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

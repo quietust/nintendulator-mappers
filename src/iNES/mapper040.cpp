@@ -51,12 +51,10 @@ void	MAPINT	Write89 (int Bank, int Addr, int Val)
 	IRQcounter.s0 = 0;
 	EMU->SetIRQ(1);
 }
-
 void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
 	IRQenabled = 1;
 }
-
 void	MAPINT	WriteEF (int Bank, int Addr, int Val)
 {
 	PRG = Val & 7;

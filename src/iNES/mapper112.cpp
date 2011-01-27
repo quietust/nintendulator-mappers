@@ -53,7 +53,6 @@ void	MAPINT	Write89 (int Bank, int Addr, int Val)
 	}
 	Sync();
 }
-
 void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 {
 	switch (Addr & 1)
@@ -72,7 +71,6 @@ void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 	}
 	Sync();
 }
-
 void	MAPINT	WriteEF (int Bank, int Addr, int Val)
 {
 	switch (Addr & 1)

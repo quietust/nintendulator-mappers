@@ -16,7 +16,6 @@ void	Sync_JLROM (void)
 	FME7::SyncCHR(0xFF, 0);
 	FME7::SyncMirror();
 }
-
 void	Sync_JSROM (void)
 {
 	FME7::SyncPRG(0x3F, 0);
@@ -24,13 +23,15 @@ void	Sync_JSROM (void)
 	FME7::SyncMirror();
 }
 
-void	MAPINT	Load_JLROM (void)
+BOOL	MAPINT	Load_JLROM (void)
 {
 	FME7::Load(Sync_JLROM);
+	return TRUE;
 }
-void	MAPINT	Load_JSROM (void)
+BOOL	MAPINT	Load_JSROM (void)
 {
 	FME7::Load(Sync_JSROM);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

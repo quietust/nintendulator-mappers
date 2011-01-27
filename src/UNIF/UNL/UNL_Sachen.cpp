@@ -113,13 +113,15 @@ void	MAPINT	Reset_U0115M (RESET_TYPE ResetType)
 	Sync();
 }
 
-void	MAPINT	Load_0036 (void)
+BOOL	MAPINT	Load_0036 (void)
 {
 	Latch::Load(Sync_0036, FALSE);
+	return TRUE;
 }
-void	MAPINT	Load_0037 (void)
+BOOL	MAPINT	Load_0037 (void)
 {
 	Latch::Load(Sync_0037, FALSE);
+	return TRUE;
 }
 void	MAPINT	Reset_003x (RESET_TYPE ResetType)
 {

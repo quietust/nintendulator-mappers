@@ -20,9 +20,10 @@ void	Sync (void)
 	else	((ROM->INES_Flags & 0x08) ? EMU->Mirror_H : EMU->Mirror_S0)();
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	Latch::Load(Sync, FALSE);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

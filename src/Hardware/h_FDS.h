@@ -12,7 +12,7 @@
 
 namespace FDS
 {
-void			Load		(void);
+BOOL			Load		(void);
 void			Reset		(RESET_TYPE);
 void			Unload		(void);
 int		MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);

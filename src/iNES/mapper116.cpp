@@ -25,19 +25,16 @@ void	MAPINT	CPUWrite8 (int Bank, int Addr, int Val)
 	PRG[0] = Val & 0x1F;
 	Sync();
 }
-
 void	MAPINT	CPUWrite9 (int Bank, int Addr, int Val)
 {
 	Mirror = Val & 0xF;
 	Sync();
 }
-
 void	MAPINT	CPUWriteA (int Bank, int Addr, int Val)
 {
 	PRG[1] = Val & 0x1F;
 	Sync();
 }
-
 void	MAPINT	CPUWriteB (int Bank, int Addr, int Val)
 {
 	switch (Addr & 3)
@@ -49,7 +46,6 @@ void	MAPINT	CPUWriteB (int Bank, int Addr, int Val)
 	}
 	Sync();
 }
-
 void	MAPINT	CPUWriteC (int Bank, int Addr, int Val)
 {
 	switch (Addr & 3)
@@ -61,7 +57,6 @@ void	MAPINT	CPUWriteC (int Bank, int Addr, int Val)
 	}
 	Sync();
 }
-
 void	MAPINT	CPUWriteD (int Bank, int Addr, int Val)
 {
 	switch (Addr & 3)
@@ -73,7 +68,6 @@ void	MAPINT	CPUWriteD (int Bank, int Addr, int Val)
 	}
 	Sync();
 }
-
 void	MAPINT	CPUWriteE (int Bank, int Addr, int Val)
 {
 	switch (Addr & 3)
@@ -188,11 +182,12 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	return offset;
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	iNES_SetSRAM();
 	MMC1::Load(Sync);
 	MMC3::Load(Sync);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
@@ -216,7 +211,6 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	SetMode();
 	Sync();
 }
-
 void	MAPINT	Unload (void)
 {
 	MMC1::Unload();

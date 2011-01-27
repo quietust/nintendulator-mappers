@@ -18,10 +18,11 @@ void	Sync (void)
 	EMU->SetPRG_RAM8(0x6, 0);
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	MMC4::Load(Sync);
 	iNES_SetSRAM();
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

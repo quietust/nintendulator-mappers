@@ -52,7 +52,6 @@ void	MAPINT	Write8 (int Bank, int Addr, int Val)
 	CHR = Val;
 	Sync();
 }
-
 void	MAPINT	WriteEF (int Bank, int Addr, int Val)
 {
 	switch (Addr & 0x3)

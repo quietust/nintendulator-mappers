@@ -109,17 +109,20 @@ void	Sync_DRROM (void)
 	EMU->Mirror_4();
 }
 
-void	MAPINT	Load_DEROM (void)
+BOOL	MAPINT	Load_DEROM (void)
 {
 	N108::Load(Sync_DEROM);
+	return TRUE;
 }
-void	MAPINT	Load_DEIROM (void)
+BOOL	MAPINT	Load_DEIROM (void)
 {
 	N108::Load(Sync_DEIROM);
+	return TRUE;
 }
-void	MAPINT	Load_DRROM (void)
+BOOL	MAPINT	Load_DRROM (void)
 {
 	N108::Load(Sync_DRROM);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

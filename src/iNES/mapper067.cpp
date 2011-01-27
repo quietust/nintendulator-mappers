@@ -71,7 +71,6 @@ void	MAPINT	Write8 (int Bank, int Addr, int Val)
 		Sync();
 	}
 }
-
 void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
@@ -80,7 +79,6 @@ void	MAPINT	Write9 (int Bank, int Addr, int Val)
 		Sync();
 	}
 }
-
 void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
@@ -89,7 +87,6 @@ void	MAPINT	WriteA (int Bank, int Addr, int Val)
 		Sync();
 	}
 }
-
 void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
@@ -98,7 +95,6 @@ void	MAPINT	WriteB (int Bank, int Addr, int Val)
 		Sync();
 	}
 }
-
 void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
@@ -109,7 +105,6 @@ void	MAPINT	WriteC (int Bank, int Addr, int Val)
 		IRQpos ^= 1;
 	}
 }
-
 void	MAPINT	WriteD (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
@@ -119,7 +114,6 @@ void	MAPINT	WriteD (int Bank, int Addr, int Val)
 		EMU->SetIRQ(1);
 	}
 }
-
 void	MAPINT	WriteE (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)
@@ -128,7 +122,6 @@ void	MAPINT	WriteE (int Bank, int Addr, int Val)
 		Sync();
 	}
 }
-
 void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
 	if (Addr & 0x800)

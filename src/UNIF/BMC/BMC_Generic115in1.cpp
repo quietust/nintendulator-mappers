@@ -64,9 +64,10 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 		Regs[Addr & 3] = Val & 0xF;
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	Latch::Load(Sync, FALSE);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

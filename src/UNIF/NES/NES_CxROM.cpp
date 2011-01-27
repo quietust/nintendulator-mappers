@@ -24,13 +24,15 @@ void	Sync_CPROM (void)
 	EMU->SetCHR_RAM4(4, Latch::Data & 0x3);
 }
 
-void	MAPINT	Load_CNROM (void)
+BOOL	MAPINT	Load_CNROM (void)
 {
 	Latch::Load(Sync_CNROM, TRUE);
+	return TRUE;
 }
-void	MAPINT	Load_CPROM (void)
+BOOL	MAPINT	Load_CPROM (void)
 {
 	Latch::Load(Sync_CPROM, TRUE);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

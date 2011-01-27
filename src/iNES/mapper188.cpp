@@ -24,9 +24,10 @@ int	MAPINT	Read67 (int Bank, int Addr)
 	return 3;
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	Latch::Load(Sync, FALSE);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

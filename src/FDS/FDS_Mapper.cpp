@@ -8,20 +8,23 @@
 #include	"..\DLL\d_FDS.h"
 #include	"..\Hardware\h_FDS.h"
 
-static	void	MAPINT	Load (void)
+namespace
 {
-	FDS::Load();
+BOOL	MAPINT	Load (void)
+{
+	return FDS::Load();
 }
 
-static	void	MAPINT	Reset (RESET_TYPE ResetType)
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	FDS::Reset(ResetType);
 }
 
-static	void	MAPINT	Unload (void)
+void	MAPINT	Unload (void)
 {
 	FDS::Unload();
 }
+} // namespace
 
 const MapperInfo MapperInfo_FDS =
 {

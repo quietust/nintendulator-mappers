@@ -67,53 +67,47 @@ void	MAPINT	Write8 (int Bank, int Addr, int Val)
 	CHR[0] = Val;
 	Sync();
 }
-
 void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	CHR[1] = Val;
 	Sync();
 }
-
 void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
 	CHR[2] = Val;
 	Sync();
 }
-
 void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	CHR[3] = Val;
 	Sync();
 }
-
 void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
 	CHR_L = Val;
 	SyncNametables();
 }
-
 void	MAPINT	WriteD (int Bank, int Addr, int Val)
 {
 	CHR_H = Val;
 	SyncNametables();
 }
-
 void	MAPINT	WriteE (int Bank, int Addr, int Val)
 {
 	Mirror = Val & 0x3;
 	VROM_use = (Val & 0x10);
 	SyncNametables();
 }
-
 void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
 	PRG = Val;
 	Sync();
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	iNES_SetSRAM();
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

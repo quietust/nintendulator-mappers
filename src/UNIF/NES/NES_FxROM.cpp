@@ -25,15 +25,17 @@ void	Sync_FKROM (void)
 	EMU->SetPRG_RAM8(0x6, 0);
 }
 
-void	MAPINT	Load_FJROM (void)
+BOOL	MAPINT	Load_FJROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC4::Load(Sync_FJROM);
+	return TRUE;
 }
-void	MAPINT	Load_FKROM (void)
+BOOL	MAPINT	Load_FKROM (void)
 {
 	UNIF_SetSRAM(8192);
 	MMC4::Load(Sync_FKROM);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

@@ -54,7 +54,6 @@ void	GetPRGBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int CheckOpe
 		CheckDlgButton(hDlg, CheckOpen, BST_CHECKED);
 	else	EMU->DbgOut(_T("Impossible: no type selected for PRG bank %i!"), Slot);
 }
-
 void	SetPRGBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int CheckOpen, int Slot)
 {
 	int Bank = GetDlgItemInt(hDlg, Editbox, NULL, TRUE);
@@ -76,7 +75,6 @@ void	SetPRGBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int CheckOpe
 	else	EMU->DbgOut(_T("Impossible: no type selected for PRG bank %i!"), Slot);
 	Sync();
 }
-
 void	GetCHRBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int CheckNT, int CheckOpen, int Slot)
 {
 	SetDlgItemInt(hDlg, Editbox, CHR[Slot], TRUE);
@@ -92,7 +90,6 @@ void	GetCHRBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int CheckNT,
 	if ((Slot >= 8) && (Slot < 12))
 		GetCHRBank(hDlg, Editbox, CheckROM, CheckRAM, CheckNT, CheckOpen, Slot + 4);
 }
-
 void	SetCHRBank(HWND hDlg, int Editbox, int CheckROM, int CheckRAM, int CheckNT, int CheckOpen, int Slot)
 {
 	int Bank = GetDlgItemInt(hDlg, Editbox, NULL, TRUE);
@@ -201,7 +198,7 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	for (int i = 0; i < 5; i++)
 	{
@@ -214,6 +211,7 @@ void	MAPINT	Load (void)
 		CHRtype[i] = BANK_OPEN;
 	}
 	ConfigWindow = NULL;
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

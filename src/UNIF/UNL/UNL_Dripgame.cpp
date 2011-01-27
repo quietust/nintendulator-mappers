@@ -8,7 +8,7 @@
 #include	"..\..\DLL\d_UNIF.h"
 #include	"..\resource.h"
 
-namespace Sound
+namespace DripSound
 {
 struct
 {
@@ -179,7 +179,7 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	offset = Sound::SaveLoad(mode, offset, data);
+	offset = DripSound::SaveLoad(mode, offset, data);
 	SAVELOAD_WORD(mode, offset, data, IRQcounter);
 	SAVELOAD_BYTE(mode, offset, data, IRQenabled);
 	SAVELOAD_BYTE(mode, offset, data, IRQlatch);
@@ -215,8 +215,8 @@ int	MAPINT	CPURead4 (int Bank, int Addr)
 int	MAPINT	CPURead5 (int Bank, int Addr)
 {
 	if (Addr & 0x800)
-		return Sound::Chan[1].Read();
-	else	return Sound::Chan[0].Read();
+		return DripSound::Chan[1].Read();
+	else	return DripSound::Chan[0].Read();
 }
 void	MAPINT	CPUWriteL (int Bank, int Addr, int Val)
 {
@@ -248,8 +248,8 @@ void	MAPINT	CPUWriteL (int Bank, int Addr, int Val)
 	else
 	{
 		if (Addr & 4)
-			Sound::Chan[1].Write(Addr & 3, Val);
-		else	Sound::Chan[0].Write(Addr & 3, Val);
+			DripSound::Chan[1].Write(Addr & 3, Val);
+		else	DripSound::Chan[0].Write(Addr & 3, Val);
 	}
 }
 void	MAPINT	CPUWriteH (int Bank, int Addr, int Val)
@@ -312,13 +312,14 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	ConfigWindow = NULL;
 	EMU->Mirror_4();
 	ExtRam0 = EMU->GetCHR_Ptr1(0xA);
 	ExtRam1 = EMU->GetCHR_Ptr1(0xB);
 	UNIF_SetSRAM(8192);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
@@ -335,9 +336,9 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	_PPUReadNT[2] = EMU->GetPPUReadHandler(0xA);
 	_PPUReadNT[3] = EMU->GetPPUReadHandler(0xB);
 	
-	ZeroMemory(&Sound::Chan, sizeof(Sound::Chan));
-	Sound::Chan[0].IsEmpty = TRUE;
-	Sound::Chan[1].IsEmpty = TRUE;
+	ZeroMemory(&DripSound::Chan, sizeof(DripSound::Chan));
+	DripSound::Chan[0].IsEmpty = TRUE;
+	DripSound::Chan[1].IsEmpty = TRUE;
 
 	if (ResetType == RESET_HARD)
 	{
@@ -375,6 +376,6 @@ const MapperInfo MapperInfo_UNL_DRIPGAME =
 	CPUCycle,
 	PPUCycle,
 	SaveLoad,
-	Sound::MapperSnd,
+	DripSound::MapperSnd,
 	Config
 };

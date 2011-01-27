@@ -278,34 +278,36 @@ int	MAPINT	MapperSnd (int Len)
 
 unsigned char FDS_BIOS[2][0x1000];
 
-void	Load (void)
+BOOL	Load (void)
 {
 	FILE *BIOS;
 	TCHAR buf[MAX_PATH];
 	int i = GetModuleFileName(NULL, buf, MAX_PATH);
 	if (!i)
 	{
-		MessageBox(hWnd, _T("Fatal error: failed to get directory!"), _T("DLL"), MSGBOX_FLAGS);
-		return;
+		MessageBox(hWnd, _T("Fatal error: failed to get directory!"), _T("FDS"), MSGBOX_FLAGS);
+		return FALSE;
 	}
 	while (i > 0)
-		if (buf[--i] == '\\')	break;
+		if (buf[--i] == '\\')
+			break;
 	buf[i] = 0;
 	if ((BIOS = _tfopen(_tcscat(buf, _T("\\disksys.rom")), _T("rb"))) == NULL)
 	{
-		MessageBox(hWnd, _T("Disk System BIOS (disksys.rom) not found!"), _T("DLL"), MSGBOX_FLAGS);
-		return;
+		MessageBox(hWnd, _T("Disk System BIOS (disksys.rom) not found!"), _T("FDS"), MSGBOX_FLAGS);
+		return FALSE;
 	}
 	if ((fread(FDS_BIOS[0], 1, 0x1000, BIOS) != 0x1000) || (fread(FDS_BIOS[1], 1, 0x1000, BIOS) != 0x1000))
 	{
 		fclose(BIOS);
-		MessageBox(hWnd, _T("Disk System BIOS (disksys.rom) too small!"), _T("DLL"), MSGBOX_FLAGS);
-		return;
+		MessageBox(hWnd, _T("Disk System BIOS (disksys.rom) too small!"), _T("FDS"), MSGBOX_FLAGS);
+		return FALSE;
 	}
 	fclose(BIOS);
 	EMU->StatusOut(_T("FDS BIOS loaded!"));
 	ConfigWindow = NULL;
 	FDSsound::Load();
+	return TRUE;
 }
 
 void	Reset (RESET_TYPE ResetType)

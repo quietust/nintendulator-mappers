@@ -19,9 +19,10 @@ void	Sync (void)
 	EMU->SetCHR_RAM2(6, 2);
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	Latch::Load(Sync, FALSE);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

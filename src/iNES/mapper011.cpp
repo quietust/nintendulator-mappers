@@ -18,9 +18,10 @@ void	Sync (void)
 	else	EMU->SetCHR_RAM8(0, 0);
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	Latch::Load(Sync, FALSE);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

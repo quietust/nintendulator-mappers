@@ -16,9 +16,10 @@ void	Sync_BNROM (void)
 	EMU->SetCHR_RAM8(0, 0);
 }
 
-void	MAPINT	Load_BNROM (void)
+BOOL	MAPINT	Load_BNROM (void)
 {
 	Latch::Load(Sync_BNROM, TRUE);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

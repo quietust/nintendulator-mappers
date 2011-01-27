@@ -526,7 +526,7 @@ int	MAPINT	PPUReadPT (int Bank, int Addr)
 }
 #endif
 
-static int extile = 0;
+int extile = 0;
 int	MAPINT	PPUReadNTSplitExt (int Bank, int Addr)
 {
 	if (CurTile >= 34)				// we only want to deal with background data

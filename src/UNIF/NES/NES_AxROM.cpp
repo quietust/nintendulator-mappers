@@ -43,21 +43,25 @@ void	Sync_AOROM (void)
 	else	EMU->Mirror_S0();
 }
 
-void	MAPINT	Load_AMROM (void)
+BOOL	MAPINT	Load_AMROM (void)
 {
 	Latch::Load(Sync_AMROM, TRUE);
+	return TRUE;
 }
-void	MAPINT	Load_ANROM (void)
+BOOL	MAPINT	Load_ANROM (void)
 {
 	Latch::Load(Sync_ANROM, FALSE);
+	return TRUE;
 }
-void	MAPINT	Load_AN1ROM (void)
+BOOL	MAPINT	Load_AN1ROM (void)
 {
 	Latch::Load(Sync_AN1ROM, FALSE);
+	return TRUE;
 }
-void	MAPINT	Load_AOROM (void)
+BOOL	MAPINT	Load_AOROM (void)
 {
 	Latch::Load(Sync_AOROM, TRUE);
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {

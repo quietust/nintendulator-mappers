@@ -52,33 +52,27 @@ void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
 	IRQcounter.n0 = Val & 0xF;
 }
-
 void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	IRQcounter.n1 = Val & 0xF;
 }
-
 void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
 	IRQcounter.n2 = Val & 0xF;
 }
-
 void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
 	IRQcounter.n3 = Val & 0xF;
 }
-
 void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
 	IRQenabled = Val & 0xF;
 	EMU->SetIRQ(1);
 }
-
 void	MAPINT	WriteE (int Bank, int Addr, int Val)
 {
 	PRGcontrol = Val & 0xF;
 }
-
 void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
 	switch (PRGcontrol)

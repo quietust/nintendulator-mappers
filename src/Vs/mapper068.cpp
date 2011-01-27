@@ -113,10 +113,11 @@ void	MAPINT	WriteF (int Bank, int Addr, int Val)
 	Sync();
 }
 
-void	MAPINT	Load (void)
+BOOL	MAPINT	Load (void)
 {
 	VS::Load();
 	iNES_SetSRAM();
+	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
@@ -143,7 +144,6 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 	SyncNametables();
 }
-
 void	MAPINT	Unload (void)
 {
 	VS::Unload();
