@@ -237,23 +237,23 @@ CAPTION "Mapper 5 (MMC5) - SRAM Configuration"
 FONT 8, "Microsoft Sans Serif", 400, 0, 0x0
 BEGIN
     CONTROL         "0KB (0/0) *",IDC_MAPPER5_0_0,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,4,4,68,8
-    CONTROL         "8KB (0/8)",IDC_MAPPER5_0_8,"Button",BS_AUTORADIOBUTTON | 
-                    WS_TABSTOP,4,16,68,8
+                    BS_AUTORADIOBUTTON | WS_GROUP,4,4,68,8
+    CONTROL         "8KB (0/8)",IDC_MAPPER5_0_8,"Button",BS_AUTORADIOBUTTON,
+                    4,16,68,8
     CONTROL         "32KB (0/32)",IDC_MAPPER5_0_32,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,4,28,68,8
+                    BS_AUTORADIOBUTTON,4,28,68,8
     CONTROL         "8KB (8/0) *",IDC_MAPPER5_8_0,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,80,4,64,8
+                    BS_AUTORADIOBUTTON,80,4,64,8
     CONTROL         "16KB (8/8) *",IDC_MAPPER5_8_8,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,80,16,64,8
+                    BS_AUTORADIOBUTTON,80,16,64,8
     CONTROL         "40KB (8/32)",IDC_MAPPER5_8_32,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,80,28,64,8
+                    BS_AUTORADIOBUTTON,80,28,64,8
     CONTROL         "32KB (32/0) *",IDC_MAPPER5_32_0,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,152,4,64,8
+                    BS_AUTORADIOBUTTON,152,4,64,8
     CONTROL         "40KB (32/8)",IDC_MAPPER5_32_8,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,152,16,64,8
+                    BS_AUTORADIOBUTTON,152,16,64,8
     CONTROL         "64KB (32/32)",IDC_MAPPER5_32_32,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,152,28,64,8
+                    BS_AUTORADIOBUTTON,152,28,64,8
     CTEXT           "* - denotes modes used by commercial games",IDC_STATIC,
                     4,40,212,8
     DEFPUSHBUTTON   "OK",IDOK,4,52,68,16
@@ -266,9 +266,9 @@ CAPTION "Mapper 43 (SMB2J-LF36) - Titlescreen Selection"
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
     CONTROL         "&Blank titlescreen",IDC_MAPPER43_BLANK,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,8,8,72,8
+                    BS_AUTORADIOBUTTON | WS_GROUP,8,8,72,8
     CONTROL         "&Super Mario Bros 2 Logo",IDC_MAPPER43_LOGO,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,100,8,96,8
+                    BS_AUTORADIOBUTTON,100,8,96,8
     DEFPUSHBUTTON   "OK",IDOK,28,20,52,16
     PUSHBUTTON      "Cancel",IDCANCEL,124,20,52,16
 END
