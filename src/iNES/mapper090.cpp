@@ -391,12 +391,28 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	return 0;
 }
 
-BOOL	MAPINT	Load (void)
+BOOL	MAPINT	Load_090 (void)
 {
 	ConfigWindow = NULL;
+	MMC2Mode = 0;
+	Jumper = 0x00;
 	return TRUE;
 }
-void	Reset (RESET_TYPE ResetType)
+BOOL	MAPINT	Load_209 (void)
+{
+	ConfigWindow = NULL;
+	MMC2Mode = 1;
+	Jumper = 0x01;
+	return TRUE;
+}
+BOOL	MAPINT	Load_211 (void)
+{
+	ConfigWindow = NULL;
+	MMC2Mode = 0;
+	Jumper = 0x02;
+	return TRUE;
+}
+void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	EMU->SetCPUReadHandler(0x5, Read5);
 	EMU->SetCPUWriteHandler(0x5, Write5);
@@ -422,7 +438,6 @@ void	Reset (RESET_TYPE ResetType)
 		Mul1 = Mul2 = 0;
 		LatchState[0] = 0;
 		LatchState[1] = 4;
-		MMC2Mode = 0;
 	}
 	for (int i = 0; i < 16; i++)
 	{
@@ -445,37 +460,6 @@ void	MAPINT	Unload (void)
 	}
 }
 
-void	MAPINT	Reset_90 (RESET_TYPE ResetType)
-{
-	Reset(ResetType);
-
-	if (ResetType == RESET_HARD)
-		Jumper = 0x00;
-	SyncNametables();
-}
-
-void	MAPINT	Reset_209 (RESET_TYPE ResetType)
-{
-	Reset(ResetType);
-
-	if (ResetType == RESET_HARD)
-	{
-		Jumper = 0x01;
-		MMC2Mode = 1;
-	}
-	SyncCHR();
-	SyncNametables();
-}
-
-void	MAPINT	Reset_211 (RESET_TYPE ResetType)
-{
-	Reset(ResetType);
-
-	if (ResetType == RESET_HARD)
-		Jumper = 0x02;
-	SyncNametables();
-}
-
 uint8 MapperNum = 90;
 uint8 MapperNum2 = 209;
 uint8 MapperNum3 = 211;
@@ -486,8 +470,8 @@ const MapperInfo MapperInfo_090 =
 	&MapperNum,
 	_T("Mapper 90"),
 	COMPAT_FULL,
-	Load,
-	Reset_90,
+	Load_090,
+	Reset,
 	Unload,
 	CPUCycle,
 	PPUCycle,
@@ -500,8 +484,8 @@ const MapperInfo MapperInfo_209 =
 	&MapperNum2,
 	_T("Mapper 90/MMC2 Hybrid"),
 	COMPAT_FULL,
-	Load,
-	Reset_209,
+	Load_209,
+	Reset,
 	Unload,
 	CPUCycle,
 	PPUCycle,
@@ -514,8 +498,8 @@ const MapperInfo MapperInfo_211 =
 	&MapperNum3,
 	_T("Mapper 90 Variant"),
 	COMPAT_FULL,
-	Load,
-	Reset_211,
+	Load_211,
+	Reset,
 	Unload,
 	CPUCycle,
 	PPUCycle,
