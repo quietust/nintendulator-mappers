@@ -14,6 +14,7 @@ uint8 PRG[4], CHR[8], NTab[4];
 uint16_n IRQcounter;
 FCPURead _Read4;
 FCPUWrite _Write4;
+uint8 HardMirror;
 
 void	Sync (void)
 {
@@ -26,7 +27,8 @@ void	Sync (void)
 			EMU->SetCHR_ROM1(i, CHR[i]);
 		else	EMU->SetCHR_RAM1(i, CHR[i] & 0x1F);
 	}
-
+	if (HardMirror)
+		return;
 	for (int i = 0; i < 4; i++)
 	{
 		if (NTab[i] < 0xE0)
@@ -40,8 +42,6 @@ void	Sync (void)
 			EMU->SetCHR_NT1(i+0xC, NTab[i] & 1);
 		}
 	}
-	if (PRG[0] & 0x40)
-		EMU->Mirror_V();
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
@@ -51,8 +51,11 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 		SAVELOAD_BYTE(mode, offset, data, PRG[i]);
 	for (int i = 0; i < 8; i++)
 		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
-	for (int i = 0; i < 4; i++)
-		SAVELOAD_BYTE(mode, offset, data, NTab[i]);
+	if (!HardMirror)
+	{
+		for (int i = 0; i < 4; i++)
+			SAVELOAD_BYTE(mode, offset, data, NTab[i]);
+	}
 	offset = N163sound::SaveLoad(mode, offset, data);
 	if (mode == STATE_LOAD)
 		Sync();
@@ -154,10 +157,18 @@ int	MAPINT	MapperSnd (int Cycles)
 	return N163sound::Get(Cycles);
 }
 
-BOOL	MAPINT	Load (void)
+BOOL	MAPINT	Load_019 (void)
 {
 	N163sound::Load();
 	iNES_SetSRAM();
+	HardMirror = 0;
+	return TRUE;
+}
+BOOL	MAPINT	Load_210 (void)
+{
+	N163sound::Load();
+	iNES_SetSRAM();
+	HardMirror = 1;
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
@@ -191,6 +202,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	}
 	N163sound::Reset(ResetType);
 	EMU->SetIRQ(1);
+	if (HardMirror)
+		iNES_SetMirroring();
 	Sync();
 }
 void	MAPINT	Unload (void)
@@ -199,14 +212,30 @@ void	MAPINT	Unload (void)
 }
 
 uint8 MapperNum = 19;
+uint8 MapperNum2 = 210;
 } // namespace
 
 const MapperInfo MapperInfo_019 =
 {
 	&MapperNum,
 	_T("Namcot 106"),
-	COMPAT_NEARLY,
-	Load,
+	COMPAT_FULL,
+	Load_019,
+	Reset,
+	Unload,
+	CPUCycle,
+	NULL,
+	SaveLoad,
+	MapperSnd,
+	NULL
+};
+
+const MapperInfo MapperInfo_210 =
+{
+	&MapperNum2,
+	_T("Namcot 106 w/hardwired mirroring"),
+	COMPAT_FULL,
+	Load_210,
 	Reset,
 	Unload,
 	CPUCycle,
