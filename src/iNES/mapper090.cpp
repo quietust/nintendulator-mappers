@@ -23,6 +23,8 @@ HWND ConfigWindow;
 uint8 ConfigCmd;
 FCPUWrite _CPUWrite[0x10];
 FPPURead _PPURead[0x10];
+uint8 MMC2Mode;
+uint8 LatchState[2];
 
 uint8 ReverseBits (uint8 bits)
 {
@@ -77,8 +79,8 @@ void	SyncCHR (void)
 	switch ((BankMode & 0x18) >> 3)
 	{
 	case 0:	EMU->SetCHR_ROM8(0, (ExtBank & 0x20) ? CHRbanks[0].s0 : (CHRbanks[0].b0 | ((ExtBank & 0x1F) << 8)));	break;
-	case 1:	EMU->SetCHR_ROM4(0, (ExtBank & 0x20) ? CHRbanks[0].s0 : (CHRbanks[0].b0 | ((ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM4(4, (ExtBank & 0x20) ? CHRbanks[4].s0 : (CHRbanks[4].b0 | ((ExtBank & 0x1F) << 8)));	break;
+	case 1:	EMU->SetCHR_ROM4(0, (ExtBank & 0x20) ? CHRbanks[LatchState[0]].s0 : (CHRbanks[LatchState[0]].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM4(4, (ExtBank & 0x20) ? CHRbanks[LatchState[1]].s0 : (CHRbanks[LatchState[1]].b0 | ((ExtBank & 0x1F) << 8)));	break;
 	case 2:	EMU->SetCHR_ROM2(0, (ExtBank & 0x20) ? CHRbanks[0].s0 : (CHRbanks[0].b0 | ((ExtBank & 0x1F) << 8)));
 		EMU->SetCHR_ROM2(2, (ExtBank & 0x20) ? CHRbanks[2].s0 : (CHRbanks[2].b0 | ((ExtBank & 0x1F) << 8)));
 		EMU->SetCHR_ROM2(4, (ExtBank & 0x20) ? CHRbanks[4].s0 : (CHRbanks[4].b0 | ((ExtBank & 0x1F) << 8)));
@@ -96,7 +98,7 @@ void	SyncCHR (void)
 
 void	SyncNametables (void)
 {
-	if ((BankMode & 0x20) && (Jumper & 0x01))
+	if (((BankMode & 0x20) && (Jumper & 0x01)) || (Jumper & 0x02))
 	{
 		for (int i = 0; i < 4; i++)
 		{
@@ -146,6 +148,11 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	SAVELOAD_BYTE(mode, offset, data, Mul2);
 	SAVELOAD_BYTE(mode, offset, data, Jumper);
 	SAVELOAD_BYTE(mode, offset, data, treg);
+	if (MMC2Mode)
+	{
+		SAVELOAD_BYTE(mode, offset, data, LatchState[0]);
+		SAVELOAD_BYTE(mode, offset, data, LatchState[1]);
+	}
 	if (mode == STATE_LOAD)
 	{
 		SyncPRG();
@@ -206,7 +213,31 @@ int	MAPINT	PPURead (int Bank, int Addr)
 {
 	if (IRQenabled && ((IRQmode & 0x3) == 3))
 		IRQcount();
-	return _PPURead[Bank](Bank, Addr);
+	int result = _PPURead[Bank](Bank, Addr);
+	if (MMC2Mode)
+	{
+		if (Bank == 3)
+		{
+			if ((Addr & 0x3F8) == 0x3D8)
+				LatchState[0] = 0;
+			else if ((Addr & 0x3F8) == 0x3E8)
+				LatchState[0] = 2;
+			else	return result;
+			if ((BankMode & 0x18) == 0x08)
+				SyncCHR();
+		}
+		else if (Bank == 7)
+		{
+			if ((Addr & 0x3F8) == 0x3D8)
+				LatchState[1] = 4;
+			else if ((Addr & 0x3F8) == 0x3E8)
+				LatchState[1] = 6;
+			else	return result;
+			if ((BankMode & 0x18) == 0x08)
+				SyncCHR();
+		}
+	}
+	return result;
 }
 
 int	MAPINT	Read5 (int Bank, int Addr)
@@ -345,7 +376,7 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 	case CFG_CMD:
 		if (data & 0x80)
 		{
-			Jumper = 0;
+			Jumper &= ~0xC1;
 			if (data & 0x01)
 				Jumper |= 0x40;
 			if (data & 0x02)
@@ -365,7 +396,7 @@ BOOL	MAPINT	Load (void)
 	ConfigWindow = NULL;
 	return TRUE;
 }
-void	MAPINT	Reset (RESET_TYPE ResetType)
+void	Reset (RESET_TYPE ResetType)
 {
 	EMU->SetCPUReadHandler(0x5, Read5);
 	EMU->SetCPUWriteHandler(0x5, Write5);
@@ -389,7 +420,9 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		for (int i = 0; i < 4; i++)
 			PRGbanks[i] = 0;
 		Mul1 = Mul2 = 0;
-		Jumper = 0;
+		LatchState[0] = 0;
+		LatchState[1] = 4;
+		MMC2Mode = 0;
 	}
 	for (int i = 0; i < 16; i++)
 	{
@@ -412,7 +445,40 @@ void	MAPINT	Unload (void)
 	}
 }
 
+void	MAPINT	Reset_90 (RESET_TYPE ResetType)
+{
+	Reset(ResetType);
+
+	if (ResetType == RESET_HARD)
+		Jumper = 0x00;
+	SyncNametables();
+}
+
+void	MAPINT	Reset_209 (RESET_TYPE ResetType)
+{
+	Reset(ResetType);
+
+	if (ResetType == RESET_HARD)
+	{
+		Jumper = 0x01;
+		MMC2Mode = 1;
+	}
+	SyncCHR();
+	SyncNametables();
+}
+
+void	MAPINT	Reset_211 (RESET_TYPE ResetType)
+{
+	Reset(ResetType);
+
+	if (ResetType == RESET_HARD)
+		Jumper = 0x02;
+	SyncNametables();
+}
+
 uint8 MapperNum = 90;
+uint8 MapperNum2 = 209;
+uint8 MapperNum3 = 211;
 } // namespace
 
 const MapperInfo MapperInfo_090 =
@@ -421,7 +487,35 @@ const MapperInfo MapperInfo_090 =
 	_T("Mapper 90"),
 	COMPAT_FULL,
 	Load,
-	Reset,
+	Reset_90,
+	Unload,
+	CPUCycle,
+	PPUCycle,
+	SaveLoad,
+	NULL,
+	Config
+};
+const MapperInfo MapperInfo_209 =
+{
+	&MapperNum2,
+	_T("Mapper 90/MMC2 Hybrid"),
+	COMPAT_FULL,
+	Load,
+	Reset_209,
+	Unload,
+	CPUCycle,
+	PPUCycle,
+	SaveLoad,
+	NULL,
+	Config
+};
+const MapperInfo MapperInfo_211 =
+{
+	&MapperNum3,
+	_T("Mapper 90 Variant"),
+	COMPAT_FULL,
+	Load,
+	Reset_211,
 	Unload,
 	CPUCycle,
 	PPUCycle,
