@@ -79,15 +79,12 @@ unsigned char DisabledCHR[0x400] = {
 void	Sync (void)
 {
 	EMU->SetPRG_ROM32(0x8, 0);
-	switch (Latch::Data & 0x33)
+	if ((Latch::Data & 0x0F) && (Latch::Data != 0x13))
+		EMU->SetCHR_ROM8(0, 0);
+	else
 	{
-	case 0x00:	case 0x12:	case 0x13:	case 0x20:	case 0x30:
 		for (int i = 0; i < 8; i++)
 			EMU->SetCHR_Ptr1(i, DisabledCHR, FALSE);
-		break;
-	default:
-		EMU->SetCHR_ROM8(0, 0);
-		break;
 	}
 }
 
@@ -113,7 +110,7 @@ const MapperInfo MapperInfo_185 =
 {
 	&MapperNum,
 	_T("CNROM with CHR disable"),
-	COMPAT_FULL,
+	COMPAT_PARTIAL,
 	Load,
 	Reset,
 	Unload,
