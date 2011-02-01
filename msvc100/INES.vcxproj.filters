@@ -520,6 +520,18 @@
     <ClCompile Include="..\src\DLL\d_iNES.cpp">
       <Filter>Source Files\DLL Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iNES\mapper082.cpp">
+      <Filter>Source Files\Mapper Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iNES\mapper101.cpp">
+      <Filter>Source Files\Mapper Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iNES\mapper155.cpp">
+      <Filter>Source Files\Mapper Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iNES\mapper206.cpp">
+      <Filter>Source Files\Mapper Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\interface.h">
