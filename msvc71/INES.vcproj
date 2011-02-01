@@ -442,6 +442,9 @@
 					RelativePath="..\src\iNES\mapper080.cpp">
 				</File>
 				<File
+					RelativePath="..\src\iNES\mapper082.cpp">
+				</File>
+				<File
 					RelativePath="..\src\iNES\mapper083.cpp">
 				</File>
 				<File
@@ -485,6 +488,9 @@
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper100.cpp">
+				</File>
+				<File
+					RelativePath="..\src\iNES\mapper101.cpp">
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper105.cpp">
@@ -571,6 +577,9 @@
 					RelativePath="..\src\iNES\mapper154.cpp">
 				</File>
 				<File
+					RelativePath="..\src\iNES\mapper155.cpp">
+				</File>
+				<File
 					RelativePath="..\src\iNES\mapper159.cpp">
 				</File>
 				<File
@@ -620,6 +629,9 @@
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper205.cpp">
+				</File>
+				<File
+					RelativePath="..\src\iNES\mapper206.cpp">
 				</File>
 				<File
 					RelativePath="..\src\iNES\mapper207.cpp">
