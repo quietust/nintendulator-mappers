@@ -89,7 +89,7 @@
 //const MapperInfo MapperInfo_079 = {	NULL,	_T("Mapper 79"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //const MapperInfo MapperInfo_080 = {	NULL,	_T("Mapper 80"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   const MapperInfo MapperInfo_081 = {	NULL,	_T("Mapper 81"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
-  const MapperInfo MapperInfo_082 = {	NULL,	_T("Mapper 82"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
+//const MapperInfo MapperInfo_082 = {	NULL,	_T("Mapper 82"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //const MapperInfo MapperInfo_083 = {	NULL,	_T("Mapper 83"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   const MapperInfo MapperInfo_084 = {	NULL,	_T("Mapper 84"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //const MapperInfo MapperInfo_085 = {	NULL,	_T("Mapper 85"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
@@ -108,7 +108,7 @@
   const MapperInfo MapperInfo_098 = {	NULL,	_T("Mapper 98"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   const MapperInfo MapperInfo_099 = {	NULL,	_T("Mapper 99"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //const MapperInfo MapperInfo_100 = {	NULL,	_T("Mapper 100"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
-  const MapperInfo MapperInfo_101 = {	NULL,	_T("Mapper 101"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
+//const MapperInfo MapperInfo_101 = {	NULL,	_T("Mapper 101"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   const MapperInfo MapperInfo_102 = {	NULL,	_T("Mapper 102"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   const MapperInfo MapperInfo_103 = {	NULL,	_T("Mapper 103"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   const MapperInfo MapperInfo_104 = {	NULL,	_T("Mapper 104"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
@@ -162,7 +162,7 @@
 //const MapperInfo MapperInfo_152 = {	NULL,	_T("Mapper 152"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   const MapperInfo MapperInfo_153 = {	NULL,	_T("Mapper 153"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //const MapperInfo MapperInfo_154 = {	NULL,	_T("Mapper 154"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
-  const MapperInfo MapperInfo_155 = {	NULL,	_T("Mapper 155"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
+//const MapperInfo MapperInfo_155 = {	NULL,	_T("Mapper 155"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   const MapperInfo MapperInfo_156 = {	NULL,	_T("Mapper 156"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   const MapperInfo MapperInfo_157 = {	NULL,	_T("Mapper 157"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   const MapperInfo MapperInfo_158 = {	NULL,	_T("Mapper 158"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
@@ -213,7 +213,7 @@
 //const MapperInfo MapperInfo_203 = {	NULL,	_T("Mapper 203"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   const MapperInfo MapperInfo_204 = {	NULL,	_T("Mapper 204"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //const MapperInfo MapperInfo_205 = {	NULL,	_T("Mapper 205"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
-  const MapperInfo MapperInfo_206 = {	NULL,	_T("Mapper 206"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
+//const MapperInfo MapperInfo_206 = {	NULL,	_T("Mapper 206"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //const MapperInfo MapperInfo_207 = {	NULL,	_T("Mapper 207"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   const MapperInfo MapperInfo_208 = {	NULL,	_T("Mapper 208"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //const MapperInfo MapperInfo_209 = {	NULL,	_T("Mapper 209"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
