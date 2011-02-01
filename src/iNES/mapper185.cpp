@@ -110,7 +110,7 @@ const MapperInfo MapperInfo_185 =
 {
 	&MapperNum,
 	_T("CNROM with CHR disable"),
-	COMPAT_PARTIAL,
+	COMPAT_NEARLY,
 	Load,
 	Reset,
 	Unload,
