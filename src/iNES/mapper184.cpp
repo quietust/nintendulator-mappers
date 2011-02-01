@@ -13,10 +13,9 @@ uint8 Reg;
 
 void	Sync (void)
 {
-	EMU->SetPRG_ROM16(0x8, 0);
-	EMU->SetPRG_ROM16(0xC, -1);
-	EMU->SetCHR_ROM4(0, ((Reg & 0x02) << 0) | ((Reg & 0x04) >> 2) | ((Reg & 0x01) << 2));
-	EMU->SetCHR_ROM4(4, ((Reg & 0x20) >> 4) | ((Reg & 0x10) >> 1));
+	EMU->SetPRG_ROM32(0x8, 0);
+	EMU->SetCHR_ROM4(0, Reg & 0xF);
+	EMU->SetCHR_ROM4(4, (Reg >> 4) & 0xF);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
@@ -52,7 +51,7 @@ uint8 MapperNum = 184;
 const MapperInfo MapperInfo_184 =
 {
 	&MapperNum,
-	_T("Mapper 184 (Atlantis no Nazo)"),
+	_T("SUNSOFT-1"),
 	COMPAT_FULL,
 	NULL,
 	Reset,
