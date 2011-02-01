@@ -89,7 +89,7 @@ const MapperInfo *MAPINT	LoadMapper (const ROMInfo *_ROM)
 	ROM = _ROM;
 	if (ROM->ROMType == ROM_UNDEFINED)
 	{	/* Allow enumerating mappers */
-		unsigned int i = (int)ROM->Filename;
+		unsigned int i = (unsigned int)ROM->Filename;
 		if (i >= 256)
 		{
 			UnloadMapper();
