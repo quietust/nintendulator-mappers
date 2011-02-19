@@ -15,7 +15,13 @@ void	Sync (void)
 	if (ROM->INES_Flags & 0x08)
 		EMU->Mirror_4();
 	else	MMC3::SyncMirror();
-	MMC3::SyncWRAM();	// assume WRAM is here
+	if (ROM->INES_Version == 2)
+	{
+		if ((ROM->INES2_PRGRAM == 0x70) || (ROM->INES2_PRGRAM == 0x07))	// 8KB, with or without battery
+			MMC3::SyncWRAM();
+		// otherwise, leave $6000-$7FFF unmapped - some games require this
+	}
+	else	MMC3::SyncWRAM();	// assume WRAM is here
 	MMC3::SyncPRG(0x3F, 0);
 	if (ROM->INES_CHRSize)
 		MMC3::SyncCHR_ROM(0xFF, 0);
