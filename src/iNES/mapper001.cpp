@@ -29,7 +29,7 @@ void	Sync (void)
 				// bank 1 is batteried while bank 0 is not, so we need to switch it around
 				bank = !(MMC1::GetCHRBankLo() & 0x08);
 			}
-			else if (ROM->INES2_PRGRAM == 0x90)	// SXROM
+			else if ((ROM->INES2_PRGRAM == 0x90) || (ROM->INES2_PRGRAM == 0x09))	// SXROM, with or without battery
 				bank = (MMC1::GetCHRBankLo() & 0x0C) >> 2;
 			else //if (ROM->INES2_PRGRAM == 0x70)	// everything else
 				bank = 0;
