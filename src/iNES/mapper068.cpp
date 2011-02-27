@@ -10,7 +10,7 @@
 namespace
 {
 uint8 Mirror, VROM_use;
-uint8 CHR_L, CHR_H;
+uint8 NT[2];
 uint8 PRG, CHR[4];
 
 void	Sync (void)
@@ -24,36 +24,35 @@ void	Sync (void)
 
 void	SyncNametables (void)
 {
+	uint8 nt[4] = {0,0,0,0};
+	void (MAPINT *SetCHR)(int,int) = EMU->SetCHR_NT1;
+
 	switch (Mirror & 0x3)
 	{
-	case 0:	EMU->Mirror_V();	break;
-	case 1:	EMU->Mirror_H();	break;
-	case 2:	EMU->Mirror_S0();	break;
-	case 3:	EMU->Mirror_S1();	break;
+	case 0:	nt[0] = 0; nt[1] = 1; nt[2] = 0; nt[3] = 1;	break;	// V
+	case 1:	nt[0] = 0; nt[1] = 0; nt[2] = 1; nt[3] = 1;	break;	// H
+	case 2:	nt[0] = 0; nt[1] = 0; nt[2] = 0; nt[3] = 0;	break;	// S0
+	case 3:	nt[0] = 1; nt[1] = 1; nt[2] = 1; nt[3] = 1;	break;	// S1
 	}
 	if (VROM_use)
 	{
-		uint8 A = EMU->GetCHR_NT1(0x8) ? CHR_H : CHR_L;
-		uint8 B = EMU->GetCHR_NT1(0x9) ? CHR_H : CHR_L;
-		uint8 C = EMU->GetCHR_NT1(0xA) ? CHR_H : CHR_L;
-		uint8 D = EMU->GetCHR_NT1(0xB) ? CHR_H : CHR_L;
-		EMU->SetCHR_ROM1(0x8, A | 0x80);
-		EMU->SetCHR_ROM1(0x9, B | 0x80);
-		EMU->SetCHR_ROM1(0xA, C | 0x80);
-		EMU->SetCHR_ROM1(0xB, D | 0x80);
-		EMU->SetCHR_ROM1(0xC, A | 0x80);
-		EMU->SetCHR_ROM1(0xD, B | 0x80);
-		EMU->SetCHR_ROM1(0xE, C | 0x80);
-		EMU->SetCHR_ROM1(0xF, D | 0x80);
+		SetCHR = EMU->SetCHR_ROM1;
+		for (int i = 0; i < 4; i++)
+			nt[i] = NT[nt[i]] | 0x80;
 	}
+
+	SetCHR(0x8, nt[0]);	SetCHR(0xC, nt[0]);
+	SetCHR(0x9, nt[1]);	SetCHR(0xD, nt[1]);
+	SetCHR(0xA, nt[2]);	SetCHR(0xE, nt[2]);
+	SetCHR(0xB, nt[3]);	SetCHR(0xF, nt[3]);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
 	SAVELOAD_BYTE(mode, offset, data, Mirror);
 	SAVELOAD_BYTE(mode, offset, data, VROM_use);
-	SAVELOAD_BYTE(mode, offset, data, CHR_L);
-	SAVELOAD_BYTE(mode, offset, data, CHR_H);
+	for (int i = 0; i < 2; i++)
+		SAVELOAD_BYTE(mode, offset, data, NT[i]);
 	SAVELOAD_BYTE(mode, offset, data, PRG);
 	for (int i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
@@ -84,12 +83,12 @@ void	MAPINT	WriteB (int Bank, int Addr, int Val)
 }
 void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
-	CHR_L = Val;
+	NT[0] = Val;
 	SyncNametables();
 }
 void	MAPINT	WriteD (int Bank, int Addr, int Val)
 {
-	CHR_H = Val;
+	NT[1] = Val;
 	SyncNametables();
 }
 void	MAPINT	WriteE (int Bank, int Addr, int Val)
@@ -126,7 +125,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		for (int i = 0; i < 4; i++)
 			CHR[i] = i;
 		Mirror = VROM_use = 0;
-		CHR_L = CHR_H = 0;
+		NT[0] = NT[1] = 0;
 	}
 
 	Sync();
