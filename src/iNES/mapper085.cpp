@@ -28,11 +28,8 @@ void	Sync (void)
 		EMU->SetPRG_OB4(0x6);
 		EMU->SetPRG_OB4(0x7);
 	}
-	if (ROM->INES_CHRSize)
-		for (int i = 0; i < 8; i++)
-			EMU->SetCHR_ROM1(i, CHR[i]);
-	else	for (int i = 0; i < 8; i++)
-			EMU->SetCHR_RAM1(i, CHR[i] & 7);
+	for (int i = 0; i < 8; i++)
+		iNES_SetCHR_Auto1(i, CHR[i]);
 	switch (Misc & 0x3)
 	{
 	case 0:	EMU->Mirror_V();	break;

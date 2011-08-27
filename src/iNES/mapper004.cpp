@@ -25,7 +25,7 @@ void	Sync (void)
 	MMC3::SyncPRG(0x3F, 0);
 	if (ROM->INES_CHRSize)
 		MMC3::SyncCHR_ROM(0xFF, 0);
-	else	MMC3::SyncCHR_RAM(0x07, 0);
+	else	MMC3::SyncCHR_RAM(0xFF, 0);
 }
 
 BOOL	MAPINT	Load (void)

@@ -13,9 +13,7 @@ namespace
 void	Sync (void)
 {
 	EMU->SetPRG_ROM32(0x8, (Latch::Data >> 0) & 0x3);
-	if (ROM->INES_CHRSize)
-		EMU->SetCHR_ROM8(0, (Latch::Data >> 4) & 0xF);
-	else	EMU->SetCHR_RAM8(0, 0);
+	iNES_SetCHR_Auto8(0x0, (Latch::Data >> 4) & 0xF);
 }
 
 BOOL	MAPINT	Load (void)

@@ -281,11 +281,7 @@ void	Sync (void)
 	EMU->SetPRG_ROM16(0x8, PRG);
 	EMU->SetPRG_ROM16(0xC, -1);
 	for (int i = 0; i < 8; i++)
-	{
-		if (ROM->INES_CHRSize)
-			EMU->SetCHR_ROM1(i, CHR[i]);
-		else	EMU->SetCHR_RAM1(i, CHR[i] & 7);
-	}
+		iNES_SetCHR_Auto1(i, CHR[i]);
 	switch (Mirror)
 	{
 	case 0:	EMU->Mirror_V();	break;

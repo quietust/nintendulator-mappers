@@ -18,7 +18,7 @@ void	Sync (void)
 	else	MMC1::SyncPRG(0xF, 0);
 	if (ROM->INES_CHRSize)
 		MMC1::SyncCHR_ROM(0x1F, 0);
-	else	MMC1::SyncCHR_RAM(0x01, 0);
+	else	MMC1::SyncCHR_RAM(0x1F, 0);
 	if (ROM->INES_Version == 2)
 	{
 		if (MMC1::GetWRAMEnabled())
