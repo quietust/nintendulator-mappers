@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="FDS"
+	ProjectGUID="{0B5ADBEF-03FD-4051-B38B-BC9226ABD135}"
 	SccProjectName=""
 	SccAuxPath=""
 	SccLocalPath=""

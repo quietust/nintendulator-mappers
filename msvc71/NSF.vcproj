@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="NSF"
+	ProjectGUID="{695E5633-034A-48E3-A944-351E10087810}"
 	SccProjectName=""
 	SccAuxPath=""
 	SccLocalPath=""

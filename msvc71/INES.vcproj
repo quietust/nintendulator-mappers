@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="iNES"
+	ProjectGUID="{8D487592-AF7D-4514-A891-17C9B222E750}"
 	SccProjectName=""
 	SccAuxPath=""
 	SccLocalPath=""

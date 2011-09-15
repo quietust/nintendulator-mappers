@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="UNIF"
+	ProjectGUID="{120E426C-F489-4E34-BB6E-7A1C98D5BE23}"
 	SccProjectName=""
 	SccAuxPath=""
 	SccLocalPath=""
