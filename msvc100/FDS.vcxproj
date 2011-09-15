@@ -19,10 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <SccProjectName />
-    <SccAuxPath />
-    <SccLocalPath />
-    <SccProvider />
+    <ProjectGuid>{5F87C116-0A2E-0C21-25AA-7F9D1B2212DC}</ProjectGuid>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)'=='Release'" Label="Configuration">
