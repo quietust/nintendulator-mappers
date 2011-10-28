@@ -13,24 +13,24 @@ namespace
 BOOL	MAPINT	Load_EKROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC5::Load(MMC5WRAM_8KB_0KB);
+	MMC5::Load(MMC5::WRAM_8KB_0KB);
 	return TRUE;
 }
 BOOL	MAPINT	Load_ELROM (void)
 {
-	MMC5::Load(MMC5WRAM_0KB_0KB);
+	MMC5::Load(MMC5::WRAM_0KB_0KB);
 	return TRUE;
 }
 BOOL	MAPINT	Load_ETROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC5::Load(MMC5WRAM_8KB_8KB);
+	MMC5::Load(MMC5::WRAM_8KB_8KB);
 	return TRUE;
 }
 BOOL	MAPINT	Load_EWROM (void)
 {
 	UNIF_SetSRAM(32768);
-	MMC5::Load(MMC5WRAM_32KB_0KB);
+	MMC5::Load(MMC5::WRAM_32KB_0KB);
 	return TRUE;
 }
 

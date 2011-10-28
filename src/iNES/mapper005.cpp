@@ -48,40 +48,40 @@ struct
 	int SRAMconf;
 } MMC5Carts[23] = {
 	// ELROM
-	{0x95CA9EC7,MMC5WRAM_0KB_0KB},	// Castlevania III - Dracula's Curse (U)
-	{0x51D2112F,MMC5WRAM_0KB_0KB},	// Laser Invasion (U)
-	{0x255B129C,MMC5WRAM_0KB_0KB},	// Gun Sight (J)
-	{0xCD9ACF43,MMC5WRAM_0KB_0KB},	// Metal Slader Glory (J)
-	{0xD979C8B7,MMC5WRAM_0KB_0KB},	// Uchuu Keibitai SDF (J)
+	{0x95CA9EC7,MMC5::WRAM_0KB_0KB},	// Castlevania III - Dracula's Curse (U)
+	{0x51D2112F,MMC5::WRAM_0KB_0KB},	// Laser Invasion (U)
+	{0x255B129C,MMC5::WRAM_0KB_0KB},	// Gun Sight (J)
+	{0xCD9ACF43,MMC5::WRAM_0KB_0KB},	// Metal Slader Glory (J)
+	{0xD979C8B7,MMC5::WRAM_0KB_0KB},	// Uchuu Keibitai SDF (J)
 
 	// EKROM
-	{0xE7C72DBB,MMC5WRAM_8KB_0KB},	// Gemfire (U)
-	{0x57F33F70,MMC5WRAM_8KB_0KB},	// *Royal Blood (J) (other site claims ETROM, but this is the same game as Gemfire which is EKROM)
-	{0x5D9D9891,MMC5WRAM_8KB_0KB},	// Just Breed (J)
-	{0xE91548D8,MMC5WRAM_8KB_0KB},	// Shin 4 Nin Uchi Mahjong - Yakuman Tengoku (J)
+	{0xE7C72DBB,MMC5::WRAM_8KB_0KB},	// Gemfire (U)
+	{0x57F33F70,MMC5::WRAM_8KB_0KB},	// *Royal Blood (J) (other site claims ETROM, but this is the same game as Gemfire which is EKROM)
+	{0x5D9D9891,MMC5::WRAM_8KB_0KB},	// Just Breed (J)
+	{0xE91548D8,MMC5::WRAM_8KB_0KB},	// Shin 4 Nin Uchi Mahjong - Yakuman Tengoku (J)
 
 	// ETROM
-	{0x2B548D75,MMC5WRAM_8KB_8KB},	// Bandit Kings of Ancient China (U)
-	{0xE6C28C5F,MMC5WRAM_8KB_8KB},	// Suikoden - Tenmei no Chikai (J)
-	{0x2F50BD38,MMC5WRAM_8KB_8KB},	// L'Empereur (U)
-	{0x8E9A5E2F,MMC5WRAM_8KB_8KB},	// L'Empereur (U) [a1]
-	{0x57E3218B,MMC5WRAM_8KB_8KB},	// L'Empereur (J)
-	{0xB56958D1,MMC5WRAM_8KB_8KB},	// Nobunaga's Ambition 2 (U)
-	{0x98C8E090,MMC5WRAM_8KB_8KB},	// Nobunaga no Yabou - Sengoku Gunyuu Den (J)
-	{0xCD35E2E9,MMC5WRAM_8KB_8KB},	// Uncharted Waters (U)
-	{0xF4CD4998,MMC5WRAM_8KB_8KB},	// Daikoukai Jidai (J)
-	{0x8FA95456,MMC5WRAM_8KB_8KB},	// Ishin no Arashi (J)
+	{0x2B548D75,MMC5::WRAM_8KB_8KB},	// Bandit Kings of Ancient China (U)
+	{0xE6C28C5F,MMC5::WRAM_8KB_8KB},	// Suikoden - Tenmei no Chikai (J)
+	{0x2F50BD38,MMC5::WRAM_8KB_8KB},	// L'Empereur (U)
+	{0x8E9A5E2F,MMC5::WRAM_8KB_8KB},	// L'Empereur (U) [a1]
+	{0x57E3218B,MMC5::WRAM_8KB_8KB},	// L'Empereur (J)
+	{0xB56958D1,MMC5::WRAM_8KB_8KB},	// Nobunaga's Ambition 2 (U)
+	{0x98C8E090,MMC5::WRAM_8KB_8KB},	// Nobunaga no Yabou - Sengoku Gunyuu Den (J)
+	{0xCD35E2E9,MMC5::WRAM_8KB_8KB},	// Uncharted Waters (U)
+	{0xF4CD4998,MMC5::WRAM_8KB_8KB},	// Daikoukai Jidai (J)
+	{0x8FA95456,MMC5::WRAM_8KB_8KB},	// Ishin no Arashi (J)
 
 	// EWROM
-	{0x11EAAD26,MMC5WRAM_32KB_0KB},	// Romance of the Three Kingdoms II (U)
-	{0x286613D8,MMC5WRAM_32KB_0KB},	// Nobunaga no Yabou - Bushou Fuuun Roku (J)
-	{0x95BA5733,MMC5WRAM_32KB_0KB},	// Sangokushi 2 (J)
-	{0xF4120E58,MMC5WRAM_32KB_0KB},	// *Aoki Ookami to Shiroki Mejika - Genchou Hishi (J) (other site claims ETROM, but it explicitly maps banks 0/1/2/3)
+	{0x11EAAD26,MMC5::WRAM_32KB_0KB},	// Romance of the Three Kingdoms II (U)
+	{0x286613D8,MMC5::WRAM_32KB_0KB},	// Nobunaga no Yabou - Bushou Fuuun Roku (J)
+	{0x95BA5733,MMC5::WRAM_32KB_0KB},	// Sangokushi 2 (J)
+	{0xF4120E58,MMC5::WRAM_32KB_0KB},	// *Aoki Ookami to Shiroki Mejika - Genchou Hishi (J) (other site claims ETROM, but it explicitly maps banks 0/1/2/3)
 };
 
 int	CheckSRAM (void)
 {
-	int orig, size = MMC5WRAM_MAXOPTS;
+	int orig, size = MMC5::WRAM_MAXOPTS;
 	unsigned long CRC;
 	// If the ROM is NES 2.0, look at the PRG RAM size byte
 	if (ROM->INES_Version == 2)
@@ -89,16 +89,16 @@ int	CheckSRAM (void)
 		switch (ROM->INES2_PRGRAM)
 		{
 		// officially supported boards
-		case 0x00:	return MMC5WRAM_0KB_0KB;	break;	// ELROM
-		case 0x70:	return MMC5WRAM_8KB_0KB;	break;	// EKROM
-		case 0x77:	return MMC5WRAM_8KB_8KB;	break;	// ETROM
-		case 0x90:	return MMC5WRAM_32KB_0KB;	break;	// EWROM
+		case 0x00:	return MMC5::WRAM_0KB_0KB;	break;	// ELROM
+		case 0x70:	return MMC5::WRAM_8KB_0KB;	break;	// EKROM
+		case 0x77:	return MMC5::WRAM_8KB_8KB;	break;	// ETROM
+		case 0x90:	return MMC5::WRAM_32KB_0KB;	break;	// EWROM
 		// unofficial combinations, but actually supported by MMC5
-		case 0x07:	return MMC5WRAM_0KB_8KB;	break;
-		case 0x09:	return MMC5WRAM_0KB_32KB;	break;
-		case 0x79:	return MMC5WRAM_8KB_32KB;	break;
-		case 0x97:	return MMC5WRAM_32KB_8KB;	break;
-		case 0x99:	return MMC5WRAM_32KB_32KB;	break;
+		case 0x07:	return MMC5::WRAM_0KB_8KB;	break;
+		case 0x09:	return MMC5::WRAM_0KB_32KB;	break;
+		case 0x79:	return MMC5::WRAM_8KB_32KB;	break;
+		case 0x97:	return MMC5::WRAM_32KB_8KB;	break;
+		case 0x99:	return MMC5::WRAM_32KB_32KB;	break;
 		// none of the above
 		default:
 			EMU->DbgOut(_T("NES 2.0 SRAM sizes specified are not supported by the MMC5! Attempting ROM CRC32 lookup..."));
@@ -129,15 +129,15 @@ INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 		switch (MMC5::GetRAMSize())
 		{
 		default:
-		case MMC5WRAM_0KB_0KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_0_0);	break;
-		case MMC5WRAM_0KB_8KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_0_8);	break;
-		case MMC5WRAM_0KB_32KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_0_32);	break;
-		case MMC5WRAM_8KB_0KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_8_0);	break;
-		case MMC5WRAM_8KB_8KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_8_8);	break;
-		case MMC5WRAM_8KB_32KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_8_32);	break;
-		case MMC5WRAM_32KB_0KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_32_0);	break;
-		case MMC5WRAM_32KB_8KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_32_8);	break;
-		case MMC5WRAM_32KB_32KB:CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_32_32);	break;
+		case MMC5::WRAM_0KB_0KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_0_0);	break;
+		case MMC5::WRAM_0KB_8KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_0_8);	break;
+		case MMC5::WRAM_0KB_32KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_0_32);	break;
+		case MMC5::WRAM_8KB_0KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_8_0);	break;
+		case MMC5::WRAM_8KB_8KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_8_8);	break;
+		case MMC5::WRAM_8KB_32KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_8_32);	break;
+		case MMC5::WRAM_32KB_0KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_32_0);	break;
+		case MMC5::WRAM_32KB_8KB:	CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_32_8);	break;
+		case MMC5::WRAM_32KB_32KB:CheckRadioButton(hDlg, IDC_MAPPER5_0_0, IDC_MAPPER5_32_32, IDC_MAPPER5_32_32);	break;
 		}
 		break;
 	case WM_COMMAND:
@@ -145,23 +145,23 @@ INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 		{
 		case IDOK:
 			if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_0_0) == BST_CHECKED)
-				MMC5::SetRAMSize(MMC5WRAM_0KB_0KB);
+				MMC5::SetRAMSize(MMC5::WRAM_0KB_0KB);
 			else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_0_8) == BST_CHECKED)
-				MMC5::SetRAMSize(MMC5WRAM_0KB_8KB);
+				MMC5::SetRAMSize(MMC5::WRAM_0KB_8KB);
 			else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_0_32) == BST_CHECKED)
-				MMC5::SetRAMSize(MMC5WRAM_0KB_32KB);
+				MMC5::SetRAMSize(MMC5::WRAM_0KB_32KB);
 			else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_8_0) == BST_CHECKED)
-				MMC5::SetRAMSize(MMC5WRAM_8KB_0KB);
+				MMC5::SetRAMSize(MMC5::WRAM_8KB_0KB);
 			else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_8_8) == BST_CHECKED)
-				MMC5::SetRAMSize(MMC5WRAM_8KB_8KB);
+				MMC5::SetRAMSize(MMC5::WRAM_8KB_8KB);
 			else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_8_32) == BST_CHECKED)
-				MMC5::SetRAMSize(MMC5WRAM_8KB_32KB);
+				MMC5::SetRAMSize(MMC5::WRAM_8KB_32KB);
 			else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_32_0) == BST_CHECKED)
-				MMC5::SetRAMSize(MMC5WRAM_32KB_0KB);
+				MMC5::SetRAMSize(MMC5::WRAM_32KB_0KB);
 			else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_32_8) == BST_CHECKED)
-				MMC5::SetRAMSize(MMC5WRAM_32KB_8KB);
+				MMC5::SetRAMSize(MMC5::WRAM_32KB_8KB);
 			else if (IsDlgButtonChecked(hDlg, IDC_MAPPER5_32_32) == BST_CHECKED)
-				MMC5::SetRAMSize(MMC5WRAM_32KB_32KB);
+				MMC5::SetRAMSize(MMC5::WRAM_32KB_32KB);
 			SetSRAM();
 			MMC5::SyncPRG();	
 			MessageBox(hWnd, _T("Please perform a SOFT reset to ensure proper functionality!"), _T("INES.DLL"), MB_OK);
@@ -201,27 +201,27 @@ void	SetSRAM (void)
 {
 	switch (MMC5::GetRAMSize())
 	{
-	case MMC5WRAM_0KB_0KB:
-	case MMC5WRAM_0KB_8KB:
-	case MMC5WRAM_0KB_32KB:
+	case MMC5::WRAM_0KB_0KB:
+	case MMC5::WRAM_0KB_8KB:
+	case MMC5::WRAM_0KB_32KB:
 		break;
 
-	case MMC5WRAM_8KB_0KB:
-	case MMC5WRAM_8KB_8KB:
-	case MMC5WRAM_8KB_32KB:
+	case MMC5::WRAM_8KB_0KB:
+	case MMC5::WRAM_8KB_8KB:
+	case MMC5::WRAM_8KB_32KB:
 		if (ROM->INES_Flags & 0x02)
 			EMU->Set_SRAMSize(8192);
 		break;
 
-	case MMC5WRAM_32KB_0KB:
-	case MMC5WRAM_32KB_8KB:
-	case MMC5WRAM_32KB_32KB:
+	case MMC5::WRAM_32KB_0KB:
+	case MMC5::WRAM_32KB_8KB:
+	case MMC5::WRAM_32KB_32KB:
 		if (ROM->INES_Flags & 0x02)
 			EMU->Set_SRAMSize(32768);
 		break;
 
-	case MMC5WRAM_MAXOPTS:
-		MMC5::SetRAMSize(MMC5WRAM_32KB_8KB);
+	case MMC5::WRAM_MAXOPTS:
+		MMC5::SetRAMSize(MMC5::WRAM_32KB_8KB);
 		if (ROM->INES_Flags & 0x02)
 			EMU->Set_SRAMSize(32768);
 		EMU->DbgOut(_T("Unable to determine SRAM size for this game, falling back to 32KB/8KB! Please set it via the GAME menu!"));

@@ -127,7 +127,7 @@ const	unsigned char	AttribShift[128] =
 BOOL	InSplitArea = FALSE;
 int	VScroll;
 int	TileCache, CurTile;
-const	int	WRAMtable[MMC5WRAM_MAXOPTS][8] = {
+const	int	WRAMtable[WRAM_MAXOPTS][8] = {
 	{-1,-1,-1,-1,-1,-1,-1,-1},
 	{ 0, 0, 0, 0,-1,-1,-1,-1},
 	{ 0, 1, 2, 3,-1,-1,-1,-1},

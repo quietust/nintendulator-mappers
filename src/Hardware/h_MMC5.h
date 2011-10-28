@@ -10,19 +10,22 @@
 
 #include	"..\interface.h"
 
-#define	MMC5WRAM_0KB_0KB	0
-#define	MMC5WRAM_8KB_0KB	1
-#define	MMC5WRAM_32KB_0KB	2
-#define	MMC5WRAM_0KB_8KB	3
-#define	MMC5WRAM_8KB_8KB	4
-#define	MMC5WRAM_32KB_8KB	5
-#define	MMC5WRAM_0KB_32KB	6
-#define	MMC5WRAM_8KB_32KB	7
-#define	MMC5WRAM_32KB_32KB	8
-#define	MMC5WRAM_MAXOPTS	9
-
 namespace MMC5
 {
+enum WRAM
+{
+	WRAM_0KB_0KB,
+	WRAM_8KB_0KB,
+	WRAM_32KB_0KB,
+	WRAM_0KB_8KB,
+	WRAM_8KB_8KB,
+	WRAM_32KB_8KB,
+	WRAM_0KB_32KB,
+	WRAM_8KB_32KB,
+	WRAM_32KB_32KB,
+	WRAM_MAXOPTS
+};
+
 void		Load		(int);
 void		Reset		(RESET_TYPE);
 void		Unload		(void);
