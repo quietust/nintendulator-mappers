@@ -5,6 +5,8 @@
  * $Id$
  */
 
+#pragma once
+
 #include	"..\interface.h"
 
 void	iNES_SetMirroring	(void);

@@ -5,12 +5,11 @@
  * $Id$
  */
 
+#pragma once
+
 #ifndef	WIN32_LEAN_AND_MEAN
 #define	WIN32_LEAN_AND_MEAN
 #endif
-
-#ifndef	INTERFACE_H
-#define	INTERFACE_H
 
 /* Standard header files, used by all mappers */
 
@@ -310,5 +309,3 @@ extern	HWND			hWnd;
 extern	HINSTANCE		hInstance;
 extern	const EmulatorInterface	*EMU;
 extern	const ROMInfo		*ROM;
-
-#endif	/* INTERFACE_H */

@@ -5,8 +5,7 @@
  * $Id$
  */
 
-#ifndef	S_N163_H
-#define	S_N163_H
+#pragma once
 
 namespace N163sound
 {
@@ -18,5 +17,3 @@ void		Write		(int,int);
 int	MAPINT	Get		(int);
 int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
 } // namespace N163sound
-
-#endif	// S_N163_H

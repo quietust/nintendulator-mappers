@@ -5,8 +5,7 @@
  * $Id$
  */
 
-#ifndef	H_MMC4_H
-#define	H_MMC4_H
+#pragma once
 
 #include	"..\interface.h"
 
@@ -28,5 +27,3 @@ void	MAPINT	CPUWriteF	(int,int,int);
 int	MAPINT	PPURead3	(int,int);
 int	MAPINT	PPURead7	(int,int);
 } // namespace MMC4
-
-#endif	// H_MMC4_H

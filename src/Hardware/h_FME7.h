@@ -5,8 +5,7 @@
  * $Id$
  */
 
-#ifndef	H_FME7_H
-#define	H_FME7_H
+#pragma once
 
 #include	"..\interface.h"
 
@@ -25,5 +24,3 @@ void	MAPINT	WriteCDEF	(int,int,int);
 void	MAPINT	CPUCycle	(void);
 int	MAPINT	GenSound	(int);
 } // namespace FME7
-
-#endif	// H_FME7_H

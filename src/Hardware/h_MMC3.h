@@ -5,8 +5,7 @@
  * $Id$
  */
 
-#ifndef	H_MMC3_H
-#define	H_MMC3_H
+#pragma once
 
 #include	"..\interface.h"
 
@@ -30,5 +29,3 @@ void	MAPINT	CPUWriteCD	(int,int,int);
 void	MAPINT	CPUWriteEF	(int,int,int);
 void	MAPINT	PPUCycle	(int,int,int,int);
 } // namespace MMC3
-
-#endif	// H_MMC3_H

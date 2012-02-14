@@ -5,8 +5,7 @@
  * $Id$
  */
 
-#ifndef	H_VS_H
-#define	H_VS_H
+#pragma once
 
 #include	"..\interface.h"
 
@@ -20,5 +19,3 @@ int		MAPINT	Read		(int,int);
 void		MAPINT	CPUCycle	(void);
 unsigned char	MAPINT	Config		(CFG_TYPE,unsigned char);
 } // namespace VS
-
-#endif	// H_VS_H

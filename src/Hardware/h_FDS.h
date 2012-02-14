@@ -5,8 +5,7 @@
  * $Id$
  */
 
-#ifndef	H_FDS_H
-#define	H_FDS_H
+#pragma once
 
 #include	"..\interface.h"
 
@@ -22,5 +21,3 @@ int		MAPINT	MapperSnd	(int);
 int		MAPINT	Read		(int,int);
 void		MAPINT	Write		(int,int,int);
 } // namespace FDS
-
-#endif	// H_FDS_H

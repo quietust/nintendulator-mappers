@@ -5,8 +5,7 @@
  * $Id$
  */
 
-#ifndef	S_MMC5_H
-#define	S_MMC5_H
+#pragma once
 
 namespace MMC5sound
 {
@@ -19,5 +18,3 @@ int	MAPINT	Get		(int);
 int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
 BOOL		HaveIRQ		(void);
 } // namespace MMC5sound
-
-#endif	// S_MMC5_H

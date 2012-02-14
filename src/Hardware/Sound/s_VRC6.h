@@ -5,8 +5,7 @@
  * $Id$
  */
 
-#ifndef	S_VRC6_H
-#define	S_VRC6_H
+#pragma once
 
 namespace VRC6sound
 {
@@ -17,5 +16,3 @@ void		Write		(int,int);
 int	MAPINT	Get		(int);
 int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
 } // namespace VRC6sound
-
-#endif	// S_VRC6_H

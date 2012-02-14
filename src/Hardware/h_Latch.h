@@ -5,8 +5,7 @@
  * $Id$
  */
 
-#ifndef H_LATCH_H
-#define	H_LATCH_H
+#pragma once
 
 #include	"..\interface.h"
 
@@ -26,5 +25,3 @@ int	MAPINT	SaveLoad_A	(STATE_TYPE,int,unsigned char *);
 int	MAPINT	SaveLoad_D	(STATE_TYPE,int,unsigned char *);
 void	MAPINT	Write		(int,int,int);
 } // namespace Latch
-
-#endif	// H_LATCH_H

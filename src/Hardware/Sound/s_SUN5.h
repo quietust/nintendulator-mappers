@@ -5,8 +5,7 @@
  * $Id$
  */
 
-#ifndef	S_SUN5_H
-#define	S_SUN5_H
+#pragma once
 
 namespace SUN5sound
 {
@@ -17,5 +16,3 @@ void		Write		(int,int);
 int	MAPINT	Get		(int);
 int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
 } // namespace SUN5sound
-
-#endif	// S_SUN5_H

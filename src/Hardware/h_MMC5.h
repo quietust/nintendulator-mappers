@@ -5,8 +5,7 @@
  * $Id$
  */
 
-#ifndef	H_MMC5_H
-#define	H_MMC5_H
+#pragma once
 
 #include	"..\interface.h"
 
@@ -45,5 +44,3 @@ void	MAPINT	CPUWrite6F	(int,int,int);
 void	MAPINT	PPUCycle	(int,int,int,int);
 int	MAPINT	MapperSnd	(int);
 } // namespace MMC5
-
-#endif	// H_MMC5_H

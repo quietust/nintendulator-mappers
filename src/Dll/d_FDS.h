@@ -5,6 +5,8 @@
  * $Id$
  */
 
+#pragma once
+
 #include	"..\interface.h"
 
 extern	const MapperInfo MapperInfo_FDS;

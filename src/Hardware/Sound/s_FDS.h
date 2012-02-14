@@ -5,8 +5,7 @@
  * $Id$
  */
 
-#ifndef	S_FDS_H
-#define	S_FDS_H
+#pragma once
 
 namespace FDSsound
 {
@@ -18,5 +17,3 @@ void		Write		(int,int);
 int	MAPINT	Get		(int);
 int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
 } // namespace FDSsound
-
-#endif	// S_FDS_H

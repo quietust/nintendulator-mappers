@@ -5,8 +5,7 @@
  * $Id$
  */
 
-#ifndef	H_MMC1_H
-#define	H_MMC1_H
+#pragma once
 
 #include	"..\interface.h"
 
@@ -30,5 +29,3 @@ void		SyncCHR_ROM	(int,int);
 void		SyncCHR_RAM	(int,int);
 void		SyncWRAM	(void);
 } // namespace MMC1
-
-#endif	// H_MMC1_H

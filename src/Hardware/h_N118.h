@@ -5,8 +5,7 @@
  * $Id$
  */
 
-#ifndef	H_N118_H
-#define	H_N118_H
+#pragma once
 
 #include	"..\interface.h"
 
@@ -22,5 +21,3 @@ void		SyncCHR		(void);
 int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
 void	MAPINT	CPUWrite89	(int,int,int);
 } // namespace N118
-
-#endif	// H_N118_H
