@@ -35,7 +35,6 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
 
-	EMU->SetCPUWriteHandler(0x6, Write);
 	EMU->SetCPUWriteHandler(0x7, Write);
 
 	if (ResetType == RESET_HARD)
