@@ -25,7 +25,7 @@ int16 LineCounter;
 uint8 SpriteMode;
 uint8 *NameTable0, *NameTable1, *ExRAM, *ExNameTable;
 FCPUWrite _WritePPU;
-FCPUWrite _CPUWrite6F;
+FCPUWrite _CPUWrite[10];
 FPPURead _PPURead[16];
 
 //#define	MMC5_EXTENDED_VSPLIT	/* equivalent to selecting 'SL' mode on a cartridge rather than 'CL' mode */
@@ -171,9 +171,11 @@ void	Reset (RESET_TYPE ResetType)
 
 	EMU->SetCPUReadHandler(0x5, CPURead5);
 	EMU->SetCPUWriteHandler(0x5, CPUWrite5);
-	_CPUWrite6F = EMU->GetCPUWriteHandler(0x8);
 	for (int i = 0x6; i < 0x10; i++)
+	{
+		_CPUWrite[i - 0x6] = EMU->GetCPUWriteHandler(i);
 		EMU->SetCPUWriteHandler(i, CPUWrite6F);
+	}
 	for (int i = 0x0; i < 0x10; i++)
 		_PPURead[i] = EMU->GetPPUReadHandler(i);
 	
@@ -514,7 +516,7 @@ void	MAPINT	CPUWrite5 (int Bank, int Addr, int Val)
 void	MAPINT	CPUWrite6F (int Bank, int Addr, int Val)
 {
 	if ((WRAMprot[0] == 2) && (WRAMprot[1] == 1))
-		_CPUWrite6F(Bank, Addr, Val);
+		_CPUWrite[Bank-6](Bank, Addr, Val);
 }
 
 #ifdef	MMC5_EXTENDED_VSPLIT
