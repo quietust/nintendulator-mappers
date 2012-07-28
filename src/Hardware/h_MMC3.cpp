@@ -16,7 +16,7 @@ uint8 PRG[4];
 uint8 CHR[8];
 uint8 WRAMEnab;
 uint8 Mirror;
-FCPUWrite _CPUWrite6, _CPUWrite7;
+FCPUWrite _CPUWrite[2];
 FSync Sync;
 
 void	Load (FSync _Sync)
@@ -42,10 +42,10 @@ void	Reset (RESET_TYPE ResetType)
 			Mirror = (ROM->INES_Flags & 0x01) ? 0 : 1;
 		else	Mirror = 0;
 	}
-	_CPUWrite6 = EMU->GetCPUWriteHandler(0x6);
-	_CPUWrite7 = EMU->GetCPUWriteHandler(0x7);
-	EMU->SetCPUWriteHandler(0x6, CPUWrite6);
-	EMU->SetCPUWriteHandler(0x7, CPUWrite7);
+	_CPUWrite[0] = EMU->GetCPUWriteHandler(0x6);
+	_CPUWrite[1] = EMU->GetCPUWriteHandler(0x7);
+	EMU->SetCPUWriteHandler(0x6, CPUWrite67);
+	EMU->SetCPUWriteHandler(0x7, CPUWrite67);
 	EMU->SetCPUWriteHandler(0x8, CPUWrite89);
 	EMU->SetCPUWriteHandler(0x9, CPUWrite89);
 	EMU->SetCPUWriteHandler(0xA, CPUWriteAB);
@@ -144,16 +144,10 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	return offset;
 }
 
-void	MAPINT	CPUWrite6 (int Bank, int Addr, int Val)
+void	MAPINT	CPUWrite67 (int Bank, int Addr, int Val)
 {
 	if (!(WRAMEnab & 0x40))
-		_CPUWrite6(Bank, Addr, Val);
-}
-
-void	MAPINT	CPUWrite7 (int Bank, int Addr, int Val)
-{
-	if (!(WRAMEnab & 0x40))
-		_CPUWrite7(Bank, Addr, Val);
+		_CPUWrite[Bank - 6](Bank, Addr, Val);
 }
 
 void	MAPINT	CPUWrite89 (int Bank, int Addr, int Val)
