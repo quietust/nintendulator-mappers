@@ -5,8 +5,6 @@
  * $Id$
  */
 
-/***********************************************************************************
-
 /* Modified for usage in VRC7 sound emulation
 
   Copyright (C) Mitsutaka Okazaki 2004
@@ -28,6 +26,8 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
+
+/***********************************************************************************
 
 	emu2413.c -- YM2413 emulator written by Mitsutaka Okazaki 2001
 
