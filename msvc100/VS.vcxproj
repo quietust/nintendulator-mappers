@@ -81,6 +81,7 @@
     <ClCompile Include="..\src\VS\mapper002.cpp" />
     <ClCompile Include="..\src\VS\mapper004.cpp" />
     <ClCompile Include="..\src\VS\mapper068.cpp" />
+    <ClCompile Include="..\src\VS\mapper075.cpp" />
     <ClCompile Include="..\src\VS\mapper099.cpp" />
     <ClCompile Include="..\src\VS\mapper151.cpp" />
     <ClCompile Include="..\src\VS\unimplemented.cpp" />
