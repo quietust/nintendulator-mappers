@@ -124,7 +124,7 @@ const MapperInfo MapperInfo_075 =
 
 const MapperInfo MapperInfo_151 =
 {
-	&MapperNum,
+	&MapperNum2,
 	_T("Konami VRC1"),
 	COMPAT_FULL,
 	Load,
