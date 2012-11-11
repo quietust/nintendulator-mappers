@@ -107,6 +107,7 @@
     <ClCompile Include="..\src\iNES\mapper024.cpp" />
     <ClCompile Include="..\src\iNES\mapper025.cpp" />
     <ClCompile Include="..\src\iNES\mapper026.cpp" />
+    <ClCompile Include="..\src\iNES\mapper028.cpp" />
     <ClCompile Include="..\src\iNES\mapper032.cpp" />
     <ClCompile Include="..\src\iNES\mapper033.cpp" />
     <ClCompile Include="..\src\iNES\mapper034.cpp" />
