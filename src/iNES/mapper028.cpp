@@ -63,16 +63,6 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	return offset;
 }
 
-void	MAPINT	CPUCycle (void)
-{
-	if (IRQenabled)
-	{
-		IRQcounter.s0++;
-		if (IRQcounter.s0 >= 24576)
-			EMU->SetIRQ(0);
-	}
-}
-
 void	MAPINT	WriteLow (int Bank, int Addr, int Val)
 {
 	regSel = Val;
@@ -128,7 +118,7 @@ const MapperInfo MapperInfo_028 =
 	NULL,
 	Reset,
 	NULL,
-	CPUCycle,
+	NULL,
 	NULL,
 	SaveLoad,
 	NULL,
