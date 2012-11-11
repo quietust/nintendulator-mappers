@@ -18,25 +18,25 @@ void	Sync (void)
 	switch (regVal[2] & 0x3)
 	{
 	case 0:	EMU->Mirror_S0();	break;
-	case 1:	EMU->Mirror_S0();	break;
+	case 1:	EMU->Mirror_S1();	break;
 	case 2:	EMU->Mirror_V();	break;
 	case 3:	EMU->Mirror_H();	break;
 	}
 
-	int bank32, bank16;
+	int bank32 = regVal[3], bank16 = regVal[3] << 1;
 	switch ((regVal[2] & 0x30) >> 4)
 	{
-	case 0:	bank32 = regVal[3];
-		bank16 = (regVal[3] << 1) | (regVal[0] & 0x1);
+	case 0:	bank32 = (bank32 & 0x3F) | (regVal[1] & 0x0);
+		bank16 = (bank16 & 0x7E) | (regVal[1] & 0x1);
 		break;
-	case 1:	bank32 = (regVal[3] << 1) | (regVal[0] & 0x1);
-		bank16 = (regVal[3] << 2) | (regVal[0] & 0x3);
+	case 1:	bank32 = (bank32 & 0x3E) | (regVal[1] & 0x1);
+		bank16 = (bank16 & 0x7C) | (regVal[1] & 0x3);
 		break;
-	case 2:	bank32 = (regVal[3] << 2) | (regVal[0] & 0x3);
-		bank16 = (regVal[3] << 3) | (regVal[0] & 0x7);
+	case 2:	bank32 = (bank32 & 0x3C) | (regVal[1] & 0x3);
+		bank16 = (bank16 & 0x78) | (regVal[1] & 0x7);
 		break;
-	case 3:	bank32 = (regVal[3] << 3) | (regVal[0] & 0x7);
-		bank16 = (regVal[3] << 4) | (regVal[0] & 0xF);
+	case 3:	bank32 = (bank32 & 0x38) | (regVal[1] & 0x7);
+		bank16 = (bank16 & 0x70) | (regVal[1] & 0xF);
 		break;
 	}
 	switch ((regVal[2] & 0x0C) >> 2)
@@ -85,7 +85,7 @@ void	MAPINT	WriteHigh (int Bank, int Addr, int Val)
 		break;
 	}
 	if (!(regSel & 0x80) && !(regVal[2] & 0x2))
-		regVal[2] = (regVal[2] & 0xFC) | (Val & 0x10) >> 4;
+		regVal[2] = (regVal[2] & 0xFE) | ((Val & 0x10) >> 4);
 	Sync();
 }
 
