@@ -56,7 +56,7 @@ struct
 
 	// EKROM
 	{0xE7C72DBB,MMC5::WRAM_8KB_0KB},	// Gemfire (U)
-	{0x57F33F70,MMC5::WRAM_8KB_0KB},	// *Royal Blood (J) (other site claims ETROM, but this is the same game as Gemfire which is EKROM)
+	{0x57F33F70,MMC5::WRAM_8KB_0KB},	// Royal Blood (J)
 	{0x5D9D9891,MMC5::WRAM_8KB_0KB},	// Just Breed (J)
 	{0xE91548D8,MMC5::WRAM_8KB_0KB},	// Shin 4 Nin Uchi Mahjong - Yakuman Tengoku (J)
 
@@ -76,7 +76,7 @@ struct
 	{0x11EAAD26,MMC5::WRAM_32KB_0KB},	// Romance of the Three Kingdoms II (U)
 	{0x286613D8,MMC5::WRAM_32KB_0KB},	// Nobunaga no Yabou - Bushou Fuuun Roku (J)
 	{0x95BA5733,MMC5::WRAM_32KB_0KB},	// Sangokushi 2 (J)
-	{0xF4120E58,MMC5::WRAM_32KB_0KB},	// *Aoki Ookami to Shiroki Mejika - Genchou Hishi (J) (other site claims ETROM, but it explicitly maps banks 0/1/2/3)
+	{0xF4120E58,MMC5::WRAM_32KB_0KB},	// Aoki Ookami to Shiroki Mejika - Genchou Hishi (J)
 };
 
 int	CheckSRAM (void)
