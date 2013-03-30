@@ -64,7 +64,6 @@ struct
 	{0x2B548D75,MMC5::WRAM_8KB_8KB},	// Bandit Kings of Ancient China (U)
 	{0xE6C28C5F,MMC5::WRAM_8KB_8KB},	// Suikoden - Tenmei no Chikai (J)
 	{0x2F50BD38,MMC5::WRAM_8KB_8KB},	// L'Empereur (U)
-	{0x8E9A5E2F,MMC5::WRAM_8KB_8KB},	// L'Empereur (U) [a1]
 	{0x57E3218B,MMC5::WRAM_8KB_8KB},	// L'Empereur (J)
 	{0xB56958D1,MMC5::WRAM_8KB_8KB},	// Nobunaga's Ambition 2 (U)
 	{0x98C8E090,MMC5::WRAM_8KB_8KB},	// Nobunaga no Yabou - Sengoku Gunyuu Den (J)
