@@ -311,6 +311,9 @@
 					RelativePath="..\src\iNES\mapper026.cpp">
 				</File>
 				<File
+					RelativePath="..\src\iNES\mapper028.cpp">
+				</File>
+				<File
 					RelativePath="..\src\iNES\mapper032.cpp">
 				</File>
 				<File
