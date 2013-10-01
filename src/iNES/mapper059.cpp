@@ -40,7 +40,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	return offset;
 }
 
-LRESULT CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -77,7 +77,7 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 		{
 			if (ConfigWindow)
 				break;
-			ConfigWindow = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_MAPPER59), hWnd, (DLGPROC)ConfigProc);
+			ConfigWindow = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_MAPPER59), hWnd, ConfigProc);
 			SetWindowPos(ConfigWindow, hWnd, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOSIZE);
 		}
 		else	return FALSE;
