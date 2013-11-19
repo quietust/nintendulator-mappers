@@ -32,12 +32,12 @@ void	Sync (void)
 	if (WhichGame & 0x40)
 	{
 		CHRmask = 0x7F;
-		CHRbank = ((WhichGame & 0x20) >> 3) | ((WhichGame & 0x10) >> 4) | ((WhichGame & 0x04) >> 1);
+		CHRbank = ((WhichGame & 0x20) >> 3) | ((WhichGame & 0x04) >> 1) | ((WhichGame & 0x10) >> 4);
 	}
 	else
 	{
 		CHRmask = 0xFF;
-		CHRbank = ((WhichGame & 0x20) >> 3) | ((WhichGame & 0x10) >> 4);
+		CHRbank = ((WhichGame & 0x20) >> 3) | ((WhichGame & 0x04) >> 1);
 	}
 	MMC3::SyncMirror();
 	MMC3::SyncPRG(PRGmask, PRGbank << 4);
