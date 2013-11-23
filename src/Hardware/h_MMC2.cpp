@@ -90,7 +90,7 @@ void	SyncMirror (void)
 int	MAPINT	PPURead3 (int Bank, int Addr)
 {
 	int result = _PPURead3(Bank, Addr);
-	register int addy = Addr & 0x3F8;
+	register int addy = Addr & 0x3FF; // different from Read7!
 	if (addy == 0x3D8)
 	{
 		LatchState[0] = 0;
