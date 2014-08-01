@@ -11,6 +11,7 @@ namespace
 {
 uint8 IRQenabled, IRQcounter, IRQlatch, IRQmode, IRQreload;
 uint16 IRQaddr;
+uint8 IRQclock;
 uint8 Cmd;
 uint8 PRG[3];
 uint8 CHR[8];
@@ -83,17 +84,34 @@ void	HBlank (void)
 
 void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
-	if (!(IRQmode) && (IsRendering) && (Cycle == 264))
-		HBlank();
+	if (IRQmode)
+		return;
+	if (IRQaddr)
+		IRQaddr--;
+	if ((!IRQaddr) && (Addr & 0x1000))
+		IRQclock = 1;
+	if (Addr & 0x1000)
+		IRQaddr = 8;
 }
 
 int cycles = 4;
 void	MAPINT	CPUCycle (void)
 {
+	if (IRQclock)
+	{
+		unsigned char count = IRQcounter;
+		if (!IRQcounter || IRQreload)
+			IRQcounter = IRQlatch;
+		else	IRQcounter--;
+		if ((count || IRQreload) && !IRQcounter && IRQenabled) 
+			EMU->SetIRQ(0);
+		IRQreload = 0;
+		IRQclock = 0;
+	}
 	if ((IRQmode) && (!--cycles))
 	{
 		cycles = 4;
-		HBlank();
+		IRQclock = 1;
 	}
 }
 
@@ -160,6 +178,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 			CHR[i] = i;
 		IRQenabled = IRQcounter = IRQlatch = IRQmode = IRQreload = 0;
 		IRQaddr = 0;
+		IRQclock = 0;
 		Cmd = 0;
 		Mirror = 0;
 	}
