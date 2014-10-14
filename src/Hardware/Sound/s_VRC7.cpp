@@ -1485,24 +1485,80 @@ int	MAPINT	Get (int numCycles)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	if (mode == STATE_SAVE)
+	int i;
+	SAVELOAD_LONG(mode,offset,data,OPL->adr);
+	SAVELOAD_LONG(mode,offset,data,OPL->out);
+	SAVELOAD_LONG(mode,offset,data,OPL->realstep);
+	SAVELOAD_LONG(mode,offset,data,OPL->oplltime);
+	SAVELOAD_LONG(mode,offset,data,OPL->opllstep);
+	SAVELOAD_LONG(mode,offset,data,OPL->prev);
+	SAVELOAD_LONG(mode,offset,data,OPL->next);
+	for (i = 0; i < 6; i++)
 	{
-		memcpy(data + offset, OPL, sizeof(OPLL));
-		offset += sizeof(OPLL);
+		SAVELOAD_BYTE(mode,offset,data,OPL->LowFreq[i]);
+		SAVELOAD_BYTE(mode,offset,data,OPL->HiFreq[i]);
+		SAVELOAD_BYTE(mode,offset,data,OPL->InstVol[i]);
 	}
-	else if (mode == STATE_LOAD)
+	for (i = 0; i < 8; i++)
+		SAVELOAD_BYTE(mode,offset,data,OPL->CustInst[i]);
+	for (i = 0; i < 12; i++)
+		SAVELOAD_LONG(mode,offset,data,OPL->slot_on_flag[i]);
+	SAVELOAD_LONG(mode,offset,data,OPL->pm_phase);
+	SAVELOAD_LONG(mode,offset,data,OPL->lfo_pm);
+	SAVELOAD_LONG(mode,offset,data,OPL->am_phase);
+	SAVELOAD_LONG(mode,offset,data,OPL->lfo_am);
+	SAVELOAD_LONG(mode,offset,data,OPL->quality);
+	for (i = 0; i < 6; i++)
 	{
-		memcpy(OPL, data + offset, sizeof(OPLL));
-		offset += sizeof(OPLL);
+		SAVELOAD_LONG(mode,offset,data,OPL->patch_number[i]);
+		SAVELOAD_LONG(mode,offset,data,OPL->key_status[i]);
+	}
+	for (i = 0; i < 12; i++)
+	{
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].patch.TL);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].patch.FB);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].patch.EG);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].patch.ML);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].patch.AR);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].patch.DR);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].patch.SL);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].patch.RR);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].patch.KR);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].patch.KL);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].patch.AM);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].patch.PM);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].patch.WF);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].type);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].feedback);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].output[0]);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].output[1]);
+		// commented fields are recalculated
+//		SAVELOAD_WORD(mode,offset,data,OPL->slot[i].sintbl[0]);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].phase);
+//		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].dphase);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].pgout);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].fnum);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].block);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].volume);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].sustine);
+//		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].tll);
+//		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].rks);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].eg_mode);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].eg_phase);
+//		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].eg_dphase);
+		SAVELOAD_LONG(mode,offset,data,OPL->slot[i].egout);
+	}
+
+	SAVELOAD_LONG(mode,offset,data,OPL->mask);
+
+	if (mode == STATE_LOAD)
+	{
 		for (int i = 0; i < 6; i++)
 		{
 			UPDATE_ALL(MOD(OPL, i));
 			UPDATE_ALL(CAR(OPL, i));
 		}
 	}
-	else if (mode == STATE_SIZE)
-		offset += sizeof(OPLL);
-	else	MessageBox(hWnd, _T("Invalid save/load type!"), _T(__FILE__), MB_OK);
 	SAVELOAD_BYTE(mode, offset, data, regAddr);
 	return offset;
 }
