@@ -131,8 +131,7 @@ void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 	case 0xB:	PRG[3] = Val & 0x3F;	break;
 	case 0xC:	Mirror = Val & 3;	break;
 	case 0xD:	IRQenabled = Val & 0x81;
-			if (IRQenabled != 0x81)
-				EMU->SetIRQ(1);		break;
+			EMU->SetIRQ(1);		break;
 	case 0xE:	IRQcounter.b0 = Val;	break;
 	case 0xF:	IRQcounter.b1 = Val;	break;
 	}
