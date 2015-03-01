@@ -57,7 +57,7 @@ void	MAPINT	Unload (void)
 	MMC3::Unload();
 }
 
-uint8 MapperNum = 115;
+uint16 MapperNum = 115;
 } // namespace
 
 const MapperInfo MapperInfo_115 =

@@ -181,8 +181,8 @@ void	MAPINT	Unload (void)
 	VRC6sound::Unload();
 }
 
-uint8 MapperNum = 24;
-uint8 MapperNum2 = 26;
+uint16 MapperNum = 24;
+uint16 MapperNum2 = 26;
 } // namespace
 
 const MapperInfo MapperInfo_024 =

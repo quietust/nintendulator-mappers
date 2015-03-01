@@ -374,8 +374,8 @@ void	MAPINT	Unload (void)
 	SaveEEPROM = NULL;
 }
 
-uint8 MapperNum = 16;
-uint8 MapperNum2 = 159;
+uint16 MapperNum = 16;
+uint16 MapperNum2 = 159;
 } // namespace
 
 const MapperInfo MapperInfo_016 =

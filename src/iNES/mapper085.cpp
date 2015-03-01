@@ -188,7 +188,7 @@ void	MAPINT	Unload (void)
 	VRC7sound::Unload();
 }
 
-uint8 MapperNum = 85;
+uint16 MapperNum = 85;
 } // namespace
 
 const MapperInfo MapperInfo_085 =

@@ -118,7 +118,7 @@ void	MAPINT	Unload (void)
 	}
 }
 
-uint8 MapperNum = 59;
+uint16 MapperNum = 59;
 } // namespace
 
 const MapperInfo MapperInfo_059 =

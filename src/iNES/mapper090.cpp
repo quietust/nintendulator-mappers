@@ -460,9 +460,9 @@ void	MAPINT	Unload (void)
 	}
 }
 
-uint8 MapperNum = 90;
-uint8 MapperNum2 = 209;
-uint8 MapperNum3 = 211;
+uint16 MapperNum = 90;
+uint16 MapperNum2 = 209;
+uint16 MapperNum3 = 211;
 } // namespace
 
 const MapperInfo MapperInfo_090 =

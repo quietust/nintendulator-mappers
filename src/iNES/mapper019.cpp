@@ -211,8 +211,8 @@ void	MAPINT	Unload (void)
 	N163sound::Unload();
 }
 
-uint8 MapperNum = 19;
-uint8 MapperNum2 = 210;
+uint16 MapperNum = 19;
+uint16 MapperNum2 = 210;
 } // namespace
 
 const MapperInfo MapperInfo_019 =

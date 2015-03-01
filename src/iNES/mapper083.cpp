@@ -137,7 +137,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-uint8 MapperNum = 83;
+uint16 MapperNum = 83;
 } // namespace
 
 const MapperInfo MapperInfo_083 =

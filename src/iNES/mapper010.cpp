@@ -34,7 +34,7 @@ void	MAPINT	Unload (void)
 	MMC4::Unload();
 }
 
-uint8 MapperNum = 10;
+uint16 MapperNum = 10;
 } // namespace
 
 const MapperInfo MapperInfo_010 =

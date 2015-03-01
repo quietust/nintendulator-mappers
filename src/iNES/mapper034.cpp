@@ -99,7 +99,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 }
 
-uint8 MapperNum = 34;
+uint16 MapperNum = 34;
 } // namespace
 
 const MapperInfo MapperInfo_034 =
