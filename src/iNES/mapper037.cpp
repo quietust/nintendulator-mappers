@@ -55,6 +55,7 @@ BOOL	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
+	EMU->SetCPUWriteHandler(0x6, Write);
 	EMU->SetCPUWriteHandler(0x7, Write);
 	MMC3::Reset(ResetType);
 
