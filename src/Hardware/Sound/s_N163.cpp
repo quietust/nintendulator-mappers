@@ -60,9 +60,9 @@ struct	N163chan
 			break;
 		case 4:	freqh = Val & 3;
 			freq = freql | (freqm << 8) | (freqh << 16);
-			if (len != 0x20 - (Val & 0x1C))
+			if (len != 0x100 - (Val & 0xFC))
 			{
-				len = 0x20 - (Val & 0x1C);
+				len = 0x100 - (Val & 0xFC);
 				CurA = 0;
 			}
 			break;
