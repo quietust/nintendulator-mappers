@@ -19,7 +19,7 @@ struct	N163chan
 {
 	uint8 freql, freqm, freqh;
 	uint32 freq;
-	uint8 len;
+	uint16 len;
 	uint8 baseaddr;
 	uint8 volume;
 	uint8 CurP;
