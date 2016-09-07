@@ -417,7 +417,14 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 		if (data)
 		{
 			if (ControlWindow)
+			{
+				// if it's already open, reset song number and NTSC/PAL toggle to current values (which may have been Hard Reset)
+				SetDlgItemInt(ControlWindow, IDC_NSF_PLAYING, songnum + 1, FALSE);
+				SendDlgItemMessage(ControlWindow, IDC_NSF_SELECT, TBM_SETPOS, TRUE, songnum);
+				SetDlgItemInt(ControlWindow, IDC_NSF_SELECTED, songnum + 1, FALSE);
+				CheckRadioButton(ControlWindow, IDC_NSF_NTSC, IDC_NSF_PAL, (ntscpal ? IDC_NSF_PAL : IDC_NSF_NTSC));
 				break;
+			}
 			ControlWindow = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_NSF), hWnd, ControlProc);
 			SetWindowPos(ControlWindow, hWnd, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOSIZE);
 		}
