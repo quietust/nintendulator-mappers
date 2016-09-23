@@ -15,13 +15,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -61,10 +59,8 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "BMC-T3H53 - Jumper Settings"
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    CONTROL         "Jumper &0",IDC_BMC_T3H53_J0,"Button",BS_AUTOCHECKBOX | 
-                    BS_VCENTER | WS_TABSTOP,8,8,52,12
-    CONTROL         "Jumper &1",IDC_BMC_T3H53_J1,"Button",BS_AUTOCHECKBOX | 
-                    BS_VCENTER | WS_TABSTOP,8,24,52,13
+    CONTROL         "Jumper &0",IDC_BMC_T3H53_J0,"Button",BS_AUTOCHECKBOX | BS_VCENTER | WS_TABSTOP,8,8,52,12
+    CONTROL         "Jumper &1",IDC_BMC_T3H53_J1,"Button",BS_AUTOCHECKBOX | BS_VCENTER | WS_TABSTOP,8,24,52,13
     DEFPUSHBUTTON   "OK",IDOK,72,8,52,12
     PUSHBUTTON      "Cancel",IDCANCEL,72,24,52,13
 END
@@ -74,8 +70,7 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Drip - Jumper Setting"
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    CONTROL         "Jumper &0",IDC_UNL_DRIPGAME_J0,"Button",BS_AUTOCHECKBOX | 
-                    BS_VCENTER | WS_TABSTOP,8,8,52,12
+    CONTROL         "Jumper &0",IDC_UNL_DRIPGAME_J0,"Button",BS_AUTOCHECKBOX | BS_VCENTER | WS_TABSTOP,8,8,52,12
     DEFPUSHBUTTON   "OK",IDOK,72,8,52,12
     PUSHBUTTON      "Cancel",IDCANCEL,72,24,52,13
 END
@@ -87,7 +82,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_BMC_T3H53, DIALOG
     BEGIN
@@ -115,7 +110,7 @@ BEGIN
 END
 #endif    // APSTUDIO_INVOKED
 
-#endif    // English (U.S.) resources
+#endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

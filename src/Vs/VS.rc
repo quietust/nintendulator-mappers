@@ -15,13 +15,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -57,7 +55,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_VS, DIALOG
     BEGIN
@@ -85,34 +83,25 @@ END
 //
 
 IDD_VS DIALOGEX 0, 0, 124, 73
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "VS Controls"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    CONTROL         "DIP Switch &1",IDC_VS_DIP0,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,4,4,56,8
-    CONTROL         "DIP Switch &2",IDC_VS_DIP1,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,4,12,56,8
-    CONTROL         "DIP Switch &3",IDC_VS_DIP2,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,4,20,56,8
-    CONTROL         "DIP Switch &4",IDC_VS_DIP3,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,4,28,56,8
-    CONTROL         "DIP Switch &5",IDC_VS_DIP4,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,4,36,56,8
-    CONTROL         "DIP Switch &6",IDC_VS_DIP5,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,4,44,56,8
-    CONTROL         "DIP Switch &7",IDC_VS_DIP6,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,4,52,56,8
-    CONTROL         "DIP Switch &8",IDC_VS_DIP7,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,4,60,56,8
+    CONTROL         "DIP Switch &1",IDC_VS_DIP0,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,4,56,8
+    CONTROL         "DIP Switch &2",IDC_VS_DIP1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,12,56,8
+    CONTROL         "DIP Switch &3",IDC_VS_DIP2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,20,56,8
+    CONTROL         "DIP Switch &4",IDC_VS_DIP3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,28,56,8
+    CONTROL         "DIP Switch &5",IDC_VS_DIP4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,36,56,8
+    CONTROL         "DIP Switch &6",IDC_VS_DIP5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,44,56,8
+    CONTROL         "DIP Switch &7",IDC_VS_DIP6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,52,56,8
+    CONTROL         "DIP Switch &8",IDC_VS_DIP7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,60,56,8
     PUSHBUTTON      "&Left Coin",IDC_VS_COIN1,64,4,56,16
     PUSHBUTTON      "&Right Coin",IDC_VS_COIN2,64,20,56,16
     PUSHBUTTON      "&Service Coin",IDC_VS_COIN3,64,36,56,16
     DEFPUSHBUTTON   "Close",IDCANCEL,64,52,56,16
 END
 
-#endif    // English (U.S.) resources
+#endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
