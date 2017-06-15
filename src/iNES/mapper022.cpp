@@ -21,13 +21,9 @@ void	Sync (void)
 	EMU->SetPRG_ROM16(0xC, 0x7);
 	for (int i = 0; i < 8; i++)
 		EMU->SetCHR_ROM1(i, CHR[i].b0 >> 1);
-	switch (Mirror & 3)
-	{
-	case 0:	EMU->Mirror_V();	break;
-	case 1:	EMU->Mirror_H();	break;
-	case 2:	EMU->Mirror_S0();	break;
-	case 3:	EMU->Mirror_S1();	break;
-	}
+	if (Mirror & 1)
+		EMU->Mirror_H();
+	else	EMU->Mirror_V();
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
