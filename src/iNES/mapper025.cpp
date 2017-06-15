@@ -56,7 +56,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 
 void	MAPINT	CPUCycle (void)
 {
-	if ((IRQenabled & 2) && ((IRQenabled & 4) || ((IRQcycles -= 3) < 0)))
+	if ((IRQenabled & 2) && ((IRQenabled & 4) || ((IRQcycles -= 3) <= 0)))
 	{
 		if (!(IRQenabled & 4))
 			IRQcycles += IRQ_CYCLES;
