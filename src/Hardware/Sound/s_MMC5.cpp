@@ -32,40 +32,47 @@ const	unsigned char	LengthCounts[32] = {
 	0x10,0x1C,
 	0x20,0x1E
 };
-const	signed char	Duties[4][8] = {
-	{-4,+4,-4,-4,-4,-4,-4,-4},
-	{-4,+4,+4,-4,-4,-4,-4,-4},
-	{-4,+4,+4,+4,+4,-4,-4,-4},
-	{+4,-4,-4,+4,+4,+4,+4,+4}
+const	signed char	SquareDuty[4][8] = {
+	{-4,-4,-4,-4,-4,-4,-4,+4},
+	{-4,-4,-4,-4,-4,-4,+4,+4},
+	{-4,-4,-4,-4,+4,+4,+4,+4},
+	{+4,+4,+4,+4,+4,+4,-4,-4},
 };
 
 struct	MMC5Sqr
 {
 	unsigned char volume, envelope, wavehold, duty;
 	unsigned long freq;
-	int Vol;
+	unsigned char Vol;
 	unsigned char CurD;
-	int Timer;
-	int EnvCtr, Envelope;
+	unsigned char LengthCtr;
+	unsigned char EnvCtr, Envelope;
 	BOOL Enabled, ValidFreq, Active;
 	BOOL EnvClk;
-	int Cycles;
+	signed long Cycles;
 	signed long Pos;
-	unsigned long FrameCycles;
+	signed long FrameCycles;
 
 	void	CheckActive ()
 	{
 		ValidFreq = (freq >= 0x8);
-		if ((ValidFreq) && (Timer))
-		{
-			Active = TRUE;
-			Pos = Duties[duty][CurD] * Vol;
-		}
-		else
-		{
-			Active = FALSE;
-			Pos = 0;
-		}
+		Active = LengthCtr && ValidFreq;
+		Pos = Active ? (SquareDuty[duty][CurD] * Vol) : 0;
+	}
+	void	Reset ()
+	{
+		volume = envelope = wavehold = duty = 0;
+		freq = 0;
+		Vol = 0;
+		CurD = 0;
+		LengthCtr = 0;
+		Envelope = 0;
+		Enabled = ValidFreq = Active = FALSE;
+		EnvClk = FALSE;
+		Pos = 0;
+		Cycles = 1;
+		EnvCtr = 1;
+		FrameCycles = 0;
 	}
 	void	Write (int Reg, int Val)
 	{
@@ -83,30 +90,20 @@ struct	MMC5Sqr
 		case 3:	freq &= 0xFF;
 			freq |= (Val & 0x7) << 8;
 			if (Enabled)
-				Timer = LengthCounts[(Val >> 3) & 0x1F] << 1;
+				LengthCtr = LengthCounts[(Val >> 3) & 0x1F] << 1;
 			CurD = 0;
 			EnvClk = TRUE;
 			break;
 		case 4:	Enabled = Val ? TRUE : FALSE;
 			if (!Enabled)
-				Timer = 0;
+				LengthCtr = 0;
 			break;
 		}
 		CheckActive();
 	}
 	int	Generate (int cycles)
 	{
-		if (!Active)
-			return 0;
-		Cycles -= cycles;
-		while (Cycles <= 0)
-		{
-			Cycles += (freq + 1) << 1;
-			CurD = (CurD + 1) & 0x7;
-			if (Active)
-				Pos = Duties[duty][CurD] * Vol;
-		}
-
+		// Step 1: run the equivalent of the Frame Timer
 		FrameCycles -= cycles;
 		while (FrameCycles <= 0)
 		{
@@ -115,25 +112,37 @@ struct	MMC5Sqr
 			{
 				EnvClk = FALSE;
 				Envelope = 0xF;
-				EnvCtr = volume + 1;
+				EnvCtr = volume;
 			}
 			else if (!--EnvCtr)
 			{
-				EnvCtr = volume + 1;
+				EnvCtr = volume;
 				if (Envelope)
 					Envelope--;
 				else	Envelope = wavehold ? 0xF : 0x0;
 			}
 
-			if (Timer && !wavehold)
-				Timer--;
+			if (LengthCtr && !wavehold)
+				LengthCtr--;
 		}
 		Vol = envelope ? volume : Envelope;
 		CheckActive();
+
+		// Step 2: run the actual channel itself
+		Cycles -= cycles;
+		// Changed to "freq + 1" and "<= 0" to avoid infinite loop when value is zero
+		while (Cycles <= 0)
+		{
+			Cycles += (freq + 1) << 1;
+			CurD = (CurD - 1) & 0x7;
+			if (Active)
+				Pos = SquareDuty[duty][CurD] * Vol;
+		}
+
 		return Pos;
 	}
 } Sqr0, Sqr1;
-unsigned char byte0, byte2, byte3, byte4, byte6, byte7, byte10, byte15;
+unsigned char byte10;
 unsigned char IRQreads;
 int PCM;
 FCPURead _CPURead[4];
@@ -148,17 +157,14 @@ int	MAPINT	CPUReadPCM (int Bank, int Addr);
 
 void	Load (void)
 {
-	ZeroMemory(&Sqr0, sizeof(Sqr0));
-	ZeroMemory(&Sqr1, sizeof(Sqr1));
-
-	byte0 = byte2 = byte3 = byte4 = byte6 = byte7 = byte15 = 0;
 	PCM = 0;
+	Reset(RESET_HARD);
 }
 
 void	Reset (RESET_TYPE ResetType)
 {
-	Sqr0.Cycles = 1;
-	Sqr1.Cycles = 1;
+	Sqr0.Reset();
+	Sqr1.Reset();
 	IRQreads = 0;
 	byte10 = 0;
 }
@@ -171,12 +177,12 @@ void	Write (int Addr, int Val)
 {
 	switch (Addr)
 	{
-	case 0x5000:	Sqr0.Write(0, byte0 = Val);	break;
-	case 0x5002:	Sqr0.Write(2, byte2 = Val);	break;
-	case 0x5003:	Sqr0.Write(3, byte3 = Val);	break;
-	case 0x5004:	Sqr1.Write(0, byte4 = Val);	break;
-	case 0x5006:	Sqr1.Write(2, byte6 = Val);	break;
-	case 0x5007:	Sqr1.Write(3, byte7 = Val);	break;
+	case 0x5000:	Sqr0.Write(0, Val);	break;
+	case 0x5002:	Sqr0.Write(2, Val);	break;
+	case 0x5003:	Sqr0.Write(3, Val);	break;
+	case 0x5004:	Sqr1.Write(0, Val);	break;
+	case 0x5006:	Sqr1.Write(2, Val);	break;
+	case 0x5007:	Sqr1.Write(3, Val);	break;
 	case 0x5010:	if ((byte10 ^ Val) & 0x01)
 			{
 				for (int i = 0; i < 4; i++)
@@ -196,8 +202,7 @@ void	Write (int Addr, int Val)
 			if (PCM == 0)
 				IRQreads = 0x80;
 			break;
-	case 0x5015:	byte15 = Val;
-			Sqr0.Write(4, Val & 0x01);
+	case 0x5015:	Sqr0.Write(4, Val & 0x01);
 			Sqr1.Write(4, Val & 0x02);
 			break;
 	}
@@ -211,7 +216,7 @@ int	Read (int Addr)
 	case 0x5010:	read = IRQreads;
 			IRQreads = 0;
 			break;
-	case 0x5015:	read = ((Sqr0.Timer) ? 1 : 0) | ((Sqr1.Timer) ? 2 : 0);
+	case 0x5015:	read = ((Sqr0.LengthCtr) ? 1 : 0) | ((Sqr1.LengthCtr) ? 2 : 0);
 			break;
 	}
 	return read;
@@ -232,44 +237,52 @@ int	MAPINT	CPUReadPCM (int Bank, int Addr)
 int	MAPINT	Get (int Cycles)
 {
 	int z = 0;
-	if (Sqr0.Enabled)	z += Sqr0.Generate(Cycles);
-	if (Sqr1.Enabled)	z += Sqr1.Generate(Cycles);
+	z += Sqr0.Generate(Cycles);
+	z += Sqr1.Generate(Cycles);
 	z += PCM;
 	return z << 6;
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	if (mode == STATE_SAVE)
-	{
-		memcpy(data + offset, &Sqr0, sizeof(Sqr0));
-		offset += sizeof(Sqr0);
-		memcpy(data + offset, &Sqr1, sizeof(Sqr1));
-		offset += sizeof(Sqr1);
-	}
-	else if (mode == STATE_LOAD)
-	{
-		memcpy(&Sqr0, data + offset, sizeof(Sqr0));
-		offset += sizeof(Sqr0);
-		memcpy(&Sqr1, data + offset, sizeof(Sqr1));
-		offset += sizeof(Sqr1);
-	}
-	else if (mode == STATE_SIZE)
-	{
-		offset += sizeof(Sqr0);
-		offset += sizeof(Sqr1);
-	}
-	else	MessageBox(hWnd, _T("Invalid save/load type!"), _T(__FILE__), MB_OK);
+	SAVELOAD_BYTE(mode, offset, data, Sqr0.volume);
+	SAVELOAD_BYTE(mode, offset, data, Sqr0.envelope);
+	SAVELOAD_BYTE(mode, offset, data, Sqr0.wavehold);
+	SAVELOAD_BYTE(mode, offset, data, Sqr0.duty);
+	SAVELOAD_LONG(mode, offset, data, Sqr0.freq);
+	SAVELOAD_BYTE(mode, offset, data, Sqr0.Vol);
+	SAVELOAD_BYTE(mode, offset, data, Sqr0.CurD);
+	SAVELOAD_BYTE(mode, offset, data, Sqr0.LengthCtr);
+	SAVELOAD_BYTE(mode, offset, data, Sqr0.EnvCtr);
+	SAVELOAD_BYTE(mode, offset, data, Sqr0.Envelope);
+	SAVELOAD_BYTE(mode, offset, data, Sqr0.Enabled);
+	SAVELOAD_BYTE(mode, offset, data, Sqr0.ValidFreq);
+	SAVELOAD_BYTE(mode, offset, data, Sqr0.Active);
+	SAVELOAD_BYTE(mode, offset, data, Sqr0.EnvClk);
+	SAVELOAD_LONG(mode, offset, data, Sqr0.Cycles);
+	SAVELOAD_LONG(mode, offset, data, Sqr0.Pos);
+	SAVELOAD_LONG(mode, offset, data, Sqr0.FrameCycles);
 
-	SAVELOAD_BYTE(mode, offset, data, byte0);
-	SAVELOAD_BYTE(mode, offset, data, byte2);
-	SAVELOAD_BYTE(mode, offset, data, byte3);
-	SAVELOAD_BYTE(mode, offset, data, byte4);
-	SAVELOAD_BYTE(mode, offset, data, byte6);
-	SAVELOAD_BYTE(mode, offset, data, byte7);
+	SAVELOAD_BYTE(mode, offset, data, Sqr1.volume);
+	SAVELOAD_BYTE(mode, offset, data, Sqr1.envelope);
+	SAVELOAD_BYTE(mode, offset, data, Sqr1.wavehold);
+	SAVELOAD_BYTE(mode, offset, data, Sqr1.duty);
+	SAVELOAD_LONG(mode, offset, data, Sqr1.freq);
+	SAVELOAD_BYTE(mode, offset, data, Sqr1.Vol);
+	SAVELOAD_BYTE(mode, offset, data, Sqr1.CurD);
+	SAVELOAD_BYTE(mode, offset, data, Sqr1.LengthCtr);
+	SAVELOAD_BYTE(mode, offset, data, Sqr1.EnvCtr);
+	SAVELOAD_BYTE(mode, offset, data, Sqr1.Envelope);
+	SAVELOAD_BYTE(mode, offset, data, Sqr1.Enabled);
+	SAVELOAD_BYTE(mode, offset, data, Sqr1.ValidFreq);
+	SAVELOAD_BYTE(mode, offset, data, Sqr1.Active);
+	SAVELOAD_BYTE(mode, offset, data, Sqr1.EnvClk);
+	SAVELOAD_LONG(mode, offset, data, Sqr1.Cycles);
+	SAVELOAD_LONG(mode, offset, data, Sqr1.Pos);
+	SAVELOAD_LONG(mode, offset, data, Sqr1.FrameCycles);
+
 	SAVELOAD_BYTE(mode, offset, data, byte10);
 	SAVELOAD_BYTE(mode, offset, data, PCM);
-	SAVELOAD_BYTE(mode, offset, data, byte15);
 	SAVELOAD_BYTE(mode, offset, data, IRQreads);
 	return offset;
 }
