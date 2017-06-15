@@ -55,7 +55,7 @@ struct	MMC5Sqr
 
 	void	CheckActive ()
 	{
-		ValidFreq = (freq >= 0x8);
+		ValidFreq = TRUE;	// no <= 8 filter
 		Active = LengthCtr && ValidFreq;
 		Pos = Active ? (SquareDuty[duty][CurD] * Vol) : 0;
 	}
@@ -90,7 +90,7 @@ struct	MMC5Sqr
 		case 3:	freq &= 0xFF;
 			freq |= (Val & 0x7) << 8;
 			if (Enabled)
-				LengthCtr = LengthCounts[(Val >> 3) & 0x1F] << 1;
+				LengthCtr = LengthCounts[(Val >> 3) & 0x1F];
 			CurD = 0;
 			EnvClk = TRUE;
 			break;
