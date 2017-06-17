@@ -55,7 +55,7 @@ struct	MMC5Sqr
 
 	void	CheckActive ()
 	{
-		ValidFreq = TRUE;	// no <= 8 filter
+		ValidFreq = (freq > 1);	// JustBreed sets Freq=1 in places, which sounds very bad due to lack of downsampling
 		Active = LengthCtr && ValidFreq;
 		Pos = Active ? (SquareDuty[duty][CurD] * Vol) : 0;
 	}
