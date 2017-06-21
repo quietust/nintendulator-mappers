@@ -170,6 +170,7 @@ void	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0x3, WritePPU);
 
 	EMU->SetCPUReadHandler(0x5, CPURead5);
+	EMU->SetCPUReadHandlerDebug(0x5, CPURead5Safe);
 	EMU->SetCPUWriteHandler(0x5, CPUWrite5);
 	for (int i = 0x6; i < 0x10; i++)
 	{
@@ -430,6 +431,27 @@ int	MAPINT	CPURead5 (int Bank, int Addr)
 	}
 	return read;
 }
+// Debug-safe version of CPURead5
+int	MAPINT	CPURead5Safe (int Bank, int Addr)
+{
+	register int read = 0xFF;
+	switch (Addr & 0xF00)
+	{
+	case 0x200:
+		switch (Addr)
+		{
+		case 0x204:	read = IRQreads & 0xC0;			break;
+		case 0x205:	read = ((Mul1 * Mul2) & 0x00FF) >> 0;	break;
+		case 0x206:	read = ((Mul1 * Mul2) & 0xFF00) >> 8;	break;
+		}							break;
+	case 0xC00:
+	case 0xD00:
+	case 0xE00:
+	case 0xF00:	if (GfxMode >= 2)
+				read = ExRAM[Addr & 0x3FF];	break;
+	}
+	return read;
+}
 void	MAPINT	CPUWrite5 (int Bank, int Addr, int Val)
 {
 	switch (Addr & 0xF00)
@@ -595,6 +617,12 @@ int	MAPINT	PPUReadNTExt (int Bank, int Addr)
 	}
 	else	return AttribBits[ExRAM[extile] >> 6];	// custom attribute data
 }
+int	MAPINT	PPUReadNTSafe (int Bank, int Addr)
+{
+	if (InSplitArea)
+		return ExRAM[Addr & 0x3FF];
+	else	return _PPURead[Bank](Bank, Addr);
+}
 
 void	SetPPUHandlers (void)
 {
@@ -602,14 +630,23 @@ void	SetPPUHandlers (void)
 	{
 #ifdef	MMC5_EXTENDED_VSPLIT
 		for (int i = 0; i < 8; i++)
+		{
 			EMU->SetPPUReadHandler(i, PPUReadPT);
+			EMU->SetPPUReadHandlerDebug(i, PPUReadPT);
+		}
 #endif
 		if (GfxMode == 1)	
 			for (int i = 8; i < 0x10; i++)		// + exgfx
+			{
 				EMU->SetPPUReadHandler(i, PPUReadNTSplitExt);
+				EMU->SetPPUReadHandlerDebug(i, PPUReadNTSafe);
+			}
 		else
 			for (int i = 8; i < 0x10; i++)		// split only
+			{
 				EMU->SetPPUReadHandler(i, PPUReadNTSplit);
+				EMU->SetPPUReadHandlerDebug(i, PPUReadNTSafe);
+			}
 	}
 	else if (GfxMode == 1)				// exgfx only
 	{
@@ -618,7 +655,10 @@ void	SetPPUHandlers (void)
 			EMU->SetPPUReadHandler(i, _PPURead[i]);
 #endif
 		for (int i = 8; i < 0x10; i++)
+		{
 			EMU->SetPPUReadHandler(i, PPUReadNTExt);
+			EMU->SetPPUReadHandlerDebug(i, PPUReadNTSafe);
+		}
 	}
 	else							// normal
 	{

@@ -43,8 +43,10 @@ void	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0xF, CPUWriteF);
 	_PPURead3 = EMU->GetPPUReadHandler(0x3);
 	EMU->SetPPUReadHandler(0x3, PPURead3);
+	EMU->SetPPUReadHandlerDebug(0x3, _PPURead3);
 	_PPURead7 = EMU->GetPPUReadHandler(0x7);
 	EMU->SetPPUReadHandler(0x7, PPURead7);
+	EMU->SetPPUReadHandlerDebug(0x7, _PPURead7);
 	Sync();
 }
 

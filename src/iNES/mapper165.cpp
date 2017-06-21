@@ -97,6 +97,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	EMU->SetPPUReadHandler(0x3, PPURead3);
 	EMU->SetPPUReadHandler(0x7, PPURead7);
+	EMU->SetPPUReadHandlerDebug(0x3, _PPURead3);
+	EMU->SetPPUReadHandlerDebug(0x7, _PPURead7);
 	
 	// Fire Emblem seems to require mirroring to default to vertical
 	if (ResetType == RESET_HARD)

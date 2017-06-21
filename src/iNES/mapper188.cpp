@@ -35,6 +35,9 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Latch::Reset(ResetType);
 	EMU->SetCPUReadHandler(0x6, Read67);
 	EMU->SetCPUReadHandler(0x7, Read67);
+	// this is debug-safe
+	EMU->SetCPUReadHandlerDebug(0x6, Read67);
+	EMU->SetCPUReadHandlerDebug(0x7, Read67);
 }
 void	MAPINT	Unload (void)
 {

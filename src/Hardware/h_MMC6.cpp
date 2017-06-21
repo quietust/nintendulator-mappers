@@ -42,6 +42,7 @@ void	Reset (RESET_TYPE ResetType)
 	EMU->SetPRG_RAM4(0x7, 0);
 	_CPURead7 = EMU->GetCPUReadHandler(0x7);
 	EMU->SetCPUReadHandler(0x7, CPURead7);
+	EMU->SetCPUReadHandlerDebug(0x7, CPURead7);
 	_CPUWrite7 = EMU->GetCPUWriteHandler(0x7);
 	EMU->SetCPUWriteHandler(0x7, CPUWrite7);
 	EMU->SetCPUWriteHandler(0x8, CPUWrite89);

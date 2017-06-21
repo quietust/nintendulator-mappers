@@ -233,7 +233,10 @@ void	IRQ (int type)
 	IRQstatus = type;
 	EMU->SetIRQ(type == NSFIRQ_NONE);
 	if (type != NSFIRQ_NONE)
+	{
 		EMU->SetCPUReadHandler(0xF, ReadVector);
+		EMU->SetCPUReadHandlerDebug(0xF, ReadVector);
+	}
 	else	EMU->SetCPUReadHandler(0xF, _ReadF);
 }
 
@@ -263,6 +266,32 @@ int	MAPINT	Read (int Bank, int Addr)
 				IRQ(NSFIRQ_NONE);
 				return result;
 			}					break;
+	case 0x13:	return ROM->NSF_SoundChips & NSFSOUND_MASK;	break;
+	default:	return 0xFF;
+	}
+}
+int	MAPINT	ReadSafe (int Bank, int Addr)
+{
+	if (Addr >= 0xF00)
+		return BIOS[Addr & 0xFF];
+	else if (Addr < 0xE00)
+		return 0xFF;
+	switch (Addr & 0xFF)
+	{
+	case 0x00:	return InitAddr.b0;			break;
+	case 0x01:	return InitAddr.b1;			break;
+	case 0x02:	return PlayAddr.b0;			break;
+	case 0x03:	return PlayAddr.b1;			break;
+	case 0x04:	return NTSCspeed.b0;		break;
+	case 0x06:	return NTSCspeed.b1;		break;
+	case 0x05:	return PALspeed.b0;			break;
+	case 0x07:	return PALspeed.b1;			break;
+	case 0x08:	case 0x09:	case 0x0A:	case 0x0B:
+	case 0x0C:	case 0x0D:	case 0x0E:	case 0x0F:
+			return ROM->NSF_InitBanks[Addr & 0x7];	break;
+	case 0x10:	return songnum;			break;
+	case 0x11:	return ntscpal;			break;
+	case 0x12:	return IRQstatus;		break;
 	case 0x13:	return ROM->NSF_SoundChips & NSFSOUND_MASK;	break;
 	default:	return 0xFF;
 	}
@@ -479,6 +508,17 @@ int	MAPINT	Read5 (int Bank, int Addr)
 	}
 	return -1;
 }
+int	MAPINT	Read5Safe (int Bank, int Addr)
+{
+	switch (Addr & 0xF00)
+	{
+	case 0xC00:
+	case 0xD00:
+	case 0xE00:
+	case 0xF00:	return ExRAM[Addr & 0x3FF];	break;
+	}
+	return 0xFF;
+}
 void	MAPINT	Write4 (int Bank, int Addr, int Val)
 {
 	if (Addr < 0x018)
@@ -566,12 +606,16 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	_ReadF = EMU->GetCPUReadHandler(0xF);
 
 	EMU->SetCPUReadHandler(0x3, Read);
+	EMU->SetCPUReadHandlerDebug(0x3, ReadSafe);
 	EMU->SetCPUWriteHandler(0x3, Write);
 
 	if (ROM->NSF_SoundChips & (NSFSOUND_N163 | NSFSOUND_FDS))
 		EMU->SetCPUReadHandler(0x4, Read4);
 	if (ROM->NSF_SoundChips & NSFSOUND_MMC5)
+	{
 		EMU->SetCPUReadHandler(0x5, Read5);
+		EMU->SetCPUReadHandlerDebug(0x5, Read5Safe);
+	}
 
 	if (ROM->NSF_SoundChips & (NSFSOUND_N163 | NSFSOUND_FDS))
 		EMU->SetCPUWriteHandler(0x4, Write4);

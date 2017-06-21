@@ -445,6 +445,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		EMU->SetCPUWriteHandler(i, CPUWrite);
 		_PPURead[i] = EMU->GetPPUReadHandler(i);
 		EMU->SetPPUReadHandler(i, PPURead);
+		EMU->SetPPUReadHandlerDebug(i, _PPURead[i]);
 	}
 
 	SyncPRG();

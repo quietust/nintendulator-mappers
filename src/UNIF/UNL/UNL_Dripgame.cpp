@@ -160,6 +160,10 @@ void	Sync (void)
 		EMU->SetPPUReadHandler(0x9, PPUReadNT);
 		EMU->SetPPUReadHandler(0xA, PPUReadNT);
 		EMU->SetPPUReadHandler(0xB, PPUReadNT);
+		EMU->SetPPUReadHandlerDebug(0x8, _PPUReadNT[0]);
+		EMU->SetPPUReadHandlerDebug(0x9, _PPUReadNT[1]);
+		EMU->SetPPUReadHandlerDebug(0xA, _PPUReadNT[2]);
+		EMU->SetPPUReadHandlerDebug(0xB, _PPUReadNT[3]);
 	}
 	else
 	{

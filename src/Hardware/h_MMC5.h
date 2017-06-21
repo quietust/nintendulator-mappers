@@ -39,6 +39,7 @@ void		SyncCHRB	(void);
 void		SyncMirror	(void);
 void	MAPINT	WritePPU	(int,int,int);
 int	MAPINT	CPURead5	(int,int);
+int	MAPINT	CPURead5Safe	(int,int);
 void	MAPINT	CPUWrite5	(int,int,int);
 void	MAPINT	CPUWrite6F	(int,int,int);
 void	MAPINT	PPUCycle	(int,int,int,int);

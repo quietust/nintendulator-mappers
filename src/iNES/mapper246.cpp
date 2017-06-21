@@ -75,6 +75,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	_Read6 = EMU->GetCPUReadHandler(0x6);
 	_Write6 = EMU->GetCPUWriteHandler(0x6);
 	EMU->SetCPUReadHandler(0x6, Read6);
+	EMU->SetCPUReadHandlerDebug(0x6, Read6);
 	EMU->SetCPUWriteHandler(0x6, Write6);
 
 	if (ResetType == RESET_HARD)

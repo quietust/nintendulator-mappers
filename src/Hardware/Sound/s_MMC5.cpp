@@ -191,6 +191,8 @@ void	Write (int Addr, int Val)
 					{
 						_CPURead[i] = EMU->GetCPUReadHandler(0x8 | i);
 						EMU->SetCPUReadHandler(0x8 | i, CPUReadPCM);
+						// Important assumption: the old handler was plain ROM/RAM and is thus debug-safe
+						EMU->SetCPUReadHandlerDebug(0x8 | i, _CPURead[i]);
 					}
 					else	EMU->SetCPUReadHandler(0x8 | i, _CPURead[i]);
 				}
