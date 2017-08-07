@@ -43,7 +43,7 @@
 //const MapperInfo MapperInfo_033 = {	NULL,	_T("Mapper 33"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //const MapperInfo MapperInfo_034 = {	NULL,	_T("Mapper 34"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   const MapperInfo MapperInfo_035 = {	NULL,	_T("Mapper 35"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
-  const MapperInfo MapperInfo_036 = {	NULL,	_T("Mapper 36"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
+//const MapperInfo MapperInfo_036 = {	NULL,	_T("Mapper 36"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //const MapperInfo MapperInfo_037 = {	NULL,	_T("Mapper 37"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
 //const MapperInfo MapperInfo_038 = {	NULL,	_T("Mapper 38"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};
   const MapperInfo MapperInfo_039 = {	NULL,	_T("Mapper 39"),	COMPAT_NONE,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL	};

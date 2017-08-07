@@ -112,6 +112,7 @@
     <ClCompile Include="..\src\iNES\mapper032.cpp" />
     <ClCompile Include="..\src\iNES\mapper033.cpp" />
     <ClCompile Include="..\src\iNES\mapper034.cpp" />
+    <ClCompile Include="..\src\iNES\mapper036.cpp" />
     <ClCompile Include="..\src\iNES\mapper037.cpp" />
     <ClCompile Include="..\src\iNES\mapper038.cpp" />
     <ClCompile Include="..\src\iNES\mapper040.cpp" />
