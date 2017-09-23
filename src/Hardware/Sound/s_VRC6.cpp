@@ -26,9 +26,9 @@ struct	VRC6sqr
 		};
 		struct
 		{
-			unsigned byte0	: 8;
-			unsigned byte1	: 8;
-			unsigned byte2	: 8;
+			uint8 byte0;
+			uint8 byte1;
+			uint8 byte2;
 		};
 	};
 	uint8 CurP;
@@ -61,9 +61,9 @@ struct	VRC6saw
 		};
 		struct
 		{
-			unsigned byte0	: 8;
-			unsigned byte1	: 8;
-			unsigned byte2	: 8;
+			uint8 byte0;
+			uint8 byte1;
+			uint8 byte2;
 		};
 	};
 	uint8 CurP;

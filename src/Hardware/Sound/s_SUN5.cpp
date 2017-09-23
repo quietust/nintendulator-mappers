@@ -25,9 +25,9 @@ struct	SUN5sqr
 		};
 		struct
 		{
-			unsigned byte0 : 8;
-			unsigned byte1 : 8;
-			unsigned byte2 : 8;
+			uint8 byte0;
+			uint8 byte1;
+			uint8 byte2;
 		};
 	};
 	uint8 CurP;
@@ -62,10 +62,10 @@ static union
 	};
 	struct
 	{
-		unsigned byte7 : 8;
-		unsigned byteB : 8;
-		unsigned byteC : 8;
-		unsigned byteD : 8;
+		uint8 byte7;
+		uint8 byteB;
+		uint8 byteC;
+		uint8 byteD;
 	};
 };
 uint8 select;
