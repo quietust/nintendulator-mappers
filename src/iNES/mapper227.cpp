@@ -25,7 +25,7 @@ void	Sync (void)
 			unsigned LastBank: 1;
 			unsigned         : 9;
 		};
-		uint16 addr;
+		uint16_t addr;
 	};
 	addr = Latch::Addr.s0;
 
@@ -70,7 +70,7 @@ void	MAPINT	Unload (void)
 	Latch::Unload();
 }
 
-uint16 MapperNum = 227;
+uint16_t MapperNum = 227;
 } // namespace
 
 const MapperInfo MapperInfo_227 =

@@ -25,9 +25,9 @@ void	Sync (void)
 			unsigned Mir_HV  : 1;	/* H if 1, V if 0 */
 			unsigned         : 2;
 		};
-		uint16 addr;
+		uint16_t addr;
 	};
-	uint8 openbus = 0;
+	uint8_t openbus = 0;
 	addr = Latch::Addr.s0;
 	if (ROM->UNIF_NumPRG == 1)	/* 1MB, 100-in-1 */
 	{

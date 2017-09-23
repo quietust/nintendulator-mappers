@@ -11,8 +11,8 @@
 // need access to these internals, since I don't feel like copy/pasting the entire MMC3 here
 namespace MMC3
 {
-extern uint8 Cmd;
-extern uint8 CHR[8];
+extern uint8_t Cmd;
+extern uint8_t CHR[8];
 }
 namespace
 {
@@ -44,7 +44,7 @@ void	MAPINT	Unload (void)
 	MMC3::Unload();
 }
 
-uint16 MapperNum = 245;
+uint16_t MapperNum = 245;
 } // namespace
 
 const MapperInfo MapperInfo_245 =

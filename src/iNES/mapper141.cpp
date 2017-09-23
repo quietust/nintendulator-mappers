@@ -9,7 +9,7 @@
 
 namespace
 {
-uint8 Cmd, CHRH, CHRL0, CHRL1, CHRL2, CHRL3, PRG, CHRO, Mirror;
+uint8_t Cmd, CHRH, CHRL0, CHRL1, CHRL2, CHRL3, PRG, CHRO, Mirror;
 FCPUWrite _Write4;
 
 void	Sync (void)
@@ -93,7 +93,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-uint16 MapperNum = 141;
+uint16_t MapperNum = 141;
 } // namespace
 
 const MapperInfo MapperInfo_141 =

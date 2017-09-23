@@ -10,14 +10,14 @@
 
 namespace
 {
-uint8 WhichGame;
-uint8 DidWrite;
+uint8_t WhichGame;
+uint8_t DidWrite;
 FCPUWrite _Write67;
 
 void	Sync (void)
 {
-	uint8 PRGmask, CHRmask;
-	uint8 PRGbank, CHRbank;
+	uint8_t PRGmask, CHRmask;
+	uint8_t PRGbank, CHRbank;
 
 	if (WhichGame & 0x8)
 	{

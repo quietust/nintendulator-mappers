@@ -12,7 +12,7 @@ namespace DripSound
 {
 struct
 {
-	uint8 FIFO[256], ReadPos, WritePos;
+	uint8_t FIFO[256], ReadPos, WritePos;
 	BOOL IsFull, IsEmpty;
 	int freq, vol;
 	int timer;
@@ -116,16 +116,16 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 
 namespace
 {
-uint8 PRG, CHR[4], Flags;
-uint8 IRQenabled, IRQlatch;
-uint16 IRQcounter;
-uint8 *ExtRam0, *ExtRam1;
-uint16 LastAddr, LastAddrTmp;
-uint8 Jumper;
+uint8_t PRG, CHR[4], Flags;
+uint8_t IRQenabled, IRQlatch;
+uint16_t IRQcounter;
+uint8_t *ExtRam0, *ExtRam1;
+uint16_t LastAddr, LastAddrTmp;
+uint8_t Jumper;
 FPPURead _PPUReadNT[4];
 FCPURead _CPURead4;
 HWND ConfigWindow;
-uint8 ConfigCmd;
+uint8_t ConfigCmd;
 
 int	MAPINT	PPUReadNT (int Bank, int Addr)
 {

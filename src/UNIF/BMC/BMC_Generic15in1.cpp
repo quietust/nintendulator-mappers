@@ -9,7 +9,7 @@
 
 namespace
 {
-uint8 Data;
+uint8_t Data;
 
 void	Sync (void)
 {

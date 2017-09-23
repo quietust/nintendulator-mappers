@@ -11,7 +11,7 @@
 namespace
 {
 FCPUWrite _Write;
-uint8 CHR;
+uint8_t CHR;
 
 void	Sync (void)
 {
@@ -63,7 +63,7 @@ void	MAPINT	Unload (void)
 	VS::Unload();
 }
 
-uint16 MapperNum = 99;
+uint16_t MapperNum = 99;
 } // namespace
 
 const MapperInfo MapperInfo_099 =

@@ -10,8 +10,8 @@
 
 namespace
 {
-uint8 BankSize;
-uint8 PRGbank, CHRbank;
+uint8_t BankSize;
+uint8_t PRGbank, CHRbank;
 
 void	Sync (void)
 {

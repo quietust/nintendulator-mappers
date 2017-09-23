@@ -13,7 +13,7 @@ namespace
 enum BANKTYPE	{ BANK_OPEN, BANK_ROM, BANK_RAM, BANK_NT };
 
 HWND ConfigWindow;
-uint32 PRG[5], CHR[16];
+uint32_t PRG[5], CHR[16];
 BANKTYPE PRGtype[5], CHRtype[16];
 
 void	Sync (void)
@@ -226,7 +226,7 @@ void	MAPINT	Unload (void)
 	}
 }
 
-uint16 MapperNum = 100;
+uint16_t MapperNum = 100;
 } // namespace
 
 const MapperInfo MapperInfo_100 =

@@ -34,7 +34,7 @@ void	MAPINT	Unload (void)
 	MMC1::Unload();
 }
 
-uint16 MapperNum = 155;
+uint16_t MapperNum = 155;
 } // namespace
 
 const MapperInfo MapperInfo_155 =

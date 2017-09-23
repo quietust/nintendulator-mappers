@@ -23,11 +23,11 @@ public:
 class EEPROM_24C02 : public EEPROM
 {
 protected:
-	uint8 LastBits;
-	uint8 State;
-	uint8 *EEP;
-	uint8 Addr, Data;
-	uint8 BitPtr;
+	uint8_t LastBits;
+	uint8_t State;
+	uint8_t *EEP;
+	uint8_t Addr, Data;
+	uint8_t BitPtr;
 public:
 	EEPROM_24C02 (void)
 	{
@@ -158,11 +158,11 @@ public:
 class EEPROM_24C01 : public EEPROM
 {
 protected:
-	uint8 LastBits;
-	uint8 State;
-	uint8 *EEP;
-	uint8 Addr, Data;
-	uint8 BitPtr;
+	uint8_t LastBits;
+	uint8_t State;
+	uint8_t *EEP;
+	uint8_t Addr, Data;
+	uint8_t BitPtr;
 public:
 	EEPROM_24C01 (void)
 	{
@@ -271,8 +271,8 @@ public:
 };
 namespace
 {
-uint8 PRG, CHR[8], Mirror;
-uint8 IRQenabled;
+uint8_t PRG, CHR[8], Mirror;
+uint8_t IRQenabled;
 uint16_n IRQcounter;
 EEPROM *SaveEEPROM;
 
@@ -374,8 +374,8 @@ void	MAPINT	Unload (void)
 	SaveEEPROM = NULL;
 }
 
-uint16 MapperNum = 16;
-uint16 MapperNum2 = 159;
+uint16_t MapperNum = 16;
+uint16_t MapperNum2 = 159;
 } // namespace
 
 const MapperInfo MapperInfo_016 =

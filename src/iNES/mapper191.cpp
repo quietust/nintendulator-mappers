@@ -17,7 +17,7 @@ void	Sync (void)
 	MMC3::SyncWRAM();
 	for (int i = 0; i < 8; i++)
 	{
-		uint8 bank = MMC3::GetCHRBank(i);
+		uint8_t bank = MMC3::GetCHRBank(i);
 		if (bank & 0x80)
 			EMU->SetCHR_RAM1(i, bank & 0x01);
 		else	EMU->SetCHR_ROM1(i, bank & 0x7F);
@@ -39,7 +39,7 @@ void	MAPINT	Unload (void)
 	MMC3::Unload();
 }
 
-uint16 MapperNum = 191;
+uint16_t MapperNum = 191;
 } // namespace
 
 const MapperInfo MapperInfo_191 =

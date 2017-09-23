@@ -25,9 +25,9 @@ void	Sync (void)
 			unsigned Mir_HV  : 1;
 			unsigned         : 2;
 		};
-		uint16 addr;
+		uint16_t addr;
 	};
-	uint8 openbus = 0;
+	uint8_t openbus = 0;
 	addr = Latch::Addr.s0;
 
 	if (Mir_HV)
@@ -70,7 +70,7 @@ void	MAPINT	Unload (void)
 	Latch::Unload();
 }
 
-uint16 MapperNum = 228;
+uint16_t MapperNum = 228;
 } // namespace
 
 const MapperInfo MapperInfo_228 =

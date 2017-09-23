@@ -10,25 +10,25 @@
 
 namespace
 {
-uint8 IRQenabled, IRQmode, IRQcounterL, IRQcounterH, IRQxor;
-uint16 IRQaddr;
-uint8 Mul1, Mul2;
-uint8 BankMode, Mirror, MirBank, ExtBank;
-uint8 PRGbanks[4];
+uint8_t IRQenabled, IRQmode, IRQcounterL, IRQcounterH, IRQxor;
+uint16_t IRQaddr;
+uint8_t Mul1, Mul2;
+uint8_t BankMode, Mirror, MirBank, ExtBank;
+uint8_t PRGbanks[4];
 uint16_n CHRbanks[8];
 uint16_n Nametables[4];
-uint8 treg;
-uint8 Jumper;
+uint8_t treg;
+uint8_t Jumper;
 HWND ConfigWindow;
-uint8 ConfigCmd;
+uint8_t ConfigCmd;
 FCPUWrite _CPUWrite[0x10];
 FPPURead _PPURead[0x10];
-uint8 MMC2Mode;
-uint8 LatchState[2];
+uint8_t MMC2Mode;
+uint8_t LatchState[2];
 
-uint8 ReverseBits (uint8 bits)
+uint8_t ReverseBits (uint8_t bits)
 {
-	uint8 out = 0;
+	uint8_t out = 0;
 	if (bits & 0x01) out |= 0x40;
 	if (bits & 0x02) out |= 0x20;
 	if (bits & 0x04) out |= 0x10;
@@ -461,9 +461,9 @@ void	MAPINT	Unload (void)
 	}
 }
 
-uint16 MapperNum = 90;
-uint16 MapperNum2 = 209;
-uint16 MapperNum3 = 211;
+uint16_t MapperNum = 90;
+uint16_t MapperNum2 = 209;
+uint16_t MapperNum3 = 211;
 } // namespace
 
 const MapperInfo MapperInfo_090 =

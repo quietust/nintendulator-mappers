@@ -9,8 +9,8 @@
 
 namespace
 {
-uint8 PRG;
-uint8 Mirror;
+uint8_t PRG;
+uint8_t Mirror;
 
 void	Sync (void)
 {
@@ -61,7 +61,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-uint16 MapperNum = 71;
+uint16_t MapperNum = 71;
 } // namespace
 
 const MapperInfo MapperInfo_071 =

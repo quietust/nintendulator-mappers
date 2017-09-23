@@ -10,11 +10,11 @@
 
 namespace FME7
 {
-uint8 IRQenabled;
+uint8_t IRQenabled;
 uint16_n IRQcounter;
-uint8 Cmd;
-uint8 PRG[4], CHR[8];
-uint8 Mirror;
+uint8_t Cmd;
+uint8_t PRG[4], CHR[8];
+uint8_t Mirror;
 FSync Sync;
 
 void	Load (FSync _Sync)

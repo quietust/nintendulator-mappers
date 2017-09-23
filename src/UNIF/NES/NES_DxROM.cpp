@@ -9,9 +9,9 @@
 
 namespace N108
 {
-uint8 Cmd;
-uint8 PRG[2];
-uint8 CHR[6];
+uint8_t Cmd;
+uint8_t PRG[2];
+uint8_t CHR[6];
 FSync Sync;
 
 void	MAPINT	CPUWrite89 (int Bank, int Addr, int Val);

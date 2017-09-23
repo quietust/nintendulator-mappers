@@ -22,7 +22,7 @@ void	Sync (void)
 			unsigned Mirror  : 2;
 			unsigned         : 8;
 		};
-		uint16 addr;
+		uint16_t addr;
 	};
 	addr = Latch::Addr.s0;
 	

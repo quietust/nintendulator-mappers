@@ -11,9 +11,9 @@
 
 namespace
 {
-uint8 Jumper;
+uint8_t Jumper;
 HWND ConfigWindow;
-uint8 ConfigCmd;
+uint8_t ConfigCmd;
 
 void	Sync (void)
 {

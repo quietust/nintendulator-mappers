@@ -10,13 +10,13 @@
 namespace
 {
 uint8_n PRG[3], CHR[8];
-uint16 IRQcounter;
+uint16_t IRQcounter;
 uint16_n IRQlatch;
-uint8 IRQcontrol;
-uint8 Mirror;
-uint8 DisableSRAM;
+uint8_t IRQcontrol;
+uint8_t Mirror;
+uint8_t DisableSRAM;
 
-uint16 IRQmask;
+uint16_t IRQmask;
 void	Sync (void)
 {
 	EMU->SetPRG_RAM8(0x6, 0);
@@ -190,7 +190,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-uint16 MapperNum = 18;
+uint16_t MapperNum = 18;
 } // namespace
 
 const MapperInfo MapperInfo_018 =

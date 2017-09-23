@@ -9,9 +9,9 @@
 
 namespace
 {
-uint8 Mode;
-uint8 PRG;
-uint8 CHR[2];
+uint8_t Mode;
+uint8_t PRG;
+uint8_t CHR[2];
 FCPUWrite _Write7;
 
 void	Sync_NINA (void)
@@ -99,7 +99,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 }
 
-uint16 MapperNum = 34;
+uint16_t MapperNum = 34;
 } // namespace
 
 const MapperInfo MapperInfo_034 =

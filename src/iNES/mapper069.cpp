@@ -32,7 +32,7 @@ void	MAPINT	Unload (void)
 	FME7::Unload();
 }
 
-uint16 MapperNum = 69;
+uint16_t MapperNum = 69;
 } // namespace
 
 const MapperInfo MapperInfo_069 =

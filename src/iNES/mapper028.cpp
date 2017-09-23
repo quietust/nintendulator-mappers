@@ -9,8 +9,8 @@
 
 namespace
 {
-uint8 regSel;
-uint8 regVal[4];
+uint8_t regSel;
+uint8_t regVal[4];
 
 void	Sync (void)
 {
@@ -107,7 +107,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-uint16 MapperNum = 28;
+uint16_t MapperNum = 28;
 } // namespace
 
 const MapperInfo MapperInfo_028 =

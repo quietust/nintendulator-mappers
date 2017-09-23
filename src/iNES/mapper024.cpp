@@ -11,11 +11,11 @@
 #define IRQ_CYCLES 341
 namespace
 {
-uint8 IRQenabled, IRQcounter, IRQlatch;
-int16 IRQcycles;
-uint8 PRG[2], CHR[8];
-uint8 Mirror;
-uint8 SwapAddr[4];
+uint8_t IRQenabled, IRQcounter, IRQlatch;
+int16_t IRQcycles;
+uint8_t PRG[2], CHR[8];
+uint8_t Mirror;
+uint8_t SwapAddr[4];
 
 void	Sync (void)
 {
@@ -181,8 +181,8 @@ void	MAPINT	Unload (void)
 	VRC6sound::Unload();
 }
 
-uint16 MapperNum = 24;
-uint16 MapperNum2 = 26;
+uint16_t MapperNum = 24;
+uint16_t MapperNum2 = 26;
 } // namespace
 
 const MapperInfo MapperInfo_024 =

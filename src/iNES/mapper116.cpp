@@ -16,9 +16,9 @@ void	Sync (void);
 
 namespace VRC2
 {
-uint8 PRG[2];
+uint8_t PRG[2];
 uint8_n CHR[8];
-uint8 Mirror;
+uint8_t Mirror;
 
 void	MAPINT	CPUWrite8 (int Bank, int Addr, int Val)
 {
@@ -84,7 +84,7 @@ void	MAPINT	CPUWriteE (int Bank, int Addr, int Val)
 namespace
 {
 FCPUWrite _Write4, _WriteF;
-uint8 Mode;
+uint8_t Mode;
 
 void	Sync (void)
 {
@@ -217,7 +217,7 @@ void	MAPINT	Unload (void)
 	MMC3::Unload();
 }
 
-uint16 MapperNum = 116;
+uint16_t MapperNum = 116;
 } // namespace
 
 const MapperInfo MapperInfo_116 =

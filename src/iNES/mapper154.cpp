@@ -10,7 +10,7 @@
 
 namespace N118
 {
-extern uint8 Cmd;
+extern uint8_t Cmd;
 }
 namespace
 {
@@ -42,7 +42,7 @@ void	MAPINT	Unload (void)
 	N118::Unload();
 }
 
-uint16 MapperNum = 154;
+uint16_t MapperNum = 154;
 } // namespace
 
 const MapperInfo MapperInfo_154 =

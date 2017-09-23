@@ -10,7 +10,7 @@
 
 namespace
 {
-uint8 Reg0, Reg1, Reg2, Reg3;
+uint8_t Reg0, Reg1, Reg2, Reg3;
 
 void	Sync (void)
 {
@@ -112,7 +112,7 @@ void	MAPINT	Unload (void)
 	MMC3::Unload();
 }
 
-uint16 MapperNum = 126;
+uint16_t MapperNum = 126;
 } // namespace
 
 const MapperInfo MapperInfo_126 =

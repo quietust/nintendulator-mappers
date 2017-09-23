@@ -10,9 +10,9 @@
 
 namespace
 {
-uint8 Mirror, VROM_use;
-uint8 CHR_L, CHR_H;
-uint8 PRG, CHR[4];
+uint8_t Mirror, VROM_use;
+uint8_t CHR_L, CHR_H;
+uint8_t PRG, CHR[4];
 
 void	Sync (void)
 {
@@ -34,10 +34,10 @@ void	SyncNametables (void)
 	}
 	if (VROM_use)
 	{
-		uint8 A = EMU->GetCHR_NT1(0x8) ? CHR_H : CHR_L;
-		uint8 B = EMU->GetCHR_NT1(0x9) ? CHR_H : CHR_L;
-		uint8 C = EMU->GetCHR_NT1(0xA) ? CHR_H : CHR_L;
-		uint8 D = EMU->GetCHR_NT1(0xB) ? CHR_H : CHR_L;
+		uint8_t A = EMU->GetCHR_NT1(0x8) ? CHR_H : CHR_L;
+		uint8_t B = EMU->GetCHR_NT1(0x9) ? CHR_H : CHR_L;
+		uint8_t C = EMU->GetCHR_NT1(0xA) ? CHR_H : CHR_L;
+		uint8_t D = EMU->GetCHR_NT1(0xB) ? CHR_H : CHR_L;
 		EMU->SetCHR_ROM1(0x8, A | 0x80);
 		EMU->SetCHR_ROM1(0x9, B | 0x80);
 		EMU->SetCHR_ROM1(0xA, C | 0x80);
@@ -149,7 +149,7 @@ void	MAPINT	Unload (void)
 	VS::Unload();
 }
 
-uint16 MapperNum = 68;
+uint16_t MapperNum = 68;
 } // namespace
 
 const MapperInfo MapperInfo_068 =

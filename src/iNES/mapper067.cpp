@@ -9,12 +9,12 @@
 
 namespace
 {
-uint8 PRG;
-uint8 CHR[4];
-uint8 Mirror;
+uint8_t PRG;
+uint8_t CHR[4];
+uint8_t Mirror;
 uint16_n IRQcounter;
-uint8 IRQenabled;
-uint8 IRQpos;
+uint8_t IRQenabled;
+uint8_t IRQpos;
 
 void	Sync (void)
 {
@@ -154,7 +154,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-uint16 MapperNum = 67;
+uint16_t MapperNum = 67;
 } // namespace
 
 const MapperInfo MapperInfo_067 =

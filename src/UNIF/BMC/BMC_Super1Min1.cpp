@@ -10,8 +10,8 @@
 
 namespace
 {
-uint8 Regs[4];
-uint8 Pos;
+uint8_t Regs[4];
+uint8_t Pos;
 
 void	Sync (void)
 {

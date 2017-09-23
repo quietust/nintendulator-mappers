@@ -13,7 +13,7 @@
 
 namespace Latch
 {
-extern uint8 Data;
+extern uint8_t Data;
 extern uint16_n Addr;
 
 void		Load		(FSync,BOOL);

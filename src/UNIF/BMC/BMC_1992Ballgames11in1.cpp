@@ -9,7 +9,7 @@
 
 namespace
 {
-uint8 Bank, Mode;
+uint8_t Bank, Mode;
 
 void	Sync (void)
 {

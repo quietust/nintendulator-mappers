@@ -9,8 +9,8 @@
 
 namespace
 {
-uint8 PRG[4];
-uint8 Mirror;
+uint8_t PRG[4];
+uint8_t Mirror;
 
 void	Sync (void)
 {
@@ -35,8 +35,8 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 
 void	MAPINT	Write (int Bank, int Addr, int Val)
 {
-	uint8 PRGbank = (Val & 0x3F) << 1;
-	uint8 PRGflip = (Val & 0x80) >> 7;
+	uint8_t PRGbank = (Val & 0x3F) << 1;
+	uint8_t PRGflip = (Val & 0x80) >> 7;
 	Mirror = Val & 0x40;
 	switch (Addr)
 	{
@@ -87,7 +87,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-uint16 MapperNum = 15;
+uint16_t MapperNum = 15;
 } // namespace
 
 const MapperInfo MapperInfo_015 =

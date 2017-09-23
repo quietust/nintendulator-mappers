@@ -10,7 +10,7 @@
 
 namespace
 {
-uint8 Regs[4];
+uint8_t Regs[4];
 
 void	Sync (void)
 {
@@ -26,7 +26,7 @@ void	Sync (void)
 			unsigned PRGchip : 1;
 			unsigned         : 1;
 		};
-		uint16 addr;
+		uint16_t addr;
 	};
 	addr = Latch::Addr.s0;
 	EMU->SetCHR_ROM8(0, CHRbank);

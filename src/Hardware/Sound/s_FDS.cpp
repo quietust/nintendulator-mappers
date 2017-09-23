@@ -24,58 +24,58 @@ namespace FDSsound
 #define LOG_LIN_BITS 30
 
 struct FDS_EG {
-	uint8 spd;
-	uint8 cnt;
-	uint8 mode;
-	uint8 volume;
+	uint8_t spd;
+	uint8_t cnt;
+	uint8_t mode;
+	uint8_t volume;
 };
 struct FDS_PG {
-	uint32 spdbase;
-	uint32 spd;
-	uint32 freq;
+	uint32_t spdbase;
+	uint32_t spd;
+	uint32_t freq;
 };
 struct FDS_WG {
-	uint32 phase;
-	int8 wave[0x40];
-	uint8 wavptr;
-	int8 output;
-	uint8 disable;
-	uint8 disable2;
+	uint32_t phase;
+	int8_t wave[0x40];
+	uint8_t wavptr;
+	int8_t output;
+	uint8_t disable;
+	uint8_t disable2;
 };
 struct FDS_OP {
 	struct FDS_EG eg;
 	struct FDS_PG pg;
 	struct FDS_WG wg;
-	uint8 bias;
-	uint8 wavebase;
-	uint8 d[2];
+	uint8_t bias;
+	uint8_t wavebase;
+	uint8_t d[2];
 };
 
 struct FDS_OP op[2];
-uint32 phasecps;
-uint32 envcnt;
-uint32 envspd;
-uint32 envcps;
-uint8 envdisable;
-uint8 d[3];
-uint32 lvl;
-int32 mastervolumel[4];
-uint32 mastervolume;
-uint32 srate;
-uint8 reg[0x10];
+uint32_t phasecps;
+uint32_t envcnt;
+uint32_t envspd;
+uint32_t envcps;
+uint8_t envdisable;
+uint8_t d[3];
+uint32_t lvl;
+int32_t mastervolumel[4];
+uint32_t mastervolume;
+uint32_t srate;
+uint8_t reg[0x10];
 
-static uint32 lineartbl[(1 << LIN_BITS) + 1];
-static uint32 logtbl[1 << LOG_BITS];
+static uint32_t lineartbl[(1 << LIN_BITS) + 1];
+static uint32_t logtbl[1 << LOG_BITS];
 /*
-static uint32 LinearToLog(int32 l)
+static uint32_t LinearToLog(int32_t l)
 {
 	return (l < 0) ? (lineartbl[-l] + 1) : lineartbl[l];
 }
 */
-static int32 LogToLinear(uint32 l, uint32 sft)
+static int32_t LogToLinear(uint32_t l, uint32_t sft)
 {
-	int32 ret;
-	uint32 ofs;
+	int32_t ret;
+	uint32_t ofs;
 	l += sft << (LOG_BITS + 1);
 	sft = l >> (LOG_BITS + 1);
 	if (sft >= LOG_LIN_BITS) return 0;
@@ -86,22 +86,22 @@ static int32 LogToLinear(uint32 l, uint32 sft)
 
 static void LogTableInitialize(void)
 {
-	static volatile uint32 initialized = 0;
-	uint32 i;
+	static volatile uint32_t initialized = 0;
+	uint32_t i;
 	double a;
 	if (initialized) return;
 	initialized = 1;
 	for (i = 0; i < (1 << LOG_BITS); i++)
 	{
 		a = (1 << LOG_LIN_BITS) / pow(2.0, i / (double)(1 << LOG_BITS));
-		logtbl[i] = (uint32)a;
+		logtbl[i] = (uint32_t)a;
 	}
 	lineartbl[0] = LOG_LIN_BITS << LOG_BITS;
 	for (i = 1; i < (1 << LIN_BITS) + 1; i++)
 	{
-		uint32 ua;
+		uint32_t ua;
 		a = i << (LOG_LIN_BITS - LIN_BITS);
-		ua = (uint32)((LOG_LIN_BITS - (log(a) / log(2.0))) * (1 << LOG_BITS));
+		ua = (uint32_t)((LOG_LIN_BITS - (log(a) / log(2.0))) * (1 << LOG_BITS));
 		lineartbl[i] = ua << 1;
 	}
 }
@@ -124,9 +124,9 @@ static void FDSSoundEGStep(struct FDS_EG *peg)
 }
 
 
-static int32 __fastcall FDSSoundRender(void)
+static int32_t __fastcall FDSSoundRender(void)
 {
-	int32 output;
+	int32_t output;
 	/* Wave Generator */
 	FDSSoundWGStep(&op[1].wg);
 	FDSSoundWGStep(&op[0].wg);
@@ -137,8 +137,8 @@ static int32 __fastcall FDSSoundRender(void)
 		op[0].pg.spd = op[0].pg.spdbase;
 	else
 	{
-		uint32 v1;
-		v1 = 0x10000 + ((int32)op[1].eg.volume) * (((int32)(((uint8)op[1].wg.output) & 255)) - 64);
+		uint32_t v1;
+		v1 = 0x10000 + ((int32_t)op[1].eg.volume) * (((int32_t)(((uint8_t)op[1].wg.output) & 255)) - 64);
 		v1 = ((1 << 10) + v1) & 0xfff;
 		v1 = (op[0].pg.freq * v1) >> 10;
 		op[0].pg.spd = v1 * phasecps;
@@ -177,14 +177,14 @@ static void __fastcall FDSSoundVolume(unsigned int volume)
 	mastervolumel[3] = LogToLinear(mastervolume, LOG_LIN_BITS - LIN_BITS - VOL_BITS) * 8 / 10;
 }
 
-static const uint8 wave_delta_table[8] = {
+static const uint8_t wave_delta_table[8] = {
 	0,(1 << FM_DEPTH),(2 << FM_DEPTH),(4 << FM_DEPTH),
 	0,256 - (4 << FM_DEPTH),256 - (2 << FM_DEPTH),256 - (1 << FM_DEPTH),
 };
 
-static uint32 DivFix(uint32 p1, uint32 p2, uint32 fix)
+static uint32_t DivFix(uint32_t p1, uint32_t p2, uint32_t fix)
 {
-	uint32 ret;
+	uint32_t ret;
 	ret = p1 / p2;
 	p1  = p1 % p2;
 	while (fix--)
@@ -290,7 +290,7 @@ void	Write (int Addr, int Val)
 			case 8:
 				if (op[1].wg.disable)
 				{
-					int32 idx = Val & 7;
+					int32_t idx = Val & 7;
 					if (idx == 4)
 					{
 						op[1].wavebase = 0;

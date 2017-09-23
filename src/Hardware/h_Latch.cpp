@@ -9,7 +9,7 @@
 
 namespace Latch
 {
-uint8 Data;
+uint8_t Data;
 uint16_n Addr;
 FSync Sync;
 BOOL BusConflicts;

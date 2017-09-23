@@ -10,9 +10,9 @@
 namespace
 {
 FCPUWrite _Write4;
-uint8 IRQenabled;
+uint8_t IRQenabled;
 uint16_n IRQcounter;
-uint8 PRG;
+uint8_t PRG;
 
 void	Sync (void)
 {
@@ -85,7 +85,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-uint16 MapperNum = 50;
+uint16_t MapperNum = 50;
 } // namespace
 
 const MapperInfo MapperInfo_050 =

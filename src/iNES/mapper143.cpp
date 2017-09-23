@@ -32,7 +32,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCHR_ROM8(0, 0);
 }
 
-uint16 MapperNum = 143;
+uint16_t MapperNum = 143;
 } // namespace
 
 const MapperInfo MapperInfo_143 =

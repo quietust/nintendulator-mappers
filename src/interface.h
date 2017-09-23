@@ -33,15 +33,19 @@
 
 /* Integer types */
 
-typedef	signed __int8		int8;
-typedef	signed __int16		int16;
-typedef	signed __int32		int32;
-typedef	signed __int64		int64;
+#if MSC_VER >= 1600
+#include <stdint.h>
+#else
+typedef	signed __int8		int8_t;
+typedef	signed __int16		int16_t;
+typedef	signed __int32		int32_t;
+typedef	signed __int64		int64_t;
 
-typedef	unsigned __int8		uint8;
-typedef	unsigned __int16	uint16;
-typedef	unsigned __int32	uint32;
-typedef	unsigned __int64	uint64;
+typedef	unsigned __int8		uint8_t;
+typedef	unsigned __int16	uint16_t;
+typedef	unsigned __int32	uint32_t;
+typedef	unsigned __int64	uint64_t;
+#endif
 
 typedef	union
 {
@@ -52,7 +56,7 @@ typedef	union
 	};
 	struct
 	{
-		uint8 b0;
+		uint8_t b0;
 	};
 }	uint8_n;
 
@@ -67,12 +71,12 @@ typedef	union
 	};
 	struct
 	{
-		uint8 b0;
-		uint8 b1;
+		uint8_t b0;
+		uint8_t b1;
 	};
 	struct
 	{
-		uint16 s0;
+		uint16_t s0;
 	};
 }	uint16_n;
 
@@ -91,19 +95,19 @@ typedef	union
 	};
 	struct
 	{
-		uint8 b0;
-		uint8 b1;
-		uint8 b2;
-		uint8 b3;
+		uint8_t b0;
+		uint8_t b1;
+		uint8_t b2;
+		uint8_t b3;
 	};
 	struct
 	{
-		uint16 s0;
-		uint16 s1;
+		uint16_t s0;
+		uint16_t s1;
 	};
 	struct
 	{
-		uint32 l0;
+		uint32_t l0;
 	};
 }	uint32_n;
 
@@ -308,23 +312,23 @@ extern	HINSTANCE		hInstance;
 extern	const EmulatorInterface	*EMU;
 extern	const ROMInfo		*ROM;
 
-inline void SAVELOAD_BYTE(STATE_TYPE mode, int &offset, unsigned char *data, uint8 &value)
+inline void SAVELOAD_BYTE(STATE_TYPE mode, int &offset, unsigned char *data, uint8_t &value)
 {
 	if (mode == STATE_SAVE) data[offset++] = value;
 	else if (mode == STATE_LOAD) value = data[offset++];
 	else if (mode == STATE_SIZE) offset++;
 	else MessageBox(hWnd,_T("Invalid save/load type!"),_T("Mapper DLL"),MB_OK);
 }
-inline void SAVELOAD_BYTE(STATE_TYPE mode, int &offset, unsigned char *data, int8 &value)
+inline void SAVELOAD_BYTE(STATE_TYPE mode, int &offset, unsigned char *data, int8_t &value)
 {
-	uint8 _value = value;	SAVELOAD_BYTE(mode, offset, data, _value);	value = _value;
+	uint8_t _value = value;	SAVELOAD_BYTE(mode, offset, data, _value);	value = _value;
 }
 inline void SAVELOAD_BYTE(STATE_TYPE mode, int &offset, unsigned char *data, int &value)
 {
-	uint8 _value = value;	SAVELOAD_BYTE(mode, offset, data, _value);	value = _value;
+	uint8_t _value = value;	SAVELOAD_BYTE(mode, offset, data, _value);	value = _value;
 }
 
-inline void SAVELOAD_WORD(STATE_TYPE mode, int &offset, unsigned char *data, uint16 &value)
+inline void SAVELOAD_WORD(STATE_TYPE mode, int &offset, unsigned char *data, uint16_t &value)
 {
 	uint16_n sl_tmp;
 	if (mode == STATE_SAVE) { sl_tmp.s0 = value; data[offset++] = sl_tmp.b0; data[offset++] = sl_tmp.b1; }
@@ -332,16 +336,16 @@ inline void SAVELOAD_WORD(STATE_TYPE mode, int &offset, unsigned char *data, uin
 	else if (mode == STATE_SIZE) offset += 2;
 	else MessageBox(hWnd,_T("Invalid save/load type!"),_T("Mapper DLL"),MB_OK);
 }
-inline void SAVELOAD_WORD(STATE_TYPE mode, int &offset, unsigned char *data, int16 &value)
+inline void SAVELOAD_WORD(STATE_TYPE mode, int &offset, unsigned char *data, int16_t &value)
 {
-	uint16 _value = value;	SAVELOAD_WORD(mode, offset, data, _value);	value = _value;
+	uint16_t _value = value;	SAVELOAD_WORD(mode, offset, data, _value);	value = _value;
 }
 inline void SAVELOAD_WORD(STATE_TYPE mode, int &offset, unsigned char *data, int &value)
 {
-	uint16 _value = value;	SAVELOAD_WORD(mode, offset, data, _value);	value = _value;
+	uint16_t _value = value;	SAVELOAD_WORD(mode, offset, data, _value);	value = _value;
 }
 
-inline void SAVELOAD_LONG(STATE_TYPE mode, int &offset, unsigned char *data, uint32 &value)
+inline void SAVELOAD_LONG(STATE_TYPE mode, int &offset, unsigned char *data, uint32_t &value)
 {
 	uint32_n sl_tmp;
 	if (mode == STATE_SAVE) { sl_tmp.l0 = value; data[offset++] = sl_tmp.b0; data[offset++] = sl_tmp.b1; data[offset++] = sl_tmp.b2; data[offset++] = sl_tmp.b3; }
@@ -349,15 +353,15 @@ inline void SAVELOAD_LONG(STATE_TYPE mode, int &offset, unsigned char *data, uin
 	else if (mode == STATE_SIZE) offset += 4;
 	else MessageBox(hWnd,_T("Invalid save/load type!"),_T("Mapper DLL"),MB_OK);
 }
-inline void SAVELOAD_LONG(STATE_TYPE mode, int &offset, unsigned char *data, int32 &value)
+inline void SAVELOAD_LONG(STATE_TYPE mode, int &offset, unsigned char *data, int32_t &value)
 {
-	uint32 _value = value;	SAVELOAD_LONG(mode, offset, data, _value);	value = _value;
+	uint32_t _value = value;	SAVELOAD_LONG(mode, offset, data, _value);	value = _value;
 }
 inline void SAVELOAD_LONG(STATE_TYPE mode, int &offset, unsigned char *data, long &value)
 {
-	uint32 _value = value;	SAVELOAD_LONG(mode, offset, data, _value);	value = _value;
+	uint32_t _value = value;	SAVELOAD_LONG(mode, offset, data, _value);	value = _value;
 }
 inline void SAVELOAD_LONG(STATE_TYPE mode, int &offset, unsigned char *data, unsigned long &value)
 {
-	uint32 _value = value;	SAVELOAD_LONG(mode, offset, data, _value);	value = _value;
+	uint32_t _value = value;	SAVELOAD_LONG(mode, offset, data, _value);	value = _value;
 }

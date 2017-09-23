@@ -11,10 +11,10 @@
 
 namespace
 {
-uint8 Jumper;
+uint8_t Jumper;
 HWND ConfigWindow;
-uint8 ConfigCmd;
-uint8 JumperData[0x1000];
+uint8_t ConfigCmd;
+uint8_t JumperData[0x1000];
 
 void	Sync (void)
 {
@@ -118,7 +118,7 @@ void	MAPINT	Unload (void)
 	}
 }
 
-uint16 MapperNum = 59;
+uint16_t MapperNum = 59;
 } // namespace
 
 const MapperInfo MapperInfo_059 =

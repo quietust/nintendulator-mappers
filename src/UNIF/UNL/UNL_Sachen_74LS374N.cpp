@@ -9,7 +9,7 @@
 
 namespace
 {
-uint8 Cmd, PRG, CHR, Mirror;
+uint8_t Cmd, PRG, CHR, Mirror;
 FCPUWrite _Write4;
 
 void	Sync (void)
@@ -35,7 +35,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 
 void	MAPINT	Write (int Bank, int Addr, int Val)
 {
-	uint16 Loc = (Bank << 12) | Addr;
+	uint16_t Loc = (Bank << 12) | Addr;
 	if (Loc < 0x4018)
 	{
 		_Write4(Bank, Addr, Val);

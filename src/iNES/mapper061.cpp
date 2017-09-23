@@ -23,7 +23,7 @@ void	Sync (void)
 			unsigned Mir_HV  : 1;
 			unsigned         : 8;
 		};
-		uint16 addr;
+		uint16_t addr;
 	};
 	addr = Latch::Addr.s0;
 	EMU->SetCHR_RAM8(0, 0);
@@ -52,7 +52,7 @@ void	MAPINT	Unload (void)
 	Latch::Unload();
 }
 
-uint16 MapperNum = 61;
+uint16_t MapperNum = 61;
 } // namespace
 
 const MapperInfo MapperInfo_061 =

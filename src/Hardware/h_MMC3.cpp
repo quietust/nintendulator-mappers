@@ -9,13 +9,13 @@
 
 namespace MMC3
 {
-uint8 IRQenabled, IRQcounter, IRQlatch, IRQreload;
-uint8 IRQaddr;
-uint8 Cmd;
-uint8 PRG[4];
-uint8 CHR[8];
-uint8 WRAMEnab;
-uint8 Mirror;
+uint8_t IRQenabled, IRQcounter, IRQlatch, IRQreload;
+uint8_t IRQaddr;
+uint8_t Cmd;
+uint8_t PRG[4];
+uint8_t CHR[8];
+uint8_t WRAMEnab;
+uint8_t Mirror;
 FCPUWrite _CPUWrite[2];
 FSync Sync;
 

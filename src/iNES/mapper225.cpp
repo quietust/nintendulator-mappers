@@ -23,7 +23,7 @@ void	Sync (void)
 			unsigned Mir_HV  : 1;
 			unsigned         : 2;
 		};
-		uint16 addr;
+		uint16_t addr;
 	};
 	addr = Latch::Addr.s0;
 
@@ -53,7 +53,7 @@ void	MAPINT	Unload (void)
 	Latch::Unload();
 }
 
-uint16 MapperNum = 225;
+uint16_t MapperNum = 225;
 } // namespace
 
 const MapperInfo MapperInfo_225 =

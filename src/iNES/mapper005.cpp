@@ -249,7 +249,7 @@ void	MAPINT	Unload (void)
 	}
 }
 
-uint16 MapperNum = 5;
+uint16_t MapperNum = 5;
 } // namespace
 
 const MapperInfo MapperInfo_005 =

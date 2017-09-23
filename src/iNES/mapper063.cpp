@@ -24,7 +24,7 @@ void	Sync (void)
 			unsigned PRGhigh : 1;
 			unsigned         : 4;
 		};
-		uint16 addr;
+		uint16_t addr;
 	};
 	addr = Latch::Addr.s0;
 
@@ -69,7 +69,7 @@ void	MAPINT	Unload (void)
 	Latch::Unload();
 }
 
-uint16 MapperNum = 63;
+uint16_t MapperNum = 63;
 } // namespace
 
 const MapperInfo MapperInfo_063 =

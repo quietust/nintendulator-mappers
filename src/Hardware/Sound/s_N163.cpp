@@ -11,31 +11,31 @@
 // Namco 163
 namespace N163sound
 {
-uint8 regs[0x80];
-uint8 chans;
-uint8 addr;
-uint8 inc;
+uint8_t regs[0x80];
+uint8_t chans;
+uint8_t addr;
+uint8_t inc;
 struct	N163chan
 {
-	uint8 freql, freqm, freqh;
-	uint32 freq;
-	uint16 len;
-	uint8 baseaddr;
-	uint8 volume;
-	uint8 CurP;
-	uint8 CurA;
-	int32 LCtr;
+	uint8_t freql, freqm, freqh;
+	uint32_t freq;
+	uint16_t len;
+	uint8_t baseaddr;
+	uint8_t volume;
+	uint8_t CurP;
+	uint8_t CurA;
+	int32_t LCtr;
 
 	int	GenerateWave (int Cycles)
 	{
-		int32 _freq;
+		int32_t _freq;
 		if (!freq)
 			return 0;
 		_freq = (0xF0000 * chans) / freq;
 		LCtr += Cycles;
 		while (LCtr > _freq)
 		{
-			uint8 _addr;
+			uint8_t _addr;
 			CurA++;
 			while (CurA >= len)
 				CurA -= len;

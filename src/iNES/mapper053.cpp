@@ -10,7 +10,7 @@
 
 namespace
 {
-uint8 Game;
+uint8_t Game;
 
 void	Sync (void)
 {
@@ -63,7 +63,7 @@ void	MAPINT	Unload (void)
 	Latch::Unload();
 }
 
-uint16 MapperNum = 53;
+uint16_t MapperNum = 53;
 } // namespace
 
 const MapperInfo MapperInfo_053 =

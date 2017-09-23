@@ -9,10 +9,10 @@
 
 namespace
 {
-uint8 Cmd;
-uint8 PRG[3];
-uint8 CHR[4];
-uint8 Mirror;
+uint8_t Cmd;
+uint8_t PRG[3];
+uint8_t CHR[4];
+uint8_t Mirror;
 
 void	Sync (void)
 {
@@ -89,7 +89,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-uint16 MapperNum = 76;
+uint16_t MapperNum = 76;
 } // namespace
 
 const MapperInfo MapperInfo_076 =

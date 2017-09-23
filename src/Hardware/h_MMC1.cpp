@@ -9,8 +9,8 @@
 
 namespace MMC1
 {
-uint8 Latch, LatchPos;
-uint8 Regs[4];
+uint8_t Latch, LatchPos;
+uint8_t Regs[4];
 FSync Sync;
 
 void	Load (FSync _Sync)
@@ -52,7 +52,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 int	LastReg;
 void	MAPINT	Write (int Bank, int Addr, int Val)
 {
-	uint8 Reg = (Bank >> 1) & 3;
+	uint8_t Reg = (Bank >> 1) & 3;
 	if (Val & 0x80)
 	{
 		Latch = LatchPos = 0;

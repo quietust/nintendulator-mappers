@@ -10,7 +10,7 @@
 
 namespace
 {
-uint8 WhichGame;
+uint8_t WhichGame;
 
 void	Sync (void)
 {

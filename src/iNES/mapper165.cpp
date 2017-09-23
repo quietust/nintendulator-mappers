@@ -10,12 +10,12 @@
 
 namespace MMC3
 {
-extern uint8 Mirror;
+extern uint8_t Mirror;
 }
 namespace
 {
 FPPURead _PPURead3, _PPURead7;
-uint8 LatchState[2];
+uint8_t LatchState[2];
 
 void	SyncCHR (void)
 {
@@ -109,7 +109,7 @@ void	MAPINT	Unload (void)
 	MMC3::Unload();
 }
 
-uint16 MapperNum = 165;
+uint16_t MapperNum = 165;
 } // namespace
 
 const MapperInfo MapperInfo_165 =

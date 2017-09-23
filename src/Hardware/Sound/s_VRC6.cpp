@@ -26,13 +26,13 @@ struct	VRC6sqr
 		};
 		struct
 		{
-			uint8 byte0;
-			uint8 byte1;
-			uint8 byte2;
+			uint8_t byte0;
+			uint8_t byte1;
+			uint8_t byte2;
 		};
 	};
-	uint8 CurP;
-	int32 LCtr;
+	uint8_t CurP;
+	int32_t LCtr;
 
 	int	Generate (int Cycles)
 	{
@@ -61,14 +61,14 @@ struct	VRC6saw
 		};
 		struct
 		{
-			uint8 byte0;
-			uint8 byte1;
-			uint8 byte2;
+			uint8_t byte0;
+			uint8_t byte1;
+			uint8_t byte2;
 		};
 	};
-	uint8 CurP;
-	uint8 Acc;
-	int32 LCtr;
+	uint8_t CurP;
+	uint8_t Acc;
+	int32_t LCtr;
 
 	int	Generate (int Cycles)
 	{

@@ -88,7 +88,7 @@ void	Sync_TQROM (void)
 
 	for (int i = 0; i < 8; i++)
 	{
-		uint8 bank = MMC3::GetCHRBank(i);
+		uint8_t bank = MMC3::GetCHRBank(i);
 		if (bank & 0x40)
 			EMU->SetCHR_RAM1(i, bank & 0x07);
 		else	EMU->SetCHR_ROM1(i, bank & 0x3F);

@@ -9,9 +9,9 @@
 
 namespace
 {
-uint8 Mirror, VROM_use;
-uint8 NT[2];
-uint8 PRG, CHR[4];
+uint8_t Mirror, VROM_use;
+uint8_t NT[2];
+uint8_t PRG, CHR[4];
 
 void	Sync (void)
 {
@@ -24,7 +24,7 @@ void	Sync (void)
 
 void	SyncNametables (void)
 {
-	uint8 nt[4] = {0,0,0,0};
+	uint8_t nt[4] = {0,0,0,0};
 	void (MAPINT *SetCHR)(int,int) = EMU->SetCHR_NT1;
 
 	switch (Mirror & 0x3)
@@ -132,7 +132,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	SyncNametables();
 }
 
-uint16 MapperNum = 68;
+uint16_t MapperNum = 68;
 } // namespace
 
 const MapperInfo MapperInfo_068 =

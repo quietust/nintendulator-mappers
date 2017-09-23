@@ -11,9 +11,9 @@
 #define IRQ_CYCLES 341
 namespace
 {
-uint8 IRQenabled, IRQcounter, IRQlatch;
-int16 IRQcycles;
-uint8 PRG[3], CHR[8], Misc;
+uint8_t IRQenabled, IRQcounter, IRQlatch;
+int16_t IRQcycles;
+uint8_t PRG[3], CHR[8], Misc;
 
 void	Sync (void)
 {
@@ -188,7 +188,7 @@ void	MAPINT	Unload (void)
 	VRC7sound::Unload();
 }
 
-uint16 MapperNum = 85;
+uint16_t MapperNum = 85;
 } // namespace
 
 const MapperInfo MapperInfo_085 =

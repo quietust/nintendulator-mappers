@@ -9,7 +9,7 @@
 
 namespace
 {
-uint8 Regs[2];
+uint8_t Regs[2];
 
 void	Sync (void)
 {

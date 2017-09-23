@@ -10,8 +10,8 @@
 
 namespace
 {
-uint8 PRG;
-uint8 Valid;
+uint8_t PRG;
+uint8_t Valid;
 
 void	Sync (void)
 {
@@ -96,7 +96,7 @@ void	MAPINT	Unload (void)
 	MMC3::Unload();
 }
 
-uint16 MapperNum = 114;
+uint16_t MapperNum = 114;
 } // namespace
 
 const MapperInfo MapperInfo_114 =

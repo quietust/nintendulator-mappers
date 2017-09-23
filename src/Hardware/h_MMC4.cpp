@@ -9,11 +9,11 @@
 
 namespace MMC4
 {
-uint8 PRG;
-uint8 LatchState[2];
-uint8 Latch0[2];
-uint8 Latch1[2];
-uint8 Mirror;
+uint8_t PRG;
+uint8_t LatchState[2];
+uint8_t Latch0[2];
+uint8_t Latch1[2];
+uint8_t Mirror;
 FSync Sync;
 FPPURead _PPURead3, _PPURead7;
 

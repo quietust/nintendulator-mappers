@@ -11,8 +11,8 @@ namespace
 {
 FCPURead _Read4;
 FCPUWrite _Write4;
-uint8 RegP, RegM, RegR;
-uint8 PRG, CHR;
+uint8_t RegP, RegM, RegR;
+uint8_t PRG, CHR;
 
 void	Sync (void)
 {
@@ -95,7 +95,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-uint16 MapperNum = 36;
+uint16_t MapperNum = 36;
 } // namespace
 
 const MapperInfo MapperInfo_036 =

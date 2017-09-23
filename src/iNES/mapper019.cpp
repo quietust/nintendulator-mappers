@@ -10,11 +10,11 @@
 
 namespace
 {
-uint8 PRG[4], CHR[8], NTab[4];
+uint8_t PRG[4], CHR[8], NTab[4];
 uint16_n IRQcounter;
 FCPURead _Read4;
 FCPUWrite _Write4;
-uint8 HardMirror;
+uint8_t HardMirror;
 
 void	Sync (void)
 {
@@ -211,8 +211,8 @@ void	MAPINT	Unload (void)
 	N163sound::Unload();
 }
 
-uint16 MapperNum = 19;
-uint16 MapperNum2 = 210;
+uint16_t MapperNum = 19;
+uint16_t MapperNum2 = 210;
 } // namespace
 
 const MapperInfo MapperInfo_019 =

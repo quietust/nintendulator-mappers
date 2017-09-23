@@ -10,20 +10,20 @@
 
 namespace MMC5
 {
-uint8 WRAMsize;
-uint8 PRGsize, CHRsize;
-uint8 WRAMprot[2];
-uint8 GfxMode;
-uint8 Mirror;
-uint8 PRG[5];
+uint8_t WRAMsize;
+uint8_t PRGsize, CHRsize;
+uint8_t WRAMprot[2];
+uint8_t GfxMode;
+uint8_t Mirror;
+uint8_t PRG[5];
 uint16_n CHR_A[8], CHR_B[4];
-uint8 CHRhi, CHRmode;
-uint8 SplitMode, SplitScroll, SplitBank;
-uint8 IRQline, IRQenabled, IRQreads;
-uint8 Mul1, Mul2;
-int16 LineCounter;
-uint8 SpriteMode;
-uint8 *NameTable0, *NameTable1, *ExRAM, *ExNameTable;
+uint8_t CHRhi, CHRmode;
+uint8_t SplitMode, SplitScroll, SplitBank;
+uint8_t IRQline, IRQenabled, IRQreads;
+uint8_t Mul1, Mul2;
+int16_t LineCounter;
+uint8_t SpriteMode;
+uint8_t *NameTable0, *NameTable1, *ExRAM, *ExNameTable;
 FCPUWrite _WritePPU;
 FCPUWrite _CPUWrite[10];
 FPPURead _PPURead[16];
@@ -371,7 +371,7 @@ void	SyncCHR (int mode)
 
 void	SyncMirror (void)
 {
-	uint8 mirror = Mirror;
+	uint8_t mirror = Mirror;
 	for (int i = 0; i < 4; i++)
 	{
 		if ((mirror & 3) == 3)

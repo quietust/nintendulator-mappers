@@ -9,7 +9,7 @@
 
 namespace
 {
-uint8 Reg;
+uint8_t Reg;
 FCPUWrite _Write4;
 
 void	Sync (void)
@@ -48,7 +48,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 }
 
-uint16 MapperNum = 150;
+uint16_t MapperNum = 150;
 } // namespace
 
 const MapperInfo MapperInfo_150 =

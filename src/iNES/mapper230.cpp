@@ -10,7 +10,7 @@
 
 namespace
 {
-uint8 Mode;
+uint8_t Mode;
 
 void	Sync (void)
 {
@@ -62,7 +62,7 @@ void	MAPINT	Unload (void)
 	Latch::Unload();
 }
 
-uint16 MapperNum = 230;
+uint16_t MapperNum = 230;
 } // namespace
 
 const MapperInfo MapperInfo_230 =

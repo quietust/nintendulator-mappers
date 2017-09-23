@@ -10,7 +10,7 @@
 
 namespace
 {
-uint8 PRG[3];
+uint8_t PRG[3];
 uint8_n CHR[2];
 
 void	Sync (void)
@@ -103,8 +103,8 @@ void	MAPINT	Unload (void)
 	VS::Unload();
 }
 
-uint16 MapperNum = 75;
-uint16 MapperNum2 = 151;
+uint16_t MapperNum = 75;
+uint16_t MapperNum2 = 151;
 } // namespace
 
 const MapperInfo MapperInfo_075 =

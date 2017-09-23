@@ -10,7 +10,7 @@
 
 namespace
 {
-uint8 Reg0, Reg1;
+uint8_t Reg0, Reg1;
 
 void	Sync (void)
 {
@@ -20,7 +20,7 @@ void	Sync (void)
 	MMC3::SyncMirror();
 	if (Reg0 & 0x40)
 	{
-		uint8 BankNum = (Reg0 & 0x05) | ((Reg0 & 8) >> 2) | ((Reg0 & 0x20) >> 2);
+		uint8_t BankNum = (Reg0 & 0x05) | ((Reg0 & 8) >> 2) | ((Reg0 & 0x20) >> 2);
 		if (Reg0 & 0x2)
 			EMU->SetPRG_ROM32(0x8, BankNum >> 1);
 		else
