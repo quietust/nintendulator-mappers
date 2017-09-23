@@ -1,5 +1,5 @@
 /* Nintendulator Mapper DLLs
- * Copyright (C) 2002-2011 QMT Productions
+ * Copyright (C) QMT Productions
  *
  * $URL$
  * $Id$
