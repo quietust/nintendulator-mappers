@@ -44,8 +44,8 @@ const MapperInfo	*MAPINT	LoadMapper (const ROMInfo *_ROM)
 DLLInfo	DLL_Info =
 {
 	_T("FDS.DLL by Quietust"),
-	0x20100102,
-	0x00040002,
+	0x20190101,
+	0x00040003,
 	LoadMapper,
 	UnloadMapper
 };
