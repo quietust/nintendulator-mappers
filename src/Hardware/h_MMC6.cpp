@@ -1,8 +1,5 @@
 /* Nintendulator Mapper DLLs
  * Copyright (C) QMT Productions
- *
- * $URL$
- * $Id$
  */
 
 #include	"h_MMC6.h"

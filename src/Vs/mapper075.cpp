@@ -1,8 +1,5 @@
 /* Nintendulator Mapper DLLs
  * Copyright (C) QMT Productions
- *
- * $URL$
- * $Id$
  */
 
 #include	"..\DLL\d_VS.h"

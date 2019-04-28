@@ -1,8 +1,5 @@
 /* Nintendulator Mapper DLLs
  * Copyright (C) QMT Productions
- *
- * $URL$
- * $Id$
  */
 
 /* Modified for usage in VRC7 sound emulation
