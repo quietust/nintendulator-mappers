@@ -78,6 +78,9 @@
     <ClCompile Include="..\src\DLL\d_VS.cpp">
       <Filter>Source Files\DLL Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\VS\mapper075.cpp">
+      <Filter>Source Files\Mapper Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\interface.h">

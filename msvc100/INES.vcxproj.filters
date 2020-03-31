@@ -538,6 +538,9 @@
     <ClCompile Include="..\src\iNES\mapper206.cpp">
       <Filter>Source Files\Mapper Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iNES\mapper031.cpp">
+      <Filter>Source Files\Mapper Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\interface.h">
