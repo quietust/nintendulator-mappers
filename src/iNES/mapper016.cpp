@@ -112,6 +112,7 @@ public:
 			break;
 		case 5:	// Ack
 			BitPtr = 0;
+			Data = 0;
 			State++;
 			break;
 
@@ -125,6 +126,7 @@ public:
 		case 7:	// Ack
 			EEP[Addr] = Data;
 			Addr = (Addr & 0xF8) | ((Addr + 1) & 0x7);
+			BitPtr = 0;
 			Data = 0;
 			State = 6;
 			break;
@@ -240,6 +242,7 @@ public:
 		case 6:	// Ack
 			EEP[Addr] = Data;
 			Addr = (Addr & 0x7C) | ((Addr + 1) & 0x3);
+			BitPtr = 0;
 			Data = 0;
 			State = 5;
 			break;
@@ -252,6 +255,7 @@ public:
 			break;
 		case 8:	// Ack
 			State = 7;
+			BitPtr = 0;
 			Addr = (Addr + 1) & 0x7F;
 			Data = EEP[Addr];
 			break;
