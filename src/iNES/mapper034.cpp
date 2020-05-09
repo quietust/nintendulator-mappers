@@ -27,6 +27,9 @@ void	Sync_BNROM (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
 	SAVELOAD_BYTE(mode, offset, data, Mode);
 	SAVELOAD_BYTE(mode, offset, data, PRG);
 	if (Mode == 1)
@@ -34,7 +37,8 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 		SAVELOAD_BYTE(mode, offset, data, CHR[0]);
 		SAVELOAD_BYTE(mode, offset, data, CHR[1]);
 	}
-	if (mode == STATE_LOAD)
+
+	if (IsLoad(mode))
 	{
 		if (Mode == 1)
 			Sync_NINA();

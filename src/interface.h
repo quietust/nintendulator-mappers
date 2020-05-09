@@ -20,12 +20,12 @@
 
 #define	MSGBOX_FLAGS	(MB_OK | MB_ICONERROR | MB_DEFBUTTON1 | MB_APPLMODAL)
 
-/* Mapper Interface version (3.9) */
+/* Mapper Interface version (3.10) */
 
 #ifdef	UNICODE
-#define	CurrentMapperInterface	0x80030009
+#define	CurrentMapperInterface	0x80030010
 #else	/* !UNICODE */
-#define	CurrentMapperInterface	0x00030009
+#define	CurrentMapperInterface	0x00030010
 #endif	/* UNICODE */
 
 /* Integer types */
@@ -210,7 +210,7 @@ enum COMPAT_TYPE	{ COMPAT_NONE, COMPAT_PARTIAL, COMPAT_NEARLY, COMPAT_FULL, COMP
 
 enum RESET_TYPE	{ RESET_NONE, RESET_SOFT, RESET_HARD };
 
-enum STATE_TYPE	{ STATE_SIZE, STATE_SAVE, STATE_LOAD };
+enum STATE_TYPE	{ STATE_SIZE, STATE_SAVE, STATE_LOAD, STATE_LOAD_VER };
 
 enum CFG_TYPE	{ CFG_WINDOW, CFG_QUERY, CFG_CMD };
 
@@ -309,56 +309,145 @@ extern	HINSTANCE		hInstance;
 extern	const EmulatorInterface	*EMU;
 extern	const ROMInfo		*ROM;
 
+#define CheckSave(expr) do { if ((expr) == -1) return -1; } while (0)
+
+inline bool IsSize(STATE_TYPE mode) { return (mode == STATE_SIZE); }
+inline bool IsSave(STATE_TYPE mode) { return (mode == STATE_SAVE); }
+inline bool IsLoad(STATE_TYPE mode) { return ((mode == STATE_LOAD) || (mode == STATE_LOAD_VER)); }
+
+inline int SAVELOAD_VERSION(STATE_TYPE mode, int &offset, unsigned char *data, uint8_t &cur_ver)
+{
+	switch (mode)
+	{
+	case STATE_SAVE:
+		data[offset++] = cur_ver;
+		break;
+	case STATE_LOAD_VER:
+		if (data[offset] > cur_ver)
+			return -1;
+		cur_ver = data[offset++];
+		break;
+	case STATE_LOAD:
+		cur_ver = 0;
+		break;
+	case STATE_SIZE:
+		offset++;
+		break;
+	default:
+		MessageBox(hWnd, _T("Invalid save/load type!"), _T("Mapper DLL"), MB_OK);
+	}
+	return 0;
+}
+
 inline void SAVELOAD_BYTE(STATE_TYPE mode, int &offset, unsigned char *data, uint8_t &value)
 {
-	if (mode == STATE_SAVE) data[offset++] = value;
-	else if (mode == STATE_LOAD) value = data[offset++];
-	else if (mode == STATE_SIZE) offset++;
-	else MessageBox(hWnd,_T("Invalid save/load type!"),_T("Mapper DLL"),MB_OK);
+	switch (mode)
+	{
+	case STATE_SAVE:
+		data[offset++] = value;
+		break;
+	case STATE_LOAD_VER:
+	case STATE_LOAD:
+		value = data[offset++];
+		break;
+	case STATE_SIZE:
+		offset++;
+		break;
+	default:
+		MessageBox(hWnd, _T("Invalid save/load type!"), _T("Mapper DLL"), MB_OK);
+	}
 }
 inline void SAVELOAD_BYTE(STATE_TYPE mode, int &offset, unsigned char *data, int8_t &value)
 {
-	uint8_t _value = value;	SAVELOAD_BYTE(mode, offset, data, _value);	value = _value;
+	uint8_t _value = value;
+	SAVELOAD_BYTE(mode, offset, data, _value);
+	value = _value;
 }
 inline void SAVELOAD_BYTE(STATE_TYPE mode, int &offset, unsigned char *data, int &value)
 {
-	uint8_t _value = value;	SAVELOAD_BYTE(mode, offset, data, _value);	value = _value;
+	uint8_t _value = value;
+	SAVELOAD_BYTE(mode, offset, data, _value);
+	value = _value;
 }
 
 inline void SAVELOAD_WORD(STATE_TYPE mode, int &offset, unsigned char *data, uint16_t &value)
 {
 	uint16_n sl_tmp;
-	if (mode == STATE_SAVE) { sl_tmp.s0 = value; data[offset++] = sl_tmp.b0; data[offset++] = sl_tmp.b1; }
-	else if (mode == STATE_LOAD) { sl_tmp.b0 = data[offset++]; sl_tmp.b1 = data[offset++]; value = sl_tmp.s0; }
-	else if (mode == STATE_SIZE) offset += 2;
-	else MessageBox(hWnd,_T("Invalid save/load type!"),_T("Mapper DLL"),MB_OK);
+	switch (mode)
+	{
+	case STATE_SAVE:
+		sl_tmp.s0 = value;
+		data[offset++] = sl_tmp.b0;
+		data[offset++] = sl_tmp.b1;
+		break;
+	case STATE_LOAD_VER:
+	case STATE_LOAD:
+		sl_tmp.b0 = data[offset++];
+		sl_tmp.b1 = data[offset++];
+		value = sl_tmp.s0;
+		break;
+	case STATE_SIZE:
+		offset += 2;
+		break;
+	default:
+		MessageBox(hWnd, _T("Invalid save/load type!"), _T("Mapper DLL"), MB_OK);
+	}
 }
 inline void SAVELOAD_WORD(STATE_TYPE mode, int &offset, unsigned char *data, int16_t &value)
 {
-	uint16_t _value = value;	SAVELOAD_WORD(mode, offset, data, _value);	value = _value;
+	uint16_t _value = value;
+	SAVELOAD_WORD(mode, offset, data, _value);
+	value = _value;
 }
 inline void SAVELOAD_WORD(STATE_TYPE mode, int &offset, unsigned char *data, int &value)
 {
-	uint16_t _value = value;	SAVELOAD_WORD(mode, offset, data, _value);	value = _value;
+	uint16_t _value = value;
+	SAVELOAD_WORD(mode, offset, data, _value);
+	value = _value;
 }
 
 inline void SAVELOAD_LONG(STATE_TYPE mode, int &offset, unsigned char *data, uint32_t &value)
 {
 	uint32_n sl_tmp;
-	if (mode == STATE_SAVE) { sl_tmp.l0 = value; data[offset++] = sl_tmp.b0; data[offset++] = sl_tmp.b1; data[offset++] = sl_tmp.b2; data[offset++] = sl_tmp.b3; }
-	else if (mode == STATE_LOAD) { sl_tmp.b0 = data[offset++]; sl_tmp.b1 = data[offset++]; sl_tmp.b2 = data[offset++]; sl_tmp.b3 = data[offset++]; value = sl_tmp.l0; }
-	else if (mode == STATE_SIZE) offset += 4;
-	else MessageBox(hWnd,_T("Invalid save/load type!"),_T("Mapper DLL"),MB_OK);
+	switch (mode)
+	{
+	case STATE_SAVE:
+		sl_tmp.l0 = value;
+		data[offset++] = sl_tmp.b0;
+		data[offset++] = sl_tmp.b1;
+		data[offset++] = sl_tmp.b2;
+		data[offset++] = sl_tmp.b3;
+		break;
+	case STATE_LOAD_VER:
+	case STATE_LOAD:
+		sl_tmp.b0 = data[offset++];
+		sl_tmp.b1 = data[offset++];
+		sl_tmp.b2 = data[offset++];
+		sl_tmp.b3 = data[offset++];
+		value = sl_tmp.l0;
+		break;
+	case STATE_SIZE:
+		offset += 4;
+		break;
+	default:
+		MessageBox(hWnd, _T("Invalid save/load type!"), _T("Mapper DLL"), MB_OK);
+	}
 }
 inline void SAVELOAD_LONG(STATE_TYPE mode, int &offset, unsigned char *data, int32_t &value)
 {
-	uint32_t _value = value;	SAVELOAD_LONG(mode, offset, data, _value);	value = _value;
+	uint32_t _value = value;
+	SAVELOAD_LONG(mode, offset, data, _value);
+	value = _value;
 }
 inline void SAVELOAD_LONG(STATE_TYPE mode, int &offset, unsigned char *data, long &value)
 {
-	uint32_t _value = value;	SAVELOAD_LONG(mode, offset, data, _value);	value = _value;
+	uint32_t _value = value;
+	SAVELOAD_LONG(mode, offset, data, _value);
+	value = _value;
 }
 inline void SAVELOAD_LONG(STATE_TYPE mode, int &offset, unsigned char *data, unsigned long &value)
 {
-	uint32_t _value = value;	SAVELOAD_LONG(mode, offset, data, _value);	value = _value;
+	uint32_t _value = value;
+	SAVELOAD_LONG(mode, offset, data, _value);
+	value = _value;
 }

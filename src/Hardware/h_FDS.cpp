@@ -27,6 +27,9 @@ uint8_t ConfigCmd;
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
 	SAVELOAD_BYTE(mode, offset, data, DiskNum);
 	SAVELOAD_WORD(mode, offset, data, IRQcounter);
 	SAVELOAD_WORD(mode, offset, data, IRQlatch.s0);
@@ -38,8 +41,9 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	SAVELOAD_BYTE(mode, offset, data, WriteSkip);
 	SAVELOAD_BYTE(mode, offset, data, DiskIRQ);
 	SAVELOAD_BYTE(mode, offset, data, Mirror);
-	offset = FDSsound::SaveLoad(mode, offset, data);
-	if (mode == STATE_LOAD)
+	CheckSave(offset = FDSsound::SaveLoad(mode, offset, data));
+
+	if (IsLoad(mode))
 	{
 		if (Mirror)
 			EMU->Mirror_H();

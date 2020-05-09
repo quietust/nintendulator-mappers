@@ -22,12 +22,16 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
 	for (int i = 0; i < 3; i++)
 		SAVELOAD_BYTE(mode, offset, data, PRG[i]);
 	for (int i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode, offset, data, CHR[i].b0);
-	offset = VS::SaveLoad(mode, offset, data);
-	if (mode == STATE_LOAD)
+	CheckSave(offset = VS::SaveLoad(mode, offset, data));
+
+	if (IsLoad(mode))
 		Sync();
 	return offset;
 }

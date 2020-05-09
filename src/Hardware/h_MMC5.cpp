@@ -217,6 +217,9 @@ int	GetRAMSize (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
 	SAVELOAD_BYTE(mode, offset, data, WRAMsize);
 	SAVELOAD_BYTE(mode, offset, data, PRGsize);
 	SAVELOAD_BYTE(mode, offset, data, CHRsize);
@@ -242,8 +245,9 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	SAVELOAD_BYTE(mode, offset, data, Mul2);
 	SAVELOAD_WORD(mode, offset, data, LineCounter);
 	SAVELOAD_BYTE(mode, offset, data, SpriteMode);
-	offset = MMC5sound::SaveLoad(mode, offset, data);
-	if (mode == STATE_LOAD)
+	CheckSave(offset = MMC5sound::SaveLoad(mode, offset, data));
+
+	if (IsLoad(mode))
 	{
 		SyncPRG();
 		SyncCHR(-1);

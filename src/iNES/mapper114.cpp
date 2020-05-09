@@ -21,12 +21,12 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
 	SAVELOAD_BYTE(mode, offset, data, PRG);
 	SAVELOAD_BYTE(mode, offset, data, Valid);
-	offset = MMC3::SaveLoad(mode, offset, data);
-	if (mode == STATE_LOAD)
-		Sync();
-	return offset;
+	return MMC3::SaveLoad(mode, offset, data);
 }
 
 void	MAPINT	Write6 (int Bank, int Addr, int Val)

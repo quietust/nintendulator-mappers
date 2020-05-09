@@ -163,15 +163,19 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
 	SAVELOAD_BYTE(mode, offset, data, Mode);
 	for (int i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode, offset, data, VRC2::PRG[i]);
 	for (int i = 0; i < 8; i++)
 		SAVELOAD_BYTE(mode, offset, data, VRC2::CHR[i].b0);
 	SAVELOAD_BYTE(mode, offset, data, VRC2::Mirror);
-	offset = MMC3::SaveLoad(mode, offset, data);
-	offset = MMC1::SaveLoad(mode, offset, data);
-	if (mode == STATE_LOAD)
+	CheckSave(offset = MMC3::SaveLoad(mode, offset, data));
+	CheckSave(offset = MMC1::SaveLoad(mode, offset, data));
+
+	if (IsLoad(mode))
 	{
 		SetMode();
 		Sync();

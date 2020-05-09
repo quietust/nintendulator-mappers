@@ -1482,6 +1482,9 @@ int	MAPINT	Get (int numCycles)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
 	int i;
 	SAVELOAD_LONG(mode,offset,data,OPL->adr);
 	SAVELOAD_LONG(mode,offset,data,OPL->out);
@@ -1548,7 +1551,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 
 	SAVELOAD_LONG(mode,offset,data,OPL->mask);
 
-	if (mode == STATE_LOAD)
+	if (IsLoad(mode))
 	{
 		for (int i = 0; i < 6; i++)
 		{

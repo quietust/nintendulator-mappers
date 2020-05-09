@@ -89,6 +89,9 @@ int	MAPINT	MapperSnd (int Cycles)
 }
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
 	for (int i = 0; i < 256; i++)
 		SAVELOAD_BYTE(mode, offset, data, Chan[0].FIFO[i]);
 	for (int i = 0; i < 256; i++)
@@ -180,7 +183,10 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	offset = DripSound::SaveLoad(mode, offset, data);
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
+	CheckSave(offset = DripSound::SaveLoad(mode, offset, data));
 	SAVELOAD_WORD(mode, offset, data, IRQcounter);
 	SAVELOAD_BYTE(mode, offset, data, IRQenabled);
 	SAVELOAD_BYTE(mode, offset, data, IRQlatch);
@@ -191,7 +197,8 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	SAVELOAD_WORD(mode, offset, data, LastAddr);
 	SAVELOAD_WORD(mode, offset, data, LastAddrTmp);
 	SAVELOAD_BYTE(mode, offset, data, Jumper);
-	if (mode == STATE_LOAD)
+
+	if (IsLoad(mode))
 		Sync();
 	return offset;
 }

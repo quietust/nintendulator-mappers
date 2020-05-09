@@ -140,23 +140,24 @@ int	MAPINT	Get (int Cycles)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	switch (mode)
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
+	if (IsSave(mode))
 	{
-	case STATE_SAVE:
 		for (int i = 0; i < 0x80; i++)
 			data[offset++] = regs[i];
 		data[offset++] = addr | inc;
-		break;
-	case STATE_LOAD:
+	}
+	else if (IsLoad(mode))
+	{
 		Write(0xF800, 0x80);
 		for (int i = 0; i < 0x80; i++)
 			Write(0x4800, data[offset++]);
 		Write(0xF800, data[offset++]);
-		break;
-	case STATE_SIZE:
-		offset += 0x81;
-		break;
 	}
+	else if (IsSize(mode))
+		offset += 0x81;
 	for (int i = 0; i < 8; i++)
 	{
 		SAVELOAD_BYTE(mode, offset, data, Ch[i].CurP);

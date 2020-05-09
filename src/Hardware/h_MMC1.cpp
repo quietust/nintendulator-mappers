@@ -37,11 +37,15 @@ void	Unload (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
 	for (int i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, offset, data, Regs[i]);
 	SAVELOAD_BYTE(mode, offset, data, Latch);
 	SAVELOAD_BYTE(mode, offset, data, LatchPos);
-	if (mode == STATE_LOAD)
+
+	if (IsLoad(mode))
 		Sync();
 	return offset;
 }

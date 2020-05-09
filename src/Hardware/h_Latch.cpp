@@ -35,33 +35,46 @@ void	Unload (void)
 
 int	MAPINT	SaveLoad_AD (STATE_TYPE mode, int offset, unsigned char *data)
 {
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
 	SAVELOAD_WORD(mode, offset, data, Addr.s0);
 	SAVELOAD_BYTE(mode, offset, data, Data);
-	if (mode == STATE_LOAD)
+
+	if (IsLoad(mode))
 		Sync();
 	return offset;
 }
 
 int	MAPINT	SaveLoad_AL (STATE_TYPE mode, int offset, unsigned char *data)
 {
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
 	SAVELOAD_BYTE(mode, offset, data, Addr.b0);
-	if (mode == STATE_LOAD)
+	if (IsLoad(mode))
 		Sync();
 	return offset;
 }
 
 int	MAPINT	SaveLoad_A (STATE_TYPE mode, int offset, unsigned char *data)
 {
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
 	SAVELOAD_WORD(mode, offset, data, Addr.s0);
-	if (mode == STATE_LOAD)
+	if (IsLoad(mode))
 		Sync();
 	return offset;
 }
 
 int	MAPINT	SaveLoad_D (STATE_TYPE mode, int offset, unsigned char *data)
 {
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
 	SAVELOAD_BYTE(mode, offset, data, Data);
-	if (mode == STATE_LOAD)
+	if (IsLoad(mode))
 		Sync();
 	return offset;
 }

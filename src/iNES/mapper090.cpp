@@ -125,6 +125,9 @@ void	SyncNametables (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
 	for (int i = 0; i < 4; i++)
 		SAVELOAD_BYTE(mode, offset, data, PRGbanks[i]);
 	for (int i = 0; i < 8; i++)
@@ -150,7 +153,8 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 		SAVELOAD_BYTE(mode, offset, data, LatchState[0]);
 		SAVELOAD_BYTE(mode, offset, data, LatchState[1]);
 	}
-	if (mode == STATE_LOAD)
+
+	if (IsLoad(mode))
 	{
 		SyncPRG();
 		SyncCHR();

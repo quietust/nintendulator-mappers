@@ -96,27 +96,21 @@ void	SyncCHR_RAM (int AND, int OR)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
 	SAVELOAD_BYTE(mode, offset, data, IRQcounter);
 	SAVELOAD_BYTE(mode, offset, data, IRQlatch);
 	SAVELOAD_BYTE(mode, offset, data, IRQenabled);
 	SAVELOAD_BYTE(mode, offset, data, Cmd);
 	for (int i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode, offset, data, PRG[i]);
-	switch (mode)
+	SAVELOAD_BYTE(mode, offset, data, CHR[0]);
+	SAVELOAD_BYTE(mode, offset, data, CHR[2]);
+	if (IsLoad(mode))
 	{
-	case STATE_SAVE:
-		data[offset++] = CHR[0];
-		data[offset++] = CHR[2];
-		break;
-	case STATE_LOAD:
-		CHR[0] = data[offset++];
 		CHR[1] = CHR[0] | 1;
-		CHR[2] = data[offset++];
 		CHR[3] = CHR[2] | 1;
-		break;
-	case STATE_SIZE:
-		offset += 2;
-		break;
 	}
 	for (int i = 4; i < 8; i++)
 		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
@@ -124,7 +118,8 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	SAVELOAD_BYTE(mode, offset, data, Mirror);
 	SAVELOAD_BYTE(mode, offset, data, IRQreload);
 	SAVELOAD_BYTE(mode, offset, data, IRQaddr);
-	if (mode == STATE_LOAD)
+
+	if (IsLoad(mode))
 		Sync();
 	return offset;
 }

@@ -244,6 +244,9 @@ int	MAPINT	Get (int Cycles)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
 	SAVELOAD_BYTE(mode, offset, data, Sqr0.volume);
 	SAVELOAD_BYTE(mode, offset, data, Sqr0.envelope);
 	SAVELOAD_BYTE(mode, offset, data, Sqr0.wavehold);

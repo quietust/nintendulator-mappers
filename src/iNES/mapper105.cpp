@@ -43,17 +43,21 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	uint8_t Byte = 0;
-	offset = MMC1::SaveLoad(mode, offset, data);
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
+	CheckSave(offset = MMC1::SaveLoad(mode, offset, data));
 	SAVELOAD_LONG(mode, offset, data, Counter);
-	if (mode == STATE_SAVE)
+	uint8_t Byte = 0;
+	if (IsSave(mode))
 		Byte = (uint8_t)(MaxCount >> 24);
 	SAVELOAD_BYTE(mode, offset, data, Byte);
-	if (mode == STATE_LOAD)
+	if (IsLoad(mode))
 		MaxCount = Byte << 24;
 	SAVELOAD_BYTE(mode, offset, data, CounterEnabled);
 	SAVELOAD_BYTE(mode, offset, data, InitState);
-	if (mode == STATE_LOAD)
+
+	if (IsLoad(mode))
 		Sync();
 	return offset;
 }

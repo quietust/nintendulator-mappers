@@ -291,6 +291,9 @@ void	Unload (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
+	uint8_t ver = 0;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
 	SAVELOAD_BYTE(mode, offset, data, DipSwitch);
 	SAVELOAD_BYTE(mode, offset, data, Coin);
 	SAVELOAD_LONG(mode, offset, data, CoinDelay);
