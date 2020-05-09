@@ -16,5 +16,6 @@ void		Unload		(void);
 void		SyncPRG		(void);
 void		SyncCHR		(void);
 int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);
+int	MAPINT	SaveLoad_Alt	(STATE_TYPE,int,unsigned char *);
 void	MAPINT	CPUWrite89	(int,int,int);
 } // namespace N118

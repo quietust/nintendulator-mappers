@@ -69,6 +69,30 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	return offset;
 }
 
+// Alternate version, originally used by "N108" module in NES_DxROM
+// It stored pre-shifted values for CHR banks 0 and 1 and was thus
+// incompatible with the above code.
+int	MAPINT	SaveLoad_Alt (STATE_TYPE mode, int offset, unsigned char *data)
+{
+	uint8_t ver = 1;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
+	SAVELOAD_BYTE(mode, offset, data, Cmd);
+	for (int i = 0; i < 2; i++)
+		SAVELOAD_BYTE(mode, offset, data, PRG[i]);
+	for (int i = 0; i < 6; i++)
+		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
+	if (IsLoad(mode) && (ver == 0))
+	{
+		CHR[0] <<= 1;
+		CHR[1] <<= 1;
+	}
+
+	if (IsLoad(mode) && SyncOnLoad)
+		Sync();
+	return offset;
+}
+
 void	MAPINT	CPUWrite89 (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
