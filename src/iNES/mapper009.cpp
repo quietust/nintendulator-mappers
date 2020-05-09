@@ -16,7 +16,7 @@ void	Sync (void)
 
 BOOL	MAPINT	Load (void)
 {
-	MMC2::Load(Sync);
+	MMC2::Load(Sync, TRUE);
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

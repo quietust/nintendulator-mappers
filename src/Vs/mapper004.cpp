@@ -27,13 +27,16 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 
 	CheckSave(offset = MMC3::SaveLoad(mode, offset, data));
 	CheckSave(offset = VS::SaveLoad(mode, offset, data));
+
+	if (IsLoad(mode))
+		Sync();
 	return offset;
 }
 
 BOOL	MAPINT	Load (void)
 {
 	VS::Load();
-	MMC3::Load(Sync);
+	MMC3::Load(Sync, FALSE);
 	iNES_SetSRAM();
 	return TRUE;
 }

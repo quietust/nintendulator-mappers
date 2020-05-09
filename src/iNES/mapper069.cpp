@@ -16,7 +16,7 @@ void	Sync (void)
 
 BOOL	MAPINT	Load (void)
 {
-	FME7::Load(Sync);
+	FME7::Load(Sync, TRUE);
 	iNES_SetSRAM();
 	return TRUE;
 }

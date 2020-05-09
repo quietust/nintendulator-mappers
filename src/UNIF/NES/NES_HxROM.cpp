@@ -17,7 +17,7 @@ void	Sync_HKROM (void)
 BOOL	MAPINT	Load_HKROM (void)
 {
 	UNIF_SetSRAM(1024);
-	MMC6::Load(Sync_HKROM);
+	MMC6::Load(Sync_HKROM, TRUE);
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

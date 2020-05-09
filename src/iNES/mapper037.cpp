@@ -51,7 +51,7 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 BOOL	MAPINT	Load (void)
 {
-	MMC3::Load(Sync);
+	MMC3::Load(Sync, FALSE);
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

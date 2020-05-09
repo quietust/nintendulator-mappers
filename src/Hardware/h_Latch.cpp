@@ -10,11 +10,13 @@ uint8_t Data;
 uint16_n Addr;
 FSync Sync;
 BOOL BusConflicts;
+BOOL SyncOnLoad;
 
-void	Load (FSync _Sync, BOOL _BusConflicts)
+void	Load (FSync _Sync, BOOL _BusConflicts, BOOL _SyncOnLoad)
 {
 	BusConflicts = _BusConflicts;
 	Sync = _Sync;
+	SyncOnLoad = _SyncOnLoad;
 }
 
 void	Reset (RESET_TYPE ResetType)
@@ -41,7 +43,7 @@ int	MAPINT	SaveLoad_AD (STATE_TYPE mode, int offset, unsigned char *data)
 	SAVELOAD_WORD(mode, offset, data, Addr.s0);
 	SAVELOAD_BYTE(mode, offset, data, Data);
 
-	if (IsLoad(mode))
+	if (IsLoad(mode) && SyncOnLoad)
 		Sync();
 	return offset;
 }
@@ -52,7 +54,8 @@ int	MAPINT	SaveLoad_AL (STATE_TYPE mode, int offset, unsigned char *data)
 	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
 
 	SAVELOAD_BYTE(mode, offset, data, Addr.b0);
-	if (IsLoad(mode))
+
+	if (IsLoad(mode) && SyncOnLoad)
 		Sync();
 	return offset;
 }
@@ -63,7 +66,8 @@ int	MAPINT	SaveLoad_A (STATE_TYPE mode, int offset, unsigned char *data)
 	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
 
 	SAVELOAD_WORD(mode, offset, data, Addr.s0);
-	if (IsLoad(mode))
+
+	if (IsLoad(mode) && SyncOnLoad)
 		Sync();
 	return offset;
 }
@@ -74,7 +78,8 @@ int	MAPINT	SaveLoad_D (STATE_TYPE mode, int offset, unsigned char *data)
 	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
 
 	SAVELOAD_BYTE(mode, offset, data, Data);
-	if (IsLoad(mode))
+
+	if (IsLoad(mode) && SyncOnLoad)
 		Sync();
 	return offset;
 }

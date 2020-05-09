@@ -8,7 +8,7 @@
 
 namespace FME7
 {
-void		Load		(FSync);
+void		Load		(FSync,BOOL);
 void		Reset		(RESET_TYPE);
 void		Unload		(void);
 void		SyncMirror	(void);

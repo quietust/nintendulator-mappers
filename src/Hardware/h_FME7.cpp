@@ -13,11 +13,13 @@ uint8_t Cmd;
 uint8_t PRG[4], CHR[8];
 uint8_t Mirror;
 FSync Sync;
+BOOL SyncOnLoad;
 
-void	Load (FSync _Sync)
+void	Load (FSync _Sync, BOOL _SyncOnLoad)
 {
 	SUN5sound::Load();
 	Sync = _Sync;
+	SyncOnLoad = _SyncOnLoad;
 }
 
 void	Reset (RESET_TYPE ResetType)
@@ -104,7 +106,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	SAVELOAD_BYTE(mode, offset, data, Mirror);
 	CheckSave(offset = SUN5sound::SaveLoad(mode, offset, data));
 
-	if (IsLoad(mode))
+	if (IsLoad(mode) && SyncOnLoad)
 		Sync();
 	return offset;
 }

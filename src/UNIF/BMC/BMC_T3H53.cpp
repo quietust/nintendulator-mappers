@@ -91,7 +91,7 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 
 BOOL	MAPINT	Load (void)
 {
-	Latch::Load(Sync, FALSE);
+	Latch::Load(Sync, FALSE, TRUE);
 	ConfigWindow = NULL;
 	return TRUE;
 }

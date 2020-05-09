@@ -24,6 +24,9 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 
 	CheckSave(offset = MMC3::SaveLoad(mode, offset, data));
 	SAVELOAD_BYTE(mode, offset, data, WhichGame);
+
+	if (IsLoad(mode))
+		Sync();
 	return offset;
 }
 
@@ -41,7 +44,7 @@ void	MAPINT	WriteAB (int Bank, int Addr, int Val)
 
 BOOL	MAPINT	Load (void)
 {
-	MMC3::Load(Sync);
+	MMC3::Load(Sync, FALSE);
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

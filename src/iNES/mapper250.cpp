@@ -34,7 +34,7 @@ void	MAPINT	WriteEF (int Bank, int Addr, int Val)
 
 BOOL	MAPINT	Load (void)
 {
-	MMC3::Load(Sync);
+	MMC3::Load(Sync, TRUE);
 	iNES_SetSRAM();
 	return TRUE;
 }

@@ -15,7 +15,7 @@ void	Sync_GNROM (void)
 
 BOOL	MAPINT	Load_GNROM (void)
 {
-	Latch::Load(Sync_GNROM, TRUE);
+	Latch::Load(Sync_GNROM, TRUE, TRUE);
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

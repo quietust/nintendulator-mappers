@@ -23,12 +23,12 @@ void	Sync_CPROM (void)
 
 BOOL	MAPINT	Load_CNROM (void)
 {
-	Latch::Load(Sync_CNROM, TRUE);
+	Latch::Load(Sync_CNROM, TRUE, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_CPROM (void)
 {
-	Latch::Load(Sync_CPROM, TRUE);
+	Latch::Load(Sync_CPROM, TRUE, TRUE);
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

@@ -8,7 +8,7 @@
 
 namespace MMC2
 {
-void		Load		(FSync);
+void		Load		(FSync,BOOL);
 void		Reset		(RESET_TYPE);
 void		Unload		(void);
 int	MAPINT	SaveLoad	(STATE_TYPE,int,unsigned char *);

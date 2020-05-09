@@ -12,11 +12,13 @@ uint8_t Latch0[2];
 uint8_t Latch1[2];
 uint8_t Mirror;
 FSync Sync;
+BOOL SyncOnLoad;
 FPPURead _PPURead3, _PPURead7;
 
-void	Load (FSync _Sync)
+void	Load (FSync _Sync, BOOL _SyncOnLoad)
 {
 	Sync = _Sync;
+	SyncOnLoad = _SyncOnLoad;
 }
 void	Reset (RESET_TYPE ResetType)
 {
@@ -64,7 +66,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	SAVELOAD_BYTE(mode, offset, data, PRG);
 	SAVELOAD_BYTE(mode, offset, data, Mirror);
 
-	if (IsLoad(mode))
+	if (IsLoad(mode) && SyncOnLoad)
 		Sync();
 	return offset;
 }

@@ -141,7 +141,7 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 
 BOOL	MAPINT	Load (void)
 {
-	MMC1::Load(Sync);
+	MMC1::Load(Sync, FALSE);
 	ConfigWindow = NULL;
 	return TRUE;
 }

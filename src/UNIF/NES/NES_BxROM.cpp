@@ -15,7 +15,7 @@ void	Sync_BNROM (void)
 
 BOOL	MAPINT	Load_BNROM (void)
 {
-	Latch::Load(Sync_BNROM, TRUE);
+	Latch::Load(Sync_BNROM, TRUE, TRUE);
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

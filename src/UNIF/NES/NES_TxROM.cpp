@@ -114,70 +114,70 @@ void	Sync_TVROM (void)
 
 BOOL	MAPINT	Load_TBROM (void)
 {
-	MMC3::Load(Sync_TBROM);
+	MMC3::Load(Sync_TBROM, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_TEROM (void)
 {
-	MMC3::Load(Sync_TEROM);
+	MMC3::Load(Sync_TEROM, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_TFROM (void)
 {
-	MMC3::Load(Sync_TFROM);
+	MMC3::Load(Sync_TFROM, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_TGROM (void)
 {
-	MMC3::Load(Sync_TGROM);
+	MMC3::Load(Sync_TGROM, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_TKROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC3::Load(Sync_TKROM);
+	MMC3::Load(Sync_TKROM, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_TKSROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC3::Load(Sync_TKSROM);
+	MMC3::Load(Sync_TKSROM, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_TLROM (void)
 {
-	MMC3::Load(Sync_TLROM);
+	MMC3::Load(Sync_TLROM, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_TLSROM (void)
 {
-	MMC3::Load(Sync_TLSROM);
+	MMC3::Load(Sync_TLSROM, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_TNROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC3::Load(Sync_TNROM);
+	MMC3::Load(Sync_TNROM, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_TQROM (void)
 {
-	MMC3::Load(Sync_TQROM);
+	MMC3::Load(Sync_TQROM, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_TR1ROM (void)
 {
-	MMC3::Load(Sync_TR1ROM);
+	MMC3::Load(Sync_TR1ROM, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_TSROM (void)
 {
-	MMC3::Load(Sync_TSROM);
+	MMC3::Load(Sync_TSROM, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_TVROM (void)
 {
-	MMC3::Load(Sync_TVROM);
+	MMC3::Load(Sync_TVROM, TRUE);
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

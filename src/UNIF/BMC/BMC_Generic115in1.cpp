@@ -67,7 +67,7 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 
 BOOL	MAPINT	Load (void)
 {
-	Latch::Load(Sync, FALSE);
+	Latch::Load(Sync, FALSE, FALSE);
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

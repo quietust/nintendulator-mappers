@@ -24,7 +24,7 @@ void	Sync (void)
 
 BOOL	MAPINT	Load (void)
 {
-	MMC3::Load(Sync);
+	MMC3::Load(Sync, TRUE);
 	iNES_SetSRAM();
 	return TRUE;
 }

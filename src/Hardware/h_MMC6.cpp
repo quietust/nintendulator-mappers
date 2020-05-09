@@ -16,10 +16,12 @@ uint8_t Mirror;
 FCPURead _CPURead7;
 FCPUWrite _CPUWrite7;
 FSync Sync;
+BOOL SyncOnLoad;
 
-void	Load (FSync _Sync)
+void	Load (FSync _Sync, BOOL _SyncOnLoad)
 {
 	Sync = _Sync;
+	SyncOnLoad = _SyncOnLoad;
 }
 
 void	Reset (RESET_TYPE ResetType)
@@ -119,7 +121,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	SAVELOAD_BYTE(mode, offset, data, IRQreload);
 	SAVELOAD_BYTE(mode, offset, data, IRQaddr);
 
-	if (IsLoad(mode))
+	if (IsLoad(mode) && SyncOnLoad)
 		Sync();
 	return offset;
 }

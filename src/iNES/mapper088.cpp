@@ -20,7 +20,7 @@ void	Sync (void)
 
 BOOL	MAPINT	Load (void)
 {
-	N118::Load(Sync);
+	N118::Load(Sync, TRUE);
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

@@ -15,7 +15,7 @@ void	Sync_MHROM (void)
 
 BOOL	MAPINT	Load_MHROM (void)
 {
-	Latch::Load(Sync_MHROM, TRUE);
+	Latch::Load(Sync_MHROM, TRUE, TRUE);
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

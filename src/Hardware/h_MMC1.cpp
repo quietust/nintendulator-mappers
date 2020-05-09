@@ -9,10 +9,12 @@ namespace MMC1
 uint8_t Latch, LatchPos;
 uint8_t Regs[4];
 FSync Sync;
+BOOL SyncOnLoad;
 
-void	Load (FSync _Sync)
+void	Load (FSync _Sync, BOOL _SyncOnLoad)
 {
 	Sync = _Sync;
+	SyncOnLoad = _SyncOnLoad;
 }
 
 void	Reset (RESET_TYPE ResetType)
@@ -45,7 +47,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	SAVELOAD_BYTE(mode, offset, data, Latch);
 	SAVELOAD_BYTE(mode, offset, data, LatchPos);
 
-	if (IsLoad(mode))
+	if (IsLoad(mode) && SyncOnLoad)
 		Sync();
 	return offset;
 }

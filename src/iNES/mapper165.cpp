@@ -86,7 +86,7 @@ int	MAPINT	PPURead7 (int Bank, int Addr)
 
 BOOL	MAPINT	Load (void)
 {
-	MMC3::Load(Sync);
+	MMC3::Load(Sync, FALSE);
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

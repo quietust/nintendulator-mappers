@@ -10,12 +10,14 @@ uint8_t Cmd;
 uint8_t PRG[2];
 uint8_t CHR[6];
 FSync Sync;
+BOOL SyncOnLoad;
 
 void	MAPINT	CPUWrite89 (int Bank, int Addr, int Val);
 
-void	Load (FSync _Sync)
+void	Load (FSync _Sync, BOOL _SyncOnLoad)
 {
 	Sync = _Sync;
+	SyncOnLoad = _SyncOnLoad;
 }
 void	Reset (RESET_TYPE ResetType)
 {
@@ -64,7 +66,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	for (int i = 0; i < 6; i++)
 		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
 
-	if (IsLoad(mode))
+	if (IsLoad(mode) && SyncOnLoad)
 		Sync();
 	return offset;
 }
@@ -112,17 +114,17 @@ void	Sync_DRROM (void)
 
 BOOL	MAPINT	Load_DEROM (void)
 {
-	N108::Load(Sync_DEROM);
+	N108::Load(Sync_DEROM, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_DEIROM (void)
 {
-	N108::Load(Sync_DEIROM);
+	N108::Load(Sync_DEIROM, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_DRROM (void)
 {
-	N108::Load(Sync_DRROM);
+	N108::Load(Sync_DRROM, TRUE);
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

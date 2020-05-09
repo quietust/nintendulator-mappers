@@ -23,7 +23,7 @@ void	Sync (void)
 
 BOOL	MAPINT	Load (void)
 {
-	Latch::Load(Sync, FALSE);
+	Latch::Load(Sync, FALSE, TRUE);
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

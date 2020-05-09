@@ -10,10 +10,12 @@ uint8_t Cmd;
 uint8_t PRG[2];
 uint8_t CHR[6];
 FSync Sync;
+BOOL SyncOnLoad;
 
-void	Load (FSync _Sync)
+void	Load (FSync _Sync, BOOL _SyncOnLoad)
 {
 	Sync = _Sync;
+	SyncOnLoad = _SyncOnLoad;
 }
 void	Reset (RESET_TYPE ResetType)
 {
@@ -62,7 +64,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	for (int i = 0; i < 6; i++)
 		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
 
-	if (IsLoad(mode))
+	if (IsLoad(mode) && SyncOnLoad)
 		Sync();
 	return offset;
 }

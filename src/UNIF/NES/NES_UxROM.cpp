@@ -22,12 +22,12 @@ void	Sync_UOROM (void)
 
 BOOL	MAPINT	Load_UNROM (void)
 {
-	Latch::Load(Sync_UNROM, TRUE);
+	Latch::Load(Sync_UNROM, TRUE, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_UOROM (void)
 {
-	Latch::Load(Sync_UOROM, TRUE);
+	Latch::Load(Sync_UOROM, TRUE, TRUE);
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

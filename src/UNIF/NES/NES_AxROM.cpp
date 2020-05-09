@@ -42,22 +42,22 @@ void	Sync_AOROM (void)
 
 BOOL	MAPINT	Load_AMROM (void)
 {
-	Latch::Load(Sync_AMROM, TRUE);
+	Latch::Load(Sync_AMROM, TRUE, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_ANROM (void)
 {
-	Latch::Load(Sync_ANROM, FALSE);
+	Latch::Load(Sync_ANROM, FALSE, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_AN1ROM (void)
 {
-	Latch::Load(Sync_AN1ROM, FALSE);
+	Latch::Load(Sync_AN1ROM, FALSE, TRUE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_AOROM (void)
 {
-	Latch::Load(Sync_AOROM, TRUE);
+	Latch::Load(Sync_AOROM, TRUE, TRUE);
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
