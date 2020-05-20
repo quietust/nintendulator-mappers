@@ -154,7 +154,11 @@ public:
 		// Read Data
 		if ((State == 8) && (LastBits & EEP_DIR) && (LastBits & EEP_CLK) && (LastBits & EEP_DAT))
 			return (Data & (0x80 >> BitPtr)) ? 0x10 : 0x00;
-		return 0;
+		// Ack states
+		else if ((State == 3) || (State == 5) || (State == 7) || (State == 9))
+			return 0x00;
+		// Data pin is open drain
+		else	return 0x10;
 	}
 };
 
@@ -353,9 +357,7 @@ void	MAPINT	CPUCycle (void)
 
 int	MAPINT	Read (int Bank, int Addr)
 {
-	if ((Addr & 0xF) == 0)
-		return SaveEEPROM->Read();
-	else	return -1;
+	return SaveEEPROM->Read();
 }
 
 void	MAPINT	Write (int Bank, int Addr, int Val)
