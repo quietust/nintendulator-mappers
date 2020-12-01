@@ -6,9 +6,8 @@
 
 namespace
 {
-uint8_t IRQenabled, IRQcounter, IRQlatch, IRQmode, IRQreload;
-uint16_t IRQaddr;
-uint8_t IRQclock;
+uint8_t IRQenabled, IRQcounter, IRQlatch, IRQreload;
+uint8_t IRQmode, IRQaddr, IRQcycle, IRQdelay;
 uint8_t Cmd;
 uint8_t PRG[3];
 uint8_t CHR[8];
@@ -23,16 +22,15 @@ void	Sync (void)
 
 	if (Cmd & 0x40)
 	{
-		EMU->SetPRG_ROM8(0xA, PRG[0]);
-		EMU->SetPRG_ROM8(0xC, PRG[1]);
 		EMU->SetPRG_ROM8(0x8, PRG[2]);
+		EMU->SetPRG_ROM8(0xC, PRG[0]);
 	}
 	else
 	{
 		EMU->SetPRG_ROM8(0x8, PRG[0]);
-		EMU->SetPRG_ROM8(0xA, PRG[1]);
 		EMU->SetPRG_ROM8(0xC, PRG[2]);
 	}
+	EMU->SetPRG_ROM8(0xA, PRG[1]);
 	EMU->SetPRG_ROM8(0xE, -1);
 
 	if (Cmd & 0x20)
@@ -51,7 +49,7 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	uint8_t ver = 0;
+	uint8_t ver = 1;
 	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
 
 	SAVELOAD_BYTE(mode, offset, data, IRQcounter);
@@ -63,57 +61,79 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	for (int i = 0; i < 8; i++)
 		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
 	SAVELOAD_BYTE(mode, offset, data, Mirror);
+	if (ver == 1)
+	{
+		SAVELOAD_BYTE(mode, offset, data, IRQreload);
+		SAVELOAD_BYTE(mode, offset, data, IRQmode);
+		SAVELOAD_BYTE(mode, offset, data, IRQaddr);
+		SAVELOAD_BYTE(mode, offset, data, IRQcycle);
+		SAVELOAD_BYTE(mode, offset, data, IRQdelay);
+	}
+	else
+	{
+		// ver != 1 can only occur during Load,
+		// so initialize all new variables
+		IRQreload = 0;
+		IRQmode = 0;
+		IRQaddr = 0;
+		IRQcycle = 0;
+		IRQdelay = 0;
+	}
 
 	if (IsLoad(mode))
 		Sync();
 	return offset;
 }
 
-void	HBlank (void)
-{
-	if (!IRQcounter || IRQreload)
-	{
-		IRQcounter = IRQlatch + IRQreload;
-		IRQreload = 0;
-	}
-	else if (!--IRQcounter)
-	{
-		if (IRQenabled)
-			EMU->SetIRQ(0);
-	}
-}
-
 void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 {
-	if (IRQmode)
+	// NOTE: IsRendering check required to avoid flashing status bar in Hard Drivin'
+	if (IRQmode || !IsRendering)
 		return;
+
 	if (IRQaddr)
 		IRQaddr--;
-	if ((!IRQaddr) && (Addr & 0x1000))
-		IRQclock = 1;
 	if (Addr & 0x1000)
+	{
+		if (!IRQaddr)
+			IRQcycle = 1;
 		IRQaddr = 8;
+	}
 }
 
-int cycles = 4;
 void	MAPINT	CPUCycle (void)
 {
-	if (IRQclock)
+	bool doClock = false;
+	if (IRQmode)
 	{
-		unsigned char count = IRQcounter;
-		if (!IRQcounter || IRQreload)
+		if (!--IRQcycle)
+		{
+			doClock = true;
+			IRQcycle = 4;
+		}
+	}
+	else if (IRQcycle && !--IRQcycle)
+		doClock = true;
+
+	if (doClock)
+	{
+		if (IRQreload)
+		{
+			IRQreload = 0;
+			IRQcounter = IRQlatch;
+			if (IRQlatch)
+				IRQcounter |= 1;
+		}
+		else if (!IRQcounter)
 			IRQcounter = IRQlatch;
 		else	IRQcounter--;
-		if ((count || IRQreload) && !IRQcounter && IRQenabled) 
-			EMU->SetIRQ(0);
-		IRQreload = 0;
-		IRQclock = 0;
+
+		if (IRQenabled && !IRQcounter)
+			IRQdelay = 4;
 	}
-	if ((IRQmode) && (!--cycles))
-	{
-		cycles = 4;
-		IRQclock = 1;
-	}
+
+	if (IRQdelay && !--IRQdelay)
+		EMU->SetIRQ(0);
 }
 
 void	MAPINT	Write89 (int Bank, int Addr, int Val)
@@ -150,14 +170,16 @@ void	MAPINT	WriteCD (int Bank, int Addr, int Val)
 	{
 		IRQmode = Val & 1;
 		IRQreload = 1;
+		IRQcycle = IRQmode ? 4 : 0;
 	}
 	else	IRQlatch = Val;
 }
 void	MAPINT	WriteEF (int Bank, int Addr, int Val)
 {
 	IRQenabled = (Addr & 1);
-	if (!IRQenabled)
-		EMU->SetIRQ(1);
+	// NOTE: acknowledge on $E001 to avoid flickering scanline in Hard Drivin'
+	// if (!IRQenabled)
+	EMU->SetIRQ(1);
 }
 
 void	MAPINT	Reset (RESET_TYPE ResetType)
@@ -177,9 +199,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 			PRG[i] = 0xFF;
 		for (int i = 0; i < 8; i++)
 			CHR[i] = i;
-		IRQenabled = IRQcounter = IRQlatch = IRQmode = IRQreload = 0;
-		IRQaddr = 0;
-		IRQclock = 0;
+		IRQenabled = IRQcounter = IRQlatch = IRQreload = 0;
+		IRQmode = IRQaddr = IRQcycle = IRQdelay = 0;
 		Cmd = 0;
 		Mirror = 0;
 	}
