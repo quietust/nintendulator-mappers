@@ -12,8 +12,30 @@ uint8_n IRQlatch;
 int16_t IRQcycles;
 uint8_t PRGswap;
 uint8_t PRG[2];
-uint8_n CHR[8];
+uint16_n CHR[8];
 uint8_t Mirror;
+
+enum VRC4MODE { VRC4MODE_NONE, VRC4MODE_A, VRC4MODE_B, VRC4MODE_C, VRC4MODE_D, VRC4MODE_E, VRC4MODE_F, VRC4MODE_21, VRC4MODE_23, VRC4MODE_25 };
+VRC4MODE mode = VRC4MODE_NONE;
+bool forceVRC2 = false;
+
+const int SwapAddr[4] = {0, 2, 1, 3};
+int transAddr (int Addr)
+{
+	switch (mode)
+	{
+	case VRC4MODE_A:	return (Addr & 0x6) >> 1;
+	case VRC4MODE_B:	return SwapAddr[Addr & 0x3];
+	case VRC4MODE_C:	return (Addr & 0xC0) >> 6;
+	case VRC4MODE_D:	return SwapAddr[(Addr & 0xC) >> 2];
+	case VRC4MODE_E:	return (Addr & 0xC) >> 2;
+	case VRC4MODE_F:	return (Addr & 0x3);
+	case VRC4MODE_21:	return ((Addr & 0x6) >> 1) | ((Addr & 0xC0) >> 6);
+	case VRC4MODE_23:	return (Addr & 0x3) | ((Addr & 0xC) >> 2);
+	case VRC4MODE_25:	return SwapAddr[(Addr & 0x3) | ((Addr & 0xC) >> 2)];
+	}
+	return Addr;
+}
 
 void	Sync (void)
 {
@@ -35,7 +57,7 @@ void	Sync (void)
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	uint8_t ver = 0;
+	uint8_t ver = 1;
 	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
 
 	SAVELOAD_BYTE(mode, offset, data, IRQenabled);
@@ -46,7 +68,15 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	for (int i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode, offset, data, PRG[i]);
 	for (int i = 0; i < 8; i++)
-		SAVELOAD_BYTE(mode, offset, data, CHR[i].b0);
+	{
+		if (ver == 0)
+		{
+			// Load old data
+			SAVELOAD_BYTE(mode, offset, data, CHR[i].b0);
+			CHR[i].b1 = 0;
+		}
+		else	SAVELOAD_WORD(mode, offset, data, CHR[i].s0);
+	}
 	SAVELOAD_BYTE(mode, offset, data, Mirror);
 
 	if (IsLoad(mode))
@@ -71,76 +101,98 @@ void	MAPINT	CPUCycle (void)
 
 void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
-	Addr = (Addr & 0x003) | ((Addr & 0x00C) >> 2);
 	PRG[0] = Val & 0x1F;
 	Sync();
 }
 void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
-	Addr = (Addr & 0x003) | ((Addr & 0x00C) >> 2);
-	if (Addr & 0x2)
-		PRGswap = Val & 0x2;
-	else	Mirror = Val & 0x3;
+	if (forceVRC2)
+		Mirror = Val & 0x1;
+	else switch (transAddr(Addr) & 0x3)
+	{
+	case 0:	Mirror = Val & 0x3;	break;
+	case 2:	PRGswap = Val & 0x2;	break;
+	}
 	Sync();
 }
 void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
-	Addr = (Addr & 0x003) | ((Addr & 0x00C) >> 2);
 	PRG[1] = Val & 0x1F;
 	Sync();
 }
 void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
-	Addr = (Addr & 0x003) | ((Addr & 0x00C) >> 2);
-	switch (Addr & 0x3)
+	switch (transAddr(Addr) & 0x3)
 	{
 	case 0:	CHR[0].n0 = Val & 0xF;	break;
 	case 1:	CHR[0].n1 = Val & 0xF;	break;
 	case 2:	CHR[1].n0 = Val & 0xF;	break;
 	case 3:	CHR[1].n1 = Val & 0xF;	break;
 	}
+	if (!forceVRC2)
+		switch (transAddr(Addr) & 0x3)
+		{
+		case 1:	CHR[0].n2 = (Val >> 4) & 0x1;	break;
+		case 3:	CHR[1].n2 = (Val >> 4) & 0x1;	break;
+		}
 	Sync();
 }
 void	MAPINT	WriteC (int Bank, int Addr, int Val)
 {
-	Addr = (Addr & 0x003) | ((Addr & 0x00C) >> 2);
-	switch (Addr & 0x3)
+	switch (transAddr(Addr) & 0x3)
 	{
-	case 0:	CHR[2].n0 = Val & 0xF;	break;
-	case 1:	CHR[2].n1 = Val & 0xF;	break;
-	case 2:	CHR[3].n0 = Val & 0xF;	break;
-	case 3:	CHR[3].n1 = Val & 0xF;	break;
+	case 0:	CHR[2].n0 = Val & 0x0F;	break;
+	case 1:	CHR[2].n1 = Val & 0x1F;	break;
+	case 2:	CHR[3].n0 = Val & 0x0F;	break;
+	case 3:	CHR[3].n1 = Val & 0x1F;	break;
 	}
+	if (!forceVRC2)
+		switch (transAddr(Addr) & 0x3)
+		{
+		case 1:	CHR[2].n2 = (Val >> 4) & 0x1;	break;
+		case 3:	CHR[3].n2 = (Val >> 4) & 0x1;	break;
+		}
 	Sync();
 }
 void	MAPINT	WriteD (int Bank, int Addr, int Val)
 {
-	Addr = (Addr & 0x003) | ((Addr & 0x00C) >> 2);
-	switch (Addr & 0x3)
+	switch (transAddr(Addr) & 0x3)
 	{
-	case 0:	CHR[4].n0 = Val & 0xF;	break;
-	case 1:	CHR[4].n1 = Val & 0xF;	break;
-	case 2:	CHR[5].n0 = Val & 0xF;	break;
-	case 3:	CHR[5].n1 = Val & 0xF;	break;
+	case 0:	CHR[4].n0 = Val & 0x0F;	break;
+	case 1:	CHR[4].n1 = Val & 0x1F;	break;
+	case 2:	CHR[5].n0 = Val & 0x0F;	break;
+	case 3:	CHR[5].n1 = Val & 0x1F;	break;
 	}
+	if (!forceVRC2)
+		switch (transAddr(Addr) & 0x3)
+		{
+		case 1:	CHR[4].n2 = (Val >> 4) & 0x1;	break;
+		case 3:	CHR[5].n2 = (Val >> 4) & 0x1;	break;
+		}
 	Sync();
 }
 void	MAPINT	WriteE (int Bank, int Addr, int Val)
 {
-	Addr = (Addr & 0x003) | ((Addr & 0x00C) >> 2);
-	switch (Addr & 0x3)
+	switch (transAddr(Addr) & 0x3)
 	{
-	case 0:	CHR[6].n0 = Val & 0xF;	break;
-	case 1:	CHR[6].n1 = Val & 0xF;	break;
-	case 2:	CHR[7].n0 = Val & 0xF;	break;
-	case 3:	CHR[7].n1 = Val & 0xF;	break;
+	case 0:	CHR[6].n0 = Val & 0x0F;	break;
+	case 1:	CHR[6].n1 = Val & 0x1F;	break;
+	case 2:	CHR[7].n0 = Val & 0x0F;	break;
+	case 3:	CHR[7].n1 = Val & 0x1F;	break;
 	}
+	if (!forceVRC2)
+		switch (transAddr(Addr) & 0x3)
+		{
+		case 1:	CHR[6].n2 = (Val >> 4) & 0x1;	break;
+		case 3:	CHR[7].n2 = (Val >> 4) & 0x1;	break;
+		}
 	Sync();
 }
 void	MAPINT	WriteF (int Bank, int Addr, int Val)
 {
-	Addr = (Addr & 0x003) | ((Addr & 0x00C) >> 2);
-	switch (Addr & 0x3)
+	if (forceVRC2)
+		return;
+	switch (transAddr(Addr) & 0x3)
 	{
 	case 0:	IRQlatch.n0 = Val & 0xF;	break;
 	case 1:	IRQlatch.n1 = Val & 0xF;	break;
@@ -158,11 +210,69 @@ void	MAPINT	WriteF (int Bank, int Addr, int Val)
 	}
 }
 
-BOOL	MAPINT	Load (void)
+BOOL	MAPINT	Load_21 (void)
 {
+	forceVRC2 = false;
+	switch (ROM->INES2_SubMapper)
+	{
+	case 1:
+		mode = VRC4MODE_A;
+		break;
+	case 2:
+		mode = VRC4MODE_C;
+		break;
+	default:
+		mode = VRC4MODE_21;
+		break;
+	}
 	iNES_SetSRAM();
 	return TRUE;
 }
+BOOL	MAPINT	Load_23 (void)
+{
+	forceVRC2 = false;
+	switch (ROM->INES2_SubMapper)
+	{
+	case 1:
+		mode = VRC4MODE_F;
+		break;
+	case 2:
+		mode = VRC4MODE_E;
+		break;
+	case 3:
+		mode = VRC4MODE_F;
+		forceVRC2 = true;
+		break;
+	default:
+		mode = VRC4MODE_23;
+		break;
+	}
+	iNES_SetSRAM();
+	return TRUE;
+}
+BOOL	MAPINT	Load_25 (void)
+{
+	forceVRC2 = false;
+	switch (ROM->INES2_SubMapper)
+	{
+	case 1:
+		mode = VRC4MODE_B;
+		break;
+	case 2:
+		mode = VRC4MODE_D;
+		break;
+	case 3:
+		mode = VRC4MODE_B;
+		forceVRC2 = true;
+		break;
+	default:
+		mode = VRC4MODE_25;
+		break;
+	}
+	iNES_SetSRAM();
+	return TRUE;
+}
+
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	EMU->SetCPUWriteHandler(0x8, Write8);
@@ -179,24 +289,57 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		IRQenabled = IRQcounter = IRQlatch.b0 = 0;
 		IRQcycles = 0;
 		PRGswap = 0;
+		Mirror = 0;
 		PRG[0] = 0;
 		PRG[1] = 1;
 		for (int i = 0; i < 8; i++)
-			CHR[i].b0 = i;
+			CHR[i].s0 = i;
 	}
 
 	Sync();
 }
 
-uint16_t MapperNum = 23;
+uint16_t MapperNum21 = 21;
+uint16_t MapperNum23 = 23;
+uint16_t MapperNum25 = 25;
 } // namespace
+
+const MapperInfo MapperInfo_021 =
+{
+	&MapperNum21,
+	_T("Konami VRC4a / VRC4c"),
+	COMPAT_NEARLY,
+	Load_21,
+	Reset,
+	NULL,
+	CPUCycle,
+	NULL,
+	SaveLoad,
+	NULL,
+	NULL
+};
 
 const MapperInfo MapperInfo_023 =
 {
-	&MapperNum,
-	_T("Konami VRC4 (e/f)"),
+	&MapperNum23,
+	_T("Konami VRC4e / VRC4f / VRC2b"),
 	COMPAT_NEARLY,
-	Load,
+	Load_23,
+	Reset,
+	NULL,
+	CPUCycle,
+	NULL,
+	SaveLoad,
+	NULL,
+	NULL
+};
+
+const MapperInfo MapperInfo_025 =
+{
+	&MapperNum25,
+	_T("Konami VRC4b / VRC4d / VRC2c"),
+	COMPAT_NEARLY,
+	Load_25,
 	Reset,
 	NULL,
 	CPUCycle,

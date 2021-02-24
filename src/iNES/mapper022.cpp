@@ -130,7 +130,7 @@ uint16_t MapperNum = 22;
 const MapperInfo MapperInfo_022 =
 {
 	&MapperNum,
-	_T("Konami VRC2"),
+	_T("Konami VRC2a"),
 	COMPAT_NEARLY,
 	Load,
 	Reset,
