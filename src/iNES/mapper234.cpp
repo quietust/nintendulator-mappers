@@ -17,12 +17,12 @@ void	Sync (void)
 	if (Reg1 & 0x40)
 	{
 		EMU->SetPRG_ROM32(0x8, (Reg1 & 0x0E) | (Reg2 & 0x01));
-		EMU->SetCHR_ROM8(0, ((Reg1 & 0x0E) << 2) | ((Reg2 & 0x70) >> 4));
+		EMU->SetCHR_ROM8(0x0, ((Reg1 & 0x0E) << 2) | ((Reg2 & 0x70) >> 4));
 	}
 	else
 	{
 		EMU->SetPRG_ROM32(0x8, Reg1 & 0x0F);
-		EMU->SetCHR_ROM8(0, ((Reg1 & 0x0F) << 2) | ((Reg2 & 0x30) >> 4));
+		EMU->SetCHR_ROM8(0x0, ((Reg1 & 0x0F) << 2) | ((Reg2 & 0x30) >> 4));
 	}
 }
 

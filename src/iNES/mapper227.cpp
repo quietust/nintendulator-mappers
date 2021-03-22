@@ -46,7 +46,7 @@ void	Sync (void)
 		}
 	}
 	else
-	{	EMU->SetCHR_RAM8(0, 0);
+	{	EMU->SetCHR_RAM8(0x0, 0);
 		if (LastBank)
 			EMU->SetPRG_ROM16(0xC, (PRGchip << 5) | (PRGbank << 1) |  7);
 		else	EMU->SetPRG_ROM16(0xC, (PRGchip << 5) | (PRGbank << 1) & ~7);

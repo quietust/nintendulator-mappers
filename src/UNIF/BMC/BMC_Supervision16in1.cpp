@@ -18,7 +18,7 @@ void	Sync (void)
 		EMU->SetPRG_ROM16(0xC, ((Game & 0xF) << 3) | 0x7);
 	}
 	else	EMU->SetPRG_ROM32(0x8, 0x40); /* the EPROM at the end */
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 	if (Game & 0x20)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();

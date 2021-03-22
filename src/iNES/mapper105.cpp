@@ -19,7 +19,7 @@ void	Sync (void)
 	uint8_t CHRlines = MMC1::GetCHRBankLo();
 	MMC1::SyncMirror();
 	MMC1::SyncWRAM();
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 	switch (InitState)
 	{
 	case 2:	if (CHRlines & 0x08)

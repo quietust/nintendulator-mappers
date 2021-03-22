@@ -11,8 +11,8 @@ uint8_t Reg;
 void	Sync (void)
 {
 	EMU->SetPRG_ROM32(0x8, 0);
-	EMU->SetCHR_ROM4(0, Reg & 0xF);
-	EMU->SetCHR_ROM4(4, (Reg >> 4) & 0xF);
+	EMU->SetCHR_ROM4(0x0, Reg & 0xF);
+	EMU->SetCHR_ROM4(0x4, (Reg >> 4) & 0xF);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)

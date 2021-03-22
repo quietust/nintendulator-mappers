@@ -15,7 +15,7 @@ void	Sync (void)
 		EMU->SetPRG_ROM16(0xC, Latch::Addr.b0 & 0x1F);
 	}
 	else	EMU->SetPRG_ROM32(0x8, 0);
-	EMU->SetCHR_ROM8(0, Latch::Addr.b0 & 0x1F);
+	EMU->SetCHR_ROM8(0x0, Latch::Addr.b0 & 0x1F);
 	if (Latch::Addr.b0 & 0x20)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();

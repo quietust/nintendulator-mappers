@@ -9,8 +9,8 @@ namespace
 {
 void	Sync (void)
 {
-	EMU->SetCHR_RAM4(0, 0);
-	EMU->SetCHR_RAM4(4, Latch::Data & 0x03);
+	EMU->SetCHR_RAM4(0x0, 0);
+	EMU->SetCHR_RAM4(0x4, Latch::Data & 0x03);
 	EMU->SetPRG_ROM32(0x8, 0);
 }
 

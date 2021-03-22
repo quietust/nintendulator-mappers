@@ -11,14 +11,14 @@ void	Sync_CNROM (void)
 {
 	EMU->SetPRG_ROM16(0x8, 0);
 	EMU->SetPRG_ROM16(0xC, 1);
-	EMU->SetCHR_ROM8(0, Latch::Data & 0x03);
+	EMU->SetCHR_ROM8(0x0, Latch::Data & 0x03);
 }
 void	Sync_CPROM (void)
 {
 	EMU->SetPRG_ROM16(0x8, 0);
 	EMU->SetPRG_ROM16(0xC, 1);
-	EMU->SetCHR_RAM4(0, 0);
-	EMU->SetCHR_RAM4(4, Latch::Data & 0x3);
+	EMU->SetCHR_RAM4(0x0, 0);
+	EMU->SetCHR_RAM4(0x4, Latch::Data & 0x3);
 }
 
 BOOL	MAPINT	Load_CNROM (void)

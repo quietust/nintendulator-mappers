@@ -25,7 +25,7 @@ void	Sync (void)
 	};
 	addr = Latch::Addr.s0;
 
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 	
 	if ((PRGbank & 0x60) == 0x60)
 		for (int i = 0x8; i < 0x10; i++)

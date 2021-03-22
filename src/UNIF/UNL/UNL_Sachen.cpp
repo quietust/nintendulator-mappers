@@ -15,32 +15,32 @@ void	Sync_72007 (void)
 {
 	EMU->SetPRG_ROM16(0x8, 0);
 	EMU->SetPRG_ROM16(0xC, 1);
-	EMU->SetCHR_ROM8(0, (Latch >> 7) & 0x1);
+	EMU->SetCHR_ROM8(0x0, (Latch >> 7) & 0x1);
 }
 void	Sync_72008 (void)
 {
 	EMU->SetPRG_ROM32(0x8, (Latch >> 2) & 0x1);
-	EMU->SetCHR_ROM8(0, Latch & 0x3);
+	EMU->SetCHR_ROM8(0x0, Latch & 0x3);
 }
 void	Sync_0161M (void)
 {
 	EMU->SetPRG_ROM32(0x8, (Latch >> 3) & 0x1);
-	EMU->SetCHR_ROM8(0, Latch & 0x7);
+	EMU->SetCHR_ROM8(0x0, Latch & 0x7);
 }
 void	Sync_U0115M (void)
 {
 	EMU->SetPRG_ROM32(0x8, (Latch >> 2) & 0x1);
-	EMU->SetCHR_ROM8(0, (Latch >> 3) & 0xF);
+	EMU->SetCHR_ROM8(0x0, (Latch >> 3) & 0xF);
 }
 void	Sync_0036 (void)
 {
 	EMU->SetPRG_ROM32(0x8, 0);
-	EMU->SetCHR_ROM8(0, (Latch::Data & 0x80) >> 7);
+	EMU->SetCHR_ROM8(0x0, (Latch::Data & 0x80) >> 7);
 }
 void	Sync_0037 (void)
 {
 	EMU->SetPRG_ROM32(0x8, (Latch::Data & 0x8) >> 3);
-	EMU->SetCHR_ROM8(0, Latch::Data & 0x7);
+	EMU->SetCHR_ROM8(0x0, Latch::Data & 0x7);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)

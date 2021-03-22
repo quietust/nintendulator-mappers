@@ -15,7 +15,7 @@ uint8_t JumperData[0x1000];
 
 void	Sync (void)
 {
-	EMU->SetCHR_ROM8(0, Latch::Addr.s0 & 0x07);
+	EMU->SetCHR_ROM8(0x0, Latch::Addr.s0 & 0x07);
 	EMU->SetPRG_ROM32(0x8, (Latch::Addr.s0 & 0x70) >> 4);
 	if (Latch::Addr.s0 & 0x08)
 		EMU->Mirror_H();

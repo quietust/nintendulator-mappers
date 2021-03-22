@@ -17,7 +17,7 @@ void	Sync (void)
 {
 	EMU->SetPRG_RAM8(0x6, 0);
 	for (int i = 0; i < 4; i++)
-		EMU->SetPRG_ROM8(8 | (i << 1), PRG[i] & 0x3F);
+		EMU->SetPRG_ROM8(0x8 | (i << 1), PRG[i] & 0x3F);
 	for (int i = 0; i < 8; i++)
 	{
 		if ((CHR[i] < 0xE0) || (PRG[1] & (0x40 << (i >> 2))))
@@ -30,13 +30,13 @@ void	Sync (void)
 	{
 		if (NTab[i] < 0xE0)
 		{
-			EMU->SetCHR_ROM1(i+0x8, NTab[i]);
-			EMU->SetCHR_ROM1(i+0xC, NTab[i]);
+			EMU->SetCHR_ROM1(0x8 | i, NTab[i]);
+			EMU->SetCHR_ROM1(0xC | i, NTab[i]);
 		}
 		else
 		{
-			EMU->SetCHR_NT1(i+0x8, NTab[i] & 1);
-			EMU->SetCHR_NT1(i+0xC, NTab[i] & 1);
+			EMU->SetCHR_NT1(0x8 | i, NTab[i] & 1);
+			EMU->SetCHR_NT1(0xC | i, NTab[i] & 1);
 		}
 	}
 }

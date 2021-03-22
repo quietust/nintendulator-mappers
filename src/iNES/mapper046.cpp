@@ -12,7 +12,7 @@ uint8_t Game;
 void	Sync (void)
 {
 	EMU->SetPRG_ROM32(0x8, ((Game & 0x0F) << 1) | (Latch::Data & 0x01));
-	EMU->SetCHR_ROM8(0, ((Game & 0xF0) >> 1) | ((Latch::Data & 0x70) >> 4));
+	EMU->SetCHR_ROM8(0x0, ((Game & 0xF0) >> 1) | ((Latch::Data & 0x70) >> 4));
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)

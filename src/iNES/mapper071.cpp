@@ -13,7 +13,7 @@ void	Sync (void)
 {
 	EMU->SetPRG_ROM16(0x8, PRG);
 	EMU->SetPRG_ROM16(0xC, -1);
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 	if (Mirror & 0x80)
 		iNES_SetMirroring();
 	else if (Mirror & 0x10)

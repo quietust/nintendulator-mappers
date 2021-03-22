@@ -14,17 +14,17 @@ void	Sync (void)
 	EMU->SetPRG_ROM32(0x8, PRG);
 	if (Mirror & 1)
 	{
-		EMU->SetCHR_ROM2(0, (CHRH << 3) | CHRL0);
-		EMU->SetCHR_ROM2(2, (CHRH << 3) | CHRL0);
-		EMU->SetCHR_ROM2(4, (CHRH << 3) | CHRL0);
-		EMU->SetCHR_ROM2(6, (CHRH << 3) | CHRL0);
+		EMU->SetCHR_ROM2(0x0, (CHRH << 3) | CHRL0);
+		EMU->SetCHR_ROM2(0x2, (CHRH << 3) | CHRL0);
+		EMU->SetCHR_ROM2(0x4, (CHRH << 3) | CHRL0);
+		EMU->SetCHR_ROM2(0x6, (CHRH << 3) | CHRL0);
 	}
 	else
 	{
-		EMU->SetCHR_ROM2(0, (CHRH << 3) | CHRL0);
-		EMU->SetCHR_ROM2(2, (CHRH << 3) | CHRL1);
-		EMU->SetCHR_ROM2(4, (CHRH << 3) | CHRL2);
-		EMU->SetCHR_ROM2(6, (CHRH << 3) | CHRL3);
+		EMU->SetCHR_ROM2(0x0, (CHRH << 3) | CHRL0);
+		EMU->SetCHR_ROM2(0x2, (CHRH << 3) | CHRL1);
+		EMU->SetCHR_ROM2(0x4, (CHRH << 3) | CHRL2);
+		EMU->SetCHR_ROM2(0x6, (CHRH << 3) | CHRL3);
 	}
 	switch (Mirror >> 1)
 	{

@@ -10,7 +10,7 @@ namespace
 void	Sync_AMROM (void)
 {
 	EMU->SetPRG_ROM32(0x8, Latch::Data & 0x3);
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 	if (Latch::Data & 0x10)
 		EMU->Mirror_S1();
 	else	EMU->Mirror_S0();
@@ -18,7 +18,7 @@ void	Sync_AMROM (void)
 void	Sync_ANROM (void)
 {
 	EMU->SetPRG_ROM32(0x8, Latch::Data & 0x3);
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 	if (Latch::Data & 0x10)
 		EMU->Mirror_S1();
 	else	EMU->Mirror_S0();
@@ -26,7 +26,7 @@ void	Sync_ANROM (void)
 void	Sync_AN1ROM (void)
 {
 	EMU->SetPRG_ROM32(0x8, Latch::Data & 0x1);
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 	if (Latch::Data & 0x10)
 		EMU->Mirror_S1();
 	else	EMU->Mirror_S0();
@@ -34,7 +34,7 @@ void	Sync_AN1ROM (void)
 void	Sync_AOROM (void)
 {
 	EMU->SetPRG_ROM32(0x8, Latch::Data & 0x7);
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 	if (Latch::Data & 0x10)
 		EMU->Mirror_S1();
 	else	EMU->Mirror_S0();

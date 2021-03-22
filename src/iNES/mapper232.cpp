@@ -13,7 +13,7 @@ void	Sync (void)
 {
 	EMU->SetPRG_ROM16(0x8, Game | Bank);
 	EMU->SetPRG_ROM16(0xC, Game | 3);
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)

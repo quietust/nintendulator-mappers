@@ -20,13 +20,13 @@ void	SyncCHR (void)
 
 	bank = MMC3::GetCHRBank(LatchState[0] ? 2 : 0) >> 2;
 	if (bank == 0)
-		EMU->SetCHR_RAM4(0, 0);
-	else	EMU->SetCHR_ROM4(0, bank);
+		EMU->SetCHR_RAM4(0x0, 0);
+	else	EMU->SetCHR_ROM4(0x0, bank);
 
 	bank = MMC3::GetCHRBank(LatchState[1] ? 6 : 4) >> 2;
 	if (bank == 0)
-		EMU->SetCHR_RAM4(4, 0);
-	else	EMU->SetCHR_ROM4(4, bank);
+		EMU->SetCHR_RAM4(0x4, 0);
+	else	EMU->SetCHR_ROM4(0x4, bank);
 }
 
 void	Sync (void)

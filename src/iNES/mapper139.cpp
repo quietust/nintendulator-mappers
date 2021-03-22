@@ -12,15 +12,15 @@ FCPUWrite _Write4;
 void	Sync (void)
 {
 	EMU->SetPRG_ROM32(0x8, PRG);
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 	if (Mirror & 1)
-		EMU->SetCHR_ROM8(0, (CHRH << 3) | CHRL0);
+		EMU->SetCHR_ROM8(0x0, (CHRH << 3) | CHRL0);
 	else
 	{
-		EMU->SetCHR_ROM2(0, (CHRH << 5) | (CHRL0 << 2) | 0);
-		EMU->SetCHR_ROM2(2, (CHRH << 5) | (CHRL1 << 2) | 1);
-		EMU->SetCHR_ROM2(4, (CHRH << 5) | (CHRL2 << 2) | 2);
-		EMU->SetCHR_ROM2(6, (CHRH << 5) | (CHRL3 << 2) | 3);
+		EMU->SetCHR_ROM2(0x0, (CHRH << 5) | (CHRL0 << 2) | 0);
+		EMU->SetCHR_ROM2(0x2, (CHRH << 5) | (CHRL1 << 2) | 1);
+		EMU->SetCHR_ROM2(0x4, (CHRH << 5) | (CHRL2 << 2) | 2);
+		EMU->SetCHR_ROM2(0x6, (CHRH << 5) | (CHRL3 << 2) | 3);
 	}
 	switch (Mirror >> 1)
 	{

@@ -19,7 +19,7 @@ void	Sync (void)
 	if (Mirror)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();
-	EMU->SetCHR_ROM8(0, CHR);
+	EMU->SetCHR_ROM8(0x0, CHR);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)

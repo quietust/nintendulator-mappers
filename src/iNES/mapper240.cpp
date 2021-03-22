@@ -12,7 +12,7 @@ FCPUWrite _Write4;
 void	Sync (void)
 {
 	EMU->SetPRG_ROM32(0x8, (Reg & 0xF0) >> 4);
-	EMU->SetCHR_ROM8(0, Reg & 0xF);
+	EMU->SetCHR_ROM8(0x0, Reg & 0xF);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)

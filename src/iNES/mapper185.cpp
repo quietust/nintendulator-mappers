@@ -77,7 +77,7 @@ void	Sync (void)
 {
 	EMU->SetPRG_ROM32(0x8, 0);
 	if ((Latch::Data & 0x0F) && (Latch::Data != 0x13))
-		EMU->SetCHR_ROM8(0, 0);
+		EMU->SetCHR_ROM8(0x0, 0);
 	else
 	{
 		for (int i = 0; i < 8; i++)

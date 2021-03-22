@@ -10,7 +10,7 @@ uint8_t Bank, Mode;
 
 void	Sync (void)
 {
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 	if (Mode & 1)
 		EMU->SetPRG_ROM8(0x6, Bank | 0x23);
 	else	EMU->SetPRG_ROM8(0x6, Bank | 0x2F);

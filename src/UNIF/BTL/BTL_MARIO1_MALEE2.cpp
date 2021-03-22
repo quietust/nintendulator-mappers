@@ -39,7 +39,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetPRG_Ptr4(0x6, ROM, FALSE);
 	EMU->SetPRG_RAM4(0x7, 0);
 	EMU->SetPRG_ROM32(0x8, 0);
-	EMU->SetCHR_ROM8(0, 0);
+	EMU->SetCHR_ROM8(0x0, 0);
 	UNIF_SetMirroring(NULL);
 }
 } // namespace

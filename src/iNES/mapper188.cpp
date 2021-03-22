@@ -13,7 +13,7 @@ void	Sync (void)
 		EMU->SetPRG_ROM16(0x8, Latch::Data & 0x7);
 	else	EMU->SetPRG_ROM16(0x8, Latch::Data | 0x8);
 	EMU->SetPRG_ROM16(0xC, 0x7);
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 }
 
 int	MAPINT	Read67 (int Bank, int Addr)

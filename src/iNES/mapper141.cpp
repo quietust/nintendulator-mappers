@@ -14,20 +14,20 @@ void	Sync (void)
 	EMU->SetPRG_ROM32(0x8, PRG);
 	if (Mirror & 1)
 	{
-		EMU->SetCHR_ROM2(0, (CHRH << 4) | (CHRL0 << 1) | 0);
-		EMU->SetCHR_ROM2(2, (CHRH << 4) | (CHRL0 << 1) | 1);
-		EMU->SetCHR_ROM2(4, (CHRH << 4) | (CHRL0 << 1) | 0);
-		EMU->SetCHR_ROM2(6, (CHRH << 4) | (CHRL0 << 1) | 1);
+		EMU->SetCHR_ROM2(0x0, (CHRH << 4) | (CHRL0 << 1) | 0);
+		EMU->SetCHR_ROM2(0x2, (CHRH << 4) | (CHRL0 << 1) | 1);
+		EMU->SetCHR_ROM2(0x4, (CHRH << 4) | (CHRL0 << 1) | 0);
+		EMU->SetCHR_ROM2(0x6, (CHRH << 4) | (CHRL0 << 1) | 1);
 	}
 	else
 	{
-		EMU->SetCHR_ROM2(0, (CHRH << 4) | (CHRL0 << 1) | 0);
-		EMU->SetCHR_ROM2(2, (CHRH << 4) | (CHRL1 << 1) | 1);
-		EMU->SetCHR_ROM2(4, (CHRH << 4) | (CHRL2 << 1) | 0);
-		EMU->SetCHR_ROM2(6, (CHRH << 4) | (CHRL3 << 1) | 1);
+		EMU->SetCHR_ROM2(0x0, (CHRH << 4) | (CHRL0 << 1) | 0);
+		EMU->SetCHR_ROM2(0x2, (CHRH << 4) | (CHRL1 << 1) | 1);
+		EMU->SetCHR_ROM2(0x4, (CHRH << 4) | (CHRL2 << 1) | 0);
+		EMU->SetCHR_ROM2(0x6, (CHRH << 4) | (CHRL3 << 1) | 1);
 	}
 	if (!ROM->INES_CHRSize)
-		EMU->SetCHR_RAM8(0, 0);
+		EMU->SetCHR_RAM8(0x0, 0);
 	switch (Mirror >> 1)
 	{
 	case 0:	EMU->Mirror_Custom(0, 0, 0, 1);	break;

@@ -14,7 +14,7 @@ uint8_t ConfigCmd;
 
 void	Sync (void)
 {
-	EMU->SetCHR_ROM8(0, Latch::Addr.s0 & 0x07);
+	EMU->SetCHR_ROM8(0x0, Latch::Addr.s0 & 0x07);
 	if (Latch::Addr.b0 & 0x80)
 	{
 		EMU->SetPRG_ROM16(0x8, (Latch::Addr.s0 & 0x70) >> 4);

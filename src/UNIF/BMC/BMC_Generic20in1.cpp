@@ -23,7 +23,7 @@ void	Sync (void)
 	};
 	addr = Latch::Addr.s0;
 	
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 	if (PRGsize)
 		EMU->SetPRG_ROM32(0x8, PRG);
 	else

@@ -26,7 +26,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUReadHandler(0x5, Read);
 
 	EMU->SetPRG_ROM32(0x8, 0);
-	EMU->SetCHR_ROM8(0, 0);
+	EMU->SetCHR_ROM8(0x0, 0);
 }
 
 uint16_t MapperNum = 143;

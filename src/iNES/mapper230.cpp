@@ -11,7 +11,7 @@ uint8_t Mode;
 
 void	Sync (void)
 {
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 	if (Mode)
 	{
 		if (Latch::Data & 0x20)

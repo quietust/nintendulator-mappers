@@ -10,7 +10,7 @@ namespace
 void	Sync (void)
 {
 	EMU->SetPRG_ROM32(0x8, (Latch::Data & 0x8) >> 3);
-	EMU->SetCHR_ROM8(0, Latch::Data & 0x7);
+	EMU->SetCHR_ROM8(0x0, Latch::Data & 0x7);
 }
 
 BOOL	MAPINT	Load (void)

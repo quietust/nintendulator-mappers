@@ -56,7 +56,7 @@ void	Sync (void)
 	{
 		if (!(Reg0 & 0x80))
 			CHRbank |= Reg2 & 0x80;
-		EMU->SetCHR_ROM8(0, (Reg2 & 0xF) | (CHRbank >> 3));
+		EMU->SetCHR_ROM8(0x0, (Reg2 & 0xF) | (CHRbank >> 3));
 	}
 	else	MMC3::SyncCHR_ROM(CHRmask, CHRbank);
 	MMC3::SyncMirror();

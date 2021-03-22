@@ -319,7 +319,7 @@ void	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0x4, Write);
 
 	EMU->SetPRG_RAM32(0x6, 0);
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 
 	EMU->SetPRG_Ptr4(0xE, FDS_BIOS[0], FALSE);
 	EMU->SetPRG_Ptr4(0xF, FDS_BIOS[1], FALSE);

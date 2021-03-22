@@ -10,12 +10,12 @@ namespace
 void	Sync (void)
 {
 	N118::SyncPRG();
-	EMU->SetCHR_ROM2(0, N118::CHR[0] >> 1);
-	EMU->SetCHR_ROM2(2, N118::CHR[1] >> 1);
-	EMU->SetCHR_ROM1(4, N118::CHR[2] | 0x40);
-	EMU->SetCHR_ROM1(5, N118::CHR[3] | 0x40);
-	EMU->SetCHR_ROM1(6, N118::CHR[4] | 0x40);
-	EMU->SetCHR_ROM1(7, N118::CHR[5] | 0x40);
+	EMU->SetCHR_ROM2(0x0, N118::CHR[0] >> 1);
+	EMU->SetCHR_ROM2(0x2, N118::CHR[1] >> 1);
+	EMU->SetCHR_ROM1(0x4, N118::CHR[2] | 0x40);
+	EMU->SetCHR_ROM1(0x5, N118::CHR[3] | 0x40);
+	EMU->SetCHR_ROM1(0x6, N118::CHR[4] | 0x40);
+	EMU->SetCHR_ROM1(0x7, N118::CHR[5] | 0x40);
 }
 
 BOOL	MAPINT	Load (void)

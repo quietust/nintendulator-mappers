@@ -11,7 +11,7 @@ uint8_t regVal[4];
 
 void	Sync (void)
 {
-	EMU->SetCHR_RAM8(0, regVal[0] & 0x3);
+	EMU->SetCHR_RAM8(0x0, regVal[0] & 0x3);
 	switch (regVal[2] & 0x3)
 	{
 	case 0:	EMU->Mirror_S0();	break;

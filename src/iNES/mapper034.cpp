@@ -15,14 +15,14 @@ void	Sync_NINA (void)
 {
 	EMU->SetPRG_RAM8(0x6, 0);
 	EMU->SetPRG_ROM32(0x8, PRG);
-	EMU->SetCHR_ROM4(0, CHR[0]);
-	EMU->SetCHR_ROM4(4, CHR[1]);
+	EMU->SetCHR_ROM4(0x0, CHR[0]);
+	EMU->SetCHR_ROM4(0x4, CHR[1]);
 }
 
 void	Sync_BNROM (void)
 {
 	EMU->SetPRG_ROM32(0x8, PRG);
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)

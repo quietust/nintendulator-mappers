@@ -14,10 +14,10 @@ uint8_t IRQenabled;
 void	Sync (void)
 {
 	for (int i = 0; i < 3; i++)
-		EMU->SetPRG_ROM8(8 | (i << 1), PRG[i]);
+		EMU->SetPRG_ROM8(0x8 | (i << 1), PRG[i]);
 	EMU->SetPRG_ROM8(0x6, PRG[3]);
 	EMU->SetPRG_ROM8(0xE, -1);
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)

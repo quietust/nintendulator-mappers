@@ -18,13 +18,13 @@ void	Sync (void)
 	for (int i = 0; i < 5; i++)
 	{
 		if (PRGtype[i] == BANK_ROM)
-			EMU->SetPRG_ROM8(6 + (i << 1), PRG[i]);
+			EMU->SetPRG_ROM8(0x6 + (i << 1), PRG[i]);
 		else if (PRGtype[i] == BANK_RAM)
-			EMU->SetPRG_RAM8(6 + (i << 1), PRG[i] & 0xF);
+			EMU->SetPRG_RAM8(0x6 + (i << 1), PRG[i] & 0xF);
 		else
 		{
-			EMU->SetPRG_OB4(6 + (i << 1));
-			EMU->SetPRG_OB4(7 + (i << 1));
+			EMU->SetPRG_OB4(0x6 + (i << 1));
+			EMU->SetPRG_OB4(0x7 + (i << 1));
 		}
 	}
 

@@ -50,7 +50,7 @@ void	Sync (void)
 		}
 		else EMU->SetPRG_ROM32(0x8, (PRGchip << 4) | (PRGbank));
 	}
-	EMU->SetCHR_ROM8(0, (CHRbank << 2) | (Latch::Data & 0x3));
+	EMU->SetCHR_ROM8(0x0, (CHRbank << 2) | (Latch::Data & 0x3));
 }
 
 BOOL	MAPINT	Load (void)

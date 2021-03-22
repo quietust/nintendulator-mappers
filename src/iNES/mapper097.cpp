@@ -11,7 +11,7 @@ void	Sync (void)
 {
 	EMU->SetPRG_ROM16(0x8, -1);
 	EMU->SetPRG_ROM16(0xC, Latch::Data & 0xF);
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 	switch ((Latch::Data & 0xC0) >> 6)
 	{
 	case 0:	EMU->Mirror_S0();	break;

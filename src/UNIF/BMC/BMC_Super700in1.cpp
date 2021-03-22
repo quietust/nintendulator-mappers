@@ -32,7 +32,7 @@ void	Sync (void)
 	addr = Latch::Addr.s0;
 	data = Latch::Data;
 
-	EMU->SetCHR_ROM8(0, (CHRhi << 2) | CHRlo);
+	EMU->SetCHR_ROM8(0x0, (CHRhi << 2) | CHRlo);
 
 	if (PRGsize)
 	{

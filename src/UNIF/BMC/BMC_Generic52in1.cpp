@@ -24,7 +24,7 @@ void	Sync (void)
 	};
 	addr = Latch::Addr.s0;
 
-	EMU->SetCHR_ROM8(0, CHRbank);
+	EMU->SetCHR_ROM8(0x0, CHRbank);
 	if (PRGsize)
 	{
 		EMU->SetPRG_ROM16(0x8, (PRGbank << 1) | (PRG16));

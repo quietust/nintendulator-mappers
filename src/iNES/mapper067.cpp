@@ -18,10 +18,10 @@ void	Sync (void)
 	EMU->SetPRG_ROM16(0x8, PRG);
 	EMU->SetPRG_ROM16(0xC, -1);
 
-	EMU->SetCHR_ROM2(0, CHR[0]);
-	EMU->SetCHR_ROM2(2, CHR[1]);
-	EMU->SetCHR_ROM2(4, CHR[2]);
-	EMU->SetCHR_ROM2(6, CHR[3]);
+	EMU->SetCHR_ROM2(0x0, CHR[0]);
+	EMU->SetCHR_ROM2(0x2, CHR[1]);
+	EMU->SetCHR_ROM2(0x4, CHR[2]);
+	EMU->SetCHR_ROM2(0x6, CHR[3]);
 
 	switch (Mirror & 3)
 	{

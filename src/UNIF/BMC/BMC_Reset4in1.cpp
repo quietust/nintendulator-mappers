@@ -10,7 +10,7 @@ uint8_t Game;
 
 void	Sync (void)
 {
-	EMU->SetCHR_ROM8(0, Game);
+	EMU->SetCHR_ROM8(0x0, Game);
 	EMU->SetPRG_ROM16(0x8, Game);
 	EMU->SetPRG_ROM16(0xC, Game);
 }

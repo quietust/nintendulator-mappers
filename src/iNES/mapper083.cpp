@@ -47,10 +47,10 @@ void	Sync (void)
 	}
 	if (ROM->INES_CHRSize > 32)
 	{
-		EMU->SetCHR_ROM2(0, CHR[0]);
-		EMU->SetCHR_ROM2(2, CHR[1]);
-		EMU->SetCHR_ROM2(4, CHR[6]);
-		EMU->SetCHR_ROM2(6, CHR[7]);
+		EMU->SetCHR_ROM2(0x0, CHR[0]);
+		EMU->SetCHR_ROM2(0x2, CHR[1]);
+		EMU->SetCHR_ROM2(0x4, CHR[6]);
+		EMU->SetCHR_ROM2(0x6, CHR[7]);
 	}
 	else
 	{

@@ -31,7 +31,7 @@ void	Sync (void)
 		EMU->SetPRG_ROM16(0xC, (BankReg & 0x3F));
 		break;
 	}
-	EMU->SetCHR_RAM8(0, 0);	// For compatibility with mapper hacks, do not write-protect
+	EMU->SetCHR_RAM8(0x0, 0);	// For compatibility with mapper hacks, do not write-protect
 	if (BankReg & 0x40)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();

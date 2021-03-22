@@ -11,13 +11,13 @@ void	Sync_UNROM (void)
 {
 	EMU->SetPRG_ROM16(0x8, Latch::Data & 0x7);
 	EMU->SetPRG_ROM16(0xC, 0x7);
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 }
 void	Sync_UOROM (void)
 {
 	EMU->SetPRG_ROM16(0x8, Latch::Data & 0xF);
 	EMU->SetPRG_ROM16(0xC, 0xF);
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 }
 
 BOOL	MAPINT	Load_UNROM (void)

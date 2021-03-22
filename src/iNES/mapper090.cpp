@@ -75,21 +75,21 @@ void	SyncCHR (void)
 {
 	switch ((BankMode & 0x18) >> 3)
 	{
-	case 0:	EMU->SetCHR_ROM8(0, (ExtBank & 0x20) ? CHRbanks[0].s0 : (CHRbanks[0].b0 | ((ExtBank & 0x1F) << 8)));	break;
-	case 1:	EMU->SetCHR_ROM4(0, (ExtBank & 0x20) ? CHRbanks[LatchState[0]].s0 : (CHRbanks[LatchState[0]].b0 | ((ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM4(4, (ExtBank & 0x20) ? CHRbanks[LatchState[1]].s0 : (CHRbanks[LatchState[1]].b0 | ((ExtBank & 0x1F) << 8)));	break;
-	case 2:	EMU->SetCHR_ROM2(0, (ExtBank & 0x20) ? CHRbanks[0].s0 : (CHRbanks[0].b0 | ((ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM2(2, (ExtBank & 0x20) ? CHRbanks[2].s0 : (CHRbanks[2].b0 | ((ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM2(4, (ExtBank & 0x20) ? CHRbanks[4].s0 : (CHRbanks[4].b0 | ((ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM2(6, (ExtBank & 0x20) ? CHRbanks[6].s0 : (CHRbanks[6].b0 | ((ExtBank & 0x1F) << 8)));	break;
-	case 3:	EMU->SetCHR_ROM1(0, (ExtBank & 0x20) ? CHRbanks[0].s0 : (CHRbanks[0].b0 | ((ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM1(1, (ExtBank & 0x20) ? CHRbanks[1].s0 : (CHRbanks[1].b0 | ((ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM1(2, (ExtBank & 0x20) ? CHRbanks[2].s0 : (CHRbanks[2].b0 | ((ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM1(3, (ExtBank & 0x20) ? CHRbanks[3].s0 : (CHRbanks[3].b0 | ((ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM1(4, (ExtBank & 0x20) ? CHRbanks[4].s0 : (CHRbanks[4].b0 | ((ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM1(5, (ExtBank & 0x20) ? CHRbanks[5].s0 : (CHRbanks[5].b0 | ((ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM1(6, (ExtBank & 0x20) ? CHRbanks[6].s0 : (CHRbanks[6].b0 | ((ExtBank & 0x1F) << 8)));
-		EMU->SetCHR_ROM1(7, (ExtBank & 0x20) ? CHRbanks[7].s0 : (CHRbanks[7].b0 | ((ExtBank & 0x1F) << 8)));	break;
+	case 0:	EMU->SetCHR_ROM8(0x0, (ExtBank & 0x20) ? CHRbanks[0].s0 : (CHRbanks[0].b0 | ((ExtBank & 0x1F) << 8)));	break;
+	case 1:	EMU->SetCHR_ROM4(0x0, (ExtBank & 0x20) ? CHRbanks[LatchState[0]].s0 : (CHRbanks[LatchState[0]].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM4(0x4, (ExtBank & 0x20) ? CHRbanks[LatchState[1]].s0 : (CHRbanks[LatchState[1]].b0 | ((ExtBank & 0x1F) << 8)));	break;
+	case 2:	EMU->SetCHR_ROM2(0x0, (ExtBank & 0x20) ? CHRbanks[0].s0 : (CHRbanks[0].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM2(0x2, (ExtBank & 0x20) ? CHRbanks[2].s0 : (CHRbanks[2].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM2(0x4, (ExtBank & 0x20) ? CHRbanks[4].s0 : (CHRbanks[4].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM2(0x6, (ExtBank & 0x20) ? CHRbanks[6].s0 : (CHRbanks[6].b0 | ((ExtBank & 0x1F) << 8)));	break;
+	case 3:	EMU->SetCHR_ROM1(0x0, (ExtBank & 0x20) ? CHRbanks[0].s0 : (CHRbanks[0].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM1(0x1, (ExtBank & 0x20) ? CHRbanks[1].s0 : (CHRbanks[1].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM1(0x2, (ExtBank & 0x20) ? CHRbanks[2].s0 : (CHRbanks[2].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM1(0x3, (ExtBank & 0x20) ? CHRbanks[3].s0 : (CHRbanks[3].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM1(0x4, (ExtBank & 0x20) ? CHRbanks[4].s0 : (CHRbanks[4].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM1(0x5, (ExtBank & 0x20) ? CHRbanks[5].s0 : (CHRbanks[5].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM1(0x6, (ExtBank & 0x20) ? CHRbanks[6].s0 : (CHRbanks[6].b0 | ((ExtBank & 0x1F) << 8)));
+		EMU->SetCHR_ROM1(0x7, (ExtBank & 0x20) ? CHRbanks[7].s0 : (CHRbanks[7].b0 | ((ExtBank & 0x1F) << 8)));	break;
 	}
 }
 

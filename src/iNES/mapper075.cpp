@@ -16,8 +16,8 @@ void	Sync (void)
 	EMU->SetPRG_ROM8(0xA, PRG[1]);
 	EMU->SetPRG_ROM8(0xC, PRG[2]);
 	EMU->SetPRG_ROM8(0xE, 0xF);
-	EMU->SetCHR_ROM4(0, CHR[0].b0);
-	EMU->SetCHR_ROM4(4, CHR[1].b0);
+	EMU->SetCHR_ROM4(0x0, CHR[0].b0);
+	EMU->SetCHR_ROM4(0x4, CHR[1].b0);
 	if (Mirror)
 		EMU->Mirror_H();
 	else	EMU->Mirror_V();

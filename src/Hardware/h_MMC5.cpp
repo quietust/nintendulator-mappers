@@ -310,21 +310,21 @@ void	SyncCHRA (void)
 {
 	switch (CHRsize)
 	{
-	case 0:	EMU->SetCHR_ROM8(0, CHR_A[7].s0);	break;
-	case 1:	EMU->SetCHR_ROM4(0, CHR_A[3].s0);
-		EMU->SetCHR_ROM4(4, CHR_A[7].s0);	break;
-	case 2:	EMU->SetCHR_ROM2(0, CHR_A[1].s0);
-		EMU->SetCHR_ROM2(2, CHR_A[3].s0);
-		EMU->SetCHR_ROM2(4, CHR_A[5].s0);
-		EMU->SetCHR_ROM2(6, CHR_A[7].s0);	break;
-	case 3:	EMU->SetCHR_ROM1(0, CHR_A[0].s0);
-		EMU->SetCHR_ROM1(1, CHR_A[1].s0);
-		EMU->SetCHR_ROM1(2, CHR_A[2].s0);
-		EMU->SetCHR_ROM1(3, CHR_A[3].s0);
-		EMU->SetCHR_ROM1(4, CHR_A[4].s0);
-		EMU->SetCHR_ROM1(5, CHR_A[5].s0);
-		EMU->SetCHR_ROM1(6, CHR_A[6].s0);
-		EMU->SetCHR_ROM1(7, CHR_A[7].s0);	break;
+	case 0:	EMU->SetCHR_ROM8(0x0, CHR_A[7].s0);	break;
+	case 1:	EMU->SetCHR_ROM4(0x0, CHR_A[3].s0);
+		EMU->SetCHR_ROM4(0x4, CHR_A[7].s0);	break;
+	case 2:	EMU->SetCHR_ROM2(0x0, CHR_A[1].s0);
+		EMU->SetCHR_ROM2(0x2, CHR_A[3].s0);
+		EMU->SetCHR_ROM2(0x4, CHR_A[5].s0);
+		EMU->SetCHR_ROM2(0x6, CHR_A[7].s0);	break;
+	case 3:	EMU->SetCHR_ROM1(0x0, CHR_A[0].s0);
+		EMU->SetCHR_ROM1(0x1, CHR_A[1].s0);
+		EMU->SetCHR_ROM1(0x2, CHR_A[2].s0);
+		EMU->SetCHR_ROM1(0x3, CHR_A[3].s0);
+		EMU->SetCHR_ROM1(0x4, CHR_A[4].s0);
+		EMU->SetCHR_ROM1(0x5, CHR_A[5].s0);
+		EMU->SetCHR_ROM1(0x6, CHR_A[6].s0);
+		EMU->SetCHR_ROM1(0x7, CHR_A[7].s0);	break;
 	}
 }
 
@@ -332,21 +332,21 @@ void	SyncCHRB (void)
 {
 	switch (CHRsize)
 	{
-	case 0:	EMU->SetCHR_ROM8(0, CHR_B[3].s0);	break;
-	case 1:	EMU->SetCHR_ROM4(0, CHR_B[3].s0);
-		EMU->SetCHR_ROM4(4, CHR_B[3].s0);	break;
-	case 2:	EMU->SetCHR_ROM2(0, CHR_B[1].s0);
-		EMU->SetCHR_ROM2(2, CHR_B[3].s0);
-		EMU->SetCHR_ROM2(4, CHR_B[1].s0);
-		EMU->SetCHR_ROM2(6, CHR_B[3].s0);	break;
-	case 3:	EMU->SetCHR_ROM1(0, CHR_B[0].s0);
-		EMU->SetCHR_ROM1(1, CHR_B[1].s0);
-		EMU->SetCHR_ROM1(2, CHR_B[2].s0);
-		EMU->SetCHR_ROM1(3, CHR_B[3].s0);
-		EMU->SetCHR_ROM1(4, CHR_B[0].s0);
-		EMU->SetCHR_ROM1(5, CHR_B[1].s0);
-		EMU->SetCHR_ROM1(6, CHR_B[2].s0);
-		EMU->SetCHR_ROM1(7, CHR_B[3].s0);	break;
+	case 0:	EMU->SetCHR_ROM8(0x0, CHR_B[3].s0);	break;
+	case 1:	EMU->SetCHR_ROM4(0x0, CHR_B[3].s0);
+		EMU->SetCHR_ROM4(0x4, CHR_B[3].s0);	break;
+	case 2:	EMU->SetCHR_ROM2(0x0, CHR_B[1].s0);
+		EMU->SetCHR_ROM2(0x2, CHR_B[3].s0);
+		EMU->SetCHR_ROM2(0x4, CHR_B[1].s0);
+		EMU->SetCHR_ROM2(0x6, CHR_B[3].s0);	break;
+	case 3:	EMU->SetCHR_ROM1(0x0, CHR_B[0].s0);
+		EMU->SetCHR_ROM1(0x1, CHR_B[1].s0);
+		EMU->SetCHR_ROM1(0x2, CHR_B[2].s0);
+		EMU->SetCHR_ROM1(0x3, CHR_B[3].s0);
+		EMU->SetCHR_ROM1(0x4, CHR_B[0].s0);
+		EMU->SetCHR_ROM1(0x5, CHR_B[1].s0);
+		EMU->SetCHR_ROM1(0x6, CHR_B[2].s0);
+		EMU->SetCHR_ROM1(0x7, CHR_B[3].s0);	break;
 	}
 }
 
@@ -513,8 +513,8 @@ void	MAPINT	CPUWrite5 (int Bank, int Addr, int Val)
 		case 0x202:	SplitBank = Val;
 				if (InSplitArea)
 				{
-					EMU->SetCHR_ROM4(0, SplitBank);
-					EMU->SetCHR_ROM4(4, SplitBank);
+					EMU->SetCHR_ROM4(0x0, SplitBank);
+					EMU->SetCHR_ROM4(0x4, SplitBank);
 				}			break;
 		case 0x203:	IRQline = Val;	break;
 		case 0x204:	IRQenabled = Val & 0x80;
@@ -578,8 +578,8 @@ int	MAPINT	PPUReadNTSplitExt (int Bank, int Addr)
 			if (TileCache != (ExRAM[extile] & 0x3F))
 			{
 				TileCache = (ExRAM[extile] & 0x3F) | (CHRhi << 6);
-				EMU->SetCHR_ROM4(0, TileCache);
-				EMU->SetCHR_ROM4(4, TileCache);
+				EMU->SetCHR_ROM4(0x0, TileCache);
+				EMU->SetCHR_ROM4(0x4, TileCache);
 			}
 			return AttribBits[ExRAM[extile] >> 6];	// custom attribute data
 		}
@@ -611,8 +611,8 @@ int	MAPINT	PPUReadNTExt (int Bank, int Addr)
 		if (TileCache != (ExRAM[extile] & 0x3F))
 		{
 			TileCache = (ExRAM[extile] & 0x3F) | (CHRhi << 6);
-			EMU->SetCHR_ROM4(0, TileCache);
-			EMU->SetCHR_ROM4(4, TileCache);
+			EMU->SetCHR_ROM4(0x0, TileCache);
+			EMU->SetCHR_ROM4(0x4, TileCache);
 		}
 		return _PPURead[Bank](Bank, Addr);		// normal nametable data
 	}
@@ -729,8 +729,8 @@ void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 				else if (CurTile == (SplitMode & 0x1F))
 				{
 					InSplitArea = TRUE;
-					EMU->SetCHR_ROM4(0, SplitBank);
-					EMU->SetCHR_ROM4(4, SplitBank);
+					EMU->SetCHR_ROM4(0x0, SplitBank);
+					EMU->SetCHR_ROM4(0x4, SplitBank);
 				}
 				else if (CurTile == 34)
 				{
@@ -743,8 +743,8 @@ void	MAPINT	PPUCycle (int Addr, int Scanline, int Cycle, int IsRendering)
 				if (CurTile == 0)
 				{
 					InSplitArea = TRUE;
-					EMU->SetCHR_ROM4(0, SplitBank);
-					EMU->SetCHR_ROM4(4, SplitBank);
+					EMU->SetCHR_ROM4(0x0, SplitBank);
+					EMU->SetCHR_ROM4(0x4, SplitBank);
 				}
 				else if (CurTile == (SplitMode & 0x1F))
 				{

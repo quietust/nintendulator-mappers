@@ -82,7 +82,7 @@ int	GetCHRBank (int Bank)
 void	SyncPRG (int AND, int OR)
 {
 	for (int i = 0; i < 4; i++)
-		EMU->SetPRG_ROM8(8 | (i << 1), (GetPRGBank(i) & AND) | OR);
+		EMU->SetPRG_ROM8(0x8 | (i << 1), (GetPRGBank(i) & AND) | OR);
 }
 
 void	SyncWRAM (void)

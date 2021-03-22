@@ -132,14 +132,14 @@ void	SyncPRG (int AND, int OR)
 
 void	SyncCHR_ROM (int AND, int OR)
 {
-	EMU->SetCHR_ROM4(0, (GetCHRBankLo() & AND) | OR);
-	EMU->SetCHR_ROM4(4, (GetCHRBankHi() & AND) | OR);
+	EMU->SetCHR_ROM4(0x0, (GetCHRBankLo() & AND) | OR);
+	EMU->SetCHR_ROM4(0x4, (GetCHRBankHi() & AND) | OR);
 }
 
 void	SyncCHR_RAM (int AND, int OR)
 {
-	EMU->SetCHR_RAM4(0, (GetCHRBankLo() & AND) | OR);
-	EMU->SetCHR_RAM4(4, (GetCHRBankHi() & AND) | OR);
+	EMU->SetCHR_RAM4(0x0, (GetCHRBankLo() & AND) | OR);
+	EMU->SetCHR_RAM4(0x4, (GetCHRBankHi() & AND) | OR);
 }
 
 void	SyncWRAM (void)

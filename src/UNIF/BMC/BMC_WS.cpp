@@ -10,7 +10,7 @@ uint8_t Reg0, Reg1;
 
 void	Sync (void)
 {
-	EMU->SetCHR_ROM8(0, Reg1 & 0x7);
+	EMU->SetCHR_ROM8(0x0, Reg1 & 0x7);
 	if (Reg0 & 0x08)
 	{
 		EMU->SetPRG_ROM16(0x8, Reg0 & 0x7);

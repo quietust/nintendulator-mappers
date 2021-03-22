@@ -12,7 +12,7 @@ FCPUWrite _Write4;
 void	Sync (void)
 {
 	EMU->SetPRG_ROM32(0x8, PRG);
-	EMU->SetCHR_ROM8(0, CHR);
+	EMU->SetCHR_ROM8(0x0, CHR);
 	switch (Mirror)
 	{
 	case 0:	EMU->Mirror_H();		break;

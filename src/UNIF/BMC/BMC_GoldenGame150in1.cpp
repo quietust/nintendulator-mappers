@@ -61,7 +61,7 @@ void	Sync (void)
 		}
 		else	EMU->SetPRG_ROM32(0x8, (PRGchip << 5) | PRGbank);
 	}
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 	if (Mir_S0)
 		EMU->Mirror_S0();
 	else if (Mir_HV)

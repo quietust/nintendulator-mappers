@@ -9,7 +9,7 @@ namespace
 {
 void	Sync (void)
 {
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 	if (Latch::Data & 0x20)
 	{
 		EMU->SetPRG_ROM16(0x8, (Latch::Data & 0x1F));

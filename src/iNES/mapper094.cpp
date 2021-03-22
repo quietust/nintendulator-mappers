@@ -11,7 +11,7 @@ void	Sync (void)
 {
 	EMU->SetPRG_ROM16(0x8, (Latch::Data & 0x1C) >> 2);
 	EMU->SetPRG_ROM16(0xC, -1);
-	EMU->SetCHR_RAM8(0, 0);
+	EMU->SetCHR_RAM8(0x0, 0);
 }
 
 BOOL	MAPINT	Load (void)

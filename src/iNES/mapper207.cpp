@@ -17,12 +17,12 @@ void	Sync (void)
 	EMU->SetPRG_ROM8(0xA, PRG[1]);
 	EMU->SetPRG_ROM8(0xC, PRG[2]);
 	EMU->SetPRG_ROM8(0xE, -1);
-	EMU->SetCHR_ROM2(0, CHR[0] >> 1);
-	EMU->SetCHR_ROM2(2, CHR[1] >> 1);
-	EMU->SetCHR_ROM1(4, CHR[2]);
-	EMU->SetCHR_ROM1(5, CHR[3]);
-	EMU->SetCHR_ROM1(6, CHR[4]);
-	EMU->SetCHR_ROM1(7, CHR[5]);
+	EMU->SetCHR_ROM2(0x0, CHR[0] >> 1);
+	EMU->SetCHR_ROM2(0x2, CHR[1] >> 1);
+	EMU->SetCHR_ROM1(0x4, CHR[2]);
+	EMU->SetCHR_ROM1(0x5, CHR[3]);
+	EMU->SetCHR_ROM1(0x6, CHR[4]);
+	EMU->SetCHR_ROM1(0x7, CHR[5]);
 	EMU->Mirror_Custom(NT[0] >> 7, NT[0] >> 7, NT[1] >> 7, NT[1] >> 7);
 }
 

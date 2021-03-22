@@ -80,8 +80,8 @@ void	SyncPRG (int AND, int OR)
 
 void	SyncCHR (void)
 {
-	EMU->SetCHR_ROM4(0, Latch0[LatchState[0]]);
-	EMU->SetCHR_ROM4(4, Latch1[LatchState[1]]);
+	EMU->SetCHR_ROM4(0x0, Latch0[LatchState[0]]);
+	EMU->SetCHR_ROM4(0x4, Latch1[LatchState[1]]);
 }
 
 void	SyncMirror (void)
@@ -98,12 +98,12 @@ int	MAPINT	PPURead3 (int Bank, int Addr)
 	if (addy == 0x3D8)
 	{
 		LatchState[0] = 0;
-		EMU->SetCHR_ROM4(0, Latch0[0]);
+		EMU->SetCHR_ROM4(0x0, Latch0[0]);
 	}
 	else if (addy == 0x3E8)
 	{
 		LatchState[0] = 1;
-		EMU->SetCHR_ROM4(0, Latch0[1]);
+		EMU->SetCHR_ROM4(0x0, Latch0[1]);
 	}
 	return result;
 }
@@ -115,12 +115,12 @@ int	MAPINT	PPURead7 (int Bank, int Addr)
 	if (addy == 0x3D8)
 	{
 		LatchState[1] = 0;
-		EMU->SetCHR_ROM4(4, Latch1[0]);
+		EMU->SetCHR_ROM4(0x4, Latch1[0]);
 	}
 	else if (addy == 0x3E8)
 	{
 		LatchState[1] = 1;
-		EMU->SetCHR_ROM4(4, Latch1[1]);
+		EMU->SetCHR_ROM4(0x4, Latch1[1]);
 	}
 	return result;
 }

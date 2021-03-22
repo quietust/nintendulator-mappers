@@ -44,8 +44,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	iNES_SetMirroring();
 
 	if (ROM->INES_CHRSize)
-		EMU->SetCHR_ROM8(0, 0);
-	else	EMU->SetCHR_RAM8(0, 0);
+		EMU->SetCHR_ROM8(0x0, 0);
+	else	EMU->SetCHR_RAM8(0x0, 0);
 
 	EMU->SetCPUWriteHandler(0x5, Write);
 
