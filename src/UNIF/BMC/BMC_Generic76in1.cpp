@@ -33,6 +33,7 @@ void	Sync (void)
 	if (Mir_VH)
 		EMU->Mirror_V();
 	else	EMU->Mirror_H();
+	EMU->SetCHR_RAM8(0x0, 0);
 	if (PRGsize)
 	{
 		EMU->SetPRG_ROM16(0x8, ((PRGhi) << 5) | (PRGbank));
