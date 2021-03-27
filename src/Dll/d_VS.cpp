@@ -37,7 +37,7 @@ const MapperInfo	*MAPINT	LoadMapper (const ROMInfo *_ROM)
 	const MapperInfo *found = NULL;
 	if (_ROM->ROMType == ROM_UNDEFINED)
 	{	/* Allow enumerating mappers */
-		found = findByIndex((unsigned int)_ROM->Filename);
+		found = findByIndex((unsigned int)(size_t)_ROM->Filename);
 		if (found)
 		{
 			/* Yes, this is overwriting a Const field. No, I don't care. */
