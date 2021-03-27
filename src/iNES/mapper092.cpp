@@ -61,8 +61,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 92;
 } // namespace
 
-const MapperInfo MapperInfo_092 =
-{
+const MapperInfo MapperInfo_092
+(
 	&MapperNum,
 	_T("Moero!! Pro"),
 	COMPAT_NEARLY,
@@ -74,4 +74,4 @@ const MapperInfo MapperInfo_092 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

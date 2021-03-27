@@ -59,6 +59,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\interface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\Hardware\h_FME7.cpp">
       <Filter>Source Files\Hardware Source Files</Filter>
     </ClCompile>
@@ -92,112 +95,112 @@
     <ClCompile Include="..\src\Hardware\Sound\s_SUN5.cpp">
       <Filter>Source Files\Sound Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Nes\NES_AxROM.cpp">
+    <ClCompile Include="..\src\UNIF\NES\NES_AxROM.cpp">
       <Filter>Source Files\Mapper Source Files\NES</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Nes\NES_BxROM.cpp">
+    <ClCompile Include="..\src\UNIF\NES\NES_BxROM.cpp">
       <Filter>Source Files\Mapper Source Files\NES</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Nes\NES_CxROM.cpp">
+    <ClCompile Include="..\src\UNIF\NES\NES_CxROM.cpp">
       <Filter>Source Files\Mapper Source Files\NES</Filter>
     </ClCompile>
     <ClCompile Include="..\src\UNIF\NES\NES_DxROM.cpp">
       <Filter>Source Files\Mapper Source Files\NES</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Nes\NES_ExROM.cpp">
+    <ClCompile Include="..\src\UNIF\NES\NES_ExROM.cpp">
       <Filter>Source Files\Mapper Source Files\NES</Filter>
     </ClCompile>
     <ClCompile Include="..\src\UNIF\NES\NES_FxROM.cpp">
       <Filter>Source Files\Mapper Source Files\NES</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Nes\NES_GxROM.cpp">
+    <ClCompile Include="..\src\UNIF\NES\NES_GxROM.cpp">
       <Filter>Source Files\Mapper Source Files\NES</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Nes\NES_HxROM.cpp">
+    <ClCompile Include="..\src\UNIF\NES\NES_HxROM.cpp">
       <Filter>Source Files\Mapper Source Files\NES</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Nes\NES_JxROM.cpp">
+    <ClCompile Include="..\src\UNIF\NES\NES_JxROM.cpp">
       <Filter>Source Files\Mapper Source Files\NES</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Nes\NES_MxROM.cpp">
+    <ClCompile Include="..\src\UNIF\NES\NES_MxROM.cpp">
       <Filter>Source Files\Mapper Source Files\NES</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Nes\NES_NROM.cpp">
+    <ClCompile Include="..\src\UNIF\NES\NES_NROM.cpp">
       <Filter>Source Files\Mapper Source Files\NES</Filter>
     </ClCompile>
     <ClCompile Include="..\src\UNIF\NES\NES_PxROM.cpp">
       <Filter>Source Files\Mapper Source Files\NES</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Nes\NES_SxROM.cpp">
+    <ClCompile Include="..\src\UNIF\NES\NES_SxROM.cpp">
       <Filter>Source Files\Mapper Source Files\NES</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Nes\NES_TxROM.cpp">
+    <ClCompile Include="..\src\UNIF\NES\NES_TxROM.cpp">
       <Filter>Source Files\Mapper Source Files\NES</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Nes\NES_UxROM.cpp">
+    <ClCompile Include="..\src\UNIF\NES\NES_UxROM.cpp">
       <Filter>Source Files\Mapper Source Files\NES</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Btl\BTL_MARIO1_MALEE2.cpp">
+    <ClCompile Include="..\src\UNIF\BTL\BTL_MARIO1_MALEE2.cpp">
       <Filter>Source Files\Mapper Source Files\BTL</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Bmc\BMC_1991SuperHiK7in1.cpp">
+    <ClCompile Include="..\src\UNIF\BMC\BMC_1991SuperHiK7in1.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Bmc\BMC_1992Ballgames11in1.cpp">
+    <ClCompile Include="..\src\UNIF\BMC\BMC_1992Ballgames11in1.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic115in1.cpp">
+    <ClCompile Include="..\src\UNIF\BMC\BMC_Generic115in1.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic15in1.cpp">
+    <ClCompile Include="..\src\UNIF\BMC\BMC_Generic15in1.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic20in1.cpp">
+    <ClCompile Include="..\src\UNIF\BMC\BMC_Generic20in1.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic20in1A.cpp">
+    <ClCompile Include="..\src\UNIF\BMC\BMC_Generic20in1A.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic42in1.cpp">
+    <ClCompile Include="..\src\UNIF\BMC\BMC_Generic42in1.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic52in1.cpp">
+    <ClCompile Include="..\src\UNIF\BMC\BMC_Generic52in1.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Bmc\BMC_Generic76in1.cpp">
+    <ClCompile Include="..\src\UNIF\BMC\BMC_Generic76in1.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Bmc\BMC_GoldenGame150in1.cpp">
+    <ClCompile Include="..\src\UNIF\BMC\BMC_GoldenGame150in1.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Bmc\BMC_Mario7in1.cpp">
+    <ClCompile Include="..\src\UNIF\BMC\BMC_Mario7in1.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Bmc\BMC_NovelDiamond9999999in1.cpp">
+    <ClCompile Include="..\src\UNIF\BMC\BMC_NovelDiamond9999999in1.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Bmc\BMC_Reset4in1.cpp">
+    <ClCompile Include="..\src\UNIF\BMC\BMC_Reset4in1.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Bmc\BMC_StudyGame32in1.cpp">
+    <ClCompile Include="..\src\UNIF\BMC\BMC_StudyGame32in1.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Bmc\BMC_Super1Min1.cpp">
+    <ClCompile Include="..\src\UNIF\BMC\BMC_Super1Min1.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
     <ClCompile Include="..\src\UNIF\BMC\BMC_Super24in1SC03.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Bmc\BMC_Super700in1.cpp">
+    <ClCompile Include="..\src\UNIF\BMC\BMC_Super700in1.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Bmc\BMC_Supervision16in1.cpp">
+    <ClCompile Include="..\src\UNIF\BMC\BMC_Supervision16in1.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
     <ClCompile Include="..\src\UNIF\BMC\BMC_SV01.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Bmc\BMC_T3H53.cpp">
+    <ClCompile Include="..\src\UNIF\BMC\BMC_T3H53.cpp">
       <Filter>Source Files\Mapper Source Files\BMC</Filter>
     </ClCompile>
     <ClCompile Include="..\src\UNIF\BMC\BMC_WS.cpp">
@@ -206,7 +209,7 @@
     <ClCompile Include="..\src\UNIF\UNL\UNL_8237.cpp">
       <Filter>Source Files\Mapper Source Files\UNL</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Unif\Unl\UNL_A9712.cpp">
+    <ClCompile Include="..\src\UNIF\Unl\UNL_A9712.cpp">
       <Filter>Source Files\Mapper Source Files\UNL</Filter>
     </ClCompile>
     <ClCompile Include="..\src\UNIF\UNL\UNL_Dripgame.cpp">

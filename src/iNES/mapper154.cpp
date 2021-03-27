@@ -42,8 +42,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 154;
 } // namespace
 
-const MapperInfo MapperInfo_154 =
-{
+const MapperInfo MapperInfo_154
+(
 	&MapperNum,
 	_T("Devil Man"),
 	COMPAT_NEARLY,
@@ -55,4 +55,4 @@ const MapperInfo MapperInfo_154 =
 	N118::SaveLoad,
 	NULL,
 	NULL
-};
+);

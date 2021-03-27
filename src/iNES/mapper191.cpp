@@ -39,8 +39,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 191;
 } // namespace
 
-const MapperInfo MapperInfo_191 =
-{
+const MapperInfo MapperInfo_191
+(
 	&MapperNum,
 	_T("Pirate TQROM variant"),
 	COMPAT_NEARLY,
@@ -52,4 +52,4 @@ const MapperInfo MapperInfo_191 =
 	MMC3::SaveLoad,
 	NULL,
 	NULL
-};
+);

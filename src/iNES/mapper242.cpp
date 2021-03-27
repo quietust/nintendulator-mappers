@@ -36,8 +36,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 242;
 } // namespace
 
-const MapperInfo MapperInfo_242 =
-{
+const MapperInfo MapperInfo_242
+(
 	&MapperNum,
 	_T("Waixing 74HC161"),
 	COMPAT_FULL,
@@ -49,4 +49,4 @@ const MapperInfo MapperInfo_242 =
 	Latch::SaveLoad_AL,
 	NULL,
 	NULL
-};
+);

@@ -63,8 +63,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 96;
 } // namespace
 
-const MapperInfo MapperInfo_096 =
-{
+const MapperInfo MapperInfo_096
+(
 	&MapperNum,
 	_T("Oeka Kids"),
 	COMPAT_FULL,
@@ -76,4 +76,4 @@ const MapperInfo MapperInfo_096 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

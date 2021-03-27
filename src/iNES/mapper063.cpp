@@ -69,8 +69,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 63;
 } // namespace
 
-const MapperInfo MapperInfo_063 =
-{
+const MapperInfo MapperInfo_063
+(
 	&MapperNum,
 	_T("Hello Kitty 255 in 1"),
 	COMPAT_FULL,
@@ -82,4 +82,4 @@ const MapperInfo MapperInfo_063 =
 	Latch::SaveLoad_A,
 	NULL,
 	NULL
-};
+);

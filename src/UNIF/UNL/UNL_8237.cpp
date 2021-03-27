@@ -110,8 +110,8 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-const MapperInfo MapperInfo_UNL_8237 =
-{
+const MapperInfo MapperInfo_UNL_8237
+(
 	"UNL-8237",
 	_T("?"),
 	COMPAT_NEARLY,
@@ -123,4 +123,4 @@ const MapperInfo MapperInfo_UNL_8237 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

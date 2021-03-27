@@ -66,8 +66,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 132;
 } // namespace
 
-const MapperInfo MapperInfo_132 =
-{
+const MapperInfo MapperInfo_132
+(
 	&MapperNum,
 	_T("Creatom"),
 	COMPAT_NEARLY,
@@ -79,4 +79,4 @@ const MapperInfo MapperInfo_132 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

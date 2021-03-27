@@ -63,8 +63,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 193;
 } // namespace
 
-const MapperInfo MapperInfo_193 =
-{
+const MapperInfo MapperInfo_193
+(
 	&MapperNum,
 	_T("Fighting Hero"),
 	COMPAT_NEARLY,
@@ -76,4 +76,4 @@ const MapperInfo MapperInfo_193 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

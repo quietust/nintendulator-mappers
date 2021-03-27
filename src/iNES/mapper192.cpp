@@ -39,8 +39,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 192;
 } // namespace
 
-const MapperInfo MapperInfo_192 =
-{
+const MapperInfo MapperInfo_192
+(
 	&MapperNum,
 	_T("Mapper 192 (Waixing MMC3)"),
 	COMPAT_NEARLY,
@@ -52,4 +52,4 @@ const MapperInfo MapperInfo_192 =
 	MMC3::SaveLoad,
 	NULL,
 	NULL
-};
+);

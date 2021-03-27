@@ -92,8 +92,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 52;
 } // namespace
 
-const MapperInfo MapperInfo_052 =
-{
+const MapperInfo MapperInfo_052
+(
 	&MapperNum,
 	_T("Mario 7 in 1 (MMC3)"),
 	COMPAT_FULL,
@@ -105,4 +105,4 @@ const MapperInfo MapperInfo_052 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

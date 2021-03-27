@@ -32,8 +32,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 69;
 } // namespace
 
-const MapperInfo MapperInfo_069 =
-{
+const MapperInfo MapperInfo_069
+(
 	&MapperNum,
 	_T("Sunsoft FME-7"),
 	COMPAT_FULL,
@@ -45,4 +45,4 @@ const MapperInfo MapperInfo_069 =
 	FME7::SaveLoad,
 	FME7::GenSound,
 	NULL
-};
+);

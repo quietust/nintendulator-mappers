@@ -41,8 +41,8 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-const MapperInfo MapperInfo_NES_EKROM =
-{
+const MapperInfo MapperInfo_NES_EKROM
+(
 	"NES-EKROM",
 	_T("MMC5 with 8KB SRAM"),
 	COMPAT_FULL,
@@ -54,9 +54,9 @@ const MapperInfo MapperInfo_NES_EKROM =
 	MMC5::SaveLoad,
 	MMC5::MapperSnd,
 	NULL
-};
-const MapperInfo MapperInfo_NES_ELROM =
-{
+);
+const MapperInfo MapperInfo_NES_ELROM
+(
 	"NES-ELROM",
 	_T("MMC5 with no SRAM"),
 	COMPAT_FULL,
@@ -68,9 +68,9 @@ const MapperInfo MapperInfo_NES_ELROM =
 	MMC5::SaveLoad,
 	MMC5::MapperSnd,
 	NULL
-};
-const MapperInfo MapperInfo_NES_ETROM =
-{
+);
+const MapperInfo MapperInfo_NES_ETROM
+(
 	"NES-ETROM",
 	_T("MMC5 with 16KB SRAM"),
 	COMPAT_FULL,
@@ -82,9 +82,9 @@ const MapperInfo MapperInfo_NES_ETROM =
 	MMC5::SaveLoad,
 	MMC5::MapperSnd,
 	NULL
-};
-const MapperInfo MapperInfo_NES_EWROM =
-{
+);
+const MapperInfo MapperInfo_NES_EWROM
+(
 	"NES-EWROM",
 	_T("MMC5 with 32KB SRAM"),
 	COMPAT_FULL,
@@ -96,4 +96,4 @@ const MapperInfo MapperInfo_NES_EWROM =
 	MMC5::SaveLoad,
 	MMC5::MapperSnd,
 	NULL
-};
+);

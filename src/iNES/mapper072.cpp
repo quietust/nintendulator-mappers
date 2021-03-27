@@ -61,8 +61,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 72;
 } // namespace
 
-const MapperInfo MapperInfo_072 =
-{
+const MapperInfo MapperInfo_072
+(
 	&MapperNum,
 	_T("Pinball Quest"),
 	COMPAT_NEARLY,
@@ -74,4 +74,4 @@ const MapperInfo MapperInfo_072 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

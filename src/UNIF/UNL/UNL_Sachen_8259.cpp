@@ -110,8 +110,8 @@ void	MAPINT	Reset_8259B (RESET_TYPE ResetType)
 }
 } // namespace
 
-const MapperInfo MapperInfo_UNL_Sachen_8259A =
-{
+const MapperInfo MapperInfo_UNL_Sachen_8259A
+(
 	"UNL-Sachen-8259A",
 	_T("Sachen mapper"),
 	COMPAT_FULL,
@@ -123,9 +123,9 @@ const MapperInfo MapperInfo_UNL_Sachen_8259A =
 	SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_UNL_Sachen_8259B =
-{
+);
+const MapperInfo MapperInfo_UNL_Sachen_8259B
+(
 	"UNL-Sachen-8259B",
 	_T("Sachen mapper"),
 	COMPAT_FULL,
@@ -137,4 +137,4 @@ const MapperInfo MapperInfo_UNL_Sachen_8259B =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

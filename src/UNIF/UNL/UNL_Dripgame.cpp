@@ -373,8 +373,8 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-const MapperInfo MapperInfo_UNL_DRIPGAME =
-{
+const MapperInfo MapperInfo_UNL_DRIPGAME
+(
 	"UNL-DRIPGAME",
 	_T("Drip"),
 	COMPAT_FULL,
@@ -386,4 +386,4 @@ const MapperInfo MapperInfo_UNL_DRIPGAME =
 	SaveLoad,
 	DripSound::MapperSnd,
 	Config
-};
+);

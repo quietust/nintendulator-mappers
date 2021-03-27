@@ -211,8 +211,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 64;
 } // namespace
 
-const MapperInfo MapperInfo_064 =
-{
+const MapperInfo MapperInfo_064
+(
 	&MapperNum,
 	_T("Tengen RAMBO-1"),
 	COMPAT_NEARLY,
@@ -224,4 +224,4 @@ const MapperInfo MapperInfo_064 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

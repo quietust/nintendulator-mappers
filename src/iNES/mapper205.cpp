@@ -57,8 +57,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 205;
 } // namespace
 
-const MapperInfo MapperInfo_205 =
-{
+const MapperInfo MapperInfo_205
+(
 	&MapperNum,
 	_T("3-in-1 (MMC3)"),
 	COMPAT_FULL,
@@ -70,4 +70,4 @@ const MapperInfo MapperInfo_205 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

@@ -141,8 +141,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 83;
 } // namespace
 
-const MapperInfo MapperInfo_083 =
-{
+const MapperInfo MapperInfo_083
+(
 	&MapperNum,
 	_T("Cony"),
 	COMPAT_NEARLY,
@@ -154,4 +154,4 @@ const MapperInfo MapperInfo_083 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

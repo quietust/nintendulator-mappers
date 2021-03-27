@@ -29,8 +29,8 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-const MapperInfo MapperInfo_NES_GNROM =
-{
+const MapperInfo MapperInfo_NES_GNROM
+(
 	"NES-GNROM",
 	_T("Standard 32KB PRG/8KB CHR switch"),
 	COMPAT_FULL,
@@ -42,4 +42,4 @@ const MapperInfo MapperInfo_NES_GNROM =
 	Latch::SaveLoad_D,
 	NULL,
 	NULL
-};
+);

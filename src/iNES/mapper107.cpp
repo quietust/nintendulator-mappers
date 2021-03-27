@@ -31,8 +31,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 107;
 } // namespace
 
-const MapperInfo MapperInfo_107 =
-{
+const MapperInfo MapperInfo_107
+(
 	&MapperNum,
 	_T("Magic Dragon"),
 	COMPAT_NEARLY,
@@ -44,4 +44,4 @@ const MapperInfo MapperInfo_107 =
 	Latch::SaveLoad_D,
 	NULL,
 	NULL
-};
+);

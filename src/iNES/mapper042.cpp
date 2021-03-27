@@ -88,8 +88,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 42;
 } // namespace
 
-const MapperInfo MapperInfo_042 =
-{
+const MapperInfo MapperInfo_042
+(
 	&MapperNum,
 	_T("Mario Baby"),
 	COMPAT_FULL,
@@ -101,4 +101,4 @@ const MapperInfo MapperInfo_042 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

@@ -32,8 +32,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 203;
 } // namespace
 
-const MapperInfo MapperInfo_203 =
-{
+const MapperInfo MapperInfo_203
+(
 	&MapperNum,
 	_T("35-in-1"),
 	COMPAT_NEARLY,
@@ -45,4 +45,4 @@ const MapperInfo MapperInfo_203 =
 	Latch::SaveLoad_D,
 	NULL,
 	NULL
-};
+);

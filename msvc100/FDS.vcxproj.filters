@@ -43,13 +43,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\interface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\Hardware\h_FDS.cpp">
       <Filter>Source Files\Hardware Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Hardware\Sound\s_FDS.cpp">
       <Filter>Source Files\Sound Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Fds\FDS_Mapper.cpp">
+    <ClCompile Include="..\src\FDS\FDS_Mapper.cpp">
       <Filter>Source Files\Mapper Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Dll\d_FDS.cpp">

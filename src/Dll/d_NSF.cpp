@@ -18,24 +18,21 @@ void	MAPINT	UnloadMapper (void)
 
 const MapperInfo	*MAPINT	LoadMapper (const ROMInfo *_ROM)
 {
-	ROM = _ROM;
-	if (ROM->ROMType == ROM_UNDEFINED)	/* Allow enumerating mappers */
-	{
-		unsigned int i = (unsigned int)ROM->Filename;
-		if (i >= 1)
+	const MapperInfo *found = NULL;
+	if (_ROM->ROMType == ROM_UNDEFINED)
+	{	/* Allow enumerating mappers */
+		found = findByIndex((unsigned int)_ROM->Filename);
+		if (found)
 		{
-			UnloadMapper();
-			return NULL;
+			/* Yes, this is overwriting a Const field. No, I don't care. */
+			((ROMInfo *)_ROM)->ROMType = ROM_NSF;
 		}
-		((ROMInfo *)ROM)->ROMType = ROM_NSF;
-		return &MapperInfo_NSF;
 	}
-	if (ROM->ROMType != ROM_NSF)
-	{
-		UnloadMapper();
-		return NULL;
-	}
-	return &MapperInfo_NSF;
+	else if (_ROM->ROMType == ROM_NSF)
+		found = findByName(NSF_MAPPERNAME);
+	if (found)
+		ROM = _ROM;
+	return found;
 }
 
 DLLInfo	DLL_Info =
@@ -56,13 +53,10 @@ extern "C" __declspec(dllexport)	void	MAPINT	UnloadMapperDLL (void)
 
 extern "C" __declspec(dllexport)	DLLInfo	*MAPINT	LoadMapperDLL (HWND hWndEmu, const EmulatorInterface *_EMU, int VersionRequired)
 {
+	if (VersionRequired != CurrentMapperInterface)
+		return NULL;
 	hWnd = hWndEmu;
 	EMU = _EMU;
-	if (VersionRequired != CurrentMapperInterface)
-	{
-		UnloadMapperDLL();
-		return NULL;
-	}
 	return &DLL_Info;
 }
 

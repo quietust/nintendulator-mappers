@@ -72,6 +72,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\interface.cpp" />
     <ClCompile Include="..\src\Hardware\h_Latch.cpp" />
     <ClCompile Include="..\src\Hardware\h_MMC1.cpp" />
     <ClCompile Include="..\src\Hardware\h_MMC3.cpp" />
@@ -84,7 +85,6 @@
     <ClCompile Include="..\src\VS\mapper075.cpp" />
     <ClCompile Include="..\src\VS\mapper099.cpp" />
     <ClCompile Include="..\src\VS\mapper151.cpp" />
-    <ClCompile Include="..\src\VS\unimplemented.cpp" />
     <ClCompile Include="..\src\DLL\d_VS.cpp" />
   </ItemGroup>
   <ItemGroup>

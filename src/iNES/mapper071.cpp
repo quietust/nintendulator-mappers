@@ -65,8 +65,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 71;
 } // namespace
 
-const MapperInfo MapperInfo_071 =
-{
+const MapperInfo MapperInfo_071
+(
 	&MapperNum,
 	_T("Camerica BF9093/BF9097"),
 	COMPAT_NEARLY,
@@ -78,4 +78,4 @@ const MapperInfo MapperInfo_071 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

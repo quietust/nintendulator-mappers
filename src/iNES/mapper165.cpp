@@ -113,8 +113,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 165;
 } // namespace
 
-const MapperInfo MapperInfo_165 =
-{
+const MapperInfo MapperInfo_165
+(
 	&MapperNum,
 	_T("Fire Emblem"),
 	COMPAT_NEARLY,
@@ -126,4 +126,4 @@ const MapperInfo MapperInfo_165 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

@@ -61,8 +61,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 57;
 } // namespace
 
-const MapperInfo MapperInfo_057 =
-{
+const MapperInfo MapperInfo_057
+(
 	&MapperNum,
 	_T("GK 6-in-1"),
 	COMPAT_NEARLY,
@@ -74,4 +74,4 @@ const MapperInfo MapperInfo_057 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

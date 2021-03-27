@@ -57,8 +57,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 164;
 } // namespace
 
-const MapperInfo MapperInfo_164 =
-{
+const MapperInfo MapperInfo_164
+(
 	&MapperNum,
 	_T("Mapper 164"),
 	COMPAT_NEARLY,
@@ -70,4 +70,4 @@ const MapperInfo MapperInfo_164 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

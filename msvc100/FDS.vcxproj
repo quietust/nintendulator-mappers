@@ -72,9 +72,10 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\interface.cpp" />
     <ClCompile Include="..\src\Hardware\h_FDS.cpp" />
     <ClCompile Include="..\src\Hardware\Sound\s_FDS.cpp" />
-    <ClCompile Include="..\src\Fds\FDS_Mapper.cpp" />
+    <ClCompile Include="..\src\FDS\FDS_Mapper.cpp" />
     <ClCompile Include="..\src\Dll\d_FDS.cpp" />
   </ItemGroup>
   <ItemGroup>

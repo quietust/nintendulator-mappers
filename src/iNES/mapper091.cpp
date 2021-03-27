@@ -89,8 +89,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 91;
 } // namespace
 
-const MapperInfo MapperInfo_091 =
-{
+const MapperInfo MapperInfo_091
+(
 	&MapperNum,
 	_T("PC-HK-SF3"),
 	COMPAT_FULL,
@@ -102,4 +102,4 @@ const MapperInfo MapperInfo_091 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

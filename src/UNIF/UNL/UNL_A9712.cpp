@@ -81,8 +81,8 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-const MapperInfo MapperInfo_UNL_A9712 =
-{
+const MapperInfo MapperInfo_UNL_A9712
+(
 	"UNL-A9712",
 	_T("The Panda Prince pirate (with insane copy protection)"),
 	COMPAT_PARTIAL,
@@ -94,4 +94,4 @@ const MapperInfo MapperInfo_UNL_A9712 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

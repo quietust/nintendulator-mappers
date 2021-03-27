@@ -32,8 +32,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 94;
 } // namespace
 
-const MapperInfo MapperInfo_094 =
-{
+const MapperInfo MapperInfo_094
+(
 	&MapperNum,
 	_T("Senjou no Ookami"),
 	COMPAT_FULL,
@@ -45,4 +45,4 @@ const MapperInfo MapperInfo_094 =
 	Latch::SaveLoad_D,
 	NULL,
 	NULL
-};
+);

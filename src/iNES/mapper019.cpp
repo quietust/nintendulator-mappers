@@ -216,8 +216,8 @@ uint16_t MapperNum = 19;
 uint16_t MapperNum2 = 210;
 } // namespace
 
-const MapperInfo MapperInfo_019 =
-{
+const MapperInfo MapperInfo_019
+(
 	&MapperNum,
 	_T("Namcot 106"),
 	COMPAT_FULL,
@@ -229,10 +229,9 @@ const MapperInfo MapperInfo_019 =
 	SaveLoad,
 	MapperSnd,
 	NULL
-};
-
-const MapperInfo MapperInfo_210 =
-{
+);
+const MapperInfo MapperInfo_210
+(
 	&MapperNum2,
 	_T("Namcot 106 w/hardwired mirroring"),
 	COMPAT_FULL,
@@ -244,4 +243,4 @@ const MapperInfo MapperInfo_210 =
 	SaveLoad,
 	MapperSnd,
 	NULL
-};
+);

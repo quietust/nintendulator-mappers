@@ -32,8 +32,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 13;
 } // namespace
 
-const MapperInfo MapperInfo_013 =
-{
+const MapperInfo MapperInfo_013
+(
 	&MapperNum,
 	_T("CPROM"),
 	COMPAT_FULL,
@@ -45,4 +45,4 @@ const MapperInfo MapperInfo_013 =
 	Latch::SaveLoad_D,
 	NULL,
 	NULL
-};
+);

@@ -51,8 +51,8 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-const MapperInfo MapperInfo_BMC_Generic52in1 =
-{
+const MapperInfo MapperInfo_BMC_Generic52in1
+(
 	"BMC-Generic52in1",
 	_T("Pirate multicart mapper"),
 	COMPAT_FULL,
@@ -64,4 +64,4 @@ const MapperInfo MapperInfo_BMC_Generic52in1 =
 	Latch::SaveLoad_A,
 	NULL,
 	NULL
-};
+);

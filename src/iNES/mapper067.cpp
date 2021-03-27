@@ -158,8 +158,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 67;
 } // namespace
 
-const MapperInfo MapperInfo_067 =
-{
+const MapperInfo MapperInfo_067
+(
 	&MapperNum,
 	_T("Sunsoft Mapper #3"),
 	COMPAT_FULL,
@@ -171,4 +171,4 @@ const MapperInfo MapperInfo_067 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

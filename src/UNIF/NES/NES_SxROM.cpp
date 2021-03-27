@@ -222,8 +222,8 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-const MapperInfo MapperInfo_NES_SAROM =
-{
+const MapperInfo MapperInfo_NES_SAROM
+(
 	"NES-SAROM",
 	_T("MMC1 with SRAM"),
 	COMPAT_FULL,
@@ -235,9 +235,9 @@ const MapperInfo MapperInfo_NES_SAROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SBROM =
-{
+);
+const MapperInfo MapperInfo_NES_SBROM
+(
 	"NES-SBROM",
 	_T("MMC1"),
 	COMPAT_FULL,
@@ -249,9 +249,9 @@ const MapperInfo MapperInfo_NES_SBROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SCROM =
-{
+);
+const MapperInfo MapperInfo_NES_SCROM
+(
 	"NES-SCROM",
 	_T("MMC1"),
 	COMPAT_FULL,
@@ -263,9 +263,9 @@ const MapperInfo MapperInfo_NES_SCROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SC1ROM =
-{
+);
+const MapperInfo MapperInfo_NES_SC1ROM
+(
 	"NES-SC1ROM",
 	_T("MMC1"),
 	COMPAT_FULL,
@@ -277,9 +277,9 @@ const MapperInfo MapperInfo_NES_SC1ROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SEROM =
-{
+);
+const MapperInfo MapperInfo_NES_SEROM
+(
 	"NES-SEROM",
 	_T("MMC1"),
 	COMPAT_FULL,
@@ -291,9 +291,9 @@ const MapperInfo MapperInfo_NES_SEROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SFROM =
-{
+);
+const MapperInfo MapperInfo_NES_SFROM
+(
 	"NES-SFROM",
 	_T("MMC1"),
 	COMPAT_FULL,
@@ -305,9 +305,9 @@ const MapperInfo MapperInfo_NES_SFROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SGROM =
-{
+);
+const MapperInfo MapperInfo_NES_SGROM
+(
 	"NES-SGROM",
 	_T("MMC1 with CHR-RAM"),
 	COMPAT_FULL,
@@ -319,9 +319,9 @@ const MapperInfo MapperInfo_NES_SGROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SHROM =
-{
+);
+const MapperInfo MapperInfo_NES_SHROM
+(
 	"NES-SHROM",
 	_T("MMC1"),
 	COMPAT_FULL,
@@ -333,9 +333,9 @@ const MapperInfo MapperInfo_NES_SHROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SH1ROM =
-{
+);
+const MapperInfo MapperInfo_NES_SH1ROM
+(
 	"NES-SH1ROM",
 	_T("MMC1"),
 	COMPAT_FULL,
@@ -347,9 +347,9 @@ const MapperInfo MapperInfo_NES_SH1ROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SIROM =
-{
+);
+const MapperInfo MapperInfo_NES_SIROM
+(
 	"NES-SIROM",
 	_T("MMC1 with CHR-ROM and SRAM"),
 	COMPAT_FULL,
@@ -361,9 +361,9 @@ const MapperInfo MapperInfo_NES_SIROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SJROM =
-{
+);
+const MapperInfo MapperInfo_NES_SJROM
+(
 	"NES-SJROM",
 	_T("MMC1 with CHR-ROM and SRAM"),
 	COMPAT_FULL,
@@ -375,9 +375,9 @@ const MapperInfo MapperInfo_NES_SJROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SKROM =
-{
+);
+const MapperInfo MapperInfo_NES_SKROM
+(
 	"NES-SKROM",
 	_T("MMC1 with CHR-ROM and SRAM"),
 	COMPAT_FULL,
@@ -389,9 +389,9 @@ const MapperInfo MapperInfo_NES_SKROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SLROM =
-{
+);
+const MapperInfo MapperInfo_NES_SLROM
+(
 	"NES-SLROM",
 	_T("MMC1 with CHR-ROM"),
 	COMPAT_FULL,
@@ -403,9 +403,9 @@ const MapperInfo MapperInfo_NES_SLROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SL1ROM =
-{
+);
+const MapperInfo MapperInfo_NES_SL1ROM
+(
 	"NES-SL1ROM",
 	_T("MMC1"),
 	COMPAT_FULL,
@@ -417,9 +417,9 @@ const MapperInfo MapperInfo_NES_SL1ROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SL2ROM =
-{
+);
+const MapperInfo MapperInfo_NES_SL2ROM
+(
 	"NES-SL2ROM",
 	_T("MMC1"),
 	COMPAT_FULL,
@@ -431,9 +431,9 @@ const MapperInfo MapperInfo_NES_SL2ROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SL3ROM =
-{
+);
+const MapperInfo MapperInfo_NES_SL3ROM
+(
 	"NES-SL3ROM",
 	_T("MMC1"),
 	COMPAT_FULL,
@@ -445,9 +445,9 @@ const MapperInfo MapperInfo_NES_SL3ROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SLRROM =
-{
+);
+const MapperInfo MapperInfo_NES_SLRROM
+(
 	"NES-SLRROM",
 	_T("MMC1"),
 	COMPAT_FULL,
@@ -459,9 +459,9 @@ const MapperInfo MapperInfo_NES_SLRROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SMROM =
-{
+);
+const MapperInfo MapperInfo_NES_SMROM
+(
 	"NES-SMROM",
 	_T("MMC1 with CHR-RAM"),
 	COMPAT_FULL,
@@ -473,9 +473,9 @@ const MapperInfo MapperInfo_NES_SMROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SNROM =
-{
+);
+const MapperInfo MapperInfo_NES_SNROM
+(
 	"NES-SNROM",
 	_T("MMC1 with CHR-RAM and SRAM"),
 	COMPAT_FULL,
@@ -487,9 +487,9 @@ const MapperInfo MapperInfo_NES_SNROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SOROM =
-{
+);
+const MapperInfo MapperInfo_NES_SOROM
+(
 	"NES-SOROM",
 	_T("MMC1 with 16KB SRAM"),
 	COMPAT_FULL,
@@ -501,9 +501,9 @@ const MapperInfo MapperInfo_NES_SOROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SUROM =
-{
+);
+const MapperInfo MapperInfo_NES_SUROM
+(
 	"NES-SUROM",
 	_T("MMC1 with 512KB PRG"),
 	COMPAT_FULL,
@@ -515,9 +515,9 @@ const MapperInfo MapperInfo_NES_SUROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_SXROM =
-{
+);
+const MapperInfo MapperInfo_NES_SXROM
+(
 	"NES-SXROM",
 	_T("MMC1 with 512KB PRG and 32KB SRAM"),
 	COMPAT_FULL,
@@ -529,4 +529,4 @@ const MapperInfo MapperInfo_NES_SXROM =
 	MMC1::SaveLoad,
 	NULL,
 	NULL
-};
+);

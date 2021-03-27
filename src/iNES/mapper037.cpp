@@ -74,8 +74,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 37;
 } // namespace
 
-const MapperInfo MapperInfo_037 =
-{
+const MapperInfo MapperInfo_037
+(
 	&MapperNum,
 	_T("Super Mario Bros & Tetris & Nintendo World Cup Soccer (MMC3)"),
 	COMPAT_FULL,
@@ -87,4 +87,4 @@ const MapperInfo MapperInfo_037 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

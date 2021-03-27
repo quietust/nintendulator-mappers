@@ -42,8 +42,8 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-const MapperInfo MapperInfo_NES_CNROM =
-{
+const MapperInfo MapperInfo_NES_CNROM
+(
 	"NES-CNROM",
 	_T("Standard 8KB CHR switch"),
 	COMPAT_FULL,
@@ -55,9 +55,9 @@ const MapperInfo MapperInfo_NES_CNROM =
 	Latch::SaveLoad_D,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_CPROM =
-{
+);
+const MapperInfo MapperInfo_NES_CPROM
+(
 	"NES-CPROM",
 	_T("4KB CHR RAM switch"),
 	COMPAT_FULL,
@@ -69,4 +69,4 @@ const MapperInfo MapperInfo_NES_CPROM =
 	Latch::SaveLoad_D,
 	NULL,
 	NULL
-};
+);

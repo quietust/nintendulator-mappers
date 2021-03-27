@@ -61,8 +61,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 115;
 } // namespace
 
-const MapperInfo MapperInfo_115 =
-{
+const MapperInfo MapperInfo_115
+(
 	&MapperNum,
 	_T("Mapper 115 (Expanded Pirate MMC3)"),
 	COMPAT_NEARLY,
@@ -74,4 +74,4 @@ const MapperInfo MapperInfo_115 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

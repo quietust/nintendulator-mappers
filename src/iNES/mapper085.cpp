@@ -192,8 +192,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 85;
 } // namespace
 
-const MapperInfo MapperInfo_085 =
-{
+const MapperInfo MapperInfo_085
+(
 	&MapperNum,
 	_T("Konami VRC7"),
 	COMPAT_FULL,
@@ -205,4 +205,4 @@ const MapperInfo MapperInfo_085 =
 	SaveLoad,
 	MapperSnd,
 	NULL
-};
+);

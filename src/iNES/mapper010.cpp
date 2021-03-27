@@ -34,8 +34,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 10;
 } // namespace
 
-const MapperInfo MapperInfo_010 =
-{
+const MapperInfo MapperInfo_010
+(
 	&MapperNum,
 	_T("MMC4"),
 	COMPAT_FULL,
@@ -47,4 +47,4 @@ const MapperInfo MapperInfo_010 =
 	MMC4::SaveLoad,
 	NULL,
 	NULL
-};
+);

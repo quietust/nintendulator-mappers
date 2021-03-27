@@ -39,8 +39,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 194;
 } // namespace
 
-const MapperInfo MapperInfo_194 =
-{
+const MapperInfo MapperInfo_194
+(
 	&MapperNum,
 	_T("Mapper 194 (Pirate MMC3)"),
 	COMPAT_NEARLY,
@@ -52,4 +52,4 @@ const MapperInfo MapperInfo_194 =
 	MMC3::SaveLoad,
 	NULL,
 	NULL
-};
+);

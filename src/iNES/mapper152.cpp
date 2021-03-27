@@ -34,8 +34,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 152;
 } // namespace
 
-const MapperInfo MapperInfo_152 =
-{
+const MapperInfo MapperInfo_152
+(
 	&MapperNum,
 	_T("Arkanoid 2"),
 	COMPAT_FULL,
@@ -47,4 +47,4 @@ const MapperInfo MapperInfo_152 =
 	Latch::SaveLoad_D,
 	NULL,
 	NULL
-};
+);

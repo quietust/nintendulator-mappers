@@ -6,4 +6,4 @@
 
 #include	"..\interface.h"
 
-extern	const MapperInfo MapperInfo_FDS;
+#define FDS_MAPPERNAME "FDS_MAPPER"

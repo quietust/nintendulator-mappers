@@ -33,8 +33,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 7;
 } // namespace
 
-const MapperInfo MapperInfo_007 =
-{
+const MapperInfo MapperInfo_007
+(
 	&MapperNum,
 	_T("AOROM"),
 	COMPAT_FULL,
@@ -46,4 +46,4 @@ const MapperInfo MapperInfo_007 =
 	Latch::SaveLoad_D,
 	NULL,
 	NULL
-};
+);

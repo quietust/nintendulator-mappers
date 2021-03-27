@@ -114,8 +114,8 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-const MapperInfo MapperInfo_BMC_T3H53 =
-{
+const MapperInfo MapperInfo_BMC_T3H53
+(
 	"BMC-T3H53",
 	_T("Pirate multicart mapper with dipswitches"),
 	COMPAT_FULL,
@@ -127,4 +127,4 @@ const MapperInfo MapperInfo_BMC_T3H53 =
 	Latch::SaveLoad_A,
 	NULL,
 	Config
-};
+);

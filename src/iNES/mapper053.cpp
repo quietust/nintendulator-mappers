@@ -67,8 +67,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 53;
 } // namespace
 
-const MapperInfo MapperInfo_053 =
-{
+const MapperInfo MapperInfo_053
+(
 	&MapperNum,
 	_T("Supervision 16-in-1"),
 	COMPAT_FULL,
@@ -80,4 +80,4 @@ const MapperInfo MapperInfo_053 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

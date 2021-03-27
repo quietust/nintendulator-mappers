@@ -91,8 +91,8 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-const MapperInfo MapperInfo_BMC_Mario7in1 =
-{
+const MapperInfo MapperInfo_BMC_Mario7in1
+(
 	"BMC-Mario7in1",
 	_T("Pirate multicart mapper"),
 	COMPAT_FULL,
@@ -104,4 +104,4 @@ const MapperInfo MapperInfo_BMC_Mario7in1 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

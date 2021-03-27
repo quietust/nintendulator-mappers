@@ -79,8 +79,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 226;
 } // namespace
 
-const MapperInfo MapperInfo_226 =
-{
+const MapperInfo MapperInfo_226
+(
 	&MapperNum,
 	_T("76-in-1"),
 	COMPAT_FULL,
@@ -92,4 +92,4 @@ const MapperInfo MapperInfo_226 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

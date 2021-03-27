@@ -32,8 +32,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 58;
 } // namespace
 
-const MapperInfo MapperInfo_058 =
-{
+const MapperInfo MapperInfo_058
+(
 	&MapperNum,
 	_T("Study & Game 32 in 1"),
 	COMPAT_FULL,
@@ -45,4 +45,4 @@ const MapperInfo MapperInfo_058 =
 	Latch::SaveLoad_D,
 	NULL,
 	NULL
-};
+);

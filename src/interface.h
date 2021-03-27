@@ -223,14 +223,34 @@ struct	MapperInfo
 
 /* Mapper Functions */
 	BOOL		(MAPINT *Load)		(void);
-	void		(MAPINT *Reset)	(RESET_TYPE);		/* ResetType */
+	void		(MAPINT *Reset)		(RESET_TYPE);				/* ResetType */
 	void		(MAPINT *Unload)	(void);
 	void		(MAPINT *CPUCycle)	(void);
-	void		(MAPINT *PPUCycle)	(int,int,int,int);	/* Address, Scanline, Cycle, IsRendering */
+	void		(MAPINT *PPUCycle)	(int,int,int,int);			/* Address, Scanline, Cycle, IsRendering */
 	int		(MAPINT *SaveLoad)	(STATE_TYPE,int,unsigned char *);	/* Mode, Offset, Data */
-	int		(MAPINT *GenSound)	(int);			/* Cycles */
-	unsigned char	(MAPINT *Config)	(CFG_TYPE,unsigned char);	/* Mode, Data */
+	int		(MAPINT *GenSound)	(int);					/* Cycles */
+	unsigned char	(MAPINT *Config)	(CFG_TYPE,unsigned char);		/* Mode, Data */
+
+/* Custom constructor, registers mapper within Loader functions */
+	MapperInfo (
+		void *_MapperId,
+		TCHAR *_Description,
+		COMPAT_TYPE _Compatibility,
+		BOOL (MAPINT *_Load) (void),
+		void (MAPINT *_Reset) (RESET_TYPE),
+		void (MAPINT *_Unload) (void),
+		void (MAPINT *_CPUCycle) (void),
+		void (MAPINT *_PPUCycle) (int,int,int,int),
+		int (MAPINT *_SaveLoad) (STATE_TYPE,int,unsigned char *),
+		int (MAPINT *_GenSound) (int),
+		unsigned char (MAPINT *_Config) (CFG_TYPE,unsigned char)
+	);
 };
+
+/* Custom loader functions */
+const MapperInfo *findByIndex (unsigned int);
+const MapperInfo *findByNumber (uint16_t);
+const MapperInfo *findByName (const char *);
 
 /* ROM Information Structure - Contains information about the ROM currently loaded */
 

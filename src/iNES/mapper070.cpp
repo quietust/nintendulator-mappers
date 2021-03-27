@@ -34,8 +34,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 70;
 } // namespace
 
-const MapperInfo MapperInfo_070 =
-{
+const MapperInfo MapperInfo_070
+(
 	&MapperNum,
 	_T("Bandai 74161/7432"),
 	COMPAT_FULL,
@@ -47,4 +47,4 @@ const MapperInfo MapperInfo_070 =
 	Latch::SaveLoad_D,
 	NULL,
 	NULL
-};
+);

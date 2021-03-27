@@ -92,8 +92,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 254;
 } // namespace
 
-const MapperInfo MapperInfo_254 =
-{
+const MapperInfo MapperInfo_254
+(
 	&MapperNum,
 	_T("Ai Senshi Nicol (Pirate)"),
 	COMPAT_FULL,
@@ -105,4 +105,4 @@ const MapperInfo MapperInfo_254 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

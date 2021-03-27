@@ -108,8 +108,8 @@ uint16_t MapperNum = 75;
 uint16_t MapperNum2 = 151;
 } // namespace
 
-const MapperInfo MapperInfo_075 =
-{
+const MapperInfo MapperInfo_075
+(
 	&MapperNum,
 	_T("Konami VRC1"),
 	COMPAT_FULL,
@@ -121,10 +121,10 @@ const MapperInfo MapperInfo_075 =
 	SaveLoad,
 	NULL,
 	VS::Config
-};
+);
 
-const MapperInfo MapperInfo_151 =
-{
+const MapperInfo MapperInfo_151
+(
 	&MapperNum2,
 	_T("Konami VRC1"),
 	COMPAT_FULL,
@@ -136,4 +136,4 @@ const MapperInfo MapperInfo_151 =
 	SaveLoad,
 	NULL,
 	VS::Config
-};
+);

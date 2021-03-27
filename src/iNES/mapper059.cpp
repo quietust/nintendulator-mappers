@@ -122,8 +122,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 59;
 } // namespace
 
-const MapperInfo MapperInfo_059 =
-{
+const MapperInfo MapperInfo_059
+(
 	&MapperNum,
 	_T("T3H53"),
 	COMPAT_FULL,
@@ -135,4 +135,4 @@ const MapperInfo MapperInfo_059 =
 	SaveLoad,
 	NULL,
 	Config
-};
+);

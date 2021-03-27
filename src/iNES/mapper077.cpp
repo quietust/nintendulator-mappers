@@ -34,8 +34,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 77;
 } // namespace
 
-const MapperInfo MapperInfo_077 =
-{
+const MapperInfo MapperInfo_077
+(
 	&MapperNum,
 	_T("Napoleon Senki"),
 	COMPAT_FULL,
@@ -47,4 +47,4 @@ const MapperInfo MapperInfo_077 =
 	Latch::SaveLoad_D,
 	NULL,
 	NULL
-};
+);

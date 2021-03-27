@@ -153,8 +153,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 68;
 } // namespace
 
-const MapperInfo MapperInfo_068 =
-{
+const MapperInfo MapperInfo_068
+(
 	&MapperNum,
 	_T("SUNSOFT-4"),
 	COMPAT_FULL,
@@ -166,4 +166,4 @@ const MapperInfo MapperInfo_068 =
 	SaveLoad,
 	NULL,
 	VS::Config
-};
+);

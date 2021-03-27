@@ -59,8 +59,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 250;
 } // namespace
 
-const MapperInfo MapperInfo_250 =
-{
+const MapperInfo MapperInfo_250
+(
 	&MapperNum,
 	_T("Time Diver Avenger (MMC3 Variant)"),
 	COMPAT_FULL,
@@ -72,4 +72,4 @@ const MapperInfo MapperInfo_250 =
 	MMC3::SaveLoad,
 	NULL,
 	NULL
-};
+);

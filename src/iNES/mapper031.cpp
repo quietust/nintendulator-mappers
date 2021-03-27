@@ -57,8 +57,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 31;
 } // namespace
 
-const MapperInfo MapperInfo_031 =
-{
+const MapperInfo MapperInfo_031
+(
 	&MapperNum,
 	_T("2A03 Puritans Album"),
 	COMPAT_FULL,
@@ -70,4 +70,4 @@ const MapperInfo MapperInfo_031 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

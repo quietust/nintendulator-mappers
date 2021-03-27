@@ -73,6 +73,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\interface.cpp" />
     <ClCompile Include="..\src\Hardware\h_FME7.cpp" />
     <ClCompile Include="..\src\Hardware\h_Latch.cpp" />
     <ClCompile Include="..\src\Hardware\h_MMC1.cpp" />
@@ -237,7 +238,6 @@
     <ClCompile Include="..\src\iNES\mapper246.cpp" />
     <ClCompile Include="..\src\iNES\mapper250.cpp" />
     <ClCompile Include="..\src\iNES\mapper254.cpp" />
-    <ClCompile Include="..\src\iNES\unimplemented.cpp" />
     <ClCompile Include="..\src\DLL\d_iNES.cpp" />
   </ItemGroup>
   <ItemGroup>

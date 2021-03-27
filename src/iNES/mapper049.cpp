@@ -61,8 +61,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 49;
 } // namespace
 
-const MapperInfo MapperInfo_049 =
-{
+const MapperInfo MapperInfo_049
+(
 	&MapperNum,
 	_T("1993 Super HiK 4-in-1 (MMC3)"),
 	COMPAT_FULL,
@@ -74,4 +74,4 @@ const MapperInfo MapperInfo_049 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

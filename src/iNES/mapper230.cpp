@@ -66,8 +66,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 230;
 } // namespace
 
-const MapperInfo MapperInfo_230 =
-{
+const MapperInfo MapperInfo_230
+(
 	&MapperNum,
 	_T("22-in-1"),
 	COMPAT_FULL,
@@ -79,4 +79,4 @@ const MapperInfo MapperInfo_230 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

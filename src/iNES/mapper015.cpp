@@ -100,8 +100,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 15;
 } // namespace
 
-const MapperInfo MapperInfo_015 =
-{
+const MapperInfo MapperInfo_015
+(
 	&MapperNum,
 	_T("K-1029 (100-in-1 Contra Function 16)"),
 	COMPAT_FULL,
@@ -113,4 +113,4 @@ const MapperInfo MapperInfo_015 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

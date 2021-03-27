@@ -82,8 +82,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 32;
 } // namespace
 
-const MapperInfo MapperInfo_032 =
-{
+const MapperInfo MapperInfo_032
+(
 	&MapperNum,
 	_T("Irem G-101"),
 	COMPAT_FULL,
@@ -95,4 +95,4 @@ const MapperInfo MapperInfo_032 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

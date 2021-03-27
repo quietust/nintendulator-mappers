@@ -99,8 +99,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 36;
 } // namespace
 
-const MapperInfo MapperInfo_036 =
-{
+const MapperInfo MapperInfo_036
+(
 	&MapperNum,
 	_T("TXC 01-22000-400"),
 	COMPAT_FULL,
@@ -112,4 +112,4 @@ const MapperInfo MapperInfo_036 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

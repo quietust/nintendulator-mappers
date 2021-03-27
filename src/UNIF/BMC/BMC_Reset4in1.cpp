@@ -37,8 +37,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 }
 } // namespace
 
-const MapperInfo MapperInfo_BMC_Reset4in1 =
-{
+const MapperInfo MapperInfo_BMC_Reset4in1
+(
 	"BMC-Reset4in1",
 	_T("Pirate multicart mapper"),
 	COMPAT_FULL,
@@ -50,4 +50,4 @@ const MapperInfo MapperInfo_BMC_Reset4in1 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

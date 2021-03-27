@@ -249,8 +249,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 5;
 } // namespace
 
-const MapperInfo MapperInfo_005 =
-{
+const MapperInfo MapperInfo_005
+(
 	&MapperNum,
 	_T("MMC5"),
 	COMPAT_FULL,
@@ -262,4 +262,4 @@ const MapperInfo MapperInfo_005 =
 	MMC5::SaveLoad,
 	MMC5::MapperSnd,
 	Config
-};
+);

@@ -226,8 +226,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 100;
 } // namespace
 
-const MapperInfo MapperInfo_100 =
-{
+const MapperInfo MapperInfo_100
+(
 	&MapperNum,
 	_T("Debugging Mapper"),
 	COMPAT_FULL,
@@ -239,4 +239,4 @@ const MapperInfo MapperInfo_100 =
 	NULL,
 	NULL,
 	Config
-};
+);

@@ -30,8 +30,8 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-const MapperInfo MapperInfo_NES_HKROM =
-{
+const MapperInfo MapperInfo_NES_HKROM
+(
 	"NES-HKROM",
 	_T("MMC6"),
 	COMPAT_FULL,
@@ -43,4 +43,4 @@ const MapperInfo MapperInfo_NES_HKROM =
 	MMC6::SaveLoad,
 	NULL,
 	NULL
-};
+);

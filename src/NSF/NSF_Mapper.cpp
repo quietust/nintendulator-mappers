@@ -679,9 +679,10 @@ void	MAPINT	Unload (void)
 		SUN5sound::Unload();
 }
 } // namespace
-const MapperInfo MapperInfo_NSF =
-{
-	NULL,
+
+const MapperInfo MapperInfo_NSF
+(
+	NSF_MAPPERNAME,
 	_T("NES Sound File"),
 	COMPAT_FULL,
 	Load,
@@ -692,4 +693,4 @@ const MapperInfo MapperInfo_NSF =
 	NULL,
 	MapperSnd,
 	Config
-};
+);

@@ -40,8 +40,8 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-const MapperInfo MapperInfo_NES_JLROM =
-{
+const MapperInfo MapperInfo_NES_JLROM
+(
 	"NES-JLROM",
 	_T("Sunsoft FME-7"),
 	COMPAT_FULL,
@@ -53,9 +53,9 @@ const MapperInfo MapperInfo_NES_JLROM =
 	FME7::SaveLoad,
 	FME7::GenSound,
 	NULL
-};
-const MapperInfo MapperInfo_NES_JSROM =
-{
+);
+const MapperInfo MapperInfo_NES_JSROM
+(
 	"NES-JSROM",
 	_T("Sunsoft FME-7 with WRAM"),
 	COMPAT_FULL,
@@ -67,8 +67,9 @@ const MapperInfo MapperInfo_NES_JSROM =
 	FME7::SaveLoad,
 	FME7::GenSound,
 	NULL
-};const MapperInfo MapperInfo_NES_BTR =
-{
+);
+const MapperInfo MapperInfo_NES_BTR
+(
 	"NES-BTR",
 	_T("Sunsoft FME-7 with WRAM (NES-JSROM)"),
 	COMPAT_FULL,
@@ -80,4 +81,4 @@ const MapperInfo MapperInfo_NES_JSROM =
 	FME7::SaveLoad,
 	FME7::GenSound,
 	NULL
-};
+);

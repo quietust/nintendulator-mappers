@@ -67,8 +67,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 99;
 } // namespace
 
-const MapperInfo MapperInfo_099 =
-{
+const MapperInfo MapperInfo_099
+(
 	&MapperNum,
 	_T("VS Unisystem"),
 	COMPAT_FULL,
@@ -80,4 +80,4 @@ const MapperInfo MapperInfo_099 =
 	SaveLoad,
 	NULL,
 	VS::Config
-};
+);

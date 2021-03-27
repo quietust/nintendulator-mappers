@@ -23,9 +23,9 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-const MapperInfo MapperInfo_FDS =
-{
-	NULL,
+const MapperInfo MapperInfo_FDS
+(
+	FDS_MAPPERNAME,
 	_T("Famicom Disk System"),
 	COMPAT_NEARLY,
 	Load,
@@ -36,4 +36,4 @@ const MapperInfo MapperInfo_FDS =
 	FDS::SaveLoad,
 	FDS::MapperSnd,
 	FDS::Config
-};
+);

@@ -28,8 +28,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 0;
 } // namespace
 
-const MapperInfo MapperInfo_000 =
-{
+const MapperInfo MapperInfo_000
+(
 	&MapperNum,
 	_T("NROM"),
 	COMPAT_FULL,
@@ -41,4 +41,4 @@ const MapperInfo MapperInfo_000 =
 	NULL,
 	NULL,
 	NULL
-};
+);

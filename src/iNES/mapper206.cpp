@@ -31,8 +31,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 206;
 } // namespace
 
-const MapperInfo MapperInfo_206 =
-{
+const MapperInfo MapperInfo_206
+(
 	&MapperNum,
 	_T("DxROM"),
 	COMPAT_FULL,
@@ -44,4 +44,4 @@ const MapperInfo MapperInfo_206 =
 	N118::SaveLoad,
 	NULL,
 	NULL
-};
+);

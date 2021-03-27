@@ -6,4 +6,4 @@
 
 #include	"..\interface.h"
 
-extern	const MapperInfo MapperInfo_NSF;
+#define NSF_MAPPERNAME "NSF_MAPPER"

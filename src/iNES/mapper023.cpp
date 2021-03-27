@@ -304,8 +304,8 @@ uint16_t MapperNum23 = 23;
 uint16_t MapperNum25 = 25;
 } // namespace
 
-const MapperInfo MapperInfo_021 =
-{
+const MapperInfo MapperInfo_021
+(
 	&MapperNum21,
 	_T("Konami VRC4a / VRC4c"),
 	COMPAT_NEARLY,
@@ -317,10 +317,9 @@ const MapperInfo MapperInfo_021 =
 	SaveLoad,
 	NULL,
 	NULL
-};
-
-const MapperInfo MapperInfo_023 =
-{
+);
+const MapperInfo MapperInfo_023
+(
 	&MapperNum23,
 	_T("Konami VRC4e / VRC4f / VRC2b"),
 	COMPAT_NEARLY,
@@ -332,10 +331,9 @@ const MapperInfo MapperInfo_023 =
 	SaveLoad,
 	NULL,
 	NULL
-};
-
-const MapperInfo MapperInfo_025 =
-{
+);
+const MapperInfo MapperInfo_025
+(
 	&MapperNum25,
 	_T("Konami VRC4b / VRC4d / VRC2c"),
 	COMPAT_NEARLY,
@@ -347,4 +345,4 @@ const MapperInfo MapperInfo_025 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

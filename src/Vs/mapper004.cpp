@@ -54,8 +54,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 4;
 } // namespace
 
-const MapperInfo MapperInfo_004 =
-{
+const MapperInfo MapperInfo_004
+(
 	&MapperNum,
 	_T("MMC3/MMC6"),
 	COMPAT_FULL,
@@ -67,4 +67,4 @@ const MapperInfo MapperInfo_004 =
 	SaveLoad,
 	NULL,
 	VS::Config
-};
+);

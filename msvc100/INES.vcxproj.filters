@@ -43,6 +43,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\interface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\Hardware\h_FME7.cpp">
       <Filter>Source Files\Hardware Source Files</Filter>
     </ClCompile>
@@ -518,9 +521,6 @@
       <Filter>Source Files\Mapper Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNES\mapper254.cpp">
-      <Filter>Source Files\Mapper Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iNES\unimplemented.cpp">
       <Filter>Source Files\Mapper Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\DLL\d_iNES.cpp">

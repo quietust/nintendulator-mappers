@@ -131,8 +131,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 48;
 } // namespace
 
-const MapperInfo MapperInfo_048 =
-{
+const MapperInfo MapperInfo_048
+(
 	&MapperNum,
 	_T("Taito TC0190 with IRQs"),
 	COMPAT_NEARLY,
@@ -144,4 +144,4 @@ const MapperInfo MapperInfo_048 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

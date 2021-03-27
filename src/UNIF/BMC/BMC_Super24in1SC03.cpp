@@ -70,8 +70,8 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-const MapperInfo MapperInfo_BMC_Super24in1SC03 =
-{
+const MapperInfo MapperInfo_BMC_Super24in1SC03
+(
 	"BMC-Super24in1SC03",
 	_T("Pirate multicart mapper"),
 	COMPAT_FULL,
@@ -83,4 +83,4 @@ const MapperInfo MapperInfo_BMC_Super24in1SC03 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

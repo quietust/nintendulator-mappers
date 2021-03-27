@@ -72,6 +72,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\interface.cpp" />
     <ClCompile Include="..\src\Hardware\Sound\s_FDS.cpp" />
     <ClCompile Include="..\src\Hardware\Sound\s_MMC5.cpp" />
     <ClCompile Include="..\src\Hardware\Sound\s_N163.cpp" />

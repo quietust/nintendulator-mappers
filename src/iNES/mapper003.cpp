@@ -31,8 +31,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 3;
 } // namespace
 
-const MapperInfo MapperInfo_003 =
-{
+const MapperInfo MapperInfo_003
+(
 	&MapperNum,
 	_T("CNROM"),
 	COMPAT_FULL,
@@ -44,4 +44,4 @@ const MapperInfo MapperInfo_003 =
 	Latch::SaveLoad_D,
 	NULL,
 	NULL
-};
+);

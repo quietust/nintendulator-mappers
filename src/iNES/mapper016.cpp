@@ -420,8 +420,8 @@ uint16_t MapperNum = 16;
 uint16_t MapperNum2 = 159;
 } // namespace
 
-const MapperInfo MapperInfo_016 =
-{
+const MapperInfo MapperInfo_016
+(
 	&MapperNum,
 	_T("Bandai + 24C02"),
 	COMPAT_FULL,
@@ -433,10 +433,9 @@ const MapperInfo MapperInfo_016 =
 	SaveLoad,
 	NULL,
 	NULL
-};
-
-const MapperInfo MapperInfo_159 =
-{
+);
+const MapperInfo MapperInfo_159
+(
 	&MapperNum2,
 	_T("Bandai + 24C01"),
 	COMPAT_FULL,
@@ -448,4 +447,4 @@ const MapperInfo MapperInfo_159 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

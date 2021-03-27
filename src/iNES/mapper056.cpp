@@ -136,8 +136,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 uint16_t MapperNum = 56;
 } // namespace
 
-const MapperInfo MapperInfo_056 =
-{
+const MapperInfo MapperInfo_056
+(
 	&MapperNum,
 	_T("SMB3 Pirate"),
 	COMPAT_FULL,
@@ -149,4 +149,4 @@ const MapperInfo MapperInfo_056 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

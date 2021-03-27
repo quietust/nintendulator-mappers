@@ -467,8 +467,8 @@ uint16_t MapperNum2 = 209;
 uint16_t MapperNum3 = 211;
 } // namespace
 
-const MapperInfo MapperInfo_090 =
-{
+const MapperInfo MapperInfo_090
+(
 	&MapperNum,
 	_T("Mapper 90"),
 	COMPAT_FULL,
@@ -480,9 +480,9 @@ const MapperInfo MapperInfo_090 =
 	SaveLoad,
 	NULL,
 	Config
-};
-const MapperInfo MapperInfo_209 =
-{
+);
+const MapperInfo MapperInfo_209
+(
 	&MapperNum2,
 	_T("Mapper 90/MMC2 Hybrid"),
 	COMPAT_FULL,
@@ -494,9 +494,9 @@ const MapperInfo MapperInfo_209 =
 	SaveLoad,
 	NULL,
 	Config
-};
-const MapperInfo MapperInfo_211 =
-{
+);
+const MapperInfo MapperInfo_211
+(
 	&MapperNum3,
 	_T("Mapper 90 Variant"),
 	COMPAT_FULL,
@@ -508,4 +508,4 @@ const MapperInfo MapperInfo_211 =
 	SaveLoad,
 	NULL,
 	Config
-};
+);

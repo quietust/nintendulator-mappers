@@ -75,8 +75,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 }
 } // namespace
 
-const MapperInfo MapperInfo_UNL_Sachen_74LS374N =
-{
+const MapperInfo MapperInfo_UNL_Sachen_74LS374N
+(
 	"UNL-Sachen-74LS374N",
 	_T("Sachen mapper"),
 	COMPAT_PARTIAL,
@@ -88,4 +88,4 @@ const MapperInfo MapperInfo_UNL_Sachen_74LS374N =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

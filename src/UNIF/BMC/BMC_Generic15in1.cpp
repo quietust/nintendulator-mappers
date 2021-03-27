@@ -47,8 +47,8 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 }
 } // namespace
 
-const MapperInfo MapperInfo_BMC_Generic15in1 =
-{
+const MapperInfo MapperInfo_BMC_Generic15in1
+(
 	"BMC-Generic15in1",
 	_T("Pirate multicart mapper"),
 	COMPAT_FULL,
@@ -60,4 +60,4 @@ const MapperInfo MapperInfo_BMC_Generic15in1 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

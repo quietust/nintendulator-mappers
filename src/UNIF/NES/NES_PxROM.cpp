@@ -40,8 +40,8 @@ void	MAPINT	Unload (void)
 }
 } // namespace
 
-const MapperInfo MapperInfo_NES_PEEOROM =
-{
+const MapperInfo MapperInfo_NES_PEEOROM
+(
 	"NES-PEEOROM",
 	_T("MMC2 with EPROM support"),
 	COMPAT_FULL,
@@ -53,9 +53,9 @@ const MapperInfo MapperInfo_NES_PEEOROM =
 	MMC2::SaveLoad,
 	NULL,
 	NULL
-};
-const MapperInfo MapperInfo_NES_PNROM =
-{
+);
+const MapperInfo MapperInfo_NES_PNROM
+(
 	"NES-PNROM",
 	_T("MMC2"),
 	COMPAT_FULL,
@@ -67,4 +67,4 @@ const MapperInfo MapperInfo_NES_PNROM =
 	MMC2::SaveLoad,
 	NULL,
 	NULL
-};
+);

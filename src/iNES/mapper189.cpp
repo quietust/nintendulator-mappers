@@ -65,8 +65,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 189;
 } // namespace
 
-const MapperInfo MapperInfo_189 =
-{
+const MapperInfo MapperInfo_189
+(
 	&MapperNum,
 	_T("Mapper 189 (Thunder Warrior)"),
 	COMPAT_FULL,
@@ -78,4 +78,4 @@ const MapperInfo MapperInfo_189 =
 	SaveLoad,
 	NULL,
 	NULL
-};
+);

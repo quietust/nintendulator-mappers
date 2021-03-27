@@ -31,8 +31,8 @@ void	MAPINT	Unload (void)
 uint16_t MapperNum = 149;
 } // namespace
 
-const MapperInfo MapperInfo_149 =
-{
+const MapperInfo MapperInfo_149
+(
 	&MapperNum,
 	_T("Sachen (SA-0036)"),
 	COMPAT_FULL,
@@ -44,4 +44,4 @@ const MapperInfo MapperInfo_149 =
 	Latch::SaveLoad_D,
 	NULL,
 	NULL
-};
+);
