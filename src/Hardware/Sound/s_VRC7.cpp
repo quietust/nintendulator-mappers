@@ -840,11 +840,11 @@ maketables (uint32_t c, uint32_t r)
 	}
 }
 
-OPLL *OPLL_new (uint32_t clk, uint32_t rate)
+OPLL *OPLL_new (uint32_t _clk, uint32_t _rate)
 {
 	OPLL *opll;
 
-	maketables (clk, rate);
+	maketables (_clk, _rate);
 
 	opll = (OPLL *) calloc (sizeof (OPLL), 1);
 	if (opll == NULL)
@@ -1553,7 +1553,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 
 	if (IsLoad(mode))
 	{
-		for (int i = 0; i < 6; i++)
+		for (i = 0; i < 6; i++)
 		{
 			UPDATE_ALL(MOD(OPL, i));
 			UPDATE_ALL(CAR(OPL, i));

@@ -16,13 +16,13 @@ uint16_n CHR[8];
 uint8_t Mirror;
 
 enum VRC4MODE { VRC4MODE_NONE, VRC4MODE_A, VRC4MODE_B, VRC4MODE_C, VRC4MODE_D, VRC4MODE_E, VRC4MODE_F, VRC4MODE_21, VRC4MODE_23, VRC4MODE_25 };
-VRC4MODE mode = VRC4MODE_NONE;
+VRC4MODE Mode = VRC4MODE_NONE;
 bool forceVRC2 = false;
 
 const int SwapAddr[4] = {0, 2, 1, 3};
 int transAddr (int Addr)
 {
-	switch (mode)
+	switch (Mode)
 	{
 	case VRC4MODE_A:	return (Addr & 0x6) >> 1;
 	case VRC4MODE_B:	return SwapAddr[Addr & 0x3];
@@ -216,13 +216,13 @@ BOOL	MAPINT	Load_21 (void)
 	switch (ROM->INES2_SubMapper)
 	{
 	case 1:
-		mode = VRC4MODE_A;
+		Mode = VRC4MODE_A;
 		break;
 	case 2:
-		mode = VRC4MODE_C;
+		Mode = VRC4MODE_C;
 		break;
 	default:
-		mode = VRC4MODE_21;
+		Mode = VRC4MODE_21;
 		break;
 	}
 	iNES_SetSRAM();
@@ -234,17 +234,17 @@ BOOL	MAPINT	Load_23 (void)
 	switch (ROM->INES2_SubMapper)
 	{
 	case 1:
-		mode = VRC4MODE_F;
+		Mode = VRC4MODE_F;
 		break;
 	case 2:
-		mode = VRC4MODE_E;
+		Mode = VRC4MODE_E;
 		break;
 	case 3:
-		mode = VRC4MODE_F;
+		Mode = VRC4MODE_F;
 		forceVRC2 = true;
 		break;
 	default:
-		mode = VRC4MODE_23;
+		Mode = VRC4MODE_23;
 		break;
 	}
 	iNES_SetSRAM();
@@ -256,17 +256,17 @@ BOOL	MAPINT	Load_25 (void)
 	switch (ROM->INES2_SubMapper)
 	{
 	case 1:
-		mode = VRC4MODE_B;
+		Mode = VRC4MODE_B;
 		break;
 	case 2:
-		mode = VRC4MODE_D;
+		Mode = VRC4MODE_D;
 		break;
 	case 3:
-		mode = VRC4MODE_B;
+		Mode = VRC4MODE_B;
 		forceVRC2 = true;
 		break;
 	default:
-		mode = VRC4MODE_25;
+		Mode = VRC4MODE_25;
 		break;
 	}
 	iNES_SetSRAM();
