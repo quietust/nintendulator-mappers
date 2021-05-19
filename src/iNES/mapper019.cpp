@@ -20,23 +20,23 @@ void	Sync (void)
 		EMU->SetPRG_ROM8(0x8 | (i << 1), PRG[i] & 0x3F);
 	for (int i = 0; i < 8; i++)
 	{
-		if ((CHR[i] < 0xE0) || (PRG[1] & (0x40 << (i >> 2))))
-			EMU->SetCHR_ROM1(i, CHR[i]);
-		else	EMU->SetCHR_RAM1(i, CHR[i] & 0x1F);
+		if ((CHR[i] >= 0xE0) && !(PRG[1] & ((i >= 4) ? 0x80 : 0x40)))
+			EMU->SetCHR_NT1(i, CHR[i] & 1);
+		else	EMU->SetCHR_ROM1(i, CHR[i]);
 	}
 	if (HardMirror)
 		return;
 	for (int i = 0; i < 4; i++)
 	{
-		if (NTab[i] < 0xE0)
-		{
-			EMU->SetCHR_ROM1(0x8 | i, NTab[i]);
-			EMU->SetCHR_ROM1(0xC | i, NTab[i]);
-		}
-		else
+		if (NTab[i] >= 0xE0)
 		{
 			EMU->SetCHR_NT1(0x8 | i, NTab[i] & 1);
 			EMU->SetCHR_NT1(0xC | i, NTab[i] & 1);
+		}
+		else
+		{
+			EMU->SetCHR_ROM1(0x8 | i, NTab[i]);
+			EMU->SetCHR_ROM1(0xC | i, NTab[i]);
 		}
 	}
 }
@@ -155,7 +155,9 @@ void	MAPINT	WriteF (int Bank, int Addr, int Val)
 
 int	MAPINT	MapperSnd (int Cycles)
 {
-	return N163sound::Get(Cycles);
+	if (PRG[0] & 0x40)
+		return 0;
+	else	return N163sound::Get(Cycles);
 }
 
 BOOL	MAPINT	Load_019 (void)
