@@ -5,87 +5,41 @@
 #include	"..\..\interface.h"
 #include	"s_N163.h"
 
+// Turn on "serial" audio output to more closely emulate actual hardware
+// In practice, this sounds really bad without a lowpass filter
+//#define N163_SERIAL
+
 // Namco 163
 namespace N163sound
 {
 uint8_t regs[0x80];
-uint8_t chans;
-uint8_t addr;
-uint8_t inc;
-struct	N163chan
-{
-	uint8_t freql, freqm, freqh;
-	uint32_t freq;
-	uint16_t len;
-	uint8_t baseaddr;
-	uint8_t volume;
-	uint8_t CurP;
-	uint8_t CurA;
-	int32_t LCtr;
-
-	int	GenerateWave (int Cycles)
-	{
-		int32_t _freq;
-		if (!freq)
-			return 0;
-		_freq = (0xF0000 * chans) / freq;
-		LCtr += Cycles;
-		while (LCtr > _freq)
-		{
-			uint8_t _addr;
-			CurA++;
-			while (CurA >= len)
-				CurA -= len;
-			_addr = baseaddr + CurA;
-			CurP = regs[_addr >> 1];
-			if (_addr & 1)
-				CurP >>= 4;
-			else	CurP &= 0xF;
-			LCtr -= _freq;
-		}
-		return (CurP - 0x8) * volume;
-	}
-	void	Write (int Addr, int Val)
-	{
-		switch (Addr & 0x7)
-		{
-		case 0:	freql = Val;
-			freq = freql | (freqm << 8) | (freqh << 16);
-			break;
-		case 2:	freqm = Val;
-			freq = freql | (freqm << 8) | (freqh << 16);
-			break;
-		case 4:	freqh = Val & 3;
-			freq = freql | (freqm << 8) | (freqh << 16);
-			if (len != 0x100 - (Val & 0xFC))
-			{
-				len = 0x100 - (Val & 0xFC);
-				CurA = 0;
-			}
-			break;
-		case 6:	baseaddr = Val;
-			break;
-		case 7:	volume = Val & 0xF;
-			break;
-		}
-	}
-} Ch[8];
+uint8_t addr, step;
+int8_t out;
+#ifndef N163_SERIAL
+int8_t outs[8];
+#endif
+int volmult;
 
 void	Load (void)
 {
-	ZeroMemory(Ch, sizeof(Ch));
 	ZeroMemory(regs, sizeof(regs));
-	chans = 0;
 	addr = 0;
-	inc = 0;
+	volmult = 4;
 }
 
 void	Reset (RESET_TYPE ResetType)
 {
+	if (ResetType == RESET_HARD)
+	{
+		ZeroMemory(regs, sizeof(regs));
+		addr = 0;
+	}
+	step = 0x7E;
+	out = 0;
+#ifndef N163_SERIAL
 	for (int i = 0; i < 8; i++)
-		Ch[i].len = 0x10;
-	chans = 8;
-	inc = 0x80;
+		outs[i] = 0;
+#endif
 }
 
 void	Unload (void)
@@ -97,73 +51,135 @@ void	Write (int Addr, int Val)
 	switch (Addr & 0xF800)
 	{
 	case 0xF800:
-		addr = Val & 0x7F;
-		inc = Val & 0x80;
+		addr = Val;
 		break;
 	case 0x4800:
-		regs[addr] = Val;
-		if (addr & 0x40)
-		{
-			Ch[(addr & 0x38) >> 3].Write(addr & 0x7, Val);
-			if (addr == 0x7F)
-				chans = 1 + ((Val >> 4) & 0x7);
-		}
-		if (inc)
-		{
-			addr++;
-			addr &= 0x7F;
-		}
+		regs[addr & 0x7F] = Val;
+		if (addr & 0x80)
+			addr = (addr + 1) | 0x80;
 		break;
 	}
 }
 
 int	Read (int Addr)
 {
-	int data = regs[addr];
+	int data = regs[addr & 0x7F];
 
-	if (inc)
-	{
-		addr++;
-		addr &= 0x7F;
-	}
+	if (addr & 0x80)
+		addr = (addr + 1) | 0x80;
 
 	return data;
 }
 
+inline void addOverflow (uint8_t &s, uint8_t &a, uint8_t b)
+{
+	int sum = (uint32_t)a + (uint32_t)b + ((s & 0x80) ? 1 : 0);
+	a = sum & 0xFF;
+	if (sum > 0xFF)
+		s |= 0x80;
+	else	s &= 0x7F;
+}
+
+int getChannelPos(int channel)
+{
+	int chan = 0x40 | (channel << 3);
+	uint8_t sampaddr = (regs[chan+6] + (regs[chan+5] - (regs[chan+4] & 0xFC))) & 0xFF;
+	uint8_t p = regs[sampaddr >> 1];
+	if (sampaddr & 1)
+		p >>= 4;
+	else	p &= 0xF;
+	return ((int)p - 8) * (regs[chan+7] & 0xF);
+}
 int	MAPINT	Get (int Cycles)
 {
-	int out = 0;
-	for (int i = 8 - chans; i < 8; i++)
-		out += Ch[i].GenerateWave(Cycles);
-	return out << 5;
+	int numChans = ((regs[0x7F] >> 4) & 0x7) + 1;
+	int output = 0;
+	for (int i = 0; i < Cycles; i++)
+	{
+		int chan = 0x40 | ((step & 0x70) >> 1);
+		switch (step & 0xF)
+		{
+		// Actual timings are approximate
+		case 4:
+			addOverflow(step, regs[chan+1], regs[chan+0]);
+			break;
+		case 8:
+			addOverflow(step, regs[chan+3], regs[chan+2]);
+			break;
+		case 12:
+			addOverflow(step, regs[chan+5], regs[chan+4] & 0x3);
+			// Handle carry output and length underflow at the same time
+			if ((regs[chan + 5] & 0xFC) < (regs[chan + 4] & 0xFC))
+				regs[chan + 5] += regs[chan + 4] & 0xFC;
+			break;
+		case 14:
+			out = getChannelPos((chan >> 3) & 0x7);
+#ifndef N163_SERIAL
+			outs[(chan >> 3) & 7] = out;
+#endif
+			// There are only 15 states, but the increment below by itself would give us 16
+			// So increment once more here, and mask off the carry bit to simplify the logic below
+			step = (step + 1) & 0x7F;
+			break;
+		}
+		if (step == 0x7F)
+			step = ~regs[0x7F] & 0x70;
+		else	step++;
+#ifdef	N163_SERIAL
+		output += out;
+#else
+		// In parallel mode, accumulate all 8 channels on every cycle
+		// to try and reduce aliasing artifacts
+		for (int j = 8 - numChans; j < 8; j++)
+			output += outs[j];
+#endif
+	}
+#ifdef	N163_SERIAL
+	return (output << 6) * volmult / Cycles;
+#else
+	return (output << 6) * volmult / Cycles / numChans;
+#endif
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	uint8_t ver = 0;
+	uint8_t ver = 1;
 	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
 
-	if (IsSave(mode))
+	for (int i = 0; i < 0x80; i++)
+		SAVELOAD_BYTE(mode, offset, data, regs[i]);
+	SAVELOAD_BYTE(mode, offset, data, addr);
+
+	if (ver == 1)
 	{
-		for (int i = 0; i < 0x80; i++)
-			data[offset++] = regs[i];
-		data[offset++] = addr | inc;
+		SAVELOAD_BYTE(mode, offset, data, step);
+		SAVELOAD_BYTE(mode, offset, data, out);
 	}
-	else if (IsLoad(mode))
-	{
-		Write(0xF800, 0x80);
-		for (int i = 0; i < 0x80; i++)
-			Write(0x4800, data[offset++]);
-		Write(0xF800, data[offset++]);
-	}
-	else if (IsSize(mode))
-		offset += 0x81;
-	for (int i = 0; i < 8; i++)
-	{
-		SAVELOAD_BYTE(mode, offset, data, Ch[i].CurP);
-		SAVELOAD_BYTE(mode, offset, data, Ch[i].CurA);
-		SAVELOAD_LONG(mode, offset, data, Ch[i].LCtr);
-	}
+
+	// Skip data from old states
+	if (ver == 0)
+		offset += 48;
+
 	return offset;
+}
+
+void	SetVolume (int mult)
+{
+	volmult = mult;
+}
+
+// Save internal memory to SRAM file
+void	SaveSRAM (int offset)
+{
+	EMU->SetPRG_RAM4(0x6, 0);
+	memcpy(EMU->GetPRG_Ptr4(0x6) + offset, regs, 128);
+	EMU->SetPRG_OB4(0x6);
+}
+// Load internal memory from SRAM file
+void	LoadSRAM (int offset)
+{
+	EMU->SetPRG_RAM4(0x6, 0);
+	memcpy(regs, EMU->GetPRG_Ptr4(0x6) + offset, 128);
+	EMU->SetPRG_OB4(0x6);
 }
 } // namespace N163sound
