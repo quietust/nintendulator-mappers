@@ -88,8 +88,8 @@ const MapperInfo *findByName (const char *BoardName)
 				continue;
 			if (strncmp((char *)(cur->MapperId), "NES-", 4))
 				continue;
-			if (strcmp((char *)(cur->MapperId) + 4, BoardName + 4))
-			return cur;
+			if (!strcmp((char *)(cur->MapperId) + 4, BoardName + 4))
+				return cur;
 		}
 		
 	}
