@@ -81,6 +81,7 @@
     <ClCompile Include="..\src\Hardware\h_MMC3.cpp" />
     <ClCompile Include="..\src\Hardware\h_MMC4.cpp" />
     <ClCompile Include="..\src\Hardware\h_MMC5.cpp" />
+    <ClCompile Include="..\src\Hardware\h_MMC6.cpp" />
     <ClCompile Include="..\src\Hardware\h_N118.cpp" />
     <ClCompile Include="..\src\Hardware\Sound\s_MMC5.cpp" />
     <ClCompile Include="..\src\Hardware\Sound\s_N163.cpp" />
@@ -250,6 +251,7 @@
     <ClInclude Include="..\src\Hardware\h_MMC3.h" />
     <ClInclude Include="..\src\Hardware\h_MMC4.h" />
     <ClInclude Include="..\src\Hardware\h_MMC5.h" />
+    <ClInclude Include="..\src\Hardware\h_MMC6.h" />
     <ClInclude Include="..\src\Hardware\h_N118.h" />
     <ClInclude Include="..\src\Hardware\Sound\s_MMC5.h" />
     <ClInclude Include="..\src\Hardware\Sound\s_N163.h" />

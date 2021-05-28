@@ -33,7 +33,10 @@ void	Reset (RESET_TYPE ResetType)
 		CHR[4] = 0x04;	CHR[5] = 0x05;	CHR[6] = 0x06;	CHR[7] = 0x07;
 
 		IRQenabled = IRQcounter = IRQlatch = 0;
+		IRQreload = IRQaddr = 0;
 		Cmd = 0;
+		// For compatibility, enable RAM by default
+		// but if the program writes to $A001, it'll still turn it off
 		if (ROM->ROMType == ROM_INES)
 			WRAMEnab = 0x80;
 		else	WRAMEnab = 0;
@@ -167,7 +170,7 @@ void	MAPINT	CPUWrite89 (int Bank, int Addr, int Val)
 void	MAPINT	CPUWriteAB (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
-		WRAMEnab = (ROM->ROMType == ROM_INES) ? 0x80 : Val;
+		WRAMEnab = Val;
 	else	Mirror = Val;
 	Sync();
 }

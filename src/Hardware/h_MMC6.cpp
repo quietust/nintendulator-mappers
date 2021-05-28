@@ -130,7 +130,7 @@ int	MAPINT	CPURead7 (int Bank, int Addr)
 {
 	if (WRAMEnab & 0xA0)
 	{
-		if ((WRAMEnab >> ((Addr & 0x200) >> 8)) & 0x20)
+		if (WRAMEnab & ((Addr & 0x200) ? 0x80 : 0x20))
 			return _CPURead7(0x7, Addr & 0x3FF);
 		else	return 0;
 	}
@@ -139,7 +139,7 @@ int	MAPINT	CPURead7 (int Bank, int Addr)
 
 void	MAPINT	CPUWrite7 (int Bank, int Addr, int Val)
 {
-	if (((WRAMEnab >> ((Addr & 0x200) >> 8)) & 0x30) == 0x30)
+	if ((Addr & 0x200) ? ((WRAMEnab & 0xC0) == 0xC0) : ((WRAMEnab & 0x30) == 0x30))
 		_CPUWrite7(0x7, Addr & 0x3FF, Val);
 }
 
@@ -162,8 +162,8 @@ void	MAPINT	CPUWrite89 (int Bank, int Addr, int Val)
 	else
 	{
 		Cmd = Val;
-		if (Val & 0x20)
-			WRAMEnab |= 1;
+		if (!(Cmd & 0x20))
+			WRAMEnab = 0;
 	}
 	Sync();
 }
@@ -172,8 +172,8 @@ void	MAPINT	CPUWriteAB (int Bank, int Addr, int Val)
 {
 	if (Addr & 1)
 	{
-		if (WRAMEnab & 1)
-			WRAMEnab = Val | 1;
+		if (Cmd & 0x20)
+			WRAMEnab = Val;
 	}
 	else	Mirror = Val;
 	Sync();
