@@ -227,7 +227,7 @@ void	SetSRAM (void)
 
 BOOL	MAPINT	Load (void)
 {
-	MMC5::Load(CheckSRAM());
+	MMC5::Load(CheckSRAM(), ROM->INES_CHRSize == 0);
 	SetSRAM();
 	ConfigWindow = NULL;
 	return TRUE;

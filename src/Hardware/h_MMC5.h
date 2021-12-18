@@ -22,7 +22,7 @@ enum WRAM
 	WRAM_MAXOPTS
 };
 
-void		Load		(int);
+void		Load		(int,BOOL);
 void		Reset		(RESET_TYPE);
 void		Unload		(void);
 void		SetRAMSize	(int);
