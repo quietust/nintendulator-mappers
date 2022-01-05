@@ -10,11 +10,13 @@ uint8_t Latch, LatchPos;
 uint8_t Regs[4];
 FSync Sync;
 BOOL SyncOnLoad;
+BOOL IsMMC1A;
 
-void	Load (FSync _Sync, BOOL _SyncOnLoad)
+void	Load (FSync _Sync, BOOL _SyncOnLoad, BOOL _IsMMC1A)
 {
 	Sync = _Sync;
 	SyncOnLoad = _SyncOnLoad;
+	IsMMC1A = _IsMMC1A;
 }
 
 void	Reset (RESET_TYPE ResetType)
@@ -89,20 +91,28 @@ void	SyncMirror (void)
 
 int	GetPRGBankLo (void)
 {
+	int bank;
 	if (Regs[0] & 0x08)
 		if (Regs[0] & 0x04)
-			return Regs[3] & 0xF;
-		else	return 0x0;
-	else	return (Regs[3] & 0xE) | 0;
+			bank = Regs[3] & 0xF;
+		else	bank = 0x0;
+	else	bank = (Regs[3] & 0xE) | 0;
+	if (IsMMC1A && (Regs[3] & 0x10))
+		bank = (bank & 0x7) | (Regs[3] & 0x8);
+	return bank;
 }
 
 int	GetPRGBankHi (void)
 {
+	int bank;
 	if (Regs[0] & 0x08)
 		if (Regs[0] & 0x04)
-			return 0xF;
-		else	return Regs[3] & 0xF;
-	else	return (Regs[3] & 0xE) | 1;
+			bank = 0xF;
+		else	bank = Regs[3] & 0xF;
+	else	bank = (Regs[3] & 0xE) | 1;
+	if (IsMMC1A && (Regs[3] & 0x10))
+		bank = (bank & 0x7) | (Regs[3] & 0x8);
+	return bank;
 }
 
 int	GetCHRBankLo (void)
@@ -121,6 +131,8 @@ int	GetCHRBankHi (void)
 
 BOOL	GetWRAMEnabled (void)
 {
+	if (IsMMC1A)
+		return TRUE;
 	return !(Regs[3] & 0x10);
 }
 
@@ -144,8 +156,11 @@ void	SyncCHR_RAM (int AND, int OR)
 
 void	SyncWRAM (void)
 {
+	int bank = 0;
+	if (IsMMC1A && (Regs[3] & 0x10))
+		bank = (Regs[3] & 0x8) >> 3;
 	if (GetWRAMEnabled())
-		EMU->SetPRG_RAM8(0x6, 0);
+		EMU->SetPRG_RAM8(0x6, bank);
 	else
 	{
 		EMU->SetPRG_OB4(0x6);

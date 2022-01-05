@@ -11,14 +11,15 @@ void	Sync (void)
 {
 	MMC1::SyncMirror();
 	MMC1::SyncPRG(0xF, 0);
-	MMC1::SyncCHR_ROM(0x1F, 0);
-	// no PRG RAM disable in this version
-	EMU->SetPRG_RAM8(0x6, 0);
+	if (ROM->INES_CHRSize)
+		MMC1::SyncCHR_ROM(0x1F, 0);
+	else	MMC1::SyncCHR_RAM(0x1F, 0);
+	MMC1::SyncWRAM();
 }
 
 BOOL	MAPINT	Load (void)
 {
-	MMC1::Load(Sync, TRUE);
+	MMC1::Load(Sync, TRUE, TRUE);
 	iNES_SetSRAM();
 	return TRUE;
 }

@@ -127,89 +127,89 @@ void	Sync_SXROM (void)
 BOOL	MAPINT	Load_SAROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC1::Load(Sync_SAROM, TRUE);
+	MMC1::Load(Sync_SAROM, TRUE, FALSE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_SBROM (void)
 {
-	MMC1::Load(Sync_SBROM, TRUE);
+	MMC1::Load(Sync_SBROM, TRUE, FALSE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_SCROM (void)
 {
-	MMC1::Load(Sync_SCROM, TRUE);
+	MMC1::Load(Sync_SCROM, TRUE, FALSE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_SEROM (void)
 {
-	MMC1::Load(Sync_SEROM, TRUE);
+	MMC1::Load(Sync_SEROM, TRUE, FALSE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_SFROM (void)
 {
-	MMC1::Load(Sync_SFROM, TRUE);
+	MMC1::Load(Sync_SFROM, TRUE, FALSE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_SGROM (void)
 {
-	MMC1::Load(Sync_SGROM, TRUE);
+	MMC1::Load(Sync_SGROM, TRUE, FALSE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_SHROM (void)
 {
-	MMC1::Load(Sync_SHROM, TRUE);
+	MMC1::Load(Sync_SHROM, TRUE, FALSE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_SIROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC1::Load(Sync_SIROM, TRUE);
+	MMC1::Load(Sync_SIROM, TRUE, FALSE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_SJROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC1::Load(Sync_SJROM, TRUE);
+	MMC1::Load(Sync_SJROM, TRUE, FALSE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_SKROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC1::Load(Sync_SKROM, TRUE);
+	MMC1::Load(Sync_SKROM, TRUE, FALSE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_SLROM (void)
 {
-	MMC1::Load(Sync_SLROM, TRUE);
+	MMC1::Load(Sync_SLROM, TRUE, FALSE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_SMROM (void)
 {
-	MMC1::Load(Sync_SGROM, TRUE);
+	MMC1::Load(Sync_SGROM, TRUE, FALSE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_SNROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC1::Load(Sync_SNROM, TRUE);
+	MMC1::Load(Sync_SNROM, TRUE, FALSE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_SOROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC1::Load(Sync_SOROM, TRUE);
+	MMC1::Load(Sync_SOROM, TRUE, FALSE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_SUROM (void)
 {
 	UNIF_SetSRAM(8192);
-	MMC1::Load(Sync_SUROM, TRUE);
+	MMC1::Load(Sync_SUROM, TRUE, FALSE);
 	return TRUE;
 }
 BOOL	MAPINT	Load_SXROM (void)
 {
 	UNIF_SetSRAM(32768);
-	MMC1::Load(Sync_SXROM, TRUE);
+	MMC1::Load(Sync_SXROM, TRUE, FALSE);
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

@@ -186,7 +186,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 BOOL	MAPINT	Load (void)
 {
 	iNES_SetSRAM();
-	MMC1::Load(Sync, FALSE);
+	MMC1::Load(Sync, FALSE, FALSE);
 	MMC3::Load(Sync, FALSE);
 	return TRUE;
 }
