@@ -11,18 +11,39 @@ namespace
 uint8_t IRQenabled, IRQcounter, IRQlatch;
 int16_t IRQcycles;
 uint8_t PRG[2], CHR[8];
-uint8_t Mirror;
+uint8_t PPUMode;
 uint8_t SwapAddr[4];
 
 void	Sync (void)
 {
-	EMU->SetPRG_RAM8(0x6, 0);
+	if (PPUMode & 0x80)
+		EMU->SetPRG_RAM8(0x6, 0);
+	else
+	{
+		EMU->SetPRG_OB4(0x6);
+		EMU->SetPRG_OB4(0x7);
+	}
 	EMU->SetPRG_ROM16(0x8, PRG[0]);
 	EMU->SetPRG_ROM8(0xC, PRG[1]);
 	EMU->SetPRG_ROM8(0xE, -1);
-	for (int i = 0; i < 8; i++)
-		EMU->SetCHR_ROM1(i, CHR[i]);
-	switch ((Mirror >> 2) & 3)
+
+	switch (PPUMode & 0x3)
+	{
+	case 0:	for (int i = 0; i < 8; i++)
+			EMU->SetCHR_ROM1(i, CHR[i]);
+		break;
+	case 1:	for (int i = 0; i < 4; i++)
+			EMU->SetCHR_ROM2(i << 1, CHR[i]);
+		break;
+	case 2:
+	case 3:	for (int i = 0; i < 4; i++)
+			EMU->SetCHR_ROM1(i, CHR[i]);
+		EMU->SetCHR_ROM2(4, CHR[4]);
+		EMU->SetCHR_ROM2(6, CHR[5]);
+		break;
+	}
+
+	switch ((PPUMode >> 2) & 3)
 	{
 	case 0:	EMU->Mirror_V();	break;
 	case 1:	EMU->Mirror_H();	break;
@@ -44,7 +65,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 		SAVELOAD_BYTE(mode, offset, data, PRG[i]);
 	for (int i = 0; i < 8; i++)
 		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
-	SAVELOAD_BYTE(mode, offset, data, Mirror);
+	SAVELOAD_BYTE(mode, offset, data, PPUMode);
 	CheckSave(offset = VRC6sound::SaveLoad(mode, offset, data));
 
 	if (IsLoad(mode))
@@ -87,7 +108,7 @@ void	MAPINT	WriteB (int Bank, int Addr, int Val)
 	case 0:	case 1:	case 2:
 		VRC6sound::Write(0xB000 | SwapAddr[Addr & 3], Val);
 					break;
-	case 3:	Mirror = Val & 0xC;
+	case 3:	PPUMode = Val;
 		Sync();			break;
 	}
 }
@@ -171,7 +192,7 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		PRG[1] = 0xFE;
 		for (int i = 0; i < 8; i++)
 			CHR[i] = i;
-		Mirror = 0;
+		PPUMode = 0;
 	}
 
 	VRC6sound::Reset(ResetType);
@@ -190,7 +211,7 @@ const MapperInfo MapperInfo_024
 (
 	&MapperNum,
 	_T("Konami VRC6 (A0/A1)"),
-	COMPAT_FULL,
+	COMPAT_NEARLY,
 	Load_024,
 	Reset,
 	Unload,
@@ -204,7 +225,7 @@ const MapperInfo MapperInfo_026
 (
 	&MapperNum2,
 	_T("Konami VRC6 (A1/A0)"),
-	COMPAT_FULL,
+	COMPAT_NEARLY,
 	Load_026,
 	Reset,
 	Unload,
