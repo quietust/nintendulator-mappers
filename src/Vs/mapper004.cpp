@@ -10,9 +10,6 @@ namespace
 {
 void	Sync (void)
 {
-	if (ROM->INES_Flags & 0x08)
-		EMU->Mirror_4();
-	else	MMC3::SyncMirror();
 	MMC3::SyncWRAM();	// assume WRAM is here
 	MMC3::SyncPRG(0x3F, 0);
 	if (ROM->INES_CHRSize)
@@ -42,6 +39,7 @@ BOOL	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
+	EMU->Mirror_4();
 	VS::Reset(ResetType);
 	MMC3::Reset(ResetType);
 }

@@ -51,6 +51,9 @@
     <ClCompile Include="..\src\Hardware\h_MMC3.cpp">
       <Filter>Source Files\Hardware Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Hardware\h_N118.cpp">
+      <Filter>Source Files\Hardware Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\Hardware\h_VS.cpp">
       <Filter>Source Files\Hardware Source Files</Filter>
     </ClCompile>
@@ -66,7 +69,7 @@
     <ClCompile Include="..\src\VS\mapper004.cpp">
       <Filter>Source Files\Mapper Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\VS\mapper068.cpp">
+    <ClCompile Include="..\src\VS\mapper067.cpp">
       <Filter>Source Files\Mapper Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\VS\mapper075.cpp">
@@ -75,7 +78,7 @@
     <ClCompile Include="..\src\VS\mapper099.cpp">
       <Filter>Source Files\Mapper Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\VS\mapper151.cpp">
+    <ClCompile Include="..\src\VS\mapper206.cpp">
       <Filter>Source Files\Mapper Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\DLL\d_VS.cpp">
@@ -93,6 +96,9 @@
       <Filter>Header Files\Hardware Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Hardware\h_MMC3.h">
+      <Filter>Header Files\Hardware Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hardware\h_N118.h">
       <Filter>Header Files\Hardware Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Hardware\h_VS.h">

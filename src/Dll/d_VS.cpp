@@ -10,15 +10,6 @@ HINSTANCE		hInstance;
 const EmulatorInterface	*EMU;
 const ROMInfo		*ROM;
 
-void	iNES_SetMirroring (void)
-{
-	if (ROM->INES_Flags & 0x01)
-		EMU->Mirror_V();
-	else	EMU->Mirror_H();
-	if (ROM->INES_Flags & 0x08)
-		EMU->Mirror_4();
-}
-
 void	iNES_SetSRAM (void)
 {
 	if (ROM->INES_Flags & 0x02)

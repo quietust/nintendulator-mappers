@@ -36,7 +36,7 @@ BOOL	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	iNES_SetMirroring();
+	EMU->Mirror_4();
 	VS::Reset(ResetType);
 	Latch::Reset(ResetType);
 }

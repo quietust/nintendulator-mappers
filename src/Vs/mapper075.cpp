@@ -43,8 +43,6 @@ void	MAPINT	Write8 (int Bank, int Addr, int Val)
 }
 void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
-// VS uses 4-screen mirroring
-//	Mirror = Val & 0x1;
 	CHR[0].n1 = (Val & 0x2) >> 1;
 	CHR[1].n1 = (Val & 0x4) >> 2;
 	Sync();
@@ -77,8 +75,6 @@ BOOL	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	// Force 4-screen mirroring to retain compatibility with the old mapper 151
-	// All VS games that use this mapper are already flagged as 4-screen VRAM, so it's okay
 	EMU->Mirror_4();
 	VS::Reset(ResetType);
 

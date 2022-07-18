@@ -14,8 +14,8 @@ BOOL	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
+	EMU->Mirror_4();
 	VS::Reset(ResetType);
-	iNES_SetMirroring();
 
 	EMU->SetPRG_ROM32(0x8, 0);
 	EMU->SetCHR_ROM8(0x0, 0);
