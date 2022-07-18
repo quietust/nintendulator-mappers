@@ -12,7 +12,6 @@ uint8_t CHR;
 
 void	Sync (void)
 {
-	EMU->SetPRG_RAM8(0x6, 0);
 	EMU->SetPRG_ROM32(0x8, 0);
 	EMU->SetCHR_ROM8(0x0, CHR);
 	// Vs. Gumshoe has an extra 8KB of PRG ROM which it swaps using the same register

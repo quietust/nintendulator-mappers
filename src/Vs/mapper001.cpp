@@ -34,7 +34,6 @@ BOOL	MAPINT	Load (void)
 {
 	VS::Load();
 	MMC1::Load(Sync, FALSE, FALSE);
-	iNES_SetSRAM();
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

@@ -118,7 +118,6 @@ void	MAPINT	WriteF (int Bank, int Addr, int Val)
 BOOL	MAPINT	Load (void)
 {
 	VS::Load();
-	iNES_SetSRAM();
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

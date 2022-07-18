@@ -10,7 +10,6 @@ namespace
 {
 void	Sync (void)
 {
-	MMC3::SyncWRAM();	// assume WRAM is here
 	MMC3::SyncPRG(0x3F, 0);
 	if (ROM->INES_CHRSize)
 		MMC3::SyncCHR_ROM(0xFF, 0);
@@ -34,7 +33,6 @@ BOOL	MAPINT	Load (void)
 {
 	VS::Load();
 	MMC3::Load(Sync, FALSE);
-	iNES_SetSRAM();
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)

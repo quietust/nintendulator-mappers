@@ -7,7 +7,8 @@
 
 namespace VS
 {
-FCPURead _Read;
+FCPURead _Read4, _Read6;
+FCPUWrite _Write6;
 uint8_t DipSwitch, Coin;
 uint32_t CoinDelay;
 
@@ -273,9 +274,25 @@ void	Reset (RESET_TYPE ResetType)
 	CoinDelay = 0;
 	Coin = 0;		/* clear coins */
 
-	_Read = EMU->GetCPUReadHandler(0x4);
-	EMU->SetCPUReadHandler(0x4, Read);
-	
+	_Read4 = EMU->GetCPUReadHandler(0x4);
+	EMU->SetCPUReadHandler(0x4, Read4);
+
+	// 2KB of RAM mirrored within $6000-$7FFF
+	// Since we're not supporting the DualSystem,
+	// this is always accessible and never open bus
+	EMU->SetPRG_RAM4(0x6, 0);
+	EMU->SetPRG_RAM4(0x7, 0);
+
+	_Read6 = EMU->GetCPUReadHandler(0x6);
+	EMU->SetCPUReadHandler(0x6, Read67);
+	EMU->SetCPUReadHandlerDebug(0x6, Read67);
+	EMU->SetCPUReadHandler(0x7, Read67);
+	EMU->SetCPUReadHandlerDebug(0x7, Read67);
+
+	_Write6 = EMU->GetCPUWriteHandler(0x6);
+	EMU->SetCPUWriteHandler(0x6, Write67);
+	EMU->SetCPUWriteHandler(0x7, Write67);
+
 	ConfigCmd = 0;
 	UnblockDialog(ConfigWindow);	/* free up the dialog */
 }
@@ -309,9 +326,9 @@ void	MAPINT	CPUCycle (void)
 	}
 }
 
-int	MAPINT	Read (int Bank, int Addr)
+int	MAPINT	Read4 (int Bank, int Addr)
 {
-	int Val = _Read(Bank, Addr);
+	int Val = _Read4(Bank, Addr);
 	if (Addr == 0x016)
 	{
 		Val &= 0x83;
@@ -324,5 +341,14 @@ int	MAPINT	Read (int Bank, int Addr)
 		Val |= DipSwitch & 0xFC;
 	}
 	return Val;
+}
+
+int	MAPINT	Read67 (int Bank, int Addr)
+{
+	return _Read6(Bank, Addr & 0x7FF);
+}
+void	MAPINT	Write67 (int Bank, int Addr, int Val)
+{
+	_Write6(Bank, Addr & 0x7FF, Val);
 }
 } // namespace VS

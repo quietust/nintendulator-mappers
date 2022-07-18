@@ -10,12 +10,6 @@ HINSTANCE		hInstance;
 const EmulatorInterface	*EMU;
 const ROMInfo		*ROM;
 
-void	iNES_SetSRAM (void)
-{
-	if (ROM->INES_Flags & 0x02)
-		EMU->Set_SRAMSize(8192);
-}
-
 namespace
 {
 void	MAPINT	UnloadMapper (void)
