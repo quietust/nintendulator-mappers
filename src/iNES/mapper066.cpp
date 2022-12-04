@@ -21,8 +21,6 @@ BOOL	MAPINT	Load (void)
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	iNES_SetMirroring();
-	EMU->SetCPUWriteHandler(0x6, Latch::Write);
-	EMU->SetCPUWriteHandler(0x7, Latch::Write);
 	Latch::Reset(ResetType);
 }
 void	MAPINT	Unload (void)
@@ -36,7 +34,7 @@ uint16_t MapperNum = 66;
 const MapperInfo MapperInfo_066
 (
 	&MapperNum,
-	_T("GNROM/compatible"),
+	_T("GNROM"),
 	COMPAT_FULL,
 	Load,
 	Reset,
