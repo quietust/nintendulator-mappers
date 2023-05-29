@@ -60,7 +60,7 @@ void	UnblockDialog (HWND hDlg)
 
 INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	const int buttons[8] = {IDC_VS_DIP0,IDC_VS_DIP1,IDC_VS_DIP2,IDC_VS_DIP3,IDC_VS_DIP4,IDC_VS_DIP5,IDC_VS_DIP6,IDC_VS_DIP7};
+	static const int buttons[8] = {IDC_VS_DIP0,IDC_VS_DIP1,IDC_VS_DIP2,IDC_VS_DIP3,IDC_VS_DIP4,IDC_VS_DIP5,IDC_VS_DIP6,IDC_VS_DIP7};
 	switch (message)
 	{
 	case WM_INITDIALOG:

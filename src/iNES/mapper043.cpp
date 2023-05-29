@@ -53,7 +53,7 @@ void	MAPINT	CPUCycle (void)
 
 void	MAPINT	Write (int Bank, int Addr, int Val)
 {
-	const uint8_t PRGbanks[8] = {4,3,4,4,4,7,5,6};
+	static const uint8_t PRGbanks[8] = {4,3,4,4,4,7,5,6};
 	uint16_t Loc = (Bank << 12) | Addr;
 	if (Bank == 4)
 		_Write4(Bank, Addr, Val);

@@ -131,7 +131,7 @@ int	MAPINT	PPUReadNT (int Bank, int Addr)
 {
 	if ((Flags & 0x4) && (Addr >= 0x3C0) && ((Bank & 3) == ((LastAddr >> 10) & 3)))
 	{
-		const unsigned char AttribBits[4] = {0x00,0x55,0xAA,0xFF};
+		static const unsigned char AttribBits[4] = {0x00,0x55,0xAA,0xFF};
 		if (EMU->GetCHR_NT1(Bank))
 			return AttribBits[ExtRam1[LastAddr & 0x3FF]];
 		else	return AttribBits[ExtRam0[LastAddr & 0x3FF]];
