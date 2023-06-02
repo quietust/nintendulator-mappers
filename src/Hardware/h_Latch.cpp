@@ -91,12 +91,8 @@ void	MAPINT	Write (int Bank, int _Addr, int Val)
 	int tmp;
 	if ((BusConflicts) && ((tmp = EMU->GetCPUReadHandler(Bank)(Bank, _Addr)) != Val))
 	{
-		if (rand() & 1)
-		{
-			Val = tmp;
-			EMU->StatusOut(_T("Bus conflict - using ROM data"));
-		}
-		else	EMU->StatusOut(_T("Bus conflict - using CPU data"));
+		EMU->StatusOut(_T("Bus conflict - $%02X -> $%04X != $%02X -> $%02X"), Val, (Bank << 12) | _Addr, tmp, Val & tmp);
+		Val &= tmp;
 	}
 #endif
 	Data = Val;
