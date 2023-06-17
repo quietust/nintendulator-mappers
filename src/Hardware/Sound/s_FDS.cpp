@@ -8,8 +8,7 @@
 
 namespace FDSsound
 {
-// Sound code borrowed from NEZplug 0.9.4.8, licensed according to zlib/libpng license
-
+// Sound code borrowed from NEZplug 0.9.4.8, licensed as freeware
 #define FM_DEPTH 0 /* 0,1,2 */
 #define NES_BASECYCLES (21477270)
 #define PGCPS_BITS (32-16-6)
