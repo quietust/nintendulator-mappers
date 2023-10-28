@@ -11,7 +11,10 @@ void	Sync (void)
 {
 	EMU->SetPRG_ROM16(0x8, Latch::Data);
 	EMU->SetPRG_ROM16(0xC, -1);
-	EMU->SetCHR_RAM8(0x0, 0);
+	// Use CHR ROM if it's present
+	if (ROM->INES_CHRSize)
+		EMU->SetCHR_ROM8(0x0, 0);
+	else	EMU->SetCHR_RAM8(0x0, 0);
 }
 
 BOOL	MAPINT	Load (void)

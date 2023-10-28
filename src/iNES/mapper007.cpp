@@ -10,7 +10,10 @@ namespace
 void	Sync (void)
 {
 	EMU->SetPRG_ROM32(0x8, Latch::Data & 0x07);
-	EMU->SetCHR_RAM8(0x0, 0);
+	// Use CHR ROM if it's present
+	if (ROM->INES_CHRSize)
+		EMU->SetCHR_ROM8(0x0, 0);
+	else	EMU->SetCHR_RAM8(0x0, 0);
 	if (Latch::Data & 0x10)
 		EMU->Mirror_S1();
 	else	EMU->Mirror_S0();
