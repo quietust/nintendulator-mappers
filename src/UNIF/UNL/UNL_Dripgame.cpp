@@ -17,21 +17,24 @@ struct
 
 	int	GenerateWave (int Cycles)
 	{
+		static int phase = 0;
 		int z = 0;
 		for (int i = 0; i < Cycles; i++)
 		{
+			phase = (phase + 1) & 0xF;
 			if (IsEmpty)
-				break;
+				continue;
 			if (!timer--)
 			{
 				timer = freq;
 				if (ReadPos == WritePos)
 					IsFull = FALSE;
-				Pos = (FIFO[++ReadPos] - 0x80) * vol;
+				Pos = FIFO[++ReadPos] - 0x80;
 				if (ReadPos == WritePos)
 					IsEmpty = TRUE;
 			}
-			z += Pos;
+			if (vol >= phase)
+				z += Pos << 4;
 		}
 		return z / Cycles;
 	}
@@ -60,7 +63,7 @@ struct
 			if (ReadPos == WritePos)
 			{
 				IsEmpty = FALSE;
-				Pos = (Val - 0x80) * vol;
+				Pos = Val - 0x80;
 				timer = freq;
 			}
 			FIFO[WritePos++] = Val;
@@ -74,7 +77,7 @@ struct
 			freq = (freq & 0xFF) | ((Val & 0xF) << 8);
 			vol = (Val & 0xF0) >> 4;
 			if (!IsEmpty)
-				Pos = (FIFO[ReadPos] - 0x80) * vol;
+				Pos = FIFO[ReadPos] - 0x80;
 			break;
 		}
 	}
