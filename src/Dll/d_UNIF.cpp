@@ -13,11 +13,11 @@ void	UNIF_SetMirroring (FSync MapMirror)
 {
 	switch (ROM->UNIF_Mirroring)
 	{
-	case 0:	EMU->Mirror_H();	break;
-	case 1:	EMU->Mirror_V();	break;
+	case 0:	EMU->Mirror_A11();	break;
+	case 1:	EMU->Mirror_A10();	break;
 	case 2:	EMU->Mirror_S0();	break;
 	case 3:	EMU->Mirror_S1();	break;
-	case 4:	EMU->Mirror_4();	break;
+	case 4:	EMU->Mirror_4S();	break;
 	case 5:	if (MapMirror)
 			MapMirror();	break;
 	}

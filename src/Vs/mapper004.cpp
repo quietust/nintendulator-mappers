@@ -37,7 +37,7 @@ BOOL	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	EMU->Mirror_4();
+	EMU->Mirror_4S();
 	VS::Reset(ResetType);
 	MMC3::Reset(ResetType);
 }

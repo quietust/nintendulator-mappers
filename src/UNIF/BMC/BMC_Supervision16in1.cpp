@@ -20,8 +20,8 @@ void	Sync (void)
 	else	EMU->SetPRG_ROM32(0x8, 0x40); /* the EPROM at the end */
 	EMU->SetCHR_RAM8(0x0, 0);
 	if (Game & 0x20)
-		EMU->Mirror_H();
-	else	EMU->Mirror_V();
+		EMU->Mirror_A11();
+	else	EMU->Mirror_A10();
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)

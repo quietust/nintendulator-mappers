@@ -150,7 +150,7 @@ void	IRQ_Assert (void)
 
 void	Load (int _WRAMsize, BOOL _HasCHRRAM)
 {
-	EMU->Mirror_4();
+	EMU->Mirror_4S();
 	NameTable0	= EMU->GetCHR_Ptr1(0x8);
 	NameTable1	= EMU->GetCHR_Ptr1(0x9);
 	ExRAM		= EMU->GetCHR_Ptr1(0xA);

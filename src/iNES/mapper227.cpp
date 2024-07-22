@@ -14,7 +14,7 @@ void	Sync (void)
 		struct
 		{
 			unsigned PRGsize : 1;
-			unsigned Mir_HV  : 1;
+			unsigned Mir_A11 : 1;
 			unsigned PRG16   : 1;
 			unsigned PRGbank : 4;
 			unsigned CHRprot : 1;
@@ -26,9 +26,9 @@ void	Sync (void)
 	};
 	addr = Latch::Addr.s0;
 
-	if (Mir_HV)
-		EMU->Mirror_H();
-	else	EMU->Mirror_V();
+	if (Mir_A11)
+		EMU->Mirror_A11();
+	else	EMU->Mirror_A10();
 	if (PRGsize) 
 		EMU->SetPRG_ROM32(0x8, (PRGchip << 4) | (PRGbank));
 	else

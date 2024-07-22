@@ -24,8 +24,8 @@ void	Sync (void)
 	EMU->SetCHR_ROM1(0x6 ^ ((Mirror << 1) & 0x04), CHR[4]);
 	EMU->SetCHR_ROM1(0x7 ^ ((Mirror << 1) & 0x04), CHR[5]);
 	if (Mirror & 1)
-		EMU->Mirror_V();
-	else	EMU->Mirror_H();
+		EMU->Mirror_A10();
+	else	EMU->Mirror_A11();
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)

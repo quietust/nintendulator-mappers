@@ -19,7 +19,7 @@ void	Sync (void)
 			unsigned Mir_S0  : 1;	/* S0 if 1, H/V if 0 */
 			unsigned PRGsize : 1;
 			unsigned PRG16   : 1;
-			unsigned Mir_HV  : 1;	/* H if 1, V if 0 */
+			unsigned Mir_A11 : 1;	/* A11 if 1, A10 if 0 */
 			unsigned         : 2;
 		};
 		uint16_t addr;
@@ -64,9 +64,9 @@ void	Sync (void)
 	EMU->SetCHR_RAM8(0x0, 0);
 	if (Mir_S0)
 		EMU->Mirror_S0();
-	else if (Mir_HV)
-		EMU->Mirror_H();
-	else	EMU->Mirror_V();
+	else if (Mir_A11)
+		EMU->Mirror_A11();
+	else	EMU->Mirror_A10();
 }
 
 BOOL	MAPINT	Load (void)

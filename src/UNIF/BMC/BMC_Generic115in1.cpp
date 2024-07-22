@@ -19,7 +19,7 @@ void	Sync (void)
 			unsigned PRG16   : 1;
 			unsigned PRGbank : 5;
 			unsigned PRGsize : 1;
-			unsigned Mir_HV  : 1;
+			unsigned Mir_A11 : 1;
 			unsigned PRGchip : 1;
 			unsigned         : 1;
 		};
@@ -33,9 +33,9 @@ void	Sync (void)
 		EMU->SetPRG_ROM16(0xC, (PRGchip << 6) | (PRGbank << 1) | (PRG16));
 	}
 	else	EMU->SetPRG_ROM32(0x8, (PRGchip << 5) | PRGbank);
-	if (Mir_HV)
-		EMU->Mirror_H();
-	else	EMU->Mirror_V();
+	if (Mir_A11)
+		EMU->Mirror_A11();
+	else	EMU->Mirror_A10();
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)

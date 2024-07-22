@@ -19,7 +19,7 @@ void	Sync (void)
 			unsigned PRG16   : 1;
 			unsigned PRGbank : 4;
 			unsigned PRGchip : 2;
-			unsigned Mir_HV  : 1;
+			unsigned Mir_A11 : 1;
 			unsigned         : 2;
 		};
 		uint16_t addr;
@@ -27,9 +27,9 @@ void	Sync (void)
 	uint8_t openbus = 0;
 	addr = Latch::Addr.s0;
 
-	if (Mir_HV)
-		EMU->Mirror_H();
-	else	EMU->Mirror_V();
+	if (Mir_A11)
+		EMU->Mirror_A11();
+	else	EMU->Mirror_A10();
 	
 	switch (PRGchip)
 	{

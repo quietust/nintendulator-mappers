@@ -66,8 +66,8 @@ void	Unload (void)
 void	SyncMirror (void)
 {
 	if (Mirror & 1)
-		EMU->Mirror_H();
-	else	EMU->Mirror_V();
+		EMU->Mirror_A11();
+	else	EMU->Mirror_A10();
 }
 
 int	GetPRGBank (int Bank)

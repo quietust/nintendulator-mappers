@@ -17,7 +17,7 @@ void	Sync (void)
 			unsigned PRGsize : 1;
 			unsigned PRG16   : 1;
 			unsigned         : 1;
-			unsigned Mir_HV  : 1;
+			unsigned Mir_A11 : 1;
 			unsigned         : 8;
 		};
 		uint16_t addr;
@@ -30,9 +30,9 @@ void	Sync (void)
 		EMU->SetPRG_ROM16(0xC, (PRG << 1) | PRG16);
 	}
 	else	EMU->SetPRG_ROM32(0x8, PRG);
-	if (Mir_HV)
-		EMU->Mirror_H();
-	else	EMU->Mirror_V();
+	if (Mir_A11)
+		EMU->Mirror_A11();
+	else	EMU->Mirror_A10();
 }
 
 BOOL	MAPINT	Load (void)

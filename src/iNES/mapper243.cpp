@@ -15,8 +15,8 @@ void	Sync (void)
 	EMU->SetCHR_ROM8(0x0, CHR);
 	switch (Mirror)
 	{
-	case 0:	EMU->Mirror_H();		break;
-	case 1:	EMU->Mirror_V();		break;
+	case 0:	EMU->Mirror_A11();		break;
+	case 1:	EMU->Mirror_A10();		break;
 	case 2:	EMU->Mirror_Custom(0, 1, 1, 1);	break;
 	case 3:	EMU->Mirror_S1();		break;
 	}

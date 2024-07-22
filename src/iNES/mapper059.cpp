@@ -18,8 +18,8 @@ void	Sync (void)
 	EMU->SetCHR_ROM8(0x0, Latch::Addr.s0 & 0x07);
 	EMU->SetPRG_ROM32(0x8, (Latch::Addr.s0 & 0x70) >> 4);
 	if (Latch::Addr.s0 & 0x08)
-		EMU->Mirror_H();
-	else	EMU->Mirror_V();
+		EMU->Mirror_A11();
+	else	EMU->Mirror_A10();
 	if (Latch::Addr.s0 & 0x100)
 	{
 		memset(JumperData, Jumper, 0x1000);

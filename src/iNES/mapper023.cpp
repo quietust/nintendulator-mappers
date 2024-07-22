@@ -48,8 +48,8 @@ void	Sync (void)
 		EMU->SetCHR_ROM1(i, CHR[i].b0);
 	switch (Mirror & 3)
 	{
-	case 0:	EMU->Mirror_V();	break;
-	case 1:	EMU->Mirror_H();	break;
+	case 0:	EMU->Mirror_A10();	break;
+	case 1:	EMU->Mirror_A11();	break;
 	case 2:	EMU->Mirror_S0();	break;
 	case 3:	EMU->Mirror_S1();	break;
 	}

@@ -152,8 +152,8 @@ void	Sync (void)
 	EMU->SetCHR_ROM2(0x6, CHR[3]);
 	switch (Flags & 0x3)
 	{
-	case 0:	EMU->Mirror_V();	break;
-	case 1:	EMU->Mirror_H();	break;
+	case 0:	EMU->Mirror_A10();	break;
+	case 1:	EMU->Mirror_A11();	break;
 	case 2:	EMU->Mirror_S0();	break;
 	case 3:	EMU->Mirror_S1();	break;
 	}
@@ -326,7 +326,7 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 BOOL	MAPINT	Load (void)
 {
 	ConfigWindow = NULL;
-	EMU->Mirror_4();
+	EMU->Mirror_4S();
 	ExtRam0 = EMU->GetCHR_Ptr1(0xA);
 	ExtRam1 = EMU->GetCHR_Ptr1(0xB);
 	UNIF_SetSRAM(8192);

@@ -184,12 +184,12 @@ struct	EmulatorInterface
 	void		(MAPINT *SetCHR_OB1)		(int);		/* Open bus */
 
 /* Functions for controlling mirroring */
-	void		(MAPINT *Mirror_H)		(void);
-	void		(MAPINT *Mirror_V)		(void);
-	void		(MAPINT *Mirror_4)		(void);
+	void		(MAPINT *Mirror_A11)		(void);
+	void		(MAPINT *Mirror_A10)		(void);
+	void		(MAPINT *Mirror_4S)		(void);
 	void		(MAPINT *Mirror_S0)		(void);
 	void		(MAPINT *Mirror_S1)		(void);
-	void		(MAPINT *Mirror_Custom)	(int,int,int,int);
+	void		(MAPINT *Mirror_Custom) 	(int,int,int,int);
 
 /* IRQ */
 	void		(MAPINT *SetIRQ)		(int);		/* Sets the state of the /IRQ line */

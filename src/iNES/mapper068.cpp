@@ -26,8 +26,8 @@ void	SyncNametables (void)
 
 	switch (Mirror & 0x3)
 	{
-	case 0:	nt[0] = 0; nt[1] = 1; nt[2] = 0; nt[3] = 1;	break;	// V
-	case 1:	nt[0] = 0; nt[1] = 0; nt[2] = 1; nt[3] = 1;	break;	// H
+	case 0:	nt[0] = 0; nt[1] = 1; nt[2] = 0; nt[3] = 1;	break;	// A10
+	case 1:	nt[0] = 0; nt[1] = 0; nt[2] = 1; nt[3] = 1;	break;	// A11
 	case 2:	nt[0] = 0; nt[1] = 0; nt[2] = 0; nt[3] = 0;	break;	// S0
 	case 3:	nt[0] = 1; nt[1] = 1; nt[2] = 1; nt[3] = 1;	break;	// S1
 	}

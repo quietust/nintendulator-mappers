@@ -122,7 +122,7 @@ BOOL	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	EMU->Mirror_4();
+	EMU->Mirror_4S();
 	VS::Reset(ResetType);
 
 	EMU->SetCPUWriteHandler(0x8, Write8);

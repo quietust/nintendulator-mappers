@@ -13,7 +13,7 @@ void	Sync (void)
 	{
 		struct
 		{
-			unsigned Mir_HV  : 1;
+			unsigned Mir_A11 : 1;
 			unsigned PRGsizeL: 1;
 			unsigned PRG16   : 1;
 			unsigned PRGbank : 7;
@@ -39,9 +39,9 @@ void	Sync (void)
 	}
 	if (PRGhigh)
 		EMU->SetPRG_ROM8(0xE, ((PRGbank & 0x1F) << 2) | ((PRGsizeL ? 1 : PRG16) << 1) | 1);
-	if (Mir_HV)
-		EMU->Mirror_H();
-	else	EMU->Mirror_V();
+	if (Mir_A11)
+		EMU->Mirror_A11();
+	else	EMU->Mirror_A10();
 
 	if (PRGbank == 0) 
 	{	// hack

@@ -105,8 +105,8 @@ void	Sync (void)
 		for (int i = 0; i < 8; i++)
 			EMU->SetCHR_ROM1(i, VRC2::CHR[i].b0 | ((Mode & 0x04) << 6));
 		if (VRC2::Mirror & 0x1)
-			EMU->Mirror_H();
-		else	EMU->Mirror_V();
+			EMU->Mirror_A11();
+		else	EMU->Mirror_A10();
 	}
 }
 

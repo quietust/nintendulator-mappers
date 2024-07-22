@@ -16,7 +16,7 @@ void	Sync (void)
 		{
 			unsigned PRGbank : 5;
 			unsigned PRGsize : 1;
-			unsigned Mir_VH  : 1;
+			unsigned Mir_A10 : 1;
 			unsigned PRGhi   : 1;
 			unsigned         : 8;
 		};
@@ -30,9 +30,9 @@ void	Sync (void)
 	byte0 = Regs[0];
 	byte1 = Regs[1];
 
-	if (Mir_VH)
-		EMU->Mirror_V();
-	else	EMU->Mirror_H();
+	if (Mir_A10)
+		EMU->Mirror_A10();
+	else	EMU->Mirror_A11();
 	EMU->SetCHR_ROM8(0x0, 0);
 	if (PRGsize)
 	{

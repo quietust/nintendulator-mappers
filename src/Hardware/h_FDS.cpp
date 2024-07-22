@@ -46,8 +46,8 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	if (IsLoad(mode))
 	{
 		if (Mirror)
-			EMU->Mirror_H();
-		else	EMU->Mirror_V();
+			EMU->Mirror_A11();
+		else	EMU->Mirror_A10();
 	}
 	return offset;
 }
@@ -155,8 +155,8 @@ void	MAPINT	Write (int Bank, int Addr, int Val)
 	case 0x25:	EndIRQ(IRQ_DISK);
 			Mirror = Val & 0x8;
 			if (Mirror)
-				EMU->Mirror_H();
-			else	EMU->Mirror_V();
+				EMU->Mirror_A11();
+			else	EMU->Mirror_A10();
 			if (DiskNum == 0xFF)	break;
 			if (!(Val & 0x40))
 			{

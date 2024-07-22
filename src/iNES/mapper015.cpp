@@ -33,8 +33,8 @@ void	Sync (void)
 	}
 	EMU->SetCHR_RAM8(0x0, 0);	// For compatibility with mapper hacks, do not write-protect
 	if (BankReg & 0x40)
-		EMU->Mirror_H();
-	else	EMU->Mirror_V();
+		EMU->Mirror_A11();
+	else	EMU->Mirror_A10();
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)

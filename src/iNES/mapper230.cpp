@@ -21,14 +21,14 @@ void	Sync (void)
 		}
 		else	EMU->SetPRG_ROM32(0x8, ((Latch::Data & 0x1E) >> 1) + 0x4);
 		if (Latch::Data & 0x40)
-			EMU->Mirror_V();
-		else	EMU->Mirror_H();
+			EMU->Mirror_A10();
+		else	EMU->Mirror_A11();
 	}
 	else
 	{
 		EMU->SetPRG_ROM16(0x8, Latch::Data & 0x7);
 		EMU->SetPRG_ROM16(0xC, 0x7);
-		EMU->Mirror_V();
+		EMU->Mirror_A10();
 	}
 }
 

@@ -20,8 +20,8 @@ void	Sync (void)
 	for (int i = 0; i < 4; i++)
 		EMU->SetCHR_ROM2(i << 1, CHR[i]);
 	if (Mirror & 1)
-		EMU->Mirror_H();
-	else	EMU->Mirror_V();
+		EMU->Mirror_A11();
+	else	EMU->Mirror_A10();
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)

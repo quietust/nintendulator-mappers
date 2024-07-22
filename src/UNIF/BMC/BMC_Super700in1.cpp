@@ -16,7 +16,7 @@ void	Sync (void)
 			unsigned CHRhi   : 5;
 			unsigned PRGsize : 1;
 			unsigned PRGchip : 1;
-			unsigned Mir_HV  : 1;
+			unsigned Mir_A11 : 1;
 			unsigned PRG     : 6;
 			unsigned         : 2;
 
@@ -41,9 +41,9 @@ void	Sync (void)
 	}
 	else	EMU->SetPRG_ROM32(0x8, ((PRGchip << 6) | PRG) >> 1);
 
-	if (Mir_HV)
-		EMU->Mirror_H();
-	else	EMU->Mirror_V();
+	if (Mir_A11)
+		EMU->Mirror_A11();
+	else	EMU->Mirror_A10();
 }
 
 BOOL	MAPINT	Load (void)

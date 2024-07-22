@@ -22,7 +22,7 @@ void	Sync (void)
 	EMU->SetCHR_ROM1(0x7, N118::CHR[5] | 0x40);
 	if (N118::Cmd & 0x40)
 		EMU->Mirror_S1();
-	else	EMU->Mirror_V();
+	else	EMU->Mirror_A10();
 }
 
 BOOL	MAPINT	Load (void)

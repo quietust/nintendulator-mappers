@@ -22,8 +22,8 @@ void	Sync (void)
 	}
 	else	EMU->SetPRG_ROM32(0x8, (Latch::Addr.s0 & 0x60) >> 5);
 	if (Latch::Addr.s0 & 0x08)
-		EMU->Mirror_H();
-	else	EMU->Mirror_V();
+		EMU->Mirror_A11();
+	else	EMU->Mirror_A10();
 	if (Latch::Addr.s0 & 0x100)
 		for (int i = 0x8; i < 0x10; i++)
 		{

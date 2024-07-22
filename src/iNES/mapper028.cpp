@@ -16,8 +16,8 @@ void	Sync (void)
 	{
 	case 0:	EMU->Mirror_S0();	break;
 	case 1:	EMU->Mirror_S1();	break;
-	case 2:	EMU->Mirror_V();	break;
-	case 3:	EMU->Mirror_H();	break;
+	case 2:	EMU->Mirror_A10();	break;
+	case 3:	EMU->Mirror_A11();	break;
 	}
 
 	int bank32 = regVal[3], bank16 = regVal[3] << 1;

@@ -31,8 +31,8 @@ void	Sync (void)
 	byte1 = Reg1;
 
 	if (Mir_VH)
-		EMU->Mirror_V();
-	else	EMU->Mirror_H();
+		EMU->Mirror_A10();
+	else	EMU->Mirror_A11();
 	if (PRGsize)
 	{
 		EMU->SetPRG_ROM16(0x8, (PRGhi << 5) | PRGbank);

@@ -23,7 +23,7 @@ void	Sync_DRROM (void)
 {
 	N118::SyncPRG();
 	N118::SyncCHR();
-	EMU->Mirror_4();
+	EMU->Mirror_4S();
 }
 
 BOOL	MAPINT	Load_DEROM (void)

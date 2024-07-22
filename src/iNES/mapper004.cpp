@@ -12,7 +12,7 @@ bool IsMMC6 = false;
 void	Sync3 (void)
 {
 	if (ROM->INES_Flags & 0x08)
-		EMU->Mirror_4();
+		EMU->Mirror_4S();
 	else	MMC3::SyncMirror();
 	if (ROM->INES_Version == 2)
 	{
@@ -30,7 +30,7 @@ void	Sync3 (void)
 void	Sync6 (void)
 {
 	if (ROM->INES_Flags & 0x08)
-		EMU->Mirror_4();
+		EMU->Mirror_4S();
 	else	MMC6::SyncMirror();
 	// MMC6 always has builtin RAM
 	MMC6::SyncPRG(0x3F, 0);

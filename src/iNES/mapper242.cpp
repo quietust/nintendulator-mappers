@@ -14,8 +14,8 @@ void	Sync (void)
 		EMU->SetPRG_RAM8(0x6, 0);
 	EMU->SetCHR_RAM8(0x0, 0);
 	if (Latch::Addr.b0 & 0x02)
-		EMU->Mirror_H();
-	else	EMU->Mirror_V();
+		EMU->Mirror_A11();
+	else	EMU->Mirror_A10();
 }
 
 BOOL	MAPINT	Load (void)

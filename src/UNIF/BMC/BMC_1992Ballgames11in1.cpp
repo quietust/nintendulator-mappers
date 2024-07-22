@@ -21,8 +21,8 @@ void	Sync (void)
 		EMU->SetPRG_ROM16(0xC, (PRG >> 1) | 1);
 	else	EMU->SetPRG_ROM16(0xC, (PRG >> 1) | 7);
 	if (Mode == 3)
-		EMU->Mirror_H();
-	else	EMU->Mirror_V();
+		EMU->Mirror_A11();
+	else	EMU->Mirror_A10();
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)

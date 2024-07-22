@@ -96,7 +96,7 @@ void	Sync_TR1ROM (void)
 {
 	MMC3::SyncPRG(0x3F, 0);
 	MMC3::SyncCHR_ROM(0x3F, 0);
-	EMU->Mirror_4();
+	EMU->Mirror_4S();
 }
 void	Sync_TSROM (void)
 {
@@ -109,7 +109,7 @@ void	Sync_TVROM (void)
 {
 	MMC3::SyncPRG(0x07, 0);
 	MMC3::SyncCHR_ROM(0x3F, 0);
-	EMU->Mirror_4();
+	EMU->Mirror_4S();
 }
 
 BOOL	MAPINT	Load_TBROM (void)

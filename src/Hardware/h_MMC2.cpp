@@ -88,8 +88,8 @@ void	SyncCHR (void)
 void	SyncMirror (void)
 {
 	if (Mirror)
-		EMU->Mirror_H();
-	else	EMU->Mirror_V();
+		EMU->Mirror_A11();
+	else	EMU->Mirror_A10();
 }
 
 int	MAPINT	PPURead3 (int Bank, int Addr)

@@ -24,8 +24,8 @@ void	Sync (void)
 		break;
 	case MIRROR_HV:
 		if (Latch::Data & 0x8)
-			EMU->Mirror_V();
-		else	EMU->Mirror_H();
+			EMU->Mirror_A10();
+		else	EMU->Mirror_A11();
 		break;
 	}
 }

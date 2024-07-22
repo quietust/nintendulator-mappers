@@ -11,8 +11,8 @@ uint8_t Reg0, Reg1;
 void	Sync (void)
 {
 	if (Reg0 & 0x20)
-		EMU->Mirror_H();
-	else	EMU->Mirror_V();
+		EMU->Mirror_A11();
+	else	EMU->Mirror_A10();
 	EMU->SetPRG_ROM32(0x8, Reg0 & 0x7);
 	EMU->SetCHR_ROM8(0x0, Reg1 | ((Reg0 >> 1) & 0xC));
 }

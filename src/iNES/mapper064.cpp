@@ -17,8 +17,8 @@ void	Sync (void)
 {
 	uint8_t SwCHR = (Cmd & 0x80) >> 5;
 	if (Mirror & 0x1)
-		EMU->Mirror_H();
-	else	EMU->Mirror_V();
+		EMU->Mirror_A11();
+	else	EMU->Mirror_A10();
 
 	if (Cmd & 0x40)
 	{
