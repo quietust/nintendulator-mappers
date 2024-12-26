@@ -511,6 +511,9 @@
     <ClCompile Include="..\src\iNES\mapper240.cpp">
       <Filter>Source Files\Mapper Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iNES\mapper241.cpp">
+      <Filter>Source Files\Mapper Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\iNES\mapper242.cpp">
       <Filter>Source Files\Mapper Source Files</Filter>
     </ClCompile>

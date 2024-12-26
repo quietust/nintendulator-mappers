@@ -3,29 +3,29 @@
  */
 
 #include	"..\DLL\d_iNES.h"
-#include	"..\Hardware\h_Latch.h"
 #include	"resource.h"
 
 namespace
 {
+FCPURead _Read;
+uint16_t AddrBits;
 uint8_t Jumper;
+
 HWND ConfigWindow;
 uint8_t ConfigCmd;
-uint8_t JumperData[0x1000];
 
 void	Sync (void)
 {
-	EMU->SetCHR_ROM8(0x0, Latch::Addr.s0 & 0x07);
-	EMU->SetPRG_ROM32(0x8, (Latch::Addr.s0 & 0x70) >> 4);
-	if (Latch::Addr.s0 & 0x08)
+	EMU->SetCHR_ROM8(0x0, AddrBits & 0x07);
+	if (AddrBits & 0x80)
+	{
+		EMU->SetPRG_ROM16(0x8, (AddrBits & 0x70) >> 4);
+		EMU->SetPRG_ROM16(0xC, (AddrBits & 0x70) >> 4);
+	}
+	else	EMU->SetPRG_ROM32(0x8, (AddrBits & 0x60) >> 5);
+	if (AddrBits & 0x08)
 		EMU->Mirror_A11();
 	else	EMU->Mirror_A10();
-	if (Latch::Addr.s0 & 0x100)
-	{
-		memset(JumperData, Jumper, 0x1000);
-		for (int i = 0x8; i < 0x10; i++)
-			EMU->SetPRG_Ptr4(i, JumperData, FALSE);
-	}
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
@@ -33,7 +33,7 @@ int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 	uint8_t ver = 0;
 	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
 
-	CheckSave(offset = Latch::SaveLoad_A(mode, offset, data));
+	SAVELOAD_WORD(mode, offset, data, AddrBits);
 	SAVELOAD_BYTE(mode, offset, data, Jumper);
 
 	if (IsLoad(mode))
@@ -88,30 +88,49 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 		break;
 	case CFG_CMD:
 		if (data & 0x80)
-		{
 			Jumper = data & 0x3;
-			Sync();
-		}
 		ConfigCmd = 0;
 		break;
 	}
 	return 0;
 }
 
+int	MAPINT	Read (int Bank, int Addr)
+{
+	if (AddrBits & 0x100)
+		return (*EMU->OpenBus & 0xFC) | (Jumper & 0x3);
+	return _Read(Bank,Addr);
+}
+
+void	MAPINT	Write (int Bank, int Addr, int Val)
+{
+	if (AddrBits & 0x200)
+		return;
+	AddrBits = Addr;
+	Sync();
+}
+
 BOOL	MAPINT	Load (void)
 {
-	Latch::Load(Sync, FALSE, FALSE);
 	ConfigWindow = NULL;
 	return TRUE;
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
-	Latch::Reset(ResetType);
+	if (ResetType == RESET_HARD)
+		Jumper = 0;
+	AddrBits = 0;
+	_Read = EMU->GetCPUReadHandler(0x8);
+	for (int i = 0x8; i < 0x10; i++)
+	{
+		EMU->SetCPUReadHandler(i, Read);
+		EMU->SetCPUWriteHandler(i, Write);
+	}
 	ConfigCmd = 0;
+	Sync();
 }
 void	MAPINT	Unload (void)
 {
-	Latch::Unload();
 	if (ConfigWindow)
 	{
 		DestroyWindow(ConfigWindow);
@@ -125,7 +144,7 @@ uint16_t MapperNum = 59;
 const MapperInfo MapperInfo_059
 (
 	&MapperNum,
-	_T("T3H53"),
+	_T("T3H53/D1038"),
 	COMPAT_FULL,
 	Load,
 	Reset,

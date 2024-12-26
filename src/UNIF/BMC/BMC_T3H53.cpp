@@ -8,28 +8,41 @@
 
 namespace
 {
+FCPURead _Read;
+uint16_t AddrBits;
 uint8_t Jumper;
+
 HWND ConfigWindow;
 uint8_t ConfigCmd;
 
 void	Sync (void)
 {
-	EMU->SetCHR_ROM8(0x0, Latch::Addr.s0 & 0x07);
-	if (Latch::Addr.b0 & 0x80)
+	EMU->SetCHR_ROM8(0x0, AddrBits & 0x07);
+
+	if (AddrBits & 0x80)
 	{
-		EMU->SetPRG_ROM16(0x8, (Latch::Addr.s0 & 0x70) >> 4);
-		EMU->SetPRG_ROM16(0xC, (Latch::Addr.s0 & 0x70) >> 4);
+		EMU->SetPRG_ROM16(0x8, (AddrBits & 0x70) >> 4);
+		EMU->SetPRG_ROM16(0xC, (AddrBits & 0x70) >> 4);
 	}
-	else	EMU->SetPRG_ROM32(0x8, (Latch::Addr.s0 & 0x60) >> 5);
-	if (Latch::Addr.s0 & 0x08)
+	else	EMU->SetPRG_ROM32(0x8, (AddrBits & 0x60) >> 5);
+	if (AddrBits & 0x08)
 		EMU->Mirror_A11();
 	else	EMU->Mirror_A10();
-	if (Latch::Addr.s0 & 0x100)
-		for (int i = 0x8; i < 0x10; i++)
-		{
-			EMU->SetPRG_RAM4(i, i-8);
-			memset(EMU->GetPRG_Ptr4(i), Jumper, 0x1000);
-		}
+}
+
+int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
+{
+	uint8_t ver = 1;
+	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
+
+	SAVELOAD_WORD(mode, offset, data, AddrBits);
+	if (ver == 0)
+		Jumper = 0;
+	else	SAVELOAD_BYTE(mode, offset, data, Jumper);
+
+	if (IsLoad(mode))
+		Sync();
+	return offset;
 }
 
 INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
@@ -49,6 +62,7 @@ INT_PTR CALLBACK ConfigProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 				ConfigCmd |= 0x01;
 			if (IsDlgButtonChecked(hDlg, IDC_BMC_T3H53_J1) == BST_CHECKED)
 				ConfigCmd |= 0x02;
+			MessageBox(hWnd, _T("Please perform a SOFT RESET for this to take effect!"), _T("UNIF.DLL"), MB_OK);
 		case IDCANCEL:
 			ConfigWindow = NULL;
 			DestroyWindow(hDlg);
@@ -78,20 +92,30 @@ unsigned char	MAPINT	Config (CFG_TYPE mode, unsigned char data)
 		break;
 	case CFG_CMD:
 		if (data & 0x80)
-		{
 			Jumper = data & 0x03;
-			Sync();
-			MessageBox(hWnd, _T("Please perform a SOFT RESET for this to take effect!"), _T("UNIF.DLL"), MB_OK);
-		}
 		ConfigCmd = 0;
 		break;
 	}
 	return 0;
 }
 
+int	MAPINT	Read (int Bank, int Addr)
+{
+	if (AddrBits & 0x100)
+		return (*EMU->OpenBus & 0xFC) | (Jumper & 0x3);
+	return _Read(Bank,Addr);
+}
+
+void	MAPINT	Write (int Bank, int Addr, int Val)
+{
+	if (AddrBits & 0x200)
+		return;
+	AddrBits = Addr;
+	Sync();
+}
+
 BOOL	MAPINT	Load (void)
 {
-	Latch::Load(Sync, FALSE, TRUE);
 	ConfigWindow = NULL;
 	return TRUE;
 }
@@ -99,13 +123,18 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 {
 	if (ResetType == RESET_HARD)
 		Jumper = 0;
-
+	AddrBits = 0;
+	_Read = EMU->GetCPUReadHandler(0x8);
+	for (int i = 0x8; i < 0x10; i++)
+	{
+		EMU->SetCPUReadHandler(i, Read);
+		EMU->SetCPUWriteHandler(i, Write);
+	}
 	ConfigCmd = 0;
-	Latch::Reset(ResetType);
+	Sync();
 }
 void	MAPINT	Unload (void)
 {
-	Latch::Unload();
 	if (ConfigWindow)
 	{
 		DestroyWindow(ConfigWindow);
@@ -124,7 +153,22 @@ const MapperInfo MapperInfo_BMC_T3H53
 	Unload,
 	NULL,
 	NULL,
-	Latch::SaveLoad_A,
+	SaveLoad,
 	NULL,
 	Config
 );
+const MapperInfo MapperInfo_BMC_D1038
+(
+	"BMC-D1038",
+	_T("Pirate multicart mapper with dipswitches"),
+	COMPAT_FULL,
+	Load,
+	Reset,
+	Unload,
+	NULL,
+	NULL,
+	SaveLoad,
+	NULL,
+	Config
+);
+

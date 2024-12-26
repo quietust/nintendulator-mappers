@@ -9,16 +9,9 @@ namespace
 {
 void	Sync (void)
 {
-	if (Latch::Addr.b0 & 0x40)
-	{
-		EMU->SetPRG_ROM16(0x8, (Latch::Addr.b0 & 0x7));
-		EMU->SetPRG_ROM16(0xC, (Latch::Addr.b0 & 0x7));
-	}
-	else	EMU->SetPRG_ROM32(0x8, (Latch::Addr.b0 & 0x6) >> 1);
-	EMU->SetCHR_ROM8(0x0, (Latch::Addr.b0 & 0x38) >> 3);
-	if (Latch::Addr.b0 & 0x80)
-		EMU->Mirror_A11();
-	else	EMU->Mirror_A10();
+	EMU->SetCHR_RAM8(0x0, 0);
+	EMU->SetPRG_RAM8(0x6, 0);
+	EMU->SetPRG_ROM32(0x8, Latch::Data & 0x1F);
 }
 
 BOOL	MAPINT	Load (void)
@@ -28,6 +21,7 @@ BOOL	MAPINT	Load (void)
 }
 void	MAPINT	Reset (RESET_TYPE ResetType)
 {
+	iNES_SetMirroring();
 	Latch::Reset(ResetType);
 }
 void	MAPINT	Unload (void)
@@ -35,20 +29,20 @@ void	MAPINT	Unload (void)
 	Latch::Unload();
 }
 
-uint16_t MapperNum = 58;
+uint16_t MapperNum = 241;
 } // namespace
 
-const MapperInfo MapperInfo_235
+const MapperInfo MapperInfo_241
 (
 	&MapperNum,
-	_T("Mapper 58"),
+	_T("Study & Game 32 in 1"),
 	COMPAT_FULL,
 	Load,
 	Reset,
 	Unload,
 	NULL,
 	NULL,
-	Latch::SaveLoad_AL,
+	Latch::SaveLoad_D,
 	NULL,
 	NULL
 );
