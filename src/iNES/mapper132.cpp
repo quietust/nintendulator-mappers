@@ -62,13 +62,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		Reg = 0;
 	Sync();
 }
-
-uint16_t MapperNum = 132;
 } // namespace
 
 const MapperInfo MapperInfo_132
 (
-	&MapperNum,
+	132,
 	_T("Creatom"),
 	COMPAT_NEARLY,
 	NULL,

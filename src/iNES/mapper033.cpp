@@ -83,13 +83,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	}
 	Sync();
 }
-
-uint16_t MapperNum = 33;
 } // namespace
 
 const MapperInfo MapperInfo_033
 (
-	&MapperNum,
+	33,
 	_T("Taito TC0190"),
 	COMPAT_NEARLY,
 	NULL,

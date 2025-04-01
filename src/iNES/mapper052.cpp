@@ -88,13 +88,11 @@ void	MAPINT	Unload (void)
 {
 	MMC3::Unload();
 }
-
-uint16_t MapperNum = 52;
 } // namespace
 
 const MapperInfo MapperInfo_052
 (
-	&MapperNum,
+	52,
 	_T("Mario 7 in 1 (MMC3)"),
 	COMPAT_FULL,
 	Load,

@@ -28,13 +28,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetPRG_ROM32(0x8, 0);
 	EMU->SetCHR_ROM8(0x0, 0);
 }
-
-uint16_t MapperNum = 143;
 } // namespace
 
 const MapperInfo MapperInfo_143
 (
-	&MapperNum,
+	143,
 	_T("Sachen (TC-A001-72P/SA-014)"),
 	COMPAT_FULL,
 	NULL,

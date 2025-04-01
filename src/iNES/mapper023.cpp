@@ -298,15 +298,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum21 = 21;
-uint16_t MapperNum23 = 23;
-uint16_t MapperNum25 = 25;
 } // namespace
 
 const MapperInfo MapperInfo_021
 (
-	&MapperNum21,
+	21,
 	_T("Konami VRC4a / VRC4c"),
 	COMPAT_NEARLY,
 	Load_21,
@@ -320,7 +316,7 @@ const MapperInfo MapperInfo_021
 );
 const MapperInfo MapperInfo_023
 (
-	&MapperNum23,
+	23,
 	_T("Konami VRC4e / VRC4f / VRC2b"),
 	COMPAT_NEARLY,
 	Load_23,
@@ -334,7 +330,7 @@ const MapperInfo MapperInfo_023
 );
 const MapperInfo MapperInfo_025
 (
-	&MapperNum25,
+	25,
 	_T("Konami VRC4b / VRC4d / VRC2c"),
 	COMPAT_NEARLY,
 	Load_25,

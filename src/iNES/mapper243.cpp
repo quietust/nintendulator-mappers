@@ -78,13 +78,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 243;
 } // namespace
 
 const MapperInfo MapperInfo_243
 (
-	&MapperNum,
+	243,
 	_T("Sachen (74LS374N)"),
 	COMPAT_FULL,
 	NULL,

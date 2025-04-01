@@ -132,13 +132,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	Sync();
 	SyncNametables();
 }
-
-uint16_t MapperNum = 68;
 } // namespace
 
 const MapperInfo MapperInfo_068
 (
-	&MapperNum,
+	68,
 	_T("SUNSOFT-4"),
 	COMPAT_FULL,
 	Load,

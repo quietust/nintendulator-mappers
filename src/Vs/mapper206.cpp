@@ -44,13 +44,11 @@ void	MAPINT	Unload (void)
 	N118::Unload();
 	VS::Unload();
 }
-
-uint16_t MapperNum = 206;
 } // namespace
 
 const MapperInfo MapperInfo_206
 (
-	&MapperNum,
+	206,
 	_T("Namcot 108"),
 	COMPAT_FULL,
 	Load,

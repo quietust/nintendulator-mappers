@@ -84,13 +84,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 42;
 } // namespace
 
 const MapperInfo MapperInfo_042
 (
-	&MapperNum,
+	42,
 	_T("Mario Baby"),
 	COMPAT_FULL,
 	NULL,

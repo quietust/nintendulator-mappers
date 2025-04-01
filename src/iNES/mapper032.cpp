@@ -78,13 +78,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	}
 	Sync();
 }
-
-uint16_t MapperNum = 32;
 } // namespace
 
 const MapperInfo MapperInfo_032
 (
-	&MapperNum,
+	32,
 	_T("Irem G-101"),
 	COMPAT_FULL,
 	NULL,

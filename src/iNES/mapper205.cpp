@@ -53,13 +53,11 @@ void	MAPINT	Unload (void)
 {
 	MMC3::Unload();
 }
-
-uint16_t MapperNum = 205;
 } // namespace
 
 const MapperInfo MapperInfo_205
 (
-	&MapperNum,
+	205,
 	_T("3-in-1 (MMC3)"),
 	COMPAT_FULL,
 	Load,

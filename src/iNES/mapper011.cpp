@@ -27,13 +27,11 @@ void	MAPINT	Unload (void)
 {
 	Latch::Unload();
 }
-
-uint16_t MapperNum = 11;
 } // namespace
 
 const MapperInfo MapperInfo_011
 (
-	&MapperNum,
+	11,
 	_T("Color Dreams"),
 	COMPAT_FULL,
 	Load,

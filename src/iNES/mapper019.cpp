@@ -439,14 +439,11 @@ void	MAPINT	Unload (void)
 		N163sound::Unload();
 	}
 }
-
-uint16_t MapperNum = 19;
-uint16_t MapperNum2 = 210;
 } // namespace
 
 const MapperInfo MapperInfo_019
 (
-	&MapperNum,
+	19,
 	_T("Namcot 163"),
 	COMPAT_FULL,
 	Load_019,
@@ -460,7 +457,7 @@ const MapperInfo MapperInfo_019
 );
 const MapperInfo MapperInfo_210
 (
-	&MapperNum2,
+	210,
 	_T("Namcot 175/340"),
 	COMPAT_FULL,
 	Load_210,

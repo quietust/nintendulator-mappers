@@ -48,13 +48,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	iNES_SetMirroring();
 	Sync();
 }
-
-uint16_t MapperNum = 125;
 } // namespace
 
 const MapperInfo MapperInfo_125
 (
-	&MapperNum,
+	125,
 	_T("Monty on the Run (FDS hack)"),
 	COMPAT_FULL,
 	NULL,

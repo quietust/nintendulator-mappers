@@ -137,13 +137,11 @@ void	MAPINT	Unload (void)
 		ConfigWindow = NULL;
 	}
 }
-
-uint16_t MapperNum = 59;
 } // namespace
 
 const MapperInfo MapperInfo_059
 (
-	&MapperNum,
+	59,
 	_T("T3H53/D1038"),
 	COMPAT_FULL,
 	Load,

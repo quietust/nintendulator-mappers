@@ -50,13 +50,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		Reg = 0;
 	Sync();
 }
-
-uint16_t MapperNum = 240;
 } // namespace
 
 const MapperInfo MapperInfo_240
 (
-	&MapperNum,
+	240,
 	_T("Mapper 240"),
 	COMPAT_NEARLY,
 	NULL,

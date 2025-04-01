@@ -53,13 +53,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		PRG[7] = 0xFF;
 	Sync();
 }
-
-uint16_t MapperNum = 31;
 } // namespace
 
 const MapperInfo MapperInfo_031
 (
-	&MapperNum,
+	31,
 	_T("2A03 Puritans Album"),
 	COMPAT_FULL,
 	Load,

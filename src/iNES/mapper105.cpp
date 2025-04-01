@@ -166,13 +166,11 @@ void	MAPINT	Unload (void)
 		ConfigWindow = NULL;
 	}
 }
-
-uint16_t MapperNum = 105;
 } // namespace
 
 const MapperInfo MapperInfo_105
 (
-	&MapperNum,
+	105,
 	_T("Nintendo World Championship"),
 	COMPAT_FULL,
 	Load,

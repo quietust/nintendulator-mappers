@@ -222,13 +222,11 @@ void	MAPINT	Unload (void)
 		ConfigWindow = NULL;
 	}
 }
-
-uint16_t MapperNum = 100;
 } // namespace
 
 const MapperInfo MapperInfo_100
 (
-	&MapperNum,
+	100,
 	_T("Debugging Mapper"),
 	COMPAT_FULL,
 	Load,

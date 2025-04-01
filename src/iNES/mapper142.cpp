@@ -107,13 +107,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 142;
 } // namespace
 
 const MapperInfo MapperInfo_142
 (
-	&MapperNum,
+	142,
 	_T("SMB2j Pirate (KS 202)"),
 	COMPAT_FULL,
 	NULL,

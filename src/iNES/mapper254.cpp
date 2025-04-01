@@ -88,13 +88,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 254;
 } // namespace
 
 const MapperInfo MapperInfo_254
 (
-	&MapperNum,
+	254,
 	_T("Ai Senshi Nicol (Pirate)"),
 	COMPAT_FULL,
 	NULL,

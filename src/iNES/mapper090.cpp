@@ -461,15 +461,11 @@ void	MAPINT	Unload (void)
 		ConfigWindow = NULL;
 	}
 }
-
-uint16_t MapperNum = 90;
-uint16_t MapperNum2 = 209;
-uint16_t MapperNum3 = 211;
 } // namespace
 
 const MapperInfo MapperInfo_090
 (
-	&MapperNum,
+	90,
 	_T("Mapper 90"),
 	COMPAT_FULL,
 	Load_090,
@@ -483,7 +479,7 @@ const MapperInfo MapperInfo_090
 );
 const MapperInfo MapperInfo_209
 (
-	&MapperNum2,
+	209,
 	_T("Mapper 90/MMC2 Hybrid"),
 	COMPAT_FULL,
 	Load_209,
@@ -497,7 +493,7 @@ const MapperInfo MapperInfo_209
 );
 const MapperInfo MapperInfo_211
 (
-	&MapperNum3,
+	211,
 	_T("Mapper 90 Variant"),
 	COMPAT_FULL,
 	Load_211,

@@ -92,13 +92,11 @@ void	MAPINT	Unload (void)
 {
 	MMC3::Unload();
 }
-
-uint16_t MapperNum = 114;
 } // namespace
 
 const MapperInfo MapperInfo_114
 (
-	&MapperNum,
+	114,
 	_T("Mapper 114"),
 	COMPAT_FULL,
 	Load,

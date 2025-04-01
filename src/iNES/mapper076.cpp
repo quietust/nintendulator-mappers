@@ -89,13 +89,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 76;
 } // namespace
 
 const MapperInfo MapperInfo_076
 (
-	&MapperNum,
+	76,
 	_T("Mapper 76"),
 	COMPAT_NEARLY,
 	NULL,

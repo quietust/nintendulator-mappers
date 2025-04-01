@@ -35,13 +35,11 @@ void	MAPINT	Unload (void)
 {
 	MMC3::Unload();
 }
-
-uint16_t MapperNum = 194;
 } // namespace
 
 const MapperInfo MapperInfo_194
 (
-	&MapperNum,
+	194,
 	_T("Mapper 194 (Pirate MMC3)"),
 	COMPAT_NEARLY,
 	Load,

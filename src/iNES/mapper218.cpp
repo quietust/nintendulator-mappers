@@ -25,13 +25,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	for (int i = 0; i < 16; i++)
 		EMU->SetCHR_NT1(i, (i >> va10) & 1);
 }
-
-uint16_t MapperNum = 218;
 } // namespace
 
 const MapperInfo MapperInfo_218
 (
-	&MapperNum,
+	218,
 	_T("Magic Floor"),
 	COMPAT_FULL,
 	Load,

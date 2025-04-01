@@ -107,13 +107,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 28;
 } // namespace
 
 const MapperInfo MapperInfo_028
 (
-	&MapperNum,
+	28,
 	_T("Action 53"),
 	COMPAT_FULL,
 	NULL,

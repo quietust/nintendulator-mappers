@@ -52,13 +52,11 @@ void	MAPINT	Unload (void)
 {
 	Latch::Unload();
 }
-
-uint16_t MapperNum = 46;
 } // namespace
 
 const MapperInfo MapperInfo_046
 (
-	&MapperNum,
+	46,
 	_T("GameStation/RumbleStation"),
 	COMPAT_FULL,
 	Load,

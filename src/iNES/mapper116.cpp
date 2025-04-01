@@ -217,13 +217,11 @@ void	MAPINT	Unload (void)
 	MMC1::Unload();
 	MMC3::Unload();
 }
-
-uint16_t MapperNum = 116;
 } // namespace
 
 const MapperInfo MapperInfo_116
 (
-	&MapperNum,
+	116,
 	_T("AV Girl Fighting (combination MMC1+MMC3+VRC2)"),
 	COMPAT_PARTIAL,
 	Load,

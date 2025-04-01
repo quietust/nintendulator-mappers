@@ -96,13 +96,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		BankReg = Mode = 0;
 	Sync();
 }
-
-uint16_t MapperNum = 15;
 } // namespace
 
 const MapperInfo MapperInfo_015
 (
-	&MapperNum,
+	15,
 	_T("K-1029 (100-in-1 Contra Function 16)"),
 	COMPAT_FULL,
 	Load,

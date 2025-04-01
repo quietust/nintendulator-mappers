@@ -32,13 +32,11 @@ void	MAPINT	Unload (void)
 {
 	Latch::Unload();
 }
-
-uint16_t MapperNum = 93;
 } // namespace
 
 const MapperInfo MapperInfo_093
 (
-	&MapperNum,
+	93,
 	_T("Fantasy Zone"),
 	COMPAT_FULL,
 	Load,

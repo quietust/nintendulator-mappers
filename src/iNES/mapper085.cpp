@@ -188,13 +188,11 @@ void	MAPINT	Unload (void)
 {
 	VRC7sound::Unload();
 }
-
-uint16_t MapperNum = 85;
 } // namespace
 
 const MapperInfo MapperInfo_085
 (
-	&MapperNum,
+	85,
 	_T("Konami VRC7"),
 	COMPAT_FULL,
 	Load,

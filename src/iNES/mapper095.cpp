@@ -34,13 +34,11 @@ void	MAPINT	Unload (void)
 {
 	N118::Unload();
 }
-
-uint16_t MapperNum = 95;
 } // namespace
 
 const MapperInfo MapperInfo_095
 (
-	&MapperNum,
+	95,
 	_T("Namco 118, CHR-controlled mirroring"),
 	COMPAT_FULL,
 	Load,

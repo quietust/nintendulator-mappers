@@ -34,13 +34,11 @@ void	MAPINT	Unload (void)
 {
 	Latch::Unload();
 }
-
-uint16_t MapperNum = 97;
 } // namespace
 
 const MapperInfo MapperInfo_097
 (
-	&MapperNum,
+	97,
 	_T("Kaiketsu Yanchamaru"),
 	COMPAT_FULL,
 	Load,

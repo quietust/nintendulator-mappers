@@ -30,13 +30,11 @@ void	MAPINT	Unload (void)
 {
 	Latch::Unload();
 }
-
-uint16_t MapperNum = 89;
 } // namespace
 
 const MapperInfo MapperInfo_089
 (
-	&MapperNum,
+	89,
 	_T("Sunsoft 74161/7432"),
 	COMPAT_FULL,
 	Load,

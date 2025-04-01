@@ -109,13 +109,11 @@ void	MAPINT	Unload (void)
 {
 	MMC3::Unload();
 }
-
-uint16_t MapperNum = 165;
 } // namespace
 
 const MapperInfo MapperInfo_165
 (
-	&MapperNum,
+	165,
 	_T("Fire Emblem"),
 	COMPAT_NEARLY,
 	Load,

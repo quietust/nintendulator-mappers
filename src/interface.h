@@ -217,7 +217,7 @@ enum CFG_TYPE	{ CFG_WINDOW, CFG_QUERY, CFG_CMD };
 struct	MapperInfo
 {
 /* Mapper Information */
-	void *		MapperId;
+	void *		MapperId;	/* opaque value, only used internally */
 	TCHAR *		Description;
 	COMPAT_TYPE	Compatibility;
 
@@ -231,9 +231,9 @@ struct	MapperInfo
 	int		(MAPINT *GenSound)	(int);					/* Cycles */
 	unsigned char	(MAPINT *Config)	(CFG_TYPE,unsigned char);		/* Mode, Data */
 
-/* Custom constructor, registers mapper within Loader functions */
+/* Custom constructors, registers mapper within Loader functions */
 	MapperInfo (
-		void *_MapperId,
+		uint16_t _MapperNum,
 		TCHAR *_Description,
 		COMPAT_TYPE _Compatibility,
 		BOOL (MAPINT *_Load) (void),
@@ -245,6 +245,20 @@ struct	MapperInfo
 		int (MAPINT *_GenSound) (int),
 		unsigned char (MAPINT *_Config) (CFG_TYPE,unsigned char)
 	);
+	MapperInfo (
+		const char *_MapperName,
+		TCHAR *_Description,
+		COMPAT_TYPE _Compatibility,
+		BOOL (MAPINT *_Load) (void),
+		void (MAPINT *_Reset) (RESET_TYPE),
+		void (MAPINT *_Unload) (void),
+		void (MAPINT *_CPUCycle) (void),
+		void (MAPINT *_PPUCycle) (int,int,int,int),
+		int (MAPINT *_SaveLoad) (STATE_TYPE,int,unsigned char *),
+		int (MAPINT *_GenSound) (int),
+		unsigned char (MAPINT *_Config) (CFG_TYPE,unsigned char)
+	);
+	~MapperInfo();
 };
 
 /* Custom loader functions */

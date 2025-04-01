@@ -32,13 +32,11 @@ void	MAPINT	Unload (void)
 {
 	Latch::Unload();
 }
-
-uint16_t MapperNum = 242;
 } // namespace
 
 const MapperInfo MapperInfo_242
 (
-	&MapperNum,
+	242,
 	_T("Waixing 74HC161"),
 	COMPAT_FULL,
 	Load,

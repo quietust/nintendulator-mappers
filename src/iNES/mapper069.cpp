@@ -28,13 +28,11 @@ void	MAPINT	Unload (void)
 {
 	FME7::Unload();
 }
-
-uint16_t MapperNum = 69;
 } // namespace
 
 const MapperInfo MapperInfo_069
 (
-	&MapperNum,
+	69,
 	_T("Sunsoft FME-7"),
 	COMPAT_FULL,
 	Load,

@@ -56,13 +56,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		Reg0 = Reg1 = 0;
 	Sync();
 }
-
-uint16_t MapperNum = 41;
 } // namespace
 
 const MapperInfo MapperInfo_041
 (
-	&MapperNum,
+	41,
 	_T("Caltron 6-in-1"),
 	COMPAT_FULL,
 	NULL,

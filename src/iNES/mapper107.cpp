@@ -27,13 +27,11 @@ void	MAPINT	Unload (void)
 {
 	Latch::Unload();
 }
-
-uint16_t MapperNum = 107;
 } // namespace
 
 const MapperInfo MapperInfo_107
 (
-	&MapperNum,
+	107,
 	_T("Magic Dragon"),
 	COMPAT_NEARLY,
 	Load,

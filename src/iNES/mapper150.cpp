@@ -48,13 +48,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		Reg = 0;
 	Sync();
 }
-
-uint16_t MapperNum = 150;
 } // namespace
 
 const MapperInfo MapperInfo_150
 (
-	&MapperNum,
+	150,
 	_T("Sachen (SA-72008-VX)"),
 	COMPAT_FULL,
 	NULL,

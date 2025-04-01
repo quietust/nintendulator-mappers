@@ -44,13 +44,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 101;
 } // namespace
 
 const MapperInfo MapperInfo_101
 (
-	&MapperNum,
+	101,
 	_T("Mapper 101 (Urusei Yatsura)"),
 	COMPAT_FULL,
 	NULL,

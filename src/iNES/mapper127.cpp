@@ -100,13 +100,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	}
 	Sync();
 }
-
-uint16_t MapperNum = 127;
 } // namespace
 
 const MapperInfo MapperInfo_127
 (
-	&MapperNum,
+	127,
 	_T("Double Dragon pirate"),
 	COMPAT_FULL,
 	NULL,

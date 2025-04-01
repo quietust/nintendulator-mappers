@@ -59,13 +59,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	}
 	Sync();
 }
-
-uint16_t MapperNum = 193;
 } // namespace
 
 const MapperInfo MapperInfo_193
 (
-	&MapperNum,
+	193,
 	_T("Fighting Hero"),
 	COMPAT_NEARLY,
 	NULL,

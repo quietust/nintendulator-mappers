@@ -30,13 +30,11 @@ void	MAPINT	Unload (void)
 {
 	Latch::Unload();
 }
-
-uint16_t MapperNum = 77;
 } // namespace
 
 const MapperInfo MapperInfo_077
 (
-	&MapperNum,
+	77,
 	_T("Napoleon Senki"),
 	COMPAT_FULL,
 	Load,

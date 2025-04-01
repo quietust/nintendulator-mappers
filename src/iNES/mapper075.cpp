@@ -92,13 +92,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 75;
 } // namespace
 
 const MapperInfo MapperInfo_075
 (
-	&MapperNum,
+	75,
 	_T("Konami VRC1"),
 	COMPAT_FULL,
 	NULL,

@@ -245,13 +245,11 @@ void	MAPINT	Unload (void)
 		ConfigWindow = NULL;
 	}
 }
-
-uint16_t MapperNum = 5;
 } // namespace
 
 const MapperInfo MapperInfo_005
 (
-	&MapperNum,
+	5,
 	_T("MMC5"),
 	COMPAT_FULL,
 	Load,

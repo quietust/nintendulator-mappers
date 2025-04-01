@@ -38,13 +38,11 @@ void	MAPINT	Unload (void)
 {
 	Latch::Unload();
 }
-
-uint16_t MapperNum = 233;
 } // namespace
 
 const MapperInfo MapperInfo_233
 (
-	&MapperNum,
+	233,
 	_T("42-in-1"),
 	COMPAT_FULL,
 	Load,

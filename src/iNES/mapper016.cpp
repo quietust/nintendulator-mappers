@@ -415,14 +415,11 @@ void	MAPINT	Unload (void)
 	delete SaveEEPROM;
 	SaveEEPROM = NULL;
 }
-
-uint16_t MapperNum = 16;
-uint16_t MapperNum2 = 159;
 } // namespace
 
 const MapperInfo MapperInfo_016
 (
-	&MapperNum,
+	16,
 	_T("Bandai + 24C02"),
 	COMPAT_FULL,
 	Load_016,
@@ -436,7 +433,7 @@ const MapperInfo MapperInfo_016
 );
 const MapperInfo MapperInfo_159
 (
-	&MapperNum2,
+	159,
 	_T("Bandai + 24C01"),
 	COMPAT_FULL,
 	Load_159,

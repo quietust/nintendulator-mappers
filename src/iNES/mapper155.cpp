@@ -31,13 +31,11 @@ void	MAPINT	Unload (void)
 {
 	MMC1::Unload();
 }
-
-uint16_t MapperNum = 155;
 } // namespace
 
 const MapperInfo MapperInfo_155
 (
-	&MapperNum,
+	155,
 	_T("MMC1A"),
 	COMPAT_FULL,
 	Load,

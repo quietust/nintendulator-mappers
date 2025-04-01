@@ -57,13 +57,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 57;
 } // namespace
 
 const MapperInfo MapperInfo_057
 (
-	&MapperNum,
+	57,
 	_T("GK 6-in-1"),
 	COMPAT_NEARLY,
 	NULL,

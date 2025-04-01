@@ -91,13 +91,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 138;
 } // namespace
 
 const MapperInfo MapperInfo_138
 (
-	&MapperNum,
+	138,
 	_T("Sachen (SA8259A)"),
 	COMPAT_FULL,
 	NULL,

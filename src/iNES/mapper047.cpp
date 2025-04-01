@@ -56,13 +56,11 @@ void	MAPINT	Unload (void)
 {
 	MMC3::Unload();
 }
-
-uint16_t MapperNum = 47;
 } // namespace
 
 const MapperInfo MapperInfo_047
 (
-	&MapperNum,
+	47,
 	_T("Super Spike & Nintendo World Cup Soccer (MMC3)"),
 	COMPAT_FULL,
 	Load,

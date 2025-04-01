@@ -30,13 +30,11 @@ void	MAPINT	Unload (void)
 {
 	Latch::Unload();
 }
-
-uint16_t MapperNum = 152;
 } // namespace
 
 const MapperInfo MapperInfo_152
 (
-	&MapperNum,
+	152,
 	_T("Arkanoid 2"),
 	COMPAT_FULL,
 	Load,

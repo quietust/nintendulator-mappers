@@ -40,13 +40,11 @@ void	MAPINT	Unload (void)
 {
 	MMC3::Unload();
 }
-
-uint16_t MapperNum = 245;
 } // namespace
 
 const MapperInfo MapperInfo_245
 (
-	&MapperNum,
+	245,
 	_T("Waixing MMC3 clone"),
 	COMPAT_NEARLY,
 	Load,

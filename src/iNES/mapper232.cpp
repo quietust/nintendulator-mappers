@@ -61,13 +61,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 232;
 } // namespace
 
 const MapperInfo MapperInfo_232
 (
-	&MapperNum,
+	232,
 	_T("Camerica 9096"),
 	COMPAT_NEARLY,
 	NULL,

@@ -51,13 +51,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 79;
 } // namespace
 
 const MapperInfo MapperInfo_079
 (
-	&MapperNum,
+	79,
 	_T("NINA-03/NINA-06"),
 	COMPAT_FULL,
 	NULL,

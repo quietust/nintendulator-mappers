@@ -61,13 +61,11 @@ void	MAPINT	Unload (void)
 {
 	MMC3::Unload();
 }
-
-uint16_t MapperNum = 189;
 } // namespace
 
 const MapperInfo MapperInfo_189
 (
-	&MapperNum,
+	189,
 	_T("Mapper 189 (Thunder Warrior)"),
 	COMPAT_FULL,
 	Load,

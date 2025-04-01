@@ -65,13 +65,11 @@ void	MAPINT	Unload (void)
 {
 	MMC3::Unload();
 }
-
-uint16_t MapperNum = 182;
 } // namespace
 
 const MapperInfo MapperInfo_182
 (
-	&MapperNum,
+	182,
 	_T("Super Donkey Kong"),
 	COMPAT_FULL,
 	Load,

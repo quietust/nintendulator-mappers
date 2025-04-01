@@ -65,13 +65,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	}
 	Sync();
 }
-
-uint16_t MapperNum = 51;
 } // namespace
 
 const MapperInfo MapperInfo_051
 (
-	&MapperNum,
+	51,
 	_T("11 in 1 Ball Games"),
 	COMPAT_FULL,
 	NULL,

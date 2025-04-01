@@ -52,13 +52,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 113;
 } // namespace
 
 const MapperInfo MapperInfo_113
 (
-	&MapperNum,
+	113,
 	_T("Mapper 113 (HES)"),
 	COMPAT_NEARLY,
 	NULL,

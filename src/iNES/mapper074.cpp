@@ -35,13 +35,11 @@ void	MAPINT	Unload (void)
 {
 	MMC3::Unload();
 }
-
-uint16_t MapperNum = 74;
 } // namespace
 
 const MapperInfo MapperInfo_074
 (
-	&MapperNum,
+	74,
 	_T("Mapper 74 (Taiwan MMC3)"),
 	COMPAT_NEARLY,
 	Load,

@@ -108,13 +108,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 112;
 } // namespace
 
 const MapperInfo MapperInfo_112
 (
-	&MapperNum,
+	112,
 	_T("Mapper 112 (Asder)"),
 	COMPAT_NEARLY,
 	NULL,

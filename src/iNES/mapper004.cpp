@@ -75,13 +75,11 @@ void	MAPINT	Unload (void)
 		MMC6::Unload();
 	else	MMC3::Unload();
 }
-
-uint16_t MapperNum = 4;
 } // namespace
 
 const MapperInfo MapperInfo_004
 (
-	&MapperNum,
+	4,
 	_T("MMC3/MMC6"),
 	COMPAT_FULL,
 	Load,

@@ -25,13 +25,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	if (ROM->INES_Flags & 0x02)
 		EMU->SetPRG_RAM8(0x6, 0);
 }
-
-uint16_t MapperNum = 0;
 } // namespace
 
 const MapperInfo MapperInfo_000
 (
-	&MapperNum,
+	(uint16_t)0,
 	_T("NROM"),
 	COMPAT_FULL,
 	Load,

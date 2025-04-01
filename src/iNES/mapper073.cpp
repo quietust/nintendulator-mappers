@@ -105,13 +105,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 73;
 } // namespace
 
 const MapperInfo MapperInfo_073
 (
-	&MapperNum,
+	73,
 	_T("Konami VRC3"),
 	COMPAT_FULL,
 	NULL,

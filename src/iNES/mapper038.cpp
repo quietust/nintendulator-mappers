@@ -43,13 +43,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 38;
 } // namespace
 
 const MapperInfo MapperInfo_038
 (
-	&MapperNum,
+	38,
 	_T("Crime Busters (74138/74161)"),
 	COMPAT_FULL,
 	NULL,

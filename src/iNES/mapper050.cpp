@@ -85,13 +85,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	}
 	Sync();
 }
-
-uint16_t MapperNum = 50;
 } // namespace
 
 const MapperInfo MapperInfo_050
 (
-	&MapperNum,
+	50,
 	_T("SMB2j rev. A"),
 	COMPAT_FULL,
 	NULL,

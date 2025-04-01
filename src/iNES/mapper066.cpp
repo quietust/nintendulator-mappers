@@ -27,13 +27,11 @@ void	MAPINT	Unload (void)
 {
 	Latch::Unload();
 }
-
-uint16_t MapperNum = 66;
 } // namespace
 
 const MapperInfo MapperInfo_066
 (
-	&MapperNum,
+	66,
 	_T("GNROM"),
 	COMPAT_FULL,
 	Load,

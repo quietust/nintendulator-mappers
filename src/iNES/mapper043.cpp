@@ -168,13 +168,11 @@ void	MAPINT	Unload (void)
 		ConfigWindow = NULL;
 	}
 }
-
-uint16_t MapperNum = 43;
 } // namespace
 
 const MapperInfo MapperInfo_043
 (
-	&MapperNum,
+	43,
 	_T("SMB2j (LF36)"),
 	COMPAT_FULL,
 	Load,

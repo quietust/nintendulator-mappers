@@ -99,13 +99,11 @@ void	MAPINT	Unload (void)
 {
 	Latch::Unload();
 }
-
-uint16_t MapperNum = 185;
 } // namespace
 
 const MapperInfo MapperInfo_185
 (
-	&MapperNum,
+	185,
 	_T("CNROM with CHR disable"),
 	COMPAT_NEARLY,
 	Load,

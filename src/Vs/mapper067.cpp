@@ -149,13 +149,11 @@ void	MAPINT	Unload (void)
 {
 	VS::Unload();
 }
-
-uint16_t MapperNum = 67;
 } // namespace
 
 const MapperInfo MapperInfo_067
 (
-	&MapperNum,
+	67,
 	_T("SUNSOFT-3"),
 	COMPAT_FULL,
 	Load,

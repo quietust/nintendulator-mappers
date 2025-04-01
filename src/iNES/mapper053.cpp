@@ -63,13 +63,11 @@ void	MAPINT	Unload (void)
 {
 	Latch::Unload();
 }
-
-uint16_t MapperNum = 53;
 } // namespace
 
 const MapperInfo MapperInfo_053
 (
-	&MapperNum,
+	53,
 	_T("Supervision 16-in-1"),
 	COMPAT_FULL,
 	Load,

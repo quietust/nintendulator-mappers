@@ -99,13 +99,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	}
 
 }
-
-uint16_t MapperNum = 34;
 } // namespace
 
 const MapperInfo MapperInfo_034
 (
-	&MapperNum,
+	34,
 	_T("BNROM/Nina-01"),
 	COMPAT_FULL,
 	Load,

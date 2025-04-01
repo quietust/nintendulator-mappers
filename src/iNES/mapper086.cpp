@@ -68,13 +68,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 86;
 } // namespace
 
 const MapperInfo MapperInfo_086
 (
-	&MapperNum,
+	86,
 	_T("Mapper 86 (Jaleco)"),
 	COMPAT_FULL,
 	NULL,

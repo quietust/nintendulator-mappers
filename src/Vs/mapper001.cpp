@@ -47,13 +47,11 @@ void	MAPINT	Unload (void)
 	MMC1::Unload();
 	VS::Unload();
 }
-
-uint16_t MapperNum = 1;
 } // namespace
 
 const MapperInfo MapperInfo_001
 (
-	&MapperNum,
+	1,
 	_T("MMC1"),
 	COMPAT_FULL,
 	Load,

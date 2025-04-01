@@ -58,13 +58,11 @@ void	MAPINT	Unload (void)
 {
 	MMC3::Unload();
 }
-
-uint16_t MapperNum = 44;
 } // namespace
 
 const MapperInfo MapperInfo_044
 (
-	&MapperNum,
+	44,
 	_T("Super HiK 7 in 1 (MMC3)"),
 	COMPAT_FULL,
 	Load,

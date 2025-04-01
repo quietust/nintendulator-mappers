@@ -99,14 +99,11 @@ void	MAPINT	Unload (void)
 {
 	VS::Unload();
 }
-
-uint16_t MapperNum = 75;
-uint16_t MapperNum2 = 151;
 } // namespace
 
 const MapperInfo MapperInfo_075
 (
-	&MapperNum,
+	75,
 	_T("Konami VRC1"),
 	COMPAT_FULL,
 	Load,
@@ -121,8 +118,8 @@ const MapperInfo MapperInfo_075
 
 const MapperInfo MapperInfo_151
 (
-	&MapperNum2,
-	_T("Konami VRC1"),
+	151,
+	_T("Konami VRC1 (old mapper ID)"),
 	COMPAT_FULL,
 	Load,
 	Reset,

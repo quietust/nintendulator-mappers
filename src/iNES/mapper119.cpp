@@ -35,13 +35,11 @@ void	MAPINT	Unload (void)
 {
 	MMC3::Unload();
 }
-
-uint16_t MapperNum = 119;
 } // namespace
 
 const MapperInfo MapperInfo_119
 (
-	&MapperNum,
+	119,
 	_T("TQROM (MMC3)"),
 	COMPAT_FULL,
 	Load,

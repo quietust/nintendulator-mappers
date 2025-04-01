@@ -65,13 +65,11 @@ void	MAPINT	Unload (void)
 {
 	MMC3::Unload();
 }
-
-uint16_t MapperNum = 45;
 } // namespace
 
 const MapperInfo MapperInfo_045
 (
-	&MapperNum,
+	45,
 	_T("Super 1,000,000 in 1 (MMC3)"),
 	COMPAT_FULL,
 	Load,

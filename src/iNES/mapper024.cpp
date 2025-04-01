@@ -202,14 +202,11 @@ void	MAPINT	Unload (void)
 {
 	VRC6sound::Unload();
 }
-
-uint16_t MapperNum = 24;
-uint16_t MapperNum2 = 26;
 } // namespace
 
 const MapperInfo MapperInfo_024
 (
-	&MapperNum,
+	24,
 	_T("Konami VRC6 (A0/A1)"),
 	COMPAT_NEARLY,
 	Load_024,
@@ -223,7 +220,7 @@ const MapperInfo MapperInfo_024
 );
 const MapperInfo MapperInfo_026
 (
-	&MapperNum2,
+	26,
 	_T("Konami VRC6 (A1/A0)"),
 	COMPAT_NEARLY,
 	Load_026,

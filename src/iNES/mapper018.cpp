@@ -190,13 +190,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	}
 	Sync();
 }
-
-uint16_t MapperNum = 18;
 } // namespace
 
 const MapperInfo MapperInfo_018
 (
-	&MapperNum,
+	18,
 	_T("Jaleco SS8806"),
 	COMPAT_NEARLY,
 	Load,

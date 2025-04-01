@@ -132,13 +132,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 65;
 } // namespace
 
 const MapperInfo MapperInfo_065
 (
-	&MapperNum,
+	65,
 	_T("Irem H-3001"),
 	COMPAT_FULL,
 	Load,

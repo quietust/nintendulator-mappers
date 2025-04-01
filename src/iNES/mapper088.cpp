@@ -32,13 +32,11 @@ void	MAPINT	Unload (void)
 {
 	N118::Unload();
 }
-
-uint16_t MapperNum = 88;
 } // namespace
 
 const MapperInfo MapperInfo_088
 (
-	&MapperNum,
+	88,
 	_T("Namco 118 with special CHR banking"),
 	COMPAT_FULL,
 	Load,

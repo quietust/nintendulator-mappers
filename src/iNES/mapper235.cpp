@@ -82,13 +82,11 @@ void	MAPINT	Unload (void)
 {
 	Latch::Unload();
 }
-
-uint16_t MapperNum = 235;
 } // namespace
 
 const MapperInfo MapperInfo_235
 (
-	&MapperNum,
+	235,
 	_T("Golden Game 150-in-1"),
 	COMPAT_FULL,
 	Load,

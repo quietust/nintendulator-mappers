@@ -95,13 +95,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 		Reg1 = Reg2 = Reg3 = 0;
 	Sync();
 }
-
-uint16_t MapperNum = 234;
 } // namespace
 
 const MapperInfo MapperInfo_234
 (
-	&MapperNum,
+	234,
 	_T("Maxi 15"),
 	COMPAT_FULL,
 	NULL,

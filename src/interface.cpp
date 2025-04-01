@@ -8,8 +8,35 @@
 
 std::vector<MapperInfo *> *mapperList = NULL;
 
+#define MAPPERNUM_PREFIX "MAPPERNUM"
+#define MAPPERNUM_PREFIX_LEN 10
+
+// This structure is used to store a mapper number without having to keep
+// a (static) global variable to point to, and the special prefix allows
+// it to be distinguished from ordinary mapper names.
+// Because MapperInfo uses a single opaque pointer to store the mapper ID
+struct MapperNum
+{
+	char prefix[MAPPERNUM_PREFIX_LEN];
+	uint16_t num;
+	MapperNum(uint16_t n)
+	{
+		strcpy(prefix, MAPPERNUM_PREFIX);
+		num = n;
+	}
+	static const MapperNum *check(void *buf)
+	{
+		if (buf == NULL)
+			return NULL;
+		const MapperNum *map = (const MapperNum *)buf;
+		if (strcmp(map->prefix, MAPPERNUM_PREFIX))
+			return NULL;
+		return map;
+	}
+};
+
 MapperInfo::MapperInfo (
-	void *_MapperId,
+	uint16_t _MapperNum,
 	TCHAR *_Description,
 	COMPAT_TYPE _Compatibility,
 	BOOL (MAPINT *_Load) (void),
@@ -21,7 +48,6 @@ MapperInfo::MapperInfo (
 	int (MAPINT *_GenSound) (int),
 	unsigned char (MAPINT *_Config) (CFG_TYPE,unsigned char)
 ) :
-	MapperId(_MapperId),
 	Description(_Description),
 	Compatibility(_Compatibility),
 	Load(_Load),
@@ -33,9 +59,49 @@ MapperInfo::MapperInfo (
 	GenSound(_GenSound),
 	Config(_Config)
 {
+	// Dynamically allocate an object so we can safely store the mapper number
+	MapperId = new MapperNum(_MapperNum);
 	if (mapperList == NULL)
 		mapperList = new std::vector<MapperInfo *>();
 	mapperList->push_back(this);
+}
+
+MapperInfo::MapperInfo (
+	const char *_MapperName,
+	TCHAR *_Description,
+	COMPAT_TYPE _Compatibility,
+	BOOL (MAPINT *_Load) (void),
+	void (MAPINT *_Reset) (RESET_TYPE),
+	void (MAPINT *_Unload) (void),
+	void (MAPINT *_CPUCycle) (void),
+	void (MAPINT *_PPUCycle) (int,int,int,int),
+	int (MAPINT *_SaveLoad) (STATE_TYPE,int,unsigned char *),
+	int (MAPINT *_GenSound) (int),
+	unsigned char (MAPINT *_Config) (CFG_TYPE,unsigned char)
+) :
+	Description(_Description),
+	Compatibility(_Compatibility),
+	Load(_Load),
+	Reset(_Reset),
+	Unload(_Unload),
+	CPUCycle(_CPUCycle),
+	PPUCycle(_PPUCycle),
+	SaveLoad(_SaveLoad),
+	GenSound(_GenSound),
+	Config(_Config)
+{
+	// No need to duplicate this
+	MapperId = (void *)_MapperName;
+	if (mapperList == NULL)
+		mapperList = new std::vector<MapperInfo *>();
+	mapperList->push_back(this);
+}
+
+MapperInfo::~MapperInfo()
+{
+	// MapperNum is dynamically allocated with operator new
+	// Other names are just set to const strings, so they'll be skipped
+	delete MapperNum::check(MapperId);
 }
 
 const MapperInfo *findByIndex (unsigned int idx)
@@ -47,16 +113,17 @@ const MapperInfo *findByIndex (unsigned int idx)
 	return NULL;
 }
 
-const MapperInfo *findByNumber (uint16_t MapperNum)
+const MapperInfo *findByNumber (uint16_t Number)
 {
 	if (mapperList == NULL)
 		return NULL;
 	for (unsigned int i = 0; i < mapperList->size(); i++)
 	{
 		const MapperInfo *cur = mapperList->at(i);
-		if (!cur->MapperId)
+		const MapperNum *map = MapperNum::check(cur->MapperId);
+		if (map == NULL)
 			continue;
-		if (*(uint16_t *)(cur->MapperId) != MapperNum)
+		if (map->num != Number)
 			continue;
 		return cur;
 	}

@@ -37,13 +37,11 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 
 	Sync();
 }
-
-uint16_t MapperNum = 60;
 } // namespace
 
 const MapperInfo MapperInfo_060
 (
-	&MapperNum,
+	60,
 	_T("Reset-triggered 4-in-1"),
 	COMPAT_FULL,
 	NULL,

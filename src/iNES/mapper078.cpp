@@ -52,13 +52,11 @@ void	MAPINT	Unload (void)
 {
 	Latch::Unload();
 }
-
-uint16_t MapperNum = 78;
 } // namespace
 
 const MapperInfo MapperInfo_078
 (
-	&MapperNum,
+	78,
 	_T("Irem 74161/32"),
 	COMPAT_FULL,
 	Load,
