@@ -11,7 +11,7 @@ void	Sync (void)
 {
 	EMU->SetCHR_RAM8(0x0, 0);
 	EMU->SetPRG_RAM8(0x6, 0);
-	EMU->SetPRG_ROM32(0x8, Latch::Data & 0x1F);
+	EMU->SetPRG_ROM32(0x8, Latch::Data);
 }
 
 BOOL	MAPINT	Load (void)
@@ -33,8 +33,8 @@ void	MAPINT	Unload (void)
 const MapperInfo MapperInfo_241
 (
 	241,
-	_T("Study & Game 32 in 1"),
-	COMPAT_FULL,
+	_T("Mapper 241 (no speech)"),
+	COMPAT_NEARLY,
 	Load,
 	Reset,
 	Unload,
