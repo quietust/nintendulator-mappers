@@ -76,12 +76,27 @@ unsigned char DisabledCHR[0x400] = {
 void	Sync (void)
 {
 	EMU->SetPRG_ROM32(0x8, 0);
-	if ((Latch::Data & 0x0F) && (Latch::Data != 0x13))
-		EMU->SetCHR_ROM8(0x0, 0);
+	if ((ROM->INES_Version == 2) && (ROM->INES2_SubMapper >= 4))
+	{
+		// Bottom 2 bits of register match submapper
+		if ((Latch::Data & 0x03) == (ROM->INES2_SubMapper & 0x3))
+			EMU->SetCHR_ROM8(0x0, 0);
+		else
+		{
+			for (int i = 0; i < 8; i++)
+				EMU->SetCHR_OB1(i);
+		}
+	}
 	else
 	{
-		for (int i = 0; i < 8; i++)
-			EMU->SetCHR_Ptr1(i, DisabledCHR, FALSE);
+		// Rough heuristic
+		if ((Latch::Data & 0x0F) && (Latch::Data != 0x13))
+			EMU->SetCHR_ROM8(0x0, 0);
+		else
+		{
+			for (int i = 0; i < 8; i++)
+				EMU->SetCHR_Ptr1(i, DisabledCHR, FALSE);
+		}
 	}
 }
 
