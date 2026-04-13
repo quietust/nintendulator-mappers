@@ -24,6 +24,10 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	// a few carts, like Family Basic, are effectively NROM with battery-backed RAM
 	if (ROM->INES_Flags & 0x02)
 		EMU->SetPRG_RAM8(0x6, 0);
+	// also add RAM if the NES 2.0 header says we have any
+	// (it probably won't handle <4KB, but that's fine for now)
+	else if ((ROM->INES_Version == 2) && ((ROM->INES2_PRGRAM & 0x0F) != 0))
+		EMU->SetPRG_RAM8(0x6, 0);
 }
 } // namespace
 
