@@ -9,33 +9,42 @@ namespace
 uint8_t IRQenabled;
 uint16_t IRQcounter;
 uint16_n IRQlatch;
-uint8_t PRG[3];
+uint8_t PRG[2];
 uint8_t CHR[8];
 uint8_t Mirror;
+uint8_t PRGMode;
 
 void	Sync (void)
 {
 	EMU->SetPRG_RAM8(0x6, 0);
-	for (int i = 0; i < 3; i++)
-		EMU->SetPRG_ROM8(0x8 | (i << 1), PRG[i]);
+	EMU->SetPRG_ROM8((PRGMode & 0x80) ? 0xC : 0x8, PRG[0]);
+	EMU->SetPRG_ROM8(0xA, PRG[1]);
+	EMU->SetPRG_ROM8((PRGMode & 0x80) ? 0x8 : 0xC, -2);
 	EMU->SetPRG_ROM8(0xE, -1);
 	for (int i = 0; i < 8; i++)
 		EMU->SetCHR_ROM1(i, CHR[i]);
-	if (Mirror & 0x80)
+	if (Mirror & 0x40)
+		EMU->Mirror_S0();
+	else if (Mirror & 0x80)
 		EMU->Mirror_A11();
 	else	EMU->Mirror_A10();
 }
 
 int	MAPINT	SaveLoad (STATE_TYPE mode, int offset, unsigned char *data)
 {
-	uint8_t ver = 0;
+	uint8_t ver = 1;
 	CheckSave(SAVELOAD_VERSION(mode, offset, data, ver));
 
 	SAVELOAD_BYTE(mode, offset, data, IRQenabled);
 	SAVELOAD_WORD(mode, offset, data, IRQcounter);
 	SAVELOAD_WORD(mode, offset, data, IRQlatch.s0);
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 2; i++)
 		SAVELOAD_BYTE(mode, offset, data, PRG[i]);
+	SAVELOAD_BYTE(mode, offset, data, PRGMode);
+	// old state data treated this as a separate bank for $C000-$DFFF
+	// new data treats it like the MMC3's $8000.D6
+	if (ver == 0)
+		PRGMode = 0;
 	for (int i = 0; i < 8; i++)
 		SAVELOAD_BYTE(mode, offset, data, CHR[i]);
 	SAVELOAD_BYTE(mode, offset, data, Mirror);
@@ -56,16 +65,15 @@ void	MAPINT	CPUCycle (void)
 
 void	MAPINT	Write8 (int Bank, int Addr, int Val)
 {
-	switch (Addr)
-	{
-	case 0:	PRG[0] = Val;
-		Sync();			break;
-	}
+	PRG[0] = Val;
+	Sync();
 }
 void	MAPINT	Write9 (int Bank, int Addr, int Val)
 {
 	switch (Addr)
 	{
+	case 0:	PRGMode = Val;
+		Sync();			break;
 	case 1:	Mirror = Val;
 		Sync();			break;
 	case 3:	IRQenabled = Val & 0x80;
@@ -78,11 +86,8 @@ void	MAPINT	Write9 (int Bank, int Addr, int Val)
 }
 void	MAPINT	WriteA (int Bank, int Addr, int Val)
 {
-	switch (Addr)
-	{
-	case 0:	PRG[1] = Val;
-		Sync();			break;
-	}
+	PRG[1] = Val;
+	Sync();
 }
 void	MAPINT	WriteB (int Bank, int Addr, int Val)
 {
@@ -99,14 +104,6 @@ void	MAPINT	WriteB (int Bank, int Addr, int Val)
 	}
 	Sync();
 }
-void	MAPINT	WriteC (int Bank, int Addr, int Val)
-{
-	switch (Addr)
-	{
-	case 0:	PRG[2] = Val;
-		Sync();			break;
-	}
-}
 
 BOOL	MAPINT	Load (void)
 {
@@ -119,15 +116,15 @@ void	MAPINT	Reset (RESET_TYPE ResetType)
 	EMU->SetCPUWriteHandler(0x9, Write9);
 	EMU->SetCPUWriteHandler(0xA, WriteA);
 	EMU->SetCPUWriteHandler(0xB, WriteB);
-	EMU->SetCPUWriteHandler(0xC, WriteC);
 
 	if (ResetType == RESET_HARD)
 	{
-		PRG[0] = 0;	PRG[1] = 1;	PRG[2] = 0xFE;
+		PRG[0] = 0;	PRG[1] = 1;
 		for (int i = 0; i < 8; i++)
 			CHR[i] = i;
 		IRQenabled = 0;
 		IRQcounter = IRQlatch.s0 = 0;
+		PRGMode = 0;
 	}
 
 	Sync();
